@@ -41,30 +41,34 @@ def main():
     """
 
     # # Ontology containing whole dataset
+
+    onto = construct_ontology("blank")
+    finish(onto)
+
     # onto = construct_ontology("summary")
     # policies = read_opp()
-    #
+    
     # for p in policies:
     #     process_opp(onto, p)
     # finish(onto)
-    #
+    
     # # Ontologies containing policies by 1
     # for p in policies:
     #     o = construct_ontology()
     #     process_opp(o, p)
     #     finish(o, reason=False)
 
-    o = construct_ontology("3plususa")
-    process_3plususa(o)
-    finish(o)
+    # o = construct_ontology("3plususa")
+    # process_3plususa(o)
+    # finish(o)
 
-    o = construct_ontology("aws")
-    process_aws(o)
-    finish(o)
+    # o = construct_ontology("aws")
+    # process_aws(o)
+    # finish(o)
 
-    o = construct_ontology("google-cloud")
-    process_google_cloud(o)
-    finish(o)
+    # o = construct_ontology("google-cloud")
+    # process_google_cloud(o)
+    # finish(o)
 
 
 if __name__ == '__main__':
