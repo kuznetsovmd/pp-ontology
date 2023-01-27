@@ -81,9 +81,9 @@ def main():
     process_caresense(o)
     finish(o)
 
-    # o = construct_ontology("dario")
-    # process_dario(o)
-    # finish(o)
+    o = construct_ontology("dario")
+    process_dario(o)
+    finish(o)
 
     o = construct_ontology("zepp")
     process_zepp(o)

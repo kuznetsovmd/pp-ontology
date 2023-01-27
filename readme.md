@@ -16,6 +16,7 @@ TODO
 - [x] Enhance the SecurityMeasures, especially TechnicalMeasures. Discuss the enhancements. 
 - [ ] Try to fullfill the ontologies for: 
     - [x] CareSense (Has nothing about health, maybe that is delegated to HIPAA)
+    - [ ] Dario (0%)
     - [ ] Zepp (~50%)
     - [ ] Renpho (~17%)
 

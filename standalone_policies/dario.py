@@ -9,4 +9,3 @@ def process_dario(onto):
     policy_instance = onto.PrivacyPolicy()
     policy_instance.policyWebsite = "https://mydario.com/privacy-policy"
     policy_instance.considersAgent.extend([user, first_party, third_party])
-
