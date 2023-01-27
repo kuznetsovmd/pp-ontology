@@ -74,14 +74,14 @@ Suggestions
 - [ ] Does/Doesnt share/collect/use?
 - [ ] Rudimental activity in security topics?
 - [ ] GiveConsent suggested to be a modifier?
-- [ ] Is a use on the device anyway important?
-- [ ] SecurityMeasures в части TechnicalMeasures:
+- [ ] Is a use on the device important anyway?
+- [ ] SecurityMeasures in TechnicalMeasures:
     - [ ] Anonymization
     - [ ] Encryption
     - [ ] Secure Sockets Layer (SSL) technology
     - [ ] Firewall
     - [ ] Access controls, passwords
-- [ ] SecurityMeasures в части OrganizationalMeasures:
+- [ ] SecurityMeasures in OrganizationalMeasures:
     - [ ] Storage of sensitive information in locked offices
     - [ ] Employee training regarding security issues
     - [ ] Users maintain the security

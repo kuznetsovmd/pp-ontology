@@ -11,38 +11,38 @@ def process_renpho(onto):
     policy_instance.policyWebsite = "https://renpho.com/pages/renpho-privacy-policy"
     policy_instance.considersAgent.extend([user, first_party, third_party])
 
-    return
+
 
 
     #########################################################################
     # By accessing the Services on any computer, mobile phone, tablet, or other device, making a purchase from Renpho, or otherwise interacting with Renpho, YOU PROMISE US THAT (I) YOU HAVE READ, UNDERSTAND, AND AGREE TO THIS PRIVACY POLICY, AND (II) YOU ARE OVER 13 YEARS OF AGE (OR HAVE HAD YOUR PARENT OR GUARDIAN READ AND AGREE TO THIS PRIVACY POLICY FOR YOU). If you do not agree, or are unable to make this promise, you must not use the Services. In such case, you must (a) delete your account and contact us to request deletion of your data; (b) cancel any subscriptions using the functionality provided by Apple (if you are using iOS), Google (if you are using Android), any other app stores that may be available from time to time, or by us if you purchased directly from our Services; and (c) delete the App from your devices.
 
-    make(onto, "",
-        evidence="",
-        parents=(
-            ("isConsideredBy", policy_instance),
-            ("activityIsInitiatedBy", first_party)
-        ),
-        children=(
-            ("isAppliedTo", make(onto, "",
-                evidence="",
-                parents=(
-                    ("isConsideredBy", policy_instance),
-                    ("isProvidedBy", user)))),
-            ("hasSecurityMechanism", make(onto, "",
-                evidence="")),
-            ("hasNotificationMechanism", make(onto, "",
-                evidence="")),
-            ("hasDataActivityPurpose", make(onto, "DataActivityPurpose",
-                evidence="")),
-            ("hasDataRetentionTime", make(onto, "DataRetentionTime",
-                evidence="")),
-            ("hasUserChoiceConsequence", make(onto, "",
-                evidence="")),
-            ("hasLegalBasis", make(onto, "LegalBasis",
-                evidence="")),
-        )
-    )
+    # make(onto, "",
+    #     evidence="",
+    #     parents=(
+    #         ("isConsideredBy", policy_instance),
+    #         ("activityIsInitiatedBy", first_party)
+    #     ),
+    #     children=(
+    #         ("isAppliedTo", make(onto, "",
+    #             evidence="",
+    #             parents=(
+    #                 ("isConsideredBy", policy_instance),
+    #                 ("isProvidedBy", user)))),
+    #         ("hasSecurityMechanism", make(onto, "",
+    #             evidence="")),
+    #         ("hasNotificationMechanism", make(onto, "",
+    #             evidence="")),
+    #         ("hasDataActivityPurpose", make(onto, "DataActivityPurpose",
+    #             evidence="")),
+    #         ("hasDataRetentionTime", make(onto, "DataRetentionTime",
+    #             evidence="")),
+    #         ("hasUserChoiceConsequence", make(onto, "",
+    #             evidence="")),
+    #         ("hasLegalBasis", make(onto, "LegalBasis",
+    #             evidence="")),
+    #     )
+    # )
 
 
 
@@ -50,31 +50,26 @@ def process_renpho(onto):
     #########################################################################
     # Renpho may modify this Privacy Policy at any time, and will post the current version on this website with the date it was last revised. If we make any material changes, we will provide you with additional notice. We encourage you to periodically review our Privacy Policy to stay informed about how we are using the data we collect. You will be deemed to have accepted the changes in any revised Privacy Policy by your continued use of the Services after the date such revised Privacy Policy is posted.  
 
-    make(onto, "",
-        evidence="",
+    make(onto, "PolicyChangeActivity",
+        evidence="Renpho may modify this Privacy Policy at any time, and will post the current version on this website with the date it was last revised. If we make any material changes, we will provide you with additional notice. We encourage you to periodically review our Privacy Policy to stay informed about how we are using the data we collect.",
         parents=(
             ("isConsideredBy", policy_instance),
             ("activityIsInitiatedBy", first_party)
         ),
         children=(
-            ("isAppliedTo", make(onto, "",
-                evidence="",
-                parents=(
-                    ("isConsideredBy", policy_instance),
-                    ("isProvidedBy", user)))),
-            ("hasSecurityMechanism", make(onto, "",
-                evidence="")),
-            ("hasNotificationMechanism", make(onto, "",
-                evidence="")),
-            ("hasDataActivityPurpose", make(onto, "DataActivityPurpose",
-                evidence="")),
-            ("hasDataRetentionTime", make(onto, "DataRetentionTime",
-                evidence="")),
-            ("hasUserChoiceConsequence", make(onto, "",
-                evidence="")),
-            ("hasLegalBasis", make(onto, "LegalBasis",
-                evidence="")),
+            ("hasNotificationMechanism", make(onto, "OnWebsitePage",
+                evidence="will post the current version on this website with the date it was last revised.")),
+            ("hasNotificationMechanism", make(onto, "NotificationMechanism",
+                evidence="If we make any material changes, we will provide you with additional notice.")),
         )
+    )
+
+    make(onto, "ConsentActivity",
+        evidence="You will be deemed to have accepted the changes in any revised Privacy Policy by your continued use of the Services after the date such revised Privacy Policy is posted.",
+        parents=(
+            ("isConsideredBy", policy_instance),
+            ("activityIsInitiatedBy", first_party)
+        ),
     )
 
 
@@ -83,30 +78,22 @@ def process_renpho(onto):
     #########################################################################
     # We may collect any data you choose to provide directly to us, for example when making a purchase, creating or using an account, using our products and their health-related features, seeking customer service or otherwise interacting with us, or being referred to us by a friend or family member. 
 
-    make(onto, "",
-        evidence="",
+    make(onto, "DataCollectionActivity",
+        evidence="We may collect any data you choose to provide directly to us, for example when making a purchase, creating or using an account, using our products and their health-related features, seeking customer service or otherwise interacting with us, or being referred to us by a friend or family member.",
         parents=(
             ("isConsideredBy", policy_instance),
             ("activityIsInitiatedBy", first_party)
         ),
         children=(
-            ("isAppliedTo", make(onto, "",
-                evidence="",
+            ("isAppliedTo", make(onto, "Data",
+                evidence="data",
                 parents=(
                     ("isConsideredBy", policy_instance),
                     ("isProvidedBy", user)))),
-            ("hasSecurityMechanism", make(onto, "",
-                evidence="")),
-            ("hasNotificationMechanism", make(onto, "",
-                evidence="")),
             ("hasDataActivityPurpose", make(onto, "DataActivityPurpose",
-                evidence="")),
-            ("hasDataRetentionTime", make(onto, "DataRetentionTime",
-                evidence="")),
-            ("hasUserChoiceConsequence", make(onto, "",
-                evidence="")),
-            ("hasLegalBasis", make(onto, "LegalBasis",
-                evidence="")),
+                evidence="making a purchase, creating or using an account, using our products and their health-related features, seeking customer service or otherwise interacting with us")),
+            ("hasDataActivityPurpose", make(onto, "HealthMonitoring",
+                evidence="using our products and their health-related features")),
         )
     )
 
@@ -116,30 +103,68 @@ def process_renpho(onto):
     #########################################################################
     # In order to use some of our apps or websites, we may ask you to enter your name, email, gender, date of birth, current weight and height, target weight, fitness level, areas for improvement, and food preferences, and ask other onboarding questions. In some of our Services, you are able to skip some of the onboarding questions by tapping on Skip or similar options.
 
-    make(onto, "",
-        evidence="",
+    make(onto, "DataCollectionActivity",
+        evidence="In order to use some of our apps or websites, we may ask you to enter your name, email, gender, date of birth, current weight and height, target weight, fitness level, areas for improvement, and food preferences, and ask other onboarding questions. In some of our Services, you are able to skip some of the onboarding questions by tapping on Skip or similar options.",
         parents=(
             ("isConsideredBy", policy_instance),
             ("activityIsInitiatedBy", first_party)
         ),
         children=(
-            ("isAppliedTo", make(onto, "",
-                evidence="",
+            ("isAppliedTo", make(onto, "AccountData",
+                evidence="name",
                 parents=(
                     ("isConsideredBy", policy_instance),
                     ("isProvidedBy", user)))),
-            ("hasSecurityMechanism", make(onto, "",
-                evidence="")),
-            ("hasNotificationMechanism", make(onto, "",
-                evidence="")),
-            ("hasDataActivityPurpose", make(onto, "DataActivityPurpose",
-                evidence="")),
-            ("hasDataRetentionTime", make(onto, "DataRetentionTime",
-                evidence="")),
-            ("hasUserChoiceConsequence", make(onto, "",
-                evidence="")),
-            ("hasLegalBasis", make(onto, "LegalBasis",
-                evidence="")),
+            ("isAppliedTo", make(onto, "TrackingData",
+                evidence="email",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "AccountData",
+                evidence="gender",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "AccountData",
+                evidence="date of birth",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "AccountData",
+                evidence="current weight",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "AccountData",
+                evidence="height",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "HealthData",
+                evidence="target weight",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "HealthData",
+                evidence="fitness level",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "HealthData",
+                evidence="areas for improvement",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "HealthData",
+                evidence="food preferences",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "Data",
+                evidence="other onboarding questions",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
         )
     )
 
@@ -149,30 +174,91 @@ def process_renpho(onto):
     #########################################################################
     # You can use the relevant features of Renpho’s health equipment without creating an account. However, creating an account and sharing your personal data allows Renpho to provide you with enhanced health-related insights and Services, including providing health information and recommendations that are most relevant to you and your family, providing insights and analysis of your health tendencies, providing customized health reminders, and overall providing a more personalized, fulfilling user experience.
 
-    make(onto, "",
-        evidence="",
+    make(onto, "ConsentActivity",
+        evidence="You can use the relevant features of Renpho’s health equipment without creating an account. However, creating an account and sharing your personal data allows Renpho to provide you with enhanced health-related insights and Services, including providing health information and recommendations that are most relevant to you and your family, providing insights and analysis of your health tendencies, providing customized health reminders, and overall providing a more personalized, fulfilling user experience.",
         parents=(
             ("isConsideredBy", policy_instance),
             ("activityIsInitiatedBy", first_party)
         ),
         children=(
-            ("isAppliedTo", make(onto, "",
-                evidence="",
+            ("isAppliedTo", make(onto, "PersonalData",
+                evidence="personal data",
                 parents=(
                     ("isConsideredBy", policy_instance),
                     ("isProvidedBy", user)))),
-            ("hasSecurityMechanism", make(onto, "",
-                evidence="")),
-            ("hasNotificationMechanism", make(onto, "",
-                evidence="")),
-            ("hasDataActivityPurpose", make(onto, "DataActivityPurpose",
-                evidence="")),
-            ("hasDataRetentionTime", make(onto, "DataRetentionTime",
-                evidence="")),
-            ("hasUserChoiceConsequence", make(onto, "",
-                evidence="")),
-            ("hasLegalBasis", make(onto, "LegalBasis",
-                evidence="")),
+            ("hasDataActivityPurpose", make(onto, "HealthMonitoring",
+                evidence="to provide you with enhanced health-related insights and Services, including providing health information and recommendations that are most relevant to you and your family, providing insights and analysis of your health tendencies, providing customized health reminders, and overall providing a more personalized, fulfilling user experience.")),
+        )
+    )
+
+
+
+
+    #########################################################################
+    # Contact, account, and communications information: such as name, consignee information, address, email address, phone number, gender, date of birth, personal description and photograph or avatar, social media handle and profile photograph or avatar, the content of reviews or comments, complaints, inquiries, or messages to us, and any information friends or family share with us about you, such as if they refer you to Renpho.
+
+    make(onto, "DataCollectionActivity",
+        evidence="Contact, account, and communications information: such as name, consignee information, address, email address, phone number, gender, date of birth, personal description and photograph or avatar, social media handle and profile photograph or avatar, the content of reviews or comments, complaints, inquiries, or messages to us, and any information friends or family share with us about you, such as if they refer you to Renpho.",
+        parents=(
+            ("isConsideredBy", policy_instance),
+            ("activityIsInitiatedBy", first_party)
+        ),
+        children=(
+            ("isAppliedTo", make(onto, "AccountData",
+                evidence="name",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "AccountData",
+                evidence="consignee information",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "TrackingData",
+                evidence="address",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "TrackingData",
+                evidence="email address",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "TrackingData",
+                evidence="phone number",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "AccountData",
+                evidence="gender",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "AccountData",
+                evidence="date of birth",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "AccountData",
+                evidence="personal description",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "AccountData",
+                evidence="photograph or avatar",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "AccountData",
+                evidence="content of reviews or comments, complaints, inquiries, or messages to us",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "Data",
+                evidence="other information in this chart",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
         )
     )
 
@@ -182,30 +268,68 @@ def process_renpho(onto):
     #########################################################################
     # Contact, account, and communications information: such as name, consignee information, address, email address, phone number, gender, date of birth, personal description and photograph or avatar, social media handle and profile photograph or avatar, the content of reviews or comments, complaints, inquiries, or messages to us, and any information friends or family share with us about you, such as if they refer you to Renpho. From our customers when they visit the Services, call us, sign-up for emails or another Service, or otherwise interact with us. Additionally, we may obtain your information, including any other information in this chart, in connection with a contest, sweepstakes, event, offering, or other promotional activity that is jointly offered by us and any third parties. By entering such contest or sweepstakes, you authorize and direct us to share your information with our co-sponsor(s) and any third-party service provider who administers the activity. To provide our Services, including to fulfill your requests for products, respond to your inquiries,  send you a confirmation email when you make a purchase, verify your identity, contact you with Services updates, newsletters, other informational and promotional materials from us, and third party marketing offers from our trusted partners or other companies, provide interest-based advertising to you, and meet legal obligations. Select marketing, information technology, or other third-party service providers, partners, and affiliates. The term “third-party service providers” refers to companies that provide services such as payment processing, shipping services, data analysis, email delivery, hosting services, customer service, marketing assistance, etc. The term “partners” refers to businesses that we may partner with for various endeavors, e.g., co-sponsoring promotions or sweepstakes. The term "affiliates" refers to businesses related to Renpho by common ownership or control. Renpho will require all third parties with whom we share your personal data, including third-party service providers, partners, and affiliates, to honor this Privacy Policy, and all will be contractually prohibited from using your personal data for any purpose other than in accordance with the terms of their agreements with Renpho. We will disclose your personal data to third parties only to the extent that it is related to such agreements.
 
-    make(onto, "",
-        evidence="",
+    make(onto, "DataCollectionActivity",
+        evidence="Contact, account, and communications information: such as name, consignee information, address, email address, phone number, gender, date of birth, personal description and photograph or avatar, social media handle and profile photograph or avatar, the content of reviews or comments, complaints, inquiries, or messages to us, and any information friends or family share with us about you, such as if they refer you to Renpho.",
         parents=(
             ("isConsideredBy", policy_instance),
             ("activityIsInitiatedBy", first_party)
         ),
         children=(
-            ("isAppliedTo", make(onto, "",
-                evidence="",
+            ("isAppliedTo", make(onto, "AccountData",
+                evidence="name",
                 parents=(
                     ("isConsideredBy", policy_instance),
                     ("isProvidedBy", user)))),
-            ("hasSecurityMechanism", make(onto, "",
-                evidence="")),
-            ("hasNotificationMechanism", make(onto, "",
-                evidence="")),
-            ("hasDataActivityPurpose", make(onto, "DataActivityPurpose",
-                evidence="")),
-            ("hasDataRetentionTime", make(onto, "DataRetentionTime",
-                evidence="")),
-            ("hasUserChoiceConsequence", make(onto, "",
-                evidence="")),
-            ("hasLegalBasis", make(onto, "LegalBasis",
-                evidence="")),
+            ("isAppliedTo", make(onto, "AccountData",
+                evidence="consignee information",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "TrackingData",
+                evidence="address",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "TrackingData",
+                evidence="email address",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "TrackingData",
+                evidence="phone number",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "AccountData",
+                evidence="gender",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "AccountData",
+                evidence="date of birth",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "AccountData",
+                evidence="personal description",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "AccountData",
+                evidence="photograph or avatar",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "AccountData",
+                evidence="content of reviews or comments, complaints, inquiries, or messages to us",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
+            ("isAppliedTo", make(onto, "Data",
+                evidence="other information in this chart",
+                parents=(
+                    ("isConsideredBy", policy_instance),
+                    ("isProvidedBy", user)))),
         )
     )
 
