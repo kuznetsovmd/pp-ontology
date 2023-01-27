@@ -2,6 +2,7 @@ from owlready2 import *
 
 from config import ontologies
 
+
 _ID = 0
 
 
@@ -75,6 +76,8 @@ def construct_ontology(name=None):
         class PersonalData(Data): pass
 
         class NonPersonalData(Data): pass
+
+        class ServiceData(PersonalData): pass
 
         class SensitiveData(PersonalData): pass
 
@@ -217,6 +220,8 @@ def construct_ontology(name=None):
 
         class DataActivityPurpose(Purpose): pass
 
+        class HealthMonitoring(DataActivityPurpose): pass
+
         # Basis
         class Basis(Thing): pass
 
@@ -312,7 +317,7 @@ def construct_ontology(name=None):
 
         class dataActivityPurposeIsRelatedTo(isRelatedTo): pass
         class hasDataActivityPurpose(has):
-            domain = [DataActivity]
+            domain = [Activity]
             range = [DataActivityPurpose]
             inverse_property = dataActivityPurposeIsRelatedTo
 
@@ -351,6 +356,18 @@ def construct_ontology(name=None):
             domain = [UserPrivacyControl]
             range = [DataControlMechanism]
             inverse_property = privacyControlMechanismIsRelatedTo
+
+        class notificationMechanismIsRelatedTo(mechanismIsRelatedTo): pass
+        class hasNotificationMechanism(hasMechanism):
+            domain = [BreachNotificationActivity, PolicyChangeActivity]
+            range = [NotificationMechanism]
+            inverse_property = notificationMechanismIsRelatedTo
+
+        class securityMechanismIsRelatedTo(mechanismIsRelatedTo): pass
+        class hasSecurityMechanism(hasMechanism):
+            domain = [Activity]
+            range = [SecurityMechanism]
+            inverse_property = securityMechanismIsRelatedTo
 
         class dataCollectionMechanismIsRelatedTo(mechanismIsRelatedTo): pass
         class hasDataCollectionMechanism(hasMechanism):
