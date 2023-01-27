@@ -17,7 +17,7 @@ TODO
 - [ ] Try to fullfill the ontologies for: 
     - [x] CareSense (Has nothing about health, maybe that is delegated to HIPAA)
     - [ ] Zepp (~50%)
-    - [ ] Renpho
+    - [ ] Renpho (~17%)
 
 
 

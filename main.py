@@ -49,8 +49,8 @@ def main():
 
     # # Ontology containing whole dataset
 
-    onto = construct_ontology("blank")
-    finish(onto)
+    # onto = construct_ontology("blank")
+    # finish(onto)
 
     # onto = construct_ontology("summary")
     # policies = read_opp()
