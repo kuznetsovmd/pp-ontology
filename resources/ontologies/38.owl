@@ -1,0 +1,2211 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xml:base="http://privacy-ontology.com/38.owl"
+         xmlns="http://privacy-ontology.com/38.owl#">
+
+<owl:Ontology rdf:about="http://privacy-ontology.com/38.owl"/>
+
+<owl:ObjectProperty rdf:about="#considers">
+  <owl:inverseOf rdf:resource="#isConsideredBy"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isConsideredBy">
+  <owl:inverseOf rdf:resource="#considers"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#agentIsConsideredBy">
+  <rdfs:subPropertyOf rdf:resource="#isConsideredBy"/>
+  <owl:inverseOf rdf:resource="#considersAgent"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#considersAgent">
+  <rdfs:subPropertyOf rdf:resource="#considers"/>
+  <rdfs:domain rdf:resource="#PrivacyPolicy"/>
+  <rdfs:range rdf:resource="#Agent"/>
+  <owl:inverseOf rdf:resource="#agentIsConsideredBy"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#activityIsConsideredBy">
+  <rdfs:subPropertyOf rdf:resource="#isConsideredBy"/>
+  <owl:inverseOf rdf:resource="#considersActivity"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#considersActivity">
+  <rdfs:subPropertyOf rdf:resource="#considers"/>
+  <rdfs:domain rdf:resource="#PrivacyPolicy"/>
+  <rdfs:range rdf:resource="#Activity"/>
+  <owl:inverseOf rdf:resource="#activityIsConsideredBy"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#dataIsConsideredBy">
+  <rdfs:subPropertyOf rdf:resource="#isConsideredBy"/>
+  <owl:inverseOf rdf:resource="#considersData"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#considersData">
+  <rdfs:subPropertyOf rdf:resource="#considers"/>
+  <rdfs:domain rdf:resource="#PrivacyPolicy"/>
+  <rdfs:range rdf:resource="#Data"/>
+  <owl:inverseOf rdf:resource="#dataIsConsideredBy"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#dataIsOwnedBy">
+  <owl:inverseOf rdf:resource="#ownsData"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#ownsData">
+  <rdfs:domain rdf:resource="#Agent"/>
+  <rdfs:range rdf:resource="#Data"/>
+  <owl:inverseOf rdf:resource="#dataIsOwnedBy"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isAppliedTo">
+  <owl:inverseOf rdf:resource="#isInfluencedBy"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isInfluencedBy">
+  <owl:inverseOf rdf:resource="#isAppliedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isInfluencedByActivity">
+  <rdfs:subPropertyOf rdf:resource="#isInfluencedBy"/>
+  <owl:inverseOf rdf:resource="#isAppliedToData"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isAppliedToData">
+  <rdfs:subPropertyOf rdf:resource="#isAppliedTo"/>
+  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:range rdf:resource="#Data"/>
+  <owl:inverseOf rdf:resource="#isInfluencedByActivity"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#has">
+  <owl:inverseOf rdf:resource="#isRelatedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isRelatedTo">
+  <owl:inverseOf rdf:resource="#has"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#breachCauseIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#isRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasBreachCause"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasBreachCause">
+  <rdfs:subPropertyOf rdf:resource="#has"/>
+  <rdfs:domain rdf:resource="#BreachNotificationActivity"/>
+  <rdfs:range rdf:resource="#BreachCause"/>
+  <owl:inverseOf rdf:resource="#breachCauseIsRelatedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#userChoiceConsequenceIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#isRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasUserChoiceConsequence"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasUserChoiceConsequence">
+  <rdfs:subPropertyOf rdf:resource="#has"/>
+  <rdfs:domain rdf:resource="#ConsentActivity"/>
+  <rdfs:range rdf:resource="#UserChoiceConsequence"/>
+  <owl:inverseOf rdf:resource="#userChoiceConsequenceIsRelatedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#breachNotificationTimeIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#isRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasBreachNotificationTime"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasBreachNotificationTime">
+  <rdfs:subPropertyOf rdf:resource="#has"/>
+  <rdfs:domain rdf:resource="#BreachNotificationActivity"/>
+  <rdfs:range rdf:resource="#BreachNotificationTime"/>
+  <owl:inverseOf rdf:resource="#breachNotificationTimeIsRelatedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasBreachReportTime">
+  <rdfs:subPropertyOf rdf:resource="#isRelatedTo"/>
+  <owl:inverseOf rdf:resource="#breachReportTimeIsRelatedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#breachReportTimeIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#has"/>
+  <rdfs:domain rdf:resource="#ReportBreachActivity"/>
+  <rdfs:range rdf:resource="#BreachReportTime"/>
+  <owl:inverseOf rdf:resource="#hasBreachReportTime"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#dataActivityPurposeIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#isRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasDataActivityPurpose"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasDataActivityPurpose">
+  <rdfs:subPropertyOf rdf:resource="#has"/>
+  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:range rdf:resource="#DataActivityPurpose"/>
+  <owl:inverseOf rdf:resource="#dataActivityPurposeIsRelatedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#dataRetentionTimeIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#isRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasDataRetentionTime"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasDataRetentionTime">
+  <rdfs:subPropertyOf rdf:resource="#has"/>
+  <rdfs:domain rdf:resource="#DataRetentionActivity"/>
+  <rdfs:range rdf:resource="#DataRetentionTime"/>
+  <owl:inverseOf rdf:resource="#dataRetentionTimeIsRelatedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasNewerVersion">
+  <rdfs:subPropertyOf rdf:resource="#has"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <owl:inverseOf rdf:resource="#hasOlderVersion"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasOlderVersion">
+  <rdfs:subPropertyOf rdf:resource="#has"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#PrivacyPolicy"/>
+  <rdfs:range rdf:resource="#PrivacyPolicy"/>
+  <owl:inverseOf rdf:resource="#hasNewerVersion"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#evidenceIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#isRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasEvidence"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasEvidence">
+  <rdfs:subPropertyOf rdf:resource="#has"/>
+  <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:range rdf:resource="#Evidence"/>
+  <owl:inverseOf rdf:resource="#evidenceIsRelatedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#legalBasisIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#isRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasLegalBasis"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasLegalBasis">
+  <rdfs:subPropertyOf rdf:resource="#has"/>
+  <rdfs:domain rdf:resource="#DataActivity"/>
+  <rdfs:range rdf:resource="#LegalBasis"/>
+  <owl:inverseOf rdf:resource="#legalBasisIsRelatedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#mechanismIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#isRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasMechanism"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasMechanism">
+  <rdfs:subPropertyOf rdf:resource="#has"/>
+  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:range rdf:resource="#Mechanism"/>
+  <owl:inverseOf rdf:resource="#mechanismIsRelatedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#privacyControlMechanismIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasPrivacyControlMechanism"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasPrivacyControlMechanism">
+  <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
+  <rdfs:domain rdf:resource="#UserPrivacyControl"/>
+  <rdfs:range rdf:resource="#DataControlMechanism"/>
+  <owl:inverseOf rdf:resource="#privacyControlMechanismIsRelatedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#notificationMechanismIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasNotificationMechanism"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasNotificationMechanism">
+  <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
+  <rdfs:domain rdf:resource="#PolicyChangeActivity"/>
+  <rdfs:domain rdf:resource="#BreachNotificationActivity"/>
+  <rdfs:range rdf:resource="#NotificationMechanism"/>
+  <owl:inverseOf rdf:resource="#notificationMechanismIsRelatedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#securityMechanismIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasSecurityMechanism"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasSecurityMechanism">
+  <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
+  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:range rdf:resource="#SecurityMechanism"/>
+  <owl:inverseOf rdf:resource="#securityMechanismIsRelatedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#dataCollectionMechanismIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasDataCollectionMechanism"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasDataCollectionMechanism">
+  <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
+  <rdfs:domain rdf:resource="#DataCollectionActivity"/>
+  <rdfs:range rdf:resource="#DataCollectionMechanism"/>
+  <owl:inverseOf rdf:resource="#dataCollectionMechanismIsRelatedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#modeIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#isRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasMode"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasMode">
+  <rdfs:subPropertyOf rdf:resource="#has"/>
+  <rdfs:domain rdf:resource="#Mechanism"/>
+  <rdfs:range rdf:resource="#MechanismMode"/>
+  <owl:inverseOf rdf:resource="#modeIsRelatedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#dataCollectionModeIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#modeIsRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasDataCollectionMode"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasDataCollectionMode">
+  <rdfs:subPropertyOf rdf:resource="#hasMode"/>
+  <rdfs:domain rdf:resource="#DataCollectionMechanism"/>
+  <rdfs:range rdf:resource="#DataCollectionMode"/>
+  <owl:inverseOf rdf:resource="#dataCollectionModeIsRelatedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#policyAcceptanceTimeIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#isRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasPolicyAcceptanceTime"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasPolicyAcceptanceTime">
+  <rdfs:subPropertyOf rdf:resource="#has"/>
+  <rdfs:domain rdf:resource="#PolicyChangeActivity"/>
+  <rdfs:range rdf:resource="#PolicyAcceptanceTime"/>
+  <owl:inverseOf rdf:resource="#policyAcceptanceTimeIsRelatedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#policyChangeScopeIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#isRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasPolicyChangeScope"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasPolicyChangeScope">
+  <rdfs:subPropertyOf rdf:resource="#has"/>
+  <rdfs:domain rdf:resource="#PolicyChangeActivity"/>
+  <rdfs:range rdf:resource="#PolicyChangeScope"/>
+  <owl:inverseOf rdf:resource="#policyChangeScopeIsRelatedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#policyChangeCauseIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#isRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasPolicyChangeCause"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasPolicyChangeCause">
+  <rdfs:subPropertyOf rdf:resource="#has"/>
+  <rdfs:domain rdf:resource="#PolicyChangeActivity"/>
+  <rdfs:range rdf:resource="#PolicyChangeCause"/>
+  <owl:inverseOf rdf:resource="#policyChangeCauseIsRelatedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#policyChangeConsequenceIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#isRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasPolicyChangeConsequence"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasPolicyChangeConsequence">
+  <rdfs:subPropertyOf rdf:resource="#has"/>
+  <rdfs:domain rdf:resource="#PolicyChangeActivity"/>
+  <rdfs:range rdf:resource="#PolicyChangeConsequence"/>
+  <owl:inverseOf rdf:resource="#policyChangeConsequenceIsRelatedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#procedureIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#isRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasProcedure"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasProcedure">
+  <rdfs:subPropertyOf rdf:resource="#has"/>
+  <rdfs:domain rdf:resource="#Mechanism"/>
+  <rdfs:range rdf:resource="#MechanismProcedure"/>
+  <owl:inverseOf rdf:resource="#procedureIsRelatedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#specialCategoryIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#isRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasSpecialCategory"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasSpecialCategory">
+  <rdfs:subPropertyOf rdf:resource="#has"/>
+  <rdfs:domain rdf:resource="#User"/>
+  <rdfs:range rdf:resource="#UserSpecialCategory"/>
+  <owl:inverseOf rdf:resource="#specialCategoryIsRelatedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#initiates">
+  <owl:inverseOf rdf:resource="#isInitiatedBy"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isInitiatedBy">
+  <owl:inverseOf rdf:resource="#initiates"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#activityIsInitiatedBy">
+  <rdfs:subPropertyOf rdf:resource="#isInitiatedBy"/>
+  <owl:inverseOf rdf:resource="#initiatesActivity"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#initiatesActivity">
+  <rdfs:subPropertyOf rdf:resource="#initiates"/>
+  <rdfs:domain rdf:resource="#Agent"/>
+  <rdfs:range rdf:resource="#Activity"/>
+  <owl:inverseOf rdf:resource="#activityIsInitiatedBy"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#notifies">
+  <owl:inverseOf rdf:resource="#isNotifiedBy"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isNotifiedBy">
+  <owl:inverseOf rdf:resource="#notifies"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#agentIsNotifiedBy">
+  <rdfs:subPropertyOf rdf:resource="#isNotifiedBy"/>
+  <owl:inverseOf rdf:resource="#notifiesAgent"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#notifiesAgent">
+  <rdfs:subPropertyOf rdf:resource="#notifies"/>
+  <rdfs:domain rdf:resource="#ReportBreachActivity"/>
+  <rdfs:range rdf:resource="#Agent"/>
+  <owl:inverseOf rdf:resource="#agentIsNotifiedBy"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#provides">
+  <owl:inverseOf rdf:resource="#isProvidedBy"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isProvidedBy">
+  <owl:inverseOf rdf:resource="#provides"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#dataIsProvidedBy">
+  <rdfs:subPropertyOf rdf:resource="#isProvidedBy"/>
+  <owl:inverseOf rdf:resource="#providesData"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#providesData">
+  <rdfs:subPropertyOf rdf:resource="#provides"/>
+  <rdfs:domain rdf:resource="#Agent"/>
+  <rdfs:range rdf:resource="#Data"/>
+  <owl:inverseOf rdf:resource="#dataIsProvidedBy"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#collects">
+  <owl:inverseOf rdf:resource="#isCollected"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isCollected">
+  <owl:inverseOf rdf:resource="#collects"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isCollectedByActivity">
+  <rdfs:subPropertyOf rdf:resource="#isCollected"/>
+  <owl:inverseOf rdf:resource="#collectsDataFromAgent"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#collectsDataFromAgent">
+  <rdfs:subPropertyOf rdf:resource="#collects"/>
+  <rdfs:domain rdf:resource="#DataCollectionActivity"/>
+  <rdfs:range rdf:resource="#Agent"/>
+  <owl:inverseOf rdf:resource="#isCollectedByActivity"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#shares">
+  <owl:inverseOf rdf:resource="#isShared"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isShared">
+  <owl:inverseOf rdf:resource="#shares"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isSharedByActivity">
+  <rdfs:subPropertyOf rdf:resource="#isShared"/>
+  <owl:inverseOf rdf:resource="#sharesDataWithAgent"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#sharesDataWithAgent">
+  <rdfs:subPropertyOf rdf:resource="#shares"/>
+  <rdfs:domain rdf:resource="#DataSharingActivity"/>
+  <rdfs:range rdf:resource="#Agent"/>
+  <owl:inverseOf rdf:resource="#isSharedByActivity"/>
+</owl:ObjectProperty>
+
+<owl:DatatypeProperty rdf:about="#evidenceContent">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Evidence"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#policyId">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#PrivacyPolicy"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#policyUpdate">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#PrivacyPolicy"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#policyWebsite">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#PrivacyPolicy"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:Class rdf:about="#PrivacyPolicy">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Activity">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#BreachNotificationActivity">
+  <rdfs:subClassOf rdf:resource="#Activity"/>
+</owl:Class>
+
+<owl:Class rdf:about="#ControlActivity">
+  <rdfs:subClassOf rdf:resource="#Activity"/>
+</owl:Class>
+
+<owl:Class rdf:about="#PolicyChangeActivity">
+  <rdfs:subClassOf rdf:resource="#ControlActivity"/>
+</owl:Class>
+
+<owl:Class rdf:about="#ReportBreachActivity">
+  <rdfs:subClassOf rdf:resource="#ControlActivity"/>
+</owl:Class>
+
+<owl:Class rdf:about="#ConsentActivity">
+  <rdfs:subClassOf rdf:resource="#ControlActivity"/>
+</owl:Class>
+
+<owl:Class rdf:about="#GiveConsentActivity">
+  <rdfs:subClassOf rdf:resource="#ConsentActivity"/>
+</owl:Class>
+
+<owl:Class rdf:about="#WithdrawConsentActivity">
+  <rdfs:subClassOf rdf:resource="#ConsentActivity"/>
+</owl:Class>
+
+<owl:Class rdf:about="#DataControlActivity">
+  <rdfs:subClassOf rdf:resource="#ControlActivity"/>
+</owl:Class>
+
+<owl:Class rdf:about="#UserAccessActivity">
+  <rdfs:subClassOf rdf:resource="#DataControlActivity"/>
+</owl:Class>
+
+<owl:Class rdf:about="#UserPrivacyControl">
+  <rdfs:subClassOf rdf:resource="#DataControlActivity"/>
+</owl:Class>
+
+<owl:Class rdf:about="#UserOptControl">
+  <rdfs:subClassOf rdf:resource="#DataControlActivity"/>
+</owl:Class>
+
+<owl:Class rdf:about="#DataActivity">
+  <rdfs:subClassOf rdf:resource="#Activity"/>
+</owl:Class>
+
+<owl:Class rdf:about="#DataUseActivity">
+  <rdfs:subClassOf rdf:resource="#DataActivity"/>
+</owl:Class>
+
+<owl:Class rdf:about="#DataCollectionActivity">
+  <rdfs:subClassOf rdf:resource="#DataActivity"/>
+</owl:Class>
+
+<owl:Class rdf:about="#DataSharingActivity">
+  <rdfs:subClassOf rdf:resource="#DataActivity"/>
+</owl:Class>
+
+<owl:Class rdf:about="#DataRetentionActivity">
+  <rdfs:subClassOf rdf:resource="#DataActivity"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Agent">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#User">
+  <rdfs:subClassOf rdf:resource="#Agent"/>
+</owl:Class>
+
+<owl:Class rdf:about="#FirstParty">
+  <rdfs:subClassOf rdf:resource="#Agent"/>
+</owl:Class>
+
+<owl:Class rdf:about="#DataProtectionOfficer">
+  <rdfs:subClassOf rdf:resource="#Agent"/>
+</owl:Class>
+
+<owl:Class rdf:about="#ThirdParties">
+  <rdfs:subClassOf rdf:resource="#Agent"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Data">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#PersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
+<owl:Class rdf:about="#ServiceData">
+  <rdfs:subClassOf rdf:resource="#PersonalData"/>
+</owl:Class>
+
+<owl:Class rdf:about="#SensitiveData">
+  <rdfs:subClassOf rdf:resource="#PersonalData"/>
+</owl:Class>
+
+<owl:Class rdf:about="#NonSensitiveData">
+  <rdfs:subClassOf rdf:resource="#PersonalData"/>
+</owl:Class>
+
+<owl:Class rdf:about="#FinancialData">
+  <rdfs:subClassOf rdf:resource="#NonSensitiveData"/>
+</owl:Class>
+
+<owl:Class rdf:about="#DeviceData">
+  <rdfs:subClassOf rdf:resource="#NonSensitiveData"/>
+</owl:Class>
+
+<owl:Class rdf:about="#AppData">
+  <rdfs:subClassOf rdf:resource="#NonSensitiveData"/>
+</owl:Class>
+
+<owl:Class rdf:about="#AccountData">
+  <rdfs:subClassOf rdf:resource="#NonSensitiveData"/>
+</owl:Class>
+
+<owl:Class rdf:about="#TrackingData">
+  <rdfs:subClassOf rdf:resource="#NonSensitiveData"/>
+</owl:Class>
+
+<owl:Class rdf:about="#ReligionData">
+  <rdfs:subClassOf rdf:resource="#SensitiveData"/>
+</owl:Class>
+
+<owl:Class rdf:about="#RacialData">
+  <rdfs:subClassOf rdf:resource="#SensitiveData"/>
+</owl:Class>
+
+<owl:Class rdf:about="#HealthData">
+  <rdfs:subClassOf rdf:resource="#SensitiveData"/>
+</owl:Class>
+
+<owl:Class rdf:about="#GenericData">
+  <rdfs:subClassOf rdf:resource="#SensitiveData"/>
+</owl:Class>
+
+<owl:Class rdf:about="#CrimeData">
+  <rdfs:subClassOf rdf:resource="#SensitiveData"/>
+</owl:Class>
+
+<owl:Class rdf:about="#BiometricData">
+  <rdfs:subClassOf rdf:resource="#SensitiveData"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Cause">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#BreachCause">
+  <rdfs:subClassOf rdf:resource="#Cause"/>
+</owl:Class>
+
+<owl:Class rdf:about="#ForceMajeur">
+  <rdfs:subClassOf rdf:resource="#BreachCause"/>
+</owl:Class>
+
+<owl:Class rdf:about="#IntentionalCause">
+  <rdfs:subClassOf rdf:resource="#BreachCause"/>
+</owl:Class>
+
+<owl:Class rdf:about="#UnintentionalCause">
+  <rdfs:subClassOf rdf:resource="#BreachCause"/>
+</owl:Class>
+
+<owl:Class rdf:about="#PolicyChangeCause">
+  <rdfs:subClassOf rdf:resource="#Cause"/>
+</owl:Class>
+
+<owl:Class rdf:about="#PrivacyRelatedCause">
+  <rdfs:subClassOf rdf:resource="#PolicyChangeCause"/>
+</owl:Class>
+
+<owl:Class rdf:about="#NonPrivacyRelatedCause">
+  <rdfs:subClassOf rdf:resource="#PolicyChangeCause"/>
+</owl:Class>
+
+<owl:Class rdf:about="#MergeAcquisitionCause">
+  <rdfs:subClassOf rdf:resource="#PolicyChangeCause"/>
+</owl:Class>
+
+<owl:Class rdf:about="#OtherPolicyChangeCause">
+  <rdfs:subClassOf rdf:resource="#PolicyChangeCause"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Consequence">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#PolicyChangeConsequence">
+  <rdfs:subClassOf rdf:resource="#Consequence"/>
+</owl:Class>
+
+<owl:Class rdf:about="#UserChoiceConsequence">
+  <rdfs:subClassOf rdf:resource="#Consequence"/>
+</owl:Class>
+
+<owl:Class rdf:about="#NoServiceRestriction">
+  <rdfs:subClassOf rdf:resource="#UserChoiceConsequence"/>
+</owl:Class>
+
+<owl:Class rdf:about="#PartialServiceRestriction">
+  <rdfs:subClassOf rdf:resource="#UserChoiceConsequence"/>
+</owl:Class>
+
+<owl:Class rdf:about="#FullServiceRestriction">
+  <rdfs:subClassOf rdf:resource="#UserChoiceConsequence"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Mechanism">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#NotificationMechanism">
+  <rdfs:subClassOf rdf:resource="#Mechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#OnWebsitePage">
+  <rdfs:subClassOf rdf:resource="#NotificationMechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#ViaPostalMail">
+  <rdfs:subClassOf rdf:resource="#NotificationMechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#ViaSMS">
+  <rdfs:subClassOf rdf:resource="#NotificationMechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#OnService">
+  <rdfs:subClassOf rdf:resource="#NotificationMechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#ViaPhoneCall">
+  <rdfs:subClassOf rdf:resource="#NotificationMechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#InPrivacyPolicy">
+  <rdfs:subClassOf rdf:resource="#NotificationMechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#ViaEmail">
+  <rdfs:subClassOf rdf:resource="#NotificationMechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#DataRetentionMechanism">
+  <rdfs:subClassOf rdf:resource="#Mechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#DataSharingMechanism">
+  <rdfs:subClassOf rdf:resource="#Mechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#DataCollectionMechanism">
+  <rdfs:subClassOf rdf:resource="#Mechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#DataControlMechanism">
+  <rdfs:subClassOf rdf:resource="#Mechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#DataActivityForm">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#SecurityMechanism">
+  <rdfs:subClassOf rdf:resource="#Mechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#TechnicalMeasure">
+  <rdfs:subClassOf rdf:resource="#SecurityMechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#PseudoAnonymization">
+  <rdfs:subClassOf rdf:resource="#TechnicalMeasure"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Encryption">
+  <rdfs:subClassOf rdf:resource="#TechnicalMeasure"/>
+</owl:Class>
+
+<owl:Class rdf:about="#OrganizationalMeasure">
+  <rdfs:subClassOf rdf:resource="#SecurityMechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#MechanismProcedure">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#DataCollectionProcedure">
+  <rdfs:subClassOf rdf:resource="#MechanismProcedure"/>
+</owl:Class>
+
+<owl:Class rdf:about="#DataSharingProcedure">
+  <rdfs:subClassOf rdf:resource="#MechanismProcedure"/>
+</owl:Class>
+
+<owl:Class rdf:about="#PolicyChangeNotificationProcedure">
+  <rdfs:subClassOf rdf:resource="#MechanismProcedure"/>
+</owl:Class>
+
+<owl:Class rdf:about="#MechanismMode">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#DataSharingMode">
+  <rdfs:subClassOf rdf:resource="#MechanismMode"/>
+</owl:Class>
+
+<owl:Class rdf:about="#DataCollectionMode">
+  <rdfs:subClassOf rdf:resource="#MechanismMode"/>
+</owl:Class>
+
+<owl:Class rdf:about="#TimePeriod">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#DataRetentionTime">
+  <rdfs:subClassOf rdf:resource="#TimePeriod"/>
+</owl:Class>
+
+<owl:Class rdf:about="#BreachReportTime">
+  <rdfs:subClassOf rdf:resource="#TimePeriod"/>
+</owl:Class>
+
+<owl:Class rdf:about="#PolicyAcceptanceTime">
+  <rdfs:subClassOf rdf:resource="#TimePeriod"/>
+</owl:Class>
+
+<owl:Class rdf:about="#BreachNotificationTime">
+  <rdfs:subClassOf rdf:resource="#TimePeriod"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Purpose">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#DataActivityPurpose">
+  <rdfs:subClassOf rdf:resource="#Purpose"/>
+  <owl:disjointWith rdf:resource="#DataCollectionMechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#HealthMonitoring">
+  <rdfs:subClassOf rdf:resource="#DataActivityPurpose"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Basis">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#LegalBasis">
+  <rdfs:subClassOf rdf:resource="#Basis"/>
+</owl:Class>
+
+<owl:Class rdf:about="#PolicyChangeScope">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Evidence">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#UserSpecialCategory">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<PrivacyPolicy rdf:about="#privacypolicy1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence1"/>
+  <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
+</PrivacyPolicy>
+
+<Evidence rdf:about="#evidence1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidenceContent>
+</Evidence>
+
+<User rdf:about="#user1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <providesData rdf:resource="#sensitivedata1"/>
+  <providesData rdf:resource="#genericdata1"/>
+  <initiatesActivity rdf:resource="#userprivacycontrol1"/>
+  <initiatesActivity rdf:resource="#userprivacycontrol2"/>
+  <initiatesActivity rdf:resource="#userprivacycontrol3"/>
+  <initiatesActivity rdf:resource="#userprivacycontrol4"/>
+  <initiatesActivity rdf:resource="#useraccessactivity1"/>
+  <initiatesActivity rdf:resource="#useraccessactivity2"/>
+  <initiatesActivity rdf:resource="#useraccessactivity3"/>
+  <initiatesActivity rdf:resource="#useraccessactivity4"/>
+  <initiatesActivity rdf:resource="#useraccessactivity5"/>
+  <initiatesActivity rdf:resource="#useraccessactivity6"/>
+</User>
+
+<FirstParty rdf:about="#firstparty1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <initiatesActivity rdf:resource="#datauseactivity1"/>
+  <initiatesActivity rdf:resource="#datacollectionactivity1"/>
+  <initiatesActivity rdf:resource="#activity1"/>
+</FirstParty>
+
+<ThirdParties rdf:about="#thirdparties1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ThirdParties>
+
+<PrivacyPolicy rdf:about="#privacypolicy2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <considersAgent rdf:resource="#firstparty1"/>
+  <considersAgent rdf:resource="#user1"/>
+  <considersAgent rdf:resource="#thirdparties1"/>
+  <considersData rdf:resource="#sensitivedata1"/>
+  <considersActivity rdf:resource="#datauseactivity1"/>
+  <considersActivity rdf:resource="#datacollectionactivity1"/>
+  <considersData rdf:resource="#genericdata1"/>
+  <considersActivity rdf:resource="#userprivacycontrol1"/>
+  <considersActivity rdf:resource="#userprivacycontrol2"/>
+  <considersActivity rdf:resource="#userprivacycontrol3"/>
+  <considersActivity rdf:resource="#userprivacycontrol4"/>
+  <considersActivity rdf:resource="#useraccessactivity1"/>
+  <considersData rdf:resource="#sensitivedata2"/>
+  <considersActivity rdf:resource="#useraccessactivity2"/>
+  <considersData rdf:resource="#sensitivedata3"/>
+  <considersActivity rdf:resource="#useraccessactivity3"/>
+  <considersData rdf:resource="#sensitivedata4"/>
+  <considersActivity rdf:resource="#useraccessactivity4"/>
+  <considersData rdf:resource="#accountdata1"/>
+  <considersActivity rdf:resource="#useraccessactivity5"/>
+  <considersActivity rdf:resource="#useraccessactivity6"/>
+  <considersData rdf:resource="#accountdata2"/>
+  <considersActivity rdf:resource="#activity1"/>
+  <policyId rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1637</policyId>
+  <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dailyillini.com</policyWebsite>
+</PrivacyPolicy>
+
+<Evidence rdf:about="#evidence2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">share</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence2"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence3">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">identify</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence3"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence4">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">these page</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence4"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence5">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">identify</evidenceContent>
+</Evidence>
+
+<PseudoAnonymization rdf:about="#pseudoanonymization1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence5"/>
+</PseudoAnonymization>
+
+<Evidence rdf:about="#evidence6">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">track your usage of interactive features,</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence6"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence7">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">these page</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism3">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence7"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence8">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">identify</evidenceContent>
+</Evidence>
+
+<PseudoAnonymization rdf:about="#pseudoanonymization2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence8"/>
+</PseudoAnonymization>
+
+<Evidence rdf:about="#evidence9">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to communicate with you regarding site news and updates.</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose3">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence9"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence10">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">these page</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism4">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence10"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence11">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">identify</evidenceContent>
+</Evidence>
+
+<PseudoAnonymization rdf:about="#pseudoanonymization3">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence11"/>
+</PseudoAnonymization>
+
+<Evidence rdf:about="#evidence12">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sed to identify you as a user of the site,</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose4">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence12"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence13">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">collected at these pages</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism5">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence13"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence14">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">rack your usage of interactive features</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose5">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence14"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence15">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">collected at these pages</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism6">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence15"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence16">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to identify you as a user of the site, to track your usage of interactive features, and to communicate with you regarding site news and updates.</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose6">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence16"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence17">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The personal information collected at these pages</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism7">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence17"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence18">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We do not share</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism8">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence18"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence19">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personal information</evidenceContent>
+</Evidence>
+
+<PseudoAnonymization rdf:about="#pseudoanonymization4">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence19"/>
+</PseudoAnonymization>
+
+<Evidence rdf:about="#evidence20">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">customize</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose7">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence20"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence21">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">websites</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism9">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence21"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence22">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">non-identifying and aggregate information</evidenceContent>
+</Evidence>
+
+<PseudoAnonymization rdf:about="#pseudoanonymization5">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence22"/>
+</PseudoAnonymization>
+
+<Evidence rdf:about="#evidence23">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">advertisers</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose8">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence23"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence24">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">share</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism10">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence24"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence25">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">non-identifying and aggregate</evidenceContent>
+</Evidence>
+
+<PseudoAnonymization rdf:about="#pseudoanonymization6">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence25"/>
+</PseudoAnonymization>
+
+<Evidence rdf:about="#evidence26">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">share</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism11">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence26"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence27">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">identify</evidenceContent>
+</Evidence>
+
+<PseudoAnonymization rdf:about="#pseudoanonymization7">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence27"/>
+</PseudoAnonymization>
+
+<Evidence rdf:about="#evidence28">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">better customize our websites for your use</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose9">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence28"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence29">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">non-identifying and aggregate</evidenceContent>
+</Evidence>
+
+<PseudoAnonymization rdf:about="#pseudoanonymization8">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence29"/>
+</PseudoAnonymization>
+
+<Evidence rdf:about="#evidence30">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">and to share general data about those who view our websites with our advertisers</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose10">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence30"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence31">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">non-identifying and aggregate</evidenceContent>
+</Evidence>
+
+<PseudoAnonymization rdf:about="#pseudoanonymization9">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence31"/>
+</PseudoAnonymization>
+
+<Evidence rdf:about="#evidence32">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">advertisers</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose11">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence32"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence33">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">share</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism12">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence33"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence34">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dentify individuals.</evidenceContent>
+</Evidence>
+
+<PseudoAnonymization rdf:about="#pseudoanonymization10">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence34"/>
+</PseudoAnonymization>
+
+<Evidence rdf:about="#evidence35">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to better customize our websites for your use</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose12">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence35"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence36">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Illini Media uses non-identifying and aggregate information to better customize our websites for your use</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism13">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence36"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence37">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">non-identifying and aggregate information</evidenceContent>
+</Evidence>
+
+<PseudoAnonymization rdf:about="#pseudoanonymization11">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence37"/>
+</PseudoAnonymization>
+
+<Evidence rdf:about="#evidence38">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">advertisers</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose13">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence38"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence39">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to share general data about those who view our websites with our advertisers.</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism14">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence39"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence40">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">non-identifying and aggregate information</evidenceContent>
+</Evidence>
+
+<PseudoAnonymization rdf:about="#pseudoanonymization12">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence40"/>
+</PseudoAnonymization>
+
+<Evidence rdf:about="#evidence41">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to serve some of the ads you see when you visit our websites.</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose14">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence41"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence42">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Illini Media partners with Google and OnCampus Advertising to serve some of the ads you see when you visit our websites.</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism15">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence42"/>
+</DataCollectionMechanism>
+
+<DataCollectionActivity rdf:about="#datacollectionactivity1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasDataActivityPurpose rdf:resource="#dataactivitypurpose15"/>
+  <hasDataCollectionMechanism rdf:resource="#datacollectionmechanism16"/>
+  <isAppliedToData rdf:resource="#sensitivedata1"/>
+  <hasEvidence rdf:resource="#evidence46"/>
+  <collectsDataFromAgent rdf:resource="#user1"/>
+</DataCollectionActivity>
+
+<DataUseActivity rdf:about="#datauseactivity1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasDataActivityPurpose rdf:resource="#dataactivitypurpose15"/>
+  <hasDataCollectionMechanism rdf:resource="#datacollectionmechanism16"/>
+  <isAppliedToData rdf:resource="#sensitivedata1"/>
+  <hasEvidence rdf:resource="#evidence46"/>
+</DataUseActivity>
+
+<Evidence rdf:about="#evidence43">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">allows us to analyze</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose15">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence43"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence44">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Google Analytics</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism16">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence44"/>
+</DataCollectionMechanism>
+
+<SensitiveData rdf:about="#sensitivedata1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence45"/>
+</SensitiveData>
+
+<Evidence rdf:about="#evidence45">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">demographics</evidenceContent>
+</Evidence>
+
+<Evidence rdf:about="#evidence46">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Illini Media also uses Google Analytics that allows us to analyze data on our users demographics age gender and interests affinity categories other categories Specifically we are able analyze the this type of data</evidenceContent>
+</Evidence>
+
+<Evidence rdf:about="#evidence47">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">analyze data on our users'</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose16">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence47"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence48">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Illini Media also uses Google Analytics that allows us</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism17">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence48"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence49">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">analyze data on our users'</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose17">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence49"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence50">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Illini Media also uses Google Analytics that allows us</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism18">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence50"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence51">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">analyze data</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose18">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence51"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence52">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Illini Media also uses Google Analytics that allows us to analyze data on our users' demographics (age, gender)</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism19">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence52"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence53">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">analyze data</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose19">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence53"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence54">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Illini Media also uses Google Analytics that allows us to analyze data on our users' demographics (age, gender)</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism20">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence54"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence55">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">overview of traffic</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose20">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence55"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence56">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Demographics</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism21">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence56"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence57">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Demographics Overview (overview of traffic by age and gender) Age (traffic by age ranges) Gender (traffic by gender)</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose21">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence57"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence58">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Demographics Overview (overview of traffic by age and gender) Age (traffic by age ranges) Gender (traffic by gender)</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism22">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence58"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence59">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">overview</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose22">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence59"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence60">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Interests</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism23">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence60"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence61">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Interests Overview (overview of traffic by affinity and other categories) Affinity Categories (behavior by affinity categories) In-Market Categories (behavior by in-market categories) Other Categories (behavior by other interest categories)</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose23">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence61"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence62">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Interests Overview (overview of traffic by affinity and other categories) Affinity Categories (behavior by affinity categories) In-Market Categories (behavior by in-market categories) Other Categories (behavior by other interest categories)</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism24">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence62"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence63">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">how our users engage over a date range, who our users are generally, and how their behavior varies by attribute</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose24">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence63"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence64">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">analysis</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism25">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence64"/>
+  <hasMode rdf:resource="#datacollectionmode1"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence65">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">track</evidenceContent>
+</Evidence>
+
+<DataCollectionMode rdf:about="#datacollectionmode1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence65"/>
+</DataCollectionMode>
+
+<Evidence rdf:about="#evidence66">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">how our users engage over a date range, who our users are generally, and how their behavior varies by attribute</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose25">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence66"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence67">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">analysis</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism26">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence67"/>
+  <hasMode rdf:resource="#datacollectionmode2"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence68">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">track</evidenceContent>
+</Evidence>
+
+<DataCollectionMode rdf:about="#datacollectionmode2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence68"/>
+</DataCollectionMode>
+
+<Evidence rdf:about="#evidence69">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">how our users engage over a date range, who our users are generally, and how their behavior varies by attribute</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose26">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence69"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence70">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">analysis</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism27">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence70"/>
+  <hasMode rdf:resource="#datacollectionmode3"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence71">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">track</evidenceContent>
+</Evidence>
+
+<DataCollectionMode rdf:about="#datacollectionmode3">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence71"/>
+</DataCollectionMode>
+
+<Evidence rdf:about="#evidence72">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">optimize</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose27">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence72"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence73">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ads</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose28">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence73"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence74">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">optimize</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose29">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence74"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence75">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">use first-party cookies (</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism28">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence75"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence76">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ads</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose30">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence76"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence77">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">use first-party cookies (</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism29">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence77"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence78">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ogether to inform, optimize,</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose31">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence78"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence79">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">third-party cookies</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism30">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence79"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence80">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">erve ads based on someone's past visits to your website.</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose32">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence80"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence81">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">third-party cookies</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism31">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence81"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence82">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ogether to inform, optimize,</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose33">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence82"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence83">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">use first-party cookies</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism32">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence83"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence84">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">serve ads based on someone's past visits to your website.</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose34">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence84"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence85">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">use first-party cookies</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism33">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence85"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence86">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">serve ads</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose35">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence86"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence87">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Illini Media and third-party vendors, including Google, use first-party cookies (such as the Google Analytics cookie) and third-party cookies (such as the DoubleClick cookie) together to inform, optimize, and serve ads based on someone's past visits to your website. Illini Media and third-party vendors, including Google, use first-party cookies (such as the Google Analytics cookies) and third-party cookies (such as the DoubleClick cookie) together to report how our ad impressions, other uses of ad services, and interactions with these ad impressions and ad services are related to visits to your site.</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism34">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence87"/>
+  <hasMode rdf:resource="#datacollectionmode4"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence88">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies</evidenceContent>
+</Evidence>
+
+<DataCollectionMode rdf:about="#datacollectionmode4">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence88"/>
+</DataCollectionMode>
+
+<Evidence rdf:about="#evidence89">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">advertisements</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose36">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence89"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence90">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">may</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism35">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence90"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence91">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">not including your name, address, email address or telephone number</evidenceContent>
+</Evidence>
+
+<PseudoAnonymization rdf:about="#pseudoanonymization13">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence91"/>
+</PseudoAnonymization>
+
+<UserPrivacyControl rdf:about="#userprivacycontrol1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasPrivacyControlMechanism rdf:resource="#datacontrolmechanism1"/>
+  <isAppliedToData rdf:resource="#genericdata1"/>
+  <hasEvidence rdf:resource="#evidence94"/>
+</UserPrivacyControl>
+
+<Evidence rdf:about="#evidence92">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">opt-out</evidenceContent>
+</Evidence>
+
+<DataControlMechanism rdf:about="#datacontrolmechanism1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence92"/>
+</DataControlMechanism>
+
+<GenericData rdf:about="#genericdata1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence93"/>
+</GenericData>
+
+<Evidence rdf:about="#evidence93">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally identifiable information</evidenceContent>
+</Evidence>
+
+<Evidence rdf:about="#evidence94">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Illini Media never shares personally identifiable information provided to us online in ways unrelated to the ones described above without also providing you an opportunity to opt-out or otherwise prohibit such unrelated uses Google or any ad server may use information not including your name address email address or telephone number about your visits to this and other websites in order to provide advertisements about goods and services of interest to you</evidenceContent>
+</Evidence>
+
+<Evidence rdf:about="#evidence95">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">never shares</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism36">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence95"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence96">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally identifiable</evidenceContent>
+</Evidence>
+
+<PseudoAnonymization rdf:about="#pseudoanonymization14">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence96"/>
+</PseudoAnonymization>
+
+<Evidence rdf:about="#evidence97">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">about your visits to this and other websites in order to provide advertisements about goods and services of interest to you.</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose37">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence97"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence98">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">may use information</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism37">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence98"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence99">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">advertisements</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose38">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence99"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence100">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">about your visits to this</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism38">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence100"/>
+</DataCollectionMechanism>
+
+<Evidence rdf:about="#evidence101">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">advertisements</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose39">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence101"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence102">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">and other websites</evidenceContent>
+</Evidence>
+
+<DataCollectionMechanism rdf:about="#datacollectionmechanism39">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence102"/>
+</DataCollectionMechanism>
+
+<UserPrivacyControl rdf:about="#userprivacycontrol2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasPrivacyControlMechanism rdf:resource="#datacontrolmechanism2"/>
+  <hasEvidence rdf:resource="#evidence104"/>
+</UserPrivacyControl>
+
+<Evidence rdf:about="#evidence103">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">opt-outs</evidenceContent>
+</Evidence>
+
+<DataControlMechanism rdf:about="#datacontrolmechanism2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence103"/>
+</DataControlMechanism>
+
+<Evidence rdf:about="#evidence104">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To opt-out You may use Google Analytics currently available opt-outs at any time</evidenceContent>
+</Evidence>
+
+<UserPrivacyControl rdf:about="#userprivacycontrol3">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <has rdf:resource="#purpose1"/>
+  <hasPrivacyControlMechanism rdf:resource="#datacontrolmechanism3"/>
+  <hasEvidence rdf:resource="#evidence107"/>
+</UserPrivacyControl>
+
+<Evidence rdf:about="#evidence105">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Google Analytics'</evidenceContent>
+</Evidence>
+
+<Purpose rdf:about="#purpose1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence105"/>
+</Purpose>
+
+<Evidence rdf:about="#evidence106">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">available opt-outs at any time.</evidenceContent>
+</Evidence>
+
+<DataControlMechanism rdf:about="#datacontrolmechanism3">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence106"/>
+</DataControlMechanism>
+
+<Evidence rdf:about="#evidence107">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To opt-out You may use Google Analytics currently available opt-outs at any time</evidenceContent>
+</Evidence>
+
+<UserPrivacyControl rdf:about="#userprivacycontrol4">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <has rdf:resource="#purpose2"/>
+  <hasPrivacyControlMechanism rdf:resource="#datacontrolmechanism4"/>
+  <hasEvidence rdf:resource="#evidence110"/>
+</UserPrivacyControl>
+
+<Evidence rdf:about="#evidence108">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Google Analytics</evidenceContent>
+</Evidence>
+
+<Purpose rdf:about="#purpose2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence108"/>
+</Purpose>
+
+<Evidence rdf:about="#evidence109">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To opt-out You may use Google Analytics' currently available opt-outs at any time.</evidenceContent>
+</Evidence>
+
+<DataControlMechanism rdf:about="#datacontrolmechanism4">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence109"/>
+</DataControlMechanism>
+
+<Evidence rdf:about="#evidence110">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To opt-out You may use Google Analytics currently available opt-outs at any time</evidenceContent>
+</Evidence>
+
+<Evidence rdf:about="#evidence111">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To access or correct your information You can access all your personally identifiable information that we collect online and maintain by logging into your account and adjusting your account settings and profile information You can correct factual errors in your personally identifiable information by sending us a request that credibly shows error To protect your privacy and security we will also take reasonable steps to verify your identity before granting access or making corrections</evidenceContent>
+</Evidence>
+
+<UserAccessActivity rdf:about="#useraccessactivity1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence111"/>
+  <isAppliedTo rdf:resource="#sensitivedata2"/>
+</UserAccessActivity>
+
+<Evidence rdf:about="#evidence112">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">access</evidenceContent>
+</Evidence>
+
+<DataControlMechanism rdf:about="#datacontrolmechanism5">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence112"/>
+</DataControlMechanism>
+
+<SensitiveData rdf:about="#sensitivedata2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence111"/>
+</SensitiveData>
+
+<Evidence rdf:about="#evidence113">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To access or correct your information You can access all your personally identifiable information that we collect online and maintain by logging into your account and adjusting your account settings and profile information You can correct factual errors in your personally identifiable information by sending us a request that credibly shows error To protect your privacy and security we will also take reasonable steps to verify your identity before granting access or making corrections</evidenceContent>
+</Evidence>
+
+<UserAccessActivity rdf:about="#useraccessactivity2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence113"/>
+  <isAppliedTo rdf:resource="#sensitivedata3"/>
+</UserAccessActivity>
+
+<Evidence rdf:about="#evidence114">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">correct</evidenceContent>
+</Evidence>
+
+<DataControlMechanism rdf:about="#datacontrolmechanism6">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence114"/>
+</DataControlMechanism>
+
+<SensitiveData rdf:about="#sensitivedata3">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence113"/>
+</SensitiveData>
+
+<Evidence rdf:about="#evidence115">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To access or correct your information You can access all your personally identifiable information that we collect online and maintain by logging into your account and adjusting your account settings and profile information You can correct factual errors in your personally identifiable information by sending us a request that credibly shows error To protect your privacy and security we will also take reasonable steps to verify your identity before granting access or making corrections</evidenceContent>
+</Evidence>
+
+<UserAccessActivity rdf:about="#useraccessactivity3">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence115"/>
+  <isAppliedTo rdf:resource="#sensitivedata4"/>
+</UserAccessActivity>
+
+<Evidence rdf:about="#evidence116">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">access</evidenceContent>
+</Evidence>
+
+<DataControlMechanism rdf:about="#datacontrolmechanism7">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence116"/>
+</DataControlMechanism>
+
+<SensitiveData rdf:about="#sensitivedata4">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence115"/>
+</SensitiveData>
+
+<Evidence rdf:about="#evidence117">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To access or correct your information You can access all your personally identifiable information that we collect online and maintain by logging into your account and adjusting your account settings and profile information You can correct factual errors in your personally identifiable information by sending us a request that credibly shows error To protect your privacy and security we will also take reasonable steps to verify your identity before granting access or making corrections</evidenceContent>
+</Evidence>
+
+<UserAccessActivity rdf:about="#useraccessactivity4">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence117"/>
+  <isAppliedTo rdf:resource="#accountdata1"/>
+</UserAccessActivity>
+
+<Evidence rdf:about="#evidence118">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">access</evidenceContent>
+</Evidence>
+
+<DataControlMechanism rdf:about="#datacontrolmechanism8">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence118"/>
+</DataControlMechanism>
+
+<AccountData rdf:about="#accountdata1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence117"/>
+</AccountData>
+
+<Evidence rdf:about="#evidence119">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To access or correct your information You can access all your personally identifiable information that we collect online and maintain by logging into your account and adjusting your account settings and profile information You can correct factual errors in your personally identifiable information by sending us a request that credibly shows error To protect your privacy and security we will also take reasonable steps to verify your identity before granting access or making corrections</evidenceContent>
+</Evidence>
+
+<UserAccessActivity rdf:about="#useraccessactivity5">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence119"/>
+</UserAccessActivity>
+
+<Evidence rdf:about="#evidence120">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">factual errors</evidenceContent>
+</Evidence>
+
+<DataControlMechanism rdf:about="#datacontrolmechanism9">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence120"/>
+</DataControlMechanism>
+
+<Evidence rdf:about="#evidence121">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To access or correct your information You can access all your personally identifiable information that we collect online and maintain by logging into your account and adjusting your account settings and profile information You can correct factual errors in your personally identifiable information by sending us a request that credibly shows error To protect your privacy and security we will also take reasonable steps to verify your identity before granting access or making corrections</evidenceContent>
+</Evidence>
+
+<UserAccessActivity rdf:about="#useraccessactivity6">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence121"/>
+  <isAppliedTo rdf:resource="#accountdata2"/>
+</UserAccessActivity>
+
+<Evidence rdf:about="#evidence122">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can access all your personally identifiable information that we collect online and maintain by logging into your account and adjusting your account settings and profile information. You can correct factual errors in your personally identifiable information by sending us a request that credibly shows error.</evidenceContent>
+</Evidence>
+
+<DataControlMechanism rdf:about="#datacontrolmechanism10">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence122"/>
+</DataControlMechanism>
+
+<AccountData rdf:about="#accountdata2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence121"/>
+</AccountData>
+
+<TechnicalMeasure rdf:about="#technicalmeasure1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence123"/>
+</TechnicalMeasure>
+
+<Evidence rdf:about="#evidence123">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Our commitment to data security To prevent unauthorized access maintain data accuracy and ensure the correct use of information we have put in place appropriate physical electronic and managerial procedures to safeguard and secure the information we collect online</evidenceContent>
+</Evidence>
+
+<Activity rdf:about="#activity1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasMechanism rdf:resource="#technicalmeasure1"/>
+</Activity>
+
+
+</rdf:RDF>
