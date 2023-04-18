@@ -3,14 +3,14 @@ from pprint import pprint
 
 from owlready2 import *
 
-from config import ontologies, queries
+from config import ONTOLOGIES, QUERIES
 
 
 def main():
     """
     * What are the evidences which contain the personal notifications about privacy policy change?
     """
-    onto_path.append(ontologies)
+    onto_path.append(ONTOLOGIES)
     onto = get_ontology(
         f"http://test.org/iot-ontology-summary.owl").load()
 
@@ -35,7 +35,7 @@ def main():
 
         pprint(res)
 
-        with open(f"{queries}/query4.csv", "w") as file:
+        with open(f"{QUERIES}/query4.csv", "w") as file:
             writer = csv.writer(file)
             writer.writerows(res)
 

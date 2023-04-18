@@ -1,16 +1,16 @@
 from pprint import pprint
 
-import owlready2
-from ontology import construct_ontology, finish
+from ontology import Ontology
 from opp.processor import process_opp
 from opp.reader import read_opp
-from standalone_policies.amazon_web_services import process_aws
-from standalone_policies.google_cloud import process_google_cloud
-from standalone_policies.threeplususa import process_3plususa
-from standalone_policies.caresense import process_caresense
-from standalone_policies.dario import process_dario
-from standalone_policies.zepp import process_zepp
-from standalone_policies.renpho import process_renpho
+from cloud_computing_policies.amazon_web_services import process_aws
+from cloud_computing_policies.google_cloud import process_google_cloud
+from cloud_computing_policies.threeplususa import process_3plususa
+from healthcare_policies.caresense import process_caresense
+from healthcare_policies.zepp import process_zepp
+from healthcare_policies.renpho import process_renpho
+
+import owlready2
 
 
 def main():
@@ -34,6 +34,22 @@ def main():
     Finishing work
         finish(onto)
 
+    OR throught new Ontology class
+        o = Ontology("blank")
+        o.individual(
+            'Activity',
+            'some evidence',
+            [
+                o.connection(
+                    'appliesToData',
+                    o.individual(
+                        'Data', 
+                        'some evidence'
+                        [o.individual('User', 'some evidence')])
+                )
+            ]
+        )
+
     SPARQL example
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -47,51 +63,39 @@ def main():
 
     owlready2.JAVA_EXE="/usr/lib/jvm/java-17-openjdk/bin/java"
 
-    # # Ontology containing whole dataset
+    # Ontology containing whole dataset
 
-    # onto = construct_ontology("blank")
-    # finish(onto)
+    onto = Ontology("blank")
+    onto.write(reason=False)
 
-    # onto = construct_ontology("summary")
-    # policies = read_opp()
+    onto = Ontology("summary")
+    policies = read_opp()
     
-    # for p in policies:
-    #     process_opp(onto, p)
-    # finish(onto, reason=False)
+    for p in policies:
+        process_opp(onto.raw_onto, p)
+    onto.write(reason=False)
     
-    # # Ontologies containing policies by 1
-    # for p in policies:
-    #     o = construct_ontology()
-    #     process_opp(o, p)
-    #     finish(o, reason=False)
+    # Ontologies containing policies by 1
+    for i, p in enumerate(policies, start=1):
+        onto = Ontology(i)
+        process_opp(onto.raw_onto, p)
+        onto.write(reason=False)
 
-    # o = construct_ontology("3plususa")
-    # process_3plususa(o)
-    # finish(o, reason=False)
+    onto = Ontology("3plususa")
+    process_3plususa(onto.raw_onto)
+    onto.write(reason=False)
 
-    # o = construct_ontology("aws")
-    # process_aws(o)
-    # finish(o, reason=False)
+    onto = Ontology("aws")
+    process_aws(onto.raw_onto)
+    onto.write(reason=False)
 
-    # o = construct_ontology("google-cloud")
-    # process_google_cloud(o)
-    # finish(o, reason=False)
+    onto = Ontology("google-cloud")
+    process_google_cloud(onto.raw_onto)
+    onto.write(reason=False)
 
-    o = construct_ontology("caresense")
-    process_caresense(o)
-    finish(o)
-
-    o = construct_ontology("dario")
-    process_dario(o)
-    finish(o)
-
-    o = construct_ontology("zepp")
-    process_zepp(o)
-    finish(o)
-
-    o = construct_ontology("renpho")
-    process_renpho(o)
-    finish(o)
+    process_caresense()
+    process_zepp()
+    process_renpho()
 
 
 if __name__ == '__main__':

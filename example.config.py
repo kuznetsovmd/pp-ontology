@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
 # Paths to resources
-resources = "./resources"
-datasets = f"{resources}/datasets"
-ontologies = f"{resources}/ontologies"
+RESOURCES = "./resources"
+DATASETS = f"{RESOURCES}/datasets"
+ONTOLOGIES = f"{RESOURCES}/ontologies"

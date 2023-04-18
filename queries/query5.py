@@ -3,14 +3,14 @@ from pprint import pprint
 
 from owlready2 import *
 
-from config import ontologies, queries
+from config import ONTOLOGIES, QUERIES
 
 
 def main():
     """
     * How many mentions of privacy policy change notifications mechanisms do particular privacy policy state?
     """
-    onto_path.append(ontologies)
+    onto_path.append(ONTOLOGIES)
     onto = get_ontology(
         f"http://test.org/iot-ontology-summary.owl").load()
 
@@ -34,7 +34,7 @@ def main():
 
         pprint(res)
 
-        with open(f"{queries}/query5.csv", "w") as file:
+        with open(f"{QUERIES}/query5.csv", "w") as file:
             writer = csv.writer(file)
             writer.writerows(res)
 
