@@ -52,16 +52,6 @@
   <owl:inverseOf rdf:resource="#dataIsConsideredBy"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#dataIsOwnedBy">
-  <owl:inverseOf rdf:resource="#ownsData"/>
-</owl:ObjectProperty>
-
-<owl:ObjectProperty rdf:about="#ownsData">
-  <rdfs:domain rdf:resource="#Agent"/>
-  <rdfs:range rdf:resource="#Data"/>
-  <owl:inverseOf rdf:resource="#dataIsOwnedBy"/>
-</owl:ObjectProperty>
-
 <owl:ObjectProperty rdf:about="#isAppliedTo">
   <owl:inverseOf rdf:resource="#isInfluencedBy"/>
 </owl:ObjectProperty>
@@ -97,9 +87,21 @@
 
 <owl:ObjectProperty rdf:about="#hasBreachCause">
   <rdfs:subPropertyOf rdf:resource="#has"/>
-  <rdfs:domain rdf:resource="#BreachNotificationActivity"/>
+  <rdfs:domain rdf:resource="#BreachActivity"/>
   <rdfs:range rdf:resource="#BreachCause"/>
   <owl:inverseOf rdf:resource="#breachCauseIsRelatedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#consequenceIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#isRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasBreachConsequence"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasBreachConsequence">
+  <rdfs:subPropertyOf rdf:resource="#has"/>
+  <rdfs:domain rdf:resource="#BreachActivity"/>
+  <rdfs:range rdf:resource="#BreachConsequence"/>
+  <owl:inverseOf rdf:resource="#consequenceIsRelatedTo"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#userChoiceConsequenceIsRelatedTo">
@@ -114,28 +116,28 @@
   <owl:inverseOf rdf:resource="#userChoiceConsequenceIsRelatedTo"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#breachNotificationTimeIsRelatedTo">
+<owl:ObjectProperty rdf:about="#breachInvestigationTimeIsRelatedTo">
   <rdfs:subPropertyOf rdf:resource="#isRelatedTo"/>
-  <owl:inverseOf rdf:resource="#hasBreachNotificationTime"/>
+  <owl:inverseOf rdf:resource="#hasBreachInvestigationTime"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#hasBreachNotificationTime">
+<owl:ObjectProperty rdf:about="#hasBreachInvestigationTime">
   <rdfs:subPropertyOf rdf:resource="#has"/>
-  <rdfs:domain rdf:resource="#BreachNotificationActivity"/>
-  <rdfs:range rdf:resource="#BreachNotificationTime"/>
-  <owl:inverseOf rdf:resource="#breachNotificationTimeIsRelatedTo"/>
-</owl:ObjectProperty>
-
-<owl:ObjectProperty rdf:about="#hasBreachReportTime">
-  <rdfs:subPropertyOf rdf:resource="#isRelatedTo"/>
-  <owl:inverseOf rdf:resource="#breachReportTimeIsRelatedTo"/>
+  <rdfs:domain rdf:resource="#BreachInvestigation"/>
+  <rdfs:range rdf:resource="#BreachInvestigationTime"/>
+  <owl:inverseOf rdf:resource="#breachInvestigationTimeIsRelatedTo"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#breachReportTimeIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#isRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasBreachReportTime"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasBreachReportTime">
   <rdfs:subPropertyOf rdf:resource="#has"/>
   <rdfs:domain rdf:resource="#ReportBreachActivity"/>
   <rdfs:range rdf:resource="#BreachReportTime"/>
-  <owl:inverseOf rdf:resource="#hasBreachReportTime"/>
+  <owl:inverseOf rdf:resource="#breachReportTimeIsRelatedTo"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#dataActivityPurposeIsRelatedTo">
@@ -231,8 +233,14 @@
 
 <owl:ObjectProperty rdf:about="#hasNotificationMechanism">
   <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
-  <rdfs:domain rdf:resource="#PolicyChangeActivity"/>
-  <rdfs:domain rdf:resource="#BreachNotificationActivity"/>
+  <rdfs:domain>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#ReportBreachActivity"/>
+        <rdf:Description rdf:about="#PolicyChangeActivity"/>
+      </owl:unionOf>
+    </owl:Class>
+  </rdfs:domain>
   <rdfs:range rdf:resource="#NotificationMechanism"/>
   <owl:inverseOf rdf:resource="#notificationMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
@@ -365,6 +373,16 @@
   <owl:inverseOf rdf:resource="#initiates"/>
 </owl:ObjectProperty>
 
+<owl:ObjectProperty rdf:about="#initiatesAnotherActivity">
+  <rdfs:subPropertyOf rdf:resource="#initiates"/>
+  <owl:inverseOf rdf:resource="#isInitiatedByAnotherActivity"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isInitiatedByAnotherActivity">
+  <rdfs:subPropertyOf rdf:resource="#isInitiatedBy"/>
+  <owl:inverseOf rdf:resource="#initiatesAnotherActivity"/>
+</owl:ObjectProperty>
+
 <owl:ObjectProperty rdf:about="#activityIsInitiatedBy">
   <rdfs:subPropertyOf rdf:resource="#isInitiatedBy"/>
   <owl:inverseOf rdf:resource="#initiatesActivity"/>
@@ -392,7 +410,14 @@
 
 <owl:ObjectProperty rdf:about="#notifiesAgent">
   <rdfs:subPropertyOf rdf:resource="#notifies"/>
-  <rdfs:domain rdf:resource="#ReportBreachActivity"/>
+  <rdfs:domain>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#ReportBreachActivity"/>
+        <rdf:Description rdf:about="#PolicyChangeActivity"/>
+      </owl:unionOf>
+    </owl:Class>
+  </rdfs:domain>
   <rdfs:range rdf:resource="#Agent"/>
   <owl:inverseOf rdf:resource="#agentIsNotifiedBy"/>
 </owl:ObjectProperty>
@@ -489,7 +514,11 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
-<owl:Class rdf:about="#BreachNotificationActivity">
+<owl:Class rdf:about="#BreachActivity">
+  <rdfs:subClassOf rdf:resource="#Activity"/>
+</owl:Class>
+
+<owl:Class rdf:about="#ReportBreachActivity">
   <rdfs:subClassOf rdf:resource="#Activity"/>
 </owl:Class>
 
@@ -498,10 +527,6 @@
 </owl:Class>
 
 <owl:Class rdf:about="#PolicyChangeActivity">
-  <rdfs:subClassOf rdf:resource="#ControlActivity"/>
-</owl:Class>
-
-<owl:Class rdf:about="#ReportBreachActivity">
   <rdfs:subClassOf rdf:resource="#ControlActivity"/>
 </owl:Class>
 
@@ -685,6 +710,22 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
+<owl:Class rdf:about="#BreachConsequence">
+  <rdfs:subClassOf rdf:resource="#Consequence"/>
+</owl:Class>
+
+<owl:Class rdf:about="#RemoveCompromisedInformation">
+  <rdfs:subClassOf rdf:resource="#BreachConsequence"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Compensation">
+  <rdfs:subClassOf rdf:resource="#BreachConsequence"/>
+</owl:Class>
+
+<owl:Class rdf:about="#BreachInvestigation">
+  <rdfs:subClassOf rdf:resource="#BreachConsequence"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PolicyChangeConsequence">
   <rdfs:subClassOf rdf:resource="#Consequence"/>
 </owl:Class>
@@ -757,7 +798,19 @@
   <rdfs:subClassOf rdf:resource="#Mechanism"/>
 </owl:Class>
 
-<owl:Class rdf:about="#DataActivityForm">
+<owl:Class rdf:about="#EmailRequest">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#PhoneCallRequest">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#WebsiteForm">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#ServiceForm">
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
 
@@ -777,8 +830,16 @@
   <rdfs:subClassOf rdf:resource="#TechnicalMeasure"/>
 </owl:Class>
 
-<owl:Class rdf:about="#OrganizationalMeasure">
-  <rdfs:subClassOf rdf:resource="#SecurityMechanism"/>
+<owl:Class rdf:about="#SecureSocketLayer">
+  <rdfs:subClassOf rdf:resource="#TechnicalMeasure"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Firewall">
+  <rdfs:subClassOf rdf:resource="#TechnicalMeasure"/>
+</owl:Class>
+
+<owl:Class rdf:about="#AccessControls">
+  <rdfs:subClassOf rdf:resource="#TechnicalMeasure"/>
 </owl:Class>
 
 <owl:Class rdf:about="#MechanismProcedure">
@@ -793,7 +854,7 @@
   <rdfs:subClassOf rdf:resource="#MechanismProcedure"/>
 </owl:Class>
 
-<owl:Class rdf:about="#PolicyChangeNotificationProcedure">
+<owl:Class rdf:about="#NotificationProcedure">
   <rdfs:subClassOf rdf:resource="#MechanismProcedure"/>
 </owl:Class>
 
@@ -821,6 +882,10 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
 </owl:Class>
 
+<owl:Class rdf:about="#BreachInvestigationTime">
+  <rdfs:subClassOf rdf:resource="#TimePeriod"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PolicyAcceptanceTime">
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
 </owl:Class>
@@ -835,7 +900,6 @@
 
 <owl:Class rdf:about="#DataActivityPurpose">
   <rdfs:subClassOf rdf:resource="#Purpose"/>
-  <owl:disjointWith rdf:resource="#DataCollectionMechanism"/>
 </owl:Class>
 
 <owl:Class rdf:about="#HealthMonitoring">
@@ -865,16 +929,16 @@
 <PrivacyPolicy rdf:about="#privacypolicy1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence1"/>
+  <considersAgent rdf:resource="#user1"/>
   <considersAgent rdf:resource="#firstparty1"/>
   <considersActivity rdf:resource="#policychangeactivity1"/>
-  <considersAgent rdf:resource="#firstparty2"/>
   <considersActivity rdf:resource="#consentactivity1"/>
-  <considersAgent rdf:resource="#firstparty3"/>
-  <considersAgent rdf:resource="#user1"/>
+  <considersAgent rdf:resource="#user2"/>
+  <considersAgent rdf:resource="#firstparty2"/>
   <considersData rdf:resource="#data1"/>
   <considersActivity rdf:resource="#datacollectionactivity1"/>
-  <considersAgent rdf:resource="#user2"/>
-  <considersAgent rdf:resource="#firstparty4"/>
+  <considersAgent rdf:resource="#user3"/>
+  <considersAgent rdf:resource="#firstparty3"/>
   <considersData rdf:resource="#accountdata1"/>
   <considersData rdf:resource="#trackingdata1"/>
   <considersData rdf:resource="#accountdata2"/>
@@ -887,12 +951,12 @@
   <considersData rdf:resource="#healthdata4"/>
   <considersData rdf:resource="#data2"/>
   <considersActivity rdf:resource="#datacollectionactivity2"/>
-  <considersAgent rdf:resource="#firstparty5"/>
-  <considersAgent rdf:resource="#user3"/>
+  <considersAgent rdf:resource="#user4"/>
+  <considersAgent rdf:resource="#firstparty4"/>
   <considersData rdf:resource="#personaldata1"/>
   <considersActivity rdf:resource="#consentactivity2"/>
-  <considersAgent rdf:resource="#user4"/>
-  <considersAgent rdf:resource="#firstparty6"/>
+  <considersAgent rdf:resource="#user5"/>
+  <considersAgent rdf:resource="#firstparty5"/>
   <considersData rdf:resource="#accountdata6"/>
   <considersData rdf:resource="#accountdata7"/>
   <considersData rdf:resource="#trackingdata2"/>
@@ -905,8 +969,8 @@
   <considersData rdf:resource="#accountdata12"/>
   <considersData rdf:resource="#data3"/>
   <considersActivity rdf:resource="#datacollectionactivity3"/>
-  <considersAgent rdf:resource="#user5"/>
-  <considersAgent rdf:resource="#firstparty7"/>
+  <considersAgent rdf:resource="#user6"/>
+  <considersAgent rdf:resource="#firstparty6"/>
   <considersData rdf:resource="#accountdata13"/>
   <considersData rdf:resource="#accountdata14"/>
   <considersData rdf:resource="#trackingdata5"/>
@@ -919,8 +983,8 @@
   <considersData rdf:resource="#accountdata19"/>
   <considersData rdf:resource="#data4"/>
   <considersActivity rdf:resource="#datacollectionactivity4"/>
-  <considersAgent rdf:resource="#user6"/>
-  <considersAgent rdf:resource="#firstparty8"/>
+  <considersAgent rdf:resource="#user7"/>
+  <considersAgent rdf:resource="#firstparty7"/>
   <considersData rdf:resource="#trackingdata8"/>
   <considersData rdf:resource="#devicedata1"/>
   <considersData rdf:resource="#devicedata2"/>
@@ -944,6 +1008,104 @@
   <considersData rdf:resource="#trackingdata16"/>
   <considersData rdf:resource="#trackingdata17"/>
   <considersActivity rdf:resource="#datacollectionactivity5"/>
+  <considersAgent rdf:resource="#user8"/>
+  <considersData rdf:resource="#accountdata20"/>
+  <considersData rdf:resource="#financialdata1"/>
+  <considersData rdf:resource="#financialdata2"/>
+  <considersData rdf:resource="#financialdata3"/>
+  <considersData rdf:resource="#financialdata4"/>
+  <considersData rdf:resource="#financialdata5"/>
+  <considersAgent rdf:resource="#firstparty8"/>
+  <considersActivity rdf:resource="#datacollectionactivity6"/>
+  <considersAgent rdf:resource="#thirdparties1"/>
+  <considersActivity rdf:resource="#datasharingactivity1"/>
+  <considersAgent rdf:resource="#user9"/>
+  <considersAgent rdf:resource="#firstparty9"/>
+  <considersData rdf:resource="#healthdata5"/>
+  <considersData rdf:resource="#healthdata6"/>
+  <considersData rdf:resource="#healthdata7"/>
+  <considersData rdf:resource="#healthdata8"/>
+  <considersData rdf:resource="#healthdata9"/>
+  <considersData rdf:resource="#healthdata10"/>
+  <considersData rdf:resource="#healthdata11"/>
+  <considersData rdf:resource="#healthdata12"/>
+  <considersData rdf:resource="#accountdata21"/>
+  <considersData rdf:resource="#healthdata13"/>
+  <considersData rdf:resource="#healthdata14"/>
+  <considersData rdf:resource="#healthdata15"/>
+  <considersData rdf:resource="#servicedata5"/>
+  <considersActivity rdf:resource="#datacollectionactivity7"/>
+  <considersAgent rdf:resource="#user10"/>
+  <considersAgent rdf:resource="#firstparty10"/>
+  <considersData rdf:resource="#crimedata1"/>
+  <considersActivity rdf:resource="#datacollectionactivity8"/>
+  <considersAgent rdf:resource="#user11"/>
+  <considersAgent rdf:resource="#firstparty11"/>
+  <considersData rdf:resource="#biometricdata1"/>
+  <considersData rdf:resource="#biometricdata2"/>
+  <considersData rdf:resource="#accountdata22"/>
+  <considersData rdf:resource="#trackingdata18"/>
+  <considersData rdf:resource="#crimedata2"/>
+  <considersData rdf:resource="#crimedata3"/>
+  <considersData rdf:resource="#crimedata4"/>
+  <considersData rdf:resource="#crimedata5"/>
+  <considersActivity rdf:resource="#datacollectionactivity9"/>
+  <considersAgent rdf:resource="#user12"/>
+  <considersAgent rdf:resource="#firstparty12"/>
+  <considersData rdf:resource="#trackingdata19"/>
+  <considersData rdf:resource="#trackingdata20"/>
+  <considersActivity rdf:resource="#datacollectionactivity10"/>
+  <considersAgent rdf:resource="#user13"/>
+  <considersAgent rdf:resource="#firstparty13"/>
+  <considersData rdf:resource="#accountdata23"/>
+  <considersData rdf:resource="#healthdata16"/>
+  <considersData rdf:resource="#healthdata17"/>
+  <considersData rdf:resource="#healthdata18"/>
+  <considersData rdf:resource="#healthdata19"/>
+  <considersData rdf:resource="#healthdata20"/>
+  <considersData rdf:resource="#healthdata21"/>
+  <considersData rdf:resource="#healthdata22"/>
+  <considersData rdf:resource="#healthdata23"/>
+  <considersData rdf:resource="#healthdata24"/>
+  <considersData rdf:resource="#healthdata25"/>
+  <considersData rdf:resource="#healthdata26"/>
+  <considersData rdf:resource="#healthdata27"/>
+  <considersData rdf:resource="#accountdata24"/>
+  <considersData rdf:resource="#healthdata28"/>
+  <considersData rdf:resource="#healthdata29"/>
+  <considersData rdf:resource="#healthdata30"/>
+  <considersData rdf:resource="#healthdata31"/>
+  <considersData rdf:resource="#healthdata32"/>
+  <considersData rdf:resource="#healthdata33"/>
+  <considersData rdf:resource="#healthdata34"/>
+  <considersData rdf:resource="#healthdata35"/>
+  <considersData rdf:resource="#healthdata36"/>
+  <considersData rdf:resource="#accountdata25"/>
+  <considersData rdf:resource="#accountdata26"/>
+  <considersData rdf:resource="#accountdata27"/>
+  <considersData rdf:resource="#accountdata28"/>
+  <considersData rdf:resource="#accountdata29"/>
+  <considersData rdf:resource="#accountdata30"/>
+  <considersData rdf:resource="#accountdata31"/>
+  <considersData rdf:resource="#accountdata32"/>
+  <considersData rdf:resource="#accountdata33"/>
+  <considersData rdf:resource="#accountdata34"/>
+  <considersData rdf:resource="#healthdata37"/>
+  <considersData rdf:resource="#healthdata38"/>
+  <considersData rdf:resource="#healthdata39"/>
+  <considersData rdf:resource="#healthdata40"/>
+  <considersData rdf:resource="#healthdata41"/>
+  <considersData rdf:resource="#healthdata42"/>
+  <considersData rdf:resource="#healthdata43"/>
+  <considersData rdf:resource="#healthdata44"/>
+  <considersData rdf:resource="#healthdata45"/>
+  <considersData rdf:resource="#healthdata46"/>
+  <considersData rdf:resource="#healthdata47"/>
+  <considersData rdf:resource="#healthdata48"/>
+  <considersData rdf:resource="#healthdata49"/>
+  <considersData rdf:resource="#healthdata50"/>
+  <considersData rdf:resource="#healthdata51"/>
+  <considersActivity rdf:resource="#datacollectionactivity11"/>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://renpho.com/pages/renpho-privacy-policy</policyWebsite>
 </PrivacyPolicy>
 
@@ -952,63 +1114,64 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidenceContent>
 </Evidence>
 
-<FirstParty rdf:about="#firstparty1">
+<User rdf:about="#user1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence2"/>
-</FirstParty>
+</User>
 
 <Evidence rdf:about="#evidence2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidenceContent>
 </Evidence>
 
-<OnWebsitePage rdf:about="#onwebsitepage1">
+<FirstParty rdf:about="#firstparty1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence3"/>
-</OnWebsitePage>
+</FirstParty>
 
 <Evidence rdf:about="#evidence3">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidenceContent>
+</Evidence>
+
+<OnWebsitePage rdf:about="#onwebsitepage1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence4"/>
+</OnWebsitePage>
+
+<Evidence rdf:about="#evidence4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">will post the current version on this website with the date it was last revised.</evidenceContent>
 </Evidence>
 
 <NotificationMechanism rdf:about="#notificationmechanism1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <hasEvidence rdf:resource="#evidence4"/>
+  <hasEvidence rdf:resource="#evidence5"/>
 </NotificationMechanism>
 
-<Evidence rdf:about="#evidence4">
+<Evidence rdf:about="#evidence5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If we make any material changes, we will provide you with additional notice.</evidenceContent>
 </Evidence>
 
 <PolicyChangeActivity rdf:about="#policychangeactivity1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <hasEvidence rdf:resource="#evidence5"/>
+  <hasEvidence rdf:resource="#evidence6"/>
   <activityIsInitiatedBy rdf:resource="#firstparty1"/>
+  <notifiesAgent rdf:resource="#user1"/>
   <hasNotificationMechanism rdf:resource="#onwebsitepage1"/>
   <hasNotificationMechanism rdf:resource="#notificationmechanism1"/>
 </PolicyChangeActivity>
 
-<Evidence rdf:about="#evidence5">
-  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Renpho may modify this Privacy Policy at any time, and will post the current version on this website with the date it was last revised. If we make any material changes, we will provide you with additional notice. We encourage you to periodically review our Privacy Policy to stay informed about how we are using the data we collect.</evidenceContent>
-</Evidence>
-
-<FirstParty rdf:about="#firstparty2">
-  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <hasEvidence rdf:resource="#evidence6"/>
-</FirstParty>
-
 <Evidence rdf:about="#evidence6">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidenceContent>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Renpho may modify this Privacy Policy at any time, and will post the current version on this website with the date it was last revised. If we make any material changes, we will provide you with additional notice. We encourage you to periodically review our Privacy Policy to stay informed about how we are using the data we collect.</evidenceContent>
 </Evidence>
 
 <ConsentActivity rdf:about="#consentactivity1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence7"/>
-  <activityIsInitiatedBy rdf:resource="#firstparty2"/>
+  <activityIsInitiatedBy rdf:resource="#firstparty1"/>
 </ConsentActivity>
 
 <Evidence rdf:about="#evidence7">
@@ -1016,20 +1179,20 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You will be deemed to have accepted the changes in any revised Privacy Policy by your continued use of the Services after the date such revised Privacy Policy is posted.</evidenceContent>
 </Evidence>
 
-<FirstParty rdf:about="#firstparty3">
+<User rdf:about="#user2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence8"/>
-</FirstParty>
+</User>
 
 <Evidence rdf:about="#evidence8">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidenceContent>
 </Evidence>
 
-<User rdf:about="#user1">
+<FirstParty rdf:about="#firstparty2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence9"/>
-</User>
+</FirstParty>
 
 <Evidence rdf:about="#evidence9">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -1039,7 +1202,7 @@
 <Data rdf:about="#data1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence10"/>
-  <isProvidedBy rdf:resource="#user1"/>
+  <isProvidedBy rdf:resource="#user2"/>
 </Data>
 
 <Evidence rdf:about="#evidence10">
@@ -1070,7 +1233,7 @@
 <DataCollectionActivity rdf:about="#datacollectionactivity1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence13"/>
-  <activityIsInitiatedBy rdf:resource="#firstparty3"/>
+  <activityIsInitiatedBy rdf:resource="#firstparty2"/>
   <isAppliedTo rdf:resource="#data1"/>
   <hasDataActivityPurpose rdf:resource="#dataactivitypurpose1"/>
   <hasDataActivityPurpose rdf:resource="#healthmonitoring1"/>
@@ -1081,7 +1244,7 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may collect any data you choose to provide directly to us, for example when making a purchase, creating or using an account, using our products and their health-related features, seeking customer service or otherwise interacting with us, or being referred to us by a friend or family member.</evidenceContent>
 </Evidence>
 
-<User rdf:about="#user2">
+<User rdf:about="#user3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence14"/>
 </User>
@@ -1091,7 +1254,7 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidenceContent>
 </Evidence>
 
-<FirstParty rdf:about="#firstparty4">
+<FirstParty rdf:about="#firstparty3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence15"/>
 </FirstParty>
@@ -1104,7 +1267,7 @@
 <AccountData rdf:about="#accountdata1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence16"/>
-  <isProvidedBy rdf:resource="#user2"/>
+  <isProvidedBy rdf:resource="#user3"/>
 </AccountData>
 
 <Evidence rdf:about="#evidence16">
@@ -1115,7 +1278,7 @@
 <TrackingData rdf:about="#trackingdata1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence17"/>
-  <isProvidedBy rdf:resource="#user2"/>
+  <isProvidedBy rdf:resource="#user3"/>
 </TrackingData>
 
 <Evidence rdf:about="#evidence17">
@@ -1126,7 +1289,7 @@
 <AccountData rdf:about="#accountdata2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence18"/>
-  <isProvidedBy rdf:resource="#user2"/>
+  <isProvidedBy rdf:resource="#user3"/>
 </AccountData>
 
 <Evidence rdf:about="#evidence18">
@@ -1137,7 +1300,7 @@
 <AccountData rdf:about="#accountdata3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence19"/>
-  <isProvidedBy rdf:resource="#user2"/>
+  <isProvidedBy rdf:resource="#user3"/>
 </AccountData>
 
 <Evidence rdf:about="#evidence19">
@@ -1148,7 +1311,7 @@
 <AccountData rdf:about="#accountdata4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence20"/>
-  <isProvidedBy rdf:resource="#user2"/>
+  <isProvidedBy rdf:resource="#user3"/>
 </AccountData>
 
 <Evidence rdf:about="#evidence20">
@@ -1159,7 +1322,7 @@
 <AccountData rdf:about="#accountdata5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence21"/>
-  <isProvidedBy rdf:resource="#user2"/>
+  <isProvidedBy rdf:resource="#user3"/>
 </AccountData>
 
 <Evidence rdf:about="#evidence21">
@@ -1170,7 +1333,7 @@
 <HealthData rdf:about="#healthdata1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence22"/>
-  <isProvidedBy rdf:resource="#user2"/>
+  <isProvidedBy rdf:resource="#user3"/>
 </HealthData>
 
 <Evidence rdf:about="#evidence22">
@@ -1181,7 +1344,7 @@
 <HealthData rdf:about="#healthdata2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence23"/>
-  <isProvidedBy rdf:resource="#user2"/>
+  <isProvidedBy rdf:resource="#user3"/>
 </HealthData>
 
 <Evidence rdf:about="#evidence23">
@@ -1192,7 +1355,7 @@
 <HealthData rdf:about="#healthdata3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence24"/>
-  <isProvidedBy rdf:resource="#user2"/>
+  <isProvidedBy rdf:resource="#user3"/>
 </HealthData>
 
 <Evidence rdf:about="#evidence24">
@@ -1203,7 +1366,7 @@
 <HealthData rdf:about="#healthdata4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence25"/>
-  <isProvidedBy rdf:resource="#user2"/>
+  <isProvidedBy rdf:resource="#user3"/>
 </HealthData>
 
 <Evidence rdf:about="#evidence25">
@@ -1214,7 +1377,7 @@
 <Data rdf:about="#data2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence26"/>
-  <isProvidedBy rdf:resource="#user2"/>
+  <isProvidedBy rdf:resource="#user3"/>
 </Data>
 
 <Evidence rdf:about="#evidence26">
@@ -1225,7 +1388,7 @@
 <DataCollectionActivity rdf:about="#datacollectionactivity2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence27"/>
-  <activityIsInitiatedBy rdf:resource="#firstparty4"/>
+  <activityIsInitiatedBy rdf:resource="#firstparty3"/>
   <isAppliedTo rdf:resource="#accountdata1"/>
   <isAppliedTo rdf:resource="#trackingdata1"/>
   <isAppliedTo rdf:resource="#accountdata2"/>
@@ -1244,20 +1407,20 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">In order to use some of our apps or websites, we may ask you to enter your name, email, gender, date of birth, current weight and height, target weight, fitness level, areas for improvement, and food preferences, and ask other onboarding questions. In some of our Services, you are able to skip some of the onboarding questions by tapping on Skip or similar options.</evidenceContent>
 </Evidence>
 
-<FirstParty rdf:about="#firstparty5">
+<User rdf:about="#user4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence28"/>
-</FirstParty>
+</User>
 
 <Evidence rdf:about="#evidence28">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidenceContent>
 </Evidence>
 
-<User rdf:about="#user3">
+<FirstParty rdf:about="#firstparty4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence29"/>
-</User>
+</FirstParty>
 
 <Evidence rdf:about="#evidence29">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -1267,7 +1430,7 @@
 <PersonalData rdf:about="#personaldata1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence30"/>
-  <isProvidedBy rdf:resource="#user3"/>
+  <isProvidedBy rdf:resource="#user4"/>
 </PersonalData>
 
 <Evidence rdf:about="#evidence30">
@@ -1288,7 +1451,7 @@
 <ConsentActivity rdf:about="#consentactivity2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence32"/>
-  <activityIsInitiatedBy rdf:resource="#firstparty5"/>
+  <activityIsInitiatedBy rdf:resource="#firstparty4"/>
   <isAppliedTo rdf:resource="#personaldata1"/>
   <hasDataActivityPurpose rdf:resource="#healthmonitoring2"/>
 </ConsentActivity>
@@ -1298,7 +1461,7 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can use the relevant features of Renpho’s health equipment without creating an account. However, creating an account and sharing your personal data allows Renpho to provide you with enhanced health-related insights and Services, including providing health information and recommendations that are most relevant to you and your family, providing insights and analysis of your health tendencies, providing customized health reminders, and overall providing a more personalized, fulfilling user experience.</evidenceContent>
 </Evidence>
 
-<User rdf:about="#user4">
+<User rdf:about="#user5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence33"/>
 </User>
@@ -1308,7 +1471,7 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidenceContent>
 </Evidence>
 
-<FirstParty rdf:about="#firstparty6">
+<FirstParty rdf:about="#firstparty5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence34"/>
 </FirstParty>
@@ -1321,7 +1484,7 @@
 <AccountData rdf:about="#accountdata6">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence35"/>
-  <isProvidedBy rdf:resource="#user4"/>
+  <isProvidedBy rdf:resource="#user5"/>
 </AccountData>
 
 <Evidence rdf:about="#evidence35">
@@ -1332,7 +1495,7 @@
 <AccountData rdf:about="#accountdata7">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence36"/>
-  <isProvidedBy rdf:resource="#user4"/>
+  <isProvidedBy rdf:resource="#user5"/>
 </AccountData>
 
 <Evidence rdf:about="#evidence36">
@@ -1343,7 +1506,7 @@
 <TrackingData rdf:about="#trackingdata2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence37"/>
-  <isProvidedBy rdf:resource="#user4"/>
+  <isProvidedBy rdf:resource="#user5"/>
 </TrackingData>
 
 <Evidence rdf:about="#evidence37">
@@ -1354,7 +1517,7 @@
 <TrackingData rdf:about="#trackingdata3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence38"/>
-  <isProvidedBy rdf:resource="#user4"/>
+  <isProvidedBy rdf:resource="#user5"/>
 </TrackingData>
 
 <Evidence rdf:about="#evidence38">
@@ -1365,7 +1528,7 @@
 <TrackingData rdf:about="#trackingdata4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence39"/>
-  <isProvidedBy rdf:resource="#user4"/>
+  <isProvidedBy rdf:resource="#user5"/>
 </TrackingData>
 
 <Evidence rdf:about="#evidence39">
@@ -1376,7 +1539,7 @@
 <AccountData rdf:about="#accountdata8">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence40"/>
-  <isProvidedBy rdf:resource="#user4"/>
+  <isProvidedBy rdf:resource="#user5"/>
 </AccountData>
 
 <Evidence rdf:about="#evidence40">
@@ -1387,7 +1550,7 @@
 <AccountData rdf:about="#accountdata9">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence41"/>
-  <isProvidedBy rdf:resource="#user4"/>
+  <isProvidedBy rdf:resource="#user5"/>
 </AccountData>
 
 <Evidence rdf:about="#evidence41">
@@ -1398,7 +1561,7 @@
 <AccountData rdf:about="#accountdata10">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence42"/>
-  <isProvidedBy rdf:resource="#user4"/>
+  <isProvidedBy rdf:resource="#user5"/>
 </AccountData>
 
 <Evidence rdf:about="#evidence42">
@@ -1409,7 +1572,7 @@
 <AccountData rdf:about="#accountdata11">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence43"/>
-  <isProvidedBy rdf:resource="#user4"/>
+  <isProvidedBy rdf:resource="#user5"/>
 </AccountData>
 
 <Evidence rdf:about="#evidence43">
@@ -1420,7 +1583,7 @@
 <AccountData rdf:about="#accountdata12">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence44"/>
-  <isProvidedBy rdf:resource="#user4"/>
+  <isProvidedBy rdf:resource="#user5"/>
 </AccountData>
 
 <Evidence rdf:about="#evidence44">
@@ -1431,7 +1594,7 @@
 <Data rdf:about="#data3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence45"/>
-  <isProvidedBy rdf:resource="#user4"/>
+  <isProvidedBy rdf:resource="#user5"/>
 </Data>
 
 <Evidence rdf:about="#evidence45">
@@ -1442,7 +1605,7 @@
 <DataCollectionActivity rdf:about="#datacollectionactivity3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence46"/>
-  <activityIsInitiatedBy rdf:resource="#firstparty6"/>
+  <activityIsInitiatedBy rdf:resource="#firstparty5"/>
   <isAppliedTo rdf:resource="#accountdata6"/>
   <isAppliedTo rdf:resource="#accountdata7"/>
   <isAppliedTo rdf:resource="#trackingdata2"/>
@@ -1461,7 +1624,7 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Contact, account, and communications information: such as name, consignee information, address, email address, phone number, gender, date of birth, personal description and photograph or avatar, social media handle and profile photograph or avatar, the content of reviews or comments, complaints, inquiries, or messages to us, and any information friends or family share with us about you, such as if they refer you to Renpho.</evidenceContent>
 </Evidence>
 
-<User rdf:about="#user5">
+<User rdf:about="#user6">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence47"/>
 </User>
@@ -1471,7 +1634,7 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidenceContent>
 </Evidence>
 
-<FirstParty rdf:about="#firstparty7">
+<FirstParty rdf:about="#firstparty6">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence48"/>
 </FirstParty>
@@ -1484,7 +1647,7 @@
 <AccountData rdf:about="#accountdata13">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence49"/>
-  <isProvidedBy rdf:resource="#user5"/>
+  <isProvidedBy rdf:resource="#user6"/>
 </AccountData>
 
 <Evidence rdf:about="#evidence49">
@@ -1495,7 +1658,7 @@
 <AccountData rdf:about="#accountdata14">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence50"/>
-  <isProvidedBy rdf:resource="#user5"/>
+  <isProvidedBy rdf:resource="#user6"/>
 </AccountData>
 
 <Evidence rdf:about="#evidence50">
@@ -1506,7 +1669,7 @@
 <TrackingData rdf:about="#trackingdata5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence51"/>
-  <isProvidedBy rdf:resource="#user5"/>
+  <isProvidedBy rdf:resource="#user6"/>
 </TrackingData>
 
 <Evidence rdf:about="#evidence51">
@@ -1517,7 +1680,7 @@
 <TrackingData rdf:about="#trackingdata6">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence52"/>
-  <isProvidedBy rdf:resource="#user5"/>
+  <isProvidedBy rdf:resource="#user6"/>
 </TrackingData>
 
 <Evidence rdf:about="#evidence52">
@@ -1528,7 +1691,7 @@
 <TrackingData rdf:about="#trackingdata7">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence53"/>
-  <isProvidedBy rdf:resource="#user5"/>
+  <isProvidedBy rdf:resource="#user6"/>
 </TrackingData>
 
 <Evidence rdf:about="#evidence53">
@@ -1539,7 +1702,7 @@
 <AccountData rdf:about="#accountdata15">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence54"/>
-  <isProvidedBy rdf:resource="#user5"/>
+  <isProvidedBy rdf:resource="#user6"/>
 </AccountData>
 
 <Evidence rdf:about="#evidence54">
@@ -1550,7 +1713,7 @@
 <AccountData rdf:about="#accountdata16">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence55"/>
-  <isProvidedBy rdf:resource="#user5"/>
+  <isProvidedBy rdf:resource="#user6"/>
 </AccountData>
 
 <Evidence rdf:about="#evidence55">
@@ -1561,7 +1724,7 @@
 <AccountData rdf:about="#accountdata17">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence56"/>
-  <isProvidedBy rdf:resource="#user5"/>
+  <isProvidedBy rdf:resource="#user6"/>
 </AccountData>
 
 <Evidence rdf:about="#evidence56">
@@ -1572,7 +1735,7 @@
 <AccountData rdf:about="#accountdata18">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence57"/>
-  <isProvidedBy rdf:resource="#user5"/>
+  <isProvidedBy rdf:resource="#user6"/>
 </AccountData>
 
 <Evidence rdf:about="#evidence57">
@@ -1583,7 +1746,7 @@
 <AccountData rdf:about="#accountdata19">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence58"/>
-  <isProvidedBy rdf:resource="#user5"/>
+  <isProvidedBy rdf:resource="#user6"/>
 </AccountData>
 
 <Evidence rdf:about="#evidence58">
@@ -1594,7 +1757,7 @@
 <Data rdf:about="#data4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence59"/>
-  <isProvidedBy rdf:resource="#user5"/>
+  <isProvidedBy rdf:resource="#user6"/>
 </Data>
 
 <Evidence rdf:about="#evidence59">
@@ -1605,7 +1768,7 @@
 <DataCollectionActivity rdf:about="#datacollectionactivity4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence60"/>
-  <activityIsInitiatedBy rdf:resource="#firstparty7"/>
+  <activityIsInitiatedBy rdf:resource="#firstparty6"/>
   <isAppliedTo rdf:resource="#accountdata13"/>
   <isAppliedTo rdf:resource="#accountdata14"/>
   <isAppliedTo rdf:resource="#trackingdata5"/>
@@ -1624,7 +1787,7 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Contact, account, and communications information: such as name, consignee information, address, email address, phone number, gender, date of birth, personal description and photograph or avatar, social media handle and profile photograph or avatar, the content of reviews or comments, complaints, inquiries, or messages to us, and any information friends or family share with us about you, such as if they refer you to Renpho.</evidenceContent>
 </Evidence>
 
-<User rdf:about="#user6">
+<User rdf:about="#user7">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence61"/>
 </User>
@@ -1634,7 +1797,7 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidenceContent>
 </Evidence>
 
-<FirstParty rdf:about="#firstparty8">
+<FirstParty rdf:about="#firstparty7">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence62"/>
 </FirstParty>
@@ -1647,7 +1810,7 @@
 <TrackingData rdf:about="#trackingdata8">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence63"/>
-  <isProvidedBy rdf:resource="#user6"/>
+  <isProvidedBy rdf:resource="#user7"/>
 </TrackingData>
 
 <Evidence rdf:about="#evidence63">
@@ -1658,7 +1821,7 @@
 <DeviceData rdf:about="#devicedata1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence64"/>
-  <isProvidedBy rdf:resource="#user6"/>
+  <isProvidedBy rdf:resource="#user7"/>
 </DeviceData>
 
 <Evidence rdf:about="#evidence64">
@@ -1669,7 +1832,7 @@
 <DeviceData rdf:about="#devicedata2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence65"/>
-  <isProvidedBy rdf:resource="#user6"/>
+  <isProvidedBy rdf:resource="#user7"/>
 </DeviceData>
 
 <Evidence rdf:about="#evidence65">
@@ -1680,7 +1843,7 @@
 <DeviceData rdf:about="#devicedata3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence66"/>
-  <isProvidedBy rdf:resource="#user6"/>
+  <isProvidedBy rdf:resource="#user7"/>
 </DeviceData>
 
 <Evidence rdf:about="#evidence66">
@@ -1691,7 +1854,7 @@
 <DeviceData rdf:about="#devicedata4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence67"/>
-  <isProvidedBy rdf:resource="#user6"/>
+  <isProvidedBy rdf:resource="#user7"/>
 </DeviceData>
 
 <Evidence rdf:about="#evidence67">
@@ -1702,7 +1865,7 @@
 <DeviceData rdf:about="#devicedata5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence68"/>
-  <isProvidedBy rdf:resource="#user6"/>
+  <isProvidedBy rdf:resource="#user7"/>
 </DeviceData>
 
 <Evidence rdf:about="#evidence68">
@@ -1713,7 +1876,7 @@
 <AppData rdf:about="#appdata1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence69"/>
-  <isProvidedBy rdf:resource="#user6"/>
+  <isProvidedBy rdf:resource="#user7"/>
 </AppData>
 
 <Evidence rdf:about="#evidence69">
@@ -1724,7 +1887,7 @@
 <AppData rdf:about="#appdata2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence70"/>
-  <isProvidedBy rdf:resource="#user6"/>
+  <isProvidedBy rdf:resource="#user7"/>
 </AppData>
 
 <Evidence rdf:about="#evidence70">
@@ -1735,7 +1898,7 @@
 <AppData rdf:about="#appdata3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence71"/>
-  <isProvidedBy rdf:resource="#user6"/>
+  <isProvidedBy rdf:resource="#user7"/>
 </AppData>
 
 <Evidence rdf:about="#evidence71">
@@ -1746,7 +1909,7 @@
 <TrackingData rdf:about="#trackingdata9">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence72"/>
-  <isProvidedBy rdf:resource="#user6"/>
+  <isProvidedBy rdf:resource="#user7"/>
 </TrackingData>
 
 <Evidence rdf:about="#evidence72">
@@ -1757,7 +1920,7 @@
 <TrackingData rdf:about="#trackingdata10">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence73"/>
-  <isProvidedBy rdf:resource="#user6"/>
+  <isProvidedBy rdf:resource="#user7"/>
 </TrackingData>
 
 <Evidence rdf:about="#evidence73">
@@ -1768,7 +1931,7 @@
 <TrackingData rdf:about="#trackingdata11">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence74"/>
-  <isProvidedBy rdf:resource="#user6"/>
+  <isProvidedBy rdf:resource="#user7"/>
 </TrackingData>
 
 <Evidence rdf:about="#evidence74">
@@ -1779,7 +1942,7 @@
 <ServiceData rdf:about="#servicedata1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence75"/>
-  <isProvidedBy rdf:resource="#user6"/>
+  <isProvidedBy rdf:resource="#user7"/>
 </ServiceData>
 
 <Evidence rdf:about="#evidence75">
@@ -1790,7 +1953,7 @@
 <ServiceData rdf:about="#servicedata2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence76"/>
-  <isProvidedBy rdf:resource="#user6"/>
+  <isProvidedBy rdf:resource="#user7"/>
 </ServiceData>
 
 <Evidence rdf:about="#evidence76">
@@ -1801,7 +1964,7 @@
 <ServiceData rdf:about="#servicedata3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence77"/>
-  <isProvidedBy rdf:resource="#user6"/>
+  <isProvidedBy rdf:resource="#user7"/>
 </ServiceData>
 
 <Evidence rdf:about="#evidence77">
@@ -1812,7 +1975,7 @@
 <ServiceData rdf:about="#servicedata4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence78"/>
-  <isProvidedBy rdf:resource="#user6"/>
+  <isProvidedBy rdf:resource="#user7"/>
 </ServiceData>
 
 <Evidence rdf:about="#evidence78">
@@ -1823,7 +1986,7 @@
 <TrackingData rdf:about="#trackingdata12">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence79"/>
-  <isProvidedBy rdf:resource="#user6"/>
+  <isProvidedBy rdf:resource="#user7"/>
 </TrackingData>
 
 <Evidence rdf:about="#evidence79">
@@ -1834,7 +1997,7 @@
 <TrackingData rdf:about="#trackingdata13">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence80"/>
-  <isProvidedBy rdf:resource="#user6"/>
+  <isProvidedBy rdf:resource="#user7"/>
 </TrackingData>
 
 <Evidence rdf:about="#evidence80">
@@ -1845,7 +2008,7 @@
 <TrackingData rdf:about="#trackingdata14">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence81"/>
-  <isProvidedBy rdf:resource="#user6"/>
+  <isProvidedBy rdf:resource="#user7"/>
 </TrackingData>
 
 <Evidence rdf:about="#evidence81">
@@ -1856,7 +2019,7 @@
 <TrackingData rdf:about="#trackingdata15">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence82"/>
-  <isProvidedBy rdf:resource="#user6"/>
+  <isProvidedBy rdf:resource="#user7"/>
 </TrackingData>
 
 <Evidence rdf:about="#evidence82">
@@ -1867,7 +2030,7 @@
 <TrackingData rdf:about="#trackingdata16">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence83"/>
-  <isProvidedBy rdf:resource="#user6"/>
+  <isProvidedBy rdf:resource="#user7"/>
 </TrackingData>
 
 <Evidence rdf:about="#evidence83">
@@ -1878,7 +2041,7 @@
 <TrackingData rdf:about="#trackingdata17">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence84"/>
-  <isProvidedBy rdf:resource="#user6"/>
+  <isProvidedBy rdf:resource="#user7"/>
 </TrackingData>
 
 <Evidence rdf:about="#evidence84">
@@ -1939,7 +2102,7 @@
 <DataCollectionActivity rdf:about="#datacollectionactivity5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence90"/>
-  <activityIsInitiatedBy rdf:resource="#firstparty8"/>
+  <activityIsInitiatedBy rdf:resource="#firstparty7"/>
   <isAppliedTo rdf:resource="#trackingdata8"/>
   <isAppliedTo rdf:resource="#devicedata1"/>
   <isAppliedTo rdf:resource="#devicedata2"/>
@@ -1972,6 +2135,1266 @@
 <Evidence rdf:about="#evidence90">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Browsing information: such as IP address, MAC address, hardware ID, IDFA, and AAID; unique identifiers associated with your device including device settings (e.g., language and time zone settings); your operating system, browser type, internet service provider,  mobile carrier, and network type and signals; debugging information, pages and content that you visit on the Services, what you click on, the state and country from which you access the Services, date and time of your visit, the number of times you return to the Services, web pages you linked to our Services from, and other clickstream data. Our Services and your interactions with the Services, including through the use of cookies and other tracking technologies explained further below.</evidenceContent>
+</Evidence>
+
+<User rdf:about="#user8">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence91"/>
+</User>
+
+<Evidence rdf:about="#evidence91">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidenceContent>
+</Evidence>
+
+<AccountData rdf:about="#accountdata20">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence92"/>
+  <isProvidedBy rdf:resource="#user8"/>
+</AccountData>
+
+<Evidence rdf:about="#evidence92">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">name</evidenceContent>
+</Evidence>
+
+<FinancialData rdf:about="#financialdata1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence93"/>
+  <isProvidedBy rdf:resource="#user8"/>
+</FinancialData>
+
+<Evidence rdf:about="#evidence93">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">card issuer and card type</evidenceContent>
+</Evidence>
+
+<FinancialData rdf:about="#financialdata2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence94"/>
+  <isProvidedBy rdf:resource="#user8"/>
+</FinancialData>
+
+<Evidence rdf:about="#evidence94">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">credit or debit card number</evidenceContent>
+</Evidence>
+
+<FinancialData rdf:about="#financialdata3">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence95"/>
+  <isProvidedBy rdf:resource="#user8"/>
+</FinancialData>
+
+<Evidence rdf:about="#evidence95">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CVV code</evidenceContent>
+</Evidence>
+
+<FinancialData rdf:about="#financialdata4">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence96"/>
+  <isProvidedBy rdf:resource="#user8"/>
+</FinancialData>
+
+<Evidence rdf:about="#evidence96">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">and billing address.</evidenceContent>
+</Evidence>
+
+<FinancialData rdf:about="#financialdata5">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence97"/>
+  <isProvidedBy rdf:resource="#user8"/>
+</FinancialData>
+
+<Evidence rdf:about="#evidence97">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">expiration date</evidenceContent>
+</Evidence>
+
+<FirstParty rdf:about="#firstparty8">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence98"/>
+</FirstParty>
+
+<Evidence rdf:about="#evidence98">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">From our customers and their payment card issuers.</evidenceContent>
+</Evidence>
+
+<LegalBasis rdf:about="#legalbasis2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence99"/>
+</LegalBasis>
+
+<Evidence rdf:about="#evidence99">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Authorizing of credit card and other financial transactions.</evidenceContent>
+</Evidence>
+
+<DataCollectionActivity rdf:about="#datacollectionactivity6">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence100"/>
+  <activityIsInitiatedBy rdf:resource="#firstparty8"/>
+  <isAppliedTo rdf:resource="#accountdata20"/>
+  <isAppliedTo rdf:resource="#financialdata1"/>
+  <isAppliedTo rdf:resource="#financialdata2"/>
+  <isAppliedTo rdf:resource="#financialdata3"/>
+  <isAppliedTo rdf:resource="#financialdata4"/>
+  <isAppliedTo rdf:resource="#financialdata5"/>
+  <hasLegalBasis rdf:resource="#legalbasis2"/>
+</DataCollectionActivity>
+
+<Evidence rdf:about="#evidence100">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Payment information: name, card issuer and card type, credit or debit card number, expiration date, CVV code, and billing address. From our customers and their payment card issuers. Authorizing of credit card and other financial transactions.</evidenceContent>
+</Evidence>
+
+<ThirdParties rdf:about="#thirdparties1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence101"/>
+</ThirdParties>
+
+<Evidence rdf:about="#evidence101">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Our third-party service providers who process payments for us.</evidenceContent>
+</Evidence>
+
+<LegalBasis rdf:about="#legalbasis3">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence102"/>
+</LegalBasis>
+
+<Evidence rdf:about="#evidence102">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Authorizing of credit card and other financial transactions.</evidenceContent>
+</Evidence>
+
+<LegalBasis rdf:about="#legalbasis4">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence103"/>
+</LegalBasis>
+
+<Evidence rdf:about="#evidence103">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">In addition to the requirements noted above that Renpho places on third parties, third-party service providers who process payments are contractually and by law required to comply with the Payment Card Industry Data Security standards.</evidenceContent>
+</Evidence>
+
+<DataSharingActivity rdf:about="#datasharingactivity1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence104"/>
+  <activityIsInitiatedBy rdf:resource="#firstparty8"/>
+  <sharesDataWithAgent rdf:resource="#thirdparties1"/>
+  <isAppliedTo rdf:resource="#accountdata20"/>
+  <isAppliedTo rdf:resource="#financialdata1"/>
+  <isAppliedTo rdf:resource="#financialdata2"/>
+  <isAppliedTo rdf:resource="#financialdata3"/>
+  <isAppliedTo rdf:resource="#financialdata4"/>
+  <isAppliedTo rdf:resource="#financialdata5"/>
+  <hasLegalBasis rdf:resource="#legalbasis3"/>
+  <hasLegalBasis rdf:resource="#legalbasis4"/>
+</DataSharingActivity>
+
+<Evidence rdf:about="#evidence104">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Our third-party service providers who process payments for us. In addition to the requirements noted above that Renpho places on third parties, third-party service providers who process payments are contractually and by law required to comply with the Payment Card Industry Data Security standards.</evidenceContent>
+</Evidence>
+
+<User rdf:about="#user9">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence105"/>
+</User>
+
+<Evidence rdf:about="#evidence105">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidenceContent>
+</Evidence>
+
+<FirstParty rdf:about="#firstparty9">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence106"/>
+</FirstParty>
+
+<Evidence rdf:about="#evidence106">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata5">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence107"/>
+  <isProvidedBy rdf:resource="#user9"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence107">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">exercise</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata6">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence108"/>
+  <isProvidedBy rdf:resource="#user9"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence108">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">activity</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata7">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence109"/>
+  <isProvidedBy rdf:resource="#user9"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence109">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sleep</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata8">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence110"/>
+  <isProvidedBy rdf:resource="#user9"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence110">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">health data</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata9">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence111"/>
+  <isProvidedBy rdf:resource="#user9"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence111">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">number of steps taken</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata10">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence112"/>
+  <isProvidedBy rdf:resource="#user9"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence112">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">distance traveled</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata11">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence113"/>
+  <isProvidedBy rdf:resource="#user9"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence113">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">calories burned</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata12">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence114"/>
+  <isProvidedBy rdf:resource="#user9"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence114">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">active minutes</evidenceContent>
+</Evidence>
+
+<AccountData rdf:about="#accountdata21">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence115"/>
+  <isProvidedBy rdf:resource="#user9"/>
+</AccountData>
+
+<Evidence rdf:about="#evidence115">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">weight</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata13">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence116"/>
+  <isProvidedBy rdf:resource="#user9"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence116">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">heart rate</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata14">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence117"/>
+  <isProvidedBy rdf:resource="#user9"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence117">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">blood pressure</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata15">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence118"/>
+  <isProvidedBy rdf:resource="#user9"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence118">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">female health data</evidenceContent>
+</Evidence>
+
+<ServiceData rdf:about="#servicedata5">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence119"/>
+  <isProvidedBy rdf:resource="#user9"/>
+</ServiceData>
+
+<Evidence rdf:about="#evidence119">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Live Coaching Services data</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose6">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence120"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence120">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To provide personalized health-related Services and interest-based advertising.</evidenceContent>
+</Evidence>
+
+<DataCollectionActivity rdf:about="#datacollectionactivity7">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence121"/>
+  <activityIsInitiatedBy rdf:resource="#firstparty9"/>
+  <isAppliedTo rdf:resource="#healthdata5"/>
+  <isAppliedTo rdf:resource="#healthdata6"/>
+  <isAppliedTo rdf:resource="#healthdata7"/>
+  <isAppliedTo rdf:resource="#healthdata8"/>
+  <isAppliedTo rdf:resource="#healthdata9"/>
+  <isAppliedTo rdf:resource="#healthdata10"/>
+  <isAppliedTo rdf:resource="#healthdata11"/>
+  <isAppliedTo rdf:resource="#healthdata12"/>
+  <isAppliedTo rdf:resource="#accountdata21"/>
+  <isAppliedTo rdf:resource="#healthdata13"/>
+  <isAppliedTo rdf:resource="#healthdata14"/>
+  <isAppliedTo rdf:resource="#healthdata15"/>
+  <isAppliedTo rdf:resource="#servicedata5"/>
+  <hasDataActivityPurpose rdf:resource="#dataactivitypurpose6"/>
+</DataCollectionActivity>
+
+<Evidence rdf:about="#evidence121">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Biometric information: such as your exercise, activity, sleep, or health data, including the number of steps taken, distance traveled, calories burned, active minutes, weight, heart rate, blood pressure, female health data, Live Coaching Services data, and any similar information to which you grant us access from another service. See the biometric data you may provide through specific Renpho products below. From our customers when they sync their products to an account with Renpho. To provide personalized health-related Services and interest-based advertising. Our third-party service providers, partners, and affiliates who support the functionality of, and syncing with, the health-related Services.</evidenceContent>
+</Evidence>
+
+<User rdf:about="#user10">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence122"/>
+</User>
+
+<Evidence rdf:about="#evidence122">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidenceContent>
+</Evidence>
+
+<FirstParty rdf:about="#firstparty10">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence123"/>
+</FirstParty>
+
+<Evidence rdf:about="#evidence123">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidenceContent>
+</Evidence>
+
+<CrimeData rdf:about="#crimedata1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence124"/>
+  <isProvidedBy rdf:resource="#user10"/>
+</CrimeData>
+
+<Evidence rdf:about="#evidence124">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">details about any accident, injury, or health incident</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose7">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence125"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence125">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To get you the help you need and deal with the emergency services or insurance and claims.</evidenceContent>
+</Evidence>
+
+<LegalBasis rdf:about="#legalbasis5">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence126"/>
+</LegalBasis>
+
+<Evidence rdf:about="#evidence126">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Law enforcement and other governmental authorities in accordance with applicable law, and our professional advisors.</evidenceContent>
+</Evidence>
+
+<DataCollectionActivity rdf:about="#datacollectionactivity8">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence127"/>
+  <activityIsInitiatedBy rdf:resource="#firstparty10"/>
+  <isAppliedTo rdf:resource="#crimedata1"/>
+  <hasDataActivityPurpose rdf:resource="#dataactivitypurpose7"/>
+  <hasLegalBasis rdf:resource="#legalbasis5"/>
+</DataCollectionActivity>
+
+<Evidence rdf:about="#evidence127">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Accident information: details about any accident, injury, or health incident regarding our products. From you, witnesses, or those who have observed you. To get you the help you need and deal with the emergency services or insurance and claims. Law enforcement and other governmental authorities in accordance with applicable law, and our professional advisors.</evidenceContent>
+</Evidence>
+
+<User rdf:about="#user11">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence128"/>
+</User>
+
+<Evidence rdf:about="#evidence128">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidenceContent>
+</Evidence>
+
+<FirstParty rdf:about="#firstparty11">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence129"/>
+</FirstParty>
+
+<Evidence rdf:about="#evidence129">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidenceContent>
+</Evidence>
+
+<BiometricData rdf:about="#biometricdata1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence130"/>
+  <isProvidedBy rdf:resource="#user11"/>
+</BiometricData>
+
+<Evidence rdf:about="#evidence130">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">details of your identity</evidenceContent>
+</Evidence>
+
+<BiometricData rdf:about="#biometricdata2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence131"/>
+  <isProvidedBy rdf:resource="#user11"/>
+</BiometricData>
+
+<Evidence rdf:about="#evidence131">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">image</evidenceContent>
+</Evidence>
+
+<AccountData rdf:about="#accountdata22">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence132"/>
+  <isProvidedBy rdf:resource="#user11"/>
+</AccountData>
+
+<Evidence rdf:about="#evidence132">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">name</evidenceContent>
+</Evidence>
+
+<TrackingData rdf:about="#trackingdata18">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence133"/>
+  <isProvidedBy rdf:resource="#user11"/>
+</TrackingData>
+
+<Evidence rdf:about="#evidence133">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">address</evidenceContent>
+</Evidence>
+
+<CrimeData rdf:about="#crimedata2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence134"/>
+  <isProvidedBy rdf:resource="#user11"/>
+</CrimeData>
+
+<Evidence rdf:about="#evidence134">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">suspected or alleged thefts</evidenceContent>
+</Evidence>
+
+<CrimeData rdf:about="#crimedata3">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence135"/>
+  <isProvidedBy rdf:resource="#user11"/>
+</CrimeData>
+
+<Evidence rdf:about="#evidence135">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fraud</evidenceContent>
+</Evidence>
+
+<CrimeData rdf:about="#crimedata4">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence136"/>
+  <isProvidedBy rdf:resource="#user11"/>
+</CrimeData>
+
+<Evidence rdf:about="#evidence136">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">assault</evidenceContent>
+</Evidence>
+
+<CrimeData rdf:about="#crimedata5">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence137"/>
+  <isProvidedBy rdf:resource="#user11"/>
+</CrimeData>
+
+<Evidence rdf:about="#evidence137">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">other criminal behavior</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose8">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence138"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence138">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To protect customers, the public, and our business against risks and crime.</evidenceContent>
+</Evidence>
+
+<LegalBasis rdf:about="#legalbasis6">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence139"/>
+</LegalBasis>
+
+<Evidence rdf:about="#evidence139">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Law enforcement and other governmental authorities in accordance with applicable law, and our professional advisors.</evidenceContent>
+</Evidence>
+
+<DataCollectionActivity rdf:about="#datacollectionactivity9">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence140"/>
+  <activityIsInitiatedBy rdf:resource="#firstparty11"/>
+  <isAppliedTo rdf:resource="#biometricdata1"/>
+  <isAppliedTo rdf:resource="#biometricdata2"/>
+  <isAppliedTo rdf:resource="#accountdata22"/>
+  <isAppliedTo rdf:resource="#trackingdata18"/>
+  <isAppliedTo rdf:resource="#crimedata2"/>
+  <isAppliedTo rdf:resource="#crimedata3"/>
+  <isAppliedTo rdf:resource="#crimedata4"/>
+  <isAppliedTo rdf:resource="#crimedata5"/>
+  <hasDataActivityPurpose rdf:resource="#dataactivitypurpose8"/>
+  <hasLegalBasis rdf:resource="#legalbasis6"/>
+</DataCollectionActivity>
+
+<Evidence rdf:about="#evidence140">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Suspected crime information: details of your identity, image, name and address, suspected or alleged thefts, fraud, assault or other criminal behavior. From crime and fraud prevention agencies, from you, witnesses, and from the police. To protect customers, the public, and our business against risks and crime. Law enforcement and other governmental authorities in accordance with applicable law, and our professional advisors.</evidenceContent>
+</Evidence>
+
+<User rdf:about="#user12">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence141"/>
+</User>
+
+<Evidence rdf:about="#evidence141">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidenceContent>
+</Evidence>
+
+<FirstParty rdf:about="#firstparty12">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence142"/>
+</FirstParty>
+
+<Evidence rdf:about="#evidence142">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidenceContent>
+</Evidence>
+
+<TrackingData rdf:about="#trackingdata19">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence143"/>
+  <isProvidedBy rdf:resource="#user12"/>
+</TrackingData>
+
+<Evidence rdf:about="#evidence143">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">location of device</evidenceContent>
+</Evidence>
+
+<TrackingData rdf:about="#trackingdata20">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence144"/>
+  <isProvidedBy rdf:resource="#user12"/>
+</TrackingData>
+
+<Evidence rdf:about="#evidence144">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">location of the user accessing our website(s) or mobile app(s).</evidenceContent>
+</Evidence>
+
+<DataActivityPurpose rdf:about="#dataactivitypurpose9">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence145"/>
+</DataActivityPurpose>
+
+<Evidence rdf:about="#evidence145">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To enable scanning of our Bluetooth equipped products</evidenceContent>
+</Evidence>
+
+<DataRetentionTime rdf:about="#dataretentiontime1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence146"/>
+</DataRetentionTime>
+
+<Evidence rdf:about="#evidence146">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to obtain weather information.</evidenceContent>
+</Evidence>
+
+<DataCollectionActivity rdf:about="#datacollectionactivity10">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence147"/>
+  <activityIsInitiatedBy rdf:resource="#firstparty12"/>
+  <isAppliedTo rdf:resource="#trackingdata19"/>
+  <isAppliedTo rdf:resource="#trackingdata20"/>
+  <hasDataActivityPurpose rdf:resource="#dataactivitypurpose9"/>
+  <hasDataRetentionTime rdf:resource="#dataretentiontime1"/>
+</DataCollectionActivity>
+
+<Evidence rdf:about="#evidence147">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">location information: location of device, location of the user accessing our website(s) or mobile app(s). From mobile device system. To enable scanning of our Bluetooth equipped products, and to obtain weather information.</evidenceContent>
+</Evidence>
+
+<User rdf:about="#user13">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence148"/>
+</User>
+
+<Evidence rdf:about="#evidence148">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidenceContent>
+</Evidence>
+
+<FirstParty rdf:about="#firstparty13">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence149"/>
+</FirstParty>
+
+<Evidence rdf:about="#evidence149">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidenceContent>
+</Evidence>
+
+<AccountData rdf:about="#accountdata23">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence150"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</AccountData>
+
+<Evidence rdf:about="#evidence150">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">weight</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata16">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence151"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence151">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">BMI</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata17">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence152"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence152">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">body fat</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata18">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence153"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence153">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fat-free body weight</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata19">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence154"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence154">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">subcutaneous fat</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata20">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence155"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence155">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">visceral fat</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata21">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence156"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence156">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">body water</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata22">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence157"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence157">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">skeletal muscle</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata23">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence158"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence158">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">muscle mass</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata24">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence159"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence159">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bone mass</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata25">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence160"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence160">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">protein</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata26">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence161"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence161">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">BMR</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata27">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence162"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence162">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">metabolic age</evidenceContent>
+</Evidence>
+
+<AccountData rdf:about="#accountdata24">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence163"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</AccountData>
+
+<Evidence rdf:about="#evidence163">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">weight</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata28">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence164"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence164">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">calories</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata29">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence165"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence165">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">protein</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata30">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence166"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence166">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">total fat</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata31">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence167"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence167">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cholesterol</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata32">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence168"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence168">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sodium</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata33">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence169"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence169">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">total carbohydrate</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata34">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence170"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence170">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dietary fiber</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata35">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence171"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence171">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">total sugars</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata36">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence172"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence172">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">levels of vitamin D (D2+D3), vitamin A, vitamin E, vitamin C, vitamin B6, vitamin B12, calcium, iron, potassium, magnesium, manganese, zinc, copper, phosphorus, selenium, retinol equivalent, and niacin;</evidenceContent>
+</Evidence>
+
+<AccountData rdf:about="#accountdata25">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence173"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</AccountData>
+
+<Evidence rdf:about="#evidence173">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">neck</evidenceContent>
+</Evidence>
+
+<AccountData rdf:about="#accountdata26">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence174"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</AccountData>
+
+<Evidence rdf:about="#evidence174">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">shoulder</evidenceContent>
+</Evidence>
+
+<AccountData rdf:about="#accountdata27">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence175"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</AccountData>
+
+<Evidence rdf:about="#evidence175">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bust</evidenceContent>
+</Evidence>
+
+<AccountData rdf:about="#accountdata28">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence176"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</AccountData>
+
+<Evidence rdf:about="#evidence176">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">waist</evidenceContent>
+</Evidence>
+
+<AccountData rdf:about="#accountdata29">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence177"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</AccountData>
+
+<Evidence rdf:about="#evidence177">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">abdomen</evidenceContent>
+</Evidence>
+
+<AccountData rdf:about="#accountdata30">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence178"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</AccountData>
+
+<Evidence rdf:about="#evidence178">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hip</evidenceContent>
+</Evidence>
+
+<AccountData rdf:about="#accountdata31">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence179"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</AccountData>
+
+<Evidence rdf:about="#evidence179">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">biceps</evidenceContent>
+</Evidence>
+
+<AccountData rdf:about="#accountdata32">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence180"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</AccountData>
+
+<Evidence rdf:about="#evidence180">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">thigh</evidenceContent>
+</Evidence>
+
+<AccountData rdf:about="#accountdata33">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence181"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</AccountData>
+
+<Evidence rdf:about="#evidence181">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">calf measurements</evidenceContent>
+</Evidence>
+
+<AccountData rdf:about="#accountdata34">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence182"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</AccountData>
+
+<Evidence rdf:about="#evidence182">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">waist-hip ratios</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata37">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence183"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence183">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SYS</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata38">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence184"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence184">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DIA</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata39">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence185"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence185">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">BPM</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata40">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence186"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence186">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">exercise duration</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata41">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence187"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence187">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">distance</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata42">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence188"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence188">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">calories</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata43">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence189"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence189">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">power</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata44">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence190"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence190">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cadence</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata45">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence191"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence191">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">resistance</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata46">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence192"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence192">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">exercise duration</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata47">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence193"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence193">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">calories</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata48">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence194"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence194">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">average jump speed</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata49">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence195"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence195">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">number of jumps</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata50">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence196"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence196">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">number of tangles</evidenceContent>
+</Evidence>
+
+<HealthData rdf:about="#healthdata51">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence197"/>
+  <isProvidedBy rdf:resource="#user13"/>
+</HealthData>
+
+<Evidence rdf:about="#evidence197">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">maximum consecutive jumps</evidenceContent>
+</Evidence>
+
+<DataCollectionActivity rdf:about="#datacollectionactivity11">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasEvidence rdf:resource="#evidence198"/>
+  <activityIsInitiatedBy rdf:resource="#firstparty13"/>
+  <isAppliedTo rdf:resource="#accountdata23"/>
+  <isAppliedTo rdf:resource="#healthdata16"/>
+  <isAppliedTo rdf:resource="#healthdata17"/>
+  <isAppliedTo rdf:resource="#healthdata18"/>
+  <isAppliedTo rdf:resource="#healthdata19"/>
+  <isAppliedTo rdf:resource="#healthdata20"/>
+  <isAppliedTo rdf:resource="#healthdata21"/>
+  <isAppliedTo rdf:resource="#healthdata22"/>
+  <isAppliedTo rdf:resource="#healthdata23"/>
+  <isAppliedTo rdf:resource="#healthdata24"/>
+  <isAppliedTo rdf:resource="#healthdata25"/>
+  <isAppliedTo rdf:resource="#healthdata26"/>
+  <isAppliedTo rdf:resource="#healthdata27"/>
+  <isAppliedTo rdf:resource="#accountdata24"/>
+  <isAppliedTo rdf:resource="#healthdata28"/>
+  <isAppliedTo rdf:resource="#healthdata29"/>
+  <isAppliedTo rdf:resource="#healthdata30"/>
+  <isAppliedTo rdf:resource="#healthdata31"/>
+  <isAppliedTo rdf:resource="#healthdata32"/>
+  <isAppliedTo rdf:resource="#healthdata33"/>
+  <isAppliedTo rdf:resource="#healthdata34"/>
+  <isAppliedTo rdf:resource="#healthdata35"/>
+  <isAppliedTo rdf:resource="#healthdata36"/>
+  <isAppliedTo rdf:resource="#accountdata25"/>
+  <isAppliedTo rdf:resource="#accountdata26"/>
+  <isAppliedTo rdf:resource="#accountdata27"/>
+  <isAppliedTo rdf:resource="#accountdata28"/>
+  <isAppliedTo rdf:resource="#accountdata29"/>
+  <isAppliedTo rdf:resource="#accountdata30"/>
+  <isAppliedTo rdf:resource="#accountdata31"/>
+  <isAppliedTo rdf:resource="#accountdata32"/>
+  <isAppliedTo rdf:resource="#accountdata33"/>
+  <isAppliedTo rdf:resource="#accountdata34"/>
+  <isAppliedTo rdf:resource="#healthdata37"/>
+  <isAppliedTo rdf:resource="#healthdata38"/>
+  <isAppliedTo rdf:resource="#healthdata39"/>
+  <isAppliedTo rdf:resource="#healthdata40"/>
+  <isAppliedTo rdf:resource="#healthdata41"/>
+  <isAppliedTo rdf:resource="#healthdata42"/>
+  <isAppliedTo rdf:resource="#healthdata43"/>
+  <isAppliedTo rdf:resource="#healthdata44"/>
+  <isAppliedTo rdf:resource="#healthdata45"/>
+  <isAppliedTo rdf:resource="#healthdata46"/>
+  <isAppliedTo rdf:resource="#healthdata47"/>
+  <isAppliedTo rdf:resource="#healthdata48"/>
+  <isAppliedTo rdf:resource="#healthdata49"/>
+  <isAppliedTo rdf:resource="#healthdata50"/>
+  <isAppliedTo rdf:resource="#healthdata51"/>
+</DataCollectionActivity>
+
+<Evidence rdf:about="#evidence198">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Through smart body scales: weight, BMI, body fat, fat-free body weight, subcutaneous fat, visceral fat, body water, skeletal muscle, muscle mass, bone mass, protein, BMR, and metabolic age; Through food scales: weight, calories, protein, total fat, cholesterol, sodium, total carbohydrate, dietary fiber, total sugars, and levels of vitamin D (D2+D3), vitamin A, vitamin E, vitamin C, vitamin B6, vitamin B12, calcium, iron, potassium, magnesium, manganese, zinc, copper, phosphorus, selenium, retinol equivalent, and niacin; Through smart measuring tapes: neck, shoulder, bust, waist, abdomen, hip, biceps, thigh, and calf measurements, and waist-hip ratios; Through blood pressure cuffs: SYS, DIA, and BPM; Through AI bikes: exercise duration, distance, calories, power, cadence, and resistance; and Through smart jump ropes: exercise duration, calories, average jump speed, number of jumps, number of tangles, and maximum consecutive jumps.</evidenceContent>
 </Evidence>
 
 

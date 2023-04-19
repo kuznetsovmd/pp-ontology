@@ -383,6 +383,7 @@ def process_caresense():
 
 
     o.individual(
+        
         'DataSharingActivity',
 
         'MedTrak also may be required to disclose an individual’s personal information in response to a lawful request by public authorities, including to meet national security or law enforcement requirements.',

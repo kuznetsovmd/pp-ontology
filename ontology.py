@@ -87,13 +87,13 @@ class Ontology:
             # Activities
             class Activity(Thing): pass
 
-            class BreachNotificationActivity(Activity): pass
+            class BreachActivity(Activity): pass
+
+            class ReportBreachActivity(Activity): pass
 
             class ControlActivity(Activity): pass
 
             class PolicyChangeActivity(ControlActivity): pass
-
-            class ReportBreachActivity(ControlActivity): pass
 
             class ConsentActivity(ControlActivity): pass
 
@@ -189,13 +189,13 @@ class Ontology:
             # Consequences
             class Consequence(Thing): pass
 
-            # class BreachConsequence(Consequence): pass
-            #
-            # class RemoveCompromisedInformation(BreachConsequence): pass
-            #
-            # class Compensation(BreachConsequence): pass
-            #
-            # class BreachInvestigation(BreachConsequence): pass
+            class BreachConsequence(Consequence): pass
+            
+            class RemoveCompromisedInformation(BreachConsequence): pass
+            
+            class Compensation(BreachConsequence): pass
+            
+            class BreachInvestigation(BreachConsequence): pass
 
             class PolicyChangeConsequence(Consequence): pass
 
@@ -234,7 +234,13 @@ class Ontology:
 
             class DataControlMechanism(Mechanism): pass
 
-            class DataActivityForm(DataControlMechanism): pass
+            class EmailRequest(DataControlMechanism): pass
+
+            class PhoneCallRequest(DataControlMechanism): pass
+
+            class WebsiteForm(DataControlMechanism): pass
+
+            class ServiceForm(DataControlMechanism): pass
 
             class SecurityMechanism(Mechanism): pass
 
@@ -244,7 +250,11 @@ class Ontology:
 
             class Encryption(TechnicalMeasure): pass
 
-            class OrganizationalMeasure(SecurityMechanism): pass
+            class SecureSocketLayer(TechnicalMeasure): pass
+
+            class Firewall(TechnicalMeasure): pass
+
+            class AccessControls(TechnicalMeasure): pass
 
             # Mechanism procedures
             class MechanismProcedure(Thing): pass
@@ -253,7 +263,7 @@ class Ontology:
 
             class DataSharingProcedure(MechanismProcedure): pass
 
-            class PolicyChangeNotificationProcedure(MechanismProcedure): pass
+            class NotificationProcedure(MechanismProcedure): pass
 
             # Mechanism modes
             class MechanismMode(Thing): pass
@@ -269,7 +279,7 @@ class Ontology:
 
             class BreachReportTime(TimePeriod): pass
 
-            # class BreachInvestigationTime(TimePeriod): pass
+            class BreachInvestigationTime(TimePeriod): pass
 
             class PolicyAcceptanceTime(TimePeriod): pass
 
@@ -323,13 +333,6 @@ class Ontology:
                 range = [Data]
                 inverse_property = dataIsConsideredBy
 
-            # Owns data
-            class dataIsOwnedBy(ObjectProperty): pass
-            class ownsData(ObjectProperty):
-                domain = [Agent]
-                range = [Data]
-                inverse_property = dataIsOwnedBy
-
             # Applies
             class isAppliedTo(ObjectProperty): pass
             class isInfluencedBy(ObjectProperty):
@@ -348,15 +351,15 @@ class Ontology:
 
             class breachCauseIsRelatedTo(isRelatedTo): pass
             class hasBreachCause(has):
-                domain = [BreachNotificationActivity]
+                domain = [BreachActivity]
                 range = [BreachCause]
                 inverse_property = breachCauseIsRelatedTo
 
-            # class consequenceIsRelatedTo(isRelatedTo): pass
-            # class hasBreachConsequence(has):
-            #     domain = [BreachActivity]
-            #     range = [BreachConsequence]
-            #     inverse_property = consequenceIsRelatedTo
+            class consequenceIsRelatedTo(isRelatedTo): pass
+            class hasBreachConsequence(has):
+                domain = [BreachActivity]
+                range = [BreachConsequence]
+                inverse_property = consequenceIsRelatedTo
 
             class userChoiceConsequenceIsRelatedTo(isRelatedTo): pass
             class hasUserChoiceConsequence(has):
@@ -364,23 +367,17 @@ class Ontology:
                 range = [UserChoiceConsequence]
                 inverse_property = userChoiceConsequenceIsRelatedTo
 
-            # class breachInvestigationTimeIsRelatedTo(isRelatedTo): pass
-            # class hasBreachInvestigationTime(has):
-            #     domain = [BreachInvestigation]
-            #     range = [BreachInvestigationTime]
-            #     inverse_property = breachInvestigationTimeIsRelatedTo
+            class breachInvestigationTimeIsRelatedTo(isRelatedTo): pass
+            class hasBreachInvestigationTime(has):
+                domain = [BreachInvestigation]
+                range = [BreachInvestigationTime]
+                inverse_property = breachInvestigationTimeIsRelatedTo
 
-            class breachNotificationTimeIsRelatedTo(isRelatedTo): pass
-            class hasBreachNotificationTime(has):
-                domain = [BreachNotificationActivity]
-                range = [BreachNotificationTime]
-                inverse_property = breachNotificationTimeIsRelatedTo
-
-            class hasBreachReportTime(isRelatedTo): pass
-            class breachReportTimeIsRelatedTo(has):
+            class breachReportTimeIsRelatedTo(isRelatedTo): pass
+            class hasBreachReportTime(has):
                 domain = [ReportBreachActivity]
                 range = [BreachReportTime]
-                inverse_property = hasBreachReportTime
+                inverse_property = breachReportTimeIsRelatedTo
 
             class dataActivityPurposeIsRelatedTo(isRelatedTo): pass
             class hasDataActivityPurpose(has):
@@ -426,7 +423,7 @@ class Ontology:
 
             class notificationMechanismIsRelatedTo(mechanismIsRelatedTo): pass
             class hasNotificationMechanism(hasMechanism):
-                domain = [BreachNotificationActivity, PolicyChangeActivity]
+                domain = [ReportBreachActivity | PolicyChangeActivity]
                 range = [NotificationMechanism]
                 inverse_property = notificationMechanismIsRelatedTo
 
@@ -495,6 +492,10 @@ class Ontology:
             class isInitiatedBy(ObjectProperty):
                 inverse_property = initiates
 
+            class initiatesAnotherActivity(initiates): pass
+            class isInitiatedByAnotherActivity(isInitiatedBy):
+                inverse_property = initiatesAnotherActivity
+
             class activityIsInitiatedBy(isInitiatedBy): pass
             class initiatesActivity(initiates):
                 domain = [Agent]
@@ -508,7 +509,7 @@ class Ontology:
 
             class agentIsNotifiedBy(isNotifiedBy): pass
             class notifiesAgent(notifies):
-                domain = [ReportBreachActivity]
+                domain = [ReportBreachActivity | PolicyChangeActivity]
                 range = [Agent]
                 inverse_property = agentIsNotifiedBy
 
@@ -561,5 +562,3 @@ class Ontology:
             class policyWebsite(DataProperty, FunctionalProperty):
                 domain = [PrivacyPolicy]
                 range = [str]
-
-            AllDisjoint([DataActivityPurpose, DataCollectionMechanism])
