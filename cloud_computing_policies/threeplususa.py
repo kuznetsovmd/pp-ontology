@@ -10,7 +10,7 @@ def process_3plususa(onto):
     policy_instance.policyWebsite = "https://3plususa.com"
     policy_instance.considersAgent.extend([user, first_party, third_party])
 
-    breachnotificationactivity = onto.BreachNotificationActivity()
+    breachnotificationactivity = onto.ReportBreachActivity()
     e1 = onto.Evidence("evidence1")
     e1.evidenceContent = "In order to be in line with Fair Information Practices, " \
                          "should a data breach occur, we will notify users via email " \

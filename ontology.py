@@ -256,6 +256,18 @@ class Ontology:
 
             class AccessControls(TechnicalMeasure): pass
 
+            class OrganizationalMeasure(SecurityMechanism): pass
+
+            class LockedOffice(OrganizationalMeasure): pass
+
+            class SucurityTraining(OrganizationalMeasure): pass
+
+            class UserMaintain(OrganizationalMeasure): pass
+
+            class Firewall(OrganizationalMeasure): pass
+
+            class AccessControls(OrganizationalMeasure): pass
+
             # Mechanism procedures
             class MechanismProcedure(Thing): pass
 

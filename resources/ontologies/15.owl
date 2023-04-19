@@ -52,16 +52,6 @@
   <owl:inverseOf rdf:resource="#dataIsConsideredBy"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#dataIsOwnedBy">
-  <owl:inverseOf rdf:resource="#ownsData"/>
-</owl:ObjectProperty>
-
-<owl:ObjectProperty rdf:about="#ownsData">
-  <rdfs:domain rdf:resource="#Agent"/>
-  <rdfs:range rdf:resource="#Data"/>
-  <owl:inverseOf rdf:resource="#dataIsOwnedBy"/>
-</owl:ObjectProperty>
-
 <owl:ObjectProperty rdf:about="#isAppliedTo">
   <owl:inverseOf rdf:resource="#isInfluencedBy"/>
 </owl:ObjectProperty>
@@ -97,9 +87,21 @@
 
 <owl:ObjectProperty rdf:about="#hasBreachCause">
   <rdfs:subPropertyOf rdf:resource="#has"/>
-  <rdfs:domain rdf:resource="#BreachNotificationActivity"/>
+  <rdfs:domain rdf:resource="#BreachActivity"/>
   <rdfs:range rdf:resource="#BreachCause"/>
   <owl:inverseOf rdf:resource="#breachCauseIsRelatedTo"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#consequenceIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#isRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasBreachConsequence"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasBreachConsequence">
+  <rdfs:subPropertyOf rdf:resource="#has"/>
+  <rdfs:domain rdf:resource="#BreachActivity"/>
+  <rdfs:range rdf:resource="#BreachConsequence"/>
+  <owl:inverseOf rdf:resource="#consequenceIsRelatedTo"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#userChoiceConsequenceIsRelatedTo">
@@ -114,28 +116,28 @@
   <owl:inverseOf rdf:resource="#userChoiceConsequenceIsRelatedTo"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#breachNotificationTimeIsRelatedTo">
+<owl:ObjectProperty rdf:about="#breachInvestigationTimeIsRelatedTo">
   <rdfs:subPropertyOf rdf:resource="#isRelatedTo"/>
-  <owl:inverseOf rdf:resource="#hasBreachNotificationTime"/>
+  <owl:inverseOf rdf:resource="#hasBreachInvestigationTime"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#hasBreachNotificationTime">
+<owl:ObjectProperty rdf:about="#hasBreachInvestigationTime">
   <rdfs:subPropertyOf rdf:resource="#has"/>
-  <rdfs:domain rdf:resource="#BreachNotificationActivity"/>
-  <rdfs:range rdf:resource="#BreachNotificationTime"/>
-  <owl:inverseOf rdf:resource="#breachNotificationTimeIsRelatedTo"/>
-</owl:ObjectProperty>
-
-<owl:ObjectProperty rdf:about="#hasBreachReportTime">
-  <rdfs:subPropertyOf rdf:resource="#isRelatedTo"/>
-  <owl:inverseOf rdf:resource="#breachReportTimeIsRelatedTo"/>
+  <rdfs:domain rdf:resource="#BreachInvestigation"/>
+  <rdfs:range rdf:resource="#BreachInvestigationTime"/>
+  <owl:inverseOf rdf:resource="#breachInvestigationTimeIsRelatedTo"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#breachReportTimeIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#isRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasBreachReportTime"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasBreachReportTime">
   <rdfs:subPropertyOf rdf:resource="#has"/>
   <rdfs:domain rdf:resource="#ReportBreachActivity"/>
   <rdfs:range rdf:resource="#BreachReportTime"/>
-  <owl:inverseOf rdf:resource="#hasBreachReportTime"/>
+  <owl:inverseOf rdf:resource="#breachReportTimeIsRelatedTo"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#dataActivityPurposeIsRelatedTo">
@@ -231,8 +233,14 @@
 
 <owl:ObjectProperty rdf:about="#hasNotificationMechanism">
   <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
-  <rdfs:domain rdf:resource="#BreachNotificationActivity"/>
-  <rdfs:domain rdf:resource="#PolicyChangeActivity"/>
+  <rdfs:domain>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#ReportBreachActivity"/>
+        <rdf:Description rdf:about="#PolicyChangeActivity"/>
+      </owl:unionOf>
+    </owl:Class>
+  </rdfs:domain>
   <rdfs:range rdf:resource="#NotificationMechanism"/>
   <owl:inverseOf rdf:resource="#notificationMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
@@ -365,6 +373,16 @@
   <owl:inverseOf rdf:resource="#initiates"/>
 </owl:ObjectProperty>
 
+<owl:ObjectProperty rdf:about="#initiatesAnotherActivity">
+  <rdfs:subPropertyOf rdf:resource="#initiates"/>
+  <owl:inverseOf rdf:resource="#isInitiatedByAnotherActivity"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isInitiatedByAnotherActivity">
+  <rdfs:subPropertyOf rdf:resource="#isInitiatedBy"/>
+  <owl:inverseOf rdf:resource="#initiatesAnotherActivity"/>
+</owl:ObjectProperty>
+
 <owl:ObjectProperty rdf:about="#activityIsInitiatedBy">
   <rdfs:subPropertyOf rdf:resource="#isInitiatedBy"/>
   <owl:inverseOf rdf:resource="#initiatesActivity"/>
@@ -392,7 +410,14 @@
 
 <owl:ObjectProperty rdf:about="#notifiesAgent">
   <rdfs:subPropertyOf rdf:resource="#notifies"/>
-  <rdfs:domain rdf:resource="#ReportBreachActivity"/>
+  <rdfs:domain>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#ReportBreachActivity"/>
+        <rdf:Description rdf:about="#PolicyChangeActivity"/>
+      </owl:unionOf>
+    </owl:Class>
+  </rdfs:domain>
   <rdfs:range rdf:resource="#Agent"/>
   <owl:inverseOf rdf:resource="#agentIsNotifiedBy"/>
 </owl:ObjectProperty>
@@ -489,7 +514,11 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
-<owl:Class rdf:about="#BreachNotificationActivity">
+<owl:Class rdf:about="#BreachActivity">
+  <rdfs:subClassOf rdf:resource="#Activity"/>
+</owl:Class>
+
+<owl:Class rdf:about="#ReportBreachActivity">
   <rdfs:subClassOf rdf:resource="#Activity"/>
 </owl:Class>
 
@@ -498,10 +527,6 @@
 </owl:Class>
 
 <owl:Class rdf:about="#PolicyChangeActivity">
-  <rdfs:subClassOf rdf:resource="#ControlActivity"/>
-</owl:Class>
-
-<owl:Class rdf:about="#ReportBreachActivity">
   <rdfs:subClassOf rdf:resource="#ControlActivity"/>
 </owl:Class>
 
@@ -685,6 +710,22 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
+<owl:Class rdf:about="#BreachConsequence">
+  <rdfs:subClassOf rdf:resource="#Consequence"/>
+</owl:Class>
+
+<owl:Class rdf:about="#RemoveCompromisedInformation">
+  <rdfs:subClassOf rdf:resource="#BreachConsequence"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Compensation">
+  <rdfs:subClassOf rdf:resource="#BreachConsequence"/>
+</owl:Class>
+
+<owl:Class rdf:about="#BreachInvestigation">
+  <rdfs:subClassOf rdf:resource="#BreachConsequence"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PolicyChangeConsequence">
   <rdfs:subClassOf rdf:resource="#Consequence"/>
 </owl:Class>
@@ -757,7 +798,19 @@
   <rdfs:subClassOf rdf:resource="#Mechanism"/>
 </owl:Class>
 
-<owl:Class rdf:about="#DataActivityForm">
+<owl:Class rdf:about="#EmailRequest">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#PhoneCallRequest">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#WebsiteForm">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#ServiceForm">
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
 
@@ -777,8 +830,34 @@
   <rdfs:subClassOf rdf:resource="#TechnicalMeasure"/>
 </owl:Class>
 
+<owl:Class rdf:about="#SecureSocketLayer">
+  <rdfs:subClassOf rdf:resource="#TechnicalMeasure"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Firewall">
+  <rdfs:subClassOf rdf:resource="#TechnicalMeasure"/>
+  <rdfs:subClassOf rdf:resource="#OrganizationalMeasure"/>
+</owl:Class>
+
+<owl:Class rdf:about="#AccessControls">
+  <rdfs:subClassOf rdf:resource="#TechnicalMeasure"/>
+  <rdfs:subClassOf rdf:resource="#OrganizationalMeasure"/>
+</owl:Class>
+
 <owl:Class rdf:about="#OrganizationalMeasure">
   <rdfs:subClassOf rdf:resource="#SecurityMechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#LockedOffice">
+  <rdfs:subClassOf rdf:resource="#OrganizationalMeasure"/>
+</owl:Class>
+
+<owl:Class rdf:about="#SucurityTraining">
+  <rdfs:subClassOf rdf:resource="#OrganizationalMeasure"/>
+</owl:Class>
+
+<owl:Class rdf:about="#UserMaintain">
+  <rdfs:subClassOf rdf:resource="#OrganizationalMeasure"/>
 </owl:Class>
 
 <owl:Class rdf:about="#MechanismProcedure">
@@ -793,7 +872,7 @@
   <rdfs:subClassOf rdf:resource="#MechanismProcedure"/>
 </owl:Class>
 
-<owl:Class rdf:about="#PolicyChangeNotificationProcedure">
+<owl:Class rdf:about="#NotificationProcedure">
   <rdfs:subClassOf rdf:resource="#MechanismProcedure"/>
 </owl:Class>
 
@@ -821,6 +900,10 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
 </owl:Class>
 
+<owl:Class rdf:about="#BreachInvestigationTime">
+  <rdfs:subClassOf rdf:resource="#TimePeriod"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PolicyAcceptanceTime">
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
 </owl:Class>
@@ -835,7 +918,6 @@
 
 <owl:Class rdf:about="#DataActivityPurpose">
   <rdfs:subClassOf rdf:resource="#Purpose"/>
-  <owl:disjointWith rdf:resource="#DataCollectionMechanism"/>
 </owl:Class>
 
 <owl:Class rdf:about="#HealthMonitoring">
@@ -938,8 +1020,8 @@
 <PrivacyPolicy rdf:about="#privacypolicy2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <considersAgent rdf:resource="#user1"/>
-  <considersAgent rdf:resource="#thirdparties1"/>
   <considersAgent rdf:resource="#firstparty1"/>
+  <considersAgent rdf:resource="#thirdparties1"/>
   <considersData rdf:resource="#genericdata1"/>
   <considersActivity rdf:resource="#datauseactivity1"/>
   <considersActivity rdf:resource="#datacollectionactivity1"/>
