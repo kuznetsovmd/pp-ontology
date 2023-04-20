@@ -1089,8 +1089,7 @@ def process_renpho():
         ]
     )
 
-    o.write(reason=False)
-    return
+
 
 
     #########################################################################
@@ -1098,6 +1097,11 @@ def process_renpho():
 
     user = o.individual('User')
     first_party = o.individual('FirstParty')
+
+    data = o.individual(
+                'TrackingData',
+                'location information',
+                [o.connection('isProvidedBy', user)])
 
     o.individual(
 
@@ -1108,34 +1112,26 @@ def process_renpho():
         [
             o.connection('activityIsInitiatedBy', first_party),
 
-            o.connection('isAppliedTo', o.individual(
-                '',
-                'location information',
-                [o.connection('isProvidedBy', user)])),
-
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                'search function of Bluetooth devices according to the authorization of location information')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
+            o.connection('isAppliedTo', data),
 
             o.connection('hasDataActivityPurpose', o.individual(
                 'DataActivityPurpose',
                 'to enable the properly functioning of our products, website(s) and mobile app(s).')),
 
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
+            o.connection('initiatesAnotherActivity', o.individual(
+                'WithdrawConsentActivity',
+                'If you refuse the location function in the service, you may not be able to use some of the functions of our products, website(s) or mobile apps.',
+                [
+                    o.connection('activityIsInitiatedBy', user),
 
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
+                    o.connection('isProvidedBy', user),
 
-            o.connection('hasLegalBasis', o.individual(
-                'LegalBasis',
-                '')),
+                    o.connection('isAppliedTo', data),
+
+                    o.connection('hasUserChoiceConsequence', o.individual(
+                        'UserChoiceConsequence',
+                        'you may not be able to use some of the functions of our products, website(s) or mobile apps.')),
+                ])),
         ]
     )
 
@@ -1148,43 +1144,37 @@ def process_renpho():
     user = o.individual('User')
     first_party = o.individual('FirstParty')
 
+    data = o.individual(
+                'TrackingData',
+                'location information',
+                [o.connection('isProvidedBy', user)])
+
     o.individual(
 
-        'DataCollectionActivity',
+        'UserAccessControl',
 
-        '',
+        'By entering your phone number in the checkout and initializing a purchase, subscribing via our subscription form or a keyword, you agree that we may send you text notifications (for your order, including abandoned cart reminders) and text marketing offers. Text marketing messages will not exceed [INSERT A NUMBER] a month. You acknowledge that consent is not a condition for any purchase.',
 
         [
-            o.connection('activityIsInitiatedBy', first_party),
+            o.connection('activityIsInitiatedBy', user),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'TrackingData',
+                'By entering your phone number in the checkout and initializing a purchase',
                 [o.connection('isProvidedBy', user)])),
 
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
+            o.connection('hasDataControlMechanism', o.individual(
+                'WebsiteForm',
+                'subscribing via our subscription form or a keyword')),
 
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasDataActivityPurpose', o.individual(
-                'DataActivityPurpose',
-                '')),
-
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
-
-            o.connection('hasLegalBasis', o.individual(
-                'LegalBasis',
-                '')),
+            o.connection('initiatesAnotherActivity', o.individual(
+                'WithdrawConsentActivity',
+                'If you refuse the location function in the service, you may not be able to use some of the functions of our products, website(s) or mobile apps.',
+                [
+                    o.connection('hasUserChoiceConsequence', o.individual(
+                        'UserChoiceConsequence',
+                        'you may not be able to use some of the functions of our products, website(s) or mobile apps.')),
+                ])),
         ]
     )
 
@@ -1195,45 +1185,19 @@ def process_renpho():
     # If you wish to unsubscribe from receiving text marketing messages and notifications reply with STOP to any mobile message sent from us or use the unsubscribe link we provided you with in any of our messages. You understand and agree that alternative methods of opting out, such as using alternative words or requests will not be accounted as a reasonable means of opting out. Message and data rates may apply. For any questions please text HELP to the number you received the messages from. You can also contact us for more information. If you wish to opt out please follow the procedures above.
 
     user = o.individual('User')
-    first_party = o.individual('FirstParty')
 
     o.individual(
 
-        'DataCollectionActivity',
+        'UserOptControl',
 
-        '',
+        'If you wish to unsubscribe from receiving text marketing messages and notifications reply with STOP to any mobile message sent from us or use the unsubscribe link we provided you with in any of our messages. You understand and agree that alternative methods of opting out, such as using alternative words or requests will not be accounted as a reasonable means of opting out. Message and data rates may apply. For any questions please text HELP to the number you received the messages from. You can also contact us for more information. If you wish to opt out please follow the procedures above.',
 
         [
-            o.connection('activityIsInitiatedBy', first_party),
+            o.connection('activityIsInitiatedBy', user),
 
-            o.connection('isAppliedTo', o.individual(
-                '',
-                '',
-                [o.connection('isProvidedBy', user)])),
-
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasDataActivityPurpose', o.individual(
-                'DataActivityPurpose',
-                '')),
-
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
-
-            o.connection('hasLegalBasis', o.individual(
-                'LegalBasis',
-                '')),
+            o.connection('hasDataControlMechanism', o.individual(
+                'SMSRequest',
+                'reply with STOP to any mobile message sent from us')),
         ]
     )
 
@@ -1245,44 +1209,34 @@ def process_renpho():
 
     user = o.individual('User')
     first_party = o.individual('FirstParty')
+    third_parties = o.individual('ThirdParties')
+
+    data = o.individual(
+                'PersonalData',
+                'personal data',
+                [o.connection('isProvidedBy', user)])
 
     o.individual(
 
-        'DataCollectionActivity',
+        'DataSharingActivity',
 
-        '',
+        'With Your Consent – We may disclose your personal data with your express consent.',
 
         [
             o.connection('activityIsInitiatedBy', first_party),
 
-            o.connection('isAppliedTo', o.individual(
-                '',
-                '',
-                [o.connection('isProvidedBy', user)])),
+            o.connection('isAppliedTo', data),
 
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
+            o.connection('sharesDataWithAgent', third_parties),
 
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
+            o.connection('initiatesAnotherActivity', o.individual(
+                'GiveConsentActivity',
+                'With Your Consent',
+                [
+                    o.connection('activityIsInitiatedBy', user),
 
-            o.connection('hasDataActivityPurpose', o.individual(
-                'DataActivityPurpose',
-                '')),
-
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
-
-            o.connection('hasLegalBasis', o.individual(
-                'LegalBasis',
-                '')),
+                    o.connection('isAppliedTo', data),
+                ])),
         ]
     )
 
@@ -1293,45 +1247,28 @@ def process_renpho():
     # We do not sell any personal data to third parties. Sometimes we send offers to selected groups of Renpho customers on behalf of other businesses. When we do this, we do not give that business your personal data.
 
     user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    first_party = o.individual('FirstParty', 'your')
+    third_parties = o.individual('ThirdParties', 'third parties')
 
     o.individual(
 
-        'DataCollectionActivity',
+        'DataSharingActivity',
 
-        '',
+        'We do not sell any personal data to third parties. Sometimes we send offers to selected groups of Renpho customers on behalf of other businesses. When we do this, we do not give that business your personal data.',
 
         [
             o.connection('activityIsInitiatedBy', first_party),
 
+            o.connection('sharesDataWithAgent', third_parties),
+
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'PersonalData',
+                'any personal data',
                 [o.connection('isProvidedBy', user)])),
-
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
 
             o.connection('hasDataActivityPurpose', o.individual(
                 'DataActivityPurpose',
-                '')),
-
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
-
-            o.connection('hasLegalBasis', o.individual(
-                'LegalBasis',
-                '')),
+                'Sometimes we send offers to selected groups of Renpho customers on behalf of other businesses.')),
         ]
     )
 
@@ -1341,46 +1278,26 @@ def process_renpho():
     #########################################################################
     # Please note that if you voluntarily submit any personal data for posting on the Services, including social media, such as a review, comment, or “like,” the information becomes publicly available and can be collected and used by others, so you should use care before posting information about yourself online.
 
-    user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    user = o.individual('User', 'you')
+    third_parties = o.individual('ThirdParties', 'others')
 
     o.individual(
 
         'DataCollectionActivity',
 
-        '',
+        'Please note that if you voluntarily submit any personal data for posting on the Services, including social media, such as a review, comment, or “like,” the information becomes publicly available and can be collected and used by others, so you should use care before posting information about yourself online.',
 
         [
-            o.connection('activityIsInitiatedBy', first_party),
+            o.connection('activityIsInitiatedBy', third_parties),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'PersonalData',
+                'any personal data',
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasDataActivityPurpose', o.individual(
-                'DataActivityPurpose',
-                '')),
-
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
-
-            o.connection('hasLegalBasis', o.individual(
-                'LegalBasis',
-                '')),
+                'UserMaintain',
+                'so you should use care before posting information about yourself online.')),
         ]
     )
 
@@ -1390,46 +1307,25 @@ def process_renpho():
     #########################################################################
     # In some jurisdictions, individuals may have the right to opt-in or withdraw consent for certain uses. If you reside in such jurisdictions, you may have additional rights which are detailed below, in “User Rights and Choices Regarding Personal Data,” “California Privacy Rights,” or “European Data Protection Rights.”
 
-    user = o.individual('User')
+    user = o.individual('User', 'individuals', [
+        o.connection('hasSpecialCategory', o.individual(
+            'UserSpecialCategory', 
+            'may have the right to opt-in or withdraw consent for certain uses'))
+    ])
     first_party = o.individual('FirstParty')
 
     o.individual(
 
-        'DataCollectionActivity',
+        'WithdrawConsentActivity',
 
-        '',
+        'In some jurisdictions, individuals may have the right to opt-in or withdraw consent for certain uses. If you reside in such jurisdictions, you may have additional rights which are detailed below, in “User Rights and Choices Regarding Personal Data,” “California Privacy Rights,” or “European Data Protection Rights.”',
 
         [
-            o.connection('activityIsInitiatedBy', first_party),
-
-            o.connection('isAppliedTo', o.individual(
-                '',
-                '',
-                [o.connection('isProvidedBy', user)])),
-
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasDataActivityPurpose', o.individual(
-                'DataActivityPurpose',
-                '')),
-
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
+            o.connection('activityIsInitiatedBy', user),
 
             o.connection('hasLegalBasis', o.individual(
                 'LegalBasis',
-                '')),
+                'In some jurisdictions')),
         ]
     )
 
@@ -1439,46 +1335,135 @@ def process_renpho():
     #########################################################################
     # When you visit the Services, we may automatically collect certain data from you, including your device-identifying data such as IP address, MAC address, hardware ID, IDFA, and AAID; unique identifiers associated with your device including device settings (e.g., language and time zone settings); your operating system, browser type, internet service provider,  mobile carrier, and network type and signals; debugging information, pages and content that you visit on the Services, what you click on, the state and country from which you access the Services, date and time of your visit, the number of times you return to the Services, web pages you linked to our Services from, and other clickstream data.
 
-    user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    user = o.individual('User', 'you')
+    first_party = o.individual('FirstParty', 'we')
 
     o.individual(
 
         'DataCollectionActivity',
 
-        '',
+        'When you visit the Services, we may automatically collect certain data from you, including your device-identifying data such as IP address, MAC address, hardware ID, IDFA, and AAID; unique identifiers associated with your device including device settings (e.g., language and time zone settings); your operating system, browser type, internet service provider,  mobile carrier, and network type and signals; debugging information, pages and content that you visit on the Services, what you click on, the state and country from which you access the Services, date and time of your visit, the number of times you return to the Services, web pages you linked to our Services from, and other clickstream data.',
 
         [
             o.connection('activityIsInitiatedBy', first_party),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'Data',
+                'certain data from you',
                 [o.connection('isProvidedBy', user)])),
 
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
+            o.connection('isAppliedTo', o.individual(
+                'DeviceData',
+                'device-identifying data',
+                [o.connection('isProvidedBy', user)])),
 
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
+            o.connection('isAppliedTo', o.individual(
+                'TrackingData',
+                'IP address',
+                [o.connection('isProvidedBy', user)])),
 
-            o.connection('hasDataActivityPurpose', o.individual(
-                'DataActivityPurpose',
-                '')),
+            o.connection('isAppliedTo', o.individual(
+                'DeviceData',
+                'MAC address',
+                [o.connection('isProvidedBy', user)])),
 
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
+            o.connection('isAppliedTo', o.individual(
+                'DeviceData',
+                'hardware ID',
+                [o.connection('isProvidedBy', user)])),
 
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
+            o.connection('isAppliedTo', o.individual(
+                'DeviceData',
+                'IDFA',
+                [o.connection('isProvidedBy', user)])),
 
-            o.connection('hasLegalBasis', o.individual(
-                'LegalBasis',
-                '')),
+            o.connection('isAppliedTo', o.individual(
+                'DeviceData',
+                'AAID',
+                [o.connection('isProvidedBy', user)])),
+
+            o.connection('isAppliedTo', o.individual(
+                'DeviceData',
+                'unique identifiers',
+                [o.connection('isProvidedBy', user)])),
+
+            o.connection('isAppliedTo', o.individual(
+                'AppData',
+                'device settings',
+                [o.connection('isProvidedBy', user)])),
+
+            o.connection('isAppliedTo', o.individual(
+                'AppData',
+                'language',
+                [o.connection('isProvidedBy', user)])),
+
+            o.connection('isAppliedTo', o.individual(
+                'TrackingData',
+                'time zone settings',
+                [o.connection('isProvidedBy', user)])),
+
+            o.connection('isAppliedTo', o.individual(
+                'AppData',
+                'operating system',
+                [o.connection('isProvidedBy', user)])),
+
+            o.connection('isAppliedTo', o.individual(
+                'AppData',
+                'browser type',
+                [o.connection('isProvidedBy', user)])),
+
+            o.connection('isAppliedTo', o.individual(
+                'TrackingData',
+                'internet service provider',
+                [o.connection('isProvidedBy', user)])),
+
+            o.connection('isAppliedTo', o.individual(
+                'TrackingData',
+                'mobile carrier',
+                [o.connection('isProvidedBy', user)])),
+
+            o.connection('isAppliedTo', o.individual(
+                'TrackingData',
+                'network type and signals',
+                [o.connection('isProvidedBy', user)])),
+
+            o.connection('isAppliedTo', o.individual(
+                'ServiceData',
+                'debugging information',
+                [o.connection('isProvidedBy', user)])),
+
+            o.connection('isAppliedTo', o.individual(
+                'ServiceData',
+                'pages and content that you visit on the Services',
+                [o.connection('isProvidedBy', user)])),
+
+            o.connection('isAppliedTo', o.individual(
+                'TrackingData',
+                'the state and country from which you access the Services',
+                [o.connection('isProvidedBy', user)])),
+
+            o.connection('isAppliedTo', o.individual(
+                'ServiceData',
+                'the number of times you return to the Services',
+                [o.connection('isProvidedBy', user)])),
+
+            o.connection('isAppliedTo', o.individual(
+                'ServiceData',
+                'web pages you linked to our Services from',
+                [o.connection('isProvidedBy', user)])),
+
+            o.connection('isAppliedTo', o.individual(
+                'ServiceData',
+                'other clickstream data.',
+                [o.connection('isProvidedBy', user)])),
+
+            o.connection('hasDataCollectionMechanism', o.individual(
+                'DataCollectionMechanism',
+                'When you visit the Services, we may automatically collect certain data',
+                [
+                    o.connection('hasDataCollectionMode', o.individual(
+                    'DataCollectionMode', 'automatically'))
+                ])),
         ]
     )
 
@@ -1488,46 +1473,50 @@ def process_renpho():
     #########################################################################
     # Like many commercial websites, we analyze how visitors use our Services online through what is known as 'cookie' technology or similar tracking tools. A cookie is a small text file that is placed on your computer when you access the Services online and allows us to recognize you each time you visit the Services online. We may use cookies to: (1) allow you to use the Services without having to re-enter your user name and password; (2) enhance or personalize your Services usage and shopping experience; (3) monitor Services usage; (4) manage the Services; and (5) improve the Services and our products, including providing you with interest-based ads. For more information on our advertising, see below: “Interest-Based Advertising.”
 
-    user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    user = o.individual('User', 'visitors')
+    first_party = o.individual('FirstParty', 'we')
 
     o.individual(
 
         'DataCollectionActivity',
 
-        '',
+        'Like many commercial websites, we analyze how visitors use our Services online through what is known as "cookie" technology or similar tracking tools. A cookie is a small text file that is placed on your computer when you access the Services online and allows us to recognize you each time you visit the Services online. We may use cookies to: (1) allow you to use the Services without having to re-enter your user name and password; (2) enhance or personalize your Services usage and shopping experience; (3) monitor Services usage; (4) manage the Services; and (5) improve the Services and our products, including providing you with interest-based ads. For more information on our advertising, see below: “Interest-Based Advertising.”',
 
         [
             o.connection('activityIsInitiatedBy', first_party),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'TrackingData',
+                'cookie',
                 [o.connection('isProvidedBy', user)])),
-
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
 
             o.connection('hasDataActivityPurpose', o.individual(
                 'DataActivityPurpose',
-                '')),
+                'allow you to use the Services without having to re-enter your user name and password;')),
 
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
+            o.connection('hasDataActivityPurpose', o.individual(
+                'DataActivityPurpose',
+                'enhance or personalize your Services usage and shopping experience;')),
 
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
+            o.connection('hasDataActivityPurpose', o.individual(
+                'DataActivityPurpose',
+                'monitor Services usage;')),
 
-            o.connection('hasLegalBasis', o.individual(
-                'LegalBasis',
-                '')),
+            o.connection('hasDataActivityPurpose', o.individual(
+                'DataActivityPurpose',
+                'manage the Services;')),
+
+            o.connection('hasDataActivityPurpose', o.individual(
+                'DataActivityPurpose',
+                'improve the Services and our products, including providing you with interest-based ads.')),
+
+            o.connection('hasDataCollectionMechanism', o.individual(
+                'DataCollectionMechanism',
+                'we analyze how visitors use our Services online',
+                [
+                    o.connection('hasDataCollectionMode', o.individual(
+                    'DataCollectionMode', 'Services online'))
+                ])),
         ]
     )
 
@@ -1537,46 +1526,38 @@ def process_renpho():
     #########################################################################
     # We use the service Google Analytics to measure our web traffic and how people use our site. You can learn more about Google Analytics’ privacy policies and opt out of Google Analytics cookies at the following links: Google Privacy Policy Google Analytics Opt-out Add-on (by Google)
 
-    user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    user = o.individual('User', 'people')
+    first_party = o.individual('FirstParty', 'We')
+    third_parties = o.individual('ThirdParties', 'Google Analytics')
+
+    data = o.individual(
+                'TrackingData',
+                'cookies',
+                [o.connection('isProvidedBy', third_parties)])
 
     o.individual(
 
         'DataCollectionActivity',
 
-        '',
+        'We use the service Google Analytics to measure our web traffic and how people use our site. You can learn more about Google Analytics’ privacy policies and opt out of Google Analytics cookies at the following links: Google Privacy Policy Google Analytics Opt-out Add-on (by Google)',
 
         [
             o.connection('activityIsInitiatedBy', first_party),
 
-            o.connection('isAppliedTo', o.individual(
-                '',
-                '',
-                [o.connection('isProvidedBy', user)])),
-
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
+            o.connection('isAppliedTo', data),
 
             o.connection('hasDataActivityPurpose', o.individual(
                 'DataActivityPurpose',
-                '')),
+                'to measure our web traffic and how people use our site.')),
 
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
+            o.connection('initiatesAnotherActivity', o.individual(
+                'UserOptControl',
+                'opt out of Google Analytics cookies',
+                [
+                    o.connection('activityIsInitiatedBy', user),
 
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
-
-            o.connection('hasLegalBasis', o.individual(
-                'LegalBasis',
-                '')),
+                    o.connection('isAppliedTo', data),
+                ])),
         ]
     )
 
@@ -1587,45 +1568,24 @@ def process_renpho():
     # If you choose, you can set your browser to reject cookies or you can manually delete individual cookies or all of the cookies on your computer by following your browser’s help file directions. You can learn more about how to change your cookie settings on common browsers by clicking on the following links: Google Chrome Firefox Safari Internet Explorer. However, if your browser is set to reject cookies or you manually delete cookies, you may have some trouble accessing and using some of the pages and features that are currently on our Services, or that we may put on our Services in the future. You may not decline web beacons. However, they can be rendered ineffective by declining all cookies or by modifying your web browser’s settings to notify you each time a cookie is tendered, permitting you to accept or decline cookies on an individual basis. Note that browser-management tools for cookies are outside of our control and we cannot guarantee their effectiveness.
 
     user = o.individual('User')
-    first_party = o.individual('FirstParty')
 
     o.individual(
 
-        'DataCollectionActivity',
+        'WithdrawConsentActivity',
 
-        '',
+        'If you choose, you can set your browser to reject cookies or you can manually delete individual cookies or all of the cookies on your computer by following your browser’s help file directions. You can learn more about how to change your cookie settings on common browsers by clicking on the following links: Google Chrome Firefox Safari Internet Explorer. However, if your browser is set to reject cookies or you manually delete cookies, you may have some trouble accessing and using some of the pages and features that are currently on our Services, or that we may put on our Services in the future. You may not decline web beacons. However, they can be rendered ineffective by declining all cookies or by modifying your web browser’s settings to notify you each time a cookie is tendered, permitting you to accept or decline cookies on an individual basis. Note that browser-management tools for cookies are outside of our control and we cannot guarantee their effectiveness.',
 
         [
-            o.connection('activityIsInitiatedBy', first_party),
+            o.connection('activityIsInitiatedBy', user),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'TrackingData',
+                'cookies',
                 [o.connection('isProvidedBy', user)])),
 
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasDataActivityPurpose', o.individual(
-                'DataActivityPurpose',
-                '')),
-
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
             o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
-
-            o.connection('hasLegalBasis', o.individual(
-                'LegalBasis',
-                '')),
+                'UserChoiceConsequence',
+                'However, if your browser is set to reject cookies or you manually delete cookies, you may have some trouble accessing and using some of the pages and features that are currently on our Services, or that we may put on our Services in the future.')),
         ]
     )
 
@@ -1635,46 +1595,59 @@ def process_renpho():
     #########################################################################
     # When you access the Services through a social network, we also collect data from the social network in accordance with your settings on the social network. This data may include your username, friends or followers, check-ins, and likes, and you may choose to grant or deny us access to such permissions. For more information regarding any such permissions, refer to the permissions reference pages of the social media networks with which you have an account. For more information regarding Facebook and Instagram permissions, refer to the Facebook Permissions Reference page.
 
-    user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    user = o.individual('User', 'you')
+    first_party = o.individual('FirstParty', 'we')
+
+    data = [
+        o.connection('isAppliedTo', o.individual(
+            'Data',
+            'data',
+            [o.connection('isProvidedBy', user)])),
+
+        o.connection('isAppliedTo', o.individual(
+            'AccountData',
+            'username',
+            [o.connection('isProvidedBy', user)])),
+
+        o.connection('isAppliedTo', o.individual(
+            'AccountData',
+            'friends or followers',
+            [o.connection('isProvidedBy', user)])),
+
+        o.connection('isAppliedTo', o.individual(
+            'AccountData',
+            'check-ins',
+            [o.connection('isProvidedBy', user)])),
+
+        o.connection('isAppliedTo', o.individual(
+            'AccountData',
+            'likes',
+            [o.connection('isProvidedBy', user)])),
+    ]
 
     o.individual(
 
         'DataCollectionActivity',
 
-        '',
+        'When you access the Services through a social network, we also collect data from the social network in accordance with your settings on the social network. This data may include your username, friends or followers, check-ins, and likes, and you may choose to grant or deny us access to such permissions.',
 
         [
+            *data,
+
             o.connection('activityIsInitiatedBy', first_party),
+        ]
+    )
 
-            o.connection('isAppliedTo', o.individual(
-                '',
-                '',
-                [o.connection('isProvidedBy', user)])),
+    o.individual(
 
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
+        'DataControlActivity',
+        
+        'This data may include your username, friends or followers, check-ins, and likes, and you may choose to grant or deny us access to such permissions. For more information regarding any such permissions, refer to the permissions reference pages of the social media networks with which you have an account. For more information regarding Facebook and Instagram permissions, refer to the Facebook Permissions Reference page.',
 
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
+        [
+            *data,
 
-            o.connection('hasDataActivityPurpose', o.individual(
-                'DataActivityPurpose',
-                '')),
-
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
-
-            o.connection('hasLegalBasis', o.individual(
-                'LegalBasis',
-                '')),
+            o.connection('activityIsInitiatedBy', user),
         ]
     )
 
@@ -1697,33 +1670,24 @@ def process_renpho():
             o.connection('activityIsInitiatedBy', first_party),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'TrackingData',
+                'cookies',
                 [o.connection('isProvidedBy', user)])),
 
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
+            o.connection('isAppliedTo', o.individual(
+                'AppData',
+                'web beacons',
+                [o.connection('isProvidedBy', user)])),
 
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
+            o.connection('isAppliedTo', o.individual(
+                'AccountData',
+                'social medial permissions',
+                [o.connection('isProvidedBy', user)])),
 
-            o.connection('hasDataActivityPurpose', o.individual(
-                'DataActivityPurpose',
-                '')),
-
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
-
-            o.connection('hasLegalBasis', o.individual(
-                'LegalBasis',
-                '')),
+            o.connection('isAppliedTo', o.individual(
+                'Data',
+                'other technology tools with other data',
+                [o.connection('isProvidedBy', user)])),
         ]
     )
 
@@ -1734,45 +1698,33 @@ def process_renpho():
     # We may use aggregated, deidentified data from the above sources for statistical analysis, research, commercial, and other purposes. Aggregate, deidentified data is not “personal data,” “personal information,” or “your” data or information under this Privacy Policy or under law. We may share aggregate, deidentified data about Services users with third parties to help us understand our user demographic, including user demographic interests, habits, and usage patterns for certain of our Services so that we may market our products more effectively.
 
     user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    first_party = o.individual('FirstParty', 'We')
 
     o.individual(
 
         'DataCollectionActivity',
 
-        '',
+        'We may use aggregated, deidentified data from the above sources for statistical analysis, research, commercial, and other purposes. Aggregate, deidentified data is not “personal data,” “personal information,” or “your” data or information under this Privacy Policy or under law. We may share aggregate, deidentified data about Services users with third parties to help us understand our user demographic, including user demographic interests, habits, and usage patterns for certain of our Services so that we may market our products more effectively.',
 
         [
             o.connection('activityIsInitiatedBy', first_party),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'Data',
+                'data from the above sources',
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
+                'PseudoAnonymization',
+                'aggregated, deidentified data')),
 
             o.connection('hasDataActivityPurpose', o.individual(
                 'DataActivityPurpose',
-                '')),
+                'for statistical analysis, research, commercial, and other purposes.')),
 
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
-
-            o.connection('hasLegalBasis', o.individual(
-                'LegalBasis',
-                '')),
+            o.connection('hasDataActivityPurpose', o.individual(
+                'DataActivityPurpose',
+                'to help us understand our user demographic, including user demographic interests, habits, and usage patterns for certain of our Services so that we may market our products more effectively.')),
         ]
     )
 
@@ -1783,45 +1735,28 @@ def process_renpho():
     # In particular, we may share certain information with Facebook that allows us to create Custom or Lookalike Audiences. You may learn more about Facebook Lookalike Audiences here and how to opt out of having your off-Facebook activity sent to Facebook here. We encourage you to review Facebook's Privacy Policy here.
 
     user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    first_party = o.individual('FirstParty', 'we')
+    third_parties = o.individual('ThirdParties', 'Facebook')
 
     o.individual(
 
-        'DataCollectionActivity',
+        'DataSharingActivity',
 
-        '',
+        'In particular, we may share certain information with Facebook that allows us to create Custom or Lookalike Audiences. You may learn more about Facebook Lookalike Audiences here and how to opt out of having your off-Facebook activity sent to Facebook here. We encourage you to review Facebook`s Privacy Policy here.',
 
         [
             o.connection('activityIsInitiatedBy', first_party),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'Data',
+                'certain information',
                 [o.connection('isProvidedBy', user)])),
 
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
+            o.connection('sharesDataWithAgent', third_parties),
 
             o.connection('hasDataActivityPurpose', o.individual(
                 'DataActivityPurpose',
-                '')),
-
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
-
-            o.connection('hasLegalBasis', o.individual(
-                'LegalBasis',
-                '')),
+                'that allows us to create Custom or Lookalike Audiences.')),
         ]
     )
 
@@ -1836,41 +1771,25 @@ def process_renpho():
 
     o.individual(
 
-        'DataCollectionActivity',
+        'ConsentActivity',
 
-        '',
+        'You have the choice to tell us not to collect and use this data, and in some jurisdictions, we will only engage in interest-based advertising if you opt-in. If you would like more information about this practice and to know your choices concerning interest-based ads, visit:',
 
         [
             o.connection('activityIsInitiatedBy', first_party),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'Data',
+                'this data',
                 [o.connection('isProvidedBy', user)])),
 
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasDataActivityPurpose', o.individual(
-                'DataActivityPurpose',
-                '')),
-
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
             o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
+                'UserChoiceConsequence',
+                'we will only engage in interest-based advertising if you opt-in.')),
 
             o.connection('hasLegalBasis', o.individual(
                 'LegalBasis',
-                '')),
+                'and in some jurisdictions, we will only engage in interest-based advertising if you opt-in.')),
         ]
     )
 
@@ -1880,48 +1799,48 @@ def process_renpho():
     #########################################################################
     # Our Services and products may include third-party products, services, and links to third-party websites, including social media, advertisements, apps, and external services that are not affiliated with us. Our Privacy Policy does not apply to products and services offered by third parties, including third-party apps such as FitBit and Apple Health that you have the option to sync with our products. When you use such products or services, the third parties may collect your data, and we cannot guarantee the safety and privacy of your data in that circumstance. For this reason, we strongly suggest that you read the third party's Privacy Policy, just as you have taken the time to read ours. We are not responsible for the content or privacy and security practices and policies of any third parties.
 
-    user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    # user = o.individual('User')
+    # first_party = o.individual('FirstParty')
 
-    o.individual(
+    # o.individual(
 
-        'DataCollectionActivity',
+    #     'DataCollectionActivity',
 
-        '',
+    #     '',
 
-        [
-            o.connection('activityIsInitiatedBy', first_party),
+    #     [
+    #         o.connection('activityIsInitiatedBy', first_party),
 
-            o.connection('isAppliedTo', o.individual(
-                '',
-                '',
-                [o.connection('isProvidedBy', user)])),
+    #         o.connection('isAppliedTo', o.individual(
+    #             '',
+    #             '',
+    #             [o.connection('isProvidedBy', user)])),
 
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
+    #         o.connection('hasSecurityMechanism', o.individual(
+    #             '',
+    #             '')),
 
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
+    #         o.connection('hasNotificationMechanism', o.individual(
+    #             '',
+    #             '')),
 
-            o.connection('hasDataActivityPurpose', o.individual(
-                'DataActivityPurpose',
-                '')),
+    #         o.connection('hasDataActivityPurpose', o.individual(
+    #             'DataActivityPurpose',
+    #             '')),
 
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
+    #         o.connection('hasDataRetentionTime', o.individual(
+    #             'DataRetentionTime',
+    #             '')),
 
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
+    #         o.connection('hasUserChoiceConsequence', o.individual(
+    #             '',
+    #             '')),
 
-            o.connection('hasLegalBasis', o.individual(
-                'LegalBasis',
-                '')),
-        ]
-    )
+    #         o.connection('hasLegalBasis', o.individual(
+    #             'LegalBasis',
+    #             '')),
+    #     ]
+    # )
 
 
 
@@ -1929,46 +1848,35 @@ def process_renpho():
     #########################################################################
     # The Services are not directed to children, and we do not knowingly collect data from or market to children under the age of 13 without verifiable parental consent. If you become aware of any data we have collected from children under age 13, please contact us using the contact information provided below, and we will endeavor to investigate and delete such information from our systems.
 
-    user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    user = o.individual('User', 'children', [
+        o.connection('hasSpecialCategory', o.individual('UserSpecialCategory', 'children'))
+    ])
+    first_party = o.individual('FirstParty', 'we')
+   
+    data = o.individual(
+                'Data',
+                'data',
+                [o.connection('isProvidedBy', user)])
 
     o.individual(
 
         'DataCollectionActivity',
 
-        '',
+        'The Services are not directed to children, and we do not knowingly collect data from or market to children under the age of 13 without verifiable parental consent. If you become aware of any data we have collected from children under age 13, please contact us using the contact information provided below, and we will endeavor to investigate and delete such information from our systems.',
 
         [
             o.connection('activityIsInitiatedBy', first_party),
 
-            o.connection('isAppliedTo', o.individual(
-                '',
-                '',
-                [o.connection('isProvidedBy', user)])),
+            o.connection('isAppliedTo', data),
 
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
+            o.connection('initiatesAnotherActivity', o.individual(
+                'UserAccessControl',
+                'verifiable parental consent.',
+                [
+                    o.connection('activityIsInitiatedBy', user),
 
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasDataActivityPurpose', o.individual(
-                'DataActivityPurpose',
-                '')),
-
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
-
-            o.connection('hasLegalBasis', o.individual(
-                'LegalBasis',
-                '')),
+                    o.connection('isAppliedTo', data),
+                ])),
         ]
     )
 
@@ -1978,46 +1886,25 @@ def process_renpho():
     #########################################################################
     # If you sign up for our mailing list, we will send you informational emails about offers of Services. At any time, you can ‘unsubscribe’ yourself from our email list simply by clicking the “unsubscribe” button.
 
-    user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    user = o.individual('User', 'you')
+    first_party = o.individual('FirstParty', 'we')
 
     o.individual(
 
-        'DataCollectionActivity',
+        'UserOptControl',
 
-        '',
+        'If you sign up for our mailing list, we will send you informational emails about offers of Services. At any time, you can ‘unsubscribe’ yourself from our email list simply by clicking the “unsubscribe” button.',
 
         [
             o.connection('activityIsInitiatedBy', first_party),
 
-            o.connection('isAppliedTo', o.individual(
-                '',
-                '',
-                [o.connection('isProvidedBy', user)])),
-
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
+            o.connection('hasDataControlMechanism', o.individual(
+                'WebsiteForm',
+                'you can ‘unsubscribe’ yourself from our email list simply by clicking the “unsubscribe” button.')),
 
             o.connection('hasDataActivityPurpose', o.individual(
                 'DataActivityPurpose',
-                '')),
-
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
-
-            o.connection('hasLegalBasis', o.individual(
-                'LegalBasis',
-                '')),
+                'we will send you informational emails about offers of Services.')),
         ]
     )
 
@@ -2027,46 +1914,28 @@ def process_renpho():
     #########################################################################
     # If you do not wish to receive communications from us about special offers and promotions, you can opt-out of receiving these communications by following the instructions contained in the messages you receive. Even if you opt-out of receiving these messages, we reserve the right to send you certain communications relating to the Services we provide, and we may send you Services announcements and administrative messages. We do not offer you the opportunity to opt-out of receiving those communications. For more information about interest-based advertising, including how you can manage advertising, please see above: “Interest-Based Advertising.”
 
-    user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    user = o.individual('User', 'you')
 
     o.individual(
 
-        'DataCollectionActivity',
+        'UserOptControl',
 
-        '',
+        'If you do not wish to receive communications from us about special offers and promotions, you can opt-out of receiving these communications by following the instructions contained in the messages you receive. Even if you opt-out of receiving these messages, we reserve the right to send you certain communications relating to the Services we provide, and we may send you Services announcements and administrative messages. We do not offer you the opportunity to opt-out of receiving those communications. For more information about interest-based advertising, including how you can manage advertising, please see above: “Interest-Based Advertising.',
 
         [
-            o.connection('activityIsInitiatedBy', first_party),
+            o.connection('activityIsInitiatedBy', user),
 
-            o.connection('isAppliedTo', o.individual(
-                '',
-                '',
-                [o.connection('isProvidedBy', user)])),
+            o.connection('hasDataControlMechanism', o.individual(
+                'WebsiteForm',
+                'you can ‘unsubscribe’ yourself from our email list simply by clicking the “unsubscribe” button.')),
 
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
+            o.connection('hasUserChoiceConsequence', o.individual(
+                'UserChoiceConsequence',
+                'Even if you opt-out of receiving these messages, we reserve the right to send you certain communications relating to the Services we provide, and we may send you Services announcements and administrative messages. We do not offer you the opportunity to opt-out of receiving those communications.')),
 
             o.connection('hasDataActivityPurpose', o.individual(
                 'DataActivityPurpose',
-                '')),
-
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
-
-            o.connection('hasLegalBasis', o.individual(
-                'LegalBasis',
-                '')),
+                'we will send you informational emails about offers of Services.')),
         ]
     )
 
@@ -2076,46 +1945,29 @@ def process_renpho():
     #########################################################################
     # You may at any time review or change the data in your account or terminate your account by: Logging into your account settings and updating your account; or Contacting us using the contact information provided below in: “Contact Us.”
 
-    user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    user = o.individual('User', 'You')
 
     o.individual(
 
-        'DataCollectionActivity',
+        'DataControlActivity',
 
-        '',
+        'You may at any time review or change the data in your account or terminate your account by: Logging into your account settings and updating your account; or Contacting us using the contact information provided below in: “Contact Us.”',
 
         [
-            o.connection('activityIsInitiatedBy', first_party),
+            o.connection('activityIsInitiatedBy', user),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'Data',
+                'the data',
                 [o.connection('isProvidedBy', user)])),
 
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
+            o.connection('hasDataControlMechanism', o.individual(
+                'WebsiteForm',
+                'Logging into your account settings and updating your account;')),
 
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasDataActivityPurpose', o.individual(
-                'DataActivityPurpose',
-                '')),
-
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
-
-            o.connection('hasLegalBasis', o.individual(
-                'LegalBasis',
-                '')),
+            o.connection('hasDataControlMechanism', o.individual(
+                'EmailRequest',
+                'or Contacting us using the contact information provided below in: “Contact Us.”')),
         ]
     )
 
@@ -2125,46 +1977,67 @@ def process_renpho():
     #########################################################################
     # Upon your request to terminate your account, we will deactivate or delete your account and personal data from our active databases. However, some data may be retained in our files for permitted or required uses, such as to prevent fraud, troubleshoot problems, assist with any investigations, enforce our Terms of Use and/or comply with legal requirements.
 
-    user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    user = o.individual('User', 'your')
 
     o.individual(
 
         'DataCollectionActivity',
 
-        '',
+        'Upon your request to terminate your account, we will deactivate or delete your account and personal data from our active databases. However, some data may be retained in our files for permitted or required uses, such as to prevent fraud, troubleshoot problems, assist with any investigations, enforce our Terms of Use and/or comply with legal requirements.',
 
         [
-            o.connection('activityIsInitiatedBy', first_party),
+            o.connection('activityIsInitiatedBy', user),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'AccountData',
+                'your account',
                 [o.connection('isProvidedBy', user)])),
 
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
+            o.connection('isAppliedTo', o.individual(
+                'PersonalData',
+                'personal data',
+                [o.connection('isProvidedBy', user)])),
+        ]
+    )
 
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
+    o.individual(
+
+        'DataRetentionActivity',
+
+        'Upon your request to terminate your account, we will deactivate or delete your account and personal data from our active databases. However, some data may be retained in our files for permitted or required uses, such as to prevent fraud, troubleshoot problems, assist with any investigations, enforce our Terms of Use and/or comply with legal requirements.',
+
+        [
+            o.connection('activityIsInitiatedBy', user),
+
+            o.connection('isAppliedTo', o.individual(
+                'Data',
+                'some data',
+                [o.connection('isProvidedBy', user)])),
+
+            o.connection('isAppliedTo', o.individual(
+                'PersonalData',
+                'personal data',
+                [o.connection('isProvidedBy', user)])),
 
             o.connection('hasDataActivityPurpose', o.individual(
                 'DataActivityPurpose',
-                '')),
+                'to prevent fraud')),
 
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
+            o.connection('hasDataActivityPurpose', o.individual(
+                'DataActivityPurpose',
+                'troubleshoot problems')),
 
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
+            o.connection('hasDataActivityPurpose', o.individual(
+                'DataActivityPurpose',
+                'assist with any investigations')),
+
+            o.connection('hasDataActivityPurpose', o.individual(
+                'DataActivityPurpose',
+                'enforce our Terms of Use and/or comply with legal requirements.')),
 
             o.connection('hasLegalBasis', o.individual(
                 'LegalBasis',
-                '')),
+                'permitted or required uses')),
         ]
     )
 
@@ -2174,46 +2047,43 @@ def process_renpho():
     #########################################################################
     # You may also exercise your rights, subject to applicable laws, to request that we provide you with certain information on the personal data we have collected about you, or to correct, delete, or restrict our access to your personal data. Please note that we may retain certain data as required or permitted by applicable law. If you are a California resident or European or UK citizen, your specific rights are detailed, respectively, in the “California Privacy Rights” and “European Data Protection Rights” sections below. Under the laws of some regions and countries, we have the power to refuse your requests that are unreasonable or for which access is not required by local law.
 
-    user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    user = o.individual('User', 'you', [
+        o.connection('hasSpecialCategory', o.individual(
+            'UserSpecialCategory', 
+            'California resident')),
+        o.connection('hasSpecialCategory', o.individual(
+            'UserSpecialCategory', 
+            'European')),
+        o.connection('hasSpecialCategory', o.individual(
+            'UserSpecialCategory', 
+            'UK citizen'))
+    ])
 
     o.individual(
 
-        'DataCollectionActivity',
+        'DataControlActivity',
 
-        '',
+        'You may also exercise your rights, subject to applicable laws, to request that we provide you with certain information on the personal data we have collected about you, or to correct, delete, or restrict our access to your personal data. Please note that we may retain certain data as required or permitted by applicable law. If you are a California resident or European or UK citizen, your specific rights are detailed, respectively, in the “California Privacy Rights” and “European Data Protection Rights” sections below. Under the laws of some regions and countries, we have the power to refuse your requests that are unreasonable or for which access is not required by local law.',
 
         [
-            o.connection('activityIsInitiatedBy', first_party),
+            o.connection('activityIsInitiatedBy', user),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'Data',
+                'your rights',
                 [o.connection('isProvidedBy', user)])),
-
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasDataActivityPurpose', o.individual(
-                'DataActivityPurpose',
-                '')),
-
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
 
             o.connection('hasLegalBasis', o.individual(
                 'LegalBasis',
-                '')),
+                'subject to applicable laws')),
+
+            o.connection('hasLegalBasis', o.individual(
+                'LegalBasis',
+                'in the “California Privacy Rights” and “European Data Protection Rights” sections below. Under the laws of some regions and countries, we have the power to refuse your requests that are unreasonable or for which access is not required by local law.')),
+
+            o.connection('hasDataControlMechanism', o.individual(
+                'DataControlMechanism',
+                'or Contacting us using the contact information provided below in: “Contact Us.”')),
         ]
     )
 
@@ -2223,46 +2093,30 @@ def process_renpho():
     #########################################################################
     # California laws afford consumers residing in California certain rights with respect to their personal data. If you are a California resident, this section applies to you.
 
-    user = o.individual('User')
+    user = o.individual('User', 'you', [
+        o.connection('hasSpecialCategory', o.individual(
+            'UserSpecialCategory', 
+            'California resident')),
+    ])
     first_party = o.individual('FirstParty')
 
     o.individual(
 
-        'DataCollectionActivity',
+        'DataActivity',
 
-        '',
+        'California laws afford consumers residing in California certain rights with respect to their personal data. If you are a California resident, this section applies to you.',
 
         [
             o.connection('activityIsInitiatedBy', first_party),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'PersonalData',
+                'personal data.',
                 [o.connection('isProvidedBy', user)])),
-
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasDataActivityPurpose', o.individual(
-                'DataActivityPurpose',
-                '')),
-
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
 
             o.connection('hasLegalBasis', o.individual(
                 'LegalBasis',
-                '')),
+                'California laws')),
         ]
     )
 
@@ -2272,46 +2126,33 @@ def process_renpho():
     #########################################################################
     # Users who are California residents may request and obtain from us, once a year and free of charge, information about categories of personal information (if any) we disclosed to third parties for their own direct marketing purposes, as well as the names and addresses of all such third parties with which we shared personal information in the immediately preceding calendar year. If you are a California resident and would like to make such a request, please submit your request in writing to us using the contact information provided below in: “Contact Us.”
 
-    user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    user = o.individual('User', 'Users', [
+        o.connection('hasSpecialCategory', o.individual(
+            'UserSpecialCategory', 
+            'California resident')),
+    ])
 
     o.individual(
 
-        'DataCollectionActivity',
+        'DataControlActivity',
 
-        '',
+        'Users who are California residents may request and obtain from us, once a year and free of charge, information about categories of personal information (if any) we disclosed to third parties for their own direct marketing purposes, as well as the names and addresses of all such third parties with which we shared personal information in the immediately preceding calendar year. If you are a California resident and would like to make such a request, please submit your request in writing to us using the contact information provided below in: “Contact Us.”',
 
         [
-            o.connection('activityIsInitiatedBy', first_party),
+            o.connection('activityIsInitiatedBy', user),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'PersonalData',
+                'personal information',
                 [o.connection('isProvidedBy', user)])),
-
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
 
             o.connection('hasDataActivityPurpose', o.individual(
                 'DataActivityPurpose',
-                '')),
+                'request and obtain from us, once a year and free of charge, information about categories of personal information (if any) we disclosed to third parties for their own direct marketing purposes, as well as the names and addresses of all such third parties with which we shared personal information in the immediately preceding calendar year.')),
 
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
-
-            o.connection('hasLegalBasis', o.individual(
-                'LegalBasis',
-                '')),
+            o.connection('hasDataControlMechanism', o.individual(
+                'DataControlMechanism',
+                'please submit your request in writing to us using the contact information provided below in: “Contact Us.”')),
         ]
     )
 
@@ -2321,46 +2162,36 @@ def process_renpho():
     #########################################################################
     # If you are under 18 years of age, reside in California, and have a registered account with the Website, you have the right to request removal of unwanted data that you publicly post on the Website. To request removal of such data, please contact us using the contact information provided below, and include the email address associated with your account and a statement that you reside in California. We will make sure the data is not publicly displayed on the Website, but please be aware that the data may not be completely or comprehensively removed from our systems.
 
-    user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    user = o.individual('User', 'you', [
+        o.connection('hasSpecialCategory', o.individual(
+            'UserSpecialCategory', 
+            'California resident')),
+        o.connection('hasSpecialCategory', o.individual(
+            'UserSpecialCategory', 
+            '18 years of age')),
+    ])
 
     o.individual(
 
-        'DataCollectionActivity',
+        'DataControlActivity',
 
-        '',
+        'If you are under 18 years of age, reside in California, and have a registered account with the Website, you have the right to request removal of unwanted data that you publicly post on the Website. To request removal of such data, please contact us using the contact information provided below, and include the email address associated with your account and a statement that you reside in California. We will make sure the data is not publicly displayed on the Website, but please be aware that the data may not be completely or comprehensively removed from our systems.',
 
         [
-            o.connection('activityIsInitiatedBy', first_party),
+            o.connection('activityIsInitiatedBy', user),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'Data',
+                'such data',
                 [o.connection('isProvidedBy', user)])),
-
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
 
             o.connection('hasDataActivityPurpose', o.individual(
                 'DataActivityPurpose',
-                '')),
+                'to request removal of unwanted data that you publicly post on the Website.')),
 
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
-
-            o.connection('hasLegalBasis', o.individual(
-                'LegalBasis',
-                '')),
+            o.connection('hasDataControlMechanism', o.individual(
+                'DataControlMechanism',
+                'To request removal of such data, please contact us using the contact information provided below, and include the email address associated with your account and a statement that you reside in California.')),
         ]
     )
 
@@ -2370,95 +2201,127 @@ def process_renpho():
     #########################################################################
     # If you are a California resident, the California Consumer Privacy Act ('CCPA') provides you with the following rights that are in addition to those set forth elsewhere in this Privacy Policy regarding our use of your personal information: The right to know the categories or specific personal information we have collected, used, disclosed and sold about you. To submit a request to know, you may contact us by email at: privacy@renpho.com. You also may designate an authorized agent to make a request for access on your behalf. The right to request that we delete any personal information we have collected about you. To submit a request for deletion, you may contact us by email at: privacy@renpho.com. You also may designate an authorized agent to make a request for deletion on your behalf. Please note that we may retain certain information as required or permitted by applicable law. 
 
-    user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    user = o.individual('User', 'you', [
+        o.connection('hasSpecialCategory', o.individual(
+            'UserSpecialCategory', 
+            'California resident')),
+    ])
 
     o.individual(
 
-        'DataCollectionActivity',
+        'DataControlActivity',
 
-        '',
+        'If you are a California resident, the California Consumer Privacy Act ("CCPA") provides you with the following rights that are in addition to those set forth elsewhere in this Privacy Policy regarding our use of your personal information: The right to know the categories or specific personal information we have collected, used, disclosed and sold about you. To submit a request to know, you may contact us by email at: privacy@renpho.com. You also may designate an authorized agent to make a request for access on your behalf. The right to request that we delete any personal information we have collected about you. To submit a request for deletion, you may contact us by email at: privacy@renpho.com.',
+
+        [
+            o.connection('activityIsInitiatedBy', user),
+
+            o.connection('isAppliedTo', o.individual(
+                'PersonalData',
+                'personal information',
+                [o.connection('isProvidedBy', user)])),
+
+            o.connection('hasDataActivityPurpose', o.individual(
+                'DataActivityPurpose',
+                'to know the categories or specific personal information we have collected, used, disclosed and sold about you.')),
+
+            o.connection('hasDataActivityPurpose', o.individual(
+                'DataActivityPurpose',
+                'to request that we delete any personal information we have collected about you.')),
+
+            o.connection('hasLegalBasis', o.individual(
+                'LegalBasis',
+                'the California Consumer Privacy Act ("CCPA")')),
+
+            o.connection('hasDataControlMechanism', o.individual(
+                'EmailRequest',
+                'contact us by email at: privacy@renpho.com.')),
+        ]
+        
+    )
+
+    first_party = o.individual('FirstParty', 'we')
+
+    o.individual(
+
+        'DataRetentionActivity',
+
+        'You also may designate an authorized agent to make a request for deletion on your behalf. Please note that we may retain certain information as required or permitted by applicable law.',
 
         [
             o.connection('activityIsInitiatedBy', first_party),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'Data',
+                'certain information',
                 [o.connection('isProvidedBy', user)])),
-
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
 
             o.connection('hasDataActivityPurpose', o.individual(
                 'DataActivityPurpose',
-                '')),
+                'to know the categories or specific personal information we have collected, used, disclosed and sold about you.')),
 
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
+            o.connection('hasDataActivityPurpose', o.individual(
+                'DataActivityPurpose',
+                'to request that we delete any personal information we have collected about you.')),
 
             o.connection('hasLegalBasis', o.individual(
                 'LegalBasis',
-                '')),
+                'required or permitted by applicable law.')),
         ]
+        
     )
-
-
-
 
     #########################################################################
     # When you exercise these rights and submit a request to us, we will verify your identity by asking you for your email address, telephone number, order number, the last four digits of a credit or debit card used on our Website, or other uniquely identifying information. We also may use a third party verification provider to verify your identity. Your exercise of these rights will have no adverse effect on the price and quality of our goods or Services.
 
-    user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    user = o.individual('User', 'you')
 
     o.individual(
 
-        'DataCollectionActivity',
+        'DataControlActivity',
 
-        '',
+        'When you exercise these rights and submit a request to us, we will verify your identity by asking you for your email address, telephone number, order number, the last four digits of a credit or debit card used on our Website, or other uniquely identifying information. We also may use a third party verification provider to verify your identity. Your exercise of these rights will have no adverse effect on the price and quality of our goods or Services.',
 
         [
-            o.connection('activityIsInitiatedBy', first_party),
+            o.connection('activityIsInitiatedBy', user),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'Data',
+                'these rights',
                 [o.connection('isProvidedBy', user)])),
 
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
+            o.connection('isAppliedTo', o.individual(
+                'TrackingData',
+                'email address',
+                [o.connection('isProvidedBy', user)])),
 
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
+            o.connection('isAppliedTo', o.individual(
+                'TrackingData',
+                'telephone number',
+                [o.connection('isProvidedBy', user)])),
 
-            o.connection('hasDataActivityPurpose', o.individual(
-                'DataActivityPurpose',
-                '')),
+            o.connection('isAppliedTo', o.individual(
+                'FinancialData',
+                'order number',
+                [o.connection('isProvidedBy', user)])),
+
+            o.connection('isAppliedTo', o.individual(
+                'FinancialData',
+                'the last four digits of a credit or debit card used on our Website',
+                [o.connection('isProvidedBy', user)])),
+
+            o.connection('isAppliedTo', o.individual(
+                'Data',
+                'other uniquely identifying information.',
+                [o.connection('isProvidedBy', user)])),
 
             o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
+                'DataActivityPurpose',
+                'exercise these rights')),
 
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
-
-            o.connection('hasLegalBasis', o.individual(
-                'LegalBasis',
-                '')),
+            o.connection('hasDataRetentionTime', o.individual(
+                'DataActivityPurpose',
+                'verify your identity by asking you for')),
         ]
     )
 
@@ -2468,46 +2331,37 @@ def process_renpho():
     #########################################################################
     # European law provides citizens of countries located in the European Economic Area and the United Kingdom with the following rights with respect to their personal data:
 
-    user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    user = o.individual('User', 'you', [
+        o.connection('hasSpecialCategory', o.individual(
+            'UserSpecialCategory', 
+            'European')),
+        o.connection('hasSpecialCategory', o.individual(
+            'UserSpecialCategory', 
+            'United Kingdom')),
+    ])
 
     o.individual(
 
-        'DataCollectionActivity',
+        'DataControlActivity',
 
-        '',
+        'European law provides citizens of countries located in the European Economic Area and the United Kingdom with the following rights with respect to their personal data:',
 
         [
-            o.connection('activityIsInitiatedBy', first_party),
+            o.connection('activityIsInitiatedBy', user),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'PersonalData',
+                'personal data',
                 [o.connection('isProvidedBy', user)])),
 
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasDataActivityPurpose', o.individual(
-                'DataActivityPurpose',
-                '')),
-
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
+            o.connection('isAppliedTo', o.individual(
+                'Data',
+                'rights',
+                [o.connection('isProvidedBy', user)])),
 
             o.connection('hasLegalBasis', o.individual(
                 'LegalBasis',
-                '')),
+                'European law provides')),
         ]
     )
 
@@ -2517,46 +2371,32 @@ def process_renpho():
     #########################################################################
     # The right to access – You have the right to request copies of your personal data. We may charge you a small fee for this service.
 
-    user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    user = o.individual('User', 'you', [
+        o.connection('hasSpecialCategory', o.individual(
+            'UserSpecialCategory', 
+            'European')),
+        o.connection('hasSpecialCategory', o.individual(
+            'UserSpecialCategory', 
+            'United Kingdom')),
+    ])
 
     o.individual(
 
-        'DataCollectionActivity',
+        'DataControlActivity',
 
-        '',
+        'The right to access – You have the right to request copies of your personal data. We may charge you a small fee for this service.',
 
         [
-            o.connection('activityIsInitiatedBy', first_party),
+            o.connection('activityIsInitiatedBy', user),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'PersonalData',
+                'personal data.',
                 [o.connection('isProvidedBy', user)])),
-
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasDataActivityPurpose', o.individual(
-                'DataActivityPurpose',
-                '')),
-
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
 
             o.connection('hasLegalBasis', o.individual(
                 'LegalBasis',
-                '')),
+                'right to access')),
         ]
     )
 
@@ -2566,46 +2406,37 @@ def process_renpho():
     #########################################################################
     # The right to rectification – You have the right to request that Renpho correct any of your personal data you believe is inaccurate. You also have the right to request Renpho to complete your personal data that you believe is incomplete.
 
-    user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    user = o.individual('User', 'you')
 
     o.individual(
 
-        'DataCollectionActivity',
+        'DataControlActivity',
 
-        '',
+        'The right to rectification – You have the right to request that Renpho correct any of your personal data you believe is inaccurate. You also have the right to request Renpho to complete your personal data that you believe is incomplete.',
 
         [
-            o.connection('activityIsInitiatedBy', first_party),
+            o.connection('activityIsInitiatedBy', user),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'PersonalData',
+                'personal data',
                 [o.connection('isProvidedBy', user)])),
-
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
 
             o.connection('hasDataActivityPurpose', o.individual(
                 'DataActivityPurpose',
-                '')),
+                'to request that Renpho correct any of your personal data you believe is inaccurate.')),
 
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
+            o.connection('hasDataActivityPurpose', o.individual(
+                'DataActivityPurpose',
+                'to request Renpho to complete your personal data that you believe is incomplete.')),
 
             o.connection('hasLegalBasis', o.individual(
                 'LegalBasis',
-                '')),
+                'The right to rectification')),
+
+            o.connection('hasDataControlMechanism', o.individual(
+                'DataControlMechanism',
+                'request')),
         ]
     )
 
@@ -2615,47 +2446,61 @@ def process_renpho():
     #########################################################################
     # The right to erasure – You have the right to request that Renpho erase your personal data. Please note that we may retain certain data as required or permitted by applicable law. 
 
-    user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    user = o.individual('User', 'you')
 
     o.individual(
 
-        'DataCollectionActivity',
+        'DataControlActivity',
 
-        '',
+        'Please note that we may retain certain data as required or permitted by applicable law.',
 
         [
             o.connection('activityIsInitiatedBy', first_party),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'PersonalData',
+                'personal data',
                 [o.connection('isProvidedBy', user)])),
-
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
 
             o.connection('hasDataActivityPurpose', o.individual(
                 'DataActivityPurpose',
-                '')),
-
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
+                'to request that Renpho erase your personal data.')),
 
             o.connection('hasLegalBasis', o.individual(
                 'LegalBasis',
-                '')),
+                'The right to erasure')),
+
+            o.connection('hasDataControlMechanism', o.individual(
+                'DataControlMechanism',
+                'request')),
         ]
+    )
+
+    first_party = o.individual('FirstParty', 'we')
+
+    o.individual(
+
+        'DataRetentionActivity',
+
+        'Please note that we may retain certain data as required or permitted by applicable law.',
+
+        [
+            o.connection('activityIsInitiatedBy', first_party),
+
+            o.connection('isAppliedTo', o.individual(
+                'Data',
+                'certain information',
+                [o.connection('isProvidedBy', user)])),
+
+            o.connection('hasDataActivityPurpose', o.individual(
+                'DataActivityPurpose',
+                'to request that we delete any personal information we have collected about you.')),
+
+            o.connection('hasLegalBasis', o.individual(
+                'LegalBasis',
+                'required or permitted by applicable law.')),
+        ]
+        
     )
 
 
@@ -2664,46 +2509,33 @@ def process_renpho():
     #########################################################################
     # The right to restrict processing – You have the right to request that Renpho restrict the processing of your personal data, subject to the conditions in this Privacy Policy.
 
-    user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    user = o.individual('User', 'You')
 
     o.individual(
 
-        'DataCollectionActivity',
+        'DataControlActivity',
 
-        '',
+        'The right to restrict processing – You have the right to request that Renpho restrict the processing of your personal data, subject to the conditions in this Privacy Policy.',
 
         [
-            o.connection('activityIsInitiatedBy', first_party),
+            o.connection('activityIsInitiatedBy', user),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'PersonalData',
+                'personal data',
                 [o.connection('isProvidedBy', user)])),
-
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
 
             o.connection('hasDataActivityPurpose', o.individual(
                 'DataActivityPurpose',
-                '')),
-
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
+                'to request that Renpho restrict the processing of your personal data,')),
 
             o.connection('hasLegalBasis', o.individual(
                 'LegalBasis',
-                '')),
+                'The right to restrict processing')),
+
+            o.connection('hasDataControlMechanism', o.individual(
+                'DataControlMechanism',
+                'request')),
         ]
     )
 
@@ -2713,46 +2545,33 @@ def process_renpho():
     #########################################################################
     # The right to object to processing – You have the right to object to Renpho’s processing of your personal data, subject to the conditions in this Privacy Policy.
 
-    user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    user = o.individual('User', 'You')
 
     o.individual(
 
         'DataCollectionActivity',
 
-        '',
+        'The right to object to processing – You have the right to object to Renpho’s processing of your personal data, subject to the conditions in this Privacy Policy.',
 
         [
-            o.connection('activityIsInitiatedBy', first_party),
+            o.connection('activityIsInitiatedBy', user),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'PersonalData',
+                'personal data',
                 [o.connection('isProvidedBy', user)])),
-
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
 
             o.connection('hasDataActivityPurpose', o.individual(
                 'DataActivityPurpose',
-                '')),
-
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
+                'to object to Renpho’s processing of your personal data,')),
 
             o.connection('hasLegalBasis', o.individual(
                 'LegalBasis',
-                '')),
+                'The right to object to processing')),
+
+            o.connection('hasDataControlMechanism', o.individual(
+                'DataControlMechanism',
+                'request')),
         ]
     )
 
@@ -2762,46 +2581,33 @@ def process_renpho():
     #########################################################################
     # The right to data portability – You have the right to request that Renpho transfer your personal data that we have collected to another organization, or directly to you, subject to the conditions in this Privacy Policy and so long as such transfer will not adversely affect the rights and freedoms of others.
 
-    user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    user = o.individual('User', 'You')
 
     o.individual(
 
-        'DataCollectionActivity',
+        'DataControlActivity',
 
-        '',
+        'The right to data portability – You have the right to request that Renpho transfer your personal data that we have collected to another organization, or directly to you, subject to the conditions in this Privacy Policy and so long as such transfer will not adversely affect the rights and freedoms of others.',
 
         [
-            o.connection('activityIsInitiatedBy', first_party),
+            o.connection('activityIsInitiatedBy', user),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'PersonalData',
+                'personal data',
                 [o.connection('isProvidedBy', user)])),
-
-            o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
 
             o.connection('hasDataActivityPurpose', o.individual(
                 'DataActivityPurpose',
-                '')),
-
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
+                'to request that Renpho transfer your personal data that we have collected to another organization, or directly to you,')),
 
             o.connection('hasLegalBasis', o.individual(
                 'LegalBasis',
-                '')),
+                'The right to data portability')),
+
+            o.connection('hasDataControlMechanism', o.individual(
+                'DataControlMechanism',
+                'request')),
         ]
     )
 
@@ -2811,46 +2617,34 @@ def process_renpho():
     #########################################################################
     # We maintain reasonable and appropriate measures designed to maintain data we collect in a secure manner. We have taken certain physical, electronic, and administrative steps to safeguard and secure the data we collect from visitors to the Services. Even though we follow reasonable procedures to try to protect the data in our possession, no security system is perfect and we cannot promise, and you should not expect, that your data will be secure in all circumstances.
 
-    user = o.individual('User')
+    user = o.individual('User', 'visitors')
     first_party = o.individual('FirstParty')
 
     o.individual(
 
-        'DataCollectionActivity',
+        'DataActivity',
 
-        '',
+        'We maintain reasonable and appropriate measures designed to maintain data we collect in a secure manner. We have taken certain physical, electronic, and administrative steps to safeguard and secure the data we collect from visitors to the Services. Even though we follow reasonable procedures to try to protect the data in our possession, no security system is perfect and we cannot promise, and you should not expect, that your data will be secure in all circumstances.',
 
         [
             o.connection('activityIsInitiatedBy', first_party),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'Data',
+                'data',
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
+                'TechnicalMeasure',
+                'certain physical,')),
 
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
+            o.connection('hasSecurityMechanism', o.individual(
+                'TechnicalMeasure',
+                'electronic,')),
 
-            o.connection('hasDataActivityPurpose', o.individual(
-                'DataActivityPurpose',
-                '')),
-
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
-
-            o.connection('hasLegalBasis', o.individual(
-                'LegalBasis',
-                '')),
+            o.connection('hasSecurityMechanism', o.individual(
+                'OrganizationalMeasure',
+                'administrative')),
         ]
     )
 
@@ -2862,44 +2656,49 @@ def process_renpho():
 
     user = o.individual('User')
     first_party = o.individual('FirstParty')
+    third_parties = o.individual('ThirdParties')
 
     o.individual(
 
-        'DataCollectionActivity',
+        'DataActivity',
 
-        '',
+        'We will never ask for your account password, and we recommend that you do not disclose your password to anyone else. We are not responsible for any of the following circumstances, including without limitation: (1) Any disclosure of personal data made under the laws, regulations, or other mandatory provisions of the government; (2) The disclosure of any personal data resulting from the fact that you have communicated the user`s password to another person or shared the account with others; and (3) Any legal disputes and consequences arising from the disclosure of personal data caused by companies we do not own or control, as well as by persons we do not employ or manage.',
 
         [
             o.connection('activityIsInitiatedBy', first_party),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'PersonalData',
+                'personal data',
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
+                'UserMaintain',
+                'We will never ask for your account password, and we recommend that you do not disclose your password to anyone else.')),
 
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
+            o.connection('initiatesAnotherActivity', o.individual(
+                'BreachActivity',
+                'verifiable parental consent.',
+                [
+                    o.connection('activityIsInitiatedBy', third_parties),
 
-            o.connection('hasDataActivityPurpose', o.individual(
-                'DataActivityPurpose',
-                '')),
+                    o.connection('isAppliedTo', data),
 
-            o.connection('hasDataRetentionTime', o.individual(
-                'DataRetentionTime',
-                '')),
+                    o.connection('hasBreachCause', o.individual(
+                        'BreachCause',
+                        'Any disclosure of personal data made under the laws, regulations, or other mandatory provisions of the government;'
+                    )),
 
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
+                    o.connection('hasBreachCause', o.individual(
+                        'BreachCause',
+                        'The disclosure of any personal data resulting from the fact that you have communicated the user`s password to another person or shared the account with others;'
+                    )),
 
-            o.connection('hasLegalBasis', o.individual(
-                'LegalBasis',
-                '')),
+                    o.connection('hasBreachCause', o.individual(
+                        'BreachCause',
+                        'Any legal disputes and consequences arising from the disclosure of personal data caused by companies we do not own or control, as well as by persons we do not employ or manage.'
+                    )),
+                ])),
         ]
     )
 
@@ -2910,44 +2709,32 @@ def process_renpho():
     # Personal data that we collect, access, or process will be retained only as long as necessary for the fulfilment of the purposes for which it was collected, unless otherwise provided in agreements between you and Renpho or as required or authorized by law. Personal data that is no longer required to fulfill the identified purposes will be destroyed, erased, aggregated, or made deidentified.
 
     user = o.individual('User')
-    first_party = o.individual('FirstParty')
+    first_party = o.individual('FirstParty', 'we')
 
     o.individual(
 
-        'DataCollectionActivity',
+        'DataRetentionActivity',
 
-        '',
+        'Personal data that we collect, access, or process will be retained only as long as necessary for the fulfilment of the purposes for which it was collected, unless otherwise provided in agreements between you and Renpho or as required or authorized by law. Personal data that is no longer required to fulfill the identified purposes will be destroyed, erased, aggregated, or made deidentified.',
 
         [
             o.connection('activityIsInitiatedBy', first_party),
 
             o.connection('isAppliedTo', o.individual(
-                '',
-                '',
+                'PersonalData',
+                'Personal data',
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasSecurityMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasNotificationMechanism', o.individual(
-                '',
-                '')),
-
-            o.connection('hasDataActivityPurpose', o.individual(
-                'DataActivityPurpose',
-                '')),
+                'TechnicalMeasure',
+                'Personal data that is no longer required to fulfill the identified purposes will be destroyed, erased, aggregated, or made deidentified.')),
 
             o.connection('hasDataRetentionTime', o.individual(
                 'DataRetentionTime',
-                '')),
-
-            o.connection('hasUserChoiceConsequence', o.individual(
-                '',
-                '')),
+                'as long as necessary for the fulfilment of the purposes for which it was collected, unless otherwise provided in agreements between you and Renpho or as required or authorized by law.')),
 
             o.connection('hasLegalBasis', o.individual(
                 'LegalBasis',
-                '')),
+                'as required or authorized by law.')),
         ]
     )

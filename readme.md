@@ -18,7 +18,7 @@ TODO
     - [x] CareSense (Has nothing about health, maybe that is delegated to HIPAA)
     - [ ] Dario (0%)
     - [ ] Zepp (~50%)
-    - [ ] Renpho (~17%)
+    - [x] Renpho
 
 
 
@@ -76,6 +76,7 @@ Suggestions
 - [ ] Rudimental activity in security topics?
 - [ ] GiveConsent suggested to be a modifier?
 - [ ] Is a use on the device important anyway?
+- [ ] What about user data collected from third parties?
 - [ ] SecurityMeasures in TechnicalMeasures:
     - [ ] Anonymization
     - [ ] Encryption

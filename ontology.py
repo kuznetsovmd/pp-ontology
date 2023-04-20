@@ -103,7 +103,7 @@ class Ontology:
 
             class DataControlActivity(ControlActivity): pass
 
-            class UserAccessActivity(DataControlActivity): pass
+            class UserAccessControl(DataControlActivity): pass
 
             class UserPrivacyControl(DataControlActivity): pass
 
@@ -237,6 +237,8 @@ class Ontology:
             class EmailRequest(DataControlMechanism): pass
 
             class PhoneCallRequest(DataControlMechanism): pass
+
+            class SMSRequest(DataControlMechanism): pass
 
             class WebsiteForm(DataControlMechanism): pass
 
@@ -433,6 +435,12 @@ class Ontology:
                 range = [DataControlMechanism]
                 inverse_property = privacyControlMechanismIsRelatedTo
 
+            class dataControlMechanismIsRelatedTo(mechanismIsRelatedTo): pass
+            class hasDataControlMechanism(hasMechanism):
+                domain = [UserAccessControl]
+                range = [DataControlMechanism]
+                inverse_property = dataControlMechanismIsRelatedTo
+
             class notificationMechanismIsRelatedTo(mechanismIsRelatedTo): pass
             class hasNotificationMechanism(hasMechanism):
                 domain = [ReportBreachActivity | PolicyChangeActivity]
@@ -506,6 +514,8 @@ class Ontology:
 
             class initiatesAnotherActivity(initiates): pass
             class isInitiatedByAnotherActivity(isInitiatedBy):
+                domain = [DataActivity | PolicyChangeActivity]
+                domain = [ConsentActivity]
                 inverse_property = initiatesAnotherActivity
 
             class activityIsInitiatedBy(isInitiatedBy): pass

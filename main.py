@@ -63,38 +63,37 @@ def main():
 
     owlready2.JAVA_EXE="/usr/lib/jvm/java-17-openjdk/bin/java"
 
-    # Ontology containing whole dataset
+    # # Ontology containing whole dataset
+    # onto = Ontology("blank")
+    # onto.write(reason=False)
 
-    onto = Ontology("blank")
-    onto.write(reason=False)
-
-    onto = Ontology("summary")
-    policies = read_opp()
+    # onto = Ontology("summary")
+    # policies = read_opp()
     
-    for p in policies:
-        process_opp(onto.raw_onto, p)
-    onto.write(reason=False)
+    # for p in policies:
+    #     process_opp(onto.raw_onto, p)
+    # onto.write(reason=False)
     
-    # Ontologies containing policies by 1
-    for i, p in enumerate(policies, start=1):
-        onto = Ontology(i)
-        process_opp(onto.raw_onto, p)
-        onto.write(reason=False)
+    # # Ontologies containing policies by 1
+    # for i, p in enumerate(policies, start=1):
+    #     onto = Ontology(i)
+    #     process_opp(onto.raw_onto, p)
+    #     onto.write(reason=False)
 
-    onto = Ontology("3plususa")
-    process_3plususa(onto.raw_onto)
-    onto.write(reason=False)
+    # onto = Ontology("3plususa")
+    # process_3plususa(onto.raw_onto)
+    # onto.write(reason=False)
 
-    onto = Ontology("aws")
-    process_aws(onto.raw_onto)
-    onto.write(reason=False)
+    # onto = Ontology("aws")
+    # process_aws(onto.raw_onto)
+    # onto.write(reason=False)
 
-    onto = Ontology("google-cloud")
-    process_google_cloud(onto.raw_onto)
-    onto.write(reason=False)
+    # onto = Ontology("google-cloud")
+    # process_google_cloud(onto.raw_onto)
+    # onto.write(reason=False)
 
-    process_caresense()
-    process_zepp()
+    # process_caresense()
+    # process_zepp()
     process_renpho()
 
 
