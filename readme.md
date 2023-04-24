@@ -14,10 +14,9 @@ TODO
 - [x] Find 1-3 medical devices. One of them supposed to be critical, others are tracker and scales.
 - [x] Enhance the ontology in terms of HealthMonitoring purpose.
 - [x] Enhance the SecurityMeasures, especially TechnicalMeasures. Discuss the enhancements. 
-- [ ] Try to fullfill the ontologies for: 
+- [x] Try to fullfill the ontologies for: 
     - [x] CareSense (Has nothing about health, maybe that is delegated to HIPAA)
-    - [ ] Dario (0%)
-    - [ ] Zepp (~50%)
+    - [x] Zepp
     - [x] Renpho
 
 
@@ -68,6 +67,7 @@ Device:
 Suggestions
 -----------
 
+- [ ] Users also may report breach activity
 - [ ] What are aggregated, anonymized or de-identified, are they all pseudoanonymized?
 - [ ] Placement of third party links?
 - [ ] Irresponsibility for third-party services?
@@ -83,6 +83,7 @@ Suggestions
     - [ ] Secure Sockets Layer (SSL) technology
     - [ ] Firewall
     - [ ] Access controls, passwords
+    - [ ] Two-Step verification
 - [ ] SecurityMeasures in OrganizationalMeasures:
     - [ ] Storage of sensitive information in locked offices
     - [ ] Employee training regarding security issues
