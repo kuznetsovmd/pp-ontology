@@ -226,6 +226,18 @@
   <owl:inverseOf rdf:resource="#privacyControlMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
 
+<owl:ObjectProperty rdf:about="#dataControlMechanismIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasDataControlMechanism"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasDataControlMechanism">
+  <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
+  <rdfs:domain rdf:resource="#UserAccessControl"/>
+  <rdfs:range rdf:resource="#DataControlMechanism"/>
+  <owl:inverseOf rdf:resource="#dataControlMechanismIsRelatedTo"/>
+</owl:ObjectProperty>
+
 <owl:ObjectProperty rdf:about="#notificationMechanismIsRelatedTo">
   <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
   <owl:inverseOf rdf:resource="#hasNotificationMechanism"/>
@@ -233,14 +245,7 @@
 
 <owl:ObjectProperty rdf:about="#hasNotificationMechanism">
   <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#NotificationMechanism"/>
   <owl:inverseOf rdf:resource="#notificationMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
@@ -380,6 +385,7 @@
 
 <owl:ObjectProperty rdf:about="#isInitiatedByAnotherActivity">
   <rdfs:subPropertyOf rdf:resource="#isInitiatedBy"/>
+  <rdfs:domain rdf:resource="#Activity"/>
   <owl:inverseOf rdf:resource="#initiatesAnotherActivity"/>
 </owl:ObjectProperty>
 
@@ -410,14 +416,7 @@
 
 <owl:ObjectProperty rdf:about="#notifiesAgent">
   <rdfs:subPropertyOf rdf:resource="#notifies"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#Agent"/>
   <owl:inverseOf rdf:resource="#agentIsNotifiedBy"/>
 </owl:ObjectProperty>
@@ -506,12 +505,22 @@
   <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
 </owl:DatatypeProperty>
 
+<owl:DatatypeProperty rdf:about="#does">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+</owl:DatatypeProperty>
+
 <owl:Class rdf:about="#PrivacyPolicy">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Activity">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#NotificationActivity">
+  <rdfs:subClassOf rdf:resource="#Activity"/>
 </owl:Class>
 
 <owl:Class rdf:about="#BreachActivity">
@@ -546,7 +555,7 @@
   <rdfs:subClassOf rdf:resource="#ControlActivity"/>
 </owl:Class>
 
-<owl:Class rdf:about="#UserAccessActivity">
+<owl:Class rdf:about="#UserAccessControl">
   <rdfs:subClassOf rdf:resource="#DataControlActivity"/>
 </owl:Class>
 
@@ -806,6 +815,10 @@
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
 
+<owl:Class rdf:about="#SMSRequest">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
 <owl:Class rdf:about="#WebsiteForm">
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
@@ -958,7 +971,7 @@
 <User rdf:about="#user1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory1"/>
-  <initiatesActivity rdf:resource="#useraccessactivity1"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol1"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory2"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory3"/>
   <providesData rdf:resource="#nonsensitivedata1"/>
@@ -986,15 +999,15 @@
   <hasSpecialCategory rdf:resource="#userspecialcategory10"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory11"/>
   <providesData rdf:resource="#genericdata1"/>
-  <initiatesActivity rdf:resource="#useraccessactivity2"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol2"/>
   <initiatesActivity rdf:resource="#userprivacycontrol6"/>
   <initiatesActivity rdf:resource="#userprivacycontrol7"/>
   <initiatesActivity rdf:resource="#userprivacycontrol8"/>
-  <initiatesActivity rdf:resource="#useraccessactivity3"/>
-  <initiatesActivity rdf:resource="#useraccessactivity4"/>
-  <initiatesActivity rdf:resource="#useraccessactivity5"/>
-  <initiatesActivity rdf:resource="#useraccessactivity6"/>
-  <initiatesActivity rdf:resource="#useraccessactivity7"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol3"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol4"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol5"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol6"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol7"/>
   <providesData rdf:resource="#genericdata2"/>
   <initiatesActivity rdf:resource="#userprivacycontrol9"/>
   <providesData rdf:resource="#genericdata3"/>
@@ -1024,13 +1037,13 @@
 
 <PrivacyPolicy rdf:about="#privacypolicy2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <considersAgent rdf:resource="#firstparty1"/>
   <considersAgent rdf:resource="#user1"/>
+  <considersAgent rdf:resource="#firstparty1"/>
   <considersAgent rdf:resource="#thirdparties1"/>
   <considersActivity rdf:resource="#policychangeactivity1"/>
   <considersActivity rdf:resource="#policychangeactivity2"/>
   <considersActivity rdf:resource="#policychangeactivity3"/>
-  <considersActivity rdf:resource="#useraccessactivity1"/>
+  <considersActivity rdf:resource="#useraccesscontrol1"/>
   <considersData rdf:resource="#accountdata1"/>
   <considersData rdf:resource="#nonsensitivedata1"/>
   <considersActivity rdf:resource="#datauseactivity1"/>
@@ -1057,17 +1070,17 @@
   <considersActivity rdf:resource="#activity3"/>
   <considersData rdf:resource="#genericdata1"/>
   <considersActivity rdf:resource="#dataretentionactivity1"/>
-  <considersActivity rdf:resource="#useraccessactivity2"/>
+  <considersActivity rdf:resource="#useraccesscontrol2"/>
   <considersActivity rdf:resource="#userprivacycontrol6"/>
   <considersActivity rdf:resource="#userprivacycontrol7"/>
   <considersActivity rdf:resource="#userprivacycontrol8"/>
-  <considersActivity rdf:resource="#useraccessactivity3"/>
-  <considersActivity rdf:resource="#useraccessactivity4"/>
-  <considersActivity rdf:resource="#useraccessactivity5"/>
+  <considersActivity rdf:resource="#useraccesscontrol3"/>
+  <considersActivity rdf:resource="#useraccesscontrol4"/>
+  <considersActivity rdf:resource="#useraccesscontrol5"/>
   <considersData rdf:resource="#accountdata2"/>
-  <considersActivity rdf:resource="#useraccessactivity6"/>
+  <considersActivity rdf:resource="#useraccesscontrol6"/>
   <considersData rdf:resource="#sensitivedata1"/>
-  <considersActivity rdf:resource="#useraccessactivity7"/>
+  <considersActivity rdf:resource="#useraccesscontrol7"/>
   <considersData rdf:resource="#accountdata3"/>
   <considersData rdf:resource="#genericdata2"/>
   <considersActivity rdf:resource="#userprivacycontrol9"/>
@@ -1433,11 +1446,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information you choose to provide You may choose to open an account and if you are age 13 or older provide us with information in order to use certain services or products like Dictionary com Premium or Word Dynamo or to take advantage of special offers like a contest or a sweepstakes This information may include your name email address phone number credit card information including billing address and demographic information age gender etc You may provide this information directly to us or you may choose to register using your Facebook account in which case you would authorize us to access certain Facebook profile information including your first name last name gender birth date and email address You may also choose to post content such as custom flashcards that you may share with others through our site or through your Twitter or Facebook account You do not have to provide any of this information to us But if you do not provide certain information you will not be able to use some of the services we offer If you wish we will delete your account information to do so please log into Dictionary com using the account you wish to close then close your acount at http //app dictionary com/users/cancelaccount</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity1">
+<UserAccessControl rdf:about="#useraccesscontrol1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence35"/>
   <isAppliedTo rdf:resource="#accountdata1"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence36">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4333,10 +4346,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We have opted for this alternative approach If you would like to modify any personal information you previously submitted our sites or apps visit your account information section for each site or app to which you made the submission If you have agreed to receive communications from us or to permit us to share your personal information with third parties you may request that in the future we not send you communications or share your personal information by writing to our Legal Department at our corporate address below or by visiting your account information section for each site or app Please note however that we reserve the right to send you administrative messages relating to the site or app e g about changes to this Privacy Policy If at any time you would like us to deactivate your member profile please write to us at our corporate address or visit your account information section for each site and app Please note that 1 we may retain your personal information in back-up storage after deactivation and 2 we are not responsible for removing information about you from the database of any third parties to whom you previously authorized us to share your personal information</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity2">
+<UserAccessControl rdf:about="#useraccesscontrol2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence318"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence319">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4416,10 +4429,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We have opted for this alternative approach If you would like to modify any personal information you previously submitted our sites or apps visit your account information section for each site or app to which you made the submission If you have agreed to receive communications from us or to permit us to share your personal information with third parties you may request that in the future we not send you communications or share your personal information by writing to our Legal Department at our corporate address below or by visiting your account information section for each site or app Please note however that we reserve the right to send you administrative messages relating to the site or app e g about changes to this Privacy Policy If at any time you would like us to deactivate your member profile please write to us at our corporate address or visit your account information section for each site and app Please note that 1 we may retain your personal information in back-up storage after deactivation and 2 we are not responsible for removing information about you from the database of any third parties to whom you previously authorized us to share your personal information</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity3">
+<UserAccessControl rdf:about="#useraccesscontrol3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence326"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence327">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4436,10 +4449,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We have opted for this alternative approach If you would like to modify any personal information you previously submitted our sites or apps visit your account information section for each site or app to which you made the submission If you have agreed to receive communications from us or to permit us to share your personal information with third parties you may request that in the future we not send you communications or share your personal information by writing to our Legal Department at our corporate address below or by visiting your account information section for each site or app Please note however that we reserve the right to send you administrative messages relating to the site or app e g about changes to this Privacy Policy If at any time you would like us to deactivate your member profile please write to us at our corporate address or visit your account information section for each site and app Please note that 1 we may retain your personal information in back-up storage after deactivation and 2 we are not responsible for removing information about you from the database of any third parties to whom you previously authorized us to share your personal information</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity4">
+<UserAccessControl rdf:about="#useraccesscontrol4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence328"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence329">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4456,11 +4469,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We have opted for this alternative approach If you would like to modify any personal information you previously submitted our sites or apps visit your account information section for each site or app to which you made the submission If you have agreed to receive communications from us or to permit us to share your personal information with third parties you may request that in the future we not send you communications or share your personal information by writing to our Legal Department at our corporate address below or by visiting your account information section for each site or app Please note however that we reserve the right to send you administrative messages relating to the site or app e g about changes to this Privacy Policy If at any time you would like us to deactivate your member profile please write to us at our corporate address or visit your account information section for each site and app Please note that 1 we may retain your personal information in back-up storage after deactivation and 2 we are not responsible for removing information about you from the database of any third parties to whom you previously authorized us to share your personal information</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity5">
+<UserAccessControl rdf:about="#useraccesscontrol5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence330"/>
   <isAppliedTo rdf:resource="#accountdata2"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence331">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4482,11 +4495,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We have opted for this alternative approach If you would like to modify any personal information you previously submitted our sites or apps visit your account information section for each site or app to which you made the submission If you have agreed to receive communications from us or to permit us to share your personal information with third parties you may request that in the future we not send you communications or share your personal information by writing to our Legal Department at our corporate address below or by visiting your account information section for each site or app Please note however that we reserve the right to send you administrative messages relating to the site or app e g about changes to this Privacy Policy If at any time you would like us to deactivate your member profile please write to us at our corporate address or visit your account information section for each site and app Please note that 1 we may retain your personal information in back-up storage after deactivation and 2 we are not responsible for removing information about you from the database of any third parties to whom you previously authorized us to share your personal information</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity6">
+<UserAccessControl rdf:about="#useraccesscontrol6">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence332"/>
   <isAppliedTo rdf:resource="#sensitivedata1"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence333">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4508,11 +4521,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We have opted for this alternative approach If you would like to modify any personal information you previously submitted our sites or apps visit your account information section for each site or app to which you made the submission If you have agreed to receive communications from us or to permit us to share your personal information with third parties you may request that in the future we not send you communications or share your personal information by writing to our Legal Department at our corporate address below or by visiting your account information section for each site or app Please note however that we reserve the right to send you administrative messages relating to the site or app e g about changes to this Privacy Policy If at any time you would like us to deactivate your member profile please write to us at our corporate address or visit your account information section for each site and app Please note that 1 we may retain your personal information in back-up storage after deactivation and 2 we are not responsible for removing information about you from the database of any third parties to whom you previously authorized us to share your personal information</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity7">
+<UserAccessControl rdf:about="#useraccesscontrol7">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence334"/>
   <isAppliedTo rdf:resource="#accountdata3"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence335">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>

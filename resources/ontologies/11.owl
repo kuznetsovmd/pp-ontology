@@ -226,6 +226,18 @@
   <owl:inverseOf rdf:resource="#privacyControlMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
 
+<owl:ObjectProperty rdf:about="#dataControlMechanismIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasDataControlMechanism"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasDataControlMechanism">
+  <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
+  <rdfs:domain rdf:resource="#UserAccessControl"/>
+  <rdfs:range rdf:resource="#DataControlMechanism"/>
+  <owl:inverseOf rdf:resource="#dataControlMechanismIsRelatedTo"/>
+</owl:ObjectProperty>
+
 <owl:ObjectProperty rdf:about="#notificationMechanismIsRelatedTo">
   <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
   <owl:inverseOf rdf:resource="#hasNotificationMechanism"/>
@@ -233,14 +245,7 @@
 
 <owl:ObjectProperty rdf:about="#hasNotificationMechanism">
   <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#NotificationMechanism"/>
   <owl:inverseOf rdf:resource="#notificationMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
@@ -380,6 +385,7 @@
 
 <owl:ObjectProperty rdf:about="#isInitiatedByAnotherActivity">
   <rdfs:subPropertyOf rdf:resource="#isInitiatedBy"/>
+  <rdfs:domain rdf:resource="#Activity"/>
   <owl:inverseOf rdf:resource="#initiatesAnotherActivity"/>
 </owl:ObjectProperty>
 
@@ -410,14 +416,7 @@
 
 <owl:ObjectProperty rdf:about="#notifiesAgent">
   <rdfs:subPropertyOf rdf:resource="#notifies"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#Agent"/>
   <owl:inverseOf rdf:resource="#agentIsNotifiedBy"/>
 </owl:ObjectProperty>
@@ -506,12 +505,22 @@
   <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
 </owl:DatatypeProperty>
 
+<owl:DatatypeProperty rdf:about="#does">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+</owl:DatatypeProperty>
+
 <owl:Class rdf:about="#PrivacyPolicy">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Activity">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#NotificationActivity">
+  <rdfs:subClassOf rdf:resource="#Activity"/>
 </owl:Class>
 
 <owl:Class rdf:about="#BreachActivity">
@@ -546,7 +555,7 @@
   <rdfs:subClassOf rdf:resource="#ControlActivity"/>
 </owl:Class>
 
-<owl:Class rdf:about="#UserAccessActivity">
+<owl:Class rdf:about="#UserAccessControl">
   <rdfs:subClassOf rdf:resource="#DataControlActivity"/>
 </owl:Class>
 
@@ -806,6 +815,10 @@
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
 
+<owl:Class rdf:about="#SMSRequest">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
 <owl:Class rdf:about="#WebsiteForm">
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
@@ -983,8 +996,8 @@
   <providesData rdf:resource="#genericdata8"/>
   <providesData rdf:resource="#genericdata9"/>
   <providesData rdf:resource="#genericdata10"/>
-  <initiatesActivity rdf:resource="#useraccessactivity1"/>
-  <initiatesActivity rdf:resource="#useraccessactivity2"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol1"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol2"/>
   <providesData rdf:resource="#genericdata11"/>
   <providesData rdf:resource="#genericdata12"/>
   <providesData rdf:resource="#genericdata13"/>
@@ -1015,13 +1028,13 @@
   <initiatesActivity rdf:resource="#userprivacycontrol10"/>
   <providesData rdf:resource="#genericdata18"/>
   <initiatesActivity rdf:resource="#userprivacycontrol11"/>
-  <initiatesActivity rdf:resource="#useraccessactivity3"/>
-  <initiatesActivity rdf:resource="#useraccessactivity4"/>
-  <initiatesActivity rdf:resource="#useraccessactivity5"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol3"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol4"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol5"/>
   <initiatesActivity rdf:resource="#userprivacycontrol12"/>
-  <initiatesActivity rdf:resource="#useraccessactivity6"/>
-  <initiatesActivity rdf:resource="#useraccessactivity7"/>
-  <initiatesActivity rdf:resource="#useraccessactivity8"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol6"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol7"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol8"/>
   <providesData rdf:resource="#data1"/>
   <initiatesActivity rdf:resource="#userprivacycontrol13"/>
   <initiatesActivity rdf:resource="#userprivacycontrol14"/>
@@ -1107,8 +1120,8 @@
 
 <PrivacyPolicy rdf:about="#privacypolicy2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <considersAgent rdf:resource="#firstparty1"/>
   <considersAgent rdf:resource="#user1"/>
+  <considersAgent rdf:resource="#firstparty1"/>
   <considersAgent rdf:resource="#thirdparties1"/>
   <considersActivity rdf:resource="#policychangeactivity1"/>
   <considersActivity rdf:resource="#userprivacycontrol1"/>
@@ -1172,9 +1185,9 @@
   <considersData rdf:resource="#genericdata10"/>
   <considersActivity rdf:resource="#datauseactivity14"/>
   <considersActivity rdf:resource="#datacollectionactivity22"/>
-  <considersActivity rdf:resource="#useraccessactivity1"/>
+  <considersActivity rdf:resource="#useraccesscontrol1"/>
   <considersData rdf:resource="#accountdata2"/>
-  <considersActivity rdf:resource="#useraccessactivity2"/>
+  <considersActivity rdf:resource="#useraccesscontrol2"/>
   <considersData rdf:resource="#genericdata11"/>
   <considersActivity rdf:resource="#datauseactivity15"/>
   <considersActivity rdf:resource="#datasharingactivity1"/>
@@ -1234,15 +1247,15 @@
   <considersActivity rdf:resource="#userprivacycontrol10"/>
   <considersData rdf:resource="#genericdata18"/>
   <considersActivity rdf:resource="#userprivacycontrol11"/>
-  <considersActivity rdf:resource="#useraccessactivity3"/>
+  <considersActivity rdf:resource="#useraccesscontrol3"/>
   <considersData rdf:resource="#accountdata4"/>
-  <considersActivity rdf:resource="#useraccessactivity4"/>
-  <considersActivity rdf:resource="#useraccessactivity5"/>
+  <considersActivity rdf:resource="#useraccesscontrol4"/>
+  <considersActivity rdf:resource="#useraccesscontrol5"/>
   <considersData rdf:resource="#sensitivedata3"/>
   <considersActivity rdf:resource="#userprivacycontrol12"/>
-  <considersActivity rdf:resource="#useraccessactivity6"/>
-  <considersActivity rdf:resource="#useraccessactivity7"/>
-  <considersActivity rdf:resource="#useraccessactivity8"/>
+  <considersActivity rdf:resource="#useraccesscontrol6"/>
+  <considersActivity rdf:resource="#useraccesscontrol7"/>
+  <considersActivity rdf:resource="#useraccesscontrol8"/>
   <considersData rdf:resource="#accountdata5"/>
   <considersData rdf:resource="#data1"/>
   <considersActivity rdf:resource="#userprivacycontrol13"/>
@@ -3598,11 +3611,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">B Unless otherwise specified on the Service we may sell or share information about you and your computer mobile or other device including without limitation your Registration Information and other personally identifiable information with our parent subsidiaries and affiliates and with carefully selected companies who we think may offer services and/or products that may be of interest to you If you do not wish to have your personally identifiable information shared with third parties contact our Privacy Policy Coordinator as described at the end of this document If you do not wish to receive future commercial messages from us simply follow the unsubscribe instructions contained within the message you receive But note that you may continue to receive certain communications from us such as transactional or relationship messages and/or messages about your account/profile If youve registered on any part of the Service please use the mechanism or contact information on the Service that allows you to change or update your member preferences or information if available to keep all such data accurate and up-to-date If no such mechanism or contact information is available on the Service contact our Privacy Policy Coordinator as described below with your changes</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity1">
+<UserAccessControl rdf:about="#useraccesscontrol1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence214"/>
   <isAppliedTo rdf:resource="#accountdata2"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence215">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -3826,10 +3839,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">B Unless otherwise specified on the Service we may sell or share information about you and your computer mobile or other device including without limitation your Registration Information and other personally identifiable information with our parent subsidiaries and affiliates and with carefully selected companies who we think may offer services and/or products that may be of interest to you If you do not wish to have your personally identifiable information shared with third parties contact our Privacy Policy Coordinator as described at the end of this document If you do not wish to receive future commercial messages from us simply follow the unsubscribe instructions contained within the message you receive But note that you may continue to receive certain communications from us such as transactional or relationship messages and/or messages about your account/profile If youve registered on any part of the Service please use the mechanism or contact information on the Service that allows you to change or update your member preferences or information if available to keep all such data accurate and up-to-date If no such mechanism or contact information is available on the Service contact our Privacy Policy Coordinator as described below with your changes</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity2">
+<UserAccessControl rdf:about="#useraccesscontrol2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence236"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence237">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -7050,11 +7063,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Also as discussed above in Section 2 B if you wish to request updates or changes to your information or your preferences regarding receiving future promotional messages from us you may contact our Privacy Policy Coordinator</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity3">
+<UserAccessControl rdf:about="#useraccesscontrol3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence534"/>
   <isAppliedTo rdf:resource="#accountdata4"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence535">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -7076,10 +7089,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Also as discussed above in Section 2 B if you wish to request updates or changes to your information or your preferences regarding receiving future promotional messages from us you may contact our Privacy Policy Coordinator</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity4">
+<UserAccessControl rdf:about="#useraccesscontrol4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence536"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence537">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -7096,11 +7109,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Also as discussed above in Section 2 B if you wish to request updates or changes to your information or your preferences regarding receiving future promotional messages from us you may contact our Privacy Policy Coordinator</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity5">
+<UserAccessControl rdf:about="#useraccesscontrol5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence538"/>
   <isAppliedTo rdf:resource="#sensitivedata3"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence539">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -7154,10 +7167,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Also as discussed above in Section 2 B if you wish to request updates or changes to your information or your preferences regarding receiving future promotional messages from us you may contact our Privacy Policy Coordinator</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity6">
+<UserAccessControl rdf:about="#useraccesscontrol6">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence543"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence544">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -7174,10 +7187,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Also as discussed above in Section 2 B if you wish to request updates or changes to your information or your preferences regarding receiving future promotional messages from us you may contact our Privacy Policy Coordinator</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity7">
+<UserAccessControl rdf:about="#useraccesscontrol7">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence545"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence546">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -7194,11 +7207,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Also as discussed above in Section 2 B if you wish to request updates or changes to your information or your preferences regarding receiving future promotional messages from us you may contact our Privacy Policy Coordinator</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity8">
+<UserAccessControl rdf:about="#useraccesscontrol8">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence547"/>
   <isAppliedTo rdf:resource="#accountdata5"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence548">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>

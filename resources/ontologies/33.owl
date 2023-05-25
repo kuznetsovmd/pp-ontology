@@ -226,6 +226,18 @@
   <owl:inverseOf rdf:resource="#privacyControlMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
 
+<owl:ObjectProperty rdf:about="#dataControlMechanismIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasDataControlMechanism"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasDataControlMechanism">
+  <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
+  <rdfs:domain rdf:resource="#UserAccessControl"/>
+  <rdfs:range rdf:resource="#DataControlMechanism"/>
+  <owl:inverseOf rdf:resource="#dataControlMechanismIsRelatedTo"/>
+</owl:ObjectProperty>
+
 <owl:ObjectProperty rdf:about="#notificationMechanismIsRelatedTo">
   <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
   <owl:inverseOf rdf:resource="#hasNotificationMechanism"/>
@@ -233,14 +245,7 @@
 
 <owl:ObjectProperty rdf:about="#hasNotificationMechanism">
   <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#NotificationMechanism"/>
   <owl:inverseOf rdf:resource="#notificationMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
@@ -380,6 +385,7 @@
 
 <owl:ObjectProperty rdf:about="#isInitiatedByAnotherActivity">
   <rdfs:subPropertyOf rdf:resource="#isInitiatedBy"/>
+  <rdfs:domain rdf:resource="#Activity"/>
   <owl:inverseOf rdf:resource="#initiatesAnotherActivity"/>
 </owl:ObjectProperty>
 
@@ -410,14 +416,7 @@
 
 <owl:ObjectProperty rdf:about="#notifiesAgent">
   <rdfs:subPropertyOf rdf:resource="#notifies"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#Agent"/>
   <owl:inverseOf rdf:resource="#agentIsNotifiedBy"/>
 </owl:ObjectProperty>
@@ -506,12 +505,22 @@
   <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
 </owl:DatatypeProperty>
 
+<owl:DatatypeProperty rdf:about="#does">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+</owl:DatatypeProperty>
+
 <owl:Class rdf:about="#PrivacyPolicy">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Activity">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#NotificationActivity">
+  <rdfs:subClassOf rdf:resource="#Activity"/>
 </owl:Class>
 
 <owl:Class rdf:about="#BreachActivity">
@@ -546,7 +555,7 @@
   <rdfs:subClassOf rdf:resource="#ControlActivity"/>
 </owl:Class>
 
-<owl:Class rdf:about="#UserAccessActivity">
+<owl:Class rdf:about="#UserAccessControl">
   <rdfs:subClassOf rdf:resource="#DataControlActivity"/>
 </owl:Class>
 
@@ -806,6 +815,10 @@
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
 
+<owl:Class rdf:about="#SMSRequest">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
 <owl:Class rdf:about="#WebsiteForm">
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
@@ -964,24 +977,24 @@
   <initiatesActivity rdf:resource="#userprivacycontrol2"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory4"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory5"/>
-  <initiatesActivity rdf:resource="#useraccessactivity1"/>
-  <initiatesActivity rdf:resource="#useraccessactivity2"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol1"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol2"/>
   <providesData rdf:resource="#accountdata1"/>
   <initiatesActivity rdf:resource="#userprivacycontrol3"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory6"/>
   <providesData rdf:resource="#genericdata1"/>
-  <initiatesActivity rdf:resource="#useraccessactivity3"/>
-  <initiatesActivity rdf:resource="#useraccessactivity4"/>
-  <initiatesActivity rdf:resource="#useraccessactivity5"/>
-  <initiatesActivity rdf:resource="#useraccessactivity6"/>
-  <initiatesActivity rdf:resource="#useraccessactivity7"/>
-  <initiatesActivity rdf:resource="#useraccessactivity8"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol3"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol4"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol5"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol6"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol7"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol8"/>
   <providesData rdf:resource="#genericdata2"/>
-  <initiatesActivity rdf:resource="#useraccessactivity9"/>
-  <initiatesActivity rdf:resource="#useraccessactivity10"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol9"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol10"/>
   <providesData rdf:resource="#sensitivedata1"/>
-  <initiatesActivity rdf:resource="#useraccessactivity11"/>
-  <initiatesActivity rdf:resource="#useraccessactivity12"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol11"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol12"/>
   <initiatesActivity rdf:resource="#userprivacycontrol4"/>
   <initiatesActivity rdf:resource="#useroptcontrol1"/>
   <initiatesActivity rdf:resource="#useroptcontrol2"/>
@@ -1015,16 +1028,16 @@
 <PrivacyPolicy rdf:about="#privacypolicy2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <considersAgent rdf:resource="#user1"/>
-  <considersAgent rdf:resource="#firstparty1"/>
   <considersAgent rdf:resource="#thirdparties1"/>
+  <considersAgent rdf:resource="#firstparty1"/>
   <considersActivity rdf:resource="#policychangeactivity1"/>
   <considersActivity rdf:resource="#userprivacycontrol1"/>
   <considersActivity rdf:resource="#policychangeactivity2"/>
   <considersActivity rdf:resource="#policychangeactivity3"/>
   <considersActivity rdf:resource="#policychangeactivity4"/>
   <considersActivity rdf:resource="#userprivacycontrol2"/>
-  <considersActivity rdf:resource="#useraccessactivity1"/>
-  <considersActivity rdf:resource="#useraccessactivity2"/>
+  <considersActivity rdf:resource="#useraccesscontrol1"/>
+  <considersActivity rdf:resource="#useraccesscontrol2"/>
   <considersData rdf:resource="#accountdata1"/>
   <considersActivity rdf:resource="#userprivacycontrol3"/>
   <considersActivity rdf:resource="#activity1"/>
@@ -1037,22 +1050,22 @@
   <considersData rdf:resource="#genericdata1"/>
   <considersActivity rdf:resource="#datasharingactivity1"/>
   <considersActivity rdf:resource="#datacollectionactivity1"/>
-  <considersActivity rdf:resource="#useraccessactivity3"/>
-  <considersActivity rdf:resource="#useraccessactivity4"/>
-  <considersActivity rdf:resource="#useraccessactivity5"/>
-  <considersActivity rdf:resource="#useraccessactivity6"/>
-  <considersActivity rdf:resource="#useraccessactivity7"/>
-  <considersActivity rdf:resource="#useraccessactivity8"/>
+  <considersActivity rdf:resource="#useraccesscontrol3"/>
+  <considersActivity rdf:resource="#useraccesscontrol4"/>
+  <considersActivity rdf:resource="#useraccesscontrol5"/>
+  <considersActivity rdf:resource="#useraccesscontrol6"/>
+  <considersActivity rdf:resource="#useraccesscontrol7"/>
+  <considersActivity rdf:resource="#useraccesscontrol8"/>
   <considersData rdf:resource="#genericdata2"/>
   <considersActivity rdf:resource="#dataretentionactivity1"/>
-  <considersActivity rdf:resource="#useraccessactivity9"/>
+  <considersActivity rdf:resource="#useraccesscontrol9"/>
   <considersData rdf:resource="#accountdata2"/>
-  <considersActivity rdf:resource="#useraccessactivity10"/>
+  <considersActivity rdf:resource="#useraccesscontrol10"/>
   <considersData rdf:resource="#accountdata3"/>
   <considersData rdf:resource="#sensitivedata1"/>
   <considersActivity rdf:resource="#dataretentionactivity2"/>
-  <considersActivity rdf:resource="#useraccessactivity11"/>
-  <considersActivity rdf:resource="#useraccessactivity12"/>
+  <considersActivity rdf:resource="#useraccesscontrol11"/>
+  <considersActivity rdf:resource="#useraccesscontrol12"/>
   <considersData rdf:resource="#accountdata4"/>
   <considersActivity rdf:resource="#userprivacycontrol4"/>
   <considersActivity rdf:resource="#useroptcontrol1"/>
@@ -1408,10 +1421,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Any parent or guardian of a child under 13 years of age who may have provided personally-identifiable information to us may request a description of the personally-identifiable information that has been collected from or about that child and either limit or restrict any further maintenance or use of such information from that child and/or direct us to delete it A parent may also decline to allow any future collection of personally-identifiable information from that child Such requests can be made by contacting us at privacy taylorswift com We will take reasonable measures to verify that the requesting party is in fact the parent or guardian of the child in question before providing a child s personally-identifiable information to such person</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity1">
+<UserAccessControl rdf:about="#useraccesscontrol1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence34"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence35">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -1428,10 +1441,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Any parent or guardian of a child under 13 years of age who may have provided personally-identifiable information to us may request a description of the personally-identifiable information that has been collected from or about that child and either limit or restrict any further maintenance or use of such information from that child and/or direct us to delete it A parent may also decline to allow any future collection of personally-identifiable information from that child Such requests can be made by contacting us at privacy taylorswift com We will take reasonable measures to verify that the requesting party is in fact the parent or guardian of the child in question before providing a child s personally-identifiable information to such person</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity2">
+<UserAccessControl rdf:about="#useraccesscontrol2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence36"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence37">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -3966,10 +3979,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity3">
+<UserAccessControl rdf:about="#useraccesscontrol3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence281"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence282">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -3986,10 +3999,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity4">
+<UserAccessControl rdf:about="#useraccesscontrol4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence283"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence284">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4006,10 +4019,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity5">
+<UserAccessControl rdf:about="#useraccesscontrol5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence285"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence286">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4026,10 +4039,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity6">
+<UserAccessControl rdf:about="#useraccesscontrol6">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence287"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence288">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4046,20 +4059,20 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity7">
+<UserAccessControl rdf:about="#useraccesscontrol7">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence289"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence290">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity8">
+<UserAccessControl rdf:about="#useraccesscontrol8">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence290"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence291">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4119,11 +4132,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity9">
+<UserAccessControl rdf:about="#useraccesscontrol9">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence296"/>
   <isAppliedTo rdf:resource="#accountdata2"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence297">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4145,11 +4158,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity10">
+<UserAccessControl rdf:about="#useraccesscontrol10">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence298"/>
   <isAppliedTo rdf:resource="#accountdata3"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence299">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4214,10 +4227,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity11">
+<UserAccessControl rdf:about="#useraccesscontrol11">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence304"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence305">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4234,11 +4247,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you no longer wish to receive our announcements by e-mail you may unsubscribe from receiving them at any time by choosing the Unsubscribe link at the bottom of our e-mails or by writing to us at privacy taylorswift com If you e-mail us to change your contact preferences we will implement your requested changes within a reasonable period of time Please note that your requested changes will not be effective until we implement such changes Please also note that you cannot unsubscribe from certain correspondence from us such as messages relating to your account transactions</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity12">
+<UserAccessControl rdf:about="#useraccesscontrol12">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence306"/>
   <isAppliedTo rdf:resource="#accountdata4"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence307">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>

@@ -226,6 +226,18 @@
   <owl:inverseOf rdf:resource="#privacyControlMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
 
+<owl:ObjectProperty rdf:about="#dataControlMechanismIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasDataControlMechanism"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasDataControlMechanism">
+  <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
+  <rdfs:domain rdf:resource="#UserAccessControl"/>
+  <rdfs:range rdf:resource="#DataControlMechanism"/>
+  <owl:inverseOf rdf:resource="#dataControlMechanismIsRelatedTo"/>
+</owl:ObjectProperty>
+
 <owl:ObjectProperty rdf:about="#notificationMechanismIsRelatedTo">
   <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
   <owl:inverseOf rdf:resource="#hasNotificationMechanism"/>
@@ -233,14 +245,7 @@
 
 <owl:ObjectProperty rdf:about="#hasNotificationMechanism">
   <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#NotificationMechanism"/>
   <owl:inverseOf rdf:resource="#notificationMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
@@ -380,6 +385,7 @@
 
 <owl:ObjectProperty rdf:about="#isInitiatedByAnotherActivity">
   <rdfs:subPropertyOf rdf:resource="#isInitiatedBy"/>
+  <rdfs:domain rdf:resource="#Activity"/>
   <owl:inverseOf rdf:resource="#initiatesAnotherActivity"/>
 </owl:ObjectProperty>
 
@@ -410,14 +416,7 @@
 
 <owl:ObjectProperty rdf:about="#notifiesAgent">
   <rdfs:subPropertyOf rdf:resource="#notifies"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#Agent"/>
   <owl:inverseOf rdf:resource="#agentIsNotifiedBy"/>
 </owl:ObjectProperty>
@@ -506,12 +505,22 @@
   <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
 </owl:DatatypeProperty>
 
+<owl:DatatypeProperty rdf:about="#does">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+</owl:DatatypeProperty>
+
 <owl:Class rdf:about="#PrivacyPolicy">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Activity">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#NotificationActivity">
+  <rdfs:subClassOf rdf:resource="#Activity"/>
 </owl:Class>
 
 <owl:Class rdf:about="#BreachActivity">
@@ -546,7 +555,7 @@
   <rdfs:subClassOf rdf:resource="#ControlActivity"/>
 </owl:Class>
 
-<owl:Class rdf:about="#UserAccessActivity">
+<owl:Class rdf:about="#UserAccessControl">
   <rdfs:subClassOf rdf:resource="#DataControlActivity"/>
 </owl:Class>
 
@@ -806,6 +815,10 @@
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
 
+<owl:Class rdf:about="#SMSRequest">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
 <owl:Class rdf:about="#WebsiteForm">
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
@@ -961,8 +974,8 @@
   <initiatesActivity rdf:resource="#userprivacycontrol2"/>
   <initiatesActivity rdf:resource="#userprivacycontrol3"/>
   <initiatesActivity rdf:resource="#userprivacycontrol4"/>
-  <initiatesActivity rdf:resource="#useraccessactivity1"/>
-  <initiatesActivity rdf:resource="#useraccessactivity2"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol1"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol2"/>
   <providesData rdf:resource="#nonsensitivedata1"/>
   <providesData rdf:resource="#genericdata1"/>
   <initiatesActivity rdf:resource="#userprivacycontrol5"/>
@@ -982,11 +995,11 @@
   <providesData rdf:resource="#genericdata6"/>
   <initiatesActivity rdf:resource="#userprivacycontrol15"/>
   <initiatesActivity rdf:resource="#userprivacycontrol16"/>
-  <initiatesActivity rdf:resource="#useraccessactivity3"/>
-  <initiatesActivity rdf:resource="#useraccessactivity4"/>
-  <initiatesActivity rdf:resource="#useraccessactivity5"/>
-  <initiatesActivity rdf:resource="#useraccessactivity6"/>
-  <initiatesActivity rdf:resource="#useraccessactivity7"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol3"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol4"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol5"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol6"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol7"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory1"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory2"/>
   <initiatesActivity rdf:resource="#useroptcontrol1"/>
@@ -998,13 +1011,13 @@
   <providesData rdf:resource="#genericdata7"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory7"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory8"/>
-  <initiatesActivity rdf:resource="#useraccessactivity8"/>
-  <initiatesActivity rdf:resource="#useraccessactivity9"/>
-  <initiatesActivity rdf:resource="#useraccessactivity10"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol8"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol9"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol10"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory9"/>
-  <initiatesActivity rdf:resource="#useraccessactivity11"/>
-  <initiatesActivity rdf:resource="#useraccessactivity12"/>
-  <initiatesActivity rdf:resource="#useraccessactivity13"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol11"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol12"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol13"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory10"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory11"/>
 </User>
@@ -1028,18 +1041,18 @@
 
 <PrivacyPolicy rdf:about="#privacypolicy2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <considersAgent rdf:resource="#thirdparties1"/>
   <considersAgent rdf:resource="#user1"/>
   <considersAgent rdf:resource="#firstparty1"/>
+  <considersAgent rdf:resource="#thirdparties1"/>
   <considersActivity rdf:resource="#policychangeactivity1"/>
   <considersActivity rdf:resource="#policychangeactivity2"/>
   <considersActivity rdf:resource="#userprivacycontrol1"/>
   <considersActivity rdf:resource="#userprivacycontrol2"/>
   <considersActivity rdf:resource="#userprivacycontrol3"/>
   <considersActivity rdf:resource="#userprivacycontrol4"/>
-  <considersActivity rdf:resource="#useraccessactivity1"/>
+  <considersActivity rdf:resource="#useraccesscontrol1"/>
   <considersData rdf:resource="#accountdata1"/>
-  <considersActivity rdf:resource="#useraccessactivity2"/>
+  <considersActivity rdf:resource="#useraccesscontrol2"/>
   <considersData rdf:resource="#sensitivedata1"/>
   <considersData rdf:resource="#nonsensitivedata1"/>
   <considersActivity rdf:resource="#dataretentionactivity1"/>
@@ -1061,13 +1074,13 @@
   <considersData rdf:resource="#genericdata6"/>
   <considersActivity rdf:resource="#userprivacycontrol15"/>
   <considersActivity rdf:resource="#userprivacycontrol16"/>
-  <considersActivity rdf:resource="#useraccessactivity3"/>
-  <considersActivity rdf:resource="#useraccessactivity4"/>
-  <considersActivity rdf:resource="#useraccessactivity5"/>
+  <considersActivity rdf:resource="#useraccesscontrol3"/>
+  <considersActivity rdf:resource="#useraccesscontrol4"/>
+  <considersActivity rdf:resource="#useraccesscontrol5"/>
   <considersData rdf:resource="#accountdata2"/>
-  <considersActivity rdf:resource="#useraccessactivity6"/>
+  <considersActivity rdf:resource="#useraccesscontrol6"/>
   <considersData rdf:resource="#accountdata3"/>
-  <considersActivity rdf:resource="#useraccessactivity7"/>
+  <considersActivity rdf:resource="#useraccesscontrol7"/>
   <considersData rdf:resource="#sensitivedata2"/>
   <considersActivity rdf:resource="#activity1"/>
   <considersActivity rdf:resource="#useroptcontrol1"/>
@@ -1076,12 +1089,12 @@
   <considersData rdf:resource="#genericdata7"/>
   <considersActivity rdf:resource="#dataretentionactivity2"/>
   <considersActivity rdf:resource="#activity3"/>
-  <considersActivity rdf:resource="#useraccessactivity8"/>
-  <considersActivity rdf:resource="#useraccessactivity9"/>
-  <considersActivity rdf:resource="#useraccessactivity10"/>
-  <considersActivity rdf:resource="#useraccessactivity11"/>
-  <considersActivity rdf:resource="#useraccessactivity12"/>
-  <considersActivity rdf:resource="#useraccessactivity13"/>
+  <considersActivity rdf:resource="#useraccesscontrol8"/>
+  <considersActivity rdf:resource="#useraccesscontrol9"/>
+  <considersActivity rdf:resource="#useraccesscontrol10"/>
+  <considersActivity rdf:resource="#useraccesscontrol11"/>
+  <considersActivity rdf:resource="#useraccesscontrol12"/>
+  <considersActivity rdf:resource="#useraccesscontrol13"/>
   <considersActivity rdf:resource="#policychangeactivity3"/>
   <considersActivity rdf:resource="#policychangeactivity4"/>
   <policyId rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1683</policyId>
@@ -1649,11 +1662,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Web Site User Registration User registration is required to access the majority of content services and features on MediaNews Web sites Upon registration we require you provide your email address or your first name as a username and a password that will allow you to change your PIN as needed User registration with MediaNews Web sites is completed and membership activated upon clicking a link e-mailed to the address provided in registration At that time you have the opportunity to opt-in to e-mail newsletters and alerts and have e-mail offers sent to you on behalf of MediaNews advertisers however you can update your preferences at a later time</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity1">
+<UserAccessControl rdf:about="#useraccesscontrol1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence56"/>
   <isAppliedTo rdf:resource="#accountdata1"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence57">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -1716,11 +1729,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Web Site User Registration User registration is required to access the majority of content services and features on MediaNews Web sites Upon registration we require you provide your email address or your first name as a username and a password that will allow you to change your PIN as needed User registration with MediaNews Web sites is completed and membership activated upon clicking a link e-mailed to the address provided in registration At that time you have the opportunity to opt-in to e-mail newsletters and alerts and have e-mail offers sent to you on behalf of MediaNews advertisers however you can update your preferences at a later time</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity2">
+<UserAccessControl rdf:about="#useraccesscontrol2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence62"/>
   <isAppliedTo rdf:resource="#sensitivedata1"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence63">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -6341,10 +6354,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Review Update Your PIN A registered user of MediaNews Web sites may review and change his or her PIN and/or e-mail preferences by clicking on the Manage Account link after signing in A registered user may also review and request an update of the PIN and/or e-mail preferences which he or she provided to MediaNews at any time by e-mailing us at privacycoordinator medianewsgroup com or write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 Please include the name of the applicable site</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity3">
+<UserAccessControl rdf:about="#useraccesscontrol3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence517"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence518">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -6361,10 +6374,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Review Update Your PIN A registered user of MediaNews Web sites may review and change his or her PIN and/or e-mail preferences by clicking on the Manage Account link after signing in A registered user may also review and request an update of the PIN and/or e-mail preferences which he or she provided to MediaNews at any time by e-mailing us at privacycoordinator medianewsgroup com or write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 Please include the name of the applicable site</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity4">
+<UserAccessControl rdf:about="#useraccesscontrol4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence519"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence520">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -6381,11 +6394,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Review Update Your PIN A registered user of MediaNews Web sites may review and change his or her PIN and/or e-mail preferences by clicking on the Manage Account link after signing in A registered user may also review and request an update of the PIN and/or e-mail preferences which he or she provided to MediaNews at any time by e-mailing us at privacycoordinator medianewsgroup com or write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 Please include the name of the applicable site</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity5">
+<UserAccessControl rdf:about="#useraccesscontrol5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence521"/>
   <isAppliedTo rdf:resource="#accountdata2"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence522">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -6407,11 +6420,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Review Update Your PIN A registered user of MediaNews Web sites may review and change his or her PIN and/or e-mail preferences by clicking on the Manage Account link after signing in A registered user may also review and request an update of the PIN and/or e-mail preferences which he or she provided to MediaNews at any time by e-mailing us at privacycoordinator medianewsgroup com or write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 Please include the name of the applicable site</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity6">
+<UserAccessControl rdf:about="#useraccesscontrol6">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence523"/>
   <isAppliedTo rdf:resource="#accountdata3"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence524">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -6433,11 +6446,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Review Update Your PIN A registered user of MediaNews Web sites may review and change his or her PIN and/or e-mail preferences by clicking on the Manage Account link after signing in A registered user may also review and request an update of the PIN and/or e-mail preferences which he or she provided to MediaNews at any time by e-mailing us at privacycoordinator medianewsgroup com or write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 Please include the name of the applicable site</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity7">
+<UserAccessControl rdf:about="#useraccesscontrol7">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence525"/>
   <isAppliedTo rdf:resource="#sensitivedata2"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence526">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -6857,10 +6870,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PARENTAL ACCESS MediaNews Group and MediaNews Group affiliates are the operators collecting information at this web site Please send an email or letter to our Privacy Coordinator at the email or mailing address provided below if you would like to do any of the following Access personally identifiable information that MediaNews has collected from your child Correct factual errors in such information Request to have this information deleted or Request that we no longer collect or maintain such information about your child</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity8">
+<UserAccessControl rdf:about="#useraccesscontrol8">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence565"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence566">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -6877,10 +6890,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PARENTAL ACCESS MediaNews Group and MediaNews Group affiliates are the operators collecting information at this web site Please send an email or letter to our Privacy Coordinator at the email or mailing address provided below if you would like to do any of the following Access personally identifiable information that MediaNews has collected from your child Correct factual errors in such information Request to have this information deleted or Request that we no longer collect or maintain such information about your child</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity9">
+<UserAccessControl rdf:about="#useraccesscontrol9">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence567"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence568">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -6897,10 +6910,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PARENTAL ACCESS MediaNews Group and MediaNews Group affiliates are the operators collecting information at this web site Please send an email or letter to our Privacy Coordinator at the email or mailing address provided below if you would like to do any of the following Access personally identifiable information that MediaNews has collected from your child Correct factual errors in such information Request to have this information deleted or Request that we no longer collect or maintain such information about your child</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity10">
+<UserAccessControl rdf:about="#useraccesscontrol10">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence569"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence570">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -6927,10 +6940,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PARENTAL ACCESS MediaNews Group and MediaNews Group affiliates are the operators collecting information at this web site Please send an email or letter to our Privacy Coordinator at the email or mailing address provided below if you would like to do any of the following Access personally identifiable information that MediaNews has collected from your child Correct factual errors in such information Request to have this information deleted or Request that we no longer collect or maintain such information about your child</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity11">
+<UserAccessControl rdf:about="#useraccesscontrol11">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence572"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence573">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -6947,10 +6960,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PARENTAL ACCESS MediaNews Group and MediaNews Group affiliates are the operators collecting information at this web site Please send an email or letter to our Privacy Coordinator at the email or mailing address provided below if you would like to do any of the following Access personally identifiable information that MediaNews has collected from your child Correct factual errors in such information Request to have this information deleted or Request that we no longer collect or maintain such information about your child</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity12">
+<UserAccessControl rdf:about="#useraccesscontrol12">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence574"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence575">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -6967,10 +6980,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PARENTAL ACCESS MediaNews Group and MediaNews Group affiliates are the operators collecting information at this web site Please send an email or letter to our Privacy Coordinator at the email or mailing address provided below if you would like to do any of the following Access personally identifiable information that MediaNews has collected from your child Correct factual errors in such information Request to have this information deleted or Request that we no longer collect or maintain such information about your child</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity13">
+<UserAccessControl rdf:about="#useraccesscontrol13">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence576"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence577">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>

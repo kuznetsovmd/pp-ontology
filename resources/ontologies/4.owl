@@ -226,6 +226,18 @@
   <owl:inverseOf rdf:resource="#privacyControlMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
 
+<owl:ObjectProperty rdf:about="#dataControlMechanismIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasDataControlMechanism"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasDataControlMechanism">
+  <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
+  <rdfs:domain rdf:resource="#UserAccessControl"/>
+  <rdfs:range rdf:resource="#DataControlMechanism"/>
+  <owl:inverseOf rdf:resource="#dataControlMechanismIsRelatedTo"/>
+</owl:ObjectProperty>
+
 <owl:ObjectProperty rdf:about="#notificationMechanismIsRelatedTo">
   <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
   <owl:inverseOf rdf:resource="#hasNotificationMechanism"/>
@@ -233,14 +245,7 @@
 
 <owl:ObjectProperty rdf:about="#hasNotificationMechanism">
   <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#NotificationMechanism"/>
   <owl:inverseOf rdf:resource="#notificationMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
@@ -380,6 +385,7 @@
 
 <owl:ObjectProperty rdf:about="#isInitiatedByAnotherActivity">
   <rdfs:subPropertyOf rdf:resource="#isInitiatedBy"/>
+  <rdfs:domain rdf:resource="#Activity"/>
   <owl:inverseOf rdf:resource="#initiatesAnotherActivity"/>
 </owl:ObjectProperty>
 
@@ -410,14 +416,7 @@
 
 <owl:ObjectProperty rdf:about="#notifiesAgent">
   <rdfs:subPropertyOf rdf:resource="#notifies"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#Agent"/>
   <owl:inverseOf rdf:resource="#agentIsNotifiedBy"/>
 </owl:ObjectProperty>
@@ -506,12 +505,22 @@
   <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
 </owl:DatatypeProperty>
 
+<owl:DatatypeProperty rdf:about="#does">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+</owl:DatatypeProperty>
+
 <owl:Class rdf:about="#PrivacyPolicy">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Activity">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#NotificationActivity">
+  <rdfs:subClassOf rdf:resource="#Activity"/>
 </owl:Class>
 
 <owl:Class rdf:about="#BreachActivity">
@@ -546,7 +555,7 @@
   <rdfs:subClassOf rdf:resource="#ControlActivity"/>
 </owl:Class>
 
-<owl:Class rdf:about="#UserAccessActivity">
+<owl:Class rdf:about="#UserAccessControl">
   <rdfs:subClassOf rdf:resource="#DataControlActivity"/>
 </owl:Class>
 
@@ -803,6 +812,10 @@
 </owl:Class>
 
 <owl:Class rdf:about="#PhoneCallRequest">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#SMSRequest">
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
 
@@ -1085,11 +1098,11 @@
   <providesData rdf:resource="#accountdata9"/>
   <providesData rdf:resource="#nonsensitivedata55"/>
   <providesData rdf:resource="#nonsensitivedata56"/>
-  <initiatesActivity rdf:resource="#useraccessactivity1"/>
-  <initiatesActivity rdf:resource="#useraccessactivity2"/>
-  <initiatesActivity rdf:resource="#useraccessactivity3"/>
-  <initiatesActivity rdf:resource="#useraccessactivity4"/>
-  <initiatesActivity rdf:resource="#useraccessactivity5"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol1"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol2"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol3"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol4"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol5"/>
   <providesData rdf:resource="#sensitivedata7"/>
   <initiatesActivity rdf:resource="#userprivacycontrol12"/>
   <providesData rdf:resource="#nonsensitivedata57"/>
@@ -1099,13 +1112,13 @@
   <providesData rdf:resource="#nonsensitivedata59"/>
   <providesData rdf:resource="#nonsensitivedata60"/>
   <providesData rdf:resource="#nonsensitivedata61"/>
-  <initiatesActivity rdf:resource="#useraccessactivity6"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol6"/>
   <providesData rdf:resource="#nonsensitivedata62"/>
   <providesData rdf:resource="#nonsensitivedata63"/>
   <initiatesActivity rdf:resource="#userprivacycontrol13"/>
   <providesData rdf:resource="#data11"/>
-  <initiatesActivity rdf:resource="#useraccessactivity7"/>
-  <initiatesActivity rdf:resource="#useraccessactivity8"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol7"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol8"/>
   <providesData rdf:resource="#nonsensitivedata64"/>
   <providesData rdf:resource="#nonsensitivedata65"/>
   <initiatesActivity rdf:resource="#userprivacycontrol14"/>
@@ -1113,15 +1126,15 @@
   <initiatesActivity rdf:resource="#userprivacycontrol15"/>
   <providesData rdf:resource="#data13"/>
   <providesData rdf:resource="#data14"/>
-  <initiatesActivity rdf:resource="#useraccessactivity9"/>
-  <initiatesActivity rdf:resource="#useraccessactivity10"/>
-  <initiatesActivity rdf:resource="#useraccessactivity11"/>
-  <initiatesActivity rdf:resource="#useraccessactivity12"/>
-  <initiatesActivity rdf:resource="#useraccessactivity13"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol9"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol10"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol11"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol12"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol13"/>
   <providesData rdf:resource="#genericdata11"/>
   <providesData rdf:resource="#data15"/>
-  <initiatesActivity rdf:resource="#useraccessactivity14"/>
-  <initiatesActivity rdf:resource="#useraccessactivity15"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol14"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol15"/>
   <providesData rdf:resource="#genericdata12"/>
   <providesData rdf:resource="#nonsensitivedata66"/>
   <providesData rdf:resource="#financialdata12"/>
@@ -1137,17 +1150,17 @@
   <providesData rdf:resource="#sensitivedata9"/>
   <providesData rdf:resource="#accountdata23"/>
   <providesData rdf:resource="#financialdata15"/>
-  <initiatesActivity rdf:resource="#useraccessactivity16"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol16"/>
   <providesData rdf:resource="#accountdata25"/>
   <providesData rdf:resource="#financialdata16"/>
-  <initiatesActivity rdf:resource="#useraccessactivity17"/>
-  <initiatesActivity rdf:resource="#useraccessactivity18"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol17"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol18"/>
   <providesData rdf:resource="#nonsensitivedata73"/>
   <providesData rdf:resource="#nonsensitivedata74"/>
   <providesData rdf:resource="#accountdata28"/>
   <providesData rdf:resource="#sensitivedata10"/>
   <providesData rdf:resource="#accountdata29"/>
-  <initiatesActivity rdf:resource="#useraccessactivity19"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol19"/>
   <initiatesActivity rdf:resource="#userprivacycontrol16"/>
   <initiatesActivity rdf:resource="#userprivacycontrol17"/>
   <providesData rdf:resource="#nonsensitivedata75"/>
@@ -1477,9 +1490,9 @@
 
 <PrivacyPolicy rdf:about="#privacypolicy2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <considersAgent rdf:resource="#thirdparties1"/>
   <considersAgent rdf:resource="#user1"/>
   <considersAgent rdf:resource="#firstparty1"/>
+  <considersAgent rdf:resource="#thirdparties1"/>
   <considersData rdf:resource="#data1"/>
   <considersActivity rdf:resource="#userprivacycontrol1"/>
   <considersData rdf:resource="#genericdata1"/>
@@ -1799,15 +1812,15 @@
   <considersActivity rdf:resource="#datacollectionactivity104"/>
   <considersData rdf:resource="#nonsensitivedata56"/>
   <considersActivity rdf:resource="#datacollectionactivity105"/>
-  <considersActivity rdf:resource="#useraccessactivity1"/>
+  <considersActivity rdf:resource="#useraccesscontrol1"/>
   <considersData rdf:resource="#accountdata10"/>
-  <considersActivity rdf:resource="#useraccessactivity2"/>
+  <considersActivity rdf:resource="#useraccesscontrol2"/>
   <considersData rdf:resource="#accountdata11"/>
-  <considersActivity rdf:resource="#useraccessactivity3"/>
+  <considersActivity rdf:resource="#useraccesscontrol3"/>
   <considersData rdf:resource="#accountdata12"/>
-  <considersActivity rdf:resource="#useraccessactivity4"/>
+  <considersActivity rdf:resource="#useraccesscontrol4"/>
   <considersData rdf:resource="#accountdata13"/>
-  <considersActivity rdf:resource="#useraccessactivity5"/>
+  <considersActivity rdf:resource="#useraccesscontrol5"/>
   <considersData rdf:resource="#accountdata14"/>
   <considersData rdf:resource="#sensitivedata7"/>
   <considersActivity rdf:resource="#userprivacycontrol12"/>
@@ -1829,7 +1842,7 @@
   <considersData rdf:resource="#nonsensitivedata61"/>
   <considersActivity rdf:resource="#datauseactivity57"/>
   <considersActivity rdf:resource="#datacollectionactivity112"/>
-  <considersActivity rdf:resource="#useraccessactivity6"/>
+  <considersActivity rdf:resource="#useraccesscontrol6"/>
   <considersData rdf:resource="#accountdata15"/>
   <considersData rdf:resource="#nonsensitivedata62"/>
   <considersActivity rdf:resource="#datacollectionactivity113"/>
@@ -1837,9 +1850,9 @@
   <considersActivity rdf:resource="#userprivacycontrol13"/>
   <considersData rdf:resource="#data11"/>
   <considersActivity rdf:resource="#datacollectionactivity114"/>
-  <considersActivity rdf:resource="#useraccessactivity7"/>
+  <considersActivity rdf:resource="#useraccesscontrol7"/>
   <considersData rdf:resource="#accountdata16"/>
-  <considersActivity rdf:resource="#useraccessactivity8"/>
+  <considersActivity rdf:resource="#useraccesscontrol8"/>
   <considersData rdf:resource="#accountdata17"/>
   <considersData rdf:resource="#nonsensitivedata64"/>
   <considersActivity rdf:resource="#datauseactivity58"/>
@@ -1853,23 +1866,23 @@
   <considersData rdf:resource="#data14"/>
   <considersActivity rdf:resource="#datauseactivity59"/>
   <considersActivity rdf:resource="#datacollectionactivity117"/>
-  <considersActivity rdf:resource="#useraccessactivity9"/>
+  <considersActivity rdf:resource="#useraccesscontrol9"/>
   <considersData rdf:resource="#accountdata18"/>
-  <considersActivity rdf:resource="#useraccessactivity10"/>
+  <considersActivity rdf:resource="#useraccesscontrol10"/>
   <considersData rdf:resource="#accountdata19"/>
-  <considersActivity rdf:resource="#useraccessactivity11"/>
+  <considersActivity rdf:resource="#useraccesscontrol11"/>
   <considersData rdf:resource="#accountdata20"/>
-  <considersActivity rdf:resource="#useraccessactivity12"/>
-  <considersActivity rdf:resource="#useraccessactivity13"/>
+  <considersActivity rdf:resource="#useraccesscontrol12"/>
+  <considersActivity rdf:resource="#useraccesscontrol13"/>
   <considersData rdf:resource="#genericdata11"/>
   <considersActivity rdf:resource="#datauseactivity60"/>
   <considersActivity rdf:resource="#datacollectionactivity118"/>
   <considersActivity rdf:resource="#datacollectionactivity119"/>
   <considersData rdf:resource="#data15"/>
   <considersActivity rdf:resource="#datacollectionactivity120"/>
-  <considersActivity rdf:resource="#useraccessactivity14"/>
+  <considersActivity rdf:resource="#useraccesscontrol14"/>
   <considersData rdf:resource="#sensitivedata8"/>
-  <considersActivity rdf:resource="#useraccessactivity15"/>
+  <considersActivity rdf:resource="#useraccesscontrol15"/>
   <considersData rdf:resource="#accountdata21"/>
   <considersData rdf:resource="#genericdata12"/>
   <considersActivity rdf:resource="#datauseactivity61"/>
@@ -1912,15 +1925,15 @@
   <considersData rdf:resource="#financialdata15"/>
   <considersActivity rdf:resource="#datauseactivity70"/>
   <considersActivity rdf:resource="#datacollectionactivity132"/>
-  <considersActivity rdf:resource="#useraccessactivity16"/>
+  <considersActivity rdf:resource="#useraccesscontrol16"/>
   <considersData rdf:resource="#accountdata24"/>
   <considersData rdf:resource="#accountdata25"/>
   <considersActivity rdf:resource="#datacollectionactivity133"/>
   <considersData rdf:resource="#financialdata16"/>
   <considersActivity rdf:resource="#datacollectionactivity134"/>
-  <considersActivity rdf:resource="#useraccessactivity17"/>
+  <considersActivity rdf:resource="#useraccesscontrol17"/>
   <considersData rdf:resource="#accountdata26"/>
-  <considersActivity rdf:resource="#useraccessactivity18"/>
+  <considersActivity rdf:resource="#useraccesscontrol18"/>
   <considersData rdf:resource="#accountdata27"/>
   <considersData rdf:resource="#nonsensitivedata73"/>
   <considersActivity rdf:resource="#datauseactivity71"/>
@@ -1937,7 +1950,7 @@
   <considersData rdf:resource="#accountdata29"/>
   <considersActivity rdf:resource="#datauseactivity75"/>
   <considersActivity rdf:resource="#datacollectionactivity139"/>
-  <considersActivity rdf:resource="#useraccessactivity19"/>
+  <considersActivity rdf:resource="#useraccesscontrol19"/>
   <considersData rdf:resource="#accountdata30"/>
   <considersActivity rdf:resource="#userprivacycontrol16"/>
   <considersActivity rdf:resource="#userprivacycontrol17"/>
@@ -11341,11 +11354,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Once a HRCA member you may access your personal information in your registration profile for review and may change any information as necessary except for your name</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity1">
+<UserAccessControl rdf:about="#useraccesscontrol1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence805"/>
   <isAppliedTo rdf:resource="#accountdata10"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence806">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -11367,11 +11380,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Once a HRCA member you may access your personal information in your registration profile for review and may change any information as necessary except for your name</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity2">
+<UserAccessControl rdf:about="#useraccesscontrol2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence807"/>
   <isAppliedTo rdf:resource="#accountdata11"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence808">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -11393,11 +11406,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Once a HRCA member you may access your personal information in your registration profile for review and may change any information as necessary except for your name</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity3">
+<UserAccessControl rdf:about="#useraccesscontrol3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence809"/>
   <isAppliedTo rdf:resource="#accountdata12"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence810">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -11419,11 +11432,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Once a HRCA member you may access your personal information in your registration profile for review and may change any information as necessary except for your name</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity4">
+<UserAccessControl rdf:about="#useraccesscontrol4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence811"/>
   <isAppliedTo rdf:resource="#accountdata13"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence812">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -11445,11 +11458,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Once a HRCA member you may access your personal information in your registration profile for review and may change any information as necessary except for your name</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity5">
+<UserAccessControl rdf:about="#useraccesscontrol5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence813"/>
   <isAppliedTo rdf:resource="#accountdata14"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence814">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -12104,11 +12117,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Honda Owners/Acura Owners My Vehicle Honda Owners/Acura Owners provides access to valuable resources like maintenance schedules roadside tips FAQs and account management If you choose to register for Honda Owners/Acura Owners you will be asked to set up a Honda ID/Acura ID and password You will be required to submit your email address where we can send your password information in case you forget it Your email address will also be used to send you any messages relating to the Communication Preferences you choose to set up for example you may choose to receive messages from us relating to general information about Honda Owners/Acura Owners such as site updates You may also choose not to receive any messages at all You will also be asked to tell us the make year model trim color and year purchased This information is used to set up your account specific to your vehicle You will be able to edit or delete your vehicle information any time</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity6">
+<UserAccessControl rdf:about="#useraccesscontrol6">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence871"/>
   <isAppliedTo rdf:resource="#accountdata15"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence872">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -12283,11 +12296,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Honda Owners/Acura Owners My Vehicle Honda Owners/Acura Owners provides access to valuable resources like maintenance schedules roadside tips FAQs and account management If you choose to register for Honda Owners/Acura Owners you will be asked to set up a Honda ID/Acura ID and password You will be required to submit your email address where we can send your password information in case you forget it Your email address will also be used to send you any messages relating to the Communication Preferences you choose to set up for example you may choose to receive messages from us relating to general information about Honda Owners/Acura Owners such as site updates You may also choose not to receive any messages at all You will also be asked to tell us the make year model trim color and year purchased This information is used to set up your account specific to your vehicle You will be able to edit or delete your vehicle information any time</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity7">
+<UserAccessControl rdf:about="#useraccesscontrol7">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence887"/>
   <isAppliedTo rdf:resource="#accountdata16"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence888">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -12371,11 +12384,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Honda Owners/Acura Owners My Vehicle Honda Owners/Acura Owners provides access to valuable resources like maintenance schedules roadside tips FAQs and account management If you choose to register for Honda Owners/Acura Owners you will be asked to set up a Honda ID/Acura ID and password You will be required to submit your email address where we can send your password information in case you forget it Your email address will also be used to send you any messages relating to the Communication Preferences you choose to set up for example you may choose to receive messages from us relating to general information about Honda Owners/Acura Owners such as site updates You may also choose not to receive any messages at all You will also be asked to tell us the make year model trim color and year purchased This information is used to set up your account specific to your vehicle You will be able to edit or delete your vehicle information any time</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity8">
+<UserAccessControl rdf:about="#useraccesscontrol8">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence895"/>
   <isAppliedTo rdf:resource="#accountdata17"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence896">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -12664,11 +12677,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">My Profile Once you have registered a My Profile button will be located at the top of every Honda Owners/Acura Owners page This is a summary of your account with us By clicking this button you can view and/or edit your personal information at any time by clicking the Edit/Update button You may also change your Communication Preferences</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity9">
+<UserAccessControl rdf:about="#useraccesscontrol9">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence920"/>
   <isAppliedTo rdf:resource="#accountdata18"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence921">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -12690,11 +12703,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">My Profile Once you have registered a My Profile button will be located at the top of every Honda Owners/Acura Owners page This is a summary of your account with us By clicking this button you can view and/or edit your personal information at any time by clicking the Edit/Update button You may also change your Communication Preferences</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity10">
+<UserAccessControl rdf:about="#useraccesscontrol10">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence922"/>
   <isAppliedTo rdf:resource="#accountdata19"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence923">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -12716,11 +12729,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">My Profile Once you have registered a My Profile button will be located at the top of every Honda Owners/Acura Owners page This is a summary of your account with us By clicking this button you can view and/or edit your personal information at any time by clicking the Edit/Update button You may also change your Communication Preferences</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity11">
+<UserAccessControl rdf:about="#useraccesscontrol11">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence924"/>
   <isAppliedTo rdf:resource="#accountdata20"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence925">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -12742,10 +12755,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">My Profile Once you have registered a My Profile button will be located at the top of every Honda Owners/Acura Owners page This is a summary of your account with us By clicking this button you can view and/or edit your personal information at any time by clicking the Edit/Update button You may also change your Communication Preferences</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity12">
+<UserAccessControl rdf:about="#useraccesscontrol12">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence926"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence927">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -12762,10 +12775,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">My Profile Once you have registered a My Profile button will be located at the top of every Honda Owners/Acura Owners page This is a summary of your account with us By clicking this button you can view and/or edit your personal information at any time by clicking the Edit/Update button You may also change your Communication Preferences</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity13">
+<UserAccessControl rdf:about="#useraccesscontrol13">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence928"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence929">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -13008,11 +13021,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eStore The amount and type of information we collect depends on who you are and how you use eStore eStore offers products and services to the general public as well as to independent vehicle repair shops We collect personally identifying information if you visit the site and wish to register purchase products request other information or otherwise communicate with Honda about the products/services offered on the site When you register on the site we will request that you set up a Honda ID/Acura ID and password for My Profile You may choose to enter your Honda or Acura s vehicle identification number VIN or simply choose the make year and model of your vehicle You may make changes to this information at any time by selecting the edit button in the My Profile folder</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity14">
+<UserAccessControl rdf:about="#useraccesscontrol14">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence950"/>
   <isAppliedTo rdf:resource="#sensitivedata8"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence951">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -13116,11 +13129,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eStore The amount and type of information we collect depends on who you are and how you use eStore eStore offers products and services to the general public as well as to independent vehicle repair shops We collect personally identifying information if you visit the site and wish to register purchase products request other information or otherwise communicate with Honda about the products/services offered on the site When you register on the site we will request that you set up a Honda ID/Acura ID and password for My Profile You may choose to enter your Honda or Acura s vehicle identification number VIN or simply choose the make year and model of your vehicle You may make changes to this information at any time by selecting the edit button in the My Profile folder</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity15">
+<UserAccessControl rdf:about="#useraccesscontrol15">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence960"/>
   <isAppliedTo rdf:resource="#accountdata21"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence961">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -14367,11 +14380,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">EasyPay Enrollment If you are already an AHFC customer you may decide to enroll in our convenient EasyPay program and authorize AHFC to automatically withdraw scheduled monthly payments from your bank checking or savings account In order to enroll we will request that you provide personally identifiable information such as your AHFC account number the last four digits of your social security number your bank s name and routing number and your bank account type checking or savings and account number This information is collected and used in a manner appropriate to process your EasyPay enrollment request Note that you can also change or update your information by clicking on Change button off the EasyPay home page</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity16">
+<UserAccessControl rdf:about="#useraccesscontrol16">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence1067"/>
   <isAppliedTo rdf:resource="#accountdata24"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence1068">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -14525,11 +14538,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">EasyPay Enrollment If you are already an AHFC customer you may decide to enroll in our convenient EasyPay program and authorize AHFC to automatically withdraw scheduled monthly payments from your bank checking or savings account In order to enroll we will request that you provide personally identifiable information such as your AHFC account number the last four digits of your social security number your bank s name and routing number and your bank account type checking or savings and account number This information is collected and used in a manner appropriate to process your EasyPay enrollment request Note that you can also change or update your information by clicking on Change button off the EasyPay home page</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity17">
+<UserAccessControl rdf:about="#useraccesscontrol17">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence1081"/>
   <isAppliedTo rdf:resource="#accountdata26"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence1082">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -14715,11 +14728,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">EasyPay Enrollment If you are already an AHFC customer you may decide to enroll in our convenient EasyPay program and authorize AHFC to automatically withdraw scheduled monthly payments from your bank checking or savings account In order to enroll we will request that you provide personally identifiable information such as your AHFC account number the last four digits of your social security number your bank s name and routing number and your bank account type checking or savings and account number This information is collected and used in a manner appropriate to process your EasyPay enrollment request Note that you can also change or update your information by clicking on Change button off the EasyPay home page</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity18">
+<UserAccessControl rdf:about="#useraccesscontrol18">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence1099"/>
   <isAppliedTo rdf:resource="#accountdata27"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence1100">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -15463,11 +15476,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">EasyPay Enrollment If you are already an AHFC customer you may decide to enroll in our convenient EasyPay program and authorize AHFC to automatically withdraw scheduled monthly payments from your bank checking or savings account In order to enroll we will request that you provide personally identifiable information such as your AHFC account number the last four digits of your social security number your bank s name and routing number and your bank account type checking or savings and account number This information is collected and used in a manner appropriate to process your EasyPay enrollment request Note that you can also change or update your information by clicking on Change button off the EasyPay home page</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity19">
+<UserAccessControl rdf:about="#useraccesscontrol19">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence1165"/>
   <isAppliedTo rdf:resource="#accountdata30"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence1166">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>

@@ -226,6 +226,18 @@
   <owl:inverseOf rdf:resource="#privacyControlMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
 
+<owl:ObjectProperty rdf:about="#dataControlMechanismIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasDataControlMechanism"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasDataControlMechanism">
+  <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
+  <rdfs:domain rdf:resource="#UserAccessControl"/>
+  <rdfs:range rdf:resource="#DataControlMechanism"/>
+  <owl:inverseOf rdf:resource="#dataControlMechanismIsRelatedTo"/>
+</owl:ObjectProperty>
+
 <owl:ObjectProperty rdf:about="#notificationMechanismIsRelatedTo">
   <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
   <owl:inverseOf rdf:resource="#hasNotificationMechanism"/>
@@ -233,14 +245,7 @@
 
 <owl:ObjectProperty rdf:about="#hasNotificationMechanism">
   <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#NotificationMechanism"/>
   <owl:inverseOf rdf:resource="#notificationMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
@@ -380,6 +385,7 @@
 
 <owl:ObjectProperty rdf:about="#isInitiatedByAnotherActivity">
   <rdfs:subPropertyOf rdf:resource="#isInitiatedBy"/>
+  <rdfs:domain rdf:resource="#Activity"/>
   <owl:inverseOf rdf:resource="#initiatesAnotherActivity"/>
 </owl:ObjectProperty>
 
@@ -410,14 +416,7 @@
 
 <owl:ObjectProperty rdf:about="#notifiesAgent">
   <rdfs:subPropertyOf rdf:resource="#notifies"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#Agent"/>
   <owl:inverseOf rdf:resource="#agentIsNotifiedBy"/>
 </owl:ObjectProperty>
@@ -506,12 +505,22 @@
   <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
 </owl:DatatypeProperty>
 
+<owl:DatatypeProperty rdf:about="#does">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+</owl:DatatypeProperty>
+
 <owl:Class rdf:about="#PrivacyPolicy">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Activity">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#NotificationActivity">
+  <rdfs:subClassOf rdf:resource="#Activity"/>
 </owl:Class>
 
 <owl:Class rdf:about="#BreachActivity">
@@ -546,7 +555,7 @@
   <rdfs:subClassOf rdf:resource="#ControlActivity"/>
 </owl:Class>
 
-<owl:Class rdf:about="#UserAccessActivity">
+<owl:Class rdf:about="#UserAccessControl">
   <rdfs:subClassOf rdf:resource="#DataControlActivity"/>
 </owl:Class>
 
@@ -806,6 +815,10 @@
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
 
+<owl:Class rdf:about="#SMSRequest">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
 <owl:Class rdf:about="#WebsiteForm">
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
@@ -972,14 +985,14 @@
   <initiatesActivity rdf:resource="#userprivacycontrol6"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory3"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory4"/>
-  <initiatesActivity rdf:resource="#useraccessactivity1"/>
-  <initiatesActivity rdf:resource="#useraccessactivity2"/>
-  <initiatesActivity rdf:resource="#useraccessactivity3"/>
-  <initiatesActivity rdf:resource="#useraccessactivity4"/>
-  <initiatesActivity rdf:resource="#useraccessactivity5"/>
-  <initiatesActivity rdf:resource="#useraccessactivity6"/>
-  <initiatesActivity rdf:resource="#useraccessactivity7"/>
-  <initiatesActivity rdf:resource="#useraccessactivity8"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol1"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol2"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol3"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol4"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol5"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol6"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol7"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol8"/>
 </User>
 
 <FirstParty rdf:about="#firstparty1">
@@ -997,9 +1010,9 @@
 
 <PrivacyPolicy rdf:about="#privacypolicy2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <considersAgent rdf:resource="#thirdparties1"/>
-  <considersAgent rdf:resource="#user1"/>
   <considersAgent rdf:resource="#firstparty1"/>
+  <considersAgent rdf:resource="#user1"/>
+  <considersAgent rdf:resource="#thirdparties1"/>
   <considersActivity rdf:resource="#policychangeactivity1"/>
   <considersActivity rdf:resource="#policychangeactivity2"/>
   <considersData rdf:resource="#trackingdata1"/>
@@ -1015,17 +1028,17 @@
   <considersActivity rdf:resource="#userprivacycontrol6"/>
   <considersActivity rdf:resource="#activity1"/>
   <considersActivity rdf:resource="#activity2"/>
-  <considersActivity rdf:resource="#useraccessactivity1"/>
+  <considersActivity rdf:resource="#useraccesscontrol1"/>
   <considersData rdf:resource="#nonsensitivedata3"/>
-  <considersActivity rdf:resource="#useraccessactivity2"/>
+  <considersActivity rdf:resource="#useraccesscontrol2"/>
   <considersData rdf:resource="#nonsensitivedata4"/>
-  <considersActivity rdf:resource="#useraccessactivity3"/>
-  <considersActivity rdf:resource="#useraccessactivity4"/>
-  <considersActivity rdf:resource="#useraccessactivity5"/>
-  <considersActivity rdf:resource="#useraccessactivity6"/>
+  <considersActivity rdf:resource="#useraccesscontrol3"/>
+  <considersActivity rdf:resource="#useraccesscontrol4"/>
+  <considersActivity rdf:resource="#useraccesscontrol5"/>
+  <considersActivity rdf:resource="#useraccesscontrol6"/>
   <considersData rdf:resource="#nonsensitivedata5"/>
-  <considersActivity rdf:resource="#useraccessactivity7"/>
-  <considersActivity rdf:resource="#useraccessactivity8"/>
+  <considersActivity rdf:resource="#useraccesscontrol7"/>
+  <considersActivity rdf:resource="#useraccesscontrol8"/>
   <considersActivity rdf:resource="#policychangeactivity3"/>
   <policyId rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1470</policyId>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">steampowered.com</policyWebsite>
@@ -2900,11 +2913,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corrections Updates and Removal of Personally Identifiable Information If you are concerned about the accuracy of personally identifiable information maintained by Valve or wish to review access amend or correct it or would like your personally identifiable information removed from Valve s records or otherwise deactivated please contact us here We may decline requests that are unreasonably repetitive require disproportionate technical effort jeopardize the privacy of others or are extremely impractical</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity1">
+<UserAccessControl rdf:about="#useraccesscontrol1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence184"/>
   <isAppliedTo rdf:resource="#nonsensitivedata3"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence185">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -2926,11 +2939,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corrections Updates and Removal of Personally Identifiable Information If you are concerned about the accuracy of personally identifiable information maintained by Valve or wish to review access amend or correct it or would like your personally identifiable information removed from Valve s records or otherwise deactivated please contact us here We may decline requests that are unreasonably repetitive require disproportionate technical effort jeopardize the privacy of others or are extremely impractical</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity2">
+<UserAccessControl rdf:about="#useraccesscontrol2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence186"/>
   <isAppliedTo rdf:resource="#nonsensitivedata4"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence187">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -2952,10 +2965,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corrections Updates and Removal of Personally Identifiable Information If you are concerned about the accuracy of personally identifiable information maintained by Valve or wish to review access amend or correct it or would like your personally identifiable information removed from Valve s records or otherwise deactivated please contact us here We may decline requests that are unreasonably repetitive require disproportionate technical effort jeopardize the privacy of others or are extremely impractical</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity3">
+<UserAccessControl rdf:about="#useraccesscontrol3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence188"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence189">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -2972,10 +2985,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corrections Updates and Removal of Personally Identifiable Information If you are concerned about the accuracy of personally identifiable information maintained by Valve or wish to review access amend or correct it or would like your personally identifiable information removed from Valve s records or otherwise deactivated please contact us here We may decline requests that are unreasonably repetitive require disproportionate technical effort jeopardize the privacy of others or are extremely impractical</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity4">
+<UserAccessControl rdf:about="#useraccesscontrol4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence190"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence191">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -2992,10 +3005,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corrections Updates and Removal of Personally Identifiable Information If you are concerned about the accuracy of personally identifiable information maintained by Valve or wish to review access amend or correct it or would like your personally identifiable information removed from Valve s records or otherwise deactivated please contact us here We may decline requests that are unreasonably repetitive require disproportionate technical effort jeopardize the privacy of others or are extremely impractical</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity5">
+<UserAccessControl rdf:about="#useraccesscontrol5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence192"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence193">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -3012,11 +3025,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corrections Updates and Removal of Personally Identifiable Information If you are concerned about the accuracy of personally identifiable information maintained by Valve or wish to review access amend or correct it or would like your personally identifiable information removed from Valve s records or otherwise deactivated please contact us here We may decline requests that are unreasonably repetitive require disproportionate technical effort jeopardize the privacy of others or are extremely impractical</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity6">
+<UserAccessControl rdf:about="#useraccesscontrol6">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence194"/>
   <isAppliedTo rdf:resource="#nonsensitivedata5"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence195">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -3038,10 +3051,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corrections Updates and Removal of Personally Identifiable Information If you are concerned about the accuracy of personally identifiable information maintained by Valve or wish to review access amend or correct it or would like your personally identifiable information removed from Valve s records or otherwise deactivated please contact us here We may decline requests that are unreasonably repetitive require disproportionate technical effort jeopardize the privacy of others or are extremely impractical</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity7">
+<UserAccessControl rdf:about="#useraccesscontrol7">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence196"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence197">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -3058,10 +3071,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corrections Updates and Removal of Personally Identifiable Information If you are concerned about the accuracy of personally identifiable information maintained by Valve or wish to review access amend or correct it or would like your personally identifiable information removed from Valve s records or otherwise deactivated please contact us here We may decline requests that are unreasonably repetitive require disproportionate technical effort jeopardize the privacy of others or are extremely impractical</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity8">
+<UserAccessControl rdf:about="#useraccesscontrol8">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence198"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence199">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>

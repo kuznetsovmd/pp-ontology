@@ -18,7 +18,19 @@ TODO
     - [x] CareSense (Has nothing about health, maybe that is delegated to HIPAA)
     - [x] Zepp
     - [x] Renpho
-
+- [x] Rework classes
+- [x] Activities ordering
+- [ ] SWARL Rules
+- [ ] Integrate Disjoints, Equivalence and Restrictions
+    - [ ] Rework object properties (possible)
+    - [ ] Class Restrictions (possible)
+        - [ ] Disjoints
+        - [ ] Equivalence
+    - [ ] Infer certain object properties (dont know)
+- [ ] Update for ontology2: 
+    - [ ] CareSense (Has nothing about health, maybe that is delegated to HIPAA)
+    - [ ] Zepp
+    - [ ] Renpho
 
 
 Health care applications
@@ -62,29 +74,3 @@ Policy:
 Device:
     https://www.amazon.com/RENPHO-Bluetooth-Bathroom-Composition-Smartphone/dp/B01N1UX8RW/ref=sr_1_1?crid=35N1TK1ULC5HM&keywords=smart%2Bweights&qid=1674338323&sprefix=smart%2Bweight%2Caps%2C309&sr=8-1&th=1
 
-
-
-Suggestions
------------
-
-- [ ] Users also may report breach activity
-- [ ] What are aggregated, anonymized or de-identified, are they all pseudoanonymized?
-- [ ] Placement of third party links?
-- [ ] Irresponsibility for third-party services?
-- [ ] What is the category of purchased items?
-- [ ] Does/Doesnt share/collect/use?
-- [ ] Rudimental activity in security topics?
-- [ ] GiveConsent suggested to be a modifier?
-- [ ] Is a use on the device important anyway?
-- [ ] What about user data collected from third parties?
-- [ ] SecurityMeasures in TechnicalMeasures:
-    - [ ] Anonymization
-    - [ ] Encryption
-    - [ ] Secure Sockets Layer (SSL) technology
-    - [ ] Firewall
-    - [ ] Access controls, passwords
-    - [ ] Two-Step verification
-- [ ] SecurityMeasures in OrganizationalMeasures:
-    - [ ] Storage of sensitive information in locked offices
-    - [ ] Employee training regarding security issues
-    - [ ] Users maintain the security

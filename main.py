@@ -1,16 +1,18 @@
+#!/usr/bin/env python
+
 from pprint import pprint
 
-from ontology import Ontology
-from opp.processor import process_opp
-from opp.reader import read_opp
-from cloud_computing_policies.amazon_web_services import process_aws
-from cloud_computing_policies.google_cloud import process_google_cloud
-from cloud_computing_policies.threeplususa import process_3plususa
-from healthcare_policies.caresense import process_caresense
-from healthcare_policies.zepp import process_zepp
-from healthcare_policies.renpho import process_renpho
-
-import owlready2
+from ontology2.interface import Ontology as Ontology2
+from ontology.ontology import Ontology
+from experiments.opp.processor import process_opp
+from experiments.opp.reader import read_opp
+from experiments.cloud_computing_policies.amazon_web_services import process_aws
+from experiments.cloud_computing_policies.google_cloud import process_google_cloud
+from experiments.cloud_computing_policies.threeplususa import process_3plususa
+from experiments.healthcare_policies.caresense import process_caresense
+from experiments.healthcare_policies.zepp import process_zepp
+from experiments.healthcare_policies.renpho import process_renpho
+from experiments.onto2_examples import process_onto2_test
 
 
 def main():
@@ -61,40 +63,40 @@ def main():
                 ?object onto:evidenceContent ?content }
     """
 
-    owlready2.JAVA_EXE="/usr/lib/jvm/java-17-openjdk/bin/java"
 
-    # # Ontology containing whole dataset
-    # onto = Ontology("blank")
-    # onto.write(reason=False)
+    # Ontology containing whole dataset
+    Ontology2("blank_v2").save()
 
-    # onto = Ontology("summary")
-    # policies = read_opp()
+    onto = Ontology("summary")
+    policies = read_opp()
     
-    # for p in policies:
-    #     process_opp(onto.raw_onto, p)
-    # onto.write(reason=False)
+    for p in policies:
+        process_opp(onto.raw_onto, p)
+    onto.write(reason=False)
     
-    # # Ontologies containing policies by 1
-    # for i, p in enumerate(policies, start=1):
-    #     onto = Ontology(i)
-    #     process_opp(onto.raw_onto, p)
-    #     onto.write(reason=False)
+    # Ontologies containing policies by 1
+    for i, p in enumerate(policies, start=1):
+        onto = Ontology(i)
+        process_opp(onto.raw_onto, p)
+        onto.write(reason=False)
 
-    # onto = Ontology("3plususa")
-    # process_3plususa(onto.raw_onto)
-    # onto.write(reason=False)
+    onto = Ontology("3plususa")
+    process_3plususa(onto.raw_onto)
+    onto.write(reason=False)
 
-    # onto = Ontology("aws")
-    # process_aws(onto.raw_onto)
-    # onto.write(reason=False)
+    onto = Ontology("aws")
+    process_aws(onto.raw_onto)
+    onto.write(reason=False)
 
-    # onto = Ontology("google-cloud")
-    # process_google_cloud(onto.raw_onto)
-    # onto.write(reason=False)
+    onto = Ontology("google-cloud")
+    process_google_cloud(onto.raw_onto)
+    onto.write(reason=False)
 
-    # process_caresense()
-    # process_zepp()
+    process_caresense()
+    process_zepp()
     process_renpho()
+
+    process_onto2_test()
 
 
 if __name__ == '__main__':

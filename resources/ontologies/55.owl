@@ -226,6 +226,18 @@
   <owl:inverseOf rdf:resource="#privacyControlMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
 
+<owl:ObjectProperty rdf:about="#dataControlMechanismIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasDataControlMechanism"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasDataControlMechanism">
+  <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
+  <rdfs:domain rdf:resource="#UserAccessControl"/>
+  <rdfs:range rdf:resource="#DataControlMechanism"/>
+  <owl:inverseOf rdf:resource="#dataControlMechanismIsRelatedTo"/>
+</owl:ObjectProperty>
+
 <owl:ObjectProperty rdf:about="#notificationMechanismIsRelatedTo">
   <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
   <owl:inverseOf rdf:resource="#hasNotificationMechanism"/>
@@ -233,14 +245,7 @@
 
 <owl:ObjectProperty rdf:about="#hasNotificationMechanism">
   <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#NotificationMechanism"/>
   <owl:inverseOf rdf:resource="#notificationMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
@@ -380,6 +385,7 @@
 
 <owl:ObjectProperty rdf:about="#isInitiatedByAnotherActivity">
   <rdfs:subPropertyOf rdf:resource="#isInitiatedBy"/>
+  <rdfs:domain rdf:resource="#Activity"/>
   <owl:inverseOf rdf:resource="#initiatesAnotherActivity"/>
 </owl:ObjectProperty>
 
@@ -410,14 +416,7 @@
 
 <owl:ObjectProperty rdf:about="#notifiesAgent">
   <rdfs:subPropertyOf rdf:resource="#notifies"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#Agent"/>
   <owl:inverseOf rdf:resource="#agentIsNotifiedBy"/>
 </owl:ObjectProperty>
@@ -506,12 +505,22 @@
   <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
 </owl:DatatypeProperty>
 
+<owl:DatatypeProperty rdf:about="#does">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+</owl:DatatypeProperty>
+
 <owl:Class rdf:about="#PrivacyPolicy">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Activity">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#NotificationActivity">
+  <rdfs:subClassOf rdf:resource="#Activity"/>
 </owl:Class>
 
 <owl:Class rdf:about="#BreachActivity">
@@ -546,7 +555,7 @@
   <rdfs:subClassOf rdf:resource="#ControlActivity"/>
 </owl:Class>
 
-<owl:Class rdf:about="#UserAccessActivity">
+<owl:Class rdf:about="#UserAccessControl">
   <rdfs:subClassOf rdf:resource="#DataControlActivity"/>
 </owl:Class>
 
@@ -803,6 +812,10 @@
 </owl:Class>
 
 <owl:Class rdf:about="#PhoneCallRequest">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
+<owl:Class rdf:about="#SMSRequest">
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
 
@@ -1096,12 +1109,12 @@
   <providesData rdf:resource="#nonsensitivedata24"/>
   <providesData rdf:resource="#nonsensitivedata25"/>
   <providesData rdf:resource="#nonsensitivedata26"/>
-  <initiatesActivity rdf:resource="#useraccessactivity1"/>
-  <initiatesActivity rdf:resource="#useraccessactivity2"/>
-  <initiatesActivity rdf:resource="#useraccessactivity3"/>
-  <initiatesActivity rdf:resource="#useraccessactivity4"/>
-  <initiatesActivity rdf:resource="#useraccessactivity5"/>
-  <initiatesActivity rdf:resource="#useraccessactivity6"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol1"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol2"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol3"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol4"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol5"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol6"/>
   <providesData rdf:resource="#nonsensitivedata27"/>
   <initiatesActivity rdf:resource="#userprivacycontrol22"/>
   <providesData rdf:resource="#nonsensitivedata28"/>
@@ -1406,8 +1419,8 @@
 <PrivacyPolicy rdf:about="#privacypolicy2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <considersAgent rdf:resource="#user1"/>
-  <considersAgent rdf:resource="#firstparty1"/>
   <considersAgent rdf:resource="#thirdparties1"/>
+  <considersAgent rdf:resource="#firstparty1"/>
   <considersActivity rdf:resource="#policychangeactivity1"/>
   <considersActivity rdf:resource="#activity1"/>
   <considersData rdf:resource="#genericdata1"/>
@@ -1791,17 +1804,17 @@
   <considersActivity rdf:resource="#datacollectionactivity127"/>
   <considersData rdf:resource="#nonsensitivedata26"/>
   <considersActivity rdf:resource="#datacollectionactivity128"/>
-  <considersActivity rdf:resource="#useraccessactivity1"/>
+  <considersActivity rdf:resource="#useraccesscontrol1"/>
   <considersData rdf:resource="#accountdata9"/>
-  <considersActivity rdf:resource="#useraccessactivity2"/>
+  <considersActivity rdf:resource="#useraccesscontrol2"/>
   <considersData rdf:resource="#accountdata10"/>
-  <considersActivity rdf:resource="#useraccessactivity3"/>
+  <considersActivity rdf:resource="#useraccesscontrol3"/>
   <considersData rdf:resource="#financialdata4"/>
-  <considersActivity rdf:resource="#useraccessactivity4"/>
+  <considersActivity rdf:resource="#useraccesscontrol4"/>
   <considersData rdf:resource="#accountdata11"/>
-  <considersActivity rdf:resource="#useraccessactivity5"/>
+  <considersActivity rdf:resource="#useraccesscontrol5"/>
   <considersData rdf:resource="#accountdata12"/>
-  <considersActivity rdf:resource="#useraccessactivity6"/>
+  <considersActivity rdf:resource="#useraccesscontrol6"/>
   <considersData rdf:resource="#financialdata5"/>
   <considersData rdf:resource="#nonsensitivedata27"/>
   <considersActivity rdf:resource="#userprivacycontrol22"/>
@@ -12227,11 +12240,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HOW DO I CHANGE OR UPDATE MY PERSONAL INFORMATION- The New York Times Home Delivery Web Account You may update and/or edit your Home Delivery account information online at the Home Delivery website by clicking on the link for Update Account Should you require assistance please call our toll free number 1-800-NYTIMES</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity1">
+<UserAccessControl rdf:about="#useraccesscontrol1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence873"/>
   <isAppliedTo rdf:resource="#accountdata9"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence874">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -12253,11 +12266,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HOW DO I CHANGE OR UPDATE MY PERSONAL INFORMATION- The New York Times Home Delivery Web Account You may update and/or edit your Home Delivery account information online at the Home Delivery website by clicking on the link for Update Account Should you require assistance please call our toll free number 1-800-NYTIMES</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity2">
+<UserAccessControl rdf:about="#useraccesscontrol2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence875"/>
   <isAppliedTo rdf:resource="#accountdata10"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence876">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -12279,11 +12292,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Manage Your NYTimes com Account in the My Account Area You may review and update your NYTimes com membership or account information and access your transaction history in the My Account area</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity3">
+<UserAccessControl rdf:about="#useraccesscontrol3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence877"/>
   <isAppliedTo rdf:resource="#financialdata4"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence878">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -12305,11 +12318,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Manage Your NYTimes com Account in the My Account Area You may review and update your NYTimes com membership or account information and access your transaction history in the My Account area</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity4">
+<UserAccessControl rdf:about="#useraccesscontrol4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence879"/>
   <isAppliedTo rdf:resource="#accountdata11"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence880">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -12331,11 +12344,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Manage Your NYTimes com Account in the My Account Area You may review and update your NYTimes com membership or account information and access your transaction history in the My Account area</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity5">
+<UserAccessControl rdf:about="#useraccesscontrol5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence881"/>
   <isAppliedTo rdf:resource="#accountdata12"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence882">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -12357,11 +12370,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Manage Your NYTimes com Account in the My Account Area You may review and update your NYTimes com membership or account information and access your transaction history in the My Account area</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity6">
+<UserAccessControl rdf:about="#useraccesscontrol6">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence883"/>
   <isAppliedTo rdf:resource="#financialdata5"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence884">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>

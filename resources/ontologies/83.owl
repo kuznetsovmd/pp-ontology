@@ -226,6 +226,18 @@
   <owl:inverseOf rdf:resource="#privacyControlMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
 
+<owl:ObjectProperty rdf:about="#dataControlMechanismIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasDataControlMechanism"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasDataControlMechanism">
+  <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
+  <rdfs:domain rdf:resource="#UserAccessControl"/>
+  <rdfs:range rdf:resource="#DataControlMechanism"/>
+  <owl:inverseOf rdf:resource="#dataControlMechanismIsRelatedTo"/>
+</owl:ObjectProperty>
+
 <owl:ObjectProperty rdf:about="#notificationMechanismIsRelatedTo">
   <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
   <owl:inverseOf rdf:resource="#hasNotificationMechanism"/>
@@ -233,14 +245,7 @@
 
 <owl:ObjectProperty rdf:about="#hasNotificationMechanism">
   <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#NotificationMechanism"/>
   <owl:inverseOf rdf:resource="#notificationMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
@@ -380,6 +385,7 @@
 
 <owl:ObjectProperty rdf:about="#isInitiatedByAnotherActivity">
   <rdfs:subPropertyOf rdf:resource="#isInitiatedBy"/>
+  <rdfs:domain rdf:resource="#Activity"/>
   <owl:inverseOf rdf:resource="#initiatesAnotherActivity"/>
 </owl:ObjectProperty>
 
@@ -410,14 +416,7 @@
 
 <owl:ObjectProperty rdf:about="#notifiesAgent">
   <rdfs:subPropertyOf rdf:resource="#notifies"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#Agent"/>
   <owl:inverseOf rdf:resource="#agentIsNotifiedBy"/>
 </owl:ObjectProperty>
@@ -506,12 +505,22 @@
   <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
 </owl:DatatypeProperty>
 
+<owl:DatatypeProperty rdf:about="#does">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+</owl:DatatypeProperty>
+
 <owl:Class rdf:about="#PrivacyPolicy">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Activity">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#NotificationActivity">
+  <rdfs:subClassOf rdf:resource="#Activity"/>
 </owl:Class>
 
 <owl:Class rdf:about="#BreachActivity">
@@ -546,7 +555,7 @@
   <rdfs:subClassOf rdf:resource="#ControlActivity"/>
 </owl:Class>
 
-<owl:Class rdf:about="#UserAccessActivity">
+<owl:Class rdf:about="#UserAccessControl">
   <rdfs:subClassOf rdf:resource="#DataControlActivity"/>
 </owl:Class>
 
@@ -806,6 +815,10 @@
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
 
+<owl:Class rdf:about="#SMSRequest">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
 <owl:Class rdf:about="#WebsiteForm">
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
@@ -1019,12 +1032,12 @@
   <hasSpecialCategory rdf:resource="#userspecialcategory2"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory3"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory4"/>
-  <initiatesActivity rdf:resource="#useraccessactivity1"/>
-  <initiatesActivity rdf:resource="#useraccessactivity2"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol1"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol2"/>
   <providesData rdf:resource="#nonsensitivedata6"/>
-  <initiatesActivity rdf:resource="#useraccessactivity3"/>
-  <initiatesActivity rdf:resource="#useraccessactivity4"/>
-  <initiatesActivity rdf:resource="#useraccessactivity5"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol3"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol4"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol5"/>
   <providesData rdf:resource="#data7"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory5"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory6"/>
@@ -1342,18 +1355,18 @@
   <considersActivity rdf:resource="#datacollectionactivity55"/>
   <considersActivity rdf:resource="#activity5"/>
   <considersActivity rdf:resource="#userprivacycontrol5"/>
-  <considersActivity rdf:resource="#useraccessactivity1"/>
+  <considersActivity rdf:resource="#useraccesscontrol1"/>
   <considersData rdf:resource="#accountdata5"/>
   <considersActivity rdf:resource="#activity6"/>
-  <considersActivity rdf:resource="#useraccessactivity2"/>
+  <considersActivity rdf:resource="#useraccesscontrol2"/>
   <considersData rdf:resource="#accountdata6"/>
   <considersData rdf:resource="#nonsensitivedata6"/>
   <considersActivity rdf:resource="#datacollectionactivity56"/>
-  <considersActivity rdf:resource="#useraccessactivity3"/>
+  <considersActivity rdf:resource="#useraccesscontrol3"/>
   <considersData rdf:resource="#sensitivedata4"/>
-  <considersActivity rdf:resource="#useraccessactivity4"/>
+  <considersActivity rdf:resource="#useraccesscontrol4"/>
   <considersData rdf:resource="#sensitivedata5"/>
-  <considersActivity rdf:resource="#useraccessactivity5"/>
+  <considersActivity rdf:resource="#useraccesscontrol5"/>
   <considersData rdf:resource="#sensitivedata6"/>
   <considersData rdf:resource="#data7"/>
   <considersActivity rdf:resource="#datasharingactivity12"/>
@@ -7048,11 +7061,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PlayStation Website Message Boards Our PlayStation website message boards are a place where users can go to freely share their thoughts and ideas about the PlayStation brand A Sony Entertainment Network account is required to contribute to these message boards We prohibit message board participants from disclosing their own personally identifying information other than their own Online IDs We ask our users to respect the privacy of others Disclosure of phone numbers addresses age or other personally identifying information that may violate someone else s privacy is prohibited Encouraging or asking users to disclose publicly their personally identifying information is also prohibited</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity1">
+<UserAccessControl rdf:about="#useraccesscontrol1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence493"/>
   <isAppliedTo rdf:resource="#accountdata5"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence494">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -7089,11 +7102,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Business Contacts Through our job page at http //us playstation com/corporate/about/careers SCEA allows job seekers to inquire about jobs and submit personally identifying information in connection with applying for employment If a job seeker creates a job profile he or she will be asked to provide an email address and create a password He or she can use that email address and password to access his or her account review the information in his or her profile edit or delete his or her profile at any time</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity2">
+<UserAccessControl rdf:about="#useraccesscontrol2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence496"/>
   <isAppliedTo rdf:resource="#accountdata6"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence497">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -7181,11 +7194,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Business Contacts Through our job page at http //us playstation com/corporate/about/careers SCEA allows job seekers to inquire about jobs and submit personally identifying information in connection with applying for employment If a job seeker creates a job profile he or she will be asked to provide an email address and create a password He or she can use that email address and password to access his or her account review the information in his or her profile edit or delete his or her profile at any time</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity3">
+<UserAccessControl rdf:about="#useraccesscontrol3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence504"/>
   <isAppliedTo rdf:resource="#sensitivedata4"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence505">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -7207,11 +7220,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Business Contacts Through our job page at http //us playstation com/corporate/about/careers SCEA allows job seekers to inquire about jobs and submit personally identifying information in connection with applying for employment If a job seeker creates a job profile he or she will be asked to provide an email address and create a password He or she can use that email address and password to access his or her account review the information in his or her profile edit or delete his or her profile at any time</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity4">
+<UserAccessControl rdf:about="#useraccesscontrol4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence506"/>
   <isAppliedTo rdf:resource="#sensitivedata5"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence507">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -7233,11 +7246,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Business Contacts Through our job page at http //us playstation com/corporate/about/careers SCEA allows job seekers to inquire about jobs and submit personally identifying information in connection with applying for employment If a job seeker creates a job profile he or she will be asked to provide an email address and create a password He or she can use that email address and password to access his or her account review the information in his or her profile edit or delete his or her profile at any time</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity5">
+<UserAccessControl rdf:about="#useraccesscontrol5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence508"/>
   <isAppliedTo rdf:resource="#sensitivedata6"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence509">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>

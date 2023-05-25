@@ -226,6 +226,18 @@
   <owl:inverseOf rdf:resource="#privacyControlMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
 
+<owl:ObjectProperty rdf:about="#dataControlMechanismIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasDataControlMechanism"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasDataControlMechanism">
+  <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
+  <rdfs:domain rdf:resource="#UserAccessControl"/>
+  <rdfs:range rdf:resource="#DataControlMechanism"/>
+  <owl:inverseOf rdf:resource="#dataControlMechanismIsRelatedTo"/>
+</owl:ObjectProperty>
+
 <owl:ObjectProperty rdf:about="#notificationMechanismIsRelatedTo">
   <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
   <owl:inverseOf rdf:resource="#hasNotificationMechanism"/>
@@ -233,14 +245,7 @@
 
 <owl:ObjectProperty rdf:about="#hasNotificationMechanism">
   <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#NotificationMechanism"/>
   <owl:inverseOf rdf:resource="#notificationMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
@@ -380,6 +385,7 @@
 
 <owl:ObjectProperty rdf:about="#isInitiatedByAnotherActivity">
   <rdfs:subPropertyOf rdf:resource="#isInitiatedBy"/>
+  <rdfs:domain rdf:resource="#Activity"/>
   <owl:inverseOf rdf:resource="#initiatesAnotherActivity"/>
 </owl:ObjectProperty>
 
@@ -410,14 +416,7 @@
 
 <owl:ObjectProperty rdf:about="#notifiesAgent">
   <rdfs:subPropertyOf rdf:resource="#notifies"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#Agent"/>
   <owl:inverseOf rdf:resource="#agentIsNotifiedBy"/>
 </owl:ObjectProperty>
@@ -506,12 +505,22 @@
   <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
 </owl:DatatypeProperty>
 
+<owl:DatatypeProperty rdf:about="#does">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+</owl:DatatypeProperty>
+
 <owl:Class rdf:about="#PrivacyPolicy">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Activity">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#NotificationActivity">
+  <rdfs:subClassOf rdf:resource="#Activity"/>
 </owl:Class>
 
 <owl:Class rdf:about="#BreachActivity">
@@ -546,7 +555,7 @@
   <rdfs:subClassOf rdf:resource="#ControlActivity"/>
 </owl:Class>
 
-<owl:Class rdf:about="#UserAccessActivity">
+<owl:Class rdf:about="#UserAccessControl">
   <rdfs:subClassOf rdf:resource="#DataControlActivity"/>
 </owl:Class>
 
@@ -806,6 +815,10 @@
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
 
+<owl:Class rdf:about="#SMSRequest">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
 <owl:Class rdf:about="#WebsiteForm">
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
@@ -962,14 +975,14 @@
   <hasSpecialCategory rdf:resource="#userspecialcategory3"/>
   <initiatesActivity rdf:resource="#userprivacycontrol1"/>
   <initiatesActivity rdf:resource="#userprivacycontrol2"/>
-  <initiatesActivity rdf:resource="#useraccessactivity1"/>
-  <initiatesActivity rdf:resource="#useraccessactivity2"/>
-  <initiatesActivity rdf:resource="#useraccessactivity3"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol1"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol2"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol3"/>
   <providesData rdf:resource="#accountdata1"/>
   <initiatesActivity rdf:resource="#userprivacycontrol3"/>
-  <initiatesActivity rdf:resource="#useraccessactivity4"/>
-  <initiatesActivity rdf:resource="#useraccessactivity5"/>
-  <initiatesActivity rdf:resource="#useraccessactivity6"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol4"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol5"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol6"/>
   <providesData rdf:resource="#trackingdata1"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory4"/>
   <providesData rdf:resource="#nonsensitivedata1"/>
@@ -1041,60 +1054,60 @@
   <providesData rdf:resource="#accountdata18"/>
   <providesData rdf:resource="#accountdata19"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory9"/>
-  <initiatesActivity rdf:resource="#useraccessactivity7"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol7"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory10"/>
-  <initiatesActivity rdf:resource="#useraccessactivity8"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol8"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory11"/>
-  <initiatesActivity rdf:resource="#useraccessactivity9"/>
-  <initiatesActivity rdf:resource="#useraccessactivity10"/>
-  <initiatesActivity rdf:resource="#useraccessactivity11"/>
-  <initiatesActivity rdf:resource="#useraccessactivity12"/>
-  <initiatesActivity rdf:resource="#useraccessactivity13"/>
-  <initiatesActivity rdf:resource="#useraccessactivity14"/>
-  <initiatesActivity rdf:resource="#useraccessactivity15"/>
-  <initiatesActivity rdf:resource="#useraccessactivity16"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol9"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol10"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol11"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol12"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol13"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol14"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol15"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol16"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory12"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory13"/>
-  <initiatesActivity rdf:resource="#useraccessactivity17"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol17"/>
   <providesData rdf:resource="#accountdata23"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory14"/>
   <providesData rdf:resource="#genericdata10"/>
   <initiatesActivity rdf:resource="#userprivacycontrol6"/>
-  <initiatesActivity rdf:resource="#useraccessactivity18"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol18"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory15"/>
   <providesData rdf:resource="#accountdata25"/>
-  <initiatesActivity rdf:resource="#useraccessactivity19"/>
-  <initiatesActivity rdf:resource="#useraccessactivity20"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol19"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol20"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory16"/>
-  <initiatesActivity rdf:resource="#useraccessactivity21"/>
-  <initiatesActivity rdf:resource="#useraccessactivity22"/>
-  <initiatesActivity rdf:resource="#useraccessactivity23"/>
-  <initiatesActivity rdf:resource="#useraccessactivity24"/>
-  <initiatesActivity rdf:resource="#useraccessactivity25"/>
-  <initiatesActivity rdf:resource="#useraccessactivity26"/>
-  <initiatesActivity rdf:resource="#useraccessactivity27"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol21"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol22"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol23"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol24"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol25"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol26"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol27"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory17"/>
   <providesData rdf:resource="#genericdata11"/>
   <providesData rdf:resource="#genericdata12"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory18"/>
-  <initiatesActivity rdf:resource="#useraccessactivity28"/>
-  <initiatesActivity rdf:resource="#useraccessactivity29"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol28"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol29"/>
   <providesData rdf:resource="#genericdata13"/>
   <providesData rdf:resource="#genericdata14"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory19"/>
-  <initiatesActivity rdf:resource="#useraccessactivity30"/>
-  <initiatesActivity rdf:resource="#useraccessactivity31"/>
-  <initiatesActivity rdf:resource="#useraccessactivity32"/>
-  <initiatesActivity rdf:resource="#useraccessactivity33"/>
-  <initiatesActivity rdf:resource="#useraccessactivity34"/>
-  <initiatesActivity rdf:resource="#useraccessactivity35"/>
-  <initiatesActivity rdf:resource="#useraccessactivity36"/>
-  <initiatesActivity rdf:resource="#useraccessactivity37"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol30"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol31"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol32"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol33"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol34"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol35"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol36"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol37"/>
   <providesData rdf:resource="#sensitivedata12"/>
   <initiatesActivity rdf:resource="#userprivacycontrol7"/>
-  <initiatesActivity rdf:resource="#useraccessactivity38"/>
-  <initiatesActivity rdf:resource="#useraccessactivity39"/>
-  <initiatesActivity rdf:resource="#useraccessactivity40"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol38"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol39"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol40"/>
   <providesData rdf:resource="#nonsensitivedata10"/>
   <providesData rdf:resource="#nonsensitivedata11"/>
   <providesData rdf:resource="#nonsensitivedata12"/>
@@ -1116,12 +1129,12 @@
   <providesData rdf:resource="#trackingdata9"/>
   <initiatesActivity rdf:resource="#userprivacycontrol16"/>
   <providesData rdf:resource="#trackingdata10"/>
-  <initiatesActivity rdf:resource="#useraccessactivity41"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol41"/>
   <providesData rdf:resource="#genericdata15"/>
-  <initiatesActivity rdf:resource="#useraccessactivity42"/>
-  <initiatesActivity rdf:resource="#useraccessactivity43"/>
-  <initiatesActivity rdf:resource="#useraccessactivity44"/>
-  <initiatesActivity rdf:resource="#useraccessactivity45"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol42"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol43"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol44"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol45"/>
   <providesData rdf:resource="#genericdata16"/>
   <providesData rdf:resource="#genericdata17"/>
   <providesData rdf:resource="#genericdata18"/>
@@ -1183,7 +1196,7 @@
   <providesData rdf:resource="#trackingdata40"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory20"/>
   <providesData rdf:resource="#genericdata23"/>
-  <initiatesActivity rdf:resource="#useraccessactivity46"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol46"/>
   <providesData rdf:resource="#genericdata24"/>
   <providesData rdf:resource="#genericdata25"/>
   <initiatesActivity rdf:resource="#userprivacycontrol22"/>
@@ -1209,7 +1222,7 @@
   <providesData rdf:resource="#trackingdata43"/>
   <providesData rdf:resource="#devicedata23"/>
   <providesData rdf:resource="#trackingdata44"/>
-  <initiatesActivity rdf:resource="#useraccessactivity47"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol47"/>
   <providesData rdf:resource="#nonsensitivedata22"/>
   <providesData rdf:resource="#nonsensitivedata23"/>
   <initiatesActivity rdf:resource="#userprivacycontrol25"/>
@@ -1661,9 +1674,9 @@
 
 <PrivacyPolicy rdf:about="#privacypolicy2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <considersAgent rdf:resource="#user1"/>
   <considersAgent rdf:resource="#thirdparties1"/>
   <considersAgent rdf:resource="#firstparty1"/>
-  <considersAgent rdf:resource="#user1"/>
   <considersActivity rdf:resource="#policychangeactivity1"/>
   <considersActivity rdf:resource="#activity1"/>
   <considersActivity rdf:resource="#datauseactivity1"/>
@@ -1700,18 +1713,18 @@
   <considersActivity rdf:resource="#datacollectionactivity14"/>
   <considersActivity rdf:resource="#datasharingactivity1"/>
   <considersActivity rdf:resource="#datacollectionactivity15"/>
-  <considersActivity rdf:resource="#useraccessactivity1"/>
+  <considersActivity rdf:resource="#useraccesscontrol1"/>
   <considersData rdf:resource="#sensitivedata1"/>
-  <considersActivity rdf:resource="#useraccessactivity2"/>
+  <considersActivity rdf:resource="#useraccesscontrol2"/>
   <considersData rdf:resource="#sensitivedata2"/>
-  <considersActivity rdf:resource="#useraccessactivity3"/>
+  <considersActivity rdf:resource="#useraccesscontrol3"/>
   <considersData rdf:resource="#accountdata1"/>
   <considersActivity rdf:resource="#userprivacycontrol3"/>
-  <considersActivity rdf:resource="#useraccessactivity4"/>
+  <considersActivity rdf:resource="#useraccesscontrol4"/>
   <considersData rdf:resource="#sensitivedata3"/>
-  <considersActivity rdf:resource="#useraccessactivity5"/>
+  <considersActivity rdf:resource="#useraccesscontrol5"/>
   <considersData rdf:resource="#sensitivedata4"/>
-  <considersActivity rdf:resource="#useraccessactivity6"/>
+  <considersActivity rdf:resource="#useraccesscontrol6"/>
   <considersActivity rdf:resource="#datauseactivity15"/>
   <considersActivity rdf:resource="#datacollectionactivity16"/>
   <considersActivity rdf:resource="#datauseactivity16"/>
@@ -1990,59 +2003,59 @@
   <considersActivity rdf:resource="#datacollectionactivity114"/>
   <considersActivity rdf:resource="#datasharingactivity37"/>
   <considersActivity rdf:resource="#datacollectionactivity115"/>
-  <considersActivity rdf:resource="#useraccessactivity7"/>
+  <considersActivity rdf:resource="#useraccesscontrol7"/>
   <considersData rdf:resource="#accountdata20"/>
-  <considersActivity rdf:resource="#useraccessactivity8"/>
+  <considersActivity rdf:resource="#useraccesscontrol8"/>
   <considersData rdf:resource="#sensitivedata5"/>
-  <considersActivity rdf:resource="#useraccessactivity9"/>
+  <considersActivity rdf:resource="#useraccesscontrol9"/>
   <considersData rdf:resource="#accountdata21"/>
-  <considersActivity rdf:resource="#useraccessactivity10"/>
-  <considersActivity rdf:resource="#useraccessactivity11"/>
+  <considersActivity rdf:resource="#useraccesscontrol10"/>
+  <considersActivity rdf:resource="#useraccesscontrol11"/>
   <considersData rdf:resource="#accountdata22"/>
-  <considersActivity rdf:resource="#useraccessactivity12"/>
+  <considersActivity rdf:resource="#useraccesscontrol12"/>
   <considersData rdf:resource="#sensitivedata6"/>
-  <considersActivity rdf:resource="#useraccessactivity13"/>
+  <considersActivity rdf:resource="#useraccesscontrol13"/>
   <considersData rdf:resource="#sensitivedata7"/>
-  <considersActivity rdf:resource="#useraccessactivity14"/>
+  <considersActivity rdf:resource="#useraccesscontrol14"/>
   <considersData rdf:resource="#sensitivedata8"/>
-  <considersActivity rdf:resource="#useraccessactivity15"/>
+  <considersActivity rdf:resource="#useraccesscontrol15"/>
   <considersData rdf:resource="#nonsensitivedata8"/>
-  <considersActivity rdf:resource="#useraccessactivity16"/>
+  <considersActivity rdf:resource="#useraccesscontrol16"/>
   <considersData rdf:resource="#nonsensitivedata9"/>
-  <considersActivity rdf:resource="#useraccessactivity17"/>
+  <considersActivity rdf:resource="#useraccesscontrol17"/>
   <considersData rdf:resource="#accountdata23"/>
   <considersActivity rdf:resource="#dataretentionactivity11"/>
   <considersData rdf:resource="#genericdata10"/>
   <considersActivity rdf:resource="#userprivacycontrol6"/>
-  <considersActivity rdf:resource="#useraccessactivity18"/>
+  <considersActivity rdf:resource="#useraccesscontrol18"/>
   <considersData rdf:resource="#accountdata24"/>
   <considersData rdf:resource="#accountdata25"/>
   <considersActivity rdf:resource="#dataretentionactivity12"/>
-  <considersActivity rdf:resource="#useraccessactivity19"/>
+  <considersActivity rdf:resource="#useraccesscontrol19"/>
   <considersData rdf:resource="#sensitivedata9"/>
-  <considersActivity rdf:resource="#useraccessactivity20"/>
+  <considersActivity rdf:resource="#useraccesscontrol20"/>
   <considersData rdf:resource="#financialdata8"/>
-  <considersActivity rdf:resource="#useraccessactivity21"/>
+  <considersActivity rdf:resource="#useraccesscontrol21"/>
   <considersData rdf:resource="#financialdata9"/>
-  <considersActivity rdf:resource="#useraccessactivity22"/>
+  <considersActivity rdf:resource="#useraccesscontrol22"/>
   <considersData rdf:resource="#accountdata26"/>
-  <considersActivity rdf:resource="#useraccessactivity23"/>
+  <considersActivity rdf:resource="#useraccesscontrol23"/>
   <considersData rdf:resource="#accountdata27"/>
-  <considersActivity rdf:resource="#useraccessactivity24"/>
-  <considersActivity rdf:resource="#useraccessactivity25"/>
+  <considersActivity rdf:resource="#useraccesscontrol24"/>
+  <considersActivity rdf:resource="#useraccesscontrol25"/>
   <considersData rdf:resource="#sensitivedata10"/>
-  <considersActivity rdf:resource="#useraccessactivity26"/>
+  <considersActivity rdf:resource="#useraccesscontrol26"/>
   <considersData rdf:resource="#accountdata28"/>
-  <considersActivity rdf:resource="#useraccessactivity27"/>
+  <considersActivity rdf:resource="#useraccesscontrol27"/>
   <considersData rdf:resource="#accountdata29"/>
   <considersData rdf:resource="#genericdata11"/>
   <considersActivity rdf:resource="#dataretentionactivity13"/>
   <considersData rdf:resource="#genericdata12"/>
   <considersActivity rdf:resource="#dataretentionactivity14"/>
   <considersActivity rdf:resource="#dataretentionactivity15"/>
-  <considersActivity rdf:resource="#useraccessactivity28"/>
+  <considersActivity rdf:resource="#useraccesscontrol28"/>
   <considersData rdf:resource="#accountdata30"/>
-  <considersActivity rdf:resource="#useraccessactivity29"/>
+  <considersActivity rdf:resource="#useraccesscontrol29"/>
   <considersActivity rdf:resource="#dataretentionactivity16"/>
   <considersActivity rdf:resource="#datauseactivity79"/>
   <considersActivity rdf:resource="#datacollectionactivity116"/>
@@ -2050,28 +2063,28 @@
   <considersActivity rdf:resource="#dataretentionactivity17"/>
   <considersData rdf:resource="#genericdata14"/>
   <considersActivity rdf:resource="#dataretentionactivity18"/>
-  <considersActivity rdf:resource="#useraccessactivity30"/>
+  <considersActivity rdf:resource="#useraccesscontrol30"/>
   <considersData rdf:resource="#accountdata31"/>
-  <considersActivity rdf:resource="#useraccessactivity31"/>
+  <considersActivity rdf:resource="#useraccesscontrol31"/>
   <considersData rdf:resource="#financialdata10"/>
-  <considersActivity rdf:resource="#useraccessactivity32"/>
-  <considersActivity rdf:resource="#useraccessactivity33"/>
+  <considersActivity rdf:resource="#useraccesscontrol32"/>
+  <considersActivity rdf:resource="#useraccesscontrol33"/>
   <considersData rdf:resource="#financialdata11"/>
-  <considersActivity rdf:resource="#useraccessactivity34"/>
+  <considersActivity rdf:resource="#useraccesscontrol34"/>
   <considersData rdf:resource="#sensitivedata11"/>
-  <considersActivity rdf:resource="#useraccessactivity35"/>
+  <considersActivity rdf:resource="#useraccesscontrol35"/>
   <considersData rdf:resource="#accountdata32"/>
-  <considersActivity rdf:resource="#useraccessactivity36"/>
+  <considersActivity rdf:resource="#useraccesscontrol36"/>
   <considersData rdf:resource="#accountdata33"/>
-  <considersActivity rdf:resource="#useraccessactivity37"/>
+  <considersActivity rdf:resource="#useraccesscontrol37"/>
   <considersData rdf:resource="#financialdata12"/>
   <considersData rdf:resource="#sensitivedata12"/>
   <considersActivity rdf:resource="#userprivacycontrol7"/>
-  <considersActivity rdf:resource="#useraccessactivity38"/>
+  <considersActivity rdf:resource="#useraccesscontrol38"/>
   <considersData rdf:resource="#accountdata34"/>
-  <considersActivity rdf:resource="#useraccessactivity39"/>
+  <considersActivity rdf:resource="#useraccesscontrol39"/>
   <considersData rdf:resource="#accountdata35"/>
-  <considersActivity rdf:resource="#useraccessactivity40"/>
+  <considersActivity rdf:resource="#useraccesscontrol40"/>
   <considersData rdf:resource="#accountdata36"/>
   <considersActivity rdf:resource="#datauseactivity80"/>
   <considersActivity rdf:resource="#datacollectionactivity117"/>
@@ -2106,16 +2119,16 @@
   <considersData rdf:resource="#trackingdata10"/>
   <considersActivity rdf:resource="#datauseactivity85"/>
   <considersActivity rdf:resource="#datacollectionactivity122"/>
-  <considersActivity rdf:resource="#useraccessactivity41"/>
+  <considersActivity rdf:resource="#useraccesscontrol41"/>
   <considersActivity rdf:resource="#datasharingactivity38"/>
   <considersActivity rdf:resource="#datacollectionactivity123"/>
   <considersData rdf:resource="#genericdata15"/>
   <considersActivity rdf:resource="#datasharingactivity39"/>
   <considersActivity rdf:resource="#datacollectionactivity124"/>
-  <considersActivity rdf:resource="#useraccessactivity42"/>
-  <considersActivity rdf:resource="#useraccessactivity43"/>
-  <considersActivity rdf:resource="#useraccessactivity44"/>
-  <considersActivity rdf:resource="#useraccessactivity45"/>
+  <considersActivity rdf:resource="#useraccesscontrol42"/>
+  <considersActivity rdf:resource="#useraccesscontrol43"/>
+  <considersActivity rdf:resource="#useraccesscontrol44"/>
+  <considersActivity rdf:resource="#useraccesscontrol45"/>
   <considersActivity rdf:resource="#datauseactivity86"/>
   <considersActivity rdf:resource="#datacollectionactivity125"/>
   <considersData rdf:resource="#genericdata16"/>
@@ -2287,7 +2300,7 @@
   <considersData rdf:resource="#genericdata23"/>
   <considersActivity rdf:resource="#datauseactivity114"/>
   <considersActivity rdf:resource="#datacollectionactivity174"/>
-  <considersActivity rdf:resource="#useraccessactivity46"/>
+  <considersActivity rdf:resource="#useraccesscontrol46"/>
   <considersData rdf:resource="#genericdata24"/>
   <considersActivity rdf:resource="#datasharingactivity59"/>
   <considersActivity rdf:resource="#datacollectionactivity175"/>
@@ -2358,7 +2371,7 @@
   <considersData rdf:resource="#trackingdata44"/>
   <considersActivity rdf:resource="#datasharingactivity73"/>
   <considersActivity rdf:resource="#datacollectionactivity193"/>
-  <considersActivity rdf:resource="#useraccessactivity47"/>
+  <considersActivity rdf:resource="#useraccesscontrol47"/>
   <considersData rdf:resource="#nonsensitivedata21"/>
   <considersData rdf:resource="#nonsensitivedata22"/>
   <considersActivity rdf:resource="#dataretentionactivity23"/>
@@ -3138,11 +3151,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please read the information below Information we collect about you Where we store data How we use your information Disclosure of your information Updating or correcting your personally identifiable information Canceling your account or deleting your personally identifiable information Choices regarding control of your personally identifiable information Information related to data collected through the lynda com platform service Data Security Cookies Mobile Analytics Links to third party web sites and advertisers Notice to California residents Changes to this Privacy Policy Communities forums chat rooms and message boards Social Media features Gift Certificates How do you contact us with questions?</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity1">
+<UserAccessControl rdf:about="#useraccesscontrol1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence61"/>
   <isAppliedTo rdf:resource="#sensitivedata1"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence62">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -3164,11 +3177,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please read the information below Information we collect about you Where we store data How we use your information Disclosure of your information Updating or correcting your personally identifiable information Canceling your account or deleting your personally identifiable information Choices regarding control of your personally identifiable information Information related to data collected through the lynda com platform service Data Security Cookies Mobile Analytics Links to third party web sites and advertisers Notice to California residents Changes to this Privacy Policy Communities forums chat rooms and message boards Social Media features Gift Certificates How do you contact us with questions?</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity2">
+<UserAccessControl rdf:about="#useraccesscontrol2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence63"/>
   <isAppliedTo rdf:resource="#sensitivedata2"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence64">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -3190,10 +3203,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please read the information below Information we collect about you Where we store data How we use your information Disclosure of your information Updating or correcting your personally identifiable information Canceling your account or deleting your personally identifiable information Choices regarding control of your personally identifiable information Information related to data collected through the lynda com platform service Data Security Cookies Mobile Analytics Links to third party web sites and advertisers Notice to California residents Changes to this Privacy Policy Communities forums chat rooms and message boards Social Media features Gift Certificates How do you contact us with questions?</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity3">
+<UserAccessControl rdf:about="#useraccesscontrol3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence65"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence66">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -3253,11 +3266,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please read the information below Information we collect about you Where we store data How we use your information Disclosure of your information Updating or correcting your personally identifiable information Canceling your account or deleting your personally identifiable information Choices regarding control of your personally identifiable information Information related to data collected through the lynda com platform service Data Security Cookies Mobile Analytics Links to third party web sites and advertisers Notice to California residents Changes to this Privacy Policy Communities forums chat rooms and message boards Social Media features Gift Certificates How do you contact us with questions?</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity4">
+<UserAccessControl rdf:about="#useraccesscontrol4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence71"/>
   <isAppliedTo rdf:resource="#sensitivedata3"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence72">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -3279,11 +3292,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please read the information below Information we collect about you Where we store data How we use your information Disclosure of your information Updating or correcting your personally identifiable information Canceling your account or deleting your personally identifiable information Choices regarding control of your personally identifiable information Information related to data collected through the lynda com platform service Data Security Cookies Mobile Analytics Links to third party web sites and advertisers Notice to California residents Changes to this Privacy Policy Communities forums chat rooms and message boards Social Media features Gift Certificates How do you contact us with questions?</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity5">
+<UserAccessControl rdf:about="#useraccesscontrol5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence73"/>
   <isAppliedTo rdf:resource="#sensitivedata4"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence74">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -3305,10 +3318,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please read the information below Information we collect about you Where we store data How we use your information Disclosure of your information Updating or correcting your personally identifiable information Canceling your account or deleting your personally identifiable information Choices regarding control of your personally identifiable information Information related to data collected through the lynda com platform service Data Security Cookies Mobile Analytics Links to third party web sites and advertisers Notice to California residents Changes to this Privacy Policy Communities forums chat rooms and message boards Social Media features Gift Certificates How do you contact us with questions?</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity6">
+<UserAccessControl rdf:about="#useraccesscontrol6">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence75"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <DataCollectionActivity rdf:about="#datacollectionactivity16">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -9218,11 +9231,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5 UPDATING OR CORRECTING YOUR PERSONALLY IDENTIFYING INFORMATION You may change any of your or your childs Personally Identifiable Information online by logging into My Account in accordance with instructions posted elsewhere on our Websites</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity7">
+<UserAccessControl rdf:about="#useraccesscontrol7">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence545"/>
   <isAppliedTo rdf:resource="#accountdata20"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence546">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -9254,11 +9267,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5 UPDATING OR CORRECTING YOUR PERSONALLY IDENTIFYING INFORMATION You may change any of your or your childs Personally Identifiable Information online by logging into My Account in accordance with instructions posted elsewhere on our Websites</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity8">
+<UserAccessControl rdf:about="#useraccesscontrol8">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence548"/>
   <isAppliedTo rdf:resource="#sensitivedata5"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence549">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -9290,11 +9303,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may also access request deletion and correct yours or your childs personal information and privacy preferences by contacting support lynda com or by emailing us at businessaffairs lynda com or writing to us at lynda com Inc 6410 Via Real Carpinteria CA 93013 Attn Business Affairs</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity9">
+<UserAccessControl rdf:about="#useraccesscontrol9">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence551"/>
   <isAppliedTo rdf:resource="#accountdata21"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence552">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -9316,10 +9329,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may also access request deletion and correct yours or your childs personal information and privacy preferences by contacting support lynda com or by emailing us at businessaffairs lynda com or writing to us at lynda com Inc 6410 Via Real Carpinteria CA 93013 Attn Business Affairs</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity10">
+<UserAccessControl rdf:about="#useraccesscontrol10">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence553"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence554">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -9336,11 +9349,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may also access request deletion and correct yours or your childs personal information and privacy preferences by contacting support lynda com or by emailing us at businessaffairs lynda com or writing to us at lynda com Inc 6410 Via Real Carpinteria CA 93013 Attn Business Affairs</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity11">
+<UserAccessControl rdf:about="#useraccesscontrol11">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence555"/>
   <isAppliedTo rdf:resource="#accountdata22"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence556">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -9362,11 +9375,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may also access request deletion and correct yours or your childs personal information and privacy preferences by contacting support lynda com or by emailing us at businessaffairs lynda com or writing to us at lynda com Inc 6410 Via Real Carpinteria CA 93013 Attn Business Affairs</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity12">
+<UserAccessControl rdf:about="#useraccesscontrol12">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence557"/>
   <isAppliedTo rdf:resource="#sensitivedata6"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence558">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -9388,11 +9401,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may also access request deletion and correct yours or your childs personal information and privacy preferences by contacting support lynda com or by emailing us at businessaffairs lynda com or writing to us at lynda com Inc 6410 Via Real Carpinteria CA 93013 Attn Business Affairs</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity13">
+<UserAccessControl rdf:about="#useraccesscontrol13">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence559"/>
   <isAppliedTo rdf:resource="#sensitivedata7"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence560">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -9414,11 +9427,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may also access request deletion and correct yours or your childs personal information and privacy preferences by contacting support lynda com or by emailing us at businessaffairs lynda com or writing to us at lynda com Inc 6410 Via Real Carpinteria CA 93013 Attn Business Affairs</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity14">
+<UserAccessControl rdf:about="#useraccesscontrol14">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence561"/>
   <isAppliedTo rdf:resource="#sensitivedata8"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence562">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -9440,11 +9453,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may also access request deletion and correct yours or your childs personal information and privacy preferences by contacting support lynda com or by emailing us at businessaffairs lynda com or writing to us at lynda com Inc 6410 Via Real Carpinteria CA 93013 Attn Business Affairs</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity15">
+<UserAccessControl rdf:about="#useraccesscontrol15">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence563"/>
   <isAppliedTo rdf:resource="#nonsensitivedata8"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence564">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -9466,11 +9479,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may also access request deletion and correct yours or your childs personal information and privacy preferences by contacting support lynda com or by emailing us at businessaffairs lynda com or writing to us at lynda com Inc 6410 Via Real Carpinteria CA 93013 Attn Business Affairs</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity16">
+<UserAccessControl rdf:about="#useraccesscontrol16">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence565"/>
   <isAppliedTo rdf:resource="#nonsensitivedata9"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence566">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -9512,10 +9525,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may also access request deletion and correct yours or your childs personal information and privacy preferences by contacting support lynda com or by emailing us at businessaffairs lynda com or writing to us at lynda com Inc 6410 Via Real Carpinteria CA 93013 Attn Business Affairs</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity17">
+<UserAccessControl rdf:about="#useraccesscontrol17">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence569"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence570">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -9617,11 +9630,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please include your or your childs name address and e-mail address when you contact us We encourage you to promptly update your or your childs Personally Identifiable Information if it changes You may ask to have the information on yours or your childs account deleted or removed and request that we no longer have contact with your child however because we keep track of past transactions for as long as is reasonably necessary you cannot delete information associated with past transactions on this Website In addition it may be impossible to completely delete your information without some residual information because of backups</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity18">
+<UserAccessControl rdf:about="#useraccesscontrol18">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence579"/>
   <isAppliedTo rdf:resource="#accountdata24"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence580">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -9696,11 +9709,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please include your or your childs name address and e-mail address when you contact us We encourage you to promptly update your or your childs Personally Identifiable Information if it changes You may ask to have the information on yours or your childs account deleted or removed and request that we no longer have contact with your child however because we keep track of past transactions for as long as is reasonably necessary you cannot delete information associated with past transactions on this Website In addition it may be impossible to completely delete your information without some residual information because of backups</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity19">
+<UserAccessControl rdf:about="#useraccesscontrol19">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence586"/>
   <isAppliedTo rdf:resource="#sensitivedata9"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence587">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -9722,11 +9735,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please include your or your childs name address and e-mail address when you contact us We encourage you to promptly update your or your childs Personally Identifiable Information if it changes You may ask to have the information on yours or your childs account deleted or removed and request that we no longer have contact with your child however because we keep track of past transactions for as long as is reasonably necessary you cannot delete information associated with past transactions on this Website In addition it may be impossible to completely delete your information without some residual information because of backups</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity20">
+<UserAccessControl rdf:about="#useraccesscontrol20">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence588"/>
   <isAppliedTo rdf:resource="#financialdata8"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence589">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -9758,11 +9771,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please include your or your childs name address and e-mail address when you contact us We encourage you to promptly update your or your childs Personally Identifiable Information if it changes You may ask to have the information on yours or your childs account deleted or removed and request that we no longer have contact with your child however because we keep track of past transactions for as long as is reasonably necessary you cannot delete information associated with past transactions on this Website In addition it may be impossible to completely delete your information without some residual information because of backups</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity21">
+<UserAccessControl rdf:about="#useraccesscontrol21">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence591"/>
   <isAppliedTo rdf:resource="#financialdata9"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence592">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -9784,11 +9797,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6 CANCELING YOUR ACCOUNT OR DELETING PERSONALLY IDENTIFIABLE INFORMATION If you are a lyndaPro member and would like to cancel your membership log in to your account and go to My Account Account + Billing You can also contact your sales representatives or contact support lynda com</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity22">
+<UserAccessControl rdf:about="#useraccesscontrol22">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence593"/>
   <isAppliedTo rdf:resource="#accountdata26"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence594">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -9810,11 +9823,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6 CANCELING YOUR ACCOUNT OR DELETING PERSONALLY IDENTIFIABLE INFORMATION If you are a lyndaPro member and would like to cancel your membership log in to your account and go to My Account Account + Billing You can also contact your sales representatives or contact support lynda com</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity23">
+<UserAccessControl rdf:about="#useraccesscontrol23">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence595"/>
   <isAppliedTo rdf:resource="#accountdata27"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence596">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -9836,10 +9849,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6 CANCELING YOUR ACCOUNT OR DELETING PERSONALLY IDENTIFIABLE INFORMATION If you are a lyndaPro member and would like to cancel your membership log in to your account and go to My Account Account + Billing You can also contact your sales representatives or contact support lynda com</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity24">
+<UserAccessControl rdf:about="#useraccesscontrol24">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence597"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence598">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -9856,11 +9869,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you are lyndaKiosk lyndaClassroom lyndaCampus or lyndaEnterprise and would like to cancel your membership please contact your sales representatives or contact support lynda com To have any personally identifiable information deleted please contact support lynda com</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity25">
+<UserAccessControl rdf:about="#useraccesscontrol25">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence599"/>
   <isAppliedTo rdf:resource="#sensitivedata10"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence600">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -9882,11 +9895,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you are lyndaKiosk lyndaClassroom lyndaCampus or lyndaEnterprise and would like to cancel your membership please contact your sales representatives or contact support lynda com To have any personally identifiable information deleted please contact support lynda com</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity26">
+<UserAccessControl rdf:about="#useraccesscontrol26">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence601"/>
   <isAppliedTo rdf:resource="#accountdata28"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence602">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -9908,11 +9921,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you are lyndaKiosk lyndaClassroom lyndaCampus or lyndaEnterprise and would like to cancel your membership please contact your sales representatives or contact support lynda com To have any personally identifiable information deleted please contact support lynda com</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity27">
+<UserAccessControl rdf:about="#useraccesscontrol27">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence603"/>
   <isAppliedTo rdf:resource="#accountdata29"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence604">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10072,11 +10085,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We will retain your or your childs information for as long as your account is active or as needed to provide you Services If you wish to cancel your or your childs account or request that we no longer use your information to provide you Services contact us at support lynda com We will retain and use your information as necessary to comply with our legal obligations resolve disputes and enforce our agreements We will respond to your request to access within 30 days</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity28">
+<UserAccessControl rdf:about="#useraccesscontrol28">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence618"/>
   <isAppliedTo rdf:resource="#accountdata30"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence619">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10098,10 +10111,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We will retain your or your childs information for as long as your account is active or as needed to provide you Services If you wish to cancel your or your childs account or request that we no longer use your information to provide you Services contact us at support lynda com We will retain and use your information as necessary to comply with our legal obligations resolve disputes and enforce our agreements We will respond to your request to access within 30 days</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity29">
+<UserAccessControl rdf:about="#useraccesscontrol29">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence620"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence621">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10286,11 +10299,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7 CHOICES REGARDING CONTROL OF YOUR PERSONALLY IDENTIFIABLE INFORMATION You can access some of the information that we collect about you or your child For example by logging in to your account you can access information regarding recent orders from the Websites Personally Identifiable Information communication preferences and payment settings</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity30">
+<UserAccessControl rdf:about="#useraccesscontrol30">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence637"/>
   <isAppliedTo rdf:resource="#accountdata31"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence638">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10312,11 +10325,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7 CHOICES REGARDING CONTROL OF YOUR PERSONALLY IDENTIFIABLE INFORMATION You can access some of the information that we collect about you or your child For example by logging in to your account you can access information regarding recent orders from the Websites Personally Identifiable Information communication preferences and payment settings</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity31">
+<UserAccessControl rdf:about="#useraccesscontrol31">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence639"/>
   <isAppliedTo rdf:resource="#financialdata10"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence640">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10338,10 +10351,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7 CHOICES REGARDING CONTROL OF YOUR PERSONALLY IDENTIFIABLE INFORMATION You can access some of the information that we collect about you or your child For example by logging in to your account you can access information regarding recent orders from the Websites Personally Identifiable Information communication preferences and payment settings</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity32">
+<UserAccessControl rdf:about="#useraccesscontrol32">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence641"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence642">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10358,11 +10371,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7 CHOICES REGARDING CONTROL OF YOUR PERSONALLY IDENTIFIABLE INFORMATION You can access some of the information that we collect about you or your child For example by logging in to your account you can access information regarding recent orders from the Websites Personally Identifiable Information communication preferences and payment settings</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity33">
+<UserAccessControl rdf:about="#useraccesscontrol33">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence643"/>
   <isAppliedTo rdf:resource="#financialdata11"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence644">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10384,11 +10397,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7 CHOICES REGARDING CONTROL OF YOUR PERSONALLY IDENTIFIABLE INFORMATION You can access some of the information that we collect about you or your child For example by logging in to your account you can access information regarding recent orders from the Websites Personally Identifiable Information communication preferences and payment settings</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity34">
+<UserAccessControl rdf:about="#useraccesscontrol34">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence645"/>
   <isAppliedTo rdf:resource="#sensitivedata11"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence646">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10410,11 +10423,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7 CHOICES REGARDING CONTROL OF YOUR PERSONALLY IDENTIFIABLE INFORMATION You can access some of the information that we collect about you or your child For example by logging in to your account you can access information regarding recent orders from the Websites Personally Identifiable Information communication preferences and payment settings</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity35">
+<UserAccessControl rdf:about="#useraccesscontrol35">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence647"/>
   <isAppliedTo rdf:resource="#accountdata32"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence648">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10436,11 +10449,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7 CHOICES REGARDING CONTROL OF YOUR PERSONALLY IDENTIFIABLE INFORMATION You can access some of the information that we collect about you or your child For example by logging in to your account you can access information regarding recent orders from the Websites Personally Identifiable Information communication preferences and payment settings</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity36">
+<UserAccessControl rdf:about="#useraccesscontrol36">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence649"/>
   <isAppliedTo rdf:resource="#accountdata33"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence650">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10462,11 +10475,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7 CHOICES REGARDING CONTROL OF YOUR PERSONALLY IDENTIFIABLE INFORMATION You can access some of the information that we collect about you or your child For example by logging in to your account you can access information regarding recent orders from the Websites Personally Identifiable Information communication preferences and payment settings</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity37">
+<UserAccessControl rdf:about="#useraccesscontrol37">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence651"/>
   <isAppliedTo rdf:resource="#financialdata12"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence652">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10531,11 +10544,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">With respect to your communications preferences you can unsubscribe from newsletters by following the instructions included in the newsletter you receive or you can log into your account and update your newsletter and email subscription options If your e-mail address has changed and you would like to continue to receive newsletters you will need to access your account and update your e-mail address information in your account and sign-up again for the newsletter Occasionally we may send out e-mails concerning website disruptions</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity38">
+<UserAccessControl rdf:about="#useraccesscontrol38">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence657"/>
   <isAppliedTo rdf:resource="#accountdata34"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence658">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10557,11 +10570,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">With respect to your communications preferences you can unsubscribe from newsletters by following the instructions included in the newsletter you receive or you can log into your account and update your newsletter and email subscription options If your e-mail address has changed and you would like to continue to receive newsletters you will need to access your account and update your e-mail address information in your account and sign-up again for the newsletter Occasionally we may send out e-mails concerning website disruptions</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity39">
+<UserAccessControl rdf:about="#useraccesscontrol39">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence659"/>
   <isAppliedTo rdf:resource="#accountdata35"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence660">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10583,11 +10596,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">With respect to your communications preferences you can unsubscribe from newsletters by following the instructions included in the newsletter you receive or you can log into your account and update your newsletter and email subscription options If your e-mail address has changed and you would like to continue to receive newsletters you will need to access your account and update your e-mail address information in your account and sign-up again for the newsletter Occasionally we may send out e-mails concerning website disruptions</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity40">
+<UserAccessControl rdf:about="#useraccesscontrol40">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence661"/>
   <isAppliedTo rdf:resource="#accountdata36"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence662">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -11235,10 +11248,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8 INFORMATION RELATED TO DATA COLLECTED THROUGH THE LYNDA COM PLATFORM SERVICE For certain services lynda com collects information under the direction of its clients e g an entity that subscribes to the Services for use by the entitys personnel In this respect lynda com acts as a data processor and has no direct relationship with the individuals whose Personally Identifiable Information it processes An individual who seeks access or who seeks to correct amend or delete inaccurate data should direct his or her query to the relevant lynda com client the data controller If the client makes a request to us to remove the data we will respond to their request within 30 days</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity41">
+<UserAccessControl rdf:about="#useraccesscontrol41">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence717"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence718">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -11349,10 +11362,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8 INFORMATION RELATED TO DATA COLLECTED THROUGH THE LYNDA COM PLATFORM SERVICE For certain services lynda com collects information under the direction of its clients e g an entity that subscribes to the Services for use by the entitys personnel In this respect lynda com acts as a data processor and has no direct relationship with the individuals whose Personally Identifiable Information it processes An individual who seeks access or who seeks to correct amend or delete inaccurate data should direct his or her query to the relevant lynda com client the data controller If the client makes a request to us to remove the data we will respond to their request within 30 days</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity42">
+<UserAccessControl rdf:about="#useraccesscontrol42">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence726"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence727">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -11369,10 +11382,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8 INFORMATION RELATED TO DATA COLLECTED THROUGH THE LYNDA COM PLATFORM SERVICE For certain services lynda com collects information under the direction of its clients e g an entity that subscribes to the Services for use by the entitys personnel In this respect lynda com acts as a data processor and has no direct relationship with the individuals whose Personally Identifiable Information it processes An individual who seeks access or who seeks to correct amend or delete inaccurate data should direct his or her query to the relevant lynda com client the data controller If the client makes a request to us to remove the data we will respond to their request within 30 days</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity43">
+<UserAccessControl rdf:about="#useraccesscontrol43">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence728"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence729">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -11389,10 +11402,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8 INFORMATION RELATED TO DATA COLLECTED THROUGH THE LYNDA COM PLATFORM SERVICE For certain services lynda com collects information under the direction of its clients e g an entity that subscribes to the Services for use by the entitys personnel In this respect lynda com acts as a data processor and has no direct relationship with the individuals whose Personally Identifiable Information it processes An individual who seeks access or who seeks to correct amend or delete inaccurate data should direct his or her query to the relevant lynda com client the data controller If the client makes a request to us to remove the data we will respond to their request within 30 days</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity44">
+<UserAccessControl rdf:about="#useraccesscontrol44">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence730"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence731">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -11409,10 +11422,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8 INFORMATION RELATED TO DATA COLLECTED THROUGH THE LYNDA COM PLATFORM SERVICE For certain services lynda com collects information under the direction of its clients e g an entity that subscribes to the Services for use by the entitys personnel In this respect lynda com acts as a data processor and has no direct relationship with the individuals whose Personally Identifiable Information it processes An individual who seeks access or who seeks to correct amend or delete inaccurate data should direct his or her query to the relevant lynda com client the data controller If the client makes a request to us to remove the data we will respond to their request within 30 days</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity45">
+<UserAccessControl rdf:about="#useraccesscontrol45">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence732"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence733">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -14812,10 +14825,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">13 NOTICE TO CALIFORNIA RESIDENTS CALIFORNIA PRIVACY RIGHTS If you are a California resident and have provided us with Personally Identifiable Information California law gives you the right to request and receive from us once per calendar year information as to how we have shared your Personally Identifiable Information with third parties for their direct marketing purposes If applicable such information would include a list of names and addresses of all third parties with whom such information was shared during the prior calendar year as well as a list of the categories of Personally Identifiable Information shared To make such a request please send an email to businessaffairs lynda com and include the phrase California Privacy Request in the subject line Your request must also include your name physical mailing address and email address We will respond to you within thirty days of receiving such a request</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity46">
+<UserAccessControl rdf:about="#useraccesscontrol46">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence1004"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence1005">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -16160,11 +16173,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">17 GIFT CERTIFICATES AND PLAYLISTS If you choose to send a gift certificate or playlist to an individual we will ask you for the individuals name and email address We will automatically send a one-time email to the individual either with notice of their gift certificate along with an activation key or an invitation to visit the Websites The recipient will be asked to create a user name and password to activate their subscription and during this process they will also be asked if they want to receive any newsletters or other emails from lynda com lynda com stores name and email address of the recipient for the sole purpose of sending this one-time email and tracking the success of our referral program The individual may contact us at support lynda com to request that we remove this information from our database</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity47">
+<UserAccessControl rdf:about="#useraccesscontrol47">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence1109"/>
   <isAppliedTo rdf:resource="#nonsensitivedata21"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence1110">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>

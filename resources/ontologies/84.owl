@@ -226,6 +226,18 @@
   <owl:inverseOf rdf:resource="#privacyControlMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
 
+<owl:ObjectProperty rdf:about="#dataControlMechanismIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasDataControlMechanism"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasDataControlMechanism">
+  <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
+  <rdfs:domain rdf:resource="#UserAccessControl"/>
+  <rdfs:range rdf:resource="#DataControlMechanism"/>
+  <owl:inverseOf rdf:resource="#dataControlMechanismIsRelatedTo"/>
+</owl:ObjectProperty>
+
 <owl:ObjectProperty rdf:about="#notificationMechanismIsRelatedTo">
   <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
   <owl:inverseOf rdf:resource="#hasNotificationMechanism"/>
@@ -233,14 +245,7 @@
 
 <owl:ObjectProperty rdf:about="#hasNotificationMechanism">
   <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#NotificationMechanism"/>
   <owl:inverseOf rdf:resource="#notificationMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
@@ -380,6 +385,7 @@
 
 <owl:ObjectProperty rdf:about="#isInitiatedByAnotherActivity">
   <rdfs:subPropertyOf rdf:resource="#isInitiatedBy"/>
+  <rdfs:domain rdf:resource="#Activity"/>
   <owl:inverseOf rdf:resource="#initiatesAnotherActivity"/>
 </owl:ObjectProperty>
 
@@ -410,14 +416,7 @@
 
 <owl:ObjectProperty rdf:about="#notifiesAgent">
   <rdfs:subPropertyOf rdf:resource="#notifies"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#Agent"/>
   <owl:inverseOf rdf:resource="#agentIsNotifiedBy"/>
 </owl:ObjectProperty>
@@ -506,12 +505,22 @@
   <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
 </owl:DatatypeProperty>
 
+<owl:DatatypeProperty rdf:about="#does">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+</owl:DatatypeProperty>
+
 <owl:Class rdf:about="#PrivacyPolicy">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Activity">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#NotificationActivity">
+  <rdfs:subClassOf rdf:resource="#Activity"/>
 </owl:Class>
 
 <owl:Class rdf:about="#BreachActivity">
@@ -546,7 +555,7 @@
   <rdfs:subClassOf rdf:resource="#ControlActivity"/>
 </owl:Class>
 
-<owl:Class rdf:about="#UserAccessActivity">
+<owl:Class rdf:about="#UserAccessControl">
   <rdfs:subClassOf rdf:resource="#DataControlActivity"/>
 </owl:Class>
 
@@ -806,6 +815,10 @@
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
 
+<owl:Class rdf:about="#SMSRequest">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
 <owl:Class rdf:about="#WebsiteForm">
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
@@ -1030,14 +1043,14 @@
   <providesData rdf:resource="#nonsensitivedata20"/>
   <providesData rdf:resource="#nonsensitivedata21"/>
   <providesData rdf:resource="#accountdata7"/>
-  <initiatesActivity rdf:resource="#useraccessactivity1"/>
-  <initiatesActivity rdf:resource="#useraccessactivity2"/>
-  <initiatesActivity rdf:resource="#useraccessactivity3"/>
-  <initiatesActivity rdf:resource="#useraccessactivity4"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol1"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol2"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol3"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol4"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory2"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory3"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory4"/>
-  <initiatesActivity rdf:resource="#useraccessactivity5"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol5"/>
   <initiatesActivity rdf:resource="#userprivacycontrol11"/>
   <initiatesActivity rdf:resource="#userprivacycontrol12"/>
   <initiatesActivity rdf:resource="#userprivacycontrol13"/>
@@ -1178,9 +1191,9 @@
 
 <PrivacyPolicy rdf:about="#privacypolicy2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <considersAgent rdf:resource="#firstparty1"/>
   <considersAgent rdf:resource="#thirdparties1"/>
   <considersAgent rdf:resource="#user1"/>
+  <considersAgent rdf:resource="#firstparty1"/>
   <considersActivity rdf:resource="#datauseactivity1"/>
   <considersActivity rdf:resource="#datacollectionactivity1"/>
   <considersActivity rdf:resource="#userprivacycontrol1"/>
@@ -1366,15 +1379,15 @@
   <considersActivity rdf:resource="#activity5"/>
   <considersActivity rdf:resource="#activity6"/>
   <considersActivity rdf:resource="#activity7"/>
-  <considersActivity rdf:resource="#useraccessactivity1"/>
+  <considersActivity rdf:resource="#useraccesscontrol1"/>
   <considersData rdf:resource="#accountdata8"/>
-  <considersActivity rdf:resource="#useraccessactivity2"/>
+  <considersActivity rdf:resource="#useraccesscontrol2"/>
   <considersData rdf:resource="#accountdata9"/>
-  <considersActivity rdf:resource="#useraccessactivity3"/>
+  <considersActivity rdf:resource="#useraccesscontrol3"/>
   <considersData rdf:resource="#accountdata10"/>
-  <considersActivity rdf:resource="#useraccessactivity4"/>
+  <considersActivity rdf:resource="#useraccesscontrol4"/>
   <considersData rdf:resource="#accountdata11"/>
-  <considersActivity rdf:resource="#useraccessactivity5"/>
+  <considersActivity rdf:resource="#useraccesscontrol5"/>
   <considersData rdf:resource="#financialdata6"/>
   <considersActivity rdf:resource="#userprivacycontrol11"/>
   <considersActivity rdf:resource="#dataretentionactivity2"/>
@@ -7118,11 +7131,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You May Access Change or Modify Your Personal Information If you have purchased from us or created an account our site provides you the opportunity to review correct or update your account information You can do this by 1 Accessing Gamestop com and clicking on the My Account link 2 Calling the following telephone number 1-800-883-8895 3 Sending mail to the following postal address Gamestop com Customer Service 625 Westport Parkway Grapevine TX 76051</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity1">
+<UserAccessControl rdf:about="#useraccesscontrol1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence509"/>
   <isAppliedTo rdf:resource="#accountdata8"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence510">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -7144,11 +7157,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You May Access Change or Modify Your Personal Information If you have purchased from us or created an account our site provides you the opportunity to review correct or update your account information You can do this by 1 Accessing Gamestop com and clicking on the My Account link 2 Calling the following telephone number 1-800-883-8895 3 Sending mail to the following postal address Gamestop com Customer Service 625 Westport Parkway Grapevine TX 76051</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity2">
+<UserAccessControl rdf:about="#useraccesscontrol2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence511"/>
   <isAppliedTo rdf:resource="#accountdata9"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence512">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -7170,11 +7183,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You May Access Change or Modify Your Personal Information If you have purchased from us or created an account our site provides you the opportunity to review correct or update your account information You can do this by 1 Accessing Gamestop com and clicking on the My Account link 2 Calling the following telephone number 1-800-883-8895 3 Sending mail to the following postal address Gamestop com Customer Service 625 Westport Parkway Grapevine TX 76051</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity3">
+<UserAccessControl rdf:about="#useraccesscontrol3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence513"/>
   <isAppliedTo rdf:resource="#accountdata10"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence514">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -7196,11 +7209,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You May Access Change or Modify Your Personal Information If you have purchased from us or created an account our site provides you the opportunity to review correct or update your account information You can do this by 1 Accessing Gamestop com and clicking on the My Account link 2 Calling the following telephone number 1-800-883-8895 3 Sending mail to the following postal address Gamestop com Customer Service 625 Westport Parkway Grapevine TX 76051</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity4">
+<UserAccessControl rdf:about="#useraccesscontrol4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence515"/>
   <isAppliedTo rdf:resource="#accountdata11"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence516">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -7252,11 +7265,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Right to Remove Posted Information California Minors If you are under 18 years of age reside in California and have a registered account with GameStop or the PowerUp Rewards Program you have the right to request removal of unwanted information that you publicly post on the GameStop Websites To request removal of such information you can contact GameStop at GSContentRequests gamestop com Upon receiving such a request GameStop will make sure that the information is not publicly available on our Websites but the information may not be completely or comprehensively removed from GameStop systems</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity5">
+<UserAccessControl rdf:about="#useraccesscontrol5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence520"/>
   <isAppliedTo rdf:resource="#financialdata6"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence521">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>

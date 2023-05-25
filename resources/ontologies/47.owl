@@ -226,6 +226,18 @@
   <owl:inverseOf rdf:resource="#privacyControlMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
 
+<owl:ObjectProperty rdf:about="#dataControlMechanismIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasDataControlMechanism"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasDataControlMechanism">
+  <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
+  <rdfs:domain rdf:resource="#UserAccessControl"/>
+  <rdfs:range rdf:resource="#DataControlMechanism"/>
+  <owl:inverseOf rdf:resource="#dataControlMechanismIsRelatedTo"/>
+</owl:ObjectProperty>
+
 <owl:ObjectProperty rdf:about="#notificationMechanismIsRelatedTo">
   <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
   <owl:inverseOf rdf:resource="#hasNotificationMechanism"/>
@@ -233,14 +245,7 @@
 
 <owl:ObjectProperty rdf:about="#hasNotificationMechanism">
   <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#NotificationMechanism"/>
   <owl:inverseOf rdf:resource="#notificationMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
@@ -380,6 +385,7 @@
 
 <owl:ObjectProperty rdf:about="#isInitiatedByAnotherActivity">
   <rdfs:subPropertyOf rdf:resource="#isInitiatedBy"/>
+  <rdfs:domain rdf:resource="#Activity"/>
   <owl:inverseOf rdf:resource="#initiatesAnotherActivity"/>
 </owl:ObjectProperty>
 
@@ -410,14 +416,7 @@
 
 <owl:ObjectProperty rdf:about="#notifiesAgent">
   <rdfs:subPropertyOf rdf:resource="#notifies"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#Agent"/>
   <owl:inverseOf rdf:resource="#agentIsNotifiedBy"/>
 </owl:ObjectProperty>
@@ -506,12 +505,22 @@
   <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
 </owl:DatatypeProperty>
 
+<owl:DatatypeProperty rdf:about="#does">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+</owl:DatatypeProperty>
+
 <owl:Class rdf:about="#PrivacyPolicy">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Activity">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#NotificationActivity">
+  <rdfs:subClassOf rdf:resource="#Activity"/>
 </owl:Class>
 
 <owl:Class rdf:about="#BreachActivity">
@@ -546,7 +555,7 @@
   <rdfs:subClassOf rdf:resource="#ControlActivity"/>
 </owl:Class>
 
-<owl:Class rdf:about="#UserAccessActivity">
+<owl:Class rdf:about="#UserAccessControl">
   <rdfs:subClassOf rdf:resource="#DataControlActivity"/>
 </owl:Class>
 
@@ -806,6 +815,10 @@
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
 
+<owl:Class rdf:about="#SMSRequest">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
 <owl:Class rdf:about="#WebsiteForm">
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
@@ -973,26 +986,26 @@
   <providesData rdf:resource="#devicedata6"/>
   <providesData rdf:resource="#devicedata7"/>
   <initiatesActivity rdf:resource="#userprivacycontrol4"/>
-  <initiatesActivity rdf:resource="#useraccessactivity1"/>
-  <initiatesActivity rdf:resource="#useraccessactivity2"/>
-  <initiatesActivity rdf:resource="#useraccessactivity3"/>
-  <initiatesActivity rdf:resource="#useraccessactivity4"/>
-  <initiatesActivity rdf:resource="#useraccessactivity5"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol1"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol2"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol3"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol4"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol5"/>
   <providesData rdf:resource="#trackingdata5"/>
   <initiatesActivity rdf:resource="#userprivacycontrol5"/>
   <providesData rdf:resource="#trackingdata6"/>
   <initiatesActivity rdf:resource="#userprivacycontrol6"/>
   <providesData rdf:resource="#trackingdata7"/>
   <initiatesActivity rdf:resource="#userprivacycontrol7"/>
-  <initiatesActivity rdf:resource="#useraccessactivity6"/>
-  <initiatesActivity rdf:resource="#useraccessactivity7"/>
-  <initiatesActivity rdf:resource="#useraccessactivity8"/>
-  <initiatesActivity rdf:resource="#useraccessactivity9"/>
-  <initiatesActivity rdf:resource="#useraccessactivity10"/>
-  <initiatesActivity rdf:resource="#useraccessactivity11"/>
-  <initiatesActivity rdf:resource="#useraccessactivity12"/>
-  <initiatesActivity rdf:resource="#useraccessactivity13"/>
-  <initiatesActivity rdf:resource="#useraccessactivity14"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol6"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol7"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol8"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol9"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol10"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol11"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol12"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol13"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol14"/>
   <providesData rdf:resource="#accountdata10"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory1"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory2"/>
@@ -1025,9 +1038,9 @@
 
 <PrivacyPolicy rdf:about="#privacypolicy2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <considersAgent rdf:resource="#user1"/>
   <considersAgent rdf:resource="#firstparty1"/>
   <considersAgent rdf:resource="#thirdparties1"/>
-  <considersAgent rdf:resource="#user1"/>
   <considersActivity rdf:resource="#userprivacycontrol1"/>
   <considersActivity rdf:resource="#userprivacycontrol2"/>
   <considersData rdf:resource="#genericdata1"/>
@@ -1055,15 +1068,15 @@
   <considersData rdf:resource="#devicedata7"/>
   <considersActivity rdf:resource="#datacollectionactivity10"/>
   <considersActivity rdf:resource="#userprivacycontrol4"/>
-  <considersActivity rdf:resource="#useraccessactivity1"/>
+  <considersActivity rdf:resource="#useraccesscontrol1"/>
   <considersData rdf:resource="#accountdata1"/>
-  <considersActivity rdf:resource="#useraccessactivity2"/>
+  <considersActivity rdf:resource="#useraccesscontrol2"/>
   <considersData rdf:resource="#accountdata2"/>
-  <considersActivity rdf:resource="#useraccessactivity3"/>
+  <considersActivity rdf:resource="#useraccesscontrol3"/>
   <considersData rdf:resource="#accountdata3"/>
-  <considersActivity rdf:resource="#useraccessactivity4"/>
+  <considersActivity rdf:resource="#useraccesscontrol4"/>
   <considersData rdf:resource="#accountdata4"/>
-  <considersActivity rdf:resource="#useraccessactivity5"/>
+  <considersActivity rdf:resource="#useraccesscontrol5"/>
   <considersData rdf:resource="#accountdata5"/>
   <considersData rdf:resource="#trackingdata5"/>
   <considersActivity rdf:resource="#userprivacycontrol5"/>
@@ -1071,21 +1084,21 @@
   <considersActivity rdf:resource="#userprivacycontrol6"/>
   <considersData rdf:resource="#trackingdata7"/>
   <considersActivity rdf:resource="#userprivacycontrol7"/>
-  <considersActivity rdf:resource="#useraccessactivity6"/>
+  <considersActivity rdf:resource="#useraccesscontrol6"/>
   <considersData rdf:resource="#accountdata6"/>
-  <considersActivity rdf:resource="#useraccessactivity7"/>
+  <considersActivity rdf:resource="#useraccesscontrol7"/>
   <considersData rdf:resource="#accountdata7"/>
-  <considersActivity rdf:resource="#useraccessactivity8"/>
-  <considersActivity rdf:resource="#useraccessactivity9"/>
-  <considersActivity rdf:resource="#useraccessactivity10"/>
+  <considersActivity rdf:resource="#useraccesscontrol8"/>
+  <considersActivity rdf:resource="#useraccesscontrol9"/>
+  <considersActivity rdf:resource="#useraccesscontrol10"/>
   <considersData rdf:resource="#accountdata8"/>
-  <considersActivity rdf:resource="#useraccessactivity11"/>
+  <considersActivity rdf:resource="#useraccesscontrol11"/>
   <considersData rdf:resource="#financialdata1"/>
-  <considersActivity rdf:resource="#useraccessactivity12"/>
+  <considersActivity rdf:resource="#useraccesscontrol12"/>
   <considersData rdf:resource="#financialdata2"/>
-  <considersActivity rdf:resource="#useraccessactivity13"/>
+  <considersActivity rdf:resource="#useraccesscontrol13"/>
   <considersData rdf:resource="#nonsensitivedata1"/>
-  <considersActivity rdf:resource="#useraccessactivity14"/>
+  <considersActivity rdf:resource="#useraccesscontrol14"/>
   <considersData rdf:resource="#accountdata9"/>
   <considersData rdf:resource="#accountdata10"/>
   <considersActivity rdf:resource="#dataretentionactivity1"/>
@@ -4128,11 +4141,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Managing Your Information You may choose and control what information you provide about yourself and certain information which is automatically collected via our Services If you do not wish to provide certain information necessary for enhanced functionality or content on our Services please do not use such functionality or content If you have registered for an account through our Services you may review and revise certain of your account information by clicking here to log in and then navigating the left-hand menu options You may modify your subscriptions to our various promotional email communications and newsletters by accessing the Email Subscriptions section within your Website account</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity1">
+<UserAccessControl rdf:about="#useraccesscontrol1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence297"/>
   <isAppliedTo rdf:resource="#accountdata1"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence298">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4154,11 +4167,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Managing Your Information You may choose and control what information you provide about yourself and certain information which is automatically collected via our Services If you do not wish to provide certain information necessary for enhanced functionality or content on our Services please do not use such functionality or content If you have registered for an account through our Services you may review and revise certain of your account information by clicking here to log in and then navigating the left-hand menu options You may modify your subscriptions to our various promotional email communications and newsletters by accessing the Email Subscriptions section within your Website account</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity2">
+<UserAccessControl rdf:about="#useraccesscontrol2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence299"/>
   <isAppliedTo rdf:resource="#accountdata2"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence300">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4180,11 +4193,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Managing Your Information You may choose and control what information you provide about yourself and certain information which is automatically collected via our Services If you do not wish to provide certain information necessary for enhanced functionality or content on our Services please do not use such functionality or content If you have registered for an account through our Services you may review and revise certain of your account information by clicking here to log in and then navigating the left-hand menu options You may modify your subscriptions to our various promotional email communications and newsletters by accessing the Email Subscriptions section within your Website account</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity3">
+<UserAccessControl rdf:about="#useraccesscontrol3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence301"/>
   <isAppliedTo rdf:resource="#accountdata3"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence302">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4206,11 +4219,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Managing Your Information You may choose and control what information you provide about yourself and certain information which is automatically collected via our Services If you do not wish to provide certain information necessary for enhanced functionality or content on our Services please do not use such functionality or content If you have registered for an account through our Services you may review and revise certain of your account information by clicking here to log in and then navigating the left-hand menu options You may modify your subscriptions to our various promotional email communications and newsletters by accessing the Email Subscriptions section within your Website account</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity4">
+<UserAccessControl rdf:about="#useraccesscontrol4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence303"/>
   <isAppliedTo rdf:resource="#accountdata4"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence304">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4232,11 +4245,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Managing Your Information You may choose and control what information you provide about yourself and certain information which is automatically collected via our Services If you do not wish to provide certain information necessary for enhanced functionality or content on our Services please do not use such functionality or content If you have registered for an account through our Services you may review and revise certain of your account information by clicking here to log in and then navigating the left-hand menu options You may modify your subscriptions to our various promotional email communications and newsletters by accessing the Email Subscriptions section within your Website account</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity5">
+<UserAccessControl rdf:about="#useraccesscontrol5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence305"/>
   <isAppliedTo rdf:resource="#accountdata5"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence306">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4374,11 +4387,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you want to review or revise the personal information you provided during registration or in connection with a purchase or other activity while using our Services or change the promotional email communications or newsletters you receive from us you may either 1 click here to log in and then click on the applicable left-hand menu option or 2 call MLB com Customer Service at 866-800-1275 If you want to close your Website account and have us delete the personal information in it except for information that we keep for record-keeping purposes you should call MLB com Customer Service at 866-800-1275</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity6">
+<UserAccessControl rdf:about="#useraccesscontrol6">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence318"/>
   <isAppliedTo rdf:resource="#accountdata6"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence319">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4400,11 +4413,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you want to review or revise the personal information you provided during registration or in connection with a purchase or other activity while using our Services or change the promotional email communications or newsletters you receive from us you may either 1 click here to log in and then click on the applicable left-hand menu option or 2 call MLB com Customer Service at 866-800-1275 If you want to close your Website account and have us delete the personal information in it except for information that we keep for record-keeping purposes you should call MLB com Customer Service at 866-800-1275</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity7">
+<UserAccessControl rdf:about="#useraccesscontrol7">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence320"/>
   <isAppliedTo rdf:resource="#accountdata7"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence321">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4426,10 +4439,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you want to review or revise the personal information you provided during registration or in connection with a purchase or other activity while using our Services or change the promotional email communications or newsletters you receive from us you may either 1 click here to log in and then click on the applicable left-hand menu option or 2 call MLB com Customer Service at 866-800-1275 If you want to close your Website account and have us delete the personal information in it except for information that we keep for record-keeping purposes you should call MLB com Customer Service at 866-800-1275</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity8">
+<UserAccessControl rdf:about="#useraccesscontrol8">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence322"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence323">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4446,10 +4459,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you want to review or revise the personal information you provided during registration or in connection with a purchase or other activity while using our Services or change the promotional email communications or newsletters you receive from us you may either 1 click here to log in and then click on the applicable left-hand menu option or 2 call MLB com Customer Service at 866-800-1275 If you want to close your Website account and have us delete the personal information in it except for information that we keep for record-keeping purposes you should call MLB com Customer Service at 866-800-1275</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity9">
+<UserAccessControl rdf:about="#useraccesscontrol9">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence324"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence325">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4466,11 +4479,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you want to review or revise the personal information you provided during registration or in connection with a purchase or other activity while using our Services or change the promotional email communications or newsletters you receive from us you may either 1 click here to log in and then click on the applicable left-hand menu option or 2 call MLB com Customer Service at 866-800-1275 If you want to close your Website account and have us delete the personal information in it except for information that we keep for record-keeping purposes you should call MLB com Customer Service at 866-800-1275</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity10">
+<UserAccessControl rdf:about="#useraccesscontrol10">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence326"/>
   <isAppliedTo rdf:resource="#accountdata8"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence327">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4492,11 +4505,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you want to review or revise the personal information you provided during registration or in connection with a purchase or other activity while using our Services or change the promotional email communications or newsletters you receive from us you may either 1 click here to log in and then click on the applicable left-hand menu option or 2 call MLB com Customer Service at 866-800-1275 If you want to close your Website account and have us delete the personal information in it except for information that we keep for record-keeping purposes you should call MLB com Customer Service at 866-800-1275</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity11">
+<UserAccessControl rdf:about="#useraccesscontrol11">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence328"/>
   <isAppliedTo rdf:resource="#financialdata1"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence329">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4518,11 +4531,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you want to review or revise the personal information you provided during registration or in connection with a purchase or other activity while using our Services or change the promotional email communications or newsletters you receive from us you may either 1 click here to log in and then click on the applicable left-hand menu option or 2 call MLB com Customer Service at 866-800-1275 If you want to close your Website account and have us delete the personal information in it except for information that we keep for record-keeping purposes you should call MLB com Customer Service at 866-800-1275</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity12">
+<UserAccessControl rdf:about="#useraccesscontrol12">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence330"/>
   <isAppliedTo rdf:resource="#financialdata2"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence331">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4544,11 +4557,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you want to review or revise the personal information you provided during registration or in connection with a purchase or other activity while using our Services or change the promotional email communications or newsletters you receive from us you may either 1 click here to log in and then click on the applicable left-hand menu option or 2 call MLB com Customer Service at 866-800-1275 If you want to close your Website account and have us delete the personal information in it except for information that we keep for record-keeping purposes you should call MLB com Customer Service at 866-800-1275</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity13">
+<UserAccessControl rdf:about="#useraccesscontrol13">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence332"/>
   <isAppliedTo rdf:resource="#nonsensitivedata1"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence333">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4570,11 +4583,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you want to review or revise the personal information you provided during registration or in connection with a purchase or other activity while using our Services or change the promotional email communications or newsletters you receive from us you may either 1 click here to log in and then click on the applicable left-hand menu option or 2 call MLB com Customer Service at 866-800-1275 If you want to close your Website account and have us delete the personal information in it except for information that we keep for record-keeping purposes you should call MLB com Customer Service at 866-800-1275</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity14">
+<UserAccessControl rdf:about="#useraccesscontrol14">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence334"/>
   <isAppliedTo rdf:resource="#accountdata9"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence335">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>

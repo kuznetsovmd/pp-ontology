@@ -226,6 +226,18 @@
   <owl:inverseOf rdf:resource="#privacyControlMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
 
+<owl:ObjectProperty rdf:about="#dataControlMechanismIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasDataControlMechanism"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasDataControlMechanism">
+  <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
+  <rdfs:domain rdf:resource="#UserAccessControl"/>
+  <rdfs:range rdf:resource="#DataControlMechanism"/>
+  <owl:inverseOf rdf:resource="#dataControlMechanismIsRelatedTo"/>
+</owl:ObjectProperty>
+
 <owl:ObjectProperty rdf:about="#notificationMechanismIsRelatedTo">
   <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
   <owl:inverseOf rdf:resource="#hasNotificationMechanism"/>
@@ -233,14 +245,7 @@
 
 <owl:ObjectProperty rdf:about="#hasNotificationMechanism">
   <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#NotificationMechanism"/>
   <owl:inverseOf rdf:resource="#notificationMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
@@ -380,6 +385,7 @@
 
 <owl:ObjectProperty rdf:about="#isInitiatedByAnotherActivity">
   <rdfs:subPropertyOf rdf:resource="#isInitiatedBy"/>
+  <rdfs:domain rdf:resource="#Activity"/>
   <owl:inverseOf rdf:resource="#initiatesAnotherActivity"/>
 </owl:ObjectProperty>
 
@@ -410,14 +416,7 @@
 
 <owl:ObjectProperty rdf:about="#notifiesAgent">
   <rdfs:subPropertyOf rdf:resource="#notifies"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#Agent"/>
   <owl:inverseOf rdf:resource="#agentIsNotifiedBy"/>
 </owl:ObjectProperty>
@@ -506,12 +505,22 @@
   <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
 </owl:DatatypeProperty>
 
+<owl:DatatypeProperty rdf:about="#does">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+</owl:DatatypeProperty>
+
 <owl:Class rdf:about="#PrivacyPolicy">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Activity">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#NotificationActivity">
+  <rdfs:subClassOf rdf:resource="#Activity"/>
 </owl:Class>
 
 <owl:Class rdf:about="#BreachActivity">
@@ -546,7 +555,7 @@
   <rdfs:subClassOf rdf:resource="#ControlActivity"/>
 </owl:Class>
 
-<owl:Class rdf:about="#UserAccessActivity">
+<owl:Class rdf:about="#UserAccessControl">
   <rdfs:subClassOf rdf:resource="#DataControlActivity"/>
 </owl:Class>
 
@@ -806,6 +815,10 @@
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
 
+<owl:Class rdf:about="#SMSRequest">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
 <owl:Class rdf:about="#WebsiteForm">
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
@@ -983,7 +996,7 @@
   <providesData rdf:resource="#nonsensitivedata6"/>
   <providesData rdf:resource="#nonsensitivedata7"/>
   <initiatesActivity rdf:resource="#userprivacycontrol3"/>
-  <initiatesActivity rdf:resource="#useraccessactivity1"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol1"/>
   <initiatesActivity rdf:resource="#userprivacycontrol4"/>
   <providesData rdf:resource="#nonsensitivedata8"/>
   <initiatesActivity rdf:resource="#userprivacycontrol5"/>
@@ -1064,10 +1077,10 @@
   <providesData rdf:resource="#genericdata15"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory1"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory2"/>
-  <initiatesActivity rdf:resource="#useraccessactivity2"/>
-  <initiatesActivity rdf:resource="#useraccessactivity3"/>
-  <initiatesActivity rdf:resource="#useraccessactivity4"/>
-  <initiatesActivity rdf:resource="#useraccessactivity5"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol2"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol3"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol4"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol5"/>
   <initiatesActivity rdf:resource="#userprivacycontrol19"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory3"/>
   <providesData rdf:resource="#genericdata16"/>
@@ -1227,8 +1240,8 @@
 <PrivacyPolicy rdf:about="#privacypolicy2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <considersAgent rdf:resource="#firstparty1"/>
-  <considersAgent rdf:resource="#user1"/>
   <considersAgent rdf:resource="#thirdparties1"/>
+  <considersAgent rdf:resource="#user1"/>
   <considersActivity rdf:resource="#activity1"/>
   <considersData rdf:resource="#genericdata1"/>
   <considersActivity rdf:resource="#datauseactivity1"/>
@@ -1291,7 +1304,7 @@
   <considersData rdf:resource="#nonsensitivedata7"/>
   <considersActivity rdf:resource="#dataretentionactivity1"/>
   <considersActivity rdf:resource="#userprivacycontrol3"/>
-  <considersActivity rdf:resource="#useraccessactivity1"/>
+  <considersActivity rdf:resource="#useraccesscontrol1"/>
   <considersData rdf:resource="#accountdata5"/>
   <considersActivity rdf:resource="#userprivacycontrol4"/>
   <considersData rdf:resource="#nonsensitivedata8"/>
@@ -1468,13 +1481,13 @@
   <considersActivity rdf:resource="#policychangeactivity2"/>
   <considersActivity rdf:resource="#policychangeactivity3"/>
   <considersActivity rdf:resource="#policychangeactivity4"/>
-  <considersActivity rdf:resource="#useraccessactivity2"/>
+  <considersActivity rdf:resource="#useraccesscontrol2"/>
   <considersData rdf:resource="#accountdata18"/>
-  <considersActivity rdf:resource="#useraccessactivity3"/>
+  <considersActivity rdf:resource="#useraccesscontrol3"/>
   <considersData rdf:resource="#accountdata19"/>
-  <considersActivity rdf:resource="#useraccessactivity4"/>
+  <considersActivity rdf:resource="#useraccesscontrol4"/>
   <considersData rdf:resource="#accountdata20"/>
-  <considersActivity rdf:resource="#useraccessactivity5"/>
+  <considersActivity rdf:resource="#useraccesscontrol5"/>
   <considersData rdf:resource="#accountdata21"/>
   <considersActivity rdf:resource="#dataretentionactivity2"/>
   <considersActivity rdf:resource="#dataretentionactivity3"/>
@@ -3321,11 +3334,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your friend may contact us at website vikings nfl com admin vikingscontests com admin vikingsnewsletter com to request that we remove this information from our database</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity1">
+<UserAccessControl rdf:about="#useraccesscontrol1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence162"/>
   <isAppliedTo rdf:resource="#accountdata5"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence163">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -9962,11 +9975,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Correcting/updating personal information If your personally identifiable information changes such as your email address or zip code or if you no longer desire to access our Website we will endeavor to provide a way to correct update delete or remove the personal data you have provided to us This can be done by making changes to your profile by using an opt out message in an email or by emailing us at website vikings nfl com admin vikingscontests com admin vikingsnewsletter com</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity2">
+<UserAccessControl rdf:about="#useraccesscontrol2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence761"/>
   <isAppliedTo rdf:resource="#accountdata18"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence762">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -9988,11 +10001,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Correcting/updating personal information If your personally identifiable information changes such as your email address or zip code or if you no longer desire to access our Website we will endeavor to provide a way to correct update delete or remove the personal data you have provided to us This can be done by making changes to your profile by using an opt out message in an email or by emailing us at website vikings nfl com admin vikingscontests com admin vikingsnewsletter com</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity3">
+<UserAccessControl rdf:about="#useraccesscontrol3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence763"/>
   <isAppliedTo rdf:resource="#accountdata19"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence764">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10014,11 +10027,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Correcting/updating personal information If your personally identifiable information changes such as your email address or zip code or if you no longer desire to access our Website we will endeavor to provide a way to correct update delete or remove the personal data you have provided to us This can be done by making changes to your profile by using an opt out message in an email or by emailing us at website vikings nfl com admin vikingscontests com admin vikingsnewsletter com</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity4">
+<UserAccessControl rdf:about="#useraccesscontrol4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence765"/>
   <isAppliedTo rdf:resource="#accountdata20"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence766">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10040,11 +10053,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Correcting/updating personal information If your personally identifiable information changes such as your email address or zip code or if you no longer desire to access our Website we will endeavor to provide a way to correct update delete or remove the personal data you have provided to us This can be done by making changes to your profile by using an opt out message in an email or by emailing us at website vikings nfl com admin vikingscontests com admin vikingsnewsletter com</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity5">
+<UserAccessControl rdf:about="#useraccesscontrol5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence767"/>
   <isAppliedTo rdf:resource="#accountdata21"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence768">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>

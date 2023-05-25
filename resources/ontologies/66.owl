@@ -226,6 +226,18 @@
   <owl:inverseOf rdf:resource="#privacyControlMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
 
+<owl:ObjectProperty rdf:about="#dataControlMechanismIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasDataControlMechanism"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasDataControlMechanism">
+  <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
+  <rdfs:domain rdf:resource="#UserAccessControl"/>
+  <rdfs:range rdf:resource="#DataControlMechanism"/>
+  <owl:inverseOf rdf:resource="#dataControlMechanismIsRelatedTo"/>
+</owl:ObjectProperty>
+
 <owl:ObjectProperty rdf:about="#notificationMechanismIsRelatedTo">
   <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
   <owl:inverseOf rdf:resource="#hasNotificationMechanism"/>
@@ -233,14 +245,7 @@
 
 <owl:ObjectProperty rdf:about="#hasNotificationMechanism">
   <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#NotificationMechanism"/>
   <owl:inverseOf rdf:resource="#notificationMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
@@ -380,6 +385,7 @@
 
 <owl:ObjectProperty rdf:about="#isInitiatedByAnotherActivity">
   <rdfs:subPropertyOf rdf:resource="#isInitiatedBy"/>
+  <rdfs:domain rdf:resource="#Activity"/>
   <owl:inverseOf rdf:resource="#initiatesAnotherActivity"/>
 </owl:ObjectProperty>
 
@@ -410,14 +416,7 @@
 
 <owl:ObjectProperty rdf:about="#notifiesAgent">
   <rdfs:subPropertyOf rdf:resource="#notifies"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#Agent"/>
   <owl:inverseOf rdf:resource="#agentIsNotifiedBy"/>
 </owl:ObjectProperty>
@@ -506,12 +505,22 @@
   <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
 </owl:DatatypeProperty>
 
+<owl:DatatypeProperty rdf:about="#does">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+</owl:DatatypeProperty>
+
 <owl:Class rdf:about="#PrivacyPolicy">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Activity">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#NotificationActivity">
+  <rdfs:subClassOf rdf:resource="#Activity"/>
 </owl:Class>
 
 <owl:Class rdf:about="#BreachActivity">
@@ -546,7 +555,7 @@
   <rdfs:subClassOf rdf:resource="#ControlActivity"/>
 </owl:Class>
 
-<owl:Class rdf:about="#UserAccessActivity">
+<owl:Class rdf:about="#UserAccessControl">
   <rdfs:subClassOf rdf:resource="#DataControlActivity"/>
 </owl:Class>
 
@@ -806,6 +815,10 @@
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
 
+<owl:Class rdf:about="#SMSRequest">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
 <owl:Class rdf:about="#WebsiteForm">
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
@@ -1019,11 +1032,11 @@
   <initiatesActivity rdf:resource="#userprivacycontrol43"/>
   <initiatesActivity rdf:resource="#userprivacycontrol44"/>
   <initiatesActivity rdf:resource="#userprivacycontrol45"/>
-  <initiatesActivity rdf:resource="#useraccessactivity1"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol1"/>
   <initiatesActivity rdf:resource="#userprivacycontrol46"/>
   <initiatesActivity rdf:resource="#userprivacycontrol47"/>
   <initiatesActivity rdf:resource="#userprivacycontrol48"/>
-  <initiatesActivity rdf:resource="#useraccessactivity2"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol2"/>
   <initiatesActivity rdf:resource="#userprivacycontrol49"/>
   <initiatesActivity rdf:resource="#userprivacycontrol50"/>
   <initiatesActivity rdf:resource="#userprivacycontrol51"/>
@@ -1041,25 +1054,25 @@
   <initiatesActivity rdf:resource="#userprivacycontrol59"/>
   <providesData rdf:resource="#trackingdata9"/>
   <initiatesActivity rdf:resource="#userprivacycontrol60"/>
-  <initiatesActivity rdf:resource="#useraccessactivity3"/>
-  <initiatesActivity rdf:resource="#useraccessactivity4"/>
-  <initiatesActivity rdf:resource="#useraccessactivity5"/>
-  <initiatesActivity rdf:resource="#useraccessactivity6"/>
-  <initiatesActivity rdf:resource="#useraccessactivity7"/>
-  <initiatesActivity rdf:resource="#useraccessactivity8"/>
-  <initiatesActivity rdf:resource="#useraccessactivity9"/>
-  <initiatesActivity rdf:resource="#useraccessactivity10"/>
-  <initiatesActivity rdf:resource="#useraccessactivity11"/>
-  <initiatesActivity rdf:resource="#useraccessactivity12"/>
-  <initiatesActivity rdf:resource="#useraccessactivity13"/>
-  <initiatesActivity rdf:resource="#useraccessactivity14"/>
-  <initiatesActivity rdf:resource="#useraccessactivity15"/>
-  <initiatesActivity rdf:resource="#useraccessactivity16"/>
-  <initiatesActivity rdf:resource="#useraccessactivity17"/>
-  <initiatesActivity rdf:resource="#useraccessactivity18"/>
-  <initiatesActivity rdf:resource="#useraccessactivity19"/>
-  <initiatesActivity rdf:resource="#useraccessactivity20"/>
-  <initiatesActivity rdf:resource="#useraccessactivity21"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol3"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol4"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol5"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol6"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol7"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol8"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol9"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol10"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol11"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol12"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol13"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol14"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol15"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol16"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol17"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol18"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol19"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol20"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol21"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory1"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory2"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory3"/>
@@ -1068,17 +1081,17 @@
   <providesData rdf:resource="#genericdata12"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory6"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory7"/>
-  <initiatesActivity rdf:resource="#useraccessactivity22"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol22"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory8"/>
-  <initiatesActivity rdf:resource="#useraccessactivity23"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol23"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory9"/>
-  <initiatesActivity rdf:resource="#useraccessactivity24"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol24"/>
   <providesData rdf:resource="#accountdata8"/>
   <providesData rdf:resource="#genericdata13"/>
   <providesData rdf:resource="#genericdata14"/>
-  <initiatesActivity rdf:resource="#useraccessactivity25"/>
-  <initiatesActivity rdf:resource="#useraccessactivity26"/>
-  <initiatesActivity rdf:resource="#useraccessactivity27"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol25"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol26"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol27"/>
   <providesData rdf:resource="#genericdata15"/>
   <initiatesActivity rdf:resource="#userprivacycontrol61"/>
   <providesData rdf:resource="#genericdata16"/>
@@ -1160,8 +1173,8 @@
 <PrivacyPolicy rdf:about="#privacypolicy2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <considersAgent rdf:resource="#user1"/>
-  <considersAgent rdf:resource="#thirdparties1"/>
   <considersAgent rdf:resource="#firstparty1"/>
+  <considersAgent rdf:resource="#thirdparties1"/>
   <considersActivity rdf:resource="#policychangeactivity1"/>
   <considersData rdf:resource="#genericdata1"/>
   <considersActivity rdf:resource="#datacollectionactivity1"/>
@@ -1262,12 +1275,12 @@
   <considersActivity rdf:resource="#userprivacycontrol43"/>
   <considersActivity rdf:resource="#userprivacycontrol44"/>
   <considersActivity rdf:resource="#userprivacycontrol45"/>
-  <considersActivity rdf:resource="#useraccessactivity1"/>
+  <considersActivity rdf:resource="#useraccesscontrol1"/>
   <considersData rdf:resource="#accountdata2"/>
   <considersActivity rdf:resource="#userprivacycontrol46"/>
   <considersActivity rdf:resource="#userprivacycontrol47"/>
   <considersActivity rdf:resource="#userprivacycontrol48"/>
-  <considersActivity rdf:resource="#useraccessactivity2"/>
+  <considersActivity rdf:resource="#useraccesscontrol2"/>
   <considersData rdf:resource="#nonsensitivedata1"/>
   <considersActivity rdf:resource="#userprivacycontrol49"/>
   <considersActivity rdf:resource="#userprivacycontrol50"/>
@@ -1287,45 +1300,45 @@
   <considersData rdf:resource="#trackingdata9"/>
   <considersActivity rdf:resource="#userprivacycontrol60"/>
   <considersActivity rdf:resource="#dataretentionactivity3"/>
-  <considersActivity rdf:resource="#useraccessactivity3"/>
-  <considersActivity rdf:resource="#useraccessactivity4"/>
-  <considersActivity rdf:resource="#useraccessactivity5"/>
-  <considersActivity rdf:resource="#useraccessactivity6"/>
+  <considersActivity rdf:resource="#useraccesscontrol3"/>
+  <considersActivity rdf:resource="#useraccesscontrol4"/>
+  <considersActivity rdf:resource="#useraccesscontrol5"/>
+  <considersActivity rdf:resource="#useraccesscontrol6"/>
   <considersData rdf:resource="#accountdata3"/>
-  <considersActivity rdf:resource="#useraccessactivity7"/>
-  <considersActivity rdf:resource="#useraccessactivity8"/>
-  <considersActivity rdf:resource="#useraccessactivity9"/>
-  <considersActivity rdf:resource="#useraccessactivity10"/>
+  <considersActivity rdf:resource="#useraccesscontrol7"/>
+  <considersActivity rdf:resource="#useraccesscontrol8"/>
+  <considersActivity rdf:resource="#useraccesscontrol9"/>
+  <considersActivity rdf:resource="#useraccesscontrol10"/>
   <considersData rdf:resource="#sensitivedata1"/>
-  <considersActivity rdf:resource="#useraccessactivity11"/>
+  <considersActivity rdf:resource="#useraccesscontrol11"/>
   <considersData rdf:resource="#accountdata4"/>
-  <considersActivity rdf:resource="#useraccessactivity12"/>
+  <considersActivity rdf:resource="#useraccesscontrol12"/>
   <considersData rdf:resource="#accountdata5"/>
-  <considersActivity rdf:resource="#useraccessactivity13"/>
+  <considersActivity rdf:resource="#useraccesscontrol13"/>
   <considersData rdf:resource="#nonsensitivedata2"/>
-  <considersActivity rdf:resource="#useraccessactivity14"/>
+  <considersActivity rdf:resource="#useraccesscontrol14"/>
   <considersData rdf:resource="#nonsensitivedata3"/>
-  <considersActivity rdf:resource="#useraccessactivity15"/>
+  <considersActivity rdf:resource="#useraccesscontrol15"/>
   <considersData rdf:resource="#sensitivedata2"/>
-  <considersActivity rdf:resource="#useraccessactivity16"/>
+  <considersActivity rdf:resource="#useraccesscontrol16"/>
   <considersData rdf:resource="#accountdata6"/>
-  <considersActivity rdf:resource="#useraccessactivity17"/>
+  <considersActivity rdf:resource="#useraccesscontrol17"/>
   <considersData rdf:resource="#accountdata7"/>
-  <considersActivity rdf:resource="#useraccessactivity18"/>
+  <considersActivity rdf:resource="#useraccesscontrol18"/>
   <considersData rdf:resource="#sensitivedata3"/>
-  <considersActivity rdf:resource="#useraccessactivity19"/>
+  <considersActivity rdf:resource="#useraccesscontrol19"/>
   <considersData rdf:resource="#nonsensitivedata4"/>
-  <considersActivity rdf:resource="#useraccessactivity20"/>
+  <considersActivity rdf:resource="#useraccesscontrol20"/>
   <considersData rdf:resource="#nonsensitivedata5"/>
-  <considersActivity rdf:resource="#useraccessactivity21"/>
+  <considersActivity rdf:resource="#useraccesscontrol21"/>
   <considersData rdf:resource="#sensitivedata4"/>
   <considersData rdf:resource="#genericdata12"/>
   <considersActivity rdf:resource="#datauseactivity4"/>
   <considersActivity rdf:resource="#datacollectionactivity8"/>
-  <considersActivity rdf:resource="#useraccessactivity22"/>
-  <considersActivity rdf:resource="#useraccessactivity23"/>
+  <considersActivity rdf:resource="#useraccesscontrol22"/>
+  <considersActivity rdf:resource="#useraccesscontrol23"/>
   <considersData rdf:resource="#financialdata1"/>
-  <considersActivity rdf:resource="#useraccessactivity24"/>
+  <considersActivity rdf:resource="#useraccesscontrol24"/>
   <considersData rdf:resource="#nonsensitivedata6"/>
   <considersData rdf:resource="#accountdata8"/>
   <considersActivity rdf:resource="#dataretentionactivity4"/>
@@ -1337,9 +1350,9 @@
   <considersActivity rdf:resource="#dataretentionactivity8"/>
   <considersActivity rdf:resource="#dataretentionactivity9"/>
   <considersActivity rdf:resource="#dataretentionactivity10"/>
-  <considersActivity rdf:resource="#useraccessactivity25"/>
-  <considersActivity rdf:resource="#useraccessactivity26"/>
-  <considersActivity rdf:resource="#useraccessactivity27"/>
+  <considersActivity rdf:resource="#useraccesscontrol25"/>
+  <considersActivity rdf:resource="#useraccesscontrol26"/>
+  <considersActivity rdf:resource="#useraccesscontrol27"/>
   <considersData rdf:resource="#genericdata15"/>
   <considersActivity rdf:resource="#userprivacycontrol61"/>
   <considersData rdf:resource="#genericdata16"/>
@@ -10178,11 +10191,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">For Sterling Publishing If at any time you wish to no longer receive ENewsletters from Sterling Publishing Co Inc Lark Crafts and/or FlashKids com please click on the link for opt out instructions contained at the bottom of each ENewsletter You can change your personal information and your communication preferences when you follow this link</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity1">
+<UserAccessControl rdf:about="#useraccesscontrol1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence847"/>
   <isAppliedTo rdf:resource="#accountdata2"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence848">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10289,11 +10302,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">For Sterling Publishing If at any time you wish to no longer receive ENewsletters from Sterling Publishing Co Inc Lark Crafts and/or FlashKids com please click on the link for opt out instructions contained at the bottom of each ENewsletter You can change your personal information and your communication preferences when you follow this link</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity2">
+<UserAccessControl rdf:about="#useraccesscontrol2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence857"/>
   <isAppliedTo rdf:resource="#nonsensitivedata1"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence858">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10698,10 +10711,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Online Community Users Barnes Noble provides you with the ability to access correct change or request deletion of the personal information in your community profile s at any time by following the instructions below We will respond to all access requests within 30 days However you cannot currently change your profile name although you may re-register and choose a new name To review or modify your profile information please click here Please be advised that Barnes Noble may archive information it collects on its community and visitors Additionally by participating in the Barnes Noble online interactive community and using Barnes Noble s various interactive offerings including the submission of customer reviews or participation in the Barnes Noble Book Clubs you agree to receive communications from Barnes Noble other users and moderators related to the provision of these services</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity3">
+<UserAccessControl rdf:about="#useraccesscontrol3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence895"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence896">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10718,10 +10731,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Online Community Users Barnes Noble provides you with the ability to access correct change or request deletion of the personal information in your community profile s at any time by following the instructions below We will respond to all access requests within 30 days However you cannot currently change your profile name although you may re-register and choose a new name To review or modify your profile information please click here Please be advised that Barnes Noble may archive information it collects on its community and visitors Additionally by participating in the Barnes Noble online interactive community and using Barnes Noble s various interactive offerings including the submission of customer reviews or participation in the Barnes Noble Book Clubs you agree to receive communications from Barnes Noble other users and moderators related to the provision of these services</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity4">
+<UserAccessControl rdf:about="#useraccesscontrol4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence897"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence898">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10738,10 +10751,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Online Community Users Barnes Noble provides you with the ability to access correct change or request deletion of the personal information in your community profile s at any time by following the instructions below We will respond to all access requests within 30 days However you cannot currently change your profile name although you may re-register and choose a new name To review or modify your profile information please click here Please be advised that Barnes Noble may archive information it collects on its community and visitors Additionally by participating in the Barnes Noble online interactive community and using Barnes Noble s various interactive offerings including the submission of customer reviews or participation in the Barnes Noble Book Clubs you agree to receive communications from Barnes Noble other users and moderators related to the provision of these services</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity5">
+<UserAccessControl rdf:about="#useraccesscontrol5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence899"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence900">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10758,11 +10771,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Online Community Users Barnes Noble provides you with the ability to access correct change or request deletion of the personal information in your community profile s at any time by following the instructions below We will respond to all access requests within 30 days However you cannot currently change your profile name although you may re-register and choose a new name To review or modify your profile information please click here Please be advised that Barnes Noble may archive information it collects on its community and visitors Additionally by participating in the Barnes Noble online interactive community and using Barnes Noble s various interactive offerings including the submission of customer reviews or participation in the Barnes Noble Book Clubs you agree to receive communications from Barnes Noble other users and moderators related to the provision of these services</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity6">
+<UserAccessControl rdf:about="#useraccesscontrol6">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence901"/>
   <isAppliedTo rdf:resource="#accountdata3"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence902">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10784,10 +10797,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Online Community Users Barnes Noble provides you with the ability to access correct change or request deletion of the personal information in your community profile s at any time by following the instructions below We will respond to all access requests within 30 days However you cannot currently change your profile name although you may re-register and choose a new name To review or modify your profile information please click here Please be advised that Barnes Noble may archive information it collects on its community and visitors Additionally by participating in the Barnes Noble online interactive community and using Barnes Noble s various interactive offerings including the submission of customer reviews or participation in the Barnes Noble Book Clubs you agree to receive communications from Barnes Noble other users and moderators related to the provision of these services</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity7">
+<UserAccessControl rdf:about="#useraccesscontrol7">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence903"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence904">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10804,10 +10817,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Online Community Users Barnes Noble provides you with the ability to access correct change or request deletion of the personal information in your community profile s at any time by following the instructions below We will respond to all access requests within 30 days However you cannot currently change your profile name although you may re-register and choose a new name To review or modify your profile information please click here Please be advised that Barnes Noble may archive information it collects on its community and visitors Additionally by participating in the Barnes Noble online interactive community and using Barnes Noble s various interactive offerings including the submission of customer reviews or participation in the Barnes Noble Book Clubs you agree to receive communications from Barnes Noble other users and moderators related to the provision of these services</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity8">
+<UserAccessControl rdf:about="#useraccesscontrol8">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence905"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence906">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10824,21 +10837,21 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Online Community Users Barnes Noble provides you with the ability to access correct change or request deletion of the personal information in your community profile s at any time by following the instructions below We will respond to all access requests within 30 days However you cannot currently change your profile name although you may re-register and choose a new name To review or modify your profile information please click here Please be advised that Barnes Noble may archive information it collects on its community and visitors Additionally by participating in the Barnes Noble online interactive community and using Barnes Noble s various interactive offerings including the submission of customer reviews or participation in the Barnes Noble Book Clubs you agree to receive communications from Barnes Noble other users and moderators related to the provision of these services</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity9">
+<UserAccessControl rdf:about="#useraccesscontrol9">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence907"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence908">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Online Community Users Barnes Noble provides you with the ability to access correct change or request deletion of the personal information in your community profile s at any time by following the instructions below We will respond to all access requests within 30 days However you cannot currently change your profile name although you may re-register and choose a new name To review or modify your profile information please click here Please be advised that Barnes Noble may archive information it collects on its community and visitors Additionally by participating in the Barnes Noble online interactive community and using Barnes Noble s various interactive offerings including the submission of customer reviews or participation in the Barnes Noble Book Clubs you agree to receive communications from Barnes Noble other users and moderators related to the provision of these services</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity10">
+<UserAccessControl rdf:about="#useraccesscontrol10">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence908"/>
   <isAppliedTo rdf:resource="#sensitivedata1"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence909">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10860,11 +10873,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may access correct or change the personal information in your community profile s on Lark Crafts at any time To review or modify your profile information log in to larkcrafts com Additionally by using Lark Crafts various interactive offerings you agree to receive communications from Barnes Noble Lark Crafts other users and moderators related to the provision of these services</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity11">
+<UserAccessControl rdf:about="#useraccesscontrol11">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence910"/>
   <isAppliedTo rdf:resource="#accountdata4"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence911">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10886,11 +10899,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may access correct or change the personal information in your community profile s on Lark Crafts at any time To review or modify your profile information log in to larkcrafts com Additionally by using Lark Crafts various interactive offerings you agree to receive communications from Barnes Noble Lark Crafts other users and moderators related to the provision of these services</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity12">
+<UserAccessControl rdf:about="#useraccesscontrol12">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence912"/>
   <isAppliedTo rdf:resource="#accountdata5"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence913">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10912,11 +10925,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may access correct or change the personal information in your community profile s on Lark Crafts at any time To review or modify your profile information log in to larkcrafts com Additionally by using Lark Crafts various interactive offerings you agree to receive communications from Barnes Noble Lark Crafts other users and moderators related to the provision of these services</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity13">
+<UserAccessControl rdf:about="#useraccesscontrol13">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence914"/>
   <isAppliedTo rdf:resource="#nonsensitivedata2"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence915">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10938,11 +10951,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may access correct or change the personal information in your community profile s on Lark Crafts at any time To review or modify your profile information log in to larkcrafts com Additionally by using Lark Crafts various interactive offerings you agree to receive communications from Barnes Noble Lark Crafts other users and moderators related to the provision of these services</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity14">
+<UserAccessControl rdf:about="#useraccesscontrol14">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence916"/>
   <isAppliedTo rdf:resource="#nonsensitivedata3"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence917">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10964,11 +10977,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may access correct or change the personal information in your community profile s on Lark Crafts at any time To review or modify your profile information log in to larkcrafts com Additionally by using Lark Crafts various interactive offerings you agree to receive communications from Barnes Noble Lark Crafts other users and moderators related to the provision of these services</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity15">
+<UserAccessControl rdf:about="#useraccesscontrol15">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence918"/>
   <isAppliedTo rdf:resource="#sensitivedata2"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence919">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -10990,11 +11003,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may also access correct or change the personal information in your community profile s on SparkNotes com at any time except to change your username To review or modify your profile information log in to SparkNotes com Additionally by using SparkNotes com s various interactive offerings you agree to receive communications from Barnes Noble SparkNotes other users and moderators related to the provision of these services</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity16">
+<UserAccessControl rdf:about="#useraccesscontrol16">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence920"/>
   <isAppliedTo rdf:resource="#accountdata6"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence921">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -11016,11 +11029,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may also access correct or change the personal information in your community profile s on SparkNotes com at any time except to change your username To review or modify your profile information log in to SparkNotes com Additionally by using SparkNotes com s various interactive offerings you agree to receive communications from Barnes Noble SparkNotes other users and moderators related to the provision of these services</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity17">
+<UserAccessControl rdf:about="#useraccesscontrol17">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence922"/>
   <isAppliedTo rdf:resource="#accountdata7"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence923">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -11042,11 +11055,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may also access correct or change the personal information in your community profile s on SparkNotes com at any time except to change your username To review or modify your profile information log in to SparkNotes com Additionally by using SparkNotes com s various interactive offerings you agree to receive communications from Barnes Noble SparkNotes other users and moderators related to the provision of these services</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity18">
+<UserAccessControl rdf:about="#useraccesscontrol18">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence924"/>
   <isAppliedTo rdf:resource="#sensitivedata3"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence925">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -11068,11 +11081,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may also access correct or change the personal information in your community profile s on SparkNotes com at any time except to change your username To review or modify your profile information log in to SparkNotes com Additionally by using SparkNotes com s various interactive offerings you agree to receive communications from Barnes Noble SparkNotes other users and moderators related to the provision of these services</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity19">
+<UserAccessControl rdf:about="#useraccesscontrol19">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence926"/>
   <isAppliedTo rdf:resource="#nonsensitivedata4"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence927">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -11094,11 +11107,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may also access correct or change the personal information in your community profile s on SparkNotes com at any time except to change your username To review or modify your profile information log in to SparkNotes com Additionally by using SparkNotes com s various interactive offerings you agree to receive communications from Barnes Noble SparkNotes other users and moderators related to the provision of these services</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity20">
+<UserAccessControl rdf:about="#useraccesscontrol20">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence928"/>
   <isAppliedTo rdf:resource="#nonsensitivedata5"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence929">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -11120,11 +11133,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may also access correct or change the personal information in your community profile s on SparkNotes com at any time except to change your username To review or modify your profile information log in to SparkNotes com Additionally by using SparkNotes com s various interactive offerings you agree to receive communications from Barnes Noble SparkNotes other users and moderators related to the provision of these services</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity21">
+<UserAccessControl rdf:about="#useraccesscontrol21">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence930"/>
   <isAppliedTo rdf:resource="#sensitivedata4"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence931">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -11256,10 +11269,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you are a parent or guardian who believes that your Minor under the age of 13 has submitted personal information or other information to us without your consent please contact privacy barnesandnoble com Once we verify that you are the parent or legal guardian at your request we will promptly provide to you information regarding what if any personal information we have collected about your child and how it has been used or shared We will at your request remove personal information about your child from its database and instruct our affiliates and third party partners to do the same</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity22">
+<UserAccessControl rdf:about="#useraccesscontrol22">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence942"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence943">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -11286,11 +11299,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you are a Minor under the age of 18 you may request and obtain removal of certain content or information posted on Barnes Noble Websites and Apps by sending an email to privacy barnesandnoble com with ?Privacy Rights for Minors? in the subject line Please be advised that our removal of your post s does not ensure complete or comprehensive removal of the content or information you have posted on Barnes Noble Websites or Apps</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity23">
+<UserAccessControl rdf:about="#useraccesscontrol23">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence945"/>
   <isAppliedTo rdf:resource="#financialdata1"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence946">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -11322,11 +11335,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you are a Minor under the age of 18 you may request and obtain removal of certain content or information posted on Barnes Noble Websites and Apps by sending an email to privacy barnesandnoble com with ?Privacy Rights for Minors? in the subject line Please be advised that our removal of your post s does not ensure complete or comprehensive removal of the content or information you have posted on Barnes Noble Websites or Apps</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity24">
+<UserAccessControl rdf:about="#useraccesscontrol24">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence948"/>
   <isAppliedTo rdf:resource="#nonsensitivedata6"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence949">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -11594,10 +11607,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Accessing your information You have the right to ask us not to use your personal information for direct marketing purposes You also have the right to request a copy of the personal information that we hold about you and to have any inaccuracies rectified Please note that as permitted by law we may charge a nominal fee for information requests and may require you to prove your identity Following a request we will use reasonable efforts to supply correct or delete personal information about you in our files Please address written requests and questions about this to privacy barnesandnoble com We will respond to all access requests within 30 days</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity25">
+<UserAccessControl rdf:about="#useraccesscontrol25">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence973"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence974">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -11614,10 +11627,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Accessing your information You have the right to ask us not to use your personal information for direct marketing purposes You also have the right to request a copy of the personal information that we hold about you and to have any inaccuracies rectified Please note that as permitted by law we may charge a nominal fee for information requests and may require you to prove your identity Following a request we will use reasonable efforts to supply correct or delete personal information about you in our files Please address written requests and questions about this to privacy barnesandnoble com We will respond to all access requests within 30 days</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity26">
+<UserAccessControl rdf:about="#useraccesscontrol26">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence975"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence976">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -11634,10 +11647,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Accessing your information You have the right to ask us not to use your personal information for direct marketing purposes You also have the right to request a copy of the personal information that we hold about you and to have any inaccuracies rectified Please note that as permitted by law we may charge a nominal fee for information requests and may require you to prove your identity Following a request we will use reasonable efforts to supply correct or delete personal information about you in our files Please address written requests and questions about this to privacy barnesandnoble com We will respond to all access requests within 30 days</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity27">
+<UserAccessControl rdf:about="#useraccesscontrol27">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence977"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence978">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>

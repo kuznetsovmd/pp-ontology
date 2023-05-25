@@ -226,6 +226,18 @@
   <owl:inverseOf rdf:resource="#privacyControlMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
 
+<owl:ObjectProperty rdf:about="#dataControlMechanismIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasDataControlMechanism"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasDataControlMechanism">
+  <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
+  <rdfs:domain rdf:resource="#UserAccessControl"/>
+  <rdfs:range rdf:resource="#DataControlMechanism"/>
+  <owl:inverseOf rdf:resource="#dataControlMechanismIsRelatedTo"/>
+</owl:ObjectProperty>
+
 <owl:ObjectProperty rdf:about="#notificationMechanismIsRelatedTo">
   <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
   <owl:inverseOf rdf:resource="#hasNotificationMechanism"/>
@@ -233,14 +245,7 @@
 
 <owl:ObjectProperty rdf:about="#hasNotificationMechanism">
   <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#NotificationMechanism"/>
   <owl:inverseOf rdf:resource="#notificationMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
@@ -380,6 +385,7 @@
 
 <owl:ObjectProperty rdf:about="#isInitiatedByAnotherActivity">
   <rdfs:subPropertyOf rdf:resource="#isInitiatedBy"/>
+  <rdfs:domain rdf:resource="#Activity"/>
   <owl:inverseOf rdf:resource="#initiatesAnotherActivity"/>
 </owl:ObjectProperty>
 
@@ -410,14 +416,7 @@
 
 <owl:ObjectProperty rdf:about="#notifiesAgent">
   <rdfs:subPropertyOf rdf:resource="#notifies"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#Agent"/>
   <owl:inverseOf rdf:resource="#agentIsNotifiedBy"/>
 </owl:ObjectProperty>
@@ -506,12 +505,22 @@
   <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
 </owl:DatatypeProperty>
 
+<owl:DatatypeProperty rdf:about="#does">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+</owl:DatatypeProperty>
+
 <owl:Class rdf:about="#PrivacyPolicy">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Activity">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#NotificationActivity">
+  <rdfs:subClassOf rdf:resource="#Activity"/>
 </owl:Class>
 
 <owl:Class rdf:about="#BreachActivity">
@@ -546,7 +555,7 @@
   <rdfs:subClassOf rdf:resource="#ControlActivity"/>
 </owl:Class>
 
-<owl:Class rdf:about="#UserAccessActivity">
+<owl:Class rdf:about="#UserAccessControl">
   <rdfs:subClassOf rdf:resource="#DataControlActivity"/>
 </owl:Class>
 
@@ -806,6 +815,10 @@
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
 
+<owl:Class rdf:about="#SMSRequest">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
 <owl:Class rdf:about="#WebsiteForm">
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
@@ -958,8 +971,8 @@
 <User rdf:about="#user1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <providesData rdf:resource="#genericdata1"/>
-  <initiatesActivity rdf:resource="#useraccessactivity1"/>
-  <initiatesActivity rdf:resource="#useraccessactivity2"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol1"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol2"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory1"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory2"/>
   <providesData rdf:resource="#nonsensitivedata1"/>
@@ -996,7 +1009,7 @@
   <providesData rdf:resource="#data2"/>
   <providesData rdf:resource="#data3"/>
   <providesData rdf:resource="#sensitivedata3"/>
-  <initiatesActivity rdf:resource="#useraccessactivity3"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol3"/>
   <providesData rdf:resource="#nonsensitivedata14"/>
   <providesData rdf:resource="#nonsensitivedata15"/>
   <providesData rdf:resource="#nonsensitivedata16"/>
@@ -1112,9 +1125,9 @@
   <providesData rdf:resource="#genericdata46"/>
   <providesData rdf:resource="#genericdata47"/>
   <initiatesActivity rdf:resource="#userprivacycontrol13"/>
-  <initiatesActivity rdf:resource="#useraccessactivity4"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol4"/>
   <providesData rdf:resource="#genericdata48"/>
-  <initiatesActivity rdf:resource="#useraccessactivity5"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol5"/>
   <providesData rdf:resource="#genericdata49"/>
   <providesData rdf:resource="#genericdata50"/>
   <providesData rdf:resource="#nonsensitivedata40"/>
@@ -1129,23 +1142,23 @@
   <initiatesActivity rdf:resource="#userprivacycontrol16"/>
   <providesData rdf:resource="#nonsensitivedata47"/>
   <initiatesActivity rdf:resource="#userprivacycontrol17"/>
-  <initiatesActivity rdf:resource="#useraccessactivity6"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol6"/>
   <initiatesActivity rdf:resource="#userprivacycontrol18"/>
   <providesData rdf:resource="#nonsensitivedata48"/>
-  <initiatesActivity rdf:resource="#useraccessactivity7"/>
-  <initiatesActivity rdf:resource="#useraccessactivity8"/>
-  <initiatesActivity rdf:resource="#useraccessactivity9"/>
-  <initiatesActivity rdf:resource="#useraccessactivity10"/>
-  <initiatesActivity rdf:resource="#useraccessactivity11"/>
-  <initiatesActivity rdf:resource="#useraccessactivity12"/>
-  <initiatesActivity rdf:resource="#useraccessactivity13"/>
-  <initiatesActivity rdf:resource="#useraccessactivity14"/>
-  <initiatesActivity rdf:resource="#useraccessactivity15"/>
-  <initiatesActivity rdf:resource="#useraccessactivity16"/>
-  <initiatesActivity rdf:resource="#useraccessactivity17"/>
-  <initiatesActivity rdf:resource="#useraccessactivity18"/>
-  <initiatesActivity rdf:resource="#useraccessactivity19"/>
-  <initiatesActivity rdf:resource="#useraccessactivity20"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol7"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol8"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol9"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol10"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol11"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol12"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol13"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol14"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol15"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol16"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol17"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol18"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol19"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol20"/>
   <providesData rdf:resource="#nonsensitivedata49"/>
   <initiatesActivity rdf:resource="#userprivacycontrol19"/>
   <providesData rdf:resource="#nonsensitivedata50"/>
@@ -1575,9 +1588,9 @@
 
 <PrivacyPolicy rdf:about="#privacypolicy2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <considersAgent rdf:resource="#firstparty1"/>
   <considersAgent rdf:resource="#user1"/>
   <considersAgent rdf:resource="#thirdparties1"/>
-  <considersAgent rdf:resource="#firstparty1"/>
   <considersActivity rdf:resource="#policychangeactivity1"/>
   <considersActivity rdf:resource="#policychangeactivity2"/>
   <considersActivity rdf:resource="#activity1"/>
@@ -1591,8 +1604,8 @@
   <considersActivity rdf:resource="#activity2"/>
   <considersActivity rdf:resource="#datauseactivity2"/>
   <considersActivity rdf:resource="#datacollectionactivity3"/>
-  <considersActivity rdf:resource="#useraccessactivity1"/>
-  <considersActivity rdf:resource="#useraccessactivity2"/>
+  <considersActivity rdf:resource="#useraccesscontrol1"/>
+  <considersActivity rdf:resource="#useraccesscontrol2"/>
   <considersActivity rdf:resource="#policychangeactivity5"/>
   <considersData rdf:resource="#nonsensitivedata1"/>
   <considersActivity rdf:resource="#datauseactivity3"/>
@@ -1703,7 +1716,7 @@
   <considersData rdf:resource="#sensitivedata3"/>
   <considersActivity rdf:resource="#datauseactivity37"/>
   <considersActivity rdf:resource="#datacollectionactivity39"/>
-  <considersActivity rdf:resource="#useraccessactivity3"/>
+  <considersActivity rdf:resource="#useraccesscontrol3"/>
   <considersActivity rdf:resource="#datauseactivity38"/>
   <considersActivity rdf:resource="#datacollectionactivity40"/>
   <considersActivity rdf:resource="#datauseactivity39"/>
@@ -2076,13 +2089,13 @@
   <considersActivity rdf:resource="#activity8"/>
   <considersActivity rdf:resource="#activity9"/>
   <considersActivity rdf:resource="#activity10"/>
-  <considersActivity rdf:resource="#useraccessactivity4"/>
+  <considersActivity rdf:resource="#useraccesscontrol4"/>
   <considersData rdf:resource="#genericdata48"/>
   <considersActivity rdf:resource="#dataretentionactivity3"/>
   <considersActivity rdf:resource="#dataretentionactivity4"/>
   <considersActivity rdf:resource="#dataretentionactivity5"/>
   <considersActivity rdf:resource="#dataretentionactivity6"/>
-  <considersActivity rdf:resource="#useraccessactivity5"/>
+  <considersActivity rdf:resource="#useraccesscontrol5"/>
   <considersData rdf:resource="#accountdata13"/>
   <considersData rdf:resource="#genericdata49"/>
   <considersActivity rdf:resource="#dataretentionactivity7"/>
@@ -2110,34 +2123,34 @@
   <considersActivity rdf:resource="#userprivacycontrol16"/>
   <considersData rdf:resource="#nonsensitivedata47"/>
   <considersActivity rdf:resource="#userprivacycontrol17"/>
-  <considersActivity rdf:resource="#useraccessactivity6"/>
+  <considersActivity rdf:resource="#useraccesscontrol6"/>
   <considersData rdf:resource="#accountdata14"/>
   <considersActivity rdf:resource="#userprivacycontrol18"/>
   <considersData rdf:resource="#nonsensitivedata48"/>
   <considersActivity rdf:resource="#datauseactivity87"/>
   <considersActivity rdf:resource="#datacollectionactivity171"/>
-  <considersActivity rdf:resource="#useraccessactivity7"/>
+  <considersActivity rdf:resource="#useraccesscontrol7"/>
   <considersData rdf:resource="#sensitivedata9"/>
-  <considersActivity rdf:resource="#useraccessactivity8"/>
+  <considersActivity rdf:resource="#useraccesscontrol8"/>
   <considersData rdf:resource="#accountdata15"/>
-  <considersActivity rdf:resource="#useraccessactivity9"/>
-  <considersActivity rdf:resource="#useraccessactivity10"/>
+  <considersActivity rdf:resource="#useraccesscontrol9"/>
+  <considersActivity rdf:resource="#useraccesscontrol10"/>
   <considersData rdf:resource="#accountdata16"/>
-  <considersActivity rdf:resource="#useraccessactivity11"/>
+  <considersActivity rdf:resource="#useraccesscontrol11"/>
   <considersData rdf:resource="#accountdata17"/>
-  <considersActivity rdf:resource="#useraccessactivity12"/>
-  <considersActivity rdf:resource="#useraccessactivity13"/>
-  <considersActivity rdf:resource="#useraccessactivity14"/>
-  <considersActivity rdf:resource="#useraccessactivity15"/>
-  <considersActivity rdf:resource="#useraccessactivity16"/>
+  <considersActivity rdf:resource="#useraccesscontrol12"/>
+  <considersActivity rdf:resource="#useraccesscontrol13"/>
+  <considersActivity rdf:resource="#useraccesscontrol14"/>
+  <considersActivity rdf:resource="#useraccesscontrol15"/>
+  <considersActivity rdf:resource="#useraccesscontrol16"/>
   <considersData rdf:resource="#accountdata18"/>
-  <considersActivity rdf:resource="#useraccessactivity17"/>
+  <considersActivity rdf:resource="#useraccesscontrol17"/>
   <considersData rdf:resource="#accountdata19"/>
-  <considersActivity rdf:resource="#useraccessactivity18"/>
+  <considersActivity rdf:resource="#useraccesscontrol18"/>
   <considersData rdf:resource="#accountdata20"/>
-  <considersActivity rdf:resource="#useraccessactivity19"/>
+  <considersActivity rdf:resource="#useraccesscontrol19"/>
   <considersData rdf:resource="#accountdata21"/>
-  <considersActivity rdf:resource="#useraccessactivity20"/>
+  <considersActivity rdf:resource="#useraccesscontrol20"/>
   <considersData rdf:resource="#accountdata22"/>
   <considersData rdf:resource="#nonsensitivedata49"/>
   <considersActivity rdf:resource="#userprivacycontrol19"/>
@@ -2424,10 +2437,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This Privacy Statement answers the following questions What information does The Motley Fool gather about you- How does The Motley Fool use your personal information- Will The Motley Fool disclose any of your personal information- What kind of security measures do we take to protect your information from accidental loss or disclosure- Will The Motley Fool use your information for direct mailings- How can you deactivate your account or correct or revise information that we have about you- How do we respect children s privacy- What else should you know about your privacy- Does the Motley Fool participate in the Safe Harbor program- How will you know whether The Motley Fool s privacy policy has changed-</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity1">
+<UserAccessControl rdf:about="#useraccesscontrol1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence18"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence19">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -2444,10 +2457,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This Privacy Statement answers the following questions What information does The Motley Fool gather about you- How does The Motley Fool use your personal information- Will The Motley Fool disclose any of your personal information- What kind of security measures do we take to protect your information from accidental loss or disclosure- Will The Motley Fool use your information for direct mailings- How can you deactivate your account or correct or revise information that we have about you- How do we respect children s privacy- What else should you know about your privacy- Does the Motley Fool participate in the Safe Harbor program- How will you know whether The Motley Fool s privacy policy has changed-</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity2">
+<UserAccessControl rdf:about="#useraccesscontrol2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence20"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence21">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4702,10 +4715,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you use a Motley Fool application on a third party site or mobile device we may collect data about you including your email address We will let you know what data if any we are collecting at the time</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity3">
+<UserAccessControl rdf:about="#useraccesscontrol3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence200"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence201">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -12090,10 +12103,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Data Retention Upon your request we will remove your personal information from the website but we will retain and use your information as necessary to comply with our legal obligations resolve disputes and enforce our Fool Rules and take other actions otherwise permitted by law</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity4">
+<UserAccessControl rdf:about="#useraccesscontrol4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence781"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence782">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -12249,11 +12262,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Data Retention Upon your request we will remove your personal information from the website but we will retain and use your information as necessary to comply with our legal obligations resolve disputes and enforce our Fool Rules and take other actions otherwise permitted by law</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity5">
+<UserAccessControl rdf:about="#useraccesscontrol5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence796"/>
   <isAppliedTo rdf:resource="#accountdata13"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence797">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -12771,11 +12784,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not want to receive such offers and mailings you can let us know on our opt-out page or you may send snail mail to Privacy Penelope The Motley Fool 2000 Duke St 4th Floor Alexandria VA 22314 We ll remove your name from our lists as soon as we can Another way is to simply to click the unsubscribe link found in our email messages</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity6">
+<UserAccessControl rdf:about="#useraccesscontrol6">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence840"/>
   <isAppliedTo rdf:resource="#accountdata14"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence841">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -12892,11 +12905,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How Can You Deactivate or Reactivate Your Account or Edit the Information We Have About You- If you want to correct delete/remove or change information in your Personal Profile or any other tidbits we have about you please go to http //www fool com/Community/EditAccount/EditAccount asp Either you will be able to make your changes right there or we will give you instructions</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity7">
+<UserAccessControl rdf:about="#useraccesscontrol7">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence850"/>
   <isAppliedTo rdf:resource="#sensitivedata9"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence851">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -12918,11 +12931,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How Can You Deactivate or Reactivate Your Account or Edit the Information We Have About You- If you want to correct delete/remove or change information in your Personal Profile or any other tidbits we have about you please go to http //www fool com/Community/EditAccount/EditAccount asp Either you will be able to make your changes right there or we will give you instructions</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity8">
+<UserAccessControl rdf:about="#useraccesscontrol8">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence852"/>
   <isAppliedTo rdf:resource="#accountdata15"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence853">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -12944,10 +12957,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How Can You Deactivate or Reactivate Your Account or Edit the Information We Have About You- If you want to correct delete/remove or change information in your Personal Profile or any other tidbits we have about you please go to http //www fool com/Community/EditAccount/EditAccount asp Either you will be able to make your changes right there or we will give you instructions</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity9">
+<UserAccessControl rdf:about="#useraccesscontrol9">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence854"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence855">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -12964,11 +12977,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How Can You Deactivate or Reactivate Your Account or Edit the Information We Have About You- If you want to correct delete/remove or change information in your Personal Profile or any other tidbits we have about you please go to http //www fool com/Community/EditAccount/EditAccount asp Either you will be able to make your changes right there or we will give you instructions</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity10">
+<UserAccessControl rdf:about="#useraccesscontrol10">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence856"/>
   <isAppliedTo rdf:resource="#accountdata16"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence857">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -12990,11 +13003,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How Can You Deactivate or Reactivate Your Account or Edit the Information We Have About You- If you want to correct delete/remove or change information in your Personal Profile or any other tidbits we have about you please go to http //www fool com/Community/EditAccount/EditAccount asp Either you will be able to make your changes right there or we will give you instructions</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity11">
+<UserAccessControl rdf:about="#useraccesscontrol11">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence858"/>
   <isAppliedTo rdf:resource="#accountdata17"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence859">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -13016,10 +13029,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How Can You Deactivate or Reactivate Your Account or Edit the Information We Have About You- If you want to correct delete/remove or change information in your Personal Profile or any other tidbits we have about you please go to http //www fool com/Community/EditAccount/EditAccount asp Either you will be able to make your changes right there or we will give you instructions</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity12">
+<UserAccessControl rdf:about="#useraccesscontrol12">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence860"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence861">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -13036,10 +13049,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How Can You Deactivate or Reactivate Your Account or Edit the Information We Have About You- If you want to correct delete/remove or change information in your Personal Profile or any other tidbits we have about you please go to http //www fool com/Community/EditAccount/EditAccount asp Either you will be able to make your changes right there or we will give you instructions</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity13">
+<UserAccessControl rdf:about="#useraccesscontrol13">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence862"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence863">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -13056,10 +13069,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How Can You Deactivate or Reactivate Your Account or Edit the Information We Have About You- If you want to correct delete/remove or change information in your Personal Profile or any other tidbits we have about you please go to http //www fool com/Community/EditAccount/EditAccount asp Either you will be able to make your changes right there or we will give you instructions</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity14">
+<UserAccessControl rdf:about="#useraccesscontrol14">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence864"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence865">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -13076,10 +13089,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How Can You Deactivate or Reactivate Your Account or Edit the Information We Have About You- If you want to correct delete/remove or change information in your Personal Profile or any other tidbits we have about you please go to http //www fool com/Community/EditAccount/EditAccount asp Either you will be able to make your changes right there or we will give you instructions</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity15">
+<UserAccessControl rdf:about="#useraccesscontrol15">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence866"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence867">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -13096,11 +13109,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you want to make changes to your paid Fool newsletter subscriptions or free trials please email us at CS fool com If you want to change your email address for email products do so here</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity16">
+<UserAccessControl rdf:about="#useraccesscontrol16">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence868"/>
   <isAppliedTo rdf:resource="#accountdata18"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence869">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -13122,11 +13135,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you want to make changes to your paid Fool newsletter subscriptions or free trials please email us at CS fool com If you want to change your email address for email products do so here</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity17">
+<UserAccessControl rdf:about="#useraccesscontrol17">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence870"/>
   <isAppliedTo rdf:resource="#accountdata19"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence871">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -13148,11 +13161,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you want to make changes to your paid Fool newsletter subscriptions or free trials please email us at CS fool com If you want to change your email address for email products do so here</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity18">
+<UserAccessControl rdf:about="#useraccesscontrol18">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence872"/>
   <isAppliedTo rdf:resource="#accountdata20"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence873">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -13174,11 +13187,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you want to make changes to your paid Fool newsletter subscriptions or free trials please email us at CS fool com If you want to change your email address for email products do so here</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity19">
+<UserAccessControl rdf:about="#useraccesscontrol19">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence874"/>
   <isAppliedTo rdf:resource="#accountdata21"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence875">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -13200,11 +13213,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you want to make changes to your paid Fool newsletter subscriptions or free trials please email us at CS fool com If you want to change your email address for email products do so here</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity20">
+<UserAccessControl rdf:about="#useraccesscontrol20">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence876"/>
   <isAppliedTo rdf:resource="#accountdata22"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence877">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>

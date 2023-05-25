@@ -226,6 +226,18 @@
   <owl:inverseOf rdf:resource="#privacyControlMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
 
+<owl:ObjectProperty rdf:about="#dataControlMechanismIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasDataControlMechanism"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasDataControlMechanism">
+  <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
+  <rdfs:domain rdf:resource="#UserAccessControl"/>
+  <rdfs:range rdf:resource="#DataControlMechanism"/>
+  <owl:inverseOf rdf:resource="#dataControlMechanismIsRelatedTo"/>
+</owl:ObjectProperty>
+
 <owl:ObjectProperty rdf:about="#notificationMechanismIsRelatedTo">
   <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
   <owl:inverseOf rdf:resource="#hasNotificationMechanism"/>
@@ -233,14 +245,7 @@
 
 <owl:ObjectProperty rdf:about="#hasNotificationMechanism">
   <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#NotificationMechanism"/>
   <owl:inverseOf rdf:resource="#notificationMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
@@ -380,6 +385,7 @@
 
 <owl:ObjectProperty rdf:about="#isInitiatedByAnotherActivity">
   <rdfs:subPropertyOf rdf:resource="#isInitiatedBy"/>
+  <rdfs:domain rdf:resource="#Activity"/>
   <owl:inverseOf rdf:resource="#initiatesAnotherActivity"/>
 </owl:ObjectProperty>
 
@@ -410,14 +416,7 @@
 
 <owl:ObjectProperty rdf:about="#notifiesAgent">
   <rdfs:subPropertyOf rdf:resource="#notifies"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#Agent"/>
   <owl:inverseOf rdf:resource="#agentIsNotifiedBy"/>
 </owl:ObjectProperty>
@@ -506,12 +505,22 @@
   <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
 </owl:DatatypeProperty>
 
+<owl:DatatypeProperty rdf:about="#does">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+</owl:DatatypeProperty>
+
 <owl:Class rdf:about="#PrivacyPolicy">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Activity">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#NotificationActivity">
+  <rdfs:subClassOf rdf:resource="#Activity"/>
 </owl:Class>
 
 <owl:Class rdf:about="#BreachActivity">
@@ -546,7 +555,7 @@
   <rdfs:subClassOf rdf:resource="#ControlActivity"/>
 </owl:Class>
 
-<owl:Class rdf:about="#UserAccessActivity">
+<owl:Class rdf:about="#UserAccessControl">
   <rdfs:subClassOf rdf:resource="#DataControlActivity"/>
 </owl:Class>
 
@@ -806,6 +815,10 @@
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
 
+<owl:Class rdf:about="#SMSRequest">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
 <owl:Class rdf:about="#WebsiteForm">
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
@@ -987,7 +1000,7 @@
   <initiatesActivity rdf:resource="#userprivacycontrol13"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory1"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory2"/>
-  <initiatesActivity rdf:resource="#useraccessactivity1"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol1"/>
   <initiatesActivity rdf:resource="#userprivacycontrol14"/>
   <providesData rdf:resource="#healthdata15"/>
   <initiatesActivity rdf:resource="#userprivacycontrol15"/>
@@ -1039,22 +1052,22 @@
   <initiatesActivity rdf:resource="#userprivacycontrol32"/>
   <providesData rdf:resource="#healthdata39"/>
   <initiatesActivity rdf:resource="#userprivacycontrol33"/>
-  <initiatesActivity rdf:resource="#useraccessactivity2"/>
-  <initiatesActivity rdf:resource="#useraccessactivity3"/>
-  <initiatesActivity rdf:resource="#useraccessactivity4"/>
-  <initiatesActivity rdf:resource="#useraccessactivity5"/>
-  <initiatesActivity rdf:resource="#useraccessactivity6"/>
-  <initiatesActivity rdf:resource="#useraccessactivity7"/>
-  <initiatesActivity rdf:resource="#useraccessactivity8"/>
-  <initiatesActivity rdf:resource="#useraccessactivity9"/>
-  <initiatesActivity rdf:resource="#useraccessactivity10"/>
-  <initiatesActivity rdf:resource="#useraccessactivity11"/>
-  <initiatesActivity rdf:resource="#useraccessactivity12"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol2"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol3"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol4"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol5"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol6"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol7"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol8"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol9"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol10"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol11"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol12"/>
   <providesData rdf:resource="#healthdata40"/>
   <initiatesActivity rdf:resource="#userprivacycontrol34"/>
   <providesData rdf:resource="#healthdata41"/>
   <initiatesActivity rdf:resource="#userprivacycontrol35"/>
-  <initiatesActivity rdf:resource="#useraccessactivity13"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol13"/>
   <initiatesActivity rdf:resource="#userprivacycontrol36"/>
 </User>
 
@@ -1089,8 +1102,8 @@
 <PrivacyPolicy rdf:about="#privacypolicy2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <considersAgent rdf:resource="#thirdparties1"/>
-  <considersAgent rdf:resource="#user1"/>
   <considersAgent rdf:resource="#firstparty1"/>
+  <considersAgent rdf:resource="#user1"/>
   <considersActivity rdf:resource="#activity1"/>
   <considersData rdf:resource="#healthdata1"/>
   <considersActivity rdf:resource="#datauseactivity1"/>
@@ -1122,7 +1135,7 @@
   <considersActivity rdf:resource="#userprivacycontrol12"/>
   <considersData rdf:resource="#healthdata14"/>
   <considersActivity rdf:resource="#userprivacycontrol13"/>
-  <considersActivity rdf:resource="#useraccessactivity1"/>
+  <considersActivity rdf:resource="#useraccesscontrol1"/>
   <considersActivity rdf:resource="#policychangeactivity1"/>
   <considersActivity rdf:resource="#policychangeactivity2"/>
   <considersActivity rdf:resource="#policychangeactivity3"/>
@@ -1189,26 +1202,26 @@
   <considersData rdf:resource="#healthdata39"/>
   <considersActivity rdf:resource="#userprivacycontrol33"/>
   <considersActivity rdf:resource="#activity3"/>
-  <considersActivity rdf:resource="#useraccessactivity2"/>
+  <considersActivity rdf:resource="#useraccesscontrol2"/>
   <considersData rdf:resource="#nonsensitivedata2"/>
-  <considersActivity rdf:resource="#useraccessactivity3"/>
-  <considersActivity rdf:resource="#useraccessactivity4"/>
+  <considersActivity rdf:resource="#useraccesscontrol3"/>
+  <considersActivity rdf:resource="#useraccesscontrol4"/>
   <considersData rdf:resource="#nonsensitivedata3"/>
-  <considersActivity rdf:resource="#useraccessactivity5"/>
-  <considersActivity rdf:resource="#useraccessactivity6"/>
+  <considersActivity rdf:resource="#useraccesscontrol5"/>
+  <considersActivity rdf:resource="#useraccesscontrol6"/>
   <considersData rdf:resource="#nonsensitivedata4"/>
-  <considersActivity rdf:resource="#useraccessactivity7"/>
+  <considersActivity rdf:resource="#useraccesscontrol7"/>
   <considersData rdf:resource="#nonsensitivedata5"/>
-  <considersActivity rdf:resource="#useraccessactivity8"/>
-  <considersActivity rdf:resource="#useraccessactivity9"/>
-  <considersActivity rdf:resource="#useraccessactivity10"/>
-  <considersActivity rdf:resource="#useraccessactivity11"/>
-  <considersActivity rdf:resource="#useraccessactivity12"/>
+  <considersActivity rdf:resource="#useraccesscontrol8"/>
+  <considersActivity rdf:resource="#useraccesscontrol9"/>
+  <considersActivity rdf:resource="#useraccesscontrol10"/>
+  <considersActivity rdf:resource="#useraccesscontrol11"/>
+  <considersActivity rdf:resource="#useraccesscontrol12"/>
   <considersData rdf:resource="#healthdata40"/>
   <considersActivity rdf:resource="#userprivacycontrol34"/>
   <considersData rdf:resource="#healthdata41"/>
   <considersActivity rdf:resource="#userprivacycontrol35"/>
-  <considersActivity rdf:resource="#useraccessactivity13"/>
+  <considersActivity rdf:resource="#useraccesscontrol13"/>
   <considersActivity rdf:resource="#userprivacycontrol36"/>
   <policyId rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">517</policyId>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">kaleidahealth.org</policyWebsite>
@@ -2146,10 +2159,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How To Obtain A Copy Of This Notice You have the right to a paper copy of this notice You may request a paper copy at any time even if you have previously agreed to receive this notice electronically To do so please call the Kaleida Health Privacy Officer at 716-859-8559 You may also obtain a copy of this notice from our website at www Kaleidahealth org or by requesting a copy at your next visit</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity1">
+<UserAccessControl rdf:about="#useraccesscontrol1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence91"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence92">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -6243,11 +6256,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">YOUR RIGHTS TO ACCESS AND CONTROL YOUR HEALTH INFORMATION Kaleida Health wants you to know that you have the following rights to access and control your health information These rights are important because they will help you make sure that the health information we have about you is accurate They may also help you control the way Kaleida Health uses your information and share it with others or the way we communicate with you about your medical matters</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity2">
+<UserAccessControl rdf:about="#useraccesscontrol2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence487"/>
   <isAppliedTo rdf:resource="#nonsensitivedata2"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence488">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -6269,10 +6282,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1 Right To Inspect And Copy Records You have the right to inspect and obtain a copy of any of your health information that may be used to make decisions about you and your treatment for as long as we maintain this information in our records This includes medical and billing records To inspect or obtain a copy of your health information please submit your request in writing to the Kaleida Health hospital or clinic at which you received your care If you request a copy of the information Kaleida Health may charge a fee for the costs of copying mailing or other supplies we use to fulfill your request The standard fee is 0 75 per page and must generally be paid before or at the time we give the copies to you</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity3">
+<UserAccessControl rdf:about="#useraccesscontrol3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence489"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence490">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -6289,11 +6302,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1 Right To Inspect And Copy Records You have the right to inspect and obtain a copy of any of your health information that may be used to make decisions about you and your treatment for as long as we maintain this information in our records This includes medical and billing records To inspect or obtain a copy of your health information please submit your request in writing to the Kaleida Health hospital or clinic at which you received your care If you request a copy of the information Kaleida Health may charge a fee for the costs of copying mailing or other supplies we use to fulfill your request The standard fee is 0 75 per page and must generally be paid before or at the time we give the copies to you</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity4">
+<UserAccessControl rdf:about="#useraccesscontrol4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence491"/>
   <isAppliedTo rdf:resource="#nonsensitivedata3"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence492">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -6315,10 +6328,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1 Right To Inspect And Copy Records You have the right to inspect and obtain a copy of any of your health information that may be used to make decisions about you and your treatment for as long as we maintain this information in our records This includes medical and billing records To inspect or obtain a copy of your health information please submit your request in writing to the Kaleida Health hospital or clinic at which you received your care If you request a copy of the information Kaleida Health may charge a fee for the costs of copying mailing or other supplies we use to fulfill your request The standard fee is 0 75 per page and must generally be paid before or at the time we give the copies to you</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity5">
+<UserAccessControl rdf:about="#useraccesscontrol5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence493"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence494">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -6335,11 +6348,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kaleida Health will respond to your request for inspection of records within 10 days Kaleida Health ordinarily will respond to requests for copies within 30 days if the information is located in our facility and within 60 days if it is located off-site at another facility If we need additional time to respond to a request for copies we will notify you in writing within the time frame above to explain the reason for the delay and when you can expect to have a final answer to your request</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity6">
+<UserAccessControl rdf:about="#useraccesscontrol6">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence495"/>
   <isAppliedTo rdf:resource="#nonsensitivedata4"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence496">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -6361,11 +6374,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2 Right To Amend Records If you believe that the health information we have about you is incorrect or incomplete you may ask Kaleida Health to amend the information You have the right to request an amendment for as long as the information is kept in our records To request an amendment please write to the Kaleida Health Privacy Officer 726 Exchange Street Suite 200 Buffalo NY 14210 Your request should include the reasons why you think Kaleida Health should make the amendment Ordinarily Kaleida Health will respond to your request within 60 days If Kaleida Health needs additional time to respond we will notify you in writing within 60 days to explain the reason for the delay and when you can expect to have a final answer to your request</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity7">
+<UserAccessControl rdf:about="#useraccesscontrol7">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence497"/>
   <isAppliedTo rdf:resource="#nonsensitivedata5"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence498">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -6387,10 +6400,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2 Right To Amend Records If you believe that the health information we have about you is incorrect or incomplete you may ask Kaleida Health to amend the information You have the right to request an amendment for as long as the information is kept in our records To request an amendment please write to the Kaleida Health Privacy Officer 726 Exchange Street Suite 200 Buffalo NY 14210 Your request should include the reasons why you think Kaleida Health should make the amendment Ordinarily Kaleida Health will respond to your request within 60 days If Kaleida Health needs additional time to respond we will notify you in writing within 60 days to explain the reason for the delay and when you can expect to have a final answer to your request</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity8">
+<UserAccessControl rdf:about="#useraccesscontrol8">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence499"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence500">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -6407,10 +6420,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3 Right To An Accounting Of Disclosures You have a right to request an accounting of disclosures which identifies certain other persons or organizations to whom we have disclosed your health information in accordance with applicable law and the protections afforded in this Notice of Privacy Practices An accounting of disclosures does not describe the ways that your health information has been shared within and between the hospital and the facilities listed at the beginning of this notice as long as all other protections described in this Notice of Privacy Practices have been followed such as obtaining the required approvals before sharing your health information with our doctors for research purposes</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity9">
+<UserAccessControl rdf:about="#useraccesscontrol9">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence501"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence502">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -6437,10 +6450,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An accounting of disclosures also does not include information about the following disclosures Disclosures we made to you or your personal representative Disclosures we made pursuant to your written authorization Disclosures we made for treatment payment or business operations Disclosures made from the patient directory Disclosures made to your friends and family involved in your care or payment for your care Disclosures that were incidental to permissible uses and disclosures of your health information for example when information is overheard by another patient passing by Disclosures for purposes of research public health or our business operations of limited portions of your health information that do not directly identify you Disclosures made to federal officials for national security and intelligence activities Disclosures about inmates to correctional institutions or law enforcement officers Disclosures made prior to six years from the date of your request</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity10">
+<UserAccessControl rdf:about="#useraccesscontrol10">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence504"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence505">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -6457,10 +6470,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your request must state a time period within the past six years for the disclosures you want us to include For example you may request a list of the disclosures that we made the previous year between January 1 and June 1 You have a right to receive one accounting within every 12 month period for free However we may charge you for the cost of providing any additional accounting in that same 12 month period Kaleida Health will always notify you of any cost involved so that you may choose to withdraw or modify your request before any costs are incurred</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity11">
+<UserAccessControl rdf:about="#useraccesscontrol11">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence506"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence507">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -6477,10 +6490,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ordinarily Kaleida Health will respond to your request for an accounting within 60 days If we need additional time to prepare the accounting you have requested we will notify you in writing about the reason for the delay and the date when you can expect to receive the accounting In rare cases Kaleida Health may have to delay providing you with the accounting without notifying you because a law enforcement official or government agency has asked us to do so</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity12">
+<UserAccessControl rdf:about="#useraccesscontrol12">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence508"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence509">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -6583,10 +6596,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4 Right To Request Additional Privacy Protections You have the right to request that we further restrict the way Kaleida Health uses and discloses your health information to treat your condition collect payment for that treatment or run our business operations If your restriction applies to disclosure of information to a health plan where you paid in full out of pocket for items or services and the disclosure is not otherwise required by law we are required to honor that request You may also request that we limit how we disclose information about you to family or friends involved in your care For example you could request that we not disclose information about a surgery you had To request restrictions please write to the Kaleida Health Privacy Officer 726 Exchange Street Suite 200 Buffalo NY 14210 Your request should include 1 what information you want to limit 2 whether you want to limit how we use the information how we share it with others or both and 3 to whom you want the limits to apply</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity13">
+<UserAccessControl rdf:about="#useraccesscontrol13">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence518"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence519">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>

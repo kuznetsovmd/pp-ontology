@@ -556,7 +556,7 @@ def user_access(onto, r, pi, u):
     evidence = onto.Evidence()
     evidence.evidenceContent = r["segment_text"]
 
-    access = onto.UserAccessActivity()
+    access = onto.UserAccessControl()
     access.hasEvidence.append(evidence)
     pi.considersActivity.append(access)
     u.initiatesActivity.append(access)

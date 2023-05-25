@@ -226,6 +226,18 @@
   <owl:inverseOf rdf:resource="#privacyControlMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
 
+<owl:ObjectProperty rdf:about="#dataControlMechanismIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasDataControlMechanism"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasDataControlMechanism">
+  <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
+  <rdfs:domain rdf:resource="#UserAccessControl"/>
+  <rdfs:range rdf:resource="#DataControlMechanism"/>
+  <owl:inverseOf rdf:resource="#dataControlMechanismIsRelatedTo"/>
+</owl:ObjectProperty>
+
 <owl:ObjectProperty rdf:about="#notificationMechanismIsRelatedTo">
   <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
   <owl:inverseOf rdf:resource="#hasNotificationMechanism"/>
@@ -233,14 +245,7 @@
 
 <owl:ObjectProperty rdf:about="#hasNotificationMechanism">
   <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#NotificationMechanism"/>
   <owl:inverseOf rdf:resource="#notificationMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
@@ -380,6 +385,7 @@
 
 <owl:ObjectProperty rdf:about="#isInitiatedByAnotherActivity">
   <rdfs:subPropertyOf rdf:resource="#isInitiatedBy"/>
+  <rdfs:domain rdf:resource="#Activity"/>
   <owl:inverseOf rdf:resource="#initiatesAnotherActivity"/>
 </owl:ObjectProperty>
 
@@ -410,14 +416,7 @@
 
 <owl:ObjectProperty rdf:about="#notifiesAgent">
   <rdfs:subPropertyOf rdf:resource="#notifies"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#Agent"/>
   <owl:inverseOf rdf:resource="#agentIsNotifiedBy"/>
 </owl:ObjectProperty>
@@ -506,12 +505,22 @@
   <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
 </owl:DatatypeProperty>
 
+<owl:DatatypeProperty rdf:about="#does">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+</owl:DatatypeProperty>
+
 <owl:Class rdf:about="#PrivacyPolicy">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Activity">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#NotificationActivity">
+  <rdfs:subClassOf rdf:resource="#Activity"/>
 </owl:Class>
 
 <owl:Class rdf:about="#BreachActivity">
@@ -546,7 +555,7 @@
   <rdfs:subClassOf rdf:resource="#ControlActivity"/>
 </owl:Class>
 
-<owl:Class rdf:about="#UserAccessActivity">
+<owl:Class rdf:about="#UserAccessControl">
   <rdfs:subClassOf rdf:resource="#DataControlActivity"/>
 </owl:Class>
 
@@ -806,6 +815,10 @@
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
 
+<owl:Class rdf:about="#SMSRequest">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
 <owl:Class rdf:about="#WebsiteForm">
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
@@ -992,7 +1005,7 @@
   <providesData rdf:resource="#trackingdata4"/>
   <initiatesActivity rdf:resource="#userprivacycontrol2"/>
   <initiatesActivity rdf:resource="#userprivacycontrol3"/>
-  <initiatesActivity rdf:resource="#useraccessactivity1"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol1"/>
   <providesData rdf:resource="#trackingdata5"/>
   <initiatesActivity rdf:resource="#userprivacycontrol4"/>
   <providesData rdf:resource="#trackingdata6"/>
@@ -1020,17 +1033,17 @@
   <providesData rdf:resource="#nonsensitivedata21"/>
   <providesData rdf:resource="#nonsensitivedata22"/>
   <providesData rdf:resource="#nonsensitivedata23"/>
-  <initiatesActivity rdf:resource="#useraccessactivity2"/>
-  <initiatesActivity rdf:resource="#useraccessactivity3"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol2"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol3"/>
   <providesData rdf:resource="#genericdata2"/>
   <providesData rdf:resource="#nonsensitivedata24"/>
-  <initiatesActivity rdf:resource="#useraccessactivity4"/>
-  <initiatesActivity rdf:resource="#useraccessactivity5"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol4"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol5"/>
   <providesData rdf:resource="#nonsensitivedata25"/>
   <providesData rdf:resource="#sensitivedata9"/>
-  <initiatesActivity rdf:resource="#useraccessactivity6"/>
-  <initiatesActivity rdf:resource="#useraccessactivity7"/>
-  <initiatesActivity rdf:resource="#useraccessactivity8"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol6"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol7"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol8"/>
   <providesData rdf:resource="#genericdata3"/>
   <providesData rdf:resource="#nonsensitivedata26"/>
   <providesData rdf:resource="#sensitivedata10"/>
@@ -1126,7 +1139,7 @@
   <hasSpecialCategory rdf:resource="#userspecialcategory5"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory6"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory7"/>
-  <initiatesActivity rdf:resource="#useraccessactivity9"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol9"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory8"/>
 </User>
 
@@ -1310,8 +1323,8 @@
 <PrivacyPolicy rdf:about="#privacypolicy2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <considersAgent rdf:resource="#user1"/>
-  <considersAgent rdf:resource="#firstparty1"/>
   <considersAgent rdf:resource="#thirdparties1"/>
+  <considersAgent rdf:resource="#firstparty1"/>
   <considersActivity rdf:resource="#policychangeactivity1"/>
   <considersData rdf:resource="#nonsensitivedata1"/>
   <considersActivity rdf:resource="#datauseactivity1"/>
@@ -1403,7 +1416,7 @@
   <considersData rdf:resource="#trackingdata4"/>
   <considersActivity rdf:resource="#userprivacycontrol2"/>
   <considersActivity rdf:resource="#userprivacycontrol3"/>
-  <considersActivity rdf:resource="#useraccessactivity1"/>
+  <considersActivity rdf:resource="#useraccesscontrol1"/>
   <considersData rdf:resource="#nonsensitivedata14"/>
   <considersData rdf:resource="#trackingdata5"/>
   <considersActivity rdf:resource="#userprivacycontrol4"/>
@@ -1466,28 +1479,28 @@
   <considersActivity rdf:resource="#datacollectionactivity54"/>
   <considersData rdf:resource="#nonsensitivedata23"/>
   <considersActivity rdf:resource="#datacollectionactivity55"/>
-  <considersActivity rdf:resource="#useraccessactivity2"/>
+  <considersActivity rdf:resource="#useraccesscontrol2"/>
   <considersData rdf:resource="#accountdata2"/>
-  <considersActivity rdf:resource="#useraccessactivity3"/>
+  <considersActivity rdf:resource="#useraccesscontrol3"/>
   <considersData rdf:resource="#accountdata3"/>
   <considersData rdf:resource="#genericdata2"/>
   <considersActivity rdf:resource="#dataretentionactivity1"/>
   <considersData rdf:resource="#nonsensitivedata24"/>
   <considersActivity rdf:resource="#datauseactivity28"/>
   <considersActivity rdf:resource="#datacollectionactivity56"/>
-  <considersActivity rdf:resource="#useraccessactivity4"/>
+  <considersActivity rdf:resource="#useraccesscontrol4"/>
   <considersData rdf:resource="#accountdata4"/>
-  <considersActivity rdf:resource="#useraccessactivity5"/>
+  <considersActivity rdf:resource="#useraccesscontrol5"/>
   <considersData rdf:resource="#accountdata5"/>
   <considersData rdf:resource="#nonsensitivedata25"/>
   <considersActivity rdf:resource="#datacollectionactivity57"/>
   <considersData rdf:resource="#sensitivedata9"/>
   <considersActivity rdf:resource="#datacollectionactivity58"/>
-  <considersActivity rdf:resource="#useraccessactivity6"/>
+  <considersActivity rdf:resource="#useraccesscontrol6"/>
   <considersData rdf:resource="#accountdata6"/>
-  <considersActivity rdf:resource="#useraccessactivity7"/>
+  <considersActivity rdf:resource="#useraccesscontrol7"/>
   <considersData rdf:resource="#accountdata7"/>
-  <considersActivity rdf:resource="#useraccessactivity8"/>
+  <considersActivity rdf:resource="#useraccesscontrol8"/>
   <considersData rdf:resource="#genericdata3"/>
   <considersActivity rdf:resource="#dataretentionactivity2"/>
   <considersData rdf:resource="#nonsensitivedata26"/>
@@ -1646,7 +1659,7 @@
   <considersActivity rdf:resource="#activity2"/>
   <considersActivity rdf:resource="#activity3"/>
   <considersActivity rdf:resource="#activity4"/>
-  <considersActivity rdf:resource="#useraccessactivity9"/>
+  <considersActivity rdf:resource="#useraccesscontrol9"/>
   <considersData rdf:resource="#sensitivedata18"/>
   <considersActivity rdf:resource="#policychangeactivity2"/>
   <considersActivity rdf:resource="#policychangeactivity3"/>
@@ -4716,11 +4729,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">iii If you don t want cookies most Web browsers include an option that allows you to not accept them However if you set your browser to refuse cookies some portions of our Covered Sites may not function efficiently Flash cookies may regenerate HTTP cookies that you have affirmatively deleted Deleting rejecting disabling or turning offHTTP cookies as described above will not remove flash cookies We use flash cookies as an alternative method to HTTP cookies for storing information about your web browsing history across unaffiliated domains unrelated to the delivery of content through the FlashPlayer or the performance of the Flash Player in delivering such content You can manage and delete flash cookies by visiting http //kb2 adobe com/cps/526/52697ee8 html</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity1">
+<UserAccessControl rdf:about="#useraccesscontrol1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence276"/>
   <isAppliedTo rdf:resource="#nonsensitivedata14"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence277">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -7038,11 +7051,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c When you provide us your email address e g to subscribe to our Magazines but are not already a registered user of one of our Covered Sites some of our Covered Sites may assign you a user name and password so that we can enhance your user experience by facilitating easy entry into other features and offers on the Covered Sites and saving your preferences Certain areas on our Covered Sites require registration and in those areas you will be asked to establish your own user name and password or you can elect to use the one we ve assigned Your user name and password User Registration will function across many of our Covered Sites regardless of brand Your User Registration will also be recognized at some of our Affiliate sites and sites which we partner with so that you may easily access features on those sites using your User Registration Shared Registration Sites however the information we provide and your actions on those Shared Registration Sites will be governed by the separate privacy policies of those Shared Registration Sites A list of those Shared Registration Sites is set forth below and may be updated from time to time Current SharedRegistration Sites are The National Magazine Company Limited You may elect to change your UserRegistration at any time by logging in and editing your User Registration each of our Covered Sites will contain log-in information You may also log-in to cancel any User Registration that you may have selected or that we may have assigned If you cancel your User Registration we will retain your email address user name and assigned user ID on file and use them only for thepurpose of assuring you are not automatically registered again against your wishes You may request deletion of your Personally Identifiable Information by us but please note that we may be required to keep this information and not delete it or to keep this information for a certain time in which case we will comply with your deletion request only after we have fulfilled such requirements When we delete any information it will be deleted from the active database but may remain in our archives We may retain your information for fraud or similar purposes</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity2">
+<UserAccessControl rdf:about="#useraccesscontrol2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence487"/>
   <isAppliedTo rdf:resource="#accountdata2"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence488">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -7064,11 +7077,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c When you provide us your email address e g to subscribe to our Magazines but are not already a registered user of one of our Covered Sites some of our Covered Sites may assign you a user name and password so that we can enhance your user experience by facilitating easy entry into other features and offers on the Covered Sites and saving your preferences Certain areas on our Covered Sites require registration and in those areas you will be asked to establish your own user name and password or you can elect to use the one we ve assigned Your user name and password User Registration will function across many of our Covered Sites regardless of brand Your User Registration will also be recognized at some of our Affiliate sites and sites which we partner with so that you may easily access features on those sites using your User Registration Shared Registration Sites however the information we provide and your actions on those Shared Registration Sites will be governed by the separate privacy policies of those Shared Registration Sites A list of those Shared Registration Sites is set forth below and may be updated from time to time Current SharedRegistration Sites are The National Magazine Company Limited You may elect to change your UserRegistration at any time by logging in and editing your User Registration each of our Covered Sites will contain log-in information You may also log-in to cancel any User Registration that you may have selected or that we may have assigned If you cancel your User Registration we will retain your email address user name and assigned user ID on file and use them only for thepurpose of assuring you are not automatically registered again against your wishes You may request deletion of your Personally Identifiable Information by us but please note that we may be required to keep this information and not delete it or to keep this information for a certain time in which case we will comply with your deletion request only after we have fulfilled such requirements When we delete any information it will be deleted from the active database but may remain in our archives We may retain your information for fraud or similar purposes</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity3">
+<UserAccessControl rdf:about="#useraccesscontrol3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence489"/>
   <isAppliedTo rdf:resource="#accountdata3"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence490">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -7173,11 +7186,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c When you provide us your email address e g to subscribe to our Magazines but are not already a registered user of one of our Covered Sites some of our Covered Sites may assign you a user name and password so that we can enhance your user experience by facilitating easy entry into other features and offers on the Covered Sites and saving your preferences Certain areas on our Covered Sites require registration and in those areas you will be asked to establish your own user name and password or you can elect to use the one we ve assigned Your user name and password User Registration will function across many of our Covered Sites regardless of brand Your User Registration will also be recognized at some of our Affiliate sites and sites which we partner with so that you may easily access features on those sites using your User Registration Shared Registration Sites however the information we provide and your actions on those Shared Registration Sites will be governed by the separate privacy policies of those Shared Registration Sites A list of those Shared Registration Sites is set forth below and may be updated from time to time Current SharedRegistration Sites are The National Magazine Company Limited You may elect to change your UserRegistration at any time by logging in and editing your User Registration each of our Covered Sites will contain log-in information You may also log-in to cancel any User Registration that you may have selected or that we may have assigned If you cancel your User Registration we will retain your email address user name and assigned user ID on file and use them only for thepurpose of assuring you are not automatically registered again against your wishes You may request deletion of your Personally Identifiable Information by us but please note that we may be required to keep this information and not delete it or to keep this information for a certain time in which case we will comply with your deletion request only after we have fulfilled such requirements When we delete any information it will be deleted from the active database but may remain in our archives We may retain your information for fraud or similar purposes</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity4">
+<UserAccessControl rdf:about="#useraccesscontrol4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence498"/>
   <isAppliedTo rdf:resource="#accountdata4"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence499">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -7199,11 +7212,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c When you provide us your email address e g to subscribe to our Magazines but are not already a registered user of one of our Covered Sites some of our Covered Sites may assign you a user name and password so that we can enhance your user experience by facilitating easy entry into other features and offers on the Covered Sites and saving your preferences Certain areas on our Covered Sites require registration and in those areas you will be asked to establish your own user name and password or you can elect to use the one we ve assigned Your user name and password User Registration will function across many of our Covered Sites regardless of brand Your User Registration will also be recognized at some of our Affiliate sites and sites which we partner with so that you may easily access features on those sites using your User Registration Shared Registration Sites however the information we provide and your actions on those Shared Registration Sites will be governed by the separate privacy policies of those Shared Registration Sites A list of those Shared Registration Sites is set forth below and may be updated from time to time Current SharedRegistration Sites are The National Magazine Company Limited You may elect to change your UserRegistration at any time by logging in and editing your User Registration each of our Covered Sites will contain log-in information You may also log-in to cancel any User Registration that you may have selected or that we may have assigned If you cancel your User Registration we will retain your email address user name and assigned user ID on file and use them only for thepurpose of assuring you are not automatically registered again against your wishes You may request deletion of your Personally Identifiable Information by us but please note that we may be required to keep this information and not delete it or to keep this information for a certain time in which case we will comply with your deletion request only after we have fulfilled such requirements When we delete any information it will be deleted from the active database but may remain in our archives We may retain your information for fraud or similar purposes</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity5">
+<UserAccessControl rdf:about="#useraccesscontrol5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence500"/>
   <isAppliedTo rdf:resource="#accountdata5"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence501">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -7335,11 +7348,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c When you provide us your email address e g to subscribe to our Magazines but are not already a registered user of one of our Covered Sites some of our Covered Sites may assign you a user name and password so that we can enhance your user experience by facilitating easy entry into other features and offers on the Covered Sites and saving your preferences Certain areas on our Covered Sites require registration and in those areas you will be asked to establish your own user name and password or you can elect to use the one we ve assigned Your user name and password User Registration will function across many of our Covered Sites regardless of brand Your User Registration will also be recognized at some of our Affiliate sites and sites which we partner with so that you may easily access features on those sites using your User Registration Shared Registration Sites however the information we provide and your actions on those Shared Registration Sites will be governed by the separate privacy policies of those Shared Registration Sites A list of those Shared Registration Sites is set forth below and may be updated from time to time Current SharedRegistration Sites are The National Magazine Company Limited You may elect to change your UserRegistration at any time by logging in and editing your User Registration each of our Covered Sites will contain log-in information You may also log-in to cancel any User Registration that you may have selected or that we may have assigned If you cancel your User Registration we will retain your email address user name and assigned user ID on file and use them only for thepurpose of assuring you are not automatically registered again against your wishes You may request deletion of your Personally Identifiable Information by us but please note that we may be required to keep this information and not delete it or to keep this information for a certain time in which case we will comply with your deletion request only after we have fulfilled such requirements When we delete any information it will be deleted from the active database but may remain in our archives We may retain your information for fraud or similar purposes</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity6">
+<UserAccessControl rdf:about="#useraccesscontrol6">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence512"/>
   <isAppliedTo rdf:resource="#accountdata6"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence513">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -7361,11 +7374,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c When you provide us your email address e g to subscribe to our Magazines but are not already a registered user of one of our Covered Sites some of our Covered Sites may assign you a user name and password so that we can enhance your user experience by facilitating easy entry into other features and offers on the Covered Sites and saving your preferences Certain areas on our Covered Sites require registration and in those areas you will be asked to establish your own user name and password or you can elect to use the one we ve assigned Your user name and password User Registration will function across many of our Covered Sites regardless of brand Your User Registration will also be recognized at some of our Affiliate sites and sites which we partner with so that you may easily access features on those sites using your User Registration Shared Registration Sites however the information we provide and your actions on those Shared Registration Sites will be governed by the separate privacy policies of those Shared Registration Sites A list of those Shared Registration Sites is set forth below and may be updated from time to time Current SharedRegistration Sites are The National Magazine Company Limited You may elect to change your UserRegistration at any time by logging in and editing your User Registration each of our Covered Sites will contain log-in information You may also log-in to cancel any User Registration that you may have selected or that we may have assigned If you cancel your User Registration we will retain your email address user name and assigned user ID on file and use them only for thepurpose of assuring you are not automatically registered again against your wishes You may request deletion of your Personally Identifiable Information by us but please note that we may be required to keep this information and not delete it or to keep this information for a certain time in which case we will comply with your deletion request only after we have fulfilled such requirements When we delete any information it will be deleted from the active database but may remain in our archives We may retain your information for fraud or similar purposes</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity7">
+<UserAccessControl rdf:about="#useraccesscontrol7">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence514"/>
   <isAppliedTo rdf:resource="#accountdata7"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence515">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -7387,10 +7400,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c When you provide us your email address e g to subscribe to our Magazines but are not already a registered user of one of our Covered Sites some of our Covered Sites may assign you a user name and password so that we can enhance your user experience by facilitating easy entry into other features and offers on the Covered Sites and saving your preferences Certain areas on our Covered Sites require registration and in those areas you will be asked to establish your own user name and password or you can elect to use the one we ve assigned Your user name and password User Registration will function across many of our Covered Sites regardless of brand Your User Registration will also be recognized at some of our Affiliate sites and sites which we partner with so that you may easily access features on those sites using your User Registration Shared Registration Sites however the information we provide and your actions on those Shared Registration Sites will be governed by the separate privacy policies of those Shared Registration Sites A list of those Shared Registration Sites is set forth below and may be updated from time to time Current SharedRegistration Sites are The National Magazine Company Limited You may elect to change your UserRegistration at any time by logging in and editing your User Registration each of our Covered Sites will contain log-in information You may also log-in to cancel any User Registration that you may have selected or that we may have assigned If you cancel your User Registration we will retain your email address user name and assigned user ID on file and use them only for thepurpose of assuring you are not automatically registered again against your wishes You may request deletion of your Personally Identifiable Information by us but please note that we may be required to keep this information and not delete it or to keep this information for a certain time in which case we will comply with your deletion request only after we have fulfilled such requirements When we delete any information it will be deleted from the active database but may remain in our archives We may retain your information for fraud or similar purposes</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity8">
+<UserAccessControl rdf:about="#useraccesscontrol8">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence516"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence517">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -12396,11 +12409,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8 Kids And Parents The CoveredSites are not intended for use by children especially those under age 13 If your children disclose information about themselves in our public discussion areas they may get unsolicited messages from other parties Accordingly you should tell them not to do so There are also commercially available tools to help you limits your children s exposure to material online Minors Right to Request Deletion of User-Posted Comments If you are a California resident and registered user on Seventeen com and posted comments on that site when you were under 18 years old you may request deletion of those comments by contacting us at webfeedback seventeen com and indicate in the subject line California take-down request You must provide us with the live url where the content resides a copy of the content cut and pasted into your email the date of publication and if applicable the user name associated with it We will act as promptly as possible to remove the posting except in certain circumstances mandated by law Note that our deletion does not ensure complete or comprehensive removal of your content from the internet and comments that may have been posted by others about you or your posting will remain accessible online</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity9">
+<UserAccessControl rdf:about="#useraccesscontrol9">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence968"/>
   <isAppliedTo rdf:resource="#sensitivedata18"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence969">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>

@@ -226,6 +226,18 @@
   <owl:inverseOf rdf:resource="#privacyControlMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
 
+<owl:ObjectProperty rdf:about="#dataControlMechanismIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasDataControlMechanism"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasDataControlMechanism">
+  <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
+  <rdfs:domain rdf:resource="#UserAccessControl"/>
+  <rdfs:range rdf:resource="#DataControlMechanism"/>
+  <owl:inverseOf rdf:resource="#dataControlMechanismIsRelatedTo"/>
+</owl:ObjectProperty>
+
 <owl:ObjectProperty rdf:about="#notificationMechanismIsRelatedTo">
   <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
   <owl:inverseOf rdf:resource="#hasNotificationMechanism"/>
@@ -233,14 +245,7 @@
 
 <owl:ObjectProperty rdf:about="#hasNotificationMechanism">
   <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#NotificationMechanism"/>
   <owl:inverseOf rdf:resource="#notificationMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
@@ -380,6 +385,7 @@
 
 <owl:ObjectProperty rdf:about="#isInitiatedByAnotherActivity">
   <rdfs:subPropertyOf rdf:resource="#isInitiatedBy"/>
+  <rdfs:domain rdf:resource="#Activity"/>
   <owl:inverseOf rdf:resource="#initiatesAnotherActivity"/>
 </owl:ObjectProperty>
 
@@ -410,14 +416,7 @@
 
 <owl:ObjectProperty rdf:about="#notifiesAgent">
   <rdfs:subPropertyOf rdf:resource="#notifies"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#Agent"/>
   <owl:inverseOf rdf:resource="#agentIsNotifiedBy"/>
 </owl:ObjectProperty>
@@ -506,12 +505,22 @@
   <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
 </owl:DatatypeProperty>
 
+<owl:DatatypeProperty rdf:about="#does">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+</owl:DatatypeProperty>
+
 <owl:Class rdf:about="#PrivacyPolicy">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Activity">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#NotificationActivity">
+  <rdfs:subClassOf rdf:resource="#Activity"/>
 </owl:Class>
 
 <owl:Class rdf:about="#BreachActivity">
@@ -546,7 +555,7 @@
   <rdfs:subClassOf rdf:resource="#ControlActivity"/>
 </owl:Class>
 
-<owl:Class rdf:about="#UserAccessActivity">
+<owl:Class rdf:about="#UserAccessControl">
   <rdfs:subClassOf rdf:resource="#DataControlActivity"/>
 </owl:Class>
 
@@ -806,6 +815,10 @@
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
 
+<owl:Class rdf:about="#SMSRequest">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
 <owl:Class rdf:about="#WebsiteForm">
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
@@ -963,7 +976,7 @@
   <providesData rdf:resource="#nonsensitivedata2"/>
   <providesData rdf:resource="#devicedata2"/>
   <providesData rdf:resource="#nonsensitivedata3"/>
-  <initiatesActivity rdf:resource="#useraccessactivity1"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol1"/>
   <providesData rdf:resource="#sensitivedata1"/>
   <providesData rdf:resource="#accountdata1"/>
   <providesData rdf:resource="#accountdata2"/>
@@ -994,10 +1007,10 @@
   <providesData rdf:resource="#trackingdata3"/>
   <initiatesActivity rdf:resource="#userprivacycontrol3"/>
   <providesData rdf:resource="#trackingdata4"/>
-  <initiatesActivity rdf:resource="#useraccessactivity2"/>
-  <initiatesActivity rdf:resource="#useraccessactivity3"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol2"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol3"/>
   <providesData rdf:resource="#accountdata9"/>
-  <initiatesActivity rdf:resource="#useraccessactivity4"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol4"/>
   <providesData rdf:resource="#accountdata10"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory3"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory4"/>
@@ -1013,7 +1026,7 @@
   <hasSpecialCategory rdf:resource="#userspecialcategory14"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory15"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory16"/>
-  <initiatesActivity rdf:resource="#useraccessactivity5"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol5"/>
   <providesData rdf:resource="#devicedata10"/>
   <providesData rdf:resource="#devicedata11"/>
   <providesData rdf:resource="#devicedata12"/>
@@ -1022,10 +1035,10 @@
   <providesData rdf:resource="#devicedata15"/>
   <initiatesActivity rdf:resource="#userprivacycontrol4"/>
   <initiatesActivity rdf:resource="#userprivacycontrol5"/>
-  <initiatesActivity rdf:resource="#useraccessactivity6"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol6"/>
   <providesData rdf:resource="#genericdata5"/>
-  <initiatesActivity rdf:resource="#useraccessactivity7"/>
-  <initiatesActivity rdf:resource="#useraccessactivity8"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol7"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol8"/>
 </User>
 
 <FirstParty rdf:about="#firstparty1">
@@ -1086,8 +1099,8 @@
 
 <PrivacyPolicy rdf:about="#privacypolicy2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <considersAgent rdf:resource="#user1"/>
   <considersAgent rdf:resource="#thirdparties1"/>
+  <considersAgent rdf:resource="#user1"/>
   <considersAgent rdf:resource="#firstparty1"/>
   <considersActivity rdf:resource="#userprivacycontrol1"/>
   <considersData rdf:resource="#devicedata1"/>
@@ -1100,7 +1113,7 @@
   <considersActivity rdf:resource="#dataretentionactivity2"/>
   <considersData rdf:resource="#nonsensitivedata3"/>
   <considersActivity rdf:resource="#datacollectionactivity3"/>
-  <considersActivity rdf:resource="#useraccessactivity1"/>
+  <considersActivity rdf:resource="#useraccesscontrol1"/>
   <considersData rdf:resource="#financialdata1"/>
   <considersData rdf:resource="#sensitivedata1"/>
   <considersActivity rdf:resource="#dataretentionactivity3"/>
@@ -1155,18 +1168,18 @@
   <considersActivity rdf:resource="#userprivacycontrol3"/>
   <considersData rdf:resource="#trackingdata4"/>
   <considersActivity rdf:resource="#datacollectionactivity5"/>
-  <considersActivity rdf:resource="#useraccessactivity2"/>
-  <considersActivity rdf:resource="#useraccessactivity3"/>
+  <considersActivity rdf:resource="#useraccesscontrol2"/>
+  <considersActivity rdf:resource="#useraccesscontrol3"/>
   <considersData rdf:resource="#accountdata8"/>
   <considersData rdf:resource="#accountdata9"/>
   <considersActivity rdf:resource="#dataretentionactivity23"/>
-  <considersActivity rdf:resource="#useraccessactivity4"/>
+  <considersActivity rdf:resource="#useraccesscontrol4"/>
   <considersData rdf:resource="#accountdata10"/>
   <considersActivity rdf:resource="#dataretentionactivity24"/>
   <considersActivity rdf:resource="#activity1"/>
   <considersActivity rdf:resource="#activity2"/>
   <considersActivity rdf:resource="#activity3"/>
-  <considersActivity rdf:resource="#useraccessactivity5"/>
+  <considersActivity rdf:resource="#useraccesscontrol5"/>
   <considersData rdf:resource="#devicedata10"/>
   <considersActivity rdf:resource="#dataretentionactivity25"/>
   <considersData rdf:resource="#devicedata11"/>
@@ -1181,11 +1194,11 @@
   <considersActivity rdf:resource="#userprivacycontrol4"/>
   <considersActivity rdf:resource="#userprivacycontrol5"/>
   <considersActivity rdf:resource="#dataretentionactivity30"/>
-  <considersActivity rdf:resource="#useraccessactivity6"/>
+  <considersActivity rdf:resource="#useraccesscontrol6"/>
   <considersData rdf:resource="#genericdata5"/>
   <considersActivity rdf:resource="#dataretentionactivity31"/>
-  <considersActivity rdf:resource="#useraccessactivity7"/>
-  <considersActivity rdf:resource="#useraccessactivity8"/>
+  <considersActivity rdf:resource="#useraccesscontrol7"/>
+  <considersActivity rdf:resource="#useraccesscontrol8"/>
   <considersActivity rdf:resource="#policychangeactivity1"/>
   <considersActivity rdf:resource="#policychangeactivity2"/>
   <considersActivity rdf:resource="#policychangeactivity3"/>
@@ -1569,11 +1582,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Post Comment and Messaging Data The posts and comments you make on reddit are not private even if made to a subreddit not readily accessible to the public This means that by default they are not deleted from our servers ever and will still be accessible after your account is deleted However we only save the most recent version of comments and posts so your previous edits once overwritten are no longer available</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity1">
+<UserAccessControl rdf:about="#useraccesscontrol1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence37"/>
   <isAppliedTo rdf:resource="#financialdata1"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence38">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4440,10 +4453,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">account deletion You may choose to delete your reddit account at any time The usernames associated with deleted accounts remain unavailable for others to use and your public profile is no longer visible to reddit users However the posts and content you made during your tenure as a reddit user will not be automatically deleted as part of the account removal process though your username will be publicly disassociated with all posts Also we do not have control over third parties that may collect and store data independently from reddit without our permission and without following our rules</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity2">
+<UserAccessControl rdf:about="#useraccesscontrol2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence315"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence316">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4460,11 +4473,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">account deletion You may choose to delete your reddit account at any time The usernames associated with deleted accounts remain unavailable for others to use and your public profile is no longer visible to reddit users However the posts and content you made during your tenure as a reddit user will not be automatically deleted as part of the account removal process though your username will be publicly disassociated with all posts Also we do not have control over third parties that may collect and store data independently from reddit without our permission and without following our rules</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity3">
+<UserAccessControl rdf:about="#useraccesscontrol3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence317"/>
   <isAppliedTo rdf:resource="#accountdata8"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence318">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4518,10 +4531,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">account deletion You may choose to delete your reddit account at any time The usernames associated with deleted accounts remain unavailable for others to use and your public profile is no longer visible to reddit users However the posts and content you made during your tenure as a reddit user will not be automatically deleted as part of the account removal process though your username will be publicly disassociated with all posts Also we do not have control over third parties that may collect and store data independently from reddit without our permission and without following our rules</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity4">
+<UserAccessControl rdf:about="#useraccesscontrol4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence322"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence323">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -4905,10 +4918,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">involuntary pornography reddit is committed to your privacy If you believe that someone has submitted without your permission to reddit a link to a photograph video or digital image of you in a state of nudity or engaged in any act of sexual conduct please contact us contact reddit com and we will expedite its removal as quickly as possible reddit prohibits the posting of such content without consent</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity5">
+<UserAccessControl rdf:about="#useraccesscontrol5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence359"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence360">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -5885,10 +5898,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Deleting an app If you delete a reddit app from your mobile device any app-specific information stored on your device will be deleted from your device If you have backed up your devices apps reddit app information may continue to exist where you have backed it up Any information collected by a reddit app while you are signed in to your reddit account is retained as described in the What Information We Collect section of this policy</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity6">
+<UserAccessControl rdf:about="#useraccesscontrol6">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence454"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence455">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -5937,10 +5950,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Deleting an app If you delete a reddit app from your mobile device any app-specific information stored on your device will be deleted from your device If you have backed up your devices apps reddit app information may continue to exist where you have backed it up Any information collected by a reddit app while you are signed in to your reddit account is retained as described in the What Information We Collect section of this policy</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity7">
+<UserAccessControl rdf:about="#useraccesscontrol7">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence459"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence460">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -5957,10 +5970,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Deleting an app If you delete a reddit app from your mobile device any app-specific information stored on your device will be deleted from your device If you have backed up your devices apps reddit app information may continue to exist where you have backed it up Any information collected by a reddit app while you are signed in to your reddit account is retained as described in the What Information We Collect section of this policy</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity8">
+<UserAccessControl rdf:about="#useraccesscontrol8">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence461"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence462">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>

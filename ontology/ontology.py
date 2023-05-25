@@ -87,6 +87,8 @@ class Ontology:
             # Activities
             class Activity(Thing): pass
 
+            class NotificationActivity(Activity): pass
+
             class BreachActivity(Activity): pass
 
             class ReportBreachActivity(Activity): pass
@@ -443,7 +445,7 @@ class Ontology:
 
             class notificationMechanismIsRelatedTo(mechanismIsRelatedTo): pass
             class hasNotificationMechanism(hasMechanism):
-                domain = [ReportBreachActivity | PolicyChangeActivity]
+                domain = [NotificationActivity]
                 range = [NotificationMechanism]
                 inverse_property = notificationMechanismIsRelatedTo
 
@@ -514,8 +516,8 @@ class Ontology:
 
             class initiatesAnotherActivity(initiates): pass
             class isInitiatedByAnotherActivity(isInitiatedBy):
-                domain = [DataActivity | PolicyChangeActivity]
-                domain = [ConsentActivity]
+                domain = [Activity]
+                domain = [Activity]
                 inverse_property = initiatesAnotherActivity
 
             class activityIsInitiatedBy(isInitiatedBy): pass
@@ -531,7 +533,7 @@ class Ontology:
 
             class agentIsNotifiedBy(isNotifiedBy): pass
             class notifiesAgent(notifies):
-                domain = [ReportBreachActivity | PolicyChangeActivity]
+                domain = [NotificationActivity]
                 range = [Agent]
                 inverse_property = agentIsNotifiedBy
 
@@ -584,3 +586,7 @@ class Ontology:
             class policyWebsite(DataProperty, FunctionalProperty):
                 domain = [PrivacyPolicy]
                 range = [str]
+
+            class does(DataProperty, FunctionalProperty):
+                domain = [Activity]
+                range = [bool]

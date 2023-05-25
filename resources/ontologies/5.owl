@@ -226,6 +226,18 @@
   <owl:inverseOf rdf:resource="#privacyControlMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
 
+<owl:ObjectProperty rdf:about="#dataControlMechanismIsRelatedTo">
+  <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
+  <owl:inverseOf rdf:resource="#hasDataControlMechanism"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasDataControlMechanism">
+  <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
+  <rdfs:domain rdf:resource="#UserAccessControl"/>
+  <rdfs:range rdf:resource="#DataControlMechanism"/>
+  <owl:inverseOf rdf:resource="#dataControlMechanismIsRelatedTo"/>
+</owl:ObjectProperty>
+
 <owl:ObjectProperty rdf:about="#notificationMechanismIsRelatedTo">
   <rdfs:subPropertyOf rdf:resource="#mechanismIsRelatedTo"/>
   <owl:inverseOf rdf:resource="#hasNotificationMechanism"/>
@@ -233,14 +245,7 @@
 
 <owl:ObjectProperty rdf:about="#hasNotificationMechanism">
   <rdfs:subPropertyOf rdf:resource="#hasMechanism"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#NotificationMechanism"/>
   <owl:inverseOf rdf:resource="#notificationMechanismIsRelatedTo"/>
 </owl:ObjectProperty>
@@ -380,6 +385,7 @@
 
 <owl:ObjectProperty rdf:about="#isInitiatedByAnotherActivity">
   <rdfs:subPropertyOf rdf:resource="#isInitiatedBy"/>
+  <rdfs:domain rdf:resource="#Activity"/>
   <owl:inverseOf rdf:resource="#initiatesAnotherActivity"/>
 </owl:ObjectProperty>
 
@@ -410,14 +416,7 @@
 
 <owl:ObjectProperty rdf:about="#notifiesAgent">
   <rdfs:subPropertyOf rdf:resource="#notifies"/>
-  <rdfs:domain>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ReportBreachActivity"/>
-        <rdf:Description rdf:about="#PolicyChangeActivity"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:domain>
+  <rdfs:domain rdf:resource="#NotificationActivity"/>
   <rdfs:range rdf:resource="#Agent"/>
   <owl:inverseOf rdf:resource="#agentIsNotifiedBy"/>
 </owl:ObjectProperty>
@@ -506,12 +505,22 @@
   <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
 </owl:DatatypeProperty>
 
+<owl:DatatypeProperty rdf:about="#does">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+</owl:DatatypeProperty>
+
 <owl:Class rdf:about="#PrivacyPolicy">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Activity">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#NotificationActivity">
+  <rdfs:subClassOf rdf:resource="#Activity"/>
 </owl:Class>
 
 <owl:Class rdf:about="#BreachActivity">
@@ -546,7 +555,7 @@
   <rdfs:subClassOf rdf:resource="#ControlActivity"/>
 </owl:Class>
 
-<owl:Class rdf:about="#UserAccessActivity">
+<owl:Class rdf:about="#UserAccessControl">
   <rdfs:subClassOf rdf:resource="#DataControlActivity"/>
 </owl:Class>
 
@@ -806,6 +815,10 @@
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
 
+<owl:Class rdf:about="#SMSRequest">
+  <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
+</owl:Class>
+
 <owl:Class rdf:about="#WebsiteForm">
   <rdfs:subClassOf rdf:resource="#DataControlMechanism"/>
 </owl:Class>
@@ -960,7 +973,7 @@
   <initiatesActivity rdf:resource="#userprivacycontrol1"/>
   <initiatesActivity rdf:resource="#userprivacycontrol2"/>
   <initiatesActivity rdf:resource="#userprivacycontrol3"/>
-  <initiatesActivity rdf:resource="#useraccessactivity1"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol1"/>
   <hasSpecialCategory rdf:resource="#userspecialcategory1"/>
   <providesData rdf:resource="#genericdata1"/>
   <providesData rdf:resource="#genericdata2"/>
@@ -1023,7 +1036,7 @@
   <initiatesActivity rdf:resource="#userprivacycontrol13"/>
   <providesData rdf:resource="#trackingdata22"/>
   <initiatesActivity rdf:resource="#userprivacycontrol14"/>
-  <initiatesActivity rdf:resource="#useraccessactivity2"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol2"/>
   <providesData rdf:resource="#trackingdata23"/>
   <providesData rdf:resource="#trackingdata24"/>
   <providesData rdf:resource="#trackingdata25"/>
@@ -1057,26 +1070,26 @@
   <initiatesActivity rdf:resource="#userprivacycontrol17"/>
   <initiatesActivity rdf:resource="#userprivacycontrol18"/>
   <providesData rdf:resource="#financialdata1"/>
-  <initiatesActivity rdf:resource="#useraccessactivity3"/>
-  <initiatesActivity rdf:resource="#useraccessactivity4"/>
-  <initiatesActivity rdf:resource="#useraccessactivity5"/>
-  <initiatesActivity rdf:resource="#useraccessactivity6"/>
-  <initiatesActivity rdf:resource="#useraccessactivity7"/>
-  <initiatesActivity rdf:resource="#useraccessactivity8"/>
-  <initiatesActivity rdf:resource="#useraccessactivity9"/>
-  <initiatesActivity rdf:resource="#useraccessactivity10"/>
-  <initiatesActivity rdf:resource="#useraccessactivity11"/>
-  <initiatesActivity rdf:resource="#useraccessactivity12"/>
-  <initiatesActivity rdf:resource="#useraccessactivity13"/>
-  <initiatesActivity rdf:resource="#useraccessactivity14"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol3"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol4"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol5"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol6"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol7"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol8"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol9"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol10"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol11"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol12"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol13"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol14"/>
   <initiatesActivity rdf:resource="#userprivacycontrol19"/>
   <initiatesActivity rdf:resource="#userprivacycontrol20"/>
   <initiatesActivity rdf:resource="#userprivacycontrol21"/>
   <initiatesActivity rdf:resource="#userprivacycontrol22"/>
   <initiatesActivity rdf:resource="#userprivacycontrol23"/>
   <initiatesActivity rdf:resource="#userprivacycontrol24"/>
-  <initiatesActivity rdf:resource="#useraccessactivity15"/>
-  <initiatesActivity rdf:resource="#useraccessactivity16"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol15"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol16"/>
   <initiatesActivity rdf:resource="#userprivacycontrol25"/>
   <providesData rdf:resource="#data13"/>
   <initiatesActivity rdf:resource="#userprivacycontrol26"/>
@@ -1155,15 +1168,15 @@
   <providesData rdf:resource="#sensitivedata4"/>
   <providesData rdf:resource="#sensitivedata5"/>
   <providesData rdf:resource="#financialdata7"/>
-  <initiatesActivity rdf:resource="#useraccessactivity17"/>
-  <initiatesActivity rdf:resource="#useraccessactivity18"/>
-  <initiatesActivity rdf:resource="#useraccessactivity19"/>
-  <initiatesActivity rdf:resource="#useraccessactivity20"/>
-  <initiatesActivity rdf:resource="#useraccessactivity21"/>
-  <initiatesActivity rdf:resource="#useraccessactivity22"/>
-  <initiatesActivity rdf:resource="#useraccessactivity23"/>
-  <initiatesActivity rdf:resource="#useraccessactivity24"/>
-  <initiatesActivity rdf:resource="#useraccessactivity25"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol17"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol18"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol19"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol20"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol21"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol22"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol23"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol24"/>
+  <initiatesActivity rdf:resource="#useraccesscontrol25"/>
 </User>
 
 <FirstParty rdf:about="#firstparty1">
@@ -1510,9 +1523,9 @@
 
 <PrivacyPolicy rdf:about="#privacypolicy2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <considersAgent rdf:resource="#thirdparties1"/>
   <considersAgent rdf:resource="#user1"/>
   <considersAgent rdf:resource="#firstparty1"/>
+  <considersAgent rdf:resource="#thirdparties1"/>
   <considersActivity rdf:resource="#policychangeactivity1"/>
   <considersActivity rdf:resource="#policychangeactivity2"/>
   <considersActivity rdf:resource="#policychangeactivity3"/>
@@ -1526,7 +1539,7 @@
   <considersActivity rdf:resource="#datacollectionactivity3"/>
   <considersActivity rdf:resource="#userprivacycontrol2"/>
   <considersActivity rdf:resource="#userprivacycontrol3"/>
-  <considersActivity rdf:resource="#useraccessactivity1"/>
+  <considersActivity rdf:resource="#useraccesscontrol1"/>
   <considersActivity rdf:resource="#policychangeactivity5"/>
   <considersActivity rdf:resource="#datasharingactivity3"/>
   <considersActivity rdf:resource="#datacollectionactivity4"/>
@@ -1713,7 +1726,7 @@
   <considersActivity rdf:resource="#userprivacycontrol13"/>
   <considersData rdf:resource="#trackingdata22"/>
   <considersActivity rdf:resource="#userprivacycontrol14"/>
-  <considersActivity rdf:resource="#useraccessactivity2"/>
+  <considersActivity rdf:resource="#useraccesscontrol2"/>
   <considersData rdf:resource="#trackingdata23"/>
   <considersActivity rdf:resource="#datauseactivity50"/>
   <considersActivity rdf:resource="#datacollectionactivity65"/>
@@ -1830,19 +1843,19 @@
   <considersActivity rdf:resource="#activity6"/>
   <considersActivity rdf:resource="#datasharingactivity37"/>
   <considersActivity rdf:resource="#datacollectionactivity102"/>
-  <considersActivity rdf:resource="#useraccessactivity3"/>
-  <considersActivity rdf:resource="#useraccessactivity4"/>
-  <considersActivity rdf:resource="#useraccessactivity5"/>
-  <considersActivity rdf:resource="#useraccessactivity6"/>
-  <considersActivity rdf:resource="#useraccessactivity7"/>
-  <considersActivity rdf:resource="#useraccessactivity8"/>
-  <considersActivity rdf:resource="#useraccessactivity9"/>
-  <considersActivity rdf:resource="#useraccessactivity10"/>
+  <considersActivity rdf:resource="#useraccesscontrol3"/>
+  <considersActivity rdf:resource="#useraccesscontrol4"/>
+  <considersActivity rdf:resource="#useraccesscontrol5"/>
+  <considersActivity rdf:resource="#useraccesscontrol6"/>
+  <considersActivity rdf:resource="#useraccesscontrol7"/>
+  <considersActivity rdf:resource="#useraccesscontrol8"/>
+  <considersActivity rdf:resource="#useraccesscontrol9"/>
+  <considersActivity rdf:resource="#useraccesscontrol10"/>
   <considersData rdf:resource="#accountdata6"/>
-  <considersActivity rdf:resource="#useraccessactivity11"/>
-  <considersActivity rdf:resource="#useraccessactivity12"/>
-  <considersActivity rdf:resource="#useraccessactivity13"/>
-  <considersActivity rdf:resource="#useraccessactivity14"/>
+  <considersActivity rdf:resource="#useraccesscontrol11"/>
+  <considersActivity rdf:resource="#useraccesscontrol12"/>
+  <considersActivity rdf:resource="#useraccesscontrol13"/>
+  <considersActivity rdf:resource="#useraccesscontrol14"/>
   <considersActivity rdf:resource="#userprivacycontrol19"/>
   <considersActivity rdf:resource="#userprivacycontrol20"/>
   <considersActivity rdf:resource="#userprivacycontrol21"/>
@@ -1850,8 +1863,8 @@
   <considersActivity rdf:resource="#userprivacycontrol23"/>
   <considersActivity rdf:resource="#userprivacycontrol24"/>
   <considersActivity rdf:resource="#dataretentionactivity8"/>
-  <considersActivity rdf:resource="#useraccessactivity15"/>
-  <considersActivity rdf:resource="#useraccessactivity16"/>
+  <considersActivity rdf:resource="#useraccesscontrol15"/>
+  <considersActivity rdf:resource="#useraccesscontrol16"/>
   <considersActivity rdf:resource="#dataretentionactivity9"/>
   <considersActivity rdf:resource="#userprivacycontrol25"/>
   <considersData rdf:resource="#data13"/>
@@ -2041,22 +2054,22 @@
   <considersActivity rdf:resource="#datacollectionactivity154"/>
   <considersActivity rdf:resource="#datasharingactivity50"/>
   <considersActivity rdf:resource="#datacollectionactivity155"/>
-  <considersActivity rdf:resource="#useraccessactivity17"/>
+  <considersActivity rdf:resource="#useraccesscontrol17"/>
   <considersData rdf:resource="#financialdata8"/>
-  <considersActivity rdf:resource="#useraccessactivity18"/>
+  <considersActivity rdf:resource="#useraccesscontrol18"/>
   <considersData rdf:resource="#accountdata17"/>
-  <considersActivity rdf:resource="#useraccessactivity19"/>
-  <considersActivity rdf:resource="#useraccessactivity20"/>
+  <considersActivity rdf:resource="#useraccesscontrol19"/>
+  <considersActivity rdf:resource="#useraccesscontrol20"/>
   <considersData rdf:resource="#financialdata9"/>
-  <considersActivity rdf:resource="#useraccessactivity21"/>
+  <considersActivity rdf:resource="#useraccesscontrol21"/>
   <considersData rdf:resource="#accountdata18"/>
-  <considersActivity rdf:resource="#useraccessactivity22"/>
+  <considersActivity rdf:resource="#useraccesscontrol22"/>
   <considersData rdf:resource="#nonsensitivedata12"/>
-  <considersActivity rdf:resource="#useraccessactivity23"/>
+  <considersActivity rdf:resource="#useraccesscontrol23"/>
   <considersData rdf:resource="#sensitivedata6"/>
-  <considersActivity rdf:resource="#useraccessactivity24"/>
+  <considersActivity rdf:resource="#useraccesscontrol24"/>
   <considersData rdf:resource="#accountdata19"/>
-  <considersActivity rdf:resource="#useraccessactivity25"/>
+  <considersActivity rdf:resource="#useraccesscontrol25"/>
   <considersData rdf:resource="#sensitivedata7"/>
   <policyId rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">105</policyId>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">amazon.com</policyWebsite>
@@ -2369,10 +2382,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Amazon com knows that you care how information about you is used and shared and we appreciate your trust that we will do so carefully and sensibly This notice describes our privacy policy By visiting Amazon com you are accepting the practices described in this Privacy Notice What Personal Information About Customers Does Amazon com Gather? What About Cookies? Does Amazon com Share the Information It Receives? How Secure Is Information About Me? What About Third-Party Advertisers and Links to Other Websites? Which Information Can I Access? What Choices Do I Have? Are Children Allowed to Use Amazon com? Does Amazon com Participate in the Safe Harbor Program? Conditions of Use Notices and Revisions Examples of Information Collected</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity1">
+<UserAccessControl rdf:about="#useraccesscontrol1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence26"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence27">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -6360,10 +6373,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What About Cookies? Cookies are unique identifiers that we transfer to your device to enable our systems to recognize your device and to provide features such as 1-Click purchasing Recommended for You personalized advertisements on other Web sites e g Amazon Associates with content served by Amazon com and Web sites using Checkout by Amazon payment service and storage of items in your Shopping Cart between visits The Help feature on most browsers will tell you how to prevent your browser from accepting new cookies how to have the browser notify you when you receive a new cookie or how to disable cookies altogether Additionally you can disable or delete similar data used by browser add-ons such as Flash cookies by changing the add-on s settings or visiting the Web site of its manufacturer Because cookies allow you to take advantage of some of Amazon com s essential features we recommend that you leave them turned on For instance if you block or otherwise reject our cookies you will not be able to add items to your Shopping Cart proceed to Checkout or use any Amazon com products and services that require you to Sign in</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity2">
+<UserAccessControl rdf:about="#useraccesscontrol2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence353"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence354">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -8502,10 +8515,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Which Information Can I Access? Amazon com gives you access to a broad range of information about your account and your interactions with Amazon com for the limited purpose of viewing and in certain cases updating that information Click here to see some examples the list of which will change as our Web site evolves</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity3">
+<UserAccessControl rdf:about="#useraccesscontrol3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence518"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence519">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -8522,10 +8535,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Which Information Can I Access? Amazon com gives you access to a broad range of information about your account and your interactions with Amazon com for the limited purpose of viewing and in certain cases updating that information Click here to see some examples the list of which will change as our Web site evolves</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity4">
+<UserAccessControl rdf:about="#useraccesscontrol4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence520"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence521">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -8542,10 +8555,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Which Information Can I Access? Amazon com gives you access to a broad range of information about your account and your interactions with Amazon com for the limited purpose of viewing and in certain cases updating that information Click here to see some examples the list of which will change as our Web site evolves</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity5">
+<UserAccessControl rdf:about="#useraccesscontrol5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence522"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence523">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -8562,10 +8575,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Which Information Can I Access? Amazon com gives you access to a broad range of information about your account and your interactions with Amazon com for the limited purpose of viewing and in certain cases updating that information Click here to see some examples the list of which will change as our Web site evolves</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity6">
+<UserAccessControl rdf:about="#useraccesscontrol6">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence524"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence525">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -8582,10 +8595,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Which Information Can I Access? Amazon com gives you access to a broad range of information about your account and your interactions with Amazon com for the limited purpose of viewing and in certain cases updating that information Click here to see some examples the list of which will change as our Web site evolves</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity7">
+<UserAccessControl rdf:about="#useraccesscontrol7">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence526"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence527">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -8602,10 +8615,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Which Information Can I Access? Amazon com gives you access to a broad range of information about your account and your interactions with Amazon com for the limited purpose of viewing and in certain cases updating that information Click here to see some examples the list of which will change as our Web site evolves</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity8">
+<UserAccessControl rdf:about="#useraccesscontrol8">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence528"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence529">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -8622,10 +8635,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Which Information Can I Access? Amazon com gives you access to a broad range of information about your account and your interactions with Amazon com for the limited purpose of viewing and in certain cases updating that information Click here to see some examples the list of which will change as our Web site evolves</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity9">
+<UserAccessControl rdf:about="#useraccesscontrol9">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence530"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence531">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -8642,11 +8655,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Which Information Can I Access? Amazon com gives you access to a broad range of information about your account and your interactions with Amazon com for the limited purpose of viewing and in certain cases updating that information Click here to see some examples the list of which will change as our Web site evolves</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity10">
+<UserAccessControl rdf:about="#useraccesscontrol10">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence532"/>
   <isAppliedTo rdf:resource="#accountdata6"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence533">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -8668,10 +8681,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Which Information Can I Access? Amazon com gives you access to a broad range of information about your account and your interactions with Amazon com for the limited purpose of viewing and in certain cases updating that information Click here to see some examples the list of which will change as our Web site evolves</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity11">
+<UserAccessControl rdf:about="#useraccesscontrol11">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence534"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence535">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -8688,10 +8701,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Which Information Can I Access? Amazon com gives you access to a broad range of information about your account and your interactions with Amazon com for the limited purpose of viewing and in certain cases updating that information Click here to see some examples the list of which will change as our Web site evolves</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity12">
+<UserAccessControl rdf:about="#useraccesscontrol12">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence536"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence537">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -8708,20 +8721,20 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Which Information Can I Access? Amazon com gives you access to a broad range of information about your account and your interactions with Amazon com for the limited purpose of viewing and in certain cases updating that information Click here to see some examples the list of which will change as our Web site evolves</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity13">
+<UserAccessControl rdf:about="#useraccesscontrol13">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence538"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence539">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Which Information Can I Access? Amazon com gives you access to a broad range of information about your account and your interactions with Amazon com for the limited purpose of viewing and in certain cases updating that information Click here to see some examples the list of which will change as our Web site evolves</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity14">
+<UserAccessControl rdf:about="#useraccesscontrol14">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence539"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence540">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -8951,10 +8964,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can add or update certain information on pages such as those referenced in the Which Information Can I Access? section When you update information we usually keep a copy of the prior version for our records</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity15">
+<UserAccessControl rdf:about="#useraccesscontrol15">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence561"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence562">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -8971,10 +8984,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can add or update certain information on pages such as those referenced in the Which Information Can I Access? section When you update information we usually keep a copy of the prior version for our records</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity16">
+<UserAccessControl rdf:about="#useraccesscontrol16">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence563"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence564">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -13000,11 +13013,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information You Can Access Examples of information you can access easily at Amazon com include up-to-date information regarding recent orders personally identifiable information including name e-mail password communications and personalized advertising preferences address book and 1-Click settings payment settings including credit card information and promotional certificate and gift card balances e-mail notification settings including Product Availability Alerts Delivers and newsletters Recommendations including Recommended for You and Improve Your Recommendations shopping lists and gift registries including Wish Lists and Baby and Wedding Registries Seller accounts and Your Profile including your product Reviews Recommendations Listmania lists Reminders personal profile and Wish List</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity17">
+<UserAccessControl rdf:about="#useraccesscontrol17">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence891"/>
   <isAppliedTo rdf:resource="#financialdata8"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence892">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -13026,11 +13039,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information You Can Access Examples of information you can access easily at Amazon com include up-to-date information regarding recent orders personally identifiable information including name e-mail password communications and personalized advertising preferences address book and 1-Click settings payment settings including credit card information and promotional certificate and gift card balances e-mail notification settings including Product Availability Alerts Delivers and newsletters Recommendations including Recommended for You and Improve Your Recommendations shopping lists and gift registries including Wish Lists and Baby and Wedding Registries Seller accounts and Your Profile including your product Reviews Recommendations Listmania lists Reminders personal profile and Wish List</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity18">
+<UserAccessControl rdf:about="#useraccesscontrol18">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence893"/>
   <isAppliedTo rdf:resource="#accountdata17"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence894">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -13052,10 +13065,10 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information You Can Access Examples of information you can access easily at Amazon com include up-to-date information regarding recent orders personally identifiable information including name e-mail password communications and personalized advertising preferences address book and 1-Click settings payment settings including credit card information and promotional certificate and gift card balances e-mail notification settings including Product Availability Alerts Delivers and newsletters Recommendations including Recommended for You and Improve Your Recommendations shopping lists and gift registries including Wish Lists and Baby and Wedding Registries Seller accounts and Your Profile including your product Reviews Recommendations Listmania lists Reminders personal profile and Wish List</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity19">
+<UserAccessControl rdf:about="#useraccesscontrol19">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence895"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence896">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -13072,11 +13085,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information You Can Access Examples of information you can access easily at Amazon com include up-to-date information regarding recent orders personally identifiable information including name e-mail password communications and personalized advertising preferences address book and 1-Click settings payment settings including credit card information and promotional certificate and gift card balances e-mail notification settings including Product Availability Alerts Delivers and newsletters Recommendations including Recommended for You and Improve Your Recommendations shopping lists and gift registries including Wish Lists and Baby and Wedding Registries Seller accounts and Your Profile including your product Reviews Recommendations Listmania lists Reminders personal profile and Wish List</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity20">
+<UserAccessControl rdf:about="#useraccesscontrol20">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence897"/>
   <isAppliedTo rdf:resource="#financialdata9"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence898">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -13098,11 +13111,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information You Can Access Examples of information you can access easily at Amazon com include up-to-date information regarding recent orders personally identifiable information including name e-mail password communications and personalized advertising preferences address book and 1-Click settings payment settings including credit card information and promotional certificate and gift card balances e-mail notification settings including Product Availability Alerts Delivers and newsletters Recommendations including Recommended for You and Improve Your Recommendations shopping lists and gift registries including Wish Lists and Baby and Wedding Registries Seller accounts and Your Profile including your product Reviews Recommendations Listmania lists Reminders personal profile and Wish List</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity21">
+<UserAccessControl rdf:about="#useraccesscontrol21">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence899"/>
   <isAppliedTo rdf:resource="#accountdata18"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence900">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -13124,11 +13137,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information You Can Access Examples of information you can access easily at Amazon com include up-to-date information regarding recent orders personally identifiable information including name e-mail password communications and personalized advertising preferences address book and 1-Click settings payment settings including credit card information and promotional certificate and gift card balances e-mail notification settings including Product Availability Alerts Delivers and newsletters Recommendations including Recommended for You and Improve Your Recommendations shopping lists and gift registries including Wish Lists and Baby and Wedding Registries Seller accounts and Your Profile including your product Reviews Recommendations Listmania lists Reminders personal profile and Wish List</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity22">
+<UserAccessControl rdf:about="#useraccesscontrol22">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence901"/>
   <isAppliedTo rdf:resource="#nonsensitivedata12"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence902">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -13150,11 +13163,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information You Can Access Examples of information you can access easily at Amazon com include up-to-date information regarding recent orders personally identifiable information including name e-mail password communications and personalized advertising preferences address book and 1-Click settings payment settings including credit card information and promotional certificate and gift card balances e-mail notification settings including Product Availability Alerts Delivers and newsletters Recommendations including Recommended for You and Improve Your Recommendations shopping lists and gift registries including Wish Lists and Baby and Wedding Registries Seller accounts and Your Profile including your product Reviews Recommendations Listmania lists Reminders personal profile and Wish List</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity23">
+<UserAccessControl rdf:about="#useraccesscontrol23">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence903"/>
   <isAppliedTo rdf:resource="#sensitivedata6"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence904">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -13176,11 +13189,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information You Can Access Examples of information you can access easily at Amazon com include up-to-date information regarding recent orders personally identifiable information including name e-mail password communications and personalized advertising preferences address book and 1-Click settings payment settings including credit card information and promotional certificate and gift card balances e-mail notification settings including Product Availability Alerts Delivers and newsletters Recommendations including Recommended for You and Improve Your Recommendations shopping lists and gift registries including Wish Lists and Baby and Wedding Registries Seller accounts and Your Profile including your product Reviews Recommendations Listmania lists Reminders personal profile and Wish List</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity24">
+<UserAccessControl rdf:about="#useraccesscontrol24">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence905"/>
   <isAppliedTo rdf:resource="#accountdata19"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence906">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -13202,11 +13215,11 @@
   <evidenceContent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information You Can Access Examples of information you can access easily at Amazon com include up-to-date information regarding recent orders personally identifiable information including name e-mail password communications and personalized advertising preferences address book and 1-Click settings payment settings including credit card information and promotional certificate and gift card balances e-mail notification settings including Product Availability Alerts Delivers and newsletters Recommendations including Recommended for You and Improve Your Recommendations shopping lists and gift registries including Wish Lists and Baby and Wedding Registries Seller accounts and Your Profile including your product Reviews Recommendations Listmania lists Reminders personal profile and Wish List</evidenceContent>
 </Evidence>
 
-<UserAccessActivity rdf:about="#useraccessactivity25">
+<UserAccessControl rdf:about="#useraccesscontrol25">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <hasEvidence rdf:resource="#evidence907"/>
   <isAppliedTo rdf:resource="#sensitivedata7"/>
-</UserAccessActivity>
+</UserAccessControl>
 
 <Evidence rdf:about="#evidence908">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
