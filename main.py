@@ -65,36 +65,36 @@ def main():
 
 
     # Ontology containing whole dataset
-    Ontology2("blank_v2").save()
+    # Ontology2("blank_v2").save()
 
-    onto = Ontology("summary")
-    policies = read_opp()
+    # onto = Ontology("summary")
+    # policies = read_opp()
     
-    for p in policies:
-        process_opp(onto.raw_onto, p)
-    onto.write(reason=False)
+    # for p in policies:
+    #     process_opp(onto.raw_onto, p)
+    # onto.write(reason=False)
     
-    # Ontologies containing policies by 1
-    for i, p in enumerate(policies, start=1):
-        onto = Ontology(i)
-        process_opp(onto.raw_onto, p)
-        onto.write(reason=False)
+    # # Ontologies containing policies by 1
+    # for i, p in enumerate(policies, start=1):
+    #     onto = Ontology(i)
+    #     process_opp(onto.raw_onto, p)
+    #     onto.write(reason=False)
 
-    onto = Ontology("3plususa")
-    process_3plususa(onto.raw_onto)
-    onto.write(reason=False)
+    # onto = Ontology("3plususa")
+    # process_3plususa(onto.raw_onto)
+    # onto.write(reason=False)
 
-    onto = Ontology("aws")
-    process_aws(onto.raw_onto)
-    onto.write(reason=False)
+    # onto = Ontology("aws")
+    # process_aws(onto.raw_onto)
+    # onto.write(reason=False)
 
-    onto = Ontology("google-cloud")
-    process_google_cloud(onto.raw_onto)
-    onto.write(reason=False)
+    # onto = Ontology("google-cloud")
+    # process_google_cloud(onto.raw_onto)
+    # onto.write(reason=False)
 
-    process_caresense()
-    process_zepp()
-    process_renpho()
+    # process_caresense()
+    # process_zepp()
+    # process_renpho()
 
     process_onto2_test()
 

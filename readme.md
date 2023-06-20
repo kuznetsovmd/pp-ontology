@@ -20,13 +20,17 @@ TODO
     - [x] Renpho
 - [x] Rework classes
 - [x] Activities ordering
-- [ ] SWARL Rules
-- [ ] Integrate Disjoints, Equivalence and Restrictions
-    - [ ] Rework object properties (possible)
-    - [ ] Class Restrictions (possible)
-        - [ ] Disjoints
-        - [ ] Equivalence
-    - [ ] Infer certain object properties (dont know)
+- [x] Integrate Disjoints, Equivalence and Restrictions
+    - [x] Rework object properties (possible)
+    - [x] Class Restrictions (possible)
+        - [x] Disjoints
+        - [x] Equivalence
+- [ ] Navigation
+    - [x] Initial paragraph support
+    - [x] Initial policy versions support
+    - [ ] Finish paragraph support
+    - [ ] Finig policy versions support
+- [ ] Testing
 - [ ] Update for ontology2: 
     - [ ] CareSense (Has nothing about health, maybe that is delegated to HIPAA)
     - [ ] Zepp

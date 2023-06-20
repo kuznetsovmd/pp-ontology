@@ -2624,7 +2624,7 @@ def process_zepp():
 
         'DataCollectionActivity',
 
-        '',
+        'To Provide Bluetooth Phone Services (only supported by certain devices). With the device successfully paired with your mobile phone’s Bluetooth, when you receive an incoming call, the incoming call information will be displayed on the device. You can even use the device to answer or hang up the call. If you have missed calls, the relevant information will also be displayed on the device. You may add or delete your frequent contacts information in Zepp App. The frequent contacts information added by you will be bound to your account and synchronized to the device and our cloud.',
 
         [
             o.connection('activityIsInitiatedBy', first_party),

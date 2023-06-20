@@ -5,8 +5,7 @@ def process_onto2_test():
 
     o = Ontology('test', 'some url')
 
-
-    # u = o.individual('User')
+    # u = o.individual('Agent')
 
     # o.individual(
 
@@ -18,17 +17,31 @@ def process_onto2_test():
     #     ]
     # )
 
-
-    fp = o.individual('Agent')
+    fp = o.individual('FirstParty')
+    u = o.individual('User')
+    tp = o.individual('ThirdParty')
 
     o.individual(
 
-        'Retention',
+        'Notification',
 
         binds=[
             o.property('initiated_by', fp),
-            o.property('has_mechanism', o.individual('DataRetentionMechanism')),
+            o.property('notifies', u),
+            o.property('has_mechanism', o.individual('SecurityMechanism')),
         ]
     )
+
+    # fp = o.individual('Criminal')
+
+    # o.individual(
+
+    #     'Activity',
+
+    #     binds=[
+    #         o.property('initiated_by', fp),
+    #         o.property('has_mechanism', o.individual('PersonalVisit')),
+    #     ]
+    # )
 
     o.save()

@@ -6,7 +6,7 @@ from ontology2.ontology_scheme import construct
 from config import ONTOLOGIES
 
 
-JAVA_EXE="/usr/lib/jvm/java-17-openjdk/bin/java"
+JAVA_EXE = "/usr/lib/jvm/java-17-openjdk/bin/java"
 
 
 class Property:
@@ -79,12 +79,12 @@ class Ontology:
         agent_ = getattr(self.raw_onto, 'Agent')
 
         if isinstance(individual, data_):
-            self.bind(self.policy, binds=[Property('considers_data', individual)])
+            self.bind(self.policy, binds=[Property('considers', individual)])
 
         if isinstance(individual, activity_):
-            self.bind(self.policy, binds=[Property('considers_activity', individual)])
+            self.bind(self.policy, binds=[Property('considers', individual)])
 
         if isinstance(individual, agent_):
-            self.bind(self.policy, binds=[Property('considers_agent', individual)])
+            self.bind(self.policy, binds=[Property('considers', individual)])
 
         return individual

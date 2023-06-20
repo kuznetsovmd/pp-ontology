@@ -26,48 +26,20 @@
   <owl:inverseOf rdf:resource="#considered_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#data_considered_by">
-  <rdfs:subPropertyOf rdf:resource="#considered_by"/>
-  <owl:inverseOf rdf:resource="#considers_data"/>
-</owl:ObjectProperty>
-
-<owl:ObjectProperty rdf:about="#considers_data">
-  <rdfs:subPropertyOf rdf:resource="#considers"/>
-  <rdfs:domain rdf:resource="#PrivacyPolicy"/>
-  <rdfs:range rdf:resource="#Data"/>
-  <owl:inverseOf rdf:resource="#data_considered_by"/>
-</owl:ObjectProperty>
-
-<owl:ObjectProperty rdf:about="#activity_considered_by">
-  <rdfs:subPropertyOf rdf:resource="#considered_by"/>
-  <owl:inverseOf rdf:resource="#considers_activity"/>
-</owl:ObjectProperty>
-
-<owl:ObjectProperty rdf:about="#considers_activity">
-  <rdfs:subPropertyOf rdf:resource="#considers"/>
-  <rdfs:domain rdf:resource="#PrivacyPolicy"/>
-  <rdfs:range rdf:resource="#Activity"/>
-  <owl:inverseOf rdf:resource="#activity_considered_by"/>
-</owl:ObjectProperty>
-
-<owl:ObjectProperty rdf:about="#agent_considered_by">
-  <rdfs:subPropertyOf rdf:resource="#considered_by"/>
-  <owl:inverseOf rdf:resource="#considers_agent"/>
-</owl:ObjectProperty>
-
-<owl:ObjectProperty rdf:about="#considers_agent">
-  <rdfs:subPropertyOf rdf:resource="#considers"/>
-  <rdfs:domain rdf:resource="#PrivacyPolicy"/>
-  <rdfs:range rdf:resource="#Agent"/>
-  <owl:inverseOf rdf:resource="#agent_considered_by"/>
-</owl:ObjectProperty>
-
 <owl:ObjectProperty rdf:about="#applied_by">
   <owl:inverseOf rdf:resource="#applies_to"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#applies_to">
-  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:domain>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#DataActivity"/>
+        <rdf:Description rdf:about="#Breach"/>
+        <rdf:Description rdf:about="#DataControl"/>
+      </owl:unionOf>
+    </owl:Class>
+  </rdfs:domain>
   <rdfs:range rdf:resource="#Data"/>
   <owl:inverseOf rdf:resource="#applied_by"/>
 </owl:ObjectProperty>
@@ -92,42 +64,6 @@
   <owl:inverseOf rdf:resource="#initiated_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#notification_initiated_by">
-  <rdfs:subPropertyOf rdf:resource="#initiated_by"/>
-  <owl:inverseOf rdf:resource="#initiates_notification"/>
-</owl:ObjectProperty>
-
-<owl:ObjectProperty rdf:about="#initiates_notification">
-  <rdfs:subPropertyOf rdf:resource="#initiates"/>
-  <rdfs:domain rdf:resource="#Agent"/>
-  <rdfs:range rdf:resource="#Notification"/>
-  <owl:inverseOf rdf:resource="#notification_initiated_by"/>
-</owl:ObjectProperty>
-
-<owl:ObjectProperty rdf:about="#fp_notification_initiated_by">
-  <rdfs:subPropertyOf rdf:resource="#notification_initiated_by"/>
-  <owl:inverseOf rdf:resource="#initiates_fp_notification"/>
-</owl:ObjectProperty>
-
-<owl:ObjectProperty rdf:about="#initiates_fp_notification">
-  <rdfs:subPropertyOf rdf:resource="#initiates_notification"/>
-  <rdfs:domain rdf:resource="#FirstParty"/>
-  <rdfs:range rdf:resource="#FPNotification"/>
-  <owl:inverseOf rdf:resource="#fp_notification_initiated_by"/>
-</owl:ObjectProperty>
-
-<owl:ObjectProperty rdf:about="#user_notification_initiated_by">
-  <rdfs:subPropertyOf rdf:resource="#notification_initiated_by"/>
-  <owl:inverseOf rdf:resource="#initiates_user_notification"/>
-</owl:ObjectProperty>
-
-<owl:ObjectProperty rdf:about="#initiates_user_notification">
-  <rdfs:subPropertyOf rdf:resource="#initiates_notification"/>
-  <rdfs:domain rdf:resource="#User"/>
-  <rdfs:range rdf:resource="#UserNotification"/>
-  <owl:inverseOf rdf:resource="#user_notification_initiated_by"/>
-</owl:ObjectProperty>
-
 <owl:ObjectProperty rdf:about="#mechanism_of">
   <owl:inverseOf rdf:resource="#has_mechanism"/>
 </owl:ObjectProperty>
@@ -136,87 +72,6 @@
   <rdfs:domain rdf:resource="#Activity"/>
   <rdfs:range rdf:resource="#Mechanism"/>
   <owl:inverseOf rdf:resource="#mechanism_of"/>
-</owl:ObjectProperty>
-
-<owl:ObjectProperty rdf:about="#retention_mechanism_of">
-  <rdfs:subPropertyOf rdf:resource="#mechanism_of"/>
-  <owl:inverseOf rdf:resource="#has_retention_mechanism"/>
-</owl:ObjectProperty>
-
-<owl:ObjectProperty rdf:about="#has_retention_mechanism">
-  <rdfs:subPropertyOf rdf:resource="#has_mechanism"/>
-  <rdfs:domain rdf:resource="#Retention"/>
-  <rdfs:range rdf:resource="#DataRetentionMechanism"/>
-  <owl:inverseOf rdf:resource="#retention_mechanism_of"/>
-</owl:ObjectProperty>
-
-<owl:ObjectProperty rdf:about="#communication_mechanism_of">
-  <rdfs:subPropertyOf rdf:resource="#mechanism_of"/>
-  <owl:inverseOf rdf:resource="#has_communication_mechanism"/>
-</owl:ObjectProperty>
-
-<owl:ObjectProperty rdf:about="#has_communication_mechanism">
-  <rdfs:subPropertyOf rdf:resource="#has_mechanism"/>
-  <rdfs:domain rdf:resource="#Notification"/>
-  <rdfs:range rdf:resource="#CommunicationMechanism"/>
-  <owl:inverseOf rdf:resource="#communication_mechanism_of"/>
-</owl:ObjectProperty>
-
-<owl:ObjectProperty rdf:about="#fp_notification_mechanism_of">
-  <rdfs:subPropertyOf rdf:resource="#communication_mechanism_of"/>
-  <owl:inverseOf rdf:resource="#has_fp_notification_mechanism"/>
-</owl:ObjectProperty>
-
-<owl:ObjectProperty rdf:about="#has_fp_notification_mechanism">
-  <rdfs:subPropertyOf rdf:resource="#has_communication_mechanism"/>
-  <rdfs:domain rdf:resource="#FPNotification"/>
-  <rdfs:range>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#FPSpecific"/>
-        <rdf:Description rdf:about="#Mutual"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:range>
-  <owl:inverseOf rdf:resource="#fp_notification_mechanism_of"/>
-</owl:ObjectProperty>
-
-<owl:ObjectProperty rdf:about="#user_notification_mechanism_of">
-  <rdfs:subPropertyOf rdf:resource="#communication_mechanism_of"/>
-  <owl:inverseOf rdf:resource="#has_user_notification_mechanism"/>
-</owl:ObjectProperty>
-
-<owl:ObjectProperty rdf:about="#has_user_notification_mechanism">
-  <rdfs:subPropertyOf rdf:resource="#has_communication_mechanism"/>
-  <rdfs:domain rdf:resource="#UserNotification"/>
-  <rdfs:range>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecific"/>
-        <rdf:Description rdf:about="#Mutual"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:range>
-  <owl:inverseOf rdf:resource="#user_notification_mechanism_of"/>
-</owl:ObjectProperty>
-
-<owl:ObjectProperty rdf:about="#data_control_mechanism_of">
-  <rdfs:subPropertyOf rdf:resource="#mechanism_of"/>
-  <owl:inverseOf rdf:resource="#has_data_control_mechanism"/>
-</owl:ObjectProperty>
-
-<owl:ObjectProperty rdf:about="#has_data_control_mechanism">
-  <rdfs:subPropertyOf rdf:resource="#has_mechanism"/>
-  <rdfs:domain rdf:resource="#DataControl"/>
-  <rdfs:range>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#Mutual"/>
-        <rdf:Description rdf:about="#Manual"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:range>
-  <owl:inverseOf rdf:resource="#data_control_mechanism_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#is_mode_for">
@@ -229,14 +84,15 @@
   <owl:inverseOf rdf:resource="#is_mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_last_of">
+<owl:ObjectProperty rdf:about="#is_period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
+  <rdfs:domain rdf:resource="#BreachInvestigation"/>
   <rdfs:domain rdf:resource="#Activity"/>
   <rdfs:range rdf:resource="#TimePeriod"/>
-  <owl:inverseOf rdf:resource="#is_last_of"/>
+  <owl:inverseOf rdf:resource="#is_period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -259,6 +115,16 @@
   <owl:inverseOf rdf:resource="#is_consequence_of"/>
 </owl:ObjectProperty>
 
+<owl:ObjectProperty rdf:about="#employes">
+  <rdfs:domain rdf:resource="#BreachInvestigation"/>
+  <rdfs:range rdf:resource="#DataProtectionOfficer"/>
+  <owl:inverseOf rdf:resource="#is_employed"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#is_employed">
+  <owl:inverseOf rdf:resource="#employes"/>
+</owl:ObjectProperty>
+
 <owl:ObjectProperty rdf:about="#is_purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
@@ -277,6 +143,63 @@
   <rdfs:domain rdf:resource="#DataActivity"/>
   <rdfs:range rdf:resource="#Basis"/>
   <owl:inverseOf rdf:resource="#is_basis_for"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#is_scope_for">
+  <owl:inverseOf rdf:resource="#has_scope"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#has_scope">
+  <rdfs:domain rdf:resource="#PolicyChange"/>
+  <rdfs:range rdf:resource="#PolicyChangeScope"/>
+  <owl:inverseOf rdf:resource="#is_scope_for"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#is_special_category_for">
+  <owl:inverseOf rdf:resource="#has_special_category"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#has_special_category">
+  <rdfs:domain rdf:resource="#User"/>
+  <rdfs:range rdf:resource="#UserSpecialCategory"/>
+  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#collects_from">
+  <rdfs:domain rdf:resource="#TPCollection"/>
+  <rdfs:range>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#User"/>
+        <rdf:Description rdf:about="#ThirdParty"/>
+      </owl:unionOf>
+    </owl:Class>
+  </rdfs:range>
+  <owl:inverseOf rdf:resource="#is_collected_by"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#is_collected_by">
+  <owl:inverseOf rdf:resource="#collects_from"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#shares_with">
+  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:range rdf:resource="#ThirdParty"/>
+  <owl:inverseOf rdf:resource="#is_shared_by"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#is_shared_by">
+  <owl:inverseOf rdf:resource="#shares_with"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#notifies">
+  <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:range rdf:resource="#Agent"/>
+  <owl:inverseOf rdf:resource="#notified_by"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#notified_by">
+  <owl:inverseOf rdf:resource="#notifies"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#following_activity">
@@ -310,6 +233,16 @@
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
   <rdfs:domain rdf:resource="#Activity"/>
   <rdfs:range rdf:resource="#Activity"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#has_older_version">
+  <rdfs:domain rdf:resource="#PrivacyPolicy"/>
+  <rdfs:range rdf:resource="#PrivacyPolicy"/>
+  <owl:inverseOf rdf:resource="#has_newer_version"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#has_newer_version">
+  <owl:inverseOf rdf:resource="#has_older_version"/>
 </owl:ObjectProperty>
 
 <owl:DatatypeProperty rdf:about="#uuid">
@@ -367,6 +300,35 @@
 
 <owl:Class rdf:about="#DataActivity">
   <rdfs:subClassOf rdf:resource="#Activity"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Activity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#collects_from"/>
+          <owl:allValuesFrom>
+            <owl:Class>
+              <owl:unionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="#ThirdParty"/>
+                <rdf:Description rdf:about="#FirstParty"/>
+              </owl:unionOf>
+            </owl:Class>
+          </owl:allValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Activity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#applies_to"/>
+          <owl:allValuesFrom rdf:resource="#Data"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#Use">
@@ -375,23 +337,162 @@
 
 <owl:Class rdf:about="#Protection">
   <rdfs:subClassOf rdf:resource="#DataActivity"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#DataActivity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#has_mechanism"/>
+          <owl:allValuesFrom rdf:resource="#SecurityMechanism"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#FPCollection">
   <rdfs:subClassOf rdf:resource="#DataActivity"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#DataActivity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#collects_from"/>
+          <owl:allValuesFrom rdf:resource="#User"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#DataActivity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#has_mode"/>
+          <owl:allValuesFrom rdf:resource="#DataTransmissionMode"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#DataActivity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#has_mechanism"/>
+          <owl:allValuesFrom>
+            <owl:Class>
+              <owl:unionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="#Mutual"/>
+                <rdf:Description rdf:about="#UserSpecific"/>
+              </owl:unionOf>
+            </owl:Class>
+          </owl:allValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#TPCollection">
   <rdfs:subClassOf rdf:resource="#DataActivity"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#DataActivity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#collects_from"/>
+          <owl:allValuesFrom rdf:resource="#ThirdParty"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#DataActivity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#has_mechanism"/>
+          <owl:allValuesFrom rdf:resource="#TPSaCMechanism"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#DataActivity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#has_mode"/>
+          <owl:allValuesFrom rdf:resource="#DataTransmissionMode"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#TPSharing">
   <rdfs:subClassOf rdf:resource="#DataActivity"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#DataActivity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#shares_with"/>
+          <owl:allValuesFrom rdf:resource="#ThirdParty"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#DataActivity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#has_mechanism"/>
+          <owl:allValuesFrom rdf:resource="#TPSaCMechanism"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#DataActivity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#has_mode"/>
+          <owl:allValuesFrom rdf:resource="#DataTransmissionMode"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#Retention">
   <rdfs:subClassOf rdf:resource="#DataActivity"/>
-  <owl:equivalentClass>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#DataActivity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#has_mechanism"/>
+          <owl:allValuesFrom rdf:resource="#DataRetentionMechanism"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#DataActivity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#lasts_for"/>
+          <owl:allValuesFrom rdf:resource="#NotificationTime"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#DataActivity"/>
@@ -399,22 +500,88 @@
           <owl:onProperty rdf:resource="#initiated_by"/>
           <owl:allValuesFrom rdf:resource="#FirstParty"/>
         </owl:Restriction>
-        <owl:Restriction>
-          <owl:onProperty rdf:resource="#has_mechanism"/>
-          <owl:allValuesFrom rdf:resource="#DataRetentionMechanism"/>
-        </owl:Restriction>
       </owl:intersectionOf>
     </owl:Class>
-  </owl:equivalentClass>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#Notification">
   <rdfs:subClassOf rdf:resource="#Activity"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Activity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#initiated_by"/>
+          <owl:allValuesFrom>
+            <owl:Class>
+              <owl:unionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="#User"/>
+                <rdf:Description rdf:about="#FirstParty"/>
+              </owl:unionOf>
+            </owl:Class>
+          </owl:allValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Activity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#lasts_for"/>
+          <owl:allValuesFrom rdf:resource="#NotificationTime"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Activity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#has_mechanism"/>
+          <owl:allValuesFrom rdf:resource="#CommunicationMechanism"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#FPNotification">
   <rdfs:subClassOf rdf:resource="#Notification"/>
-  <owl:equivalentClass>
+  <owl:disjointWith rdf:resource="#UserNotification"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Notification"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#notifies"/>
+          <owl:allValuesFrom rdf:resource="#User"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Notification"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#has_mechanism"/>
+          <owl:allValuesFrom>
+            <owl:Class>
+              <owl:unionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="#FPSpecific"/>
+                <rdf:Description rdf:about="#Mutual"/>
+              </owl:unionOf>
+            </owl:Class>
+          </owl:allValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#Notification"/>
@@ -422,26 +589,14 @@
           <owl:onProperty rdf:resource="#initiated_by"/>
           <owl:allValuesFrom rdf:resource="#FirstParty"/>
         </owl:Restriction>
-        <owl:Class>
-          <owl:unionOf rdf:parseType="Collection">
-            <owl:Restriction>
-              <owl:onProperty rdf:resource="#has_mechanism"/>
-              <owl:allValuesFrom rdf:resource="#FPSpecific"/>
-            </owl:Restriction>
-            <owl:Restriction>
-              <owl:onProperty rdf:resource="#has_mechanism"/>
-              <owl:allValuesFrom rdf:resource="#Mutual"/>
-            </owl:Restriction>
-          </owl:unionOf>
-        </owl:Class>
       </owl:intersectionOf>
     </owl:Class>
-  </owl:equivalentClass>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#UserNotification">
   <rdfs:subClassOf rdf:resource="#Notification"/>
-  <owl:equivalentClass>
+  <rdfs:subClassOf>
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#Notification"/>
@@ -451,46 +606,211 @@
         </owl:Restriction>
       </owl:intersectionOf>
     </owl:Class>
-  </owl:equivalentClass>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Notification"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#notifies"/>
+          <owl:allValuesFrom rdf:resource="#FirstParty"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Notification"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#has_mechanism"/>
+          <owl:allValuesFrom>
+            <owl:Class>
+              <owl:unionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="#UserSpecific"/>
+                <rdf:Description rdf:about="#Mutual"/>
+              </owl:unionOf>
+            </owl:Class>
+          </owl:allValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#Breach">
   <rdfs:subClassOf rdf:resource="#Activity"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Activity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#initiated_by"/>
+          <owl:allValuesFrom rdf:resource="#Criminal"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Activity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#applies_to"/>
+          <owl:allValuesFrom rdf:resource="#Data"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#ControlActivity">
   <rdfs:subClassOf rdf:resource="#Activity"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Activity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#initiated_by"/>
+          <owl:allValuesFrom>
+            <owl:Class>
+              <owl:unionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="#FirstParty"/>
+                <rdf:Description rdf:about="#User"/>
+              </owl:unionOf>
+            </owl:Class>
+          </owl:allValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#PolicyChange">
   <rdfs:subClassOf rdf:resource="#ControlActivity"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#ControlActivity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#has_scope"/>
+          <owl:allValuesFrom rdf:resource="#PolicyChangeScope"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#ControlActivity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#initiated_by"/>
+          <owl:allValuesFrom rdf:resource="#FirstParty"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#ControlActivity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#lasts_for"/>
+          <owl:allValuesFrom rdf:resource="#PolicyAcceptanceTime"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#DataControl">
   <rdfs:subClassOf rdf:resource="#ControlActivity"/>
-  <owl:equivalentClass>
+  <owl:disjointWith rdf:resource="#PolicyChange"/>
+  <rdfs:subClassOf>
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#Activity"/>
+        <rdf:Description rdf:about="#ControlActivity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#has_mechanism"/>
+          <owl:allValuesFrom>
+            <owl:Class>
+              <owl:unionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="#UserSpecific"/>
+                <rdf:Description rdf:about="#Mutual"/>
+              </owl:unionOf>
+            </owl:Class>
+          </owl:allValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#ControlActivity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#applies_to"/>
+          <owl:allValuesFrom rdf:resource="#Data"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#ControlActivity"/>
         <owl:Restriction>
           <owl:onProperty rdf:resource="#initiated_by"/>
           <owl:allValuesFrom rdf:resource="#User"/>
         </owl:Restriction>
       </owl:intersectionOf>
     </owl:Class>
-  </owl:equivalentClass>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#ProvidedDataControl">
   <rdfs:subClassOf rdf:resource="#DataControl"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#DataControl"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#initiated_by"/>
+          <owl:allValuesFrom rdf:resource="#User"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#PrivacyControl">
   <rdfs:subClassOf rdf:resource="#DataControl"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#DataControl"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#initiated_by"/>
+          <owl:allValuesFrom rdf:resource="#User"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#OptControl">
   <rdfs:subClassOf rdf:resource="#DataControl"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#DataControl"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#initiated_by"/>
+          <owl:allValuesFrom rdf:resource="#User"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#Agent">
@@ -499,18 +819,125 @@
 
 <owl:Class rdf:about="#User">
   <rdfs:subClassOf rdf:resource="#Agent"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Agent"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#initiates"/>
+          <owl:allValuesFrom>
+            <owl:Class>
+              <owl:unionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="#UserNotification"/>
+                <rdf:Description rdf:about="#DataControl"/>
+              </owl:unionOf>
+            </owl:Class>
+          </owl:allValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Agent"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#provides"/>
+          <owl:allValuesFrom rdf:resource="#Data"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Agent"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:allValuesFrom rdf:resource="#FPCollection"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#FirstParty">
   <rdfs:subClassOf rdf:resource="#Agent"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Agent"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#initiates"/>
+          <owl:allValuesFrom>
+            <owl:Class>
+              <owl:unionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#PolicyChange"/>
+                <rdf:Description rdf:about="#DataActivity"/>
+              </owl:unionOf>
+            </owl:Class>
+          </owl:allValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#ThirdParty">
   <rdfs:subClassOf rdf:resource="#Agent"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Agent"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:allValuesFrom rdf:resource="#TPSharing"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Agent"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:allValuesFrom rdf:resource="#TPCollection"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#Criminal">
   <rdfs:subClassOf rdf:resource="#Agent"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Agent"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#initiates"/>
+          <owl:allValuesFrom rdf:resource="#Breach"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:about="#DataProtectionOfficer">
+  <rdfs:subClassOf rdf:resource="#Agent"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Agent"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#is_employed"/>
+          <owl:allValuesFrom rdf:resource="#BreachInvestigation"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#Data">
@@ -519,18 +946,19 @@
 
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
+  <owl:disjointWith rdf:resource="#NonPersonalData"/>
 </owl:Class>
 
 <owl:Class rdf:about="#NonPersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
-<owl:Class rdf:about="#ServiceData">
+<owl:Class rdf:about="#NonSensitiveData">
   <rdfs:subClassOf rdf:resource="#PersonalData"/>
 </owl:Class>
 
-<owl:Class rdf:about="#NonSensitiveData">
-  <rdfs:subClassOf rdf:resource="#PersonalData"/>
+<owl:Class rdf:about="#ServiceData">
+  <rdfs:subClassOf rdf:resource="#NonSensitiveData"/>
 </owl:Class>
 
 <owl:Class rdf:about="#FinancialData">
@@ -555,6 +983,7 @@
 
 <owl:Class rdf:about="#SensitiveData">
   <rdfs:subClassOf rdf:resource="#PersonalData"/>
+  <owl:disjointWith rdf:resource="#NonSensitiveData"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ReligionData">
@@ -587,7 +1016,7 @@
 
 <owl:Class rdf:about="#DataRetentionMechanism">
   <rdfs:subClassOf rdf:resource="#Mechanism"/>
-  <owl:equivalentClass>
+  <rdfs:subClassOf>
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#Mechanism"/>
@@ -597,11 +1026,12 @@
         </owl:Restriction>
       </owl:intersectionOf>
     </owl:Class>
-  </owl:equivalentClass>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#OwnServers">
   <rdfs:subClassOf rdf:resource="#DataRetentionMechanism"/>
+  <owl:disjointWith rdf:resource="#EmployedServers"/>
 </owl:Class>
 
 <owl:Class rdf:about="#EmployedServers">
@@ -614,6 +1044,7 @@
 
 <owl:Class rdf:about="#Contract">
   <rdfs:subClassOf rdf:resource="#TPSaCMechanism"/>
+  <owl:disjointWith rdf:resource="#ForFree"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ForFree">
@@ -622,10 +1053,22 @@
 
 <owl:Class rdf:about="#SecurityMechanism">
   <rdfs:subClassOf rdf:resource="#Mechanism"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Mechanism"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#mechanism_of"/>
+          <owl:allValuesFrom rdf:resource="#Protection"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#TechnicalMeasure">
   <rdfs:subClassOf rdf:resource="#SecurityMechanism"/>
+  <owl:disjointWith rdf:resource="#OrganizationalMeasure"/>
 </owl:Class>
 
 <owl:Class rdf:about="#PseudoAnonymization">
@@ -642,6 +1085,7 @@
 
 <owl:Class rdf:about="#SecureTunnel">
   <rdfs:subClassOf rdf:resource="#Encryption"/>
+  <owl:disjointWith rdf:resource="#SecureStorage"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Firewall">
@@ -660,7 +1104,7 @@
   <rdfs:subClassOf rdf:resource="#OrganizationalMeasure"/>
 </owl:Class>
 
-<owl:Class rdf:about="#SucurityTraining">
+<owl:Class rdf:about="#SecurityTraining">
   <rdfs:subClassOf rdf:resource="#OrganizationalMeasure"/>
 </owl:Class>
 
@@ -670,33 +1114,65 @@
 
 <owl:Class rdf:about="#CommunicationMechanism">
   <rdfs:subClassOf rdf:resource="#Mechanism"/>
-  <owl:equivalentClass>
+  <rdfs:subClassOf>
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#Mechanism"/>
-        <owl:Class>
-          <owl:unionOf rdf:parseType="Collection">
-            <owl:Restriction>
-              <owl:onProperty rdf:resource="#mechanism_of"/>
-              <owl:allValuesFrom rdf:resource="#Notification"/>
-            </owl:Restriction>
-            <owl:Restriction>
-              <owl:onProperty rdf:resource="#mechanism_of"/>
-              <owl:allValuesFrom rdf:resource="#FPCollection"/>
-            </owl:Restriction>
-            <owl:Restriction>
-              <owl:onProperty rdf:resource="#mechanism_of"/>
-              <owl:allValuesFrom rdf:resource="#DataControl"/>
-            </owl:Restriction>
-          </owl:unionOf>
-        </owl:Class>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#initiated_by"/>
+          <owl:allValuesFrom>
+            <owl:Class>
+              <owl:unionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="#FirstParty"/>
+                <rdf:Description rdf:about="#User"/>
+              </owl:unionOf>
+            </owl:Class>
+          </owl:allValuesFrom>
+        </owl:Restriction>
       </owl:intersectionOf>
     </owl:Class>
-  </owl:equivalentClass>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Mechanism"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#mechanism_of"/>
+          <owl:allValuesFrom>
+            <owl:Class>
+              <owl:unionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="#Notification"/>
+                <rdf:Description rdf:about="#FPCollection"/>
+                <rdf:Description rdf:about="#DataControl"/>
+              </owl:unionOf>
+            </owl:Class>
+          </owl:allValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#UserSpecific">
   <rdfs:subClassOf rdf:resource="#CommunicationMechanism"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#CommunicationMechanism"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#mechanism_of"/>
+          <owl:allValuesFrom>
+            <owl:Class>
+              <owl:unionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="#UserNotification"/>
+                <rdf:Description rdf:about="#DataControl"/>
+              </owl:unionOf>
+            </owl:Class>
+          </owl:allValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#Automatic">
@@ -705,6 +1181,7 @@
 
 <owl:Class rdf:about="#ThroughServiceApp">
   <rdfs:subClassOf rdf:resource="#Automatic"/>
+  <owl:disjointWith rdf:resource="#ThroughWebsite"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ThroughWebsite">
@@ -713,6 +1190,7 @@
 
 <owl:Class rdf:about="#Manual">
   <rdfs:subClassOf rdf:resource="#UserSpecific"/>
+  <owl:disjointWith rdf:resource="#Automatic"/>
 </owl:Class>
 
 <owl:Class rdf:about="#WebsiteForm">
@@ -753,6 +1231,17 @@
 
 <owl:Class rdf:about="#FPSpecific">
   <rdfs:subClassOf rdf:resource="#CommunicationMechanism"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#CommunicationMechanism"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#mechanism_of"/>
+          <owl:allValuesFrom rdf:resource="#FPNotification"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#OnWebsitePage">
@@ -773,6 +1262,25 @@
 
 <owl:Class rdf:about="#DataTransmissionMode">
   <rdfs:subClassOf rdf:resource="#Mode"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Mode"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#is_mode_for"/>
+          <owl:allValuesFrom>
+            <owl:Class>
+              <owl:unionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="#FPCollection"/>
+                <rdf:Description rdf:about="#TPCollection"/>
+                <rdf:Description rdf:about="#TPSharing"/>
+              </owl:unionOf>
+            </owl:Class>
+          </owl:allValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#Permanent">
@@ -781,6 +1289,7 @@
 
 <owl:Class rdf:about="#ByRequest">
   <rdfs:subClassOf rdf:resource="#DataTransmissionMode"/>
+  <owl:disjointWith rdf:resource="#Permanent"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Cause">
@@ -789,6 +1298,17 @@
 
 <owl:Class rdf:about="#BreachCause">
   <rdfs:subClassOf rdf:resource="#Cause"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Cause"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#causes"/>
+          <owl:allValuesFrom rdf:resource="#Breach"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#ForceMajeur">
@@ -805,6 +1325,18 @@
 
 <owl:Class rdf:about="#PolicyChangeCause">
   <rdfs:subClassOf rdf:resource="#Cause"/>
+  <owl:disjointWith rdf:resource="#BreachCause"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Cause"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#causes"/>
+          <owl:allValuesFrom rdf:resource="#PolicyChange"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#PrivacyRelated">
@@ -825,6 +1357,17 @@
 
 <owl:Class rdf:about="#BreachConsequence">
   <rdfs:subClassOf rdf:resource="#Consequence"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Consequence"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#is_consequence_of"/>
+          <owl:allValuesFrom rdf:resource="#Breach"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#RemoveCompromisedInformation">
@@ -837,14 +1380,58 @@
 
 <owl:Class rdf:about="#BreachInvestigation">
   <rdfs:subClassOf rdf:resource="#BreachConsequence"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#BreachConsequence"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#lasts_for"/>
+          <owl:allValuesFrom rdf:resource="#BreachInvestigationTime"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#BreachConsequence"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#employes"/>
+          <owl:allValuesFrom rdf:resource="#DataProtectionOfficer"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#PolicyChangeConsequence">
   <rdfs:subClassOf rdf:resource="#Consequence"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Consequence"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#is_consequence_of"/>
+          <owl:allValuesFrom rdf:resource="#PolicyChange"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#UserChoiceConsequence">
   <rdfs:subClassOf rdf:resource="#Consequence"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Consequence"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#is_consequence_of"/>
+          <owl:allValuesFrom rdf:resource="#DataControl"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#NoServiceRestriction">
@@ -865,6 +1452,17 @@
 
 <owl:Class rdf:about="#DataActivityPurpose">
   <rdfs:subClassOf rdf:resource="#Purpose"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Purpose"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#is_purpose_for"/>
+          <owl:allValuesFrom rdf:resource="#DataActivity"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceProvision">
@@ -877,6 +1475,7 @@
 
 <owl:Class rdf:about="#ServiceEnhancement">
   <rdfs:subClassOf rdf:resource="#DataActivityPurpose"/>
+  <owl:disjointWith rdf:resource="#ServiceProvision"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Analytics">
@@ -901,18 +1500,62 @@
 
 <owl:Class rdf:about="#DataRetentionTime">
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#TimePeriod"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#is_period_of"/>
+          <owl:allValuesFrom rdf:resource="#Retention"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#NotificationTime">
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#TimePeriod"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#is_period_of"/>
+          <owl:allValuesFrom rdf:resource="#Notification"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#BreachInvestigationTime">
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#TimePeriod"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#is_period_of"/>
+          <owl:allValuesFrom rdf:resource="#BreachInvestigation"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#PolicyAcceptanceTime">
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#TimePeriod"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#is_period_of"/>
+          <owl:allValuesFrom rdf:resource="#PolicyChange"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#Basis">
@@ -921,6 +1564,17 @@
 
 <owl:Class rdf:about="#LegalBasis">
   <rdfs:subClassOf rdf:resource="#Basis"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Basis"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#is_basis_for"/>
+          <owl:allValuesFrom rdf:resource="#DataActivity"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#PolicyChangeScope">
@@ -947,39 +1601,177 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<PrivacyPolicy rdf:about="#61921c34d4244468aabbca5:PrivacyPolicy">
-  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <considers_agent rdf:resource="#acaf6872508d4698b2121a1:Agent"/>
-  <considers_activity rdf:resource="#a274add879ad42ddbbfa17e:Retention"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">61921c34d4244468aabbca5</uuid>
+<owl:NamedIndividual rdf:about="#0a6074165a06456b9f1c3cc:PrivacyPolicy">
+  <rdf:type rdf:resource="#PrivacyPolicy"/>
+  <considers rdf:resource="#1abeead017d14fbeae35fde:FirstParty"/>
+  <considers rdf:resource="#ae455a7f4a5240a189c0632:User"/>
+  <considers rdf:resource="#7bdcfe455039461f8741281:ThirdParty"/>
+  <considers rdf:resource="#c397b7f3560e49ecb9f50bb:Notification"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0a6074165a06456b9f1c3cc</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">some url</policyWebsite>
-</PrivacyPolicy>
+</owl:NamedIndividual>
 
-<Agent rdf:about="#acaf6872508d4698b2121a1:Agent">
-  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">acaf6872508d4698b2121a1</uuid>
+<owl:NamedIndividual rdf:about="#1abeead017d14fbeae35fde:FirstParty">
+  <rdf:type rdf:resource="#FirstParty"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1abeead017d14fbeae35fde</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
-</Agent>
+</owl:NamedIndividual>
 
-<DataRetentionMechanism rdf:about="#8f30a37e98894fbca60a19f:DataRetentionMechanism">
-  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8f30a37e98894fbca60a19f</uuid>
+<owl:NamedIndividual rdf:about="#ae455a7f4a5240a189c0632:User">
+  <rdf:type rdf:resource="#User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ae455a7f4a5240a189c0632</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
-</DataRetentionMechanism>
+</owl:NamedIndividual>
 
-<Retention rdf:about="#a274add879ad42ddbbfa17e:Retention">
-  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <initiated_by rdf:resource="#acaf6872508d4698b2121a1:Agent"/>
-  <has_mechanism rdf:resource="#8f30a37e98894fbca60a19f:DataRetentionMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a274add879ad42ddbbfa17e</uuid>
+<owl:NamedIndividual rdf:about="#7bdcfe455039461f8741281:ThirdParty">
+  <rdf:type rdf:resource="#ThirdParty"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7bdcfe455039461f8741281</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
-</Retention>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#f5973a2af94d442eb2bb4f3:SecurityMechanism">
+  <rdf:type rdf:resource="#SecurityMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f5973a2af94d442eb2bb4f3</uuid>
+  <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#c397b7f3560e49ecb9f50bb:Notification">
+  <rdf:type rdf:resource="#Notification"/>
+  <initiated_by rdf:resource="#1abeead017d14fbeae35fde:FirstParty"/>
+  <notifies rdf:resource="#ae455a7f4a5240a189c0632:User"/>
+  <has_mechanism rdf:resource="#f5973a2af94d442eb2bb4f3:SecurityMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c397b7f3560e49ecb9f50bb</uuid>
+  <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
+</owl:NamedIndividual>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#EuropeanResident"/>
+    <rdf:Description rdf:about="#RussianFederationResident"/>
+    <rdf:Description rdf:about="#CaliforniaResident"/>
+    <rdf:Description rdf:about="#Child"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#GenericData"/>
+    <rdf:Description rdf:about="#CrimeData"/>
+    <rdf:Description rdf:about="#HealthData"/>
+    <rdf:Description rdf:about="#RacialData"/>
+    <rdf:Description rdf:about="#BiometricData"/>
+    <rdf:Description rdf:about="#ReligionData"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#FinancialData"/>
+    <rdf:Description rdf:about="#ApplicationData"/>
+    <rdf:Description rdf:about="#DeviceData"/>
+    <rdf:Description rdf:about="#AccountData"/>
+    <rdf:Description rdf:about="#TrackingData"/>
+    <rdf:Description rdf:about="#ServiceData"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#PolicyAcceptanceTime"/>
+    <rdf:Description rdf:about="#DataRetentionTime"/>
+    <rdf:Description rdf:about="#NotificationTime"/>
+    <rdf:Description rdf:about="#BreachInvestigationTime"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#PartialServiceRestriction"/>
+    <rdf:Description rdf:about="#NoServiceRestriction"/>
+    <rdf:Description rdf:about="#FullServiceRestriction"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#Compensation"/>
+    <rdf:Description rdf:about="#RemoveCompromisedInformation"/>
+    <rdf:Description rdf:about="#BreachInvestigation"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#PolicyChangeConsequence"/>
+    <rdf:Description rdf:about="#BreachConsequence"/>
+    <rdf:Description rdf:about="#UserChoiceConsequence"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#MergeAcquisition"/>
+    <rdf:Description rdf:about="#NonPrivacyRelated"/>
+    <rdf:Description rdf:about="#PrivacyRelated"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#ForceMajeur"/>
+    <rdf:Description rdf:about="#Unintentional"/>
+    <rdf:Description rdf:about="#Intentional"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#PersonalVisit"/>
+    <rdf:Description rdf:about="#DataProvision"/>
+    <rdf:Description rdf:about="#WebsiteForm"/>
+    <rdf:Description rdf:about="#ServiceAppForm"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#Email"/>
+    <rdf:Description rdf:about="#SMS"/>
+    <rdf:Description rdf:about="#PhoneCall"/>
+    <rdf:Description rdf:about="#PostalMail"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#InPrivacyPolicy"/>
+    <rdf:Description rdf:about="#OnWebsitePage"/>
+    <rdf:Description rdf:about="#OnServiceApp"/>
+  </owl:members>
+</owl:AllDisjointClasses>
 
 <owl:AllDisjointClasses>
   <owl:members rdf:parseType="Collection">
     <rdf:Description rdf:about="#Mutual"/>
     <rdf:Description rdf:about="#UserSpecific"/>
     <rdf:Description rdf:about="#FPSpecific"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#Firewall"/>
+    <rdf:Description rdf:about="#PseudoAnonymization"/>
+    <rdf:Description rdf:about="#AccessControls"/>
+    <rdf:Description rdf:about="#Encryption"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#LockedOffice"/>
+    <rdf:Description rdf:about="#SecurityTraining"/>
+    <rdf:Description rdf:about="#UserMaintain"/>
   </owl:members>
 </owl:AllDisjointClasses>
 
@@ -994,10 +1786,65 @@
 
 <owl:AllDisjointClasses>
   <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#Analytics"/>
+    <rdf:Description rdf:about="#Marketing"/>
+    <rdf:Description rdf:about="#Research"/>
+    <rdf:Description rdf:about="#Security"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#ProvidedDataControl"/>
+    <rdf:Description rdf:about="#PrivacyControl"/>
+    <rdf:Description rdf:about="#OptControl"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#Use"/>
+    <rdf:Description rdf:about="#Protection"/>
+    <rdf:Description rdf:about="#FPCollection"/>
+    <rdf:Description rdf:about="#TPCollection"/>
+    <rdf:Description rdf:about="#TPSharing"/>
+    <rdf:Description rdf:about="#Retention"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#DataActivity"/>
+    <rdf:Description rdf:about="#ControlActivity"/>
+    <rdf:Description rdf:about="#Notification"/>
+    <rdf:Description rdf:about="#Breach"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
     <rdf:Description rdf:about="#User"/>
     <rdf:Description rdf:about="#FirstParty"/>
     <rdf:Description rdf:about="#ThirdParty"/>
     <rdf:Description rdf:about="#Criminal"/>
+    <rdf:Description rdf:about="#DataProtectionOfficer"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#PrivacyPolicy"/>
+    <rdf:Description rdf:about="#Agent"/>
+    <rdf:Description rdf:about="#Activity"/>
+    <rdf:Description rdf:about="#Data"/>
+    <rdf:Description rdf:about="#Basis"/>
+    <rdf:Description rdf:about="#Purpose"/>
+    <rdf:Description rdf:about="#Mode"/>
+    <rdf:Description rdf:about="#Cause"/>
+    <rdf:Description rdf:about="#Consequence"/>
+    <rdf:Description rdf:about="#TimePeriod"/>
+    <rdf:Description rdf:about="#PolicyChangeScope"/>
+    <rdf:Description rdf:about="#UserSpecialCategory"/>
   </owl:members>
 </owl:AllDisjointClasses>
 
