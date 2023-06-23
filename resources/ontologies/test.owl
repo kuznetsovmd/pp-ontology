@@ -89,8 +89,8 @@
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <rdfs:domain rdf:resource="#BreachInvestigation"/>
   <rdfs:domain rdf:resource="#Activity"/>
+  <rdfs:domain rdf:resource="#BreachInvestigation"/>
   <rdfs:range rdf:resource="#TimePeriod"/>
   <owl:inverseOf rdf:resource="#is_period_of"/>
 </owl:ObjectProperty>
@@ -202,47 +202,47 @@
   <owl:inverseOf rdf:resource="#notifies"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#following_activity">
+<owl:ObjectProperty rdf:about="#following">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
-  <owl:inverseOf rdf:resource="#followed_by_activity"/>
+  <owl:inverseOf rdf:resource="#followed_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#followed_by_activity">
+<owl:ObjectProperty rdf:about="#followed_by">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
   <rdfs:domain rdf:resource="#Activity"/>
   <rdfs:range rdf:resource="#Activity"/>
-  <owl:inverseOf rdf:resource="#following_activity"/>
+  <owl:inverseOf rdf:resource="#following"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#next_activity_is">
-  <rdfs:subPropertyOf rdf:resource="#followed_by_activity"/>
+<owl:ObjectProperty rdf:about="#next_is">
+  <rdfs:subPropertyOf rdf:resource="#followed_by"/>
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-  <owl:inverseOf rdf:resource="#previous_activity_is"/>
+  <owl:inverseOf rdf:resource="#previous_is"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#previous_activity_is">
-  <rdfs:subPropertyOf rdf:resource="#following_activity"/>
+<owl:ObjectProperty rdf:about="#previous_is">
+  <rdfs:subPropertyOf rdf:resource="#following"/>
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-  <owl:inverseOf rdf:resource="#next_activity_is"/>
+  <owl:inverseOf rdf:resource="#next_is"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#binded_to_activity">
+<owl:ObjectProperty rdf:about="#binded_to">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
   <rdfs:domain rdf:resource="#Activity"/>
   <rdfs:range rdf:resource="#Activity"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#has_older_version">
+<owl:ObjectProperty rdf:about="#newer_than">
   <rdfs:domain rdf:resource="#PrivacyPolicy"/>
   <rdfs:range rdf:resource="#PrivacyPolicy"/>
-  <owl:inverseOf rdf:resource="#has_newer_version"/>
+  <owl:inverseOf rdf:resource="#older_than"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#has_newer_version">
-  <owl:inverseOf rdf:resource="#has_older_version"/>
+<owl:ObjectProperty rdf:about="#older_than">
+  <owl:inverseOf rdf:resource="#newer_than"/>
 </owl:ObjectProperty>
 
 <owl:DatatypeProperty rdf:about="#uuid">
@@ -305,15 +305,8 @@
       <owl:intersectionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#Activity"/>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#collects_from"/>
-          <owl:allValuesFrom>
-            <owl:Class>
-              <owl:unionOf rdf:parseType="Collection">
-                <rdf:Description rdf:about="#ThirdParty"/>
-                <rdf:Description rdf:about="#FirstParty"/>
-              </owl:unionOf>
-            </owl:Class>
-          </owl:allValuesFrom>
+          <owl:onProperty rdf:resource="#applies_to"/>
+          <owl:allValuesFrom rdf:resource="#Data"/>
         </owl:Restriction>
       </owl:intersectionOf>
     </owl:Class>
@@ -323,8 +316,15 @@
       <owl:intersectionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#Activity"/>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#applies_to"/>
-          <owl:allValuesFrom rdf:resource="#Data"/>
+          <owl:onProperty rdf:resource="#collects_from"/>
+          <owl:allValuesFrom>
+            <owl:Class>
+              <owl:unionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="#ThirdParty"/>
+                <rdf:Description rdf:about="#FirstParty"/>
+              </owl:unionOf>
+            </owl:Class>
+          </owl:allValuesFrom>
         </owl:Restriction>
       </owl:intersectionOf>
     </owl:Class>
@@ -368,17 +368,6 @@
       <owl:intersectionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#DataActivity"/>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#has_mode"/>
-          <owl:allValuesFrom rdf:resource="#DataTransmissionMode"/>
-        </owl:Restriction>
-      </owl:intersectionOf>
-    </owl:Class>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Class>
-      <owl:intersectionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#DataActivity"/>
-        <owl:Restriction>
           <owl:onProperty rdf:resource="#has_mechanism"/>
           <owl:allValuesFrom>
             <owl:Class>
@@ -392,6 +381,17 @@
       </owl:intersectionOf>
     </owl:Class>
   </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#DataActivity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#has_mode"/>
+          <owl:allValuesFrom rdf:resource="#DataTransmissionMode"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#TPCollection">
@@ -401,8 +401,8 @@
       <owl:intersectionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#DataActivity"/>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#collects_from"/>
-          <owl:allValuesFrom rdf:resource="#ThirdParty"/>
+          <owl:onProperty rdf:resource="#has_mode"/>
+          <owl:allValuesFrom rdf:resource="#DataTransmissionMode"/>
         </owl:Restriction>
       </owl:intersectionOf>
     </owl:Class>
@@ -423,8 +423,8 @@
       <owl:intersectionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#DataActivity"/>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#has_mode"/>
-          <owl:allValuesFrom rdf:resource="#DataTransmissionMode"/>
+          <owl:onProperty rdf:resource="#collects_from"/>
+          <owl:allValuesFrom rdf:resource="#ThirdParty"/>
         </owl:Restriction>
       </owl:intersectionOf>
     </owl:Class>
@@ -438,8 +438,8 @@
       <owl:intersectionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#DataActivity"/>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#shares_with"/>
-          <owl:allValuesFrom rdf:resource="#ThirdParty"/>
+          <owl:onProperty rdf:resource="#has_mode"/>
+          <owl:allValuesFrom rdf:resource="#DataTransmissionMode"/>
         </owl:Restriction>
       </owl:intersectionOf>
     </owl:Class>
@@ -460,8 +460,8 @@
       <owl:intersectionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#DataActivity"/>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#has_mode"/>
-          <owl:allValuesFrom rdf:resource="#DataTransmissionMode"/>
+          <owl:onProperty rdf:resource="#shares_with"/>
+          <owl:allValuesFrom rdf:resource="#ThirdParty"/>
         </owl:Restriction>
       </owl:intersectionOf>
     </owl:Class>
@@ -475,8 +475,8 @@
       <owl:intersectionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#DataActivity"/>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#has_mechanism"/>
-          <owl:allValuesFrom rdf:resource="#DataRetentionMechanism"/>
+          <owl:onProperty rdf:resource="#lasts_for"/>
+          <owl:allValuesFrom rdf:resource="#NotificationTime"/>
         </owl:Restriction>
       </owl:intersectionOf>
     </owl:Class>
@@ -486,8 +486,8 @@
       <owl:intersectionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#DataActivity"/>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#lasts_for"/>
-          <owl:allValuesFrom rdf:resource="#NotificationTime"/>
+          <owl:onProperty rdf:resource="#has_mechanism"/>
+          <owl:allValuesFrom rdf:resource="#DataRetentionMechanism"/>
         </owl:Restriction>
       </owl:intersectionOf>
     </owl:Class>
@@ -507,6 +507,17 @@
 
 <owl:Class rdf:about="#Notification">
   <rdfs:subClassOf rdf:resource="#Activity"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Activity"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#has_mechanism"/>
+          <owl:allValuesFrom rdf:resource="#CommunicationMechanism"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
   <rdfs:subClassOf>
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
@@ -536,22 +547,22 @@
       </owl:intersectionOf>
     </owl:Class>
   </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Class>
-      <owl:intersectionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#Activity"/>
-        <owl:Restriction>
-          <owl:onProperty rdf:resource="#has_mechanism"/>
-          <owl:allValuesFrom rdf:resource="#CommunicationMechanism"/>
-        </owl:Restriction>
-      </owl:intersectionOf>
-    </owl:Class>
-  </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#FPNotification">
   <rdfs:subClassOf rdf:resource="#Notification"/>
   <owl:disjointWith rdf:resource="#UserNotification"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Notification"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#initiated_by"/>
+          <owl:allValuesFrom rdf:resource="#FirstParty"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
   <rdfs:subClassOf>
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
@@ -577,17 +588,6 @@
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
-        </owl:Restriction>
-      </owl:intersectionOf>
-    </owl:Class>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Class>
-      <owl:intersectionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#Notification"/>
-        <owl:Restriction>
-          <owl:onProperty rdf:resource="#initiated_by"/>
-          <owl:allValuesFrom rdf:resource="#FirstParty"/>
         </owl:Restriction>
       </owl:intersectionOf>
     </owl:Class>
@@ -731,6 +731,17 @@
       <owl:intersectionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#ControlActivity"/>
         <owl:Restriction>
+          <owl:onProperty rdf:resource="#initiated_by"/>
+          <owl:allValuesFrom rdf:resource="#User"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#ControlActivity"/>
+        <owl:Restriction>
           <owl:onProperty rdf:resource="#has_mechanism"/>
           <owl:allValuesFrom>
             <owl:Class>
@@ -751,17 +762,6 @@
         <owl:Restriction>
           <owl:onProperty rdf:resource="#applies_to"/>
           <owl:allValuesFrom rdf:resource="#Data"/>
-        </owl:Restriction>
-      </owl:intersectionOf>
-    </owl:Class>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Class>
-      <owl:intersectionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#ControlActivity"/>
-        <owl:Restriction>
-          <owl:onProperty rdf:resource="#initiated_by"/>
-          <owl:allValuesFrom rdf:resource="#User"/>
         </owl:Restriction>
       </owl:intersectionOf>
     </owl:Class>
@@ -842,8 +842,8 @@
       <owl:intersectionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#Agent"/>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#provides"/>
-          <owl:allValuesFrom rdf:resource="#Data"/>
+          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
     </owl:Class>
@@ -853,8 +853,8 @@
       <owl:intersectionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#Agent"/>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
-          <owl:allValuesFrom rdf:resource="#FPCollection"/>
+          <owl:onProperty rdf:resource="#provides"/>
+          <owl:allValuesFrom rdf:resource="#Data"/>
         </owl:Restriction>
       </owl:intersectionOf>
     </owl:Class>
@@ -891,8 +891,8 @@
       <owl:intersectionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#Agent"/>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
-          <owl:allValuesFrom rdf:resource="#TPSharing"/>
+          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
     </owl:Class>
@@ -902,8 +902,8 @@
       <owl:intersectionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#Agent"/>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
-          <owl:allValuesFrom rdf:resource="#TPCollection"/>
+          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
       </owl:intersectionOf>
     </owl:Class>
@@ -1119,12 +1119,13 @@
       <owl:intersectionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#Mechanism"/>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#initiated_by"/>
+          <owl:onProperty rdf:resource="#mechanism_of"/>
           <owl:allValuesFrom>
             <owl:Class>
               <owl:unionOf rdf:parseType="Collection">
-                <rdf:Description rdf:about="#FirstParty"/>
-                <rdf:Description rdf:about="#User"/>
+                <rdf:Description rdf:about="#Notification"/>
+                <rdf:Description rdf:about="#FPCollection"/>
+                <rdf:Description rdf:about="#DataControl"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -1137,13 +1138,12 @@
       <owl:intersectionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#Mechanism"/>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#mechanism_of"/>
+          <owl:onProperty rdf:resource="#initiated_by"/>
           <owl:allValuesFrom>
             <owl:Class>
               <owl:unionOf rdf:parseType="Collection">
-                <rdf:Description rdf:about="#Notification"/>
-                <rdf:Description rdf:about="#FPCollection"/>
-                <rdf:Description rdf:about="#DataControl"/>
+                <rdf:Description rdf:about="#FirstParty"/>
+                <rdf:Description rdf:about="#User"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -1601,46 +1601,46 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#0a6074165a06456b9f1c3cc:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#9b79e18813cf4f45853c86a:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#1abeead017d14fbeae35fde:FirstParty"/>
-  <considers rdf:resource="#ae455a7f4a5240a189c0632:User"/>
-  <considers rdf:resource="#7bdcfe455039461f8741281:ThirdParty"/>
-  <considers rdf:resource="#c397b7f3560e49ecb9f50bb:Notification"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0a6074165a06456b9f1c3cc</uuid>
+  <considers rdf:resource="#d5ac9b8639254a57b84d4d6:FirstParty"/>
+  <considers rdf:resource="#9b46f196608d4dd98e1780e:User"/>
+  <considers rdf:resource="#81b418d8c3234388b0220bf:ThirdParty"/>
+  <considers rdf:resource="#4b2b43bfce624a17a582765:Notification"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9b79e18813cf4f45853c86a</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">some url</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1abeead017d14fbeae35fde:FirstParty">
+<owl:NamedIndividual rdf:about="#d5ac9b8639254a57b84d4d6:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1abeead017d14fbeae35fde</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d5ac9b8639254a57b84d4d6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ae455a7f4a5240a189c0632:User">
+<owl:NamedIndividual rdf:about="#9b46f196608d4dd98e1780e:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ae455a7f4a5240a189c0632</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9b46f196608d4dd98e1780e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7bdcfe455039461f8741281:ThirdParty">
+<owl:NamedIndividual rdf:about="#81b418d8c3234388b0220bf:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7bdcfe455039461f8741281</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">81b418d8c3234388b0220bf</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f5973a2af94d442eb2bb4f3:SecurityMechanism">
+<owl:NamedIndividual rdf:about="#df85ae9bb0ee444aaebeb0d:SecurityMechanism">
   <rdf:type rdf:resource="#SecurityMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f5973a2af94d442eb2bb4f3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">df85ae9bb0ee444aaebeb0d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c397b7f3560e49ecb9f50bb:Notification">
+<owl:NamedIndividual rdf:about="#4b2b43bfce624a17a582765:Notification">
   <rdf:type rdf:resource="#Notification"/>
-  <initiated_by rdf:resource="#1abeead017d14fbeae35fde:FirstParty"/>
-  <notifies rdf:resource="#ae455a7f4a5240a189c0632:User"/>
-  <has_mechanism rdf:resource="#f5973a2af94d442eb2bb4f3:SecurityMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c397b7f3560e49ecb9f50bb</uuid>
+  <initiated_by rdf:resource="#d5ac9b8639254a57b84d4d6:FirstParty"/>
+  <notifies rdf:resource="#9b46f196608d4dd98e1780e:User"/>
+  <has_mechanism rdf:resource="#df85ae9bb0ee444aaebeb0d:SecurityMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4b2b43bfce624a17a582765</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 

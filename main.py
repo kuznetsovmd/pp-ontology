@@ -1,18 +1,16 @@
 #!/usr/bin/env python
 
-from pprint import pprint
-
-from ontology2.interface import Ontology as Ontology2
-from ontology.ontology import Ontology
-from experiments.opp.processor import process_opp
-from experiments.opp.reader import read_opp
-from experiments.cloud_computing_policies.amazon_web_services import process_aws
-from experiments.cloud_computing_policies.google_cloud import process_google_cloud
-from experiments.cloud_computing_policies.threeplususa import process_3plususa
-from experiments.healthcare_policies.caresense import process_caresense
-from experiments.healthcare_policies.zepp import process_zepp
-from experiments.healthcare_policies.renpho import process_renpho
-from experiments.onto2_examples import process_onto2_test
+# from ontology2.interface import Ontology as Ontology2
+# from ontology.ontology import Ontology
+# from experiments.opp.processor import process_opp
+# from experiments.opp.reader import read_opp
+# from experiments.cloud_computing_policies.amazon_web_services import process_aws
+# from experiments.cloud_computing_policies.google_cloud import process_google_cloud
+# from experiments.cloud_computing_policies.threeplususa import process_3plususa
+from experiments.healthcare_policies2.caresense import process_caresense
+from experiments.healthcare_policies2.renpho import process_renpho
+from experiments.healthcare_policies2.zepp import process_zepp
+# from experiments.onto2_examples import process_onto2_test
 
 
 def main():
@@ -92,11 +90,11 @@ def main():
     # process_google_cloud(onto.raw_onto)
     # onto.write(reason=False)
 
-    # process_caresense()
-    # process_zepp()
-    # process_renpho()
+    process_caresense()
+    process_renpho()
+    process_zepp()
 
-    process_onto2_test()
+    # process_onto2_test()
 
 
 if __name__ == '__main__':

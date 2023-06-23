@@ -1,11 +1,19 @@
+Notes
+-----
 
-This ontology constructor uses dataset iot-dataset and OPP-115 (which is cited below) 
+To run the application it is necessary to copy example.config.py and rename it to config.py
+The work which is supposed to be done is defined in main.py with explicit mention of generator functions
 
-cite:
+The ontology has several versions:
+1. Raw version without interface to interact (without class restrictions and with messy object properties)
+1. Same version with interface
+1. New version of ontology (ontology2) which has class restrictions less and more meaningful object properties
 
-Wilson S., Schaub F., Dara A., et al. The Creation and Analysis of a Website Privacy 
-Policy Corpus. // Proceedings of the 54th Annual Meeting of the Association for 
-Computational Linguistics. – Berlin, Germany, 2016. – pp. 1330-1340.
+The `experiments` folder contains manually created ontologies of different version of ontology
+The `ontology` folder contains ontology scheme and interface
+The `ontology2` folder contains ontology2 scheme and interface
+The `queries` folder contains queries definitioins
+The `resources` folder contains query results, datasets, generated ontologies and documentation for the ontology
 
 
 TODO
@@ -29,12 +37,16 @@ TODO
     - [x] Initial paragraph support
     - [x] Initial policy versions support
     - [ ] Finish paragraph support
-    - [ ] Finig policy versions support
+    - [ ] Finish policy versions support
+- [x] Update for ontology2: 
+    - [x] Refactoring CareSense (Has nothing about health, maybe that is delegated to HIPAA)
+    - [x] Refactoring Zepp
+    - [x] Refactoring Renpho
+    - [x] Restructuring CareSense (Has nothing about health, maybe that is delegated to HIPAA)
+    - [x] Restructuring Zepp
+    - [x] Restructuring Renpho
 - [ ] Testing
-- [ ] Update for ontology2: 
-    - [ ] CareSense (Has nothing about health, maybe that is delegated to HIPAA)
-    - [ ] Zepp
-    - [ ] Renpho
+- [ ] Descriptive logic explanation
 
 
 Health care applications
@@ -78,3 +90,13 @@ Policy:
 Device:
     https://www.amazon.com/RENPHO-Bluetooth-Bathroom-Composition-Smartphone/dp/B01N1UX8RW/ref=sr_1_1?crid=35N1TK1ULC5HM&keywords=smart%2Bweights&qid=1674338323&sprefix=smart%2Bweight%2Caps%2C309&sr=8-1&th=1
 
+
+Cites
+-----
+
+This ontology constructor uses dataset iot-dataset and OPP-115 (which is cited below):
+```
+Wilson S., Schaub F., Dara A., et al. The Creation and Analysis of a Website Privacy 
+Policy Corpus. // Proceedings of the 54th Annual Meeting of the Association for 
+Computational Linguistics. – Berlin, Germany, 2016. – pp. 1330-1340.
+```

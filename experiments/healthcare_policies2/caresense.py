@@ -1,4 +1,4 @@
-from ontology import Ontology
+from ontology2.interface import Ontology
 
 
 def process_caresense():
@@ -15,25 +15,27 @@ def process_caresense():
     #########################################################################
     # MedTrak reserves the right to amend the Policy at any time—these changes will apply to all old and new data collected by MedTrak but will never relax the privacy and security standards currently in place. Any changes to the Policy will be posted on www.caresense.com along with a notice of the policy changes.
 
+    first_party = o.individual('FirstParty', 'MedTrak')
 
-    o.individual(
+    a = o.individual(
 
-        'PolicyChangeActivity',
+        'PolicyChange',
 
         'MedTrak reserves the right to amend the Policy at any time—these changes will apply to all old and new data collected by MedTrak but will never relax the privacy and security standards currently in place. Any changes to the Policy will be posted on www.caresense.com along with a notice of the policy changes.',
 
         [
-            o.connection(
-                'activityIsInitiatedBy', 
-                o.individual(
-                    'FirstParty', 
-                    'MedTrak')),
+            o.property('initiated_by', first_party),
 
-            o.connection(
-                'hasNotificationMechanism', 
-                o.individual(
-                    'OnWebsitePage',
-                    'Any changes to the Policy will be posted on www.caresense.com along with a notice of the policy changes.')),
+            o.property('binded_to', o.individual(
+                'FPNotification',
+                'Any changes to the Policy will be posted on www.caresense.com along with a notice of the policy changes.',
+                [
+                    o.property('initiated_by', first_party),
+
+                    o.property('has_mechanism', o.individual(
+                        'OnWebsitePage',
+                        'Any changes to the Policy will be posted on www.caresense.com along with a notice of the policy changes.')),
+                ])),
         ]
     )
 
@@ -51,52 +53,42 @@ def process_caresense():
     #########################################################################
     # MedTrak gathers information from users who sign-up for our services (“Service”) through contracts, discussions and the website. Users are required to provide contact information such as name, company name, address, phone number, and email address. This information is used to setup the Service and provide support.
 
-    o.individual(
+    a = o.individual(
         
-        'DataCollectionActivity',
+        'FPCollection',
                  
         'MedTrak gathers information from users who sign-up for our services (“Service”) through contracts, discussions and the website. Users are required to provide contact information such as name, company name, address, phone number, and email address. This information is used to setup the Service and provide support.',
 
         [
-            o.connection(
-                'activityIsInitiatedBy', 
-                o.individual(
-                    'FirstParty', 
-                    'MedTrak')),
+            o.property('initiated_by', o.individual(
+                'FirstParty', 
+                'MedTrak')),
 
-            o.connection(
-                'isAppliedTo', 
-                o.individual(
-                    'AccountData', 
-                    'name',
-                    [o.connection('isProvidedBy', o.individual('User'))])),
+            o.property('applies_to', o.individual(
+                'AccountData', 
+                'name',
+                [o.property('provided_by', o.individual('User'))])),
 
-            o.connection(
-                'isAppliedTo', 
-                o.individual(
-                    'AccountData', 
-                    'address', 
-                    [o.connection('isProvidedBy', o.individual('User'))])),
+            o.property('applies_to', o.individual(
+                'AccountData', 
+                'address', 
+                [o.property('provided_by', o.individual('User'))])),
 
-            o.connection(
-                'isAppliedTo', 
-                o.individual(
-                    'AccountData', 
-                    'phone number', 
-                    [o.connection('isProvidedBy', o.individual('User'))])),
+            o.property('applies_to', o.individual(
+                'AccountData', 
+                'phone number', 
+                [o.property('provided_by', o.individual('User'))])),
 
-            o.connection(
-                'isAppliedTo', 
-                o.individual(
-                    'AccountData', 
-                    'email address', 
-                    [o.connection('isProvidedBy', o.individual('User'))])),
+            o.property('applies_to', o.individual(
+                'AccountData', 
+                'email address', 
+                [o.property('provided_by', o.individual('User'))])),
 
-            o.connection(
-                'hasDataActivityPurpose', 
-                o.individual(
-                    'DataActivityPurpose', 
-                    'This information is used to setup the Service and provide support.')),
+            o.property('has_purpose', o.individual(
+                'ServiceProvision', 
+                'This information is used to setup the Service and provide support.')),
+
+            o.property('previous_is', a),
         ]
     )
 
@@ -107,38 +99,32 @@ def process_caresense():
     # MedTrak also collects and logs information (IP addresses, login attempts) concerning website usage. This information is used to monitor attempted security penetrations, detect technical problems, and review site usage patterns.
 
 
-    o.individual(
+    a = o.individual(
         
-        'DataCollectionActivity',
+        'FPCollection',
                  
         'MedTrak also collects and logs information (IP addresses, login attempts) concerning website usage. This information is used to monitor attempted security penetrations, detect technical problems, and review site usage patterns.',
 
         [
-            o.connection(
-                'isAppliedTo', 
-                o.individual(
-                    'TrackingData', 
-                    'IP addresses',
-                    [o.connection('isProvidedBy', o.individual('User'))])),
+            o.property('applies_to', o.individual(
+                'TrackingData', 
+                'IP addresses',
+                [o.property('provided_by', o.individual('User'))])),
 
-            o.connection(
-                'isAppliedTo', 
-                o.individual(
-                    'AccountData', 
-                    'login attempts',
-                    [o.connection('isProvidedBy', o.individual('User'))])),
+            o.property('applies_to', o.individual(
+                'AccountData', 
+                'login attempts',
+                [o.property('provided_by', o.individual('User'))])),
 
-            o.connection(
-                'hasDataActivityPurpose', 
-                o.individual(
-                    'DataActivityPurpose', 
-                    'This information is used to monitor attempted security penetrations, detect technical problems, and review site usage patterns.')),
+            o.property('has_purpose', o.individual(
+                'ServiceProvision', 
+                'This information is used to monitor attempted security penetrations, detect technical problems, and review site usage patterns.')),
 
-            o.connection(
-                'activityIsInitiatedBy', 
-                o.individual(
-                    'FirstParty', 
-                    'MedTrak')),
+            o.property('initiated_by', o.individual(
+                'FirstParty', 
+                'MedTrak')),
+
+            o.property('previous_is', a),
         ]
     )
 
@@ -149,31 +135,27 @@ def process_caresense():
     # Potential users may sign-up on www.caresense.com to be contacted by a MedTrak representative. They will submit contact information that will only be used to set-up an appointment or demonstration.
 
 
-    o.individual(
+    a = o.individual(
         
-        'DataCollectionActivity',
+        'FPCollection',
                  
         'Potential users may sign-up on www.caresense.com to be contacted by a MedTrak representative. They will submit contact information that will only be used to set-up an appointment or demonstration.',
 
         [
-            o.connection(
-                'isAppliedTo', 
-                o.individual(
-                    'TrackingData', 
-                    'contact information',
-                    [o.connection('isProvidedBy', o.individual('User'))])),
+            o.property('applies_to', o.individual(
+                'TrackingData', 
+                'contact information',
+                [o.property('provided_by', o.individual('User'))])),
 
-            o.connection(
-                'hasDataActivityPurpose', 
-                o.individual(
-                    'DataActivityPurpose', 
-                    'that will only be used to set-up an appointment or demonstration.')),
+            o.property('has_purpose', o.individual(
+                'ServiceProvision', 
+                'that will only be used to set-up an appointment or demonstration.')),
 
-            o.connection(
-                'activityIsInitiatedBy', 
-                o.individual(
-                    'FirstParty', 
-                    'MedTrak')),
+            o.property('initiated_by', o.individual(
+                'FirstParty', 
+                'MedTrak')),
+
+            o.property('previous_is', a),
         ]
     )
 
@@ -191,38 +173,31 @@ def process_caresense():
     #########################################################################
     # Except as required to perform the Service, no information will be disclosed to third parties.
 
-
-    o.individual(
+    a = o.individual(
         
-        'DataSharingActivity',
+        'TPSharing',
                  
         'Except as required to perform the Service, no information will be disclosed to third parties.',
 
         [
-            o.connection(
-                'isAppliedTo', 
-                o.individual(
-                    'Data',
-                    'no information',
-                    [o.connection('isProvidedBy', o.individual('User'))])),
+            o.property('initiated_by', o.individual(
+                'FirstParty', 
+                'MedTrak')),
 
-            o.connection(
-                'hasDataActivityPurpose', 
-                o.individual(
-                    'DataActivityPurpose', 
-                    '')),
+            o.property('shares_with', o.individual(
+                'ThirdParty', 
+                'third parties.')),
 
-            o.connection(
-                'activityIsInitiatedBy', 
-                o.individual(
-                    'FirstParty', 
-                    'MedTrak')),
+            o.property('applies_to', o.individual(
+                'Data',
+                'no information',
+                [o.property('provided_by', o.individual('User'))])),
 
-            o.connection(
-                'sharesDataWithAgent', 
-                o.individual(
-                    'ThirdParties', 
-                    'third parties.')),
+            o.property('has_purpose', o.individual(
+                'ServiceProvision', 
+                'to perform the Service')),
+
+            o.property('previous_is', a),
         ]
     )
 
@@ -231,34 +206,30 @@ def process_caresense():
 
     #########################################################################
     # MedTrak does not currently transfer personal information to third parties. 
-    # !!!!!!!!!! doesnt !!!!!!!!!!
 
+    a = o.individual(
 
-    o.individual(
-
-        'DataSharingActivity',
+        'TPSharing',
 
         'MedTrak does not currently transfer personal information to third parties.',
 
         [
-            o.connection(
-                'isAppliedTo', 
-                o.individual(
-                    'PersonalData', 
-                    'personal information',
-                    [o.connection('isProvidedBy', o.individual('User'))])),
+            o.property('does', False),
 
-            o.connection(
-                'activityIsInitiatedBy', 
-                o.individual(
-                    'FirstParty', 
-                    'MedTrak')),
+            o.property('initiated_by', o.individual(
+                'FirstParty', 
+                'MedTrak')),
 
-            o.connection(
-                'sharesDataWithAgent', 
-                o.individual(
-                    'ThirdParties', 
-                    'third parties.')),
+            o.property('shares_with', o.individual(
+                'ThirdParty', 
+                'third parties.')),
+
+            o.property('applies_to', o.individual(
+                'PersonalData', 
+                'personal information',
+                [o.property('provided_by', o.individual('User'))])),
+
+            o.property('previous_is', a),
         ]
     )
 
@@ -267,40 +238,34 @@ def process_caresense():
 
     #########################################################################
     # Information and data users collect using CareSense and store on MedTrak’s servers will not be reviewed, shared, or disseminated except as stated in the Business Associates Agreement and Software License Agreement or as required by law. 
-    # !!!!!!!!!! doesnt !!!!!!!!!!
 
+    a = o.individual(
 
-    o.individual(
-
-        'DataSharingActivity',
+        'TPSharing',
 
         'Information and data users collect using CareSense and store on MedTrak’s servers will not be reviewed, shared, or disseminated except as stated in the Business Associates Agreement and Software License Agreement or as required by law.',
 
         [
-            o.connection(
-                'isAppliedTo', 
-                o.individual(
-                    'Data', 
-                    'Information and data',
-                    [o.connection('isProvidedBy', o.individual('User'))])),
+            o.property('does', False),
 
-            o.connection(
-                'activityIsInitiatedBy', 
-                o.individual(
-                    'FirstParty', 
-                    'MedTrak')),
+            o.property('initiated_by', o.individual(
+                'FirstParty', 
+                'MedTrak')),
 
-            o.connection(
-                'sharesDataWithAgent', 
-                o.individual(
-                    'ThirdParties', 
-                    'third parties.')),
+            o.property('shares_with', o.individual(
+                'ThirdParty', 
+                'third parties.')),
 
-            o.connection(
-                'hasLegalBasis', 
-                o.individual(
-                    'LegalBasis', 
-                    'Business Associates Agreement and Software License Agreement or as required by law.')),
+            o.property('applies_to', o.individual(
+                'Data', 
+                'Information and data',
+                [o.property('provided_by', o.individual('User'))])),
+
+            o.property('has_basis', o.individual(
+                'LegalBasis', 
+                'Business Associates Agreement and Software License Agreement or as required by law.')),
+
+            o.property('previous_is', a),
         ]
     )
 
@@ -309,33 +274,29 @@ def process_caresense():
 
     #########################################################################
     # Personal information will not be shared with third parties.
-    # !!!!!!!!!! doesnt !!!!!!!!!!
 
+    a = o.individual(
 
-    o.individual(
-
-        'DataSharingActivity',
+        'TPSharing',
 
         'Personal information will not be shared with third parties.',
 
         [
-            o.connection(
-                'isAppliedTo', 
-                o.individual(
-                    'PersonalData', 
-                    'Personal information',
-                    [o.connection('isProvidedBy', o.individual('User'))])),
+            o.property('does', False),
 
-            o.connection(
-                'activityIsInitiatedBy', 
-                o.individual(
-                    'FirstParty')),
+            o.property('initiated_by', o.individual(
+                'FirstParty')),
 
-            o.connection(
-                'sharesDataWithAgent', 
-                o.individual(
-                    'ThirdParties', 
-                    'third parties.')),
+            o.property('shares_with', o.individual(
+                'ThirdParty', 
+                'third parties.')),
+
+            o.property('applies_to', o.individual(
+                'PersonalData', 
+                'Personal information',
+                [o.property('provided_by', o.individual('User'))])),
+
+            o.property('previous_is', a),
         ]
     )
     
@@ -344,33 +305,27 @@ def process_caresense():
 
     #########################################################################
     # Marketing statistics will be made available to third parties.
-    # !!!!!!!!!! does !!!!!!!!!!
 
+    a = o.individual(
 
-    o.individual(
-
-        'DataSharingActivity',
+        'TPSharing',
 
         'Marketing statistics will be made available to third parties.',
 
         [
-            o.connection(
-                'isAppliedTo', 
-                o.individual(
-                    'NonPersonalData', 
-                    'Marketing statistics',
-                    [o.connection('isProvidedBy', o.individual('User'))])),
+            o.property('applies_to', o.individual(
+                'NonPersonalData', 
+                'Marketing statistics',
+                [o.property('provided_by', o.individual('User'))])),
 
-            o.connection(
-                'activityIsInitiatedBy', 
-                o.individual(
-                    'FirstParty')),
+            o.property('initiated_by', o.individual(
+                'FirstParty')),
 
-            o.connection(
-                'sharesDataWithAgent', 
-                o.individual(
-                    'ThirdParties', 
-                    'third parties.')),
+            o.property('shares_with', o.individual(
+                'ThirdParty', 
+                'third parties.')),
+
+            o.property('previous_is', a),
         ]
     )
 
@@ -379,40 +334,33 @@ def process_caresense():
 
     #########################################################################
     # MedTrak also may be required to disclose an individual’s personal information in response to a lawful request by public authorities, including to meet national security or law enforcement requirements. 
-    # !!!!!!!!!! does !!!!!!!!!!
 
-
-    o.individual(
+    a = o.individual(
         
-        'DataSharingActivity',
+        'TPSharing',
 
         'MedTrak also may be required to disclose an individual’s personal information in response to a lawful request by public authorities, including to meet national security or law enforcement requirements.',
 
         [
-            o.connection(
-                'isAppliedTo', 
-                o.individual(
-                    'PersonalData', 
-                    'personal information',
-                    [o.connection('isProvidedBy', o.individual('User'))])),
+            o.property('applies_to', o.individual(
+                'PersonalData', 
+                'personal information',
+                [o.property('provided_by', o.individual('User'))])),
 
-            o.connection(
-                'activityIsInitiatedBy', 
-                o.individual(
-                    'FirstParty', 
-                    'MedTrak')),
+            o.property('initiated_by', o.individual(
+                'FirstParty', 
+                'MedTrak')),
 
-            o.connection(
-                'sharesDataWithAgent', 
+            o.property('shares_with', o.individual(
+                'ThirdParty', 
+                'third parties.')),
+                
+            o.property('has_basis',
                 o.individual(
-                    'ThirdParties', 
-                    'third parties.')),
-                    
-            o.connection(
-                'hasLegalBasis',
-                o.individual(
-                    'LegalBasis',
-                    'in response to a lawful request by public authorities, including to meet national security or law enforcement requirements.')),
+                'LegalBasis',
+                'in response to a lawful request by public authorities, including to meet national security or law enforcement requirements.')),
+
+            o.property('previous_is', a),
         ]
     )
 
@@ -429,64 +377,48 @@ def process_caresense():
 
     #########################################################################
     # MedTrak provides high quality security controls and protocols to ensure that all information and data is protected against loss, misuse, alteration, or unintentional destruction. MedTrak employs Secure Sockets Layer (SSL) technology to protect information traveling to and from the website and a firewall to block unauthorized use of the web server and database. Information and data are protected by access controls, passwords, employee training regarding security issues, and storage of sensitive information in locked offices, encrypted files, or behind the firewall.
-    # !!!!!!!!!! does !!!!!!!!!!
 
-
-    o.individual(
+    a = o.individual(
         
-        'Activity',
+        'Protection',
         
         'MedTrak provides high quality security controls and protocols to ensure that all information and data is protected against loss, misuse, alteration, or unintentional destruction. MedTrak employs Secure Sockets Layer (SSL) technology to protect information traveling to and from the website and a firewall to block unauthorized use of the web server and database. Information and data are protected by access controls, passwords, employee training regarding security issues, and storage of sensitive information in locked offices, encrypted files, or behind the firewall.',
         
         [
-            o.connection(
-                'isAppliedTo', 
-                o.individual(
-                    'Data', 
-                    'information and data',
-                    [o.connection('isProvidedBy', o.individual('User'))])),
+            o.property('applies_to', o.individual(
+                'Data', 
+                'information and data',
+                [o.property('provided_by', o.individual('User'))])),
 
-            o.connection(
-                'activityIsInitiatedBy', 
-                o.individual(
-                    'FirstParty', 
-                    'MedTrak')),
+            o.property('initiated_by', o.individual(
+                'FirstParty', 
+                'MedTrak')),
 
-            o.connection(
-                'hasSecurityMechanism',  
-                o.individual(
-                    'TechnicalMeasure',
-                    'Secure Sockets Layer (SSL) technology')),
+            o.property('has_mechanism', o.individual(
+                'TechnicalMeasure',
+                'Secure Sockets Layer (SSL) technology')),
 
-            o.connection(
-                'hasSecurityMechanism',  
-                o.individual(
-                    'TechnicalMeasure',
-                    'firewall')),
+            o.property('has_mechanism', o.individual(
+                'TechnicalMeasure',
+                'firewall')),
 
-            o.connection(
-                'hasSecurityMechanism',  
-                o.individual(
-                    'TechnicalMeasure',
-                    'access controls, passwords')),
+            o.property('has_mechanism', o.individual(
+                'TechnicalMeasure',
+                'access controls, passwords')),
 
-            o.connection(
-                'hasSecurityMechanism',  
-                o.individual(
-                    'TechnicalMeasure',
-                    'encrypted files')),
+            o.property('has_mechanism', o.individual(
+                'TechnicalMeasure',
+                'encrypted files')),
 
-            o.connection(
-                'hasSecurityMechanism',  
-                o.individual(
-                    'TechnicalMeasure',
-                    'employee training regarding security issues')),
+            o.property('has_mechanism', o.individual(
+                'TechnicalMeasure',
+                'employee training regarding security issues')),
 
-            o.connection(
-                'hasSecurityMechanism',  
-                o.individual(
-                    'TechnicalMeasure',
-                    'storage of sensitive information in locked offices')),
+            o.property('has_mechanism', o.individual(
+                'TechnicalMeasure',
+                'storage of sensitive information in locked offices')),
+
+            o.property('previous_is', a),
         ]
     )
 
@@ -503,28 +435,25 @@ def process_caresense():
 
     #########################################################################
     # If we ever were to engage in any onward transfers of your data with third parties, for a purpose other than which it was originally collected or subsequently authorized, we would provide you with an opt-out choice to limit the use and disclosure of your personal data. 
-    # !!!!!!!!!! does !!!!!!!!!!
 
     user = o.individual('User', 'you')
 
-    o.individual(
+    a = o.individual(
         
-        'GiveConsentActivity',
+        'PrivacyControl',
 
         'If we ever were to engage in any onward transfers of your data with third parties, for a purpose other than which it was originally collected or subsequently authorized, we would provide you with an opt-out choice to limit the use and disclosure of your personal data.',
 
         [
 
-            o.connection(
-                'activityIsInitiatedBy', 
-                user),
+            o.property('initiated_by', user),
 
-            o.connection(
-                'isAppliedTo', 
-                o.individual(
-                    'Data', 
-                    'data',
-                    [o.connection('isProvidedBy', user)])),
+            o.property('applies_to', o.individual(
+                'Data', 
+                'data',
+                [o.property('provided_by', user)])),
+
+            o.property('previous_is', a),
         ]
     )
 
@@ -536,23 +465,21 @@ def process_caresense():
 
     user = o.individual('User', 'Users')
 
-    o.individual(
+    a = o.individual(
         
-        'UserOptControl',
+        'OptControl',
 
         'Users may request that MedTrak discontinues use of their contact information by contacting their MedTrak representative or by emailing info@caresense.com.',
 
         [
-            o.connection(
-                'isAppliedTo', 
-                o.individual(
-                    'TrackingData', 
-                    'contact information',
-                    [o.connection('isProvidedBy', user)])),
+            o.property('applies_to', o.individual(
+                'TrackingData', 
+                'contact information',
+                [o.property('provided_by', user)])),
 
-            o.connection(
-                'activityIsInitiatedBy', 
-                user),
+            o.property('initiated_by', user),
+
+            o.property('previous_is', a),
         ]
     )
 
@@ -564,23 +491,21 @@ def process_caresense():
 
     user = o.individual('User', 'patient')
 
-    o.individual(
+    a = o.individual(
         
-        'UserOptControl',
+        'OptControl',
 
         'If a patient would like to withdraw or refuse consent for a study, the patient should inform his/her doctor and MedTrak. A patient will always make the choice about the ways that personal information is used and disclosed.',
 
         [
-            o.connection(
-                'isAppliedTo', 
-                o.individual(
-                    'PersonalData', 
-                    'personal information',
-                    [o.connection('isProvidedBy', user)])),
+            o.property('applies_to', o.individual(
+                'PersonalData', 
+                'personal information',
+                [o.property('provided_by', user)])),
 
-            o.connection(
-                'activityIsInitiatedBy', 
-                user),
+            o.property('initiated_by', user),
+
+            o.property('previous_is', a),
         ]
     )
 
@@ -592,28 +517,25 @@ def process_caresense():
 
     user = o.individual('User', 'your')
 
-    o.individual(
+    a = o.individual(
         
-        'ConsentActivity',
+        'PrivacyControl',
 
         'When using the iOS CareSense patient app, MedTrak will ask for permission to access HealthKit data to track your step count. If HealthKit permission is not granted, only the step counting aspects of the app will stop working.',
 
         [
-            o.connection(
-                'activityIsInitiatedBy', user),
+            o.property('initiated_by', user),
 
-            o.connection(
-                'isAppliedTo', 
-                o.individual(
-                    'HealthData',
-                    'step count',
-                    [o.connection('isProvidedBy', user)])),
+            o.property('applies_to', o.individual(
+                'HealthData',
+                'step count',
+                [o.property('provided_by', user)])),
 
-            o.connection(
-                'hasUserChoiceConsequence',  
-                o.individual(
-                    'PartialServiceRestriction',
-                    'only the step counting aspects of the app will stop working.')),
+            o.property('has_consequence', o.individual(
+                'PartialServiceRestriction',
+                'only the step counting aspects of the app will stop working.')),
+
+            o.property('previous_is', a),
         ]
     )
 
@@ -631,36 +553,28 @@ def process_caresense():
     #########################################################################
     # Personal information will be stored only as long as is necessary for the purposes for which it was collected, or as permitted by law. 
 
-
-    o.individual(
-        'DataRetentionActivity',
+    a = o.individual(
+        'Retention',
 
         'Personal information will be stored only as long as is necessary for the purposes for which it was collected, or as permitted by law.',
 
         [
-            o.connection(
-                'isAppliedTo', 
-                o.individual(
-                    'PersonalData', 
-                    'Personal information',
-                    [o.connection('isProvidedBy', o.individual('User'))])),
+            o.property('applies_to', o.individual(
+                'PersonalData', 
+                'Personal information',
+                [o.property('provided_by', o.individual('User'))])),
 
-            o.connection(
-                'activityIsInitiatedBy', 
-                o.individual(
-                    'FirstParty')),
+            o.property('initiated_by', o.individual('FirstParty')),
 
-            o.connection(
-                'hasDataRetentionTime',  
-                o.individual(
-                    'DataRetentionTime',
-                    'as long as is necessary')),
+            o.property('lasts_for', o.individual(
+                'DataRetentionTime',
+                'as long as is necessary')),
 
-            o.connection(
-                'hasLegalBasis',  
-                o.individual(
-                    'LegalBasis',
-                    'as permitted by law.')),
+            o.property('has_basis', o.individual(
+                'LegalBasis',
+                'as permitted by law.')),
+
+            o.property('previous_is', a),
         ]
     )
 
@@ -678,38 +592,43 @@ def process_caresense():
     #########################################################################
     # MedTrak uses aggregated, de-identified information and data to create marketing statistics and average scores viewable by all users.
 
+    first_party = o.individual('FirstParty', 'MedTrak')
+    user = o.individual('User')
 
-    o.individual(
+    data = [
+        o.property('applies_to', o.individual(
+            'Data',
+            'information and data',
+            [o.property('provided_by', user)])),
+    ]
+    
+    a = o.individual(
         
-        'DataUseActivity',
+        'Use',
 
         'MedTrak uses aggregated, de-identified information and data to create marketing statistics and average scores viewable by all users.',
 
         [
-            o.connection(
-                'activityIsInitiatedBy', 
-                o.individual(
-                    'FirstParty', 
-                    'MedTrak')),
+            o.property('initiated_by', first_party),
 
-            o.connection(
-                'isAppliedTo',  
-                o.individual(
-                    'Data',
-                    'information and data',
-                    [o.connection('isProvidedBy', o.individual('User'))])),
-                    
-            o.connection(
-                'hasSecurityMechanism',  
-                o.individual(
-                    'PseudoAnonymization',
-                    'de-identified')),
-    
-            o.connection(
-                'hasDataActivityPurpose',  
-                o.individual(
-                    'DataActivityPurpose',
-                    'to create marketing statistics and average scores viewable by all users.')),
+            *data,
+
+            o.property('has_purpose', o.individual(
+                'ServiceProvision',
+                'to create marketing statistics and average scores viewable by all users.')),
+
+            o.property('binded_to', o.individual(
+                'Protection',
+                'uses aggregated, de-identified information and data',
+                [
+                    o.property('initiated_by', first_party),
+                    *data,
+                    o.property('has_mechanism', o.individual(
+                        'PseudoAnonymization',
+                        'de-identified')),
+                ])),
+
+            o.property('previous_is', a),
         ]
     )
 
@@ -719,32 +638,27 @@ def process_caresense():
     #########################################################################
     # Individual records in MedTrak’s databases may be accessed to provide the Service, resolve an issue, evaluate usage patterns, provide support services, or review contractual issues.
 
+    a = o.individual(
 
-    o.individual(
-
-        'DataUseActivity',
+        'Use',
 
         'Individual records in MedTrak’s databases may be accessed to provide the Service, resolve an issue, evaluate usage patterns, provide support services, or review contractual issues.',
 
         [
-            o.connection(
-                'activityIsInitiatedBy', 
-                o.individual(
-                    'FirstParty', 
-                    'MedTrak')),
+            o.property('initiated_by', o.individual(
+                'FirstParty', 
+                'MedTrak')),
 
-            o.connection(
-                'isAppliedTo',  
-                o.individual(
-                    'Data',
-                    'Individual records',
-                    [o.connection('isProvidedBy', o.individual('User'))])),
+            o.property('applies_to', o.individual(
+                'Data',
+                'Individual records',
+                [o.property('provided_by', o.individual('User'))])),
 
-            o.connection(
-                'hasDataActivityPurpose',  
-                o.individual(
-                    'DataActivityPurpose',
-                    'to provide the Service, resolve an issue, evaluate usage patterns, provide support services, or review contractual issues.')),
+            o.property('has_purpose', o.individual(
+                'ServiceProvision',
+                'to provide the Service, resolve an issue, evaluate usage patterns, provide support services, or review contractual issues.')),
+
+            o.property('previous_is', a),
         ]
     )
 
@@ -754,32 +668,27 @@ def process_caresense():
     #########################################################################
     # Personal information will be used in a manner consistent with the consent provided by the patient. 
 
+    a = o.individual(
 
-    o.individual(
-
-        'DataUseActivity',
+        'Use',
 
         'Personal information will be used in a manner consistent with the consent provided by the patient.',
 
         [
-            o.connection(
-                'activityIsInitiatedBy', 
-                o.individual(
-                    'FirstParty', 
-                    'MedTrak')),
+            o.property('initiated_by', o.individual(
+                'FirstParty', 
+                'MedTrak')),
 
-            o.connection(
-                'isAppliedTo',  
-                o.individual(
-                    'PersonalData',
-                    'Personal information',
-                    [o.connection('isProvidedBy', o.individual('User', 'patient'))])),
+            o.property('applies_to', o.individual(
+                'PersonalData',
+                'Personal information',
+                [o.property('provided_by', o.individual('User', 'patient'))])),
                     
-            o.connection(
-                'hasDataActivityPurpose',  
-                o.individual(
-                    'DataActivityPurpose',
-                    'to provide the Service, resolve an issue, evaluate usage patterns, provide support services, or review contractual issues.')),
+            o.property('has_purpose', o.individual(
+                'ServiceProvision',
+                'to provide the Service, resolve an issue, evaluate usage patterns, provide support services, or review contractual issues.')),
+
+            o.property('previous_is', a),
         ]
     )
 
@@ -791,67 +700,46 @@ def process_caresense():
 
     user = o.individual('User', 'Patient')
 
-    o.individual(
+    a = o.individual(
 
-        'DataUseActivity',
+        'Use',
 
         'Patient name and date of birth will be used to match patient records properly',
 
         [
-            o.connection(
-                'activityIsInitiatedBy', 
-                o.individual(
-                    'FirstParty', 
-                    'MedTrak')),
+            o.property('initiated_by', o.individual(
+                'FirstParty', 
+                'MedTrak')),
 
-            o.connection(
-                'isAppliedTo', 
-                o.individual(
-                    'GenericData', 
-                    'name',
-                    [o.connection('isProvidedBy', user)])),
+            o.property('applies_to', o.individual(
+                'GenericData', 
+                'name',
+                [o.property('provided_by', user)])),
 
-            o.connection(
-                'isAppliedTo', 
-                o.individual(
-                    'GenericData', 
-                    'date of birth',
-                    [o.connection('isProvidedBy', user)])),
+            o.property('applies_to', o.individual(
+                'GenericData', 
+                'date of birth',
+                [o.property('provided_by', user)])),
                     
-            o.connection(
-                'hasDataActivityPurpose',  
-                o.individual(
-                    'DataActivityPurpose',
-                    'to match patient records properly')),
-        ]
-    )
+            o.property('has_purpose', o.individual(
+                'ServiceProvision',
+                'to match patient records properly')),
 
+            o.property('binded_to', o.individual(
+                'Use',
+                'the email address will be used to collect information from the patient outside of the office.',
+                [
+                    o.property('initiated_by', o.individual('FirstParty')),
+                    o.property('applies_to', o.individual(
+                        'TrackingData',
+                        'email address',
+                        [o.property('provided_by', user)])),
+                    o.property('has_purpose', o.individual(
+                        'ServiceProvision',
+                        'to collect information from the patient outside of the office.')),
+                ])),
 
-
-    o.individual(
-
-        'DataUseActivity',
-
-        'the email address will be used to collect information from the patient outside of the office.',
-
-        [
-            o.connection(
-                'activityIsInitiatedBy', 
-                o.individual(
-                    'FirstParty')),
-            
-            o.connection(
-                'isAppliedTo',  
-                o.individual(
-                    'TrackingData',
-                    'email address',
-                    [o.connection('isProvidedBy', user)])),
-                    
-            o.connection(
-                'hasDataActivityPurpose',  
-                o.individual(
-                    'DataActivityPurpose',
-                    'to collect information from the patient outside of the office.')),
+            o.property('previous_is', a),
         ]
     )
 
@@ -871,29 +759,21 @@ def process_caresense():
 
     user = o.individual('User', 'individuals')
 
-    o.individual(
+    a = o.individual(
         
-        'UserAccessActivity',
+        'ProvidedDataControl',
                  
         'MedTrak acknowledges that individuals have the right to access the personal information/data that we maintain about them. Patients will be provided access to their own personal information stored on MedTrak’s servers in order to correct any problems or delete it. An individual who seeks access, or who seeks to correct, amend, or delete inaccurate data, should direct his query to info@caresense.com. If requested to remove data, we will respond within a reasonable timeframe.',
 
         [
-            o.connection(
-                'activityIsInitiatedBy', 
-                user),
+            o.property('initiated_by', user),
 
-            o.connection(
-                'isAppliedTo',  
-                o.individual(
-                    'PersonalData',
-                    'personal information/data that we maintain about them.',
-                    [o.connection('isProvidedBy', user)])),
-                    
-            o.connection(
-                'hasDataActivityPurpose',  
-                o.individual(
-                    'DataActivityPurpose',
-                    'to collect information from the patient outside of the office.')),
+            o.property('applies_to', o.individual(
+                'PersonalData',
+                'personal information/data that we maintain about them.',
+                [o.property('provided_by', user)])),
+
+            o.property('previous_is', a),
         ]
     )
     
@@ -904,36 +784,33 @@ def process_caresense():
     # Users are required to maintain the security of their User Name and password as outlined in MedTrak’s password policy.
 
     user = o.individual('User', 'individuals')
+    first_party = o.individual('FirstParty', 'MedTrak')
 
-    o.individual(
+    a = o.individual(
 
-        'Activity',
+        'Protection',
 
         'Users are required to maintain the security of their User Name and password as outlined in MedTrak’s password policy.',
 
         [
-            o.connection(
-                'activityIsInitiatedBy', user),
+            o.property('initiated_by', first_party),
 
-            o.connection(
-                'isAppliedTo',  
-                o.individual(
-                    'AccountData',
-                    'email address',
-                    [o.connection('isProvidedBy', user)])),
+            o.property('applies_to', o.individual(
+                'AccountData',
+                'email address',
+                [o.property('provided_by', user)])),
                     
-            o.connection(
-                'isAppliedTo',  
-                o.individual(
-                    'AccountData',
-                    'password',
-                    [o.connection('isProvidedBy', user)])),
+            o.property('applies_to', o.individual(
+                'AccountData',
+                'password',
+                [o.property('provided_by', user)])),
                     
-            o.connection(
-                'hasSecurityMechanism',  
-                o.individual('OrganizationalMeasure',
-                    'Users are required to maintain the security')),
+            o.property('has_mechanism', o.individual(
+                'OrganizationalMeasure',
+                'Users are required to maintain the security')),
+
+            o.property('previous_is', a),
         ]
     )
 
-    o.write(reason=False)
+    o.save()

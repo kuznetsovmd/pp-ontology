@@ -229,14 +229,14 @@ def construct(onto):
         class notified_by(ObjectProperty): pass
 
         # Ordering & Navigation
-        class following_activity(ObjectProperty, TransitiveProperty): pass
-        class followed_by_activity(ObjectProperty, TransitiveProperty): pass
-        class next_activity_is(followed_by_activity, IrreflexiveProperty, FunctionalProperty): pass
-        class previous_activity_is(following_activity, IrreflexiveProperty, FunctionalProperty): pass
-        class binded_to_activity(ObjectProperty, SymmetricProperty, IrreflexiveProperty): pass
+        class following(ObjectProperty, TransitiveProperty): pass
+        class followed_by(ObjectProperty, TransitiveProperty): pass
+        class next_is(followed_by, IrreflexiveProperty, FunctionalProperty): pass
+        class previous_is(following, IrreflexiveProperty, FunctionalProperty): pass
+        class binded_to(ObjectProperty, SymmetricProperty, IrreflexiveProperty): pass
         
-        class has_older_version(ObjectProperty): pass
-        class has_newer_version(ObjectProperty): pass
+        class newer_than(ObjectProperty): pass
+        class older_than(ObjectProperty): pass
 
         """
         Data properties
@@ -250,6 +250,8 @@ def construct(onto):
 
         """
         Class disjoints
+
+        Make classes of same level different (involves subclasses)
         """
         AllDisjoint([PrivacyPolicy, Agent, Activity, Data, Basis, Purpose, Mode, 
                      Cause, Consequence, TimePeriod, PolicyChangeScope, UserSpecialCategory])
@@ -303,9 +305,12 @@ def construct(onto):
 
         """
         Class restrictions
+
+        Depicts dashed arrows from ontology concept
+        Explains what restrictions are applied to classes
         """
         DataActivity.is_a.extend([
-            Activity & collects_from.only(ThirdParty | FirstParty),
+            Activity & initiated_by.only(FirstParty),
             Activity & applies_to.only(Data)
         ])
 
@@ -332,13 +337,12 @@ def construct(onto):
         ])
 
         Retention.is_a.extend([
-            DataActivity & initiated_by.only(FirstParty),
             DataActivity & has_mechanism.only(DataRetentionMechanism),
-            DataActivity & lasts_for.only(NotificationTime),
+            DataActivity & lasts_for.only(DataRetentionTime),
         ])
 
         Notification.is_a.extend([
-            Activity & initiated_by.only(User | FirstParty),
+            Activity & initiated_by.only(FirstParty | User),
             Activity & has_mechanism.only(CommunicationMechanism),
             Activity & lasts_for.only(NotificationTime),
         ])
@@ -368,24 +372,15 @@ def construct(onto):
             ControlActivity & initiated_by.only(FirstParty),
             ControlActivity & lasts_for.only(PolicyAcceptanceTime),
             ControlActivity & has_scope.only(PolicyChangeScope),
+            ControlActivity & has_consequence.only(PolicyChangeConsequence),
+            ControlActivity & caused_by.only(PolicyChangeCause),
         ])
 
         DataControl.is_a.extend([
             ControlActivity & initiated_by.only(User),
             ControlActivity & has_mechanism.only(UserSpecific | Mutual),
+            ControlActivity & has_basis.only(LegalBasis),
             ControlActivity & applies_to.only(Data),
-        ])
-
-        ProvidedDataControl.is_a.extend([
-            DataControl & initiated_by.only(User)
-        ])
-
-        PrivacyControl.is_a.extend([
-            DataControl & initiated_by.only(User)
-        ])
-
-        OptControl.is_a.extend([
-            DataControl & initiated_by.only(User)
         ])
 
         # Agents
@@ -422,12 +417,11 @@ def construct(onto):
         ])
 
         CommunicationMechanism.is_a.extend([
-            Mechanism & initiated_by.only(FirstParty | User),
             Mechanism & mechanism_of.only(Notification | FPCollection | DataControl)
         ])
 
         UserSpecific.is_a.extend([
-            CommunicationMechanism & mechanism_of.only(UserNotification | DataControl)
+            CommunicationMechanism & mechanism_of.only(UserNotification | DataControl | FPCollection)
         ])
 
         FPSpecific.is_a.extend([
@@ -490,7 +484,7 @@ def construct(onto):
 
         # Basis
         LegalBasis.is_a.extend([
-            Basis & is_basis_for.only(DataActivity)
+            Basis & is_basis_for.only(DataActivity | DataControl)
         ])
 
         """
@@ -536,7 +530,7 @@ def construct(onto):
         has_mode.range = [Mode]
         has_mode.inverse_property = is_mode_for
 
-        lasts_for.domain = [Activity, BreachInvestigation]
+        lasts_for.domain = [Activity | BreachInvestigation]
         lasts_for.range = [TimePeriod]
         lasts_for.inverse_property = is_period_of
 
@@ -560,22 +554,22 @@ def construct(onto):
         has_special_category.range = [UserSpecialCategory]
         has_special_category.inverse_property = is_special_category_for
 
-        has_basis.domain = [DataActivity]
+        has_basis.domain = [DataActivity | DataControl]
         has_basis.range = [Basis]
         has_basis.inverse_property = is_basis_for
 
-        binded_to_activity.domain = [Activity]
-        binded_to_activity.range = [Activity]
+        binded_to.domain = [Activity]
+        binded_to.range = [Activity]
 
-        followed_by_activity.domain = [Activity]
-        followed_by_activity.range = [Activity]
-        followed_by_activity.inverse_property = following_activity
+        followed_by.domain = [Activity]
+        followed_by.range = [Activity]
+        followed_by.inverse_property = following
 
-        next_activity_is.inverse = previous_activity_is
+        next_is.inverse = previous_is
 
-        has_older_version.domain = [PrivacyPolicy]
-        has_older_version.range = [PrivacyPolicy]
-        has_older_version.inverse_property = has_newer_version
+        newer_than.domain = [PrivacyPolicy]
+        newer_than.range = [PrivacyPolicy]
+        newer_than.inverse_property = older_than
 
         """
         Data properties restrictions

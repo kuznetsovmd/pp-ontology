@@ -46,6 +46,10 @@ class Ontology:
         individual = cls_(self.gen_name(uuid, cls_.__name__))
         individual.uuid = uuid
 
+        activity_ = getattr(self.raw_onto, 'Activity')
+        if isinstance(individual, activity_):
+            individual.does = True
+
         if properties:
             for p in properties:
                 setattr(individual, p.key, p.value)
