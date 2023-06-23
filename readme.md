@@ -55,7 +55,7 @@ Health care applications
 
 
 Device|Application|Policy link|Device link
-------|-----------|------------|-----------
+------|-----------|-----------|-----------
 CareSens N Plus Bluetooth Blood Glucose Monitor Kit|CareSense|https://www.caresense.com/privacypolicy|https://www.amazon.com/CareSens-Bluetooth-Diabetes-Monitoring-Coding/dp/B08B86TM6R/ref=sr_1_1?crid=3SCEBW1XS8LRY&keywords=smart+glucometer&qid=1674337696&sprefix=smart+glucometer%2Caps%2C244&sr=8-1 
 DARIO Blood Glucose Monitor Kit|Dario Health|https://mydario.com/privacy-policy/|https://www.amazon.com/Dario-Glucose-Diabetes-Testing-Disposable/dp/B07G3BNXR6/ref=sr_1_2?crid=3SCEBW1XS8LRY&keywords=smart+glucometer&qid=1674337696&sprefix=smart+glucometer%2Caps%2C244&sr=8-2 
 Amazfit Band 5 Activity Fitness Tracker|Zepp（formerly Amazfit）|https://upload-cdn.huami.com/tposts/8191|https://www.amazon.com/Amazfit-Fitness-Monitoring-Tracking-Resistant/dp/B08DKYLK4D/ref=sr_1_1?crid=1UR7G6LWBRWTH&keywords=fitness%2Btracker&qid=1674337956&sprefix=fitness%2Btracke%2Caps%2C204&sr=8-1&th=1 
