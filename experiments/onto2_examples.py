@@ -23,12 +23,34 @@ def process_onto2_test():
 
     o.individual(
 
-        'Notification',
+        'FPCollection',
+
+        binds=[
+            o.property('initiated_by', fp),
+            o.property('collects', u),
+            o.property('has_mechanism', o.individual('Email')),
+        ]
+    )
+
+    o.individual(
+
+        'UserNotification',
+
+        binds=[
+            o.property('initiated_by', u),
+            o.property('notifies', fp),
+            o.property('has_mechanism', o.individual('Email')),
+        ]
+    )
+
+    o.individual(
+
+        'FPNotification',
 
         binds=[
             o.property('initiated_by', fp),
             o.property('notifies', u),
-            o.property('has_mechanism', o.individual('SecurityMechanism')),
+            o.property('has_mechanism', o.individual('Email')),
         ]
     )
 

@@ -16,7 +16,7 @@ class Property:
 
 
 class Ontology:
-    def __init__(self, name='default', website='Not defined', ontology=None):
+    def __init__(self, name='default', website='Not defined', ontology=None, create_root_policy=True):
         self.name = name
 
         onto_path.append(f"{os.path.abspath(ONTOLOGIES)}")
@@ -27,6 +27,10 @@ class Ontology:
             self.raw_onto = get_ontology(f"http://privacy-ontology.com/{name}.owl")
             construct(self.raw_onto)
 
+        if create_root_policy:
+            self.policy = self.individual('PrivacyPolicy', evidence=None, properties=[Property('policyWebsite', website)])
+
+    def new_policy(self, website):
         self.policy = self.individual('PrivacyPolicy', evidence=None, properties=[Property('policyWebsite', website)])
 
     @staticmethod
@@ -52,7 +56,8 @@ class Ontology:
 
         if properties:
             for p in properties:
-                setattr(individual, p.key, p.value)
+                if p:
+                    setattr(individual, p.key, p.value)
 
         return self.bind(self.evidence(individual, evidence), binds)
 
@@ -65,15 +70,21 @@ class Ontology:
     def property(key, value):
         return Property(key, value)
     
+    @staticmethod
+    def destroy(entity):
+        if entity:
+            destroy_entity(entity)
+
     def bind(self, individual, binds=None):
         self.autolink(individual)
 
         if binds:
             for p in binds:
-                try:
-                    getattr(individual, p.key).append(p.value)
-                except AttributeError:
-                    setattr(individual, p.key, p.value) 
+                if p.value:
+                    try:
+                        setattr(individual, p.key, p.value)
+                    except ValueError:
+                        getattr(individual, p.key).append(p.value)
 
         return individual
     

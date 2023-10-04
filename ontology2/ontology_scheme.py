@@ -7,246 +7,153 @@ def construct(onto):
         Classes
         """
         # Privacy policy
-        class PrivacyPolicy(Thing): pass
+        class PrivacyPolicy(Thing): ...
 
         # Activities
-        class Activity(Thing): pass
-        class DataActivity(Activity): pass
-        class Use(DataActivity): pass
-        class Protection(DataActivity): pass
-        class FPCollection(DataActivity): pass
-        class TPCollection(DataActivity): pass
-        class TPSharing(DataActivity): pass
-        class Retention(DataActivity): pass
-        class Notification(Activity): pass
-        class FPNotification(Notification): pass
-        class UserNotification(Notification): pass
-        class Breach(Activity): pass
-        class ControlActivity(Activity): pass
-        class PolicyChange(ControlActivity): pass
-        class DataControl(ControlActivity): pass
-        class ProvidedDataControl(DataControl): pass
-        class PrivacyControl(DataControl): pass
-        class OptControl(DataControl): pass
+        class Activity(Thing): ...
+        class Breach(Activity): ...
+        class DataActivity(Activity): ...
+        class PolicyChange(DataActivity): ...
+        class Use(DataActivity): ...
+        class Protection(DataActivity): ...
+        class FPCollection(DataActivity): ...
+        class TPCollection(DataActivity): ...
+        class TPSharing(DataActivity): ...
+        class Retention(DataActivity): ...
+        class Notification(Activity): ...
+        class FPNotification(Notification): ...
+        class UserNotification(Notification): ...
+        class DataControl(Activity): ...
+        class ProvidedDataControl(DataControl): ...
+        class PrivacyControl(DataControl): ...
+        class OptControl(DataControl): ...
 
         # Agents
-        class Agent(Thing): pass
-        class User(Agent): pass
-        class FirstParty(Agent): pass
-        class ThirdParty(Agent): pass
-        class Criminal(Agent): pass
-        class DataProtectionOfficer(Agent): pass
+        class Agent(Thing): ...
+        class User(Agent): ...
+        class FirstParty(Agent): ...
+        class ThirdParty(Agent): ...
+        class Criminal(Agent): ...
 
         # Data
-        class Data(Thing): pass
-        class PersonalData(Data): pass
-        class NonPersonalData(Data): pass
-        class NonSensitiveData(PersonalData): pass
-        class ServiceData(NonSensitiveData): pass
-        class FinancialData(NonSensitiveData): pass
-        class DeviceData(NonSensitiveData): pass
-        class ApplicationData(NonSensitiveData): pass
-        class AccountData(NonSensitiveData): pass
-        class TrackingData(NonSensitiveData): pass
-        class SensitiveData(PersonalData): pass
-        class ReligionData(SensitiveData): pass
-        class RacialData(SensitiveData): pass
-        class HealthData(SensitiveData): pass
-        class GenericData(SensitiveData): pass
-        class CrimeData(SensitiveData): pass
-        class BiometricData(SensitiveData): pass
+        class Data(Thing): ...
+        class PersonalData(Data): ...
+        class NonPersonalData(Data): ...
+        class NonSensitiveData(PersonalData): ...
+        class ServiceData(NonSensitiveData): ...
+        class FinancialData(NonSensitiveData): ...
+        class DeviceData(NonSensitiveData): ...
+        class ApplicationData(NonSensitiveData): ...
+        class AccountData(NonSensitiveData): ...
+        class TrackingData(NonSensitiveData): ...
+        class SensitiveData(PersonalData): ...
+        class ReligionData(SensitiveData): ...
+        class RacialData(SensitiveData): ...
+        class HealthData(SensitiveData): ...
+        class GenericData(SensitiveData): ...
+        class CrimeData(SensitiveData): ...
+        class BiometricData(SensitiveData): ...
 
         # Mechanisms
-        class Mechanism(Thing): pass
-        class DataRetentionMechanism(Mechanism): pass
-        class OwnServers(DataRetentionMechanism): pass
-        class EmployedServers(DataRetentionMechanism): pass
-        class TPSaCMechanism(Mechanism): pass
-        class Contract(TPSaCMechanism): pass
-        class ForFree(TPSaCMechanism): pass
-        class SecurityMechanism(Mechanism): pass
-        class TechnicalMeasure(SecurityMechanism): pass
-        class PseudoAnonymization(TechnicalMeasure): pass
-        class Encryption(TechnicalMeasure): pass
-        class SecureStorage(Encryption): pass
-        class SecureTunnel(Encryption): pass
-        class Firewall(TechnicalMeasure): pass
-        class AccessControls(TechnicalMeasure): pass
-        class OrganizationalMeasure(SecurityMechanism): pass
-        class LockedOffice(OrganizationalMeasure): pass
-        class SecurityTraining(OrganizationalMeasure): pass
-        class UserMaintain(OrganizationalMeasure): pass
-        class CommunicationMechanism(Mechanism): pass
-        class UserSpecific(CommunicationMechanism): pass
-        class Automatic(UserSpecific): pass
-        class ThroughServiceApp(Automatic): pass
-        class ThroughWebsite(Automatic): pass
-        class Manual(UserSpecific): pass
-        class WebsiteForm(Manual): pass
-        class ServiceAppForm(Manual): pass
-        class DataProvision(Manual): pass
-        class PersonalVisit(Manual): pass
-        class Mutual(CommunicationMechanism): pass
-        class Email(Mutual): pass
-        class PostalMail(Mutual): pass
-        class PhoneCall(Mutual): pass
-        class SMS(Mutual): pass
-        class FPSpecific(CommunicationMechanism): pass
-        class OnWebsitePage(FPSpecific): pass
-        class OnServiceApp(FPSpecific): pass
-        class InPrivacyPolicy(FPSpecific): pass
+        class Mechanism(Thing): ...
+        class DataRetentionMechanism(Mechanism): ...
+        class OwnServers(DataRetentionMechanism): ...
+        class EmployedServers(DataRetentionMechanism): ...
+        class TPSaCMechanism(Mechanism): ...
+        class Contract(TPSaCMechanism): ...
+        class ForFree(TPSaCMechanism): ...
+        class SecurityMechanism(Mechanism): ...
+        class TechnicalMeasure(SecurityMechanism): ...
+        class PseudoAnonymization(TechnicalMeasure): ...
+        class Encryption(TechnicalMeasure): ...
+        class SecureStorage(Encryption): ...
+        class SecureTunnel(Encryption): ...
+        class Firewall(TechnicalMeasure): ...
+        class AccessControls(TechnicalMeasure): ...
+        class OrganizationalMeasure(SecurityMechanism): ...
+        class LockedOffice(OrganizationalMeasure): ...
+        class SecurityTraining(OrganizationalMeasure): ...
+        class UserMaintain(OrganizationalMeasure): ...
+        class CommunicationMechanism(Mechanism): ...
+        class UserSpecific(CommunicationMechanism): ...
+        class Automatic(UserSpecific): ...
+        class ThroughServiceApp(Automatic): ...
+        class ThroughWebsite(Automatic): ...
+        class Manual(UserSpecific): ...
+        class WebsiteForm(Manual): ...
+        class ServiceAppForm(Manual): ...
+        class DataProvision(Manual): ...
+        class PersonalVisit(Manual): ...
+        class Mutual(CommunicationMechanism): ...
+        class Email(Mutual): ...
+        class PostalMail(Mutual): ...
+        class PhoneCall(Mutual): ...
+        class SMS(Mutual): ...
+        class FPSpecific(CommunicationMechanism): ...
+        class OnWebsitePage(FPSpecific): ...
+        class OnServiceApp(FPSpecific): ...
+        class InPrivacyPolicy(FPSpecific): ...
 
         # Modes
-        class Mode(Thing): pass
-        class DataTransmissionMode(Mode): pass
-        class Permanent(DataTransmissionMode): pass
-        class ByRequest(DataTransmissionMode): pass
+        class Mode(Thing): ...
+        class DataTransmissionMode(Mode): ...
+        class Permanent(DataTransmissionMode): ...
+        class ByRequest(DataTransmissionMode): ...
 
         # Causes
-        class Cause(Thing): pass
-        class BreachCause(Cause): pass
-        class ForceMajeur(BreachCause): pass
-        class Intentional(BreachCause): pass
-        class Unintentional(BreachCause): pass
-        class PolicyChangeCause(Cause): pass
-        class PrivacyRelated(PolicyChangeCause): pass
-        class NonPrivacyRelated(PolicyChangeCause): pass
-        class MergeAcquisition(PolicyChangeCause): pass
+        class Cause(Thing): ...
+        class BreachCause(Cause): ...
+        class ForceMajeur(BreachCause): ...
+        class Intentional(BreachCause): ...
+        class Unintentional(BreachCause): ...
+        class PolicyChangeCause(Cause): ...
+        class PrivacyRelated(PolicyChangeCause): ...
+        class NonPrivacyRelated(PolicyChangeCause): ...
+        class MergeAcquisition(PolicyChangeCause): ...
 
         # Consequences
-        class Consequence(Thing): pass
-        class BreachConsequence(Consequence): pass
-        class RemoveCompromisedInformation(BreachConsequence): pass
-        class Compensation(BreachConsequence): pass
-        class BreachInvestigation(BreachConsequence): pass
-        class PolicyChangeConsequence(Consequence): pass
-        class UserChoiceConsequence(Consequence): pass
-        class NoServiceRestriction(UserChoiceConsequence): pass
-        class PartialServiceRestriction(UserChoiceConsequence): pass
-        class FullServiceRestriction(UserChoiceConsequence): pass
+        class Consequence(Thing): ...
+        class BreachConsequence(Consequence): ...
+        class RemoveCompromisedInformation(BreachConsequence): ...
+        class Compensation(BreachConsequence): ...
+        class BreachInvestigation(BreachConsequence): ...
+        class PolicyChangeConsequence(Consequence): ...
+        class UserChoiceConsequence(Consequence): ...
+        class NoServiceRestriction(UserChoiceConsequence): ...
+        class PartialServiceRestriction(UserChoiceConsequence): ...
+        class FullServiceRestriction(UserChoiceConsequence): ...
 
         # Purposes
-        class Purpose(Thing): pass
-        class DataActivityPurpose(Purpose): pass
-        class ServiceProvision(DataActivityPurpose): pass
-        class HealthMonitoring(ServiceProvision): pass
-        class ServiceEnhancement(DataActivityPurpose): pass
-        class Analytics(ServiceEnhancement): pass
-        class Security(ServiceEnhancement): pass
-        class Research(ServiceEnhancement): pass
-        class Marketing(ServiceEnhancement): pass
+        class Purpose(Thing): ...
+        class DataActivityPurpose(Purpose): ...
+        class ServiceProvision(DataActivityPurpose): ...
+        class HealthMonitoring(ServiceProvision): ...
+        class ServiceEnhancement(DataActivityPurpose): ...
+        class Analytics(ServiceEnhancement): ...
+        class Security(ServiceEnhancement): ...
+        class Research(ServiceEnhancement): ...
+        class Marketing(ServiceEnhancement): ...
 
         # Time periods
-        class TimePeriod(Thing): pass
-        class DataRetentionTime(TimePeriod): pass
-        class NotificationTime(TimePeriod): pass
-        class BreachInvestigationTime(TimePeriod): pass
-        class PolicyAcceptanceTime(TimePeriod): pass
+        class TimePeriod(Thing): ...
+        class DataRetentionTime(TimePeriod): ...
+        class NotificationTime(TimePeriod): ...
+        class BreachInvestigationTime(TimePeriod): ...
+        class PolicyAcceptanceTime(TimePeriod): ...
 
         # Basis
-        class Basis(Thing): pass
-        class LegalBasis(Basis): pass
+        class Basis(Thing): ...
+        class LegalBasis(Basis): ...
 
         # Policy change scope
-        class PolicyChangeScope(Thing): pass
+        class PolicyChangeScope(Thing): ...
 
         # User special category
-        class UserSpecialCategory(Thing): pass
-        class EuropeanResident(UserSpecialCategory): pass
-        class CaliforniaResident(UserSpecialCategory): pass
-        class RussianFederationResident(UserSpecialCategory): pass
-        class Child(UserSpecialCategory): pass
-
-        """
-        Object properties
-        """
-        # Considers
-        class considered_by(ObjectProperty): pass
-        class considers(ObjectProperty): pass
-
-        # Applies
-        class applied_by(ObjectProperty): pass
-        class applies_to(ObjectProperty): pass
-
-        # Provides
-        class provided_by(ObjectProperty): pass
-        class provides(ObjectProperty): pass
-
-        # Activities
-        class initiated_by(ObjectProperty): pass
-        class initiates(ObjectProperty): pass
-
-        # Mechanisms
-        class mechanism_of(ObjectProperty): pass
-        class has_mechanism(ObjectProperty): pass
-
-        # Modes
-        class is_mode_for(ObjectProperty): pass
-        class has_mode(ObjectProperty): pass
-
-        # Durations
-        class is_period_of(ObjectProperty): pass
-        class lasts_for(ObjectProperty): pass
-
-        # Causes
-        class causes(ObjectProperty): pass
-        class caused_by(ObjectProperty): pass
-
-        # Consequences
-        class is_consequence_of(ObjectProperty): pass
-        class has_consequence(ObjectProperty): pass
-
-        # Employes
-        class employes(ObjectProperty): pass
-        class is_employed(ObjectProperty): pass
-
-        # Purposes
-        class is_purpose_for(ObjectProperty): pass
-        class has_purpose(ObjectProperty): pass
-
-        # Basis
-        class is_basis_for(ObjectProperty): pass
-        class has_basis(ObjectProperty): pass
-
-        # Basis
-        class is_scope_for(ObjectProperty): pass
-        class has_scope(ObjectProperty): pass
-
-        # Basis
-        class is_special_category_for(ObjectProperty): pass
-        class has_special_category(ObjectProperty): pass
-
-        # Collects
-        class collects_from(ObjectProperty): pass
-        class is_collected_by(ObjectProperty): pass
-
-        # Shares
-        class shares_with(ObjectProperty): pass
-        class is_shared_by(ObjectProperty): pass
-
-        # Shares
-        class notifies(ObjectProperty): pass
-        class notified_by(ObjectProperty): pass
-
-        # Ordering & Navigation
-        class following(ObjectProperty, TransitiveProperty): pass
-        class followed_by(ObjectProperty, TransitiveProperty): pass
-        class next_is(followed_by, IrreflexiveProperty, FunctionalProperty): pass
-        class previous_is(following, IrreflexiveProperty, FunctionalProperty): pass
-        class binded_to(ObjectProperty, SymmetricProperty, IrreflexiveProperty): pass
-        
-        class newer_than(ObjectProperty): pass
-        class older_than(ObjectProperty): pass
-
-        """
-        Data properties
-        """
-        class uuid(DataProperty, FunctionalProperty): pass
-        class evidence(DataProperty, FunctionalProperty): pass
-        class policyId(DataProperty, FunctionalProperty): pass
-        class policyUpdate(DataProperty, FunctionalProperty): pass
-        class policyWebsite(DataProperty, FunctionalProperty): pass
-        class does(DataProperty, FunctionalProperty): pass
+        class UserSpecialCategory(Thing): ...
+        class EuropeanResident(UserSpecialCategory): ...
+        class CaliforniaResident(UserSpecialCategory): ...
+        class RussianFederationResident(UserSpecialCategory): ...
+        class Child(UserSpecialCategory): ...
 
         """
         Class disjoints
@@ -256,11 +163,11 @@ def construct(onto):
         AllDisjoint([PrivacyPolicy, Agent, Activity, Data, Basis, Purpose, Mode, 
                      Cause, Consequence, TimePeriod, PolicyChangeScope, UserSpecialCategory])
 
-        AllDisjoint([User, FirstParty, ThirdParty, Criminal, DataProtectionOfficer])
+        AllDisjoint([User, FirstParty, ThirdParty, Criminal])
 
-        AllDisjoint([DataActivity, ControlActivity, Notification, Breach])
+        AllDisjoint([Breach, DataActivity, DataControl, Notification])
 
-        AllDisjoint([Use, Protection, FPCollection, TPCollection, TPSharing, Retention])
+        AllDisjoint([Use, Protection, FPCollection, TPCollection, TPSharing, Retention, PolicyChange])
         AllDisjoint([FPNotification, UserNotification])
         AllDisjoint([DataControl, PolicyChange])
         AllDisjoint([ProvidedDataControl, PrivacyControl, OptControl])
@@ -279,7 +186,8 @@ def construct(onto):
         AllDisjoint([Firewall, PseudoAnonymization, AccessControls, Encryption])
         AllDisjoint([SecureTunnel, SecureStorage])
 
-        AllDisjoint([Mutual, UserSpecific, FPSpecific])
+        AllDisjoint([UserSpecific, FPSpecific])
+
         AllDisjoint([InPrivacyPolicy, OnWebsitePage, OnServiceApp])
         AllDisjoint([Email, SMS, PhoneCall, PostalMail])
         AllDisjoint([Manual, Automatic])
@@ -304,258 +212,666 @@ def construct(onto):
         AllDisjoint([EuropeanResident, RussianFederationResident, CaliforniaResident, Child])
 
         """
-        Class restrictions
-
-        Depicts dashed arrows from ontology concept
-        Explains what restrictions are applied to classes
+        Object properties
         """
-        DataActivity.is_a.extend([
-            Activity & initiated_by.only(FirstParty),
-            Activity & applies_to.only(Data)
+        # Considers
+        class considered_by(ObjectProperty): ...
+        class considers(ObjectProperty): ...
+
+        # Applies
+        class applied_by(ObjectProperty): ...
+        class applies_to(ObjectProperty): ...
+
+        # Provides
+        class provided_by(ObjectProperty): ...
+        class provides(ObjectProperty): ...
+
+        # Activities
+        class initiated_by(ObjectProperty): ...
+        class initiates(ObjectProperty): ...
+
+        # Mechanisms
+        class mechanism_of(ObjectProperty): ...
+        class has_mechanism(ObjectProperty): ...
+
+        # Modes
+        class is_mode_for(ObjectProperty): ...
+        class has_mode(ObjectProperty): ...
+
+        # Durations
+        class is_period_of(ObjectProperty): ...
+        class lasts_for(ObjectProperty): ...
+
+        # Causes
+        class causes(ObjectProperty): ...
+        class caused_by(ObjectProperty): ...
+
+        # Consequences
+        class is_consequence_of(ObjectProperty): ...
+        class has_consequence(ObjectProperty): ...
+
+        # Purposes
+        class is_purpose_for(ObjectProperty): ...
+        class has_purpose(ObjectProperty): ...
+
+        # Basis
+        class is_basis_for(ObjectProperty): ...
+        class has_basis(ObjectProperty): ...
+
+        # Basis
+        class is_scope_for(ObjectProperty): ...
+        class has_scope(ObjectProperty): ...
+
+        # Basis
+        class is_special_category_for(ObjectProperty): ...
+        class has_special_category(ObjectProperty): ...
+
+        # Collects
+        class collects_from(ObjectProperty): ...
+        class is_collected_by(ObjectProperty): ...
+
+        # Shares
+        class shares_with(ObjectProperty): ...
+        class is_shared_by(ObjectProperty): ...
+
+        # Shares
+        class notifies(ObjectProperty): ...
+        class notified_by(ObjectProperty): ...
+
+        # Ordering & Navigation
+        class following(ObjectProperty, TransitiveProperty): ...
+        class followed_by(ObjectProperty, TransitiveProperty): ...
+        class next_is(followed_by, IrreflexiveProperty, FunctionalProperty): ...
+        class previous_is(following, IrreflexiveProperty, FunctionalProperty): ...
+        class binded_to(ObjectProperty, SymmetricProperty, IrreflexiveProperty): ...
+        
+        class newer_than(ObjectProperty): ...
+        class older_than(ObjectProperty): ...
+
+        """
+        Data properties
+        """
+        class uuid(DataProperty, FunctionalProperty): ...
+        class evidence(DataProperty, FunctionalProperty): ...
+        class policyId(DataProperty, FunctionalProperty): ...
+        class policyUpdate(DataProperty, FunctionalProperty): ...
+        class policyWebsite(DataProperty, FunctionalProperty): ...
+        class does(DataProperty, FunctionalProperty): ...
+
+        """
+        Class restrictions
+        """
+        PrivacyPolicy.is_a.extend([
+            considers.only(Agent | Activity | Data)
         ])
 
-        Protection.is_a.extend([
-            DataActivity & has_mechanism.only(SecurityMechanism)
-        ])
-
-        FPCollection.is_a.extend([
-            DataActivity & collects_from.only(User),
-            DataActivity & has_mechanism.only(Mutual | UserSpecific),
-            DataActivity & has_mode.only(DataTransmissionMode)
-        ])
-
-        TPCollection.is_a.extend([
-            DataActivity & collects_from.only(ThirdParty),
-            DataActivity & has_mechanism.only(TPSaCMechanism),
-            DataActivity & has_mode.only(DataTransmissionMode)
-        ])
-
-        TPSharing.is_a.extend([
-            DataActivity & shares_with.only(ThirdParty),
-            DataActivity & has_mechanism.only(TPSaCMechanism),
-            DataActivity & has_mode.only(DataTransmissionMode)
-        ])
-
-        Retention.is_a.extend([
-            DataActivity & has_mechanism.only(DataRetentionMechanism),
-            DataActivity & lasts_for.only(DataRetentionTime),
-        ])
-
-        Notification.is_a.extend([
-            Activity & initiated_by.only(FirstParty | User),
-            Activity & has_mechanism.only(CommunicationMechanism),
-            Activity & lasts_for.only(NotificationTime),
-        ])
-
-        FPNotification.is_a.extend([
-            Notification & initiated_by.only(FirstParty),
-            Notification & notifies.only(User),
-            Notification & has_mechanism.only(FPSpecific | Mutual)
-        ])
-
-        UserNotification.is_a.extend([
-            Notification & initiated_by.only(User),
-            Notification & notifies.only(FirstParty),
-            Notification & has_mechanism.only(UserSpecific | Mutual)
+        # Activities
+        Activity.is_a.extend([
+            considered_by.only(PrivacyPolicy)
+            & has_basis.only(Basis)
+            & has_purpose.only(Purpose)
+            & has_mode.only(Mode)
+            & has_mechanism.only(Mechanism)
+            & caused_by.only(Cause)
+            & has_consequence.only(Consequence)
+            & lasts_for.only(TimePeriod)
+            & has_scope.only(PolicyChangeScope)
         ])
 
         Breach.is_a.extend([
-            Activity & initiated_by.only(Criminal),
-            Activity & applies_to.only(Data)
+            initiated_by.only(Criminal)
+            & applies_to.only(Data)
+            & caused_by.only(BreachCause)
+            & has_consequence.only(BreachConsequence)
         ])
 
-        ControlActivity.is_a.extend([
-            Activity & initiated_by.only(FirstParty | User),
+        DataActivity.is_a.extend([
+            initiated_by.only(FirstParty)
+            & has_purpose.only(DataActivityPurpose)
+            & applies_to.only(Data)
+            & has_basis.only(LegalBasis)
+        ])
+
+        Use.is_a.extend([
+            DataActivity
+        ])
+
+        Protection.is_a.extend([
+            has_mechanism.only(SecurityMechanism)
+        ])
+
+        FPCollection.is_a.extend([
+            collects_from.only(User)
+            & has_mechanism.only(UserSpecific)
+            & has_mode.only(DataTransmissionMode)
+        ])
+
+        TPCollection.is_a.extend([
+            collects_from.only(ThirdParty)
+            & has_mechanism.only(TPSaCMechanism)
+            & has_mode.only(DataTransmissionMode)
+        ])
+
+        TPSharing.is_a.extend([
+            shares_with.only(ThirdParty)
+            & has_mechanism.only(TPSaCMechanism)
+            & has_mode.only(DataTransmissionMode)
+        ])
+
+        Retention.is_a.extend([
+            has_mechanism.only(DataRetentionMechanism)
+            & lasts_for.only(DataRetentionTime)
         ])
 
         PolicyChange.is_a.extend([
-            ControlActivity & initiated_by.only(FirstParty),
-            ControlActivity & lasts_for.only(PolicyAcceptanceTime),
-            ControlActivity & has_scope.only(PolicyChangeScope),
-            ControlActivity & has_consequence.only(PolicyChangeConsequence),
-            ControlActivity & caused_by.only(PolicyChangeCause),
+            has_consequence.only(PolicyChangeConsequence)
+            & caused_by.only(PolicyChangeCause)
+            & lasts_for.only(PolicyAcceptanceTime)
+            & has_scope.only(PolicyChangeScope)
+        ])
+
+        Notification.is_a.extend([
+            initiated_by.only(Agent)
+            & notifies.only(Agent)
+            & has_mechanism.only(CommunicationMechanism)
+            & lasts_for.only(NotificationTime)
+        ])
+
+        FPNotification.is_a.extend([
+            initiated_by.only(FirstParty)
+            & notifies.only(User)
+            & has_mechanism.only(FPSpecific)
+        ])
+
+        UserNotification.is_a.extend([
+            initiated_by.only(User)
+            & notifies.only(FirstParty)
+            & has_mechanism.only(Manual)
         ])
 
         DataControl.is_a.extend([
-            ControlActivity & initiated_by.only(User),
-            ControlActivity & has_mechanism.only(UserSpecific | Mutual),
-            ControlActivity & has_basis.only(LegalBasis),
-            ControlActivity & applies_to.only(Data),
+            initiated_by.only(User)
+            & applies_to.only(Data)
+            & has_basis.only(LegalBasis)
+            & has_mechanism.only(Manual)
+        ])
+
+        ProvidedDataControl.is_a.extend([
+            
+        ])
+
+        PrivacyControl.is_a.extend([
+            
+        ])
+
+        OptControl.is_a.extend([
+
         ])
 
         # Agents
-        FirstParty.is_a.extend([
-            Agent & initiates.only(FPNotification | PolicyChange | DataActivity) 
-        ])
-
-        ThirdParty.is_a.extend([
-            Agent & is_collected_by.only(TPCollection),
-            Agent & is_shared_by.only(TPSharing)
-        ])
-
-        DataProtectionOfficer.is_a.extend([
-            Agent & is_employed.only(BreachInvestigation)
-        ])
-
-        Criminal.is_a.extend([
-            Agent & initiates.only(Breach)
+        Agent.is_a.extend([
+            considered_by.only(PrivacyPolicy)
+            & initiates.only(Activity)
         ])
 
         User.is_a.extend([
-            Agent & initiates.only(UserNotification | DataControl),
-            Agent & is_collected_by.only(FPCollection),
-            Agent & provides.only(Data)
+            provides.only(Data)
+            & initiates.only(DataControl | UserNotification)
+            & has_special_category.only(UserSpecialCategory)
+            & is_collected_by.only(FPCollection)
+            & notified_by.only(FPNotification)
+        ])
+
+        FirstParty.is_a.extend([
+            initiates.only(DataActivity | FPNotification)
+            & notified_by.only(UserNotification)
+        ])
+
+        ThirdParty.is_a.extend([
+            initiates.only(DataActivity | FPNotification)
+            & is_shared_by.only(TPSharing)
+            & is_collected_by.only(TPCollection)
+        ])
+
+        Criminal.is_a.extend([
+            Agent & (
+                initiates.only(Breach)
+            )
+        ])
+
+
+        # Data
+        Data.is_a.extend([
+            considered_by.only(PrivacyPolicy)
+        ])
+
+        PersonalData.is_a.extend([
+
+        ])
+
+        NonPersonalData.is_a.extend([
+
+        ])
+
+        NonSensitiveData.is_a.extend([
+
+        ])
+
+        ServiceData.is_a.extend([
+
+        ])
+
+        FinancialData.is_a.extend([
+
+        ])
+
+        DeviceData.is_a.extend([
+
+        ])
+
+        ApplicationData.is_a.extend([
+
+        ])
+
+        AccountData.is_a.extend([
+
+        ])
+
+        TrackingData.is_a.extend([
+
+        ])
+
+        SensitiveData.is_a.extend([
+
+        ])
+
+        ReligionData.is_a.extend([
+
+        ])
+
+        RacialData.is_a.extend([
+
+        ])
+
+        HealthData.is_a.extend([
+
+        ])
+
+        GenericData.is_a.extend([
+
+        ])
+
+        CrimeData.is_a.extend([
+
+        ])
+
+        BiometricData.is_a.extend([
+
         ])
 
         # Mechanisms
+        Mechanism.is_a.extend([
+            mechanism_of.only(Activity)
+        ])
+
         DataRetentionMechanism.is_a.extend([
-            Mechanism & mechanism_of.only(Retention)
+            mechanism_of.only(Retention)
+        ])
+
+        OwnServers.is_a.extend([
+
+        ])
+
+        EmployedServers.is_a.extend([
+
+        ])
+
+        TPSaCMechanism.is_a.extend([
+            mechanism_of.only(TPCollection | TPSharing)
+        ])
+
+        Contract.is_a.extend([
+
+        ])
+
+        ForFree.is_a.extend([
+
         ])
 
         SecurityMechanism.is_a.extend([
-            Mechanism & mechanism_of.only(Protection),
+            mechanism_of.only(Protection)
+        ])
+
+        TechnicalMeasure.is_a.extend([
+
+        ])
+
+        PseudoAnonymization.is_a.extend([
+
+        ])
+
+        Encryption.is_a.extend([
+
+        ])
+
+        SecureStorage.is_a.extend([
+
+        ])
+
+        SecureTunnel.is_a.extend([
+
+        ])
+
+        Firewall.is_a.extend([
+
+        ])
+
+        AccessControls.is_a.extend([
+
+        ])
+
+        OrganizationalMeasure.is_a.extend([
+
+        ])
+
+        LockedOffice.is_a.extend([
+
+        ])
+
+        SecurityTraining.is_a.extend([
+
+        ])
+
+        UserMaintain.is_a.extend([
+
         ])
 
         CommunicationMechanism.is_a.extend([
-            Mechanism & mechanism_of.only(Notification | FPCollection | DataControl)
+            mechanism_of.only(Notification | DataControl | FPCollection)
         ])
 
         UserSpecific.is_a.extend([
-            CommunicationMechanism & mechanism_of.only(UserNotification | DataControl | FPCollection)
+            mechanism_of.only(Not(FPNotification))
+        ])
+
+        Automatic.is_a.extend([
+
+        ])
+
+        ThroughServiceApp.is_a.extend([
+
+        ])
+
+        ThroughWebsite.is_a.extend([
+
+        ])
+
+        Manual.is_a.extend([
+            (UserSpecific | Mutual),
+            mechanism_of.only(Not(FPNotification))
+        ])
+
+        WebsiteForm.is_a.extend([
+
+        ])
+
+        ServiceAppForm.is_a.extend([
+
+        ])
+
+        DataProvision.is_a.extend([
+
+        ])
+
+        PersonalVisit.is_a.extend([
+
+        ])
+
+        Mutual.is_a.extend([
+            
+        ])
+
+        Email.is_a.extend([
+
+        ])
+
+        PostalMail.is_a.extend([
+
+        ])
+
+        PhoneCall.is_a.extend([
+
+        ])
+
+        SMS.is_a.extend([
+
         ])
 
         FPSpecific.is_a.extend([
-            CommunicationMechanism & mechanism_of.only(FPNotification)
+            (FPSpecific | Mutual),
+            mechanism_of.only(FPNotification)
+        ])
+
+        OnWebsitePage.is_a.extend([
+
+        ])
+
+        OnServiceApp.is_a.extend([
+
+        ])
+
+        InPrivacyPolicy.is_a.extend([
+
         ])
 
         # Modes
+        Mode.is_a.extend([
+            is_mode_for.only(Activity)
+        ])
+
         DataTransmissionMode.is_a.extend([
-            Mode & is_mode_for.only(FPCollection | TPCollection | TPSharing)
+            is_mode_for.only(FPCollection | TPCollection | TPSharing)
+        ])
+
+        Permanent.is_a.extend([
+
+        ])
+
+        ByRequest.is_a.extend([
+
         ])
 
         # Causes
+        Cause.is_a.extend([
+            causes.only(Activity)
+        ])
+
         BreachCause.is_a.extend([
-            Cause & causes.only(Breach)
+            causes.only(Breach)
+        ])
+
+        ForceMajeur.is_a.extend([
+
+        ])
+
+        Intentional.is_a.extend([
+
+        ])
+
+        Unintentional.is_a.extend([
+
         ])
 
         PolicyChangeCause.is_a.extend([
-            Cause & causes.only(PolicyChange)
+            causes.only(PolicyChange)
         ])
 
+        PrivacyRelated.is_a.extend([
+
+        ])
+
+        NonPrivacyRelated.is_a.extend([
+
+        ])
+
+        MergeAcquisition.is_a.extend([
+
+        ])
+
+
         # Consequences
+        Consequence.is_a.extend([
+            is_consequence_of.only(Activity)
+        ])
+
         BreachConsequence.is_a.extend([
-            Consequence & is_consequence_of.only(Breach)
+            is_consequence_of.only(Breach)
+        ])
+
+        RemoveCompromisedInformation.is_a.extend([
+
+        ])
+
+        Compensation.is_a.extend([
+
         ])
 
         BreachInvestigation.is_a.extend([
-            BreachConsequence & lasts_for.only(BreachInvestigationTime),
-            BreachConsequence & employes.only(DataProtectionOfficer),
+
         ])
 
         PolicyChangeConsequence.is_a.extend([
-            Consequence & is_consequence_of.only(PolicyChange)
+            is_consequence_of.only(PolicyChange)
         ])
 
         UserChoiceConsequence.is_a.extend([
-            Consequence & is_consequence_of.only(DataControl)
+            is_consequence_of.only(DataControl)
+        ])
+
+        NoServiceRestriction.is_a.extend([
+
+        ])
+
+        PartialServiceRestriction.is_a.extend([
+
+        ])
+
+        FullServiceRestriction.is_a.extend([
+
         ])
 
         # Purposes
-        DataActivityPurpose.is_a.extend([
-            Purpose & is_purpose_for.only(DataActivity)
+        Purpose.is_a.extend([
+            is_purpose_for.only(Activity)
         ])
 
+        DataActivityPurpose.is_a.extend([
+            is_purpose_for.only(DataActivity)
+        ])
+
+        ServiceProvision.is_a.extend([
+
+        ])
+
+        HealthMonitoring.is_a.extend([
+
+        ])
+
+        ServiceEnhancement.is_a.extend([
+
+        ])
+
+        Analytics.is_a.extend([
+
+        ])
+
+        Security.is_a.extend([
+
+        ])
+
+        Research.is_a.extend([
+
+        ])
+
+        Marketing.is_a.extend([
+
+        ])
+
+
         # Time periods
+        TimePeriod.is_a.extend([
+            is_period_of.only(Activity)
+        ])
+
         DataRetentionTime.is_a.extend([
-            TimePeriod & is_period_of.only(Retention)
+            is_period_of.only(Retention)
         ])
 
         NotificationTime.is_a.extend([
-            TimePeriod & is_period_of.only(Notification)
+            is_period_of.only(Notification)
         ])
 
         BreachInvestigationTime.is_a.extend([
-            TimePeriod & is_period_of.only(BreachInvestigation)
+            is_period_of.only(BreachInvestigation)
         ])
 
         PolicyAcceptanceTime.is_a.extend([
-            TimePeriod & is_period_of.only(PolicyChange)
+            is_period_of.only(PolicyChange)
         ])
 
         # Basis
+        Basis.is_a.extend([
+            is_basis_for.only(Activity)
+        ])
+
         LegalBasis.is_a.extend([
-            Basis & is_basis_for.only(DataActivity | DataControl)
+            is_basis_for.only(DataActivity | DataControl)
+        ])
+
+        # Policy change scope
+        PolicyChangeScope.is_a.extend([
+            is_scope_for.only(PolicyChange)
+        ])
+
+        # User special category
+        UserSpecialCategory.is_a.extend([
+            is_special_category_for.only(User)
+        ])
+
+        EuropeanResident.is_a.extend([
+
+        ])
+
+        CaliforniaResident.is_a.extend([
+
+        ])
+
+        RussianFederationResident.is_a.extend([
+
+        ])
+
+        Child.is_a.extend([
+
         ])
 
         """
         Object properties restrictions
         """
-        considers.domain = [PrivacyPolicy]
-        considers.range = [Agent | Activity | Data]
-        considers.inverse_property = considered_by
-
-        applies_to.domain = [DataActivity | Breach | DataControl]
-        applies_to.range = [Data]
+        considered_by.inverse_property = considers
         applies_to.inverse_property = applied_by
-
-        provides.domain = [Agent]
-        provides.range = [Data]
         provides.inverse_property = provided_by
-
-        initiates.domain = [Agent]
-        initiates.range = [Activity]
         initiates.inverse_property = initiated_by
-
-        has_mechanism.domain = [Activity]
-        has_mechanism.range = [Mechanism]
         has_mechanism.inverse_property = mechanism_of
-
-        collects_from.domain = [TPCollection]
-        collects_from.range = [User | ThirdParty]
         collects_from.inverse_property = is_collected_by
-
-        shares_with.domain = [Activity]
-        shares_with.range = [ThirdParty]
         shares_with.inverse_property = is_shared_by
-
-        notifies.domain = [Activity]
-        notifies.range = [Agent]
         notifies.inverse_property = notified_by
-
-        employes.domain = [BreachInvestigation]
-        employes.range = [DataProtectionOfficer]
-        employes.inverse_property = is_employed
-
-        has_mode.domain = [Activity]
-        has_mode.range = [Mode]
         has_mode.inverse_property = is_mode_for
-
-        lasts_for.domain = [Activity | BreachInvestigation]
-        lasts_for.range = [TimePeriod]
         lasts_for.inverse_property = is_period_of
-
-        causes.domain = [Cause]
-        causes.range = [Activity]
         causes.inverse_property = caused_by
-
-        has_consequence.domain = [Activity]
-        has_consequence.range = [Consequence]
         has_consequence.inverse_property = is_consequence_of
-
-        has_purpose.domain = [DataActivity]
-        has_purpose.range = [Purpose]
         has_purpose.inverse_property = is_purpose_for
-
-        has_scope.domain = [PolicyChange]
-        has_scope.range = [PolicyChangeScope]
         has_scope.inverse_property = is_scope_for
-
-        has_special_category.domain = [User]
-        has_special_category.range = [UserSpecialCategory]
         has_special_category.inverse_property = is_special_category_for
-
-        has_basis.domain = [DataActivity | DataControl]
-        has_basis.range = [Basis]
         has_basis.inverse_property = is_basis_for
 
         binded_to.domain = [Activity]
