@@ -4,155 +4,205 @@ from .parsing import *
 _ID = -1
 
 
-def first_party_scenario(o, r, fp, u):
-    data = parse_data(o, r, u)
-    purpose = parse_purpose(o, r)
-    mechanism = parse_mechanism_fp(o, r)
-    mode = parse_mode_fp(o, r)
-    protection = parse_identifiability(o, r, fp, data)
+def construct_first_party_scenario(o, r, fp, u):
 
-    collection = None
-    use = None
-
-    if r["attributes"]["Choice Scope"]["value"] == "Collection" \
-            or r["attributes"]["Choice Scope"]["value"] == "Both" \
-            or r["attributes"]["Choice Scope"]["value"] == "not-selected":
-        collection = o.individual(
+    if r["attributes"]["Choice Scope"]["value"] == "Both":
+        
+        data = parse_data(o, r, u)
+        purposes = parse_purpose(o, r)
+        mechanisms = parse_mechanism_fp(o, r)
+        modes = parse_mode_fp(o, r)
+        protection = parse_identifiability(o, r, fp, data)
+        
+        o.individual(
             'FPCollection',
             r["segment_text"],
             [
                 o.property('initiated_by', fp),
-                o.property('has_purpose', purpose),
-                o.property('has_mode', mode),
-                o.property('has_mechanism', mechanism),
-                *[o.property('applies_to', d) for d in data],
                 o.property('collects_from', u),
-                o.property('binded_to', protection),
-            ]
+                *purposes,
+                *modes,
+                *mechanisms,
+                *data,
+                *protection,
+            ],
+            [o.property('does', True if r["attributes"]["Choice Scope"]["value"] == 'Does' else False)]
         )
-
-    if r["attributes"]["Choice Scope"]["value"] == "Use" \
-            or r["attributes"]["Choice Scope"]["value"] == "Both" \
-            or r["attributes"]["Choice Scope"]["value"] == "not-selected":
-        use = o.individual(
+        
+        o.individual(
             'Use', 
             r["segment_text"],
             [
                 o.property('initiated_by', fp),
-                o.property('has_purpose', purpose),
-                *[o.property('applies_to', d) for d in data],
-                o.property('binded_to', protection),
-            ]
+                *purposes,
+                *data,
+                *protection,
+            ],
+            [o.property('does', True if r["attributes"]["Choice Scope"]["value"] == 'Does' else False)]
         )
 
-    if not collection and use:
-        o.destroy(mode)
-        o.destroy(mechanism)
-    elif not collection and not use:
-        o.destroy(mode)
-        o.destroy(purpose)
-        o.destroy(mechanism)
+    if r["attributes"]["Choice Scope"]["value"] == "Collection":
+        
+        data = parse_data(o, r, u)
+        purposes = parse_purpose(o, r)
+        mechanisms = parse_mechanism_fp(o, r)
+        modes = parse_mode_fp(o, r)
+        protection = parse_identifiability(o, r, fp, data)
+
+        o.individual(
+            'FPCollection',
+            r["segment_text"],
+            [
+                o.property('initiated_by', fp),
+                o.property('collects_from', u),
+                *purposes,
+                *modes,
+                *mechanisms,
+                *data,
+                *protection,
+            ],
+            [o.property('does', True if r["attributes"]["Choice Scope"]["value"] == 'Does' else False)]
+        )
+
+    if r["attributes"]["Choice Scope"]["value"] == "Use":
+
+        data = parse_data(o, r, u)
+        purposes = parse_purpose(o, r)
+        protection = parse_identifiability(o, r, fp, data)
+
+        o.individual(
+            'Use', 
+            r["segment_text"],
+            [
+                o.property('initiated_by', fp),
+                *purposes,
+                *data,
+                *protection,
+            ],
+            [o.property('does', True if r["attributes"]["Choice Scope"]["value"] == 'Does' else False)]
+        )
 
 
-def third_party_scenario(o, r, fp, tp, u):
-    data = parse_data(o, r, u)
-    purpose = parse_purpose(o, r)
-    mechanism = parse_mechanism_tp(o, r)
-    protection = parse_identifiability(o, r, fp, data)
-    mode = parse_mode_tp(o, r)
+def construct_third_party_scenario(o, r, fp, tp, u):
 
-    collection = None
-    sharing = None
+    if r["attributes"]["Choice Scope"]["value"] == "Both":
 
-    if r["attributes"]["Choice Scope"]["value"] == "Collection" \
-            or r["attributes"]["Choice Scope"]["value"] == "Both" \
-            or r["attributes"]["Choice Scope"]["value"] == "not-selected":
-        collection = o.individual(
+        data = parse_data(o, r, u)
+        purpose = parse_purpose(o, r)
+        mechanism = parse_mechanism_tp(o, r)
+        protection = parse_identifiability(o, r, fp, data)
+        
+        o.individual(
             'TPCollection',
             r["segment_text"],
             [
                 o.property('initiated_by', fp),
-                o.property('has_purpose', purpose),
-                o.property('has_mode', mode),
-                o.property('has_mechanism', mechanism),
-                *[o.property('applies_to', d) for d in data],
                 o.property('collects_from', tp),
-                o.property('binded_to', protection),
-            ]
+                *purpose,
+                *mechanism,
+                *data,
+                *protection,
+            ],
+            [o.property('does', True if r["attributes"]["Choice Scope"]["value"] == 'Does' else False)]
         )
 
-    if r["attributes"]["Choice Scope"]["value"] == "Sharing" \
-            or r["attributes"]["Choice Scope"]["value"] == "Both" \
-            or r["attributes"]["Choice Scope"]["value"] == "not-selected":
-        sharing = o.individual(
+        o.individual(
             'TPSharing',
             r["segment_text"],
             [
                 o.property('initiated_by', fp),
-                o.property('has_purpose', purpose),
-                o.property('has_mode', mode),
-                o.property('has_mechanism', mechanism),
-                *[o.property('applies_to', d) for d in data],
                 o.property('shares_with', tp),
-                o.property('binded_to', protection),
-            ]
+                *purpose,
+                *mechanism,
+                *data,
+                *protection,
+            ],
+            [o.property('does', True if r["attributes"]["Choice Scope"]["value"] == 'Does' else False)]
         )
 
-    if not collection and sharing:
-        o.destroy(mode)
-        o.destroy(purpose)
-        o.destroy(mechanism)
+    if r["attributes"]["Choice Scope"]["value"] == "Collection":
+        
+        data = parse_data(o, r, u)
+        purpose = parse_purpose(o, r)
+        mechanism = parse_mechanism_tp(o, r)
+        protection = parse_identifiability(o, r, fp, data)
 
-
-def user_choice_and_control(o, r, u):
-    mechanism = parse_mechanism_choice(o, r)
-    data = parse_data(o, r, u)
-    
-    if r["attributes"]["Choice Type"]["value"] != "null" \
-            and "selectedText" in r["attributes"]["Choice Type"].keys():
         o.individual(
-            'ProvidedDataControl',
+            'TPCollection',
+            r["segment_text"],
+            [
+                o.property('initiated_by', fp),
+                o.property('collects_from', tp),
+                *purpose,
+                *mechanism,
+                *data,
+                *protection,
+            ],
+            [o.property('does', True if r["attributes"]["Choice Scope"]["value"] == 'Does' else False)]
+        )
+
+    if r["attributes"]["Choice Scope"]["value"] == "Sharing":
+        
+        data = parse_data(o, r, u)
+        purpose = parse_purpose(o, r)
+        mechanism = parse_mechanism_tp(o, r)
+        protection = parse_identifiability(o, r, fp, data)
+
+        o.individual(
+            'TPSharing',
+            r["segment_text"],
+            [
+                o.property('initiated_by', fp),
+                o.property('shares_with', tp),
+                *purpose,
+                *mechanism,
+                *data,
+                *protection,
+            ],
+            [o.property('does', True if r["attributes"]["Choice Scope"]["value"] == 'Does' else False)]
+        )
+
+
+def construct_user_choice_and_control(o, r, u):
+    if r["attributes"]["Choice Type"]["value"] != "null" and "selectedText" in r["attributes"]["Choice Type"].keys():
+        
+        o.individual(
+            'PrivacyControl',
             r["segment_text"],
             [
                 o.property('initiated_by', u),
-                o.property('has_mechanism', mechanism),
-                *[o.property('applies_to', d) for d in data],
+                *parse_mechanism_choice(o, r),
+                *parse_data(o, r, u),
             ]
         )
 
 
-def data_retention(o, r, fp, u):
-    data = parse_data(o, r, u)
-    purpose = parse_purpose_retention(o, r)
-    period = parse_period_retention(o, r)
-
+def construct_data_retention(o, r, fp, u):
     o.individual(
         'Retention',
         r["segment_text"],
         [
             o.property('initiated_by', fp),
-            o.property('lasts_for', period),
-            o.property('has_purpose', purpose),
-            *[o.property('applies_to', d) for d in data],
+            *parse_period_retention(o, r),
+            *parse_purpose_retention(o, r),
+            *parse_data(o, r, u)
         ]
     )
 
 
-def user_access(o, r, u):
-    data = parse_data_access(o, r, u)
-
+def construct_user_access_edit_deletion(o, r, u):
     o.individual(
         'ProvidedDataControl',
         r["segment_text"],
         [
             o.property('initiated_by', u),
             o.property('has_mechanism', o.individual('Manual', r["segment_text"])),
-            *[o.property('applies_to', d) for d in data],
+            *parse_data_access(o, r, u),
         ]
     )
 
 
-def do_not_track(o, r, u):
+def construct_do_not_track(o, r, u):
     o.individual(
         'OptControl',
         r["segment_text"],
@@ -162,7 +212,7 @@ def do_not_track(o, r, u):
     )
 
 
-def international_and_specific_audience(o, r, u):
+def construct_international_and_specific_audience(o, r, u):
     o.individual(
         'UserSpecialCategory',
         r["segment_text"],
@@ -172,7 +222,7 @@ def international_and_specific_audience(o, r, u):
     )
 
 
-def data_security(o, r, fp):
+def construct_data_security(o, r, fp):
     mechanisms = parse_mechanism_security(o, r)
 
     o.individual(
@@ -180,32 +230,35 @@ def data_security(o, r, fp):
         r["segment_text"],
         [
             o.property('initiated_by', fp),
-            *[o.property('has_mechanism', m) for m in mechanisms],
+            *mechanisms,
         ]
     )
 
 
-def policy_change(o, r, u, fp):
-    mechanisms = parse_mechanism_policy_change(o, r)
-    causes = parse_cause_policy_change(o, r)
-
-    policy_change = o.individual(
-        'PolicyChange',
-        r["segment_text"],
-        [
-            o.property('initiated_by', fp),
-            *[o.property('has_cause', c) for c in causes],
-        ]
-    )
-
+# Connect with privacy control
+def construct_policy_change(o, r, u, fp):
     o.individual(
         'FPNotification',
         r["segment_text"],
         [
             o.property('initiated_by', fp),
             o.property('notifies', u),
-            o.property('has_mechanism', mechanisms),
-            o.property('binded_to', policy_change),
+            *parse_mechanism_policy_change(o, r),
+            o.property('binded_to', o.individual(
+                'PolicyChange',
+                r["segment_text"],
+                [
+                    o.property('initiated_by', fp),
+                    *parse_cause_policy_change(o, r),
+                    o.property('binded_to', o.individual(
+                        'PrivacyControl',
+                        r["segment_text"],
+                        [
+                            o.property('initiated_by', u),
+                        ]
+                    )),
+                ]
+            )),
         ]
     )
 
@@ -245,31 +298,31 @@ def process_opp(o, policy):
             continue
 
         if a["category"] == "First Party Collection/Use":
-            first_party_scenario(o, a, first_party, user)
+            construct_first_party_scenario(o, a, first_party, user)
 
         if a["category"] == "Third Party Sharing/Collection":
-            third_party_scenario(o, a, first_party, third_party, user)
+            construct_third_party_scenario(o, a, first_party, third_party, user)
 
         if a["category"] == "User Choice/Control":
-            user_choice_and_control(o, a, user)
+            construct_user_choice_and_control(o, a, user)
 
         if a["category"] == "Data Retention":
-            data_retention(o, a, first_party, user)
+            construct_data_retention(o, a, first_party, user)
 
         if a["category"] == "User Access, Edit and Deletion":
-            user_access(o, a, user)
+            construct_user_access_edit_deletion(o, a, user)
 
         if a["category"] == "Do Not Track":
-            do_not_track(o, a, user)
+            construct_do_not_track(o, a, user)
 
         if a["category"] == "International and Specific Audiences":
-            international_and_specific_audience(o, a, user)
+            construct_international_and_specific_audience(o, a, user)
 
         if a["category"] == "Data Security":
-            data_security(o, a, first_party)
+            construct_data_security(o, a, first_party)
 
         if a["category"] == "Policy Change":
-            policy_change(o, a, user, first_party)
+            construct_policy_change(o, a, user, first_party)
 
     return o
 

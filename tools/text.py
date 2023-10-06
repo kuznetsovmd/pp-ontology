@@ -9,7 +9,7 @@ def remove_br(text):
     return sub(r"<br>", "", text)
 
 
-def remove_strong(text: object) -> object:
+def remove_strong(text):
     return sub(r"<strong>", "", sub(r"</strong>", " ", text))
 
 

@@ -10,7 +10,7 @@ The ontology has several versions:
 1. Same version with interface,
 1. New version of ontology (ontology2) which has class restrictions, less amount and more meaningful object properties.
 
-- The `experiments` folder contains manually created ontologies of different version of ontology,
+- The `experiments` folder contains manually created ontologies,
 - The `ontology` folder contains ontology scheme and interface,
 - The `ontology2` folder contains ontology2 scheme and interface,
 - The `queries` folder contains queries definitioins,

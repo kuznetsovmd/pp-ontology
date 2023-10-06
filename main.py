@@ -9,7 +9,7 @@ from experiments.cloud_computing_policies2.threeplususa import process_3plususa
 from experiments.healthcare_policies2.caresense import process_caresense
 from experiments.healthcare_policies2.renpho import process_renpho
 from experiments.healthcare_policies2.zepp import process_zepp
-from experiments.onto2_examples import process_onto2_test
+from experiments.onto2_examples import process_onto_test
 
 
 def main():
@@ -85,7 +85,7 @@ def main():
     process_renpho()
     process_zepp()
 
-    process_onto2_test()
+    process_onto_test()
 
 
 if __name__ == '__main__':
