@@ -197,25 +197,25 @@ def parse_purpose_retention(o, r):
     if "selectedText" not in r["attributes"]["Retention Purpose"].keys():
         return properties
     
-    if r["attributes"]["Retention Purpose"]["value"] == "Analytics/Research" and "selectedText" in r["attributes"]["Retention Purpose"].keys():
+    if r["attributes"]["Retention Purpose"]["value"] == "Analytics/Research":
         properties.append(o.property('has_purpose', o.individual('Analytics', r["attributes"]["Retention Purpose"]["selectedText"])))
     
-    if r["attributes"]["Retention Purpose"]["value"] == "Perform service" and "selectedText" in r["attributes"]["Retention Purpose"].keys():
+    if r["attributes"]["Retention Purpose"]["value"] == "Perform service":
         properties.append(o.property('has_purpose', o.individual('ServiceProvision', r["attributes"]["Retention Purpose"]["selectedText"])))
     
-    if r["attributes"]["Retention Purpose"]["value"] == "Other" and "selectedText" in r["attributes"]["Retention Purpose"].keys():
+    if r["attributes"]["Retention Purpose"]["value"] == "Other":
         properties.append(o.property('has_purpose', o.individual('DataActivityPurpose', r["attributes"]["Retention Purpose"]["selectedText"])))
     
-    if r["attributes"]["Retention Purpose"]["value"] == "Legal requirement" and "selectedText" in r["attributes"]["Retention Purpose"].keys():
+    if r["attributes"]["Retention Purpose"]["value"] == "Legal requirement":
         properties.append(o.property('has_basis', o.individual('LegalBasis', r["attributes"]["Retention Purpose"]["selectedText"])))
     
-    if r["attributes"]["Retention Purpose"]["value"] == "Advertising" and "selectedText" in r["attributes"]["Retention Purpose"].keys():
+    if r["attributes"]["Retention Purpose"]["value"] == "Advertising":
         properties.append(o.property('has_purpose', o.individual('Marketing', r["attributes"]["Retention Purpose"]["selectedText"])))
     
-    if r["attributes"]["Retention Purpose"]["value"] == "Marketing" and "selectedText" in r["attributes"]["Retention Purpose"].keys():
+    if r["attributes"]["Retention Purpose"]["value"] == "Marketing":
         properties.append(o.property('has_purpose', o.individual('Marketing', r["attributes"]["Retention Purpose"]["selectedText"])))
     
-    if r["attributes"]["Retention Purpose"]["value"] == "Service operation and security" and "selectedText" in r["attributes"]["Retention Purpose"].keys():
+    if r["attributes"]["Retention Purpose"]["value"] == "Service operation and security":
         properties.append(o.property('has_purpose', o.individual('Security', r["attributes"]["Retention Purpose"]["selectedText"])))
     
     return properties
@@ -305,7 +305,6 @@ def parse_mechanism_security(o, r):
     return properties
 
 
-# Extend
 def parse_mechanism_tp(o, r):
     properties = []
 
@@ -400,15 +399,15 @@ def parse_cause_policy_change(o, r):
         return properties
 
     if r["attributes"]["Change Type"]["value"] == "Privacy relevant change":
-        properties.append(o.property('has_cause', o.individual('PrivacyRelated', r["attributes"]["User Choice"]["selectedText"])))
+        properties.append(o.property('caused_by', o.individual('PrivacyRelated', r["attributes"]["User Choice"]["selectedText"])))
 
     if r["attributes"]["Change Type"]["value"] == "Non-privacy relevant change":
-        properties.append(o.property('has_cause', o.individual('NonPrivacyRelated', r["attributes"]["User Choice"]["selectedText"])))
+        properties.append(o.property('caused_by', o.individual('NonPrivacyRelated', r["attributes"]["User Choice"]["selectedText"])))
 
     if r["attributes"]["Change Type"]["value"] == "In case of merger or acquisition":
-        properties.append(o.property('has_cause', o.individual('MergeAcquisition', r["attributes"]["User Choice"]["selectedText"])))
+        properties.append(o.property('caused_by', o.individual('MergeAcquisition', r["attributes"]["User Choice"]["selectedText"])))
 
     if r["attributes"]["Change Type"]["value"] == "Other":
-        properties.append(o.property('has_cause', o.individual('PolicyChangeCause', r["attributes"]["User Choice"]["selectedText"])))
+        properties.append(o.property('caused_by', o.individual('PolicyChangeCause', r["attributes"]["User Choice"]["selectedText"])))
 
     return properties
