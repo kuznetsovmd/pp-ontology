@@ -126,6 +126,7 @@ def construct(onto):
         # Purposes
         class Purpose(Thing): ...
         class DataActivityPurpose(Purpose): ...
+        class LegalCompliance(DataActivityPurpose): ...
         class ServiceProvision(DataActivityPurpose): ...
         class HealthMonitoring(ServiceProvision): ...
         class ServiceEnhancement(DataActivityPurpose): ...
@@ -172,7 +173,7 @@ def construct(onto):
         AllDisjoint([DataControl, PolicyChange])
         AllDisjoint([ProvidedDataControl, PrivacyControl, OptControl])
 
-        AllDisjoint([ServiceEnhancement, ServiceProvision])
+        AllDisjoint([LegalCompliance, ServiceEnhancement, ServiceProvision])
         AllDisjoint([Analytics, Marketing, Research, Security])
 
         AllDisjoint([ByRequest, Permanent])
@@ -428,15 +429,12 @@ def construct(onto):
         ])
 
         ThirdParty.is_a.extend([
-            initiates.only(DataActivity | FPNotification)
-            & is_shared_by.only(TPSharing)
+            is_shared_by.only(TPSharing)
             & is_collected_by.only(TPCollection)
         ])
 
         Criminal.is_a.extend([
-            Agent & (
-                initiates.only(Breach)
-            )
+            initiates.only(Breach)
         ])
 
 

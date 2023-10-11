@@ -660,17 +660,6 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#initiates"/>
-          <owl:allValuesFrom>
-            <owl:Class>
-              <owl:unionOf rdf:parseType="Collection">
-                <rdf:Description rdf:about="#DataActivity"/>
-                <rdf:Description rdf:about="#FPNotification"/>
-              </owl:unionOf>
-            </owl:Class>
-          </owl:allValuesFrom>
-        </owl:Restriction>
-        <owl:Restriction>
           <owl:onProperty rdf:resource="#is_shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
@@ -686,15 +675,10 @@
 <owl:Class rdf:about="#Criminal">
   <rdfs:subClassOf rdf:resource="#Agent"/>
   <rdfs:subClassOf>
-    <owl:Class>
-      <owl:intersectionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#Agent"/>
-        <owl:Restriction>
-          <owl:onProperty rdf:resource="#initiates"/>
-          <owl:allValuesFrom rdf:resource="#Breach"/>
-        </owl:Restriction>
-      </owl:intersectionOf>
-    </owl:Class>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#initiates"/>
+      <owl:allValuesFrom rdf:resource="#Breach"/>
+    </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -935,14 +919,6 @@
   <rdfs:subClassOf rdf:resource="#UserSpecific"/>
   <owl:disjointWith rdf:resource="#Automatic"/>
   <rdfs:subClassOf>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecific"/>
-        <rdf:Description rdf:about="#Mutual"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
       <owl:allValuesFrom>
@@ -951,6 +927,14 @@
         </owl:Class>
       </owl:allValuesFrom>
     </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#UserSpecific"/>
+        <rdf:Description rdf:about="#Mutual"/>
+      </owl:unionOf>
+    </owl:Class>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -993,18 +977,18 @@
 <owl:Class rdf:about="#FPSpecific">
   <rdfs:subClassOf rdf:resource="#CommunicationMechanism"/>
   <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#mechanism_of"/>
+      <owl:allValuesFrom rdf:resource="#FPNotification"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
     <owl:Class>
       <owl:unionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#FPSpecific"/>
         <rdf:Description rdf:about="#Mutual"/>
       </owl:unionOf>
     </owl:Class>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#mechanism_of"/>
-      <owl:allValuesFrom rdf:resource="#FPNotification"/>
-    </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -1196,6 +1180,10 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#LegalCompliance">
+  <rdfs:subClassOf rdf:resource="#DataActivityPurpose"/>
+</owl:Class>
+
 <owl:Class rdf:about="#ServiceProvision">
   <rdfs:subClassOf rdf:resource="#DataActivityPurpose"/>
 </owl:Class>
@@ -1206,7 +1194,6 @@
 
 <owl:Class rdf:about="#ServiceEnhancement">
   <rdfs:subClassOf rdf:resource="#DataActivityPurpose"/>
-  <owl:disjointWith rdf:resource="#ServiceProvision"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Analytics">
@@ -1338,79 +1325,79 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#021b4ec82beb414faa604fc:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#68848ba7006f467eb439cfc:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#3ce8aa803daf4c689d12d24:User"/>
-  <considers rdf:resource="#86f055dca10d4a25934c0c1:FirstParty"/>
-  <considers rdf:resource="#ad0fb966671d4e84842c9f6:Criminal"/>
-  <considers rdf:resource="#a6005bc129d742ee87adb8a:Data"/>
-  <considers rdf:resource="#0863b9f4f82d4ae69b1f75f:Breach"/>
-  <considers rdf:resource="#7f01fe64d84c465cab4627b:FPNotification"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">021b4ec82beb414faa604fc</uuid>
+  <considers rdf:resource="#68abba001cff4a7287e22cf:User"/>
+  <considers rdf:resource="#74cfccac29b247f99acc5bf:FirstParty"/>
+  <considers rdf:resource="#9b9a0fa89c8544e5bbd87ca:Criminal"/>
+  <considers rdf:resource="#2b2312e0ab254c308b683c7:Data"/>
+  <considers rdf:resource="#46f71fb56c874833b6b700c:Breach"/>
+  <considers rdf:resource="#d6dadc85cbff48008cdd4ea:FPNotification"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">68848ba7006f467eb439cfc</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://3plususa.com</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3ce8aa803daf4c689d12d24:User">
+<owl:NamedIndividual rdf:about="#68abba001cff4a7287e22cf:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3ce8aa803daf4c689d12d24</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">68abba001cff4a7287e22cf</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#86f055dca10d4a25934c0c1:FirstParty">
+<owl:NamedIndividual rdf:about="#74cfccac29b247f99acc5bf:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">86f055dca10d4a25934c0c1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">74cfccac29b247f99acc5bf</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">we</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ad0fb966671d4e84842c9f6:Criminal">
+<owl:NamedIndividual rdf:about="#9b9a0fa89c8544e5bbd87ca:Criminal">
   <rdf:type rdf:resource="#Criminal"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ad0fb966671d4e84842c9f6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9b9a0fa89c8544e5bbd87ca</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a6005bc129d742ee87adb8a:Data">
+<owl:NamedIndividual rdf:about="#2b2312e0ab254c308b683c7:Data">
   <rdf:type rdf:resource="#Data"/>
-  <provided_by rdf:resource="#3ce8aa803daf4c689d12d24:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a6005bc129d742ee87adb8a</uuid>
+  <provided_by rdf:resource="#68abba001cff4a7287e22cf:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2b2312e0ab254c308b683c7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d4d632f6ac23400da8c31e6:BreachCause">
+<owl:NamedIndividual rdf:about="#74e26fc2f52b4917840f538:BreachCause">
   <rdf:type rdf:resource="#BreachCause"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d4d632f6ac23400da8c31e6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">74e26fc2f52b4917840f538</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0863b9f4f82d4ae69b1f75f:Breach">
+<owl:NamedIndividual rdf:about="#46f71fb56c874833b6b700c:Breach">
   <rdf:type rdf:resource="#Breach"/>
-  <initiated_by rdf:resource="#ad0fb966671d4e84842c9f6:Criminal"/>
-  <applies_to rdf:resource="#a6005bc129d742ee87adb8a:Data"/>
-  <caused_by rdf:resource="#d4d632f6ac23400da8c31e6:BreachCause"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0863b9f4f82d4ae69b1f75f</uuid>
+  <initiated_by rdf:resource="#9b9a0fa89c8544e5bbd87ca:Criminal"/>
+  <applies_to rdf:resource="#2b2312e0ab254c308b683c7:Data"/>
+  <caused_by rdf:resource="#74e26fc2f52b4917840f538:BreachCause"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">46f71fb56c874833b6b700c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">In order to be in line with Fair Information Practices, should a data breach occur.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8e9231f5bf494edf9f7f232:NotificationTime">
+<owl:NamedIndividual rdf:about="#8b2653a2f65e43c881fa1f4:NotificationTime">
   <rdf:type rdf:resource="#NotificationTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8e9231f5bf494edf9f7f232</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8b2653a2f65e43c881fa1f4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">within seven (7) business days</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#652ad277d6214db9b65ed9b:Email">
+<owl:NamedIndividual rdf:about="#ecdf8aeca5a34847833f1fc:Email">
   <rdf:type rdf:resource="#Email"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">652ad277d6214db9b65ed9b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ecdf8aeca5a34847833f1fc</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">we will notify users via email</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7f01fe64d84c465cab4627b:FPNotification">
+<owl:NamedIndividual rdf:about="#d6dadc85cbff48008cdd4ea:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#86f055dca10d4a25934c0c1:FirstParty"/>
-  <notifies rdf:resource="#3ce8aa803daf4c689d12d24:User"/>
-  <lasts_for rdf:resource="#8e9231f5bf494edf9f7f232:NotificationTime"/>
-  <has_mechanism rdf:resource="#652ad277d6214db9b65ed9b:Email"/>
-  <binded_to rdf:resource="#0863b9f4f82d4ae69b1f75f:Breach"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7f01fe64d84c465cab4627b</uuid>
+  <initiated_by rdf:resource="#74cfccac29b247f99acc5bf:FirstParty"/>
+  <notifies rdf:resource="#68abba001cff4a7287e22cf:User"/>
+  <lasts_for rdf:resource="#8b2653a2f65e43c881fa1f4:NotificationTime"/>
+  <has_mechanism rdf:resource="#ecdf8aeca5a34847833f1fc:Email"/>
+  <binded_to rdf:resource="#46f71fb56c874833b6b700c:Breach"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d6dadc85cbff48008cdd4ea</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">we will notify users via email within seven (7) business days.</evidence>
 </owl:NamedIndividual>
@@ -1553,6 +1540,14 @@
     <rdf:Description rdf:about="#Marketing"/>
     <rdf:Description rdf:about="#Research"/>
     <rdf:Description rdf:about="#Security"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#LegalCompliance"/>
+    <rdf:Description rdf:about="#ServiceEnhancement"/>
+    <rdf:Description rdf:about="#ServiceProvision"/>
   </owl:members>
 </owl:AllDisjointClasses>
 

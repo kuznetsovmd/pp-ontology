@@ -165,7 +165,7 @@ def parse_purpose(o, r):
         properties.append(o.property('has_purpose', o.individual('Analytics', r["attributes"]["Purpose"]["selectedText"])))
 
     if r["attributes"]["Purpose"]["value"] == "Legal requirement":
-        properties.append(o.property('has_basis', o.individual('LegalBasis', r["attributes"]["Purpose"]["selectedText"])))
+        properties.append(o.property('has_purpose', o.individual('LegalCompliance', r["attributes"]["Purpose"]["selectedText"])))
 
     if r["attributes"]["Purpose"]["value"] == "Other":
         properties.append(o.property('has_purpose', o.individual('DataActivityPurpose', r["attributes"]["Purpose"]["selectedText"])))
