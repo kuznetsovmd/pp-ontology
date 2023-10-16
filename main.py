@@ -6,6 +6,8 @@ from experiments.opp2.reader import read_opp
 from experiments.cloud_computing_policies2.amazon_web_services import process_aws
 from experiments.cloud_computing_policies2.google_cloud import process_google_cloud
 from experiments.cloud_computing_policies2.threeplususa import process_3plususa
+from experiments.cloud_computing_policies2.hpe import process_hpe
+from experiments.cloud_computing_policies2.yandex import process_yandex
 from experiments.healthcare_policies2.caresense import process_caresense
 from experiments.healthcare_policies2.renpho import process_renpho
 from experiments.healthcare_policies2.zepp import process_zepp
@@ -80,6 +82,8 @@ def main():
     process_3plususa()
     process_aws()
     process_google_cloud()
+    process_hpe()
+    process_yandex()
 
     process_caresense()
     process_renpho()
