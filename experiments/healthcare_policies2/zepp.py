@@ -53,7 +53,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Protection',
+        'DataProtection',
 
         'We are committed to protecting the privacy, confidentiality and security of your personal information by complying with applicable laws. We are equally committed to ensuring that all our employees and agents uphold these obligations.',
 
@@ -150,7 +150,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'for the purposes of processing')),
             
             o.property('previous_is', a),
@@ -195,7 +195,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_mode', o.individual(
-                'ByRequest',
+                'TransmissionByRequest',
                 'we may ask')),
             
             o.property('previous_is', a),
@@ -336,12 +336,12 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('applies_to', o.individual(
-                'NonSensitiveData',
+                'PersonalData',
                 'other actions taken through use of the services such as preferences.',
                 [o.property('provided_by', user)])),
 
             o.property('has_mechanism', o.individual(
-                'Automatic',
+                'AutomaticCommunicationMechanism',
                 'automatically')),
             
             o.property('previous_is', a),
@@ -496,12 +496,12 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('applies_to', o.individual(
-                'NonSensitiveData',
+                'PersonalData',
                 'items purchased',
                 [o.property('provided_by', user)])),
 
             o.property('applies_to', o.individual(
-                'NonSensitiveData',
+                'PersonalData',
                 'order ID',
                 [o.property('provided_by', user)])),
 
@@ -511,7 +511,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'for fulling your order.')),
             
             o.property('previous_is', a),
@@ -1033,7 +1033,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('applies_to', o.individual(
-                'NonSensitiveData',
+                'PersonalData',
                 'other similar information related to certain features of the Zepp App.',
                 [o.property('provided_by', user)])),
             
@@ -1154,7 +1154,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'location-based program services or features')),
             
             o.property('previous_is', a),
@@ -1304,7 +1304,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'use the device off-wrist lock function')),
             
             o.property('previous_is', a),
@@ -1335,11 +1335,11 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to help us analyze the problem')),
             
             o.property('binded_to', o.individual(
-                'PrivacyControl',
+                'OptInOptOutControl',
                 'When you choose to upload debug logs',
                 [
                     o.property('initiated_by', user),
@@ -1396,11 +1396,11 @@ def process_zepp():
             *data,
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'use various functionalities')),
 
             o.property('binded_to', o.individual(
-                'PrivacyControl',
+                'OptInOptOutControl',
                 'After receiving permission from your friends',
                 [
                     o.property('initiated_by', user),
@@ -1449,11 +1449,11 @@ def process_zepp():
             *data,
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'use various functionalities')),
             
             o.property('binded_to', o.individual(
-                'PrivacyControl',
+                'OptInOptOutControl',
                 'you may submit certain information, such as voice information, a reminder setting or tags for your current activity status (e.g. walking, pre-sleep state, wake-up mood, sleeping and etc.).',
                 [
                     o.property('initiated_by', user),
@@ -1503,7 +1503,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to calculate and present the results of certain services the visitor experiences.')),
             
             o.property('previous_is', a),
@@ -1568,11 +1568,11 @@ def process_zepp():
             *data,
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'in order to improve the services we provide to you.')),
             
             o.property('binded_to', o.individual(
-                'Protection',
+                'DataProtection',
                 'which is aggregated, anonymized or de-identified. For example, the device function, system status, battery status, Startup & Shutdown status, charging status and connecting status of smartphone of your device',
                 [
                     o.property('initiated_by', first_party),
@@ -1613,7 +1613,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'We acquire, hold, use and process personal information for a variety of business purposes including for providing services and/or products to you, to respond to information requested and to fulfill legal compliance on our part under applicable laws.',
 
@@ -1623,7 +1623,7 @@ def process_zepp():
             *data,
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'for a variety of business purposes including for providing services and/or products to you, to respond to information requested and to fulfill legal compliance on our part under applicable laws.')),
 
             o.property('has_basis', o.individual(
@@ -1637,7 +1637,7 @@ def process_zepp():
                     o.property('initiated_by', first_party),
                     *data,
                     o.property('has_purpose', o.individual(
-                        'ServiceProvision',
+                        'ServiceProvisionPurpose',
                         'for the purposes stated in this Privacy Policy.')),
                 ])),
             
@@ -1664,7 +1664,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'We may use information about you to fulfill requests for products, Services, or information, including: Providing, processing, maintaining, improving and developing our goods and/or services to you, including after-sales and customer support and for services on your device; Communicating with you about your device, service or any general queries or other requests and comments, such as updates, customer inquiry support, information about our events, notices; Providing access to certain areas, functionalities, and features of our products and services; Conducting promotional activities, such as sweepstakes and Facebook events; Analyzing and developing statistical information on the use of our products and services to better improve our products and services; Optimizing the performance of your device; Storing and maintaining information about you for our business operations or legal obligations; and Providing local services without communicating with our servers.',
 
@@ -1677,39 +1677,39 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to fulfill requests for products, Services, or information, including:')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'Providing, processing, maintaining, improving and developing our goods and/or services to you, including after-sales and customer support and for services on your device;')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'Communicating with you about your device, service or any general queries or other requests and comments, such as updates, customer inquiry support, information about our events, notices;')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'Providing access to certain areas, functionalities, and features of our products and services;')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'Conducting promotional activities, such as sweepstakes and Facebook events;')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'Analyzing and developing statistical information on the use of our products and services to better improve our products and services;')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'Optimizing the performance of your device;')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'Storing and maintaining information about you for our business operations or legal obligations; and')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'Providing local services without communicating with our servers.')),
             
             o.property('previous_is', a),
@@ -1735,7 +1735,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'We may use personal information about you for administrative purposes, including to: Measure interest in our services; Develop new products and services; Ensure internal quality control; Verify your identity; Communicate about accounts and activities on our services and systems, and, in our discretion, changes to any of our policies; Send email to the email address you provide to us to verify your account and for informational and operational purposes, such as account management, customer service, or system maintenance; Prevent potentially prohibited or illegal activities; and Enforce our Service Agreement and/or Privacy Policy.',
 
@@ -1748,35 +1748,35 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'Measure interest in our services;')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'Develop new products and services;')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'Ensure internal quality control;')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'Verify your identity;')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'Communicate about accounts and activities on our services and systems, and, in our discretion, changes to any of our policies;')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'Send email to the email address you provide to us to verify your account and for informational and operational purposes, such as account management, customer service, or system maintenance;')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'Prevent potentially prohibited or illegal activities; and')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'Enforce our Service Agreement and/or Privacy Policy.')),
             
             o.property('previous_is', a),
@@ -1797,7 +1797,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'If permitted by applicable laws, we may use your personal information, such as your email address, account ID, to provide you with materials directly or through third-party service provider(s) about offers, products, and services, including new content or services. We may provide you with these materials by phone, postal mail, facsimile, or email, or as otherwise permitted by applicable law. Such uses include: To notify you about offers, products, and services that may be of interest to you; For other purposes disclosed at the time that individuals provide personal information; and Otherwise with your consent.',
 
@@ -1820,19 +1820,19 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to provide you with materials directly or through third-party service provider(s) about offers, products, and services, including new content or services.')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'To notify you about offers, products, and services that may be of interest to you;')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'For other purposes disclosed at the time that individuals provide personal information; and')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'Otherwise with your consent.')),
 
             o.property('has_basis', o.individual(
@@ -1854,7 +1854,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'OptControl',
+        'AdvertisingDataControl',
 
         'You have the right to opt out of our proposed use of your personal information for direct marketing. If you no longer wish to receive certain types of email communication you may opt-out by following the unsubscribe link located at the bottom of each communication.',
 
@@ -1888,7 +1888,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'We may use personal information to create non-identifiable information that we may use alone or in the aggregate with information obtained from other sources, in order to help us to optimally deliver our existing products and services or develop new products and services',
 
@@ -1901,7 +1901,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to create non-identifiable information that we may use alone or in the aggregate with information obtained from other sources, in order to help us to optimally deliver our existing products and services or develop new products and services')),
 
             o.property('binded_to', o.individual(
@@ -1911,12 +1911,12 @@ def process_zepp():
                     o.property('initiated_by', first_party),
                     *data,
                     o.property('has_purpose', o.individual(
-                        'ServiceProvision',
+                        'ServiceProvisionPurpose',
                         'in order to present the preference and trend analysis.')),
                 ])),
 
             o.property('binded_to', o.individual(
-                'Protection',
+                'DataProtection',
                 'and we may share these statistics with the public or third parties in order to present the preference and trend analysis.',
                 [
                     o.property('initiated_by', first_party),
@@ -1952,7 +1952,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'We will collect certain information that your mobile device sends when you use such products and services, like a device identifier, user settings, location information, mobile carrier, and the operating system of your device. Mobile versions of our products and services may require that users log in with an account. In such cases, information about use of mobile versions of the products and services may be associated with accounts. In addition, we may enable you to download an application, widget, or other tool that can be used on mobile or other computing devices. Some of these tools may store information on mobile or other devices. These tools may transmit personal information to us to enable you to access your accounts and to enable us and our third-party service providers to track use of these tools. Some of these tools may enable users to transmit reports and other information from the tool.',
 
@@ -1960,7 +1960,7 @@ def process_zepp():
             o.property('initiated_by', first_party),
 
             o.property('applies_to', o.individual(
-                'NonSensitiveData',
+                'PersonalData',
                 'information that your mobile device sends',
                 [o.property('provided_by', user)])),
 
@@ -2005,22 +2005,22 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to enable you to access your accounts and to enable us and our third-party service providers to track use of these tools.')),
             
             o.property('binded_to', o.individual(
-                'Use',
+                'DataUse',
                 'We may use personal or non-identifiable information transmitted to us to enhance these tools, to develop new tools, for quality improvement and as otherwise described in this Privacy Policy or in other notices we provide.',
                 [
                     o.property('initiated_by', first_party),
                     *data,
                     o.property('has_purpose', o.individual(
-                        'ServiceProvision',
+                        'ServiceProvisionPurpose',
                         'to enhance these tools, to develop new tools, for quality improvement and as otherwise described in this Privacy Policy or in other notices we provide.')),
                 ])),
             
             o.property('binded_to', o.individual(
-                'Protection',
+                'DataProtection',
                 'non-identifiable information',
                 [
                     o.property('initiated_by', first_party),
@@ -2045,7 +2045,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'De-identified, Anonymous and/or Aggregated Information Use. We may use personal information and other information about you to create de-identified, anonymized and/or aggregated information, such as de-identified demographic information, de-identified location information, information about the mobile phone or device from which you access Zepp App, or other analyses we create. De-identified, anonymized and/or aggregated information is not personal information, and we may use such information in a number of ways, including research, internal analysis, analytics, and any other legally permissible purposes.',
 
@@ -2058,11 +2058,11 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to create de-identified, anonymized and/or aggregated information, such as de-identified demographic information, de-identified location information, information about the mobile phone or device from which you access Zepp App, or other analyses we create.')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'in a number of ways, including research, internal analysis, analytics, and any other legally permissible purposes.')),
 
             o.property('has_basis', o.individual(
@@ -2070,7 +2070,7 @@ def process_zepp():
                 'legally permissible')),
             
             o.property('binded_to', o.individual(
-                'Protection',
+                'DataProtection',
                 'non-identifiable information',
                 [
                     o.property('initiated_by', first_party),
@@ -2095,7 +2095,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'OptControl',
+        'AdvertisingDataControl',
 
         'Improving User Experience. Some opt-in features allow us or our third party partners to analyze data about how users use our products and services, so as to improve the user experience, such as sending crash reports.',
 
@@ -2122,7 +2122,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'Here are more details on how we may use your information (which may include personal information):',
 
@@ -2167,7 +2167,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'is used for creating the personal account and profile page for the user.')),
             
             o.property('previous_is', a),
@@ -2185,7 +2185,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'Personal body information is used to accurately calculate and display the exercise result to you, such as, exercising records, distance, exercising time, total duration, burned calories, consumption, pace, speed, maximum oxygen uptake (VO2 Max), exercise capacity, training effects.',
 
@@ -2253,7 +2253,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'HealthMonitoring',
+                'HealthMonitoringPurpose',
                 'is used to accurately calculate and display the exercise result to you')),
             
             o.property('previous_is', a),
@@ -2271,7 +2271,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'Based on the personal information you provided and the data recorded by the device, we will provide you an analysis related to your physical condition for your reference, such as PAI, BMI, muscle mass, body fat percentage, water percentage, protein, basal metabolic rate, subcutaneous fat, skeletal muscle mass, visceral fat level, bone mass content, pressure, body shape, body age.',
 
@@ -2359,7 +2359,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'HealthMonitoring',
+                'HealthMonitoringPurpose',
                 'provide you an analysis related to your physical condition for your reference')),
             
             o.property('previous_is', a),
@@ -2377,7 +2377,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'Based on the personal information you have provided and the data recorded by the device, such as PPG, heart rate, we will record your naps, sleep time, sleep breathing and provide you a sleep score and sleep analysis related to your sleep quality for your reference.',
 
@@ -2435,7 +2435,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'HealthMonitoring',
+                'HealthMonitoringPurpose',
                 'for your reference')),
             
             o.property('previous_is', a),
@@ -2453,7 +2453,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'we will calculate the local time corresponding to your selected area based on the time at your mobile phone and display it in Zepp App and the bundled devices that support the world clock function.',
 
@@ -2466,7 +2466,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'display it in Zepp App and the bundled devices that support the world clock function.')),
             
             o.property('previous_is', a),
@@ -2484,7 +2484,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'when you use alarm clock function, your alarm clock information will be displayed in Zepp App and the bundled device.',
 
@@ -2497,7 +2497,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'will be displayed in Zepp App and the bundled device.')),
             
             o.property('previous_is', a),
@@ -2528,11 +2528,11 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'for the purpose of carrying out your orders.')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to provide voice memo service to you.')),
             
             o.property('previous_is', a),
@@ -2550,7 +2550,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'When you use female health function, certain information related to menstrual period will be recorded and displayed in Zepp App or on some devices that support this function. If you turn on the physiological period intelligent prediction mode, we will predict your menstrual period and remind you based on the information you provided.',
 
@@ -2563,7 +2563,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'HealthMonitoring',
+                'HealthMonitoringPurpose',
                 'predict your menstrual period and remind you based on the information you provided.')),
             
             o.property('previous_is', a),
@@ -2594,7 +2594,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'HealthMonitoring',
+                'HealthMonitoringPurpose',
                 'to show the value to you or to assist providing a sleeping analysis to you.')),
             
             o.property('previous_is', a),
@@ -2612,7 +2612,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'When you enable the notification reminder function, the reminder information you set in the Zepp App will be pushed to the bundled device.',
 
@@ -2625,7 +2625,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'reminder information you set in the Zepp App will be pushed to the bundled device.')),
             
             o.property('previous_is', a),
@@ -2643,7 +2643,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'When you use Bluetooth camera function, your mobile phone will be connected with the device through Bluetooth for controlling the camera.',
 
@@ -2744,7 +2744,7 @@ def process_zepp():
             *data,
 
             o.property('binded_to', o.individual(
-                'PrivacyControl',
+                'OptInOptOutControl',
                 'When you use eSIM function, we will collect your operation records. Your phone number, call records, short messages will be stored in the device, but if you choose to upload this information together with the log, this information will be uploaded and stored in our cloud.',
                 [
                     o.property('initiated_by', user),
@@ -2767,7 +2767,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'When you receive a call, text messages, caller information will be displayed on the device. You may even answer or reject a phone call by the device directly (only supported by certain devices).',
 
@@ -2785,7 +2785,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'will be displayed on the device.')),
             
             o.property('previous_is', a),
@@ -2821,7 +2821,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'You can even use the device to answer or hang up the call. If you have missed calls, the relevant information will also be displayed on the device.')),
             
             o.property('previous_is', a),
@@ -2839,7 +2839,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'When you use music control function, the music information (name of song, singer, volume, the status of song) will be displayed on the device.',
 
@@ -2847,17 +2847,17 @@ def process_zepp():
             o.property('initiated_by', first_party),
 
             o.property('applies_to', o.individual(
-                'NonSensitiveData',
+                'PersonalData',
                 'music information',
                 [o.property('provided_by', user)])),
 
             o.property('applies_to', o.individual(
-                'NonSensitiveData',
+                'PersonalData',
                 'name of song',
                 [o.property('provided_by', user)])),
 
             o.property('applies_to', o.individual(
-                'NonSensitiveData',
+                'PersonalData',
                 'singer',
                 [o.property('provided_by', user)])),
 
@@ -2872,7 +2872,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'will be displayed on the device.')),
             
             o.property('previous_is', a),
@@ -2910,14 +2910,14 @@ def process_zepp():
             [o.property('provided_by', user)])),
 
         o.property('applies_to', o.individual(
-            'NonSensitiveData',
+            'PersonalData',
             'your music reference',
             [o.property('provided_by', user)])),
     ]
     
     purposes = [
         o.property('has_purpose', o.individual(
-            'ServiceProvision',
+            'ServiceProvisionPurpose',
             'to recommend sleep melodies to you.')),
     ]
 
@@ -2932,7 +2932,7 @@ def process_zepp():
             *data,
             *purposes,
             o.property('binded_to', o.individual(
-                'Use',
+                'DataUse',
                 'When you use AI Sleep Melody service, we will collect and use your personal information, such as heart rate, activity data, sleep data and your music reference to recommend sleep melodies to you.',
                 [
                     o.property('initiated_by', first_party),
@@ -2968,7 +2968,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'recommend listening time for the current week based on the hearing protection standards established by the World Health Organization (WHO).')),
             
             o.property('previous_is', a),
@@ -2999,7 +2999,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'HealthMonitoring',
+                'HealthMonitoringPurpose',
                 'the earphone will play music to remind you to relax your spine for long periods of time.')),
             
             o.property('previous_is', a),
@@ -3067,7 +3067,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'HealthMonitoring',
+                'HealthMonitoringPurpose',
                 'will be broadcasted to you.')),
             
             o.property('previous_is', a),
@@ -3085,7 +3085,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'Phone information will be used to determine if your device can use Zepp App.',
 
@@ -3098,7 +3098,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to determine if your device can use Zepp App.')),
             
             o.property('previous_is', a),
@@ -3129,7 +3129,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'HealthMonitoring',
+                'HealthMonitoringPurpose',
                 'display the data to you.')),
             
             o.property('previous_is', a),
@@ -3194,7 +3194,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'Your device unlock password will be used to the off-wrist lock function.',
 
@@ -3207,7 +3207,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'will be used to the off-wrist lock function.')),
             
             o.property('previous_is', a),
@@ -3251,15 +3251,15 @@ def process_zepp():
             *data,
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to provide and improve our services.')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to provide you with weather details, calculating the distance of your outdoor sporting or mapping such activity.')),
 
             o.property('binded_to', o.individual(
-                'PrivacyControl',
+                'OptInOptOutControl',
                 'You may turn this off at any time by going into the device settings of your mobile devices or discontinue use of that application.',
                 [
                     o.property('initiated_by', user),
@@ -3281,7 +3281,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'We use your personal information, such as, Huami ID, log information, debug information, the information automatically collected to provide functionality, analyze performance, fix errors, and improve the quality of our products and services. For example, we may use these information to optimize pages/function display, determining the importance of each product function, guiding us to adjust the priority of the development of product features.',
 
@@ -3309,11 +3309,11 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to provide functionality, analyze performance, fix errors, and improve the quality of our products and services.')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to optimize pages/function display, determining the importance of each product function, guiding us to adjust the priority of the development of product features.')),
             
             o.property('previous_is', a),
@@ -3331,7 +3331,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'This information provides the ability to manage the bundled devices.',
 
@@ -3344,7 +3344,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'provides the ability to manage the bundled devices.')),
             
             o.property('previous_is', a),
@@ -3375,7 +3375,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'for analyzing software quality to provide better service.')),
             
             o.property('previous_is', a),
@@ -3393,7 +3393,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'We may use the information to improve the bundled devices.',
 
@@ -3406,7 +3406,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to improve the bundled devices.')),
             
             o.property('previous_is', a),
@@ -3484,7 +3484,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to recognize you across devices.')),
 
             o.property('has_mechanism', o.individual(
@@ -3540,11 +3540,11 @@ def process_zepp():
             o.property('collects_from', third_party),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'analyzing trends, administering the website, tracking users’ movements around the website and to gather demographic information about our user base as a whole.')),
             
             o.property('binded_to', o.individual(
-                'Protection',
+                'DataProtection',
                 'Technologies such as cookies, tags, and scripts are used by us and our third-party service providers. These Technologies are used in analyzing trends, administering the website, tracking users’ movements around the website and to gather demographic information about our user base as a whole. We may receive reports based on the use of these technologies by these companies on an individual as well as aggregated basis.',
                 [
                     o.property('initiated_by', first_party),
@@ -3569,7 +3569,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'PrivacyControl',
+        'OptInOptOutControl',
 
         'Cookies are small text files placed in visitors’ device browsers to store their preferences. Most browsers allow you to block and delete cookies. However, if you do that, the website may not work properly.',
 
@@ -3613,11 +3613,11 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_mechanism', o.individual(
-                'ThroughWebsite',
+                'ViaWebsite',
                 'pixel tag (also known as a web beacon)')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to record, for example, that a user has visited a particular web page or clicked on a particular advertisement')),
             
             o.property('previous_is', a),
@@ -3683,7 +3683,7 @@ def process_zepp():
             *data,
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to enable the feature to function properly.')),
 
             o.property('has_basis', o.individual(
@@ -3747,7 +3747,7 @@ def process_zepp():
                 'date/time stamp,')),
 
             o.property('has_mechanism', o.individual(
-                'Automatic',
+                'AutomaticCommunicationMechanism',
                 'clickstream data.')),
             
             o.property('previous_is', a),
@@ -3802,11 +3802,11 @@ def process_zepp():
             *data,
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to better understand the functionality of our mobile software on your phone.')),
 
             o.property('binded_to', o.individual(
-                'Protection',
+                'DataProtection',
                 'management tool for removing HTML5 LSOs.',
                 [
                     o.property('initiated_by', first_party),
@@ -3849,15 +3849,15 @@ def process_zepp():
             o.property('applies_to', data),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to provide certain features on our websites')),
 
             o.property('has_purpose', o.individual(
-                'Marketing',
+                'MarketingPurpose',
                 'to display advertising based upon your web browsing activity')),
 
             o.property('binded_to', o.individual(
-                'OptControl',
+                'AdvertisingDataControl',
                 'management tool for removing HTML5 LSOs.',
                 [
                     o.property('initiated_by', user),
@@ -3893,11 +3893,11 @@ def process_zepp():
             o.property('initiated_by', first_party),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to process analytics information on our Services')),
 
             o.property('binded_to', o.individual(
-                'ProvidedDataControl',
+                'OptInOptOutControl',
                 'verifiable parental consent.',
                 [
                     o.property('initiated_by', user),
@@ -3937,19 +3937,19 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to the operation of our services, applications, and tools.')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to identify irregular website behavior,')),
 
             o.property('has_purpose', o.individual(
-                'Security',
+                'SecurityPurpose',
                 'prevent fraudulent activity and improve security;')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to make use of our functions such as shopping-carts, saved search, or similar functions;')),
             
             o.property('previous_is', a),
@@ -3985,19 +3985,19 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to assess the performance of our websites, applications, services, and tools, including as part of our analytic practices to help us understand how our visitors use our websites,')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'determine if you have interacted with our messaging,')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'determine whether you have viewed an item or link,')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to improve our website content, applications, services, or tools;')),
             
             o.property('previous_is', a),
@@ -4038,11 +4038,11 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to offer you enhanced functionality when accessing or using our websites, services, applications, or tools.')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'This may include identifying you when you sign into our websites or keeping track of your specified preferences, interests, or past items viewed so that we may enhance the presentation of content on our websites;')),
             
             o.property('previous_is', a),
@@ -4059,7 +4059,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'OptControl',
+        'AdvertisingDataControl',
 
         'If you would like to opt out of the Technologies we employ on our websites, services, applications, or tools, you may do so by blocking, deleting, or disabling them as your browser or device permits.',
 
@@ -4110,7 +4110,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'in order to provide the products or services that you have requested.')),
             
             o.property('previous_is', a),
@@ -4170,7 +4170,7 @@ def process_zepp():
             *basis,
             
             o.property('binded_to', o.individual(
-                'Protection',
+                'DataProtection',
                 'Disclosure may be made to third-party service providers and affiliated companies listed in this section below. In each case described in this section, you can be assured that we will only share your personal information in accordance with this Privacy Policy and the applicable terms that govern your use of our services. We will engage sub-processors for the processing of your personal information. You should know that when we share your personal information with a third-party service provider under any circumstance described in this section, we will contractually specify that the third party is subject to practices and obligations to comply with applicable local data protection laws. We will contractually ensure compliance by any third-party service providers with the privacy standards that apply to them in your home jurisdiction.',
                 [
                     o.property('initiated_by', first_party),
@@ -4235,11 +4235,11 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'In order to conduct business operations smoothly in providing you with the full capabilities of our products and services,')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to protect and defend our rights and property or with your permission.')),
 
             o.property('has_basis', o.individual(
@@ -4291,7 +4291,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'for one or more of the purposes listed herein.')),
             
             o.property('previous_is', a),
@@ -4332,27 +4332,27 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'provision of IT and related services;')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'provision of information and services you have requested;')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'customer service activities;')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'in connection with the provision of the products, services and website.')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to perform the contracted services on our behalf')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to comply with applicable legal requirements.')),
 
             o.property('has_basis', o.individual(
@@ -4403,7 +4403,7 @@ def process_zepp():
             *data,
 
             o.property('binded_to', o.individual(
-                'ProvidedDataControl',
+                'OptInOptOutControl',
                 'You may choose to share personal information with other third-party services',
                 [
                     o.property('initiated_by', user),
@@ -4452,17 +4452,17 @@ def process_zepp():
             *data,
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to provide you with a product or service that you have requested.')),
 
             o.property('binded_to', o.individual(
-                    'Protection',
+                    'DataProtection',
                     'Business Partners. We may share personal information with our business partners to provide you with a product or service that you have requested. We may also provide personal information to business partners with whom we may jointly offer products or services, or whose products or services we believe may be of interest to you. In such cases, our business partner’s name will appear, along with us. We require our business partners to agree in writing to maintain the confidentiality and security of personal information they maintain on our behalf and not to use it for any purpose other than the purpose for which we provided them.',
                     [
                         o.property('initiated_by', first_party),
                         *data,
                         o.property('has_mechanism', o.individual(
-                            'OrganizationalMeasure',
+                            'OrganizationalSecurityMeasure',
                             'We require our business partners to agree in writing to maintain the confidentiality and security of personal information they maintain on our behalf and not to use it for any purpose other than the purpose for which we provided them.')),
                     ])),
             
@@ -4500,19 +4500,19 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'for the purposes set forth in this Privacy Policy,')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'including our administrative purposes,')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'activities such as IT management,')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'for them to provide services to you or support and supplement the services we provide.')),
             
             o.property('previous_is', a),
@@ -4569,7 +4569,7 @@ def process_zepp():
             o.property('initiated_by', first_party),
 
             o.property('binded_to', o.individual(
-                'ProvidedDataControl',
+                'OptInOptOutControl',
                 'With your prior consent,',
                 [
                     o.property('initiated_by', user),
@@ -4618,27 +4618,27 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'Security',
+                'SecurityPurpose',
                 'comply with law enforcement or national security requests and legal process, such as a court order or subpoena (including in a country other than your home country);')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'respond to your requests;')),
 
             o.property('has_purpose', o.individual(
-                'Security',
+                'SecurityPurpose',
                 'protect your, ours or others’ rights, property, or safety;')),
 
             o.property('has_purpose', o.individual(
-                'Security',
+                'SecurityPurpose',
                 'to enforce our policies or contracts;')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to collect amounts owed to us;')),
 
             o.property('has_purpose', o.individual(
-                'Security',
+                'SecurityPurpose',
                 'when we believe disclosure is necessary or appropriate to prevent physical harm or financial loss or in connection with an investigation or prosecution of suspected or actual illegal activity;')),
 
             o.property('has_purpose', o.individual(
@@ -4668,7 +4668,7 @@ def process_zepp():
             o.property('initiated_by', first_party),
 
             o.property('has_cause', o.individual(
-                'MergeAcquisition',
+                'MergeAcquisitionCause',
                 'If we are involved in a merger, acquisition, financing due diligence, reorganization, bankruptcy, receivership, transition of service to another provider or asset sale of all or a portion of our assets,')),
             
             o.property('binded_to', o.individual(
@@ -4712,7 +4712,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Protection',
+        'DataProtection',
 
         'We are committed to ensuring that your personal information is secure, and we will take all practicable steps to safeguard your personal information. However, you should be aware that the use of the Internet is not entirely secure, and for this reason we cannot guarantee the security or integrity of any personal information we process.',
 
@@ -4729,7 +4729,7 @@ def process_zepp():
                 'all practicable steps to safeguard your personal information.')),
 
             o.property('has_mechanism', o.individual(
-                'UserMaintain',
+                'UserMaintainsSecurity',
                 'you should be aware that the use of the Internet is not entirely secure, and for this reason we cannot guarantee the security or integrity of any personal information we process.')),
             
             o.property('previous_is', a),
@@ -4760,7 +4760,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to safeguard and secure the information we collect from your use of our products and services.')),
 
             o.property('has_basis', o.individual(
@@ -4768,18 +4768,18 @@ def process_zepp():
                 'to comply with applicable privacy and security laws in the countries in which we operate,')),
             
             o.property('binded_to', o.individual(
-                'Protection',
+                'DataProtection',
                 'To prevent unauthorized access, disclosure or other similar risks and to comply with applicable privacy and security laws in the countries in which we operate, we have put in place reasonable administrative, technical and physical controls and procedures designed to safeguard and secure the information we collect from your use of our products and services. We will use reasonable efforts designed to safeguard your personal information.',
                 [
                     o.property('initiated_by', first_party),
                     o.property('has_mechanism', o.individual(
-                        'OrganizationalMeasure',
+                        'OrganizationalSecurityMeasure',
                         'reasonable administrative,')),
                     o.property('has_mechanism', o.individual(
-                        'TechnicalMeasure',
+                        'TechnicalSecurityMeasure',
                         'technical')),
                     o.property('has_mechanism', o.individual(
-                        'TechnicalMeasure',
+                        'TechnicalSecurityMeasure',
                         'and physical controls and procedures')),
                 ])),
             
@@ -4798,7 +4798,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Protection',
+        'DataProtection',
 
         'For example, when you access your account, you can choose to use our two-step verification process for better security. When you send or receive data from your device to our servers, we make sure they are encrypted using Secure Sockets Layer (`SSL`) and other algorithms.',
 
@@ -4815,7 +4815,7 @@ def process_zepp():
                 'two-step verification process')),
 
             o.property('has_mechanism', o.individual(
-                'TechnicalMeasure',
+                'TechnicalSecurityMeasure',
                 'they are encrypted using Secure Sockets Layer (`SSL`) and other algorithms.')),
             
             o.property('previous_is', a),
@@ -4833,7 +4833,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Protection',
+        'DataProtection',
 
         'All your personal information is stored on secure servers that are protected in controlled facilities. We classify your data based on importance and sensitivity, and endeavor to ensure that your personal information has an appropriate security level. The files and records containing your personal information will be kept in our offices and/or on our servers or those of our service providers and only those employees that require it for the purposes of their duties will have access to this file. We have also implemented controls to require that our third-party service providers and partners have appropriate safeguards designed to protect your personal information as well. We make sure that our employees and third-party service providers who access the information to help provide you with our products and services are subject to strict contractual confidentiality obligations and may be disciplined or terminated if they fail to meet such obligations. In some cases, we have special access controls for cloud-based data storage as well. All in all, we regularly review our information collection, storage and processing practices, including physical security measures, in an effort to guard against any unauthorized access and use.',
 
@@ -4846,11 +4846,11 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_mechanism', o.individual(
-                'TechnicalMeasure',
+                'TechnicalSecurityMeasure',
                 'secure servers that are protected in controlled facilities.')),
 
             o.property('has_mechanism', o.individual(
-                'OrganizationalMeasure',
+                'OrganizationalSecurityMeasure',
                 'We classify your data based on importance and sensitivity,')),
 
             o.property('has_mechanism', o.individual(
@@ -4880,7 +4880,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Protection',
+        'DataProtection',
 
         'However, despite these efforts, no security measures are perfect or impenetrable and no method of data transmission can be guaranteed to prevent any interception or other type of misuse. We also depend on you to protect your information. If you become aware of any breach of security or privacy, please notify us immediately. To the fullest extent permitted by applicable law, we do not accept liability for unauthorized disclosure.',
 
@@ -4893,7 +4893,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_mechanism', o.individual(
-                'UserMaintain',
+                'UserMaintainsSecurity',
                 'We also depend on you to protect your information.')),
             
             o.property('previous_is', a),
@@ -4918,7 +4918,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'PrivacyControl',
+        'OptInOptOutControl',
 
         'By using our products and services or providing personal information to us, you agree that we may communicate with you electronically regarding security, privacy, and administrative issues relating to your use. If we learn of a security system’s breach, we may attempt to notify you electronically by posting a notice on the website or through the product or service and/or by sending an e-mail to you. You may have a legal right to receive this notice in writing.',
 
@@ -4975,7 +4975,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Protection',
+        'DataProtection',
 
         'You can play your part in safeguarding your personal information by not disclosing your login password or account information to anybody unless such person is duly authorized by you. Whenever you log in the Zepp App, particularly on somebody else`s mobile phones or on public Internet terminals, you should always log out at the end of your session.',
 
@@ -4988,7 +4988,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_mechanism', o.individual(
-                'UserMaintain',
+                'UserMaintainsSecurity',
                 'by not disclosing your login password or account information to anybody unless such person is duly authorized by you. Whenever you log in the Zepp App, particularly on somebody else`s mobile phones or on public Internet terminals, you should always log out at the end of your session.')),
             
             o.property('previous_is', a),
@@ -5022,7 +5022,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'PrivacyControl',
+        'OptInOptOutControl',
 
         'The privacy choices you may have about your personal information are determined by applicable law and are described below.',
 
@@ -5052,7 +5052,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'OptControl',
+        'AdvertisingDataControl',
 
         'We may occasionally send you push notifications through our mobile applications with version updates and other notices that may be of interest to you. You may at any time opt-out from receiving these types of communications by changing the settings on your mobile device. We may also collect location-based information if you use our mobile applications. You may opt-out of this collection by changing the settings on your mobile device.',
 
@@ -5082,7 +5082,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'PrivacyControl',
+        'OptInOptOutControl',
 
         'Do Not Track (“DNT”) is a privacy preference that users can set in certain web browsers. DNT is a way for users to inform websites and services that they do not want certain information about their webpage visits collected over time and across websites or online services. Please note that we do not respond to or honor DNT signals or similar mechanisms transmitted by web browsers.',
 
@@ -5113,7 +5113,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'PrivacyControl',
+        'OptInOptOutControl',
 
         'As noted herein, you may stop or restrict the placement of cookies and other technologies on your computer or remove them from your browser by adjusting your web browser preferences. Please note that cookie-based opt-outs are not effective on mobile applications. However, on many mobile devices, application users may opt out of certain mobile ads via their device settings.',
 
@@ -5147,7 +5147,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'Our applications may need access to certain features on your device such as Wi-Fi network status. This information is used to allow the applications to run on your device and allow you to interact with the applications. At any time you may revoke your permissions by turning these off at the device level and/or contacting us via https://www.zepp.com/privacy-support.',
 
@@ -5186,7 +5186,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'We recognize that privacy concerns differ from person to person. Therefore, we provide examples of ways we make available for you to choose to restrict the collection, use, disclosure or processing of your personal information and control your privacy settings: Log in and out of the account; Toggle on/off for other services and functionalities which deal with sensitive or personal information.',
 
@@ -5215,7 +5215,7 @@ def process_zepp():
 
     #########################################################################
     #                                                                       #
-    # RETENTION POLICY                                                      #
+    # DataRetention POLICY                                                      #
     #                                                                       #
     #########################################################################
 
@@ -5223,16 +5223,16 @@ def process_zepp():
 
 
     #########################################################################
-    # We retain personal information we receive as described in this Privacy Policy for as long as you use our products, services and websites or as necessary to fulfill the purpose(s) for which it was collected, provide our services, resolve disputes, establish legal defenses, conduct audits, pursue legitimate business purposes, enforce our agreements, and comply with applicable laws. We shall cease to retain personal information, or remove the means by which the personal information can be associated with particular individuals, as soon as it is reasonable to assume that the purpose for which that personal information was collected is no longer being served by retention of the personal information.
+    # We retain personal information we receive as described in this Privacy Policy for as long as you use our products, services and websites or as necessary to fulfill the purpose(s) for which it was collected, provide our services, resolve disputes, establish legal defenses, conduct audits, pursue legitimate business purposes, enforce our agreements, and comply with applicable laws. We shall cease to retain personal information, or remove the means by which the personal information can be associated with particular individuals, as soon as it is reasonable to assume that the purpose for which that personal information was collected is no longer being served by DataRetention of the personal information.
 
     user = o.individual('User')
     first_party = o.individual('FirstParty')
 
     a = o.individual(
 
-        'Retention',
+        'DataRetention',
 
-        'We retain personal information we receive as described in this Privacy Policy for as long as you use our products, services and websites or as necessary to fulfill the purpose(s) for which it was collected, provide our services, resolve disputes, establish legal defenses, conduct audits, pursue legitimate business purposes, enforce our agreements, and comply with applicable laws. We shall cease to retain personal information, or remove the means by which the personal information can be associated with particular individuals, as soon as it is reasonable to assume that the purpose for which that personal information was collected is no longer being served by retention of the personal information.',
+        'We retain personal information we receive as described in this Privacy Policy for as long as you use our products, services and websites or as necessary to fulfill the purpose(s) for which it was collected, provide our services, resolve disputes, establish legal defenses, conduct audits, pursue legitimate business purposes, enforce our agreements, and comply with applicable laws. We shall cease to retain personal information, or remove the means by which the personal information can be associated with particular individuals, as soon as it is reasonable to assume that the purpose for which that personal information was collected is no longer being served by DataRetention of the personal information.',
 
         [
             o.property('initiated_by', first_party),
@@ -5243,31 +5243,31 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'provide our services,')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'resolve disputes,')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'establish legal defenses,')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'conduct audits,')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'pursue legitimate business purposes,')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'enforce our agreements,')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'comply with applicable laws.')),
 
             o.property('lasts_for', o.individual(
@@ -5295,12 +5295,12 @@ def process_zepp():
                 'comply with applicable laws.')),
             
             o.property('binded_to', o.individual(
-                'Protection',
-                'We shall cease to retain personal information, or remove the means by which the personal information can be associated with particular individuals, as soon as it is reasonable to assume that the purpose for which that personal information was collected is no longer being served by retention of the personal information.',
+                'DataProtection',
+                'We shall cease to retain personal information, or remove the means by which the personal information can be associated with particular individuals, as soon as it is reasonable to assume that the purpose for which that personal information was collected is no longer being served by DataRetention of the personal information.',
                 [
                     o.property('has_mechanism', o.individual(
                         'SecurityMechanism',
-                        'We shall cease to retain personal information, or remove the means by which the personal information can be associated with particular individuals, as soon as it is reasonable to assume that the purpose for which that personal information was collected is no longer being served by retention of the personal information.')),
+                        'We shall cease to retain personal information, or remove the means by which the personal information can be associated with particular individuals, as soon as it is reasonable to assume that the purpose for which that personal information was collected is no longer being served by DataRetention of the personal information.')),
                 ])),
             
             o.property('previous_is', a),
@@ -5318,7 +5318,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'Retention',
+        'DataRetention',
 
         'If further processing is for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes according to the applicable laws, the data can be further retained by us even if the further processing is incompatible with original purposes in certain jurisdictions.',
 
@@ -5331,15 +5331,15 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'If further processing is for archiving purposes in the public interest,')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'scientific or historical research purposes')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'statistical purposes according')),
 
             o.property('lasts_for', o.individual(
@@ -5373,7 +5373,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'Access Personal Information about you, including: (i) confirming whether we are processing your personal information; (ii) obtaining access to or a copy of your personal information;',
 
@@ -5407,7 +5407,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'Request Correction of your personal information where it is inaccurate, incomplete or outdated. In some cases, we may provide self-service tools that enable you to update your personal information;',
 
@@ -5441,7 +5441,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'Request Deletion or Anonymization of your personal information when processing is based on your consent or when processing is unnecessary, excessive or non-compliant;',
 
@@ -5454,7 +5454,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
             
             o.property('binded_to', o.individual(
-                'Protection',
+                'DataProtection',
                 'Deletion or Anonymization of your personal information when processing is based on your consent or when processing is unnecessary, excessive or non-compliant;',
                 [
                     o.property('has_mechanism', o.individual(
@@ -5480,7 +5480,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'Request Restriction or Blocking of or Object to our processing of your personal information;',
 
@@ -5510,7 +5510,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'PrivacyControl',
+        'OptInOptOutControl',
 
         'Withdraw Your Consent to our processing of your personal information. If you refrain from providing personal information or withdraw your consent to processing, some features of our Service may not be available;',
 
@@ -5540,7 +5540,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'Request Data Portability and receive an electronic copy of personal information that you have provided to us;',
 
@@ -5570,7 +5570,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'Be Informed about third parties with which your personal information has been shared;',
 
@@ -5596,7 +5596,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'Request any review of decisions which may have been taken exclusively based on automated processing if that could affect data subject rights.',
 
@@ -5699,22 +5699,22 @@ def process_zepp():
                 'from the effective date')),
 
             o.property('binded_to', o.individual(
-                'PrivacyControl',
+                'OptInOptOutControl',
                 'You understand and agree that you will be deemed to have accepted the updated Privacy Policy if you use the products or services after the updated Privacy Policy is posted.',
                 [o.property('initiated_by', user)])),
 
             o.property('binded_to', o.individual(
-                'PrivacyControl',
+                'OptInOptOutControl',
                 'Your continued use of products and services on mobile phones and/or any other device will be taken as acceptance of the updated Privacy Policy.',
                 [o.property('initiated_by', user)])),
 
             o.property('binded_to', o.individual(
-                'OptControl',
+                'AdvertisingDataControl',
                 'Before we use personal information for any new purpose not originally authorized by you, we will endeavor to provide information regarding the new purpose and give you the opportunity to opt-out.',
                 [o.property('initiated_by', user)])),
 
             o.property('binded_to', o.individual(
-                'PrivacyControl',
+                'OptInOptOutControl',
                 'If, at any point, you do not agree to any portion of the Privacy Policy then in effect, you must immediately stop using the products and services.',
                 [
                     o.property('has_consequence', o.individual(
@@ -5767,7 +5767,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'This Supplemental California Addendum to this Privacy Policy (“California Addendum”) supplements and should be read in conjunction with this Privacy Policy. This California Addendum only applies to our processing of personal information that is subject to the California Consumer Privacy Act of 2018 (“CCPA”). The CCPA provides California residents with the right to know what categories of personal information we have collected about them and whether we disclosed that personal information for a business purpose (e.g., to a service provider) in the preceding twelve months. California residents can find this information below:',
 
@@ -5853,7 +5853,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'for a Business Purpose')),
             
             o.property('previous_is', a),
@@ -5931,7 +5931,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'that can be used, singly or in combination with each other or with other identifying data, to establish individual identity.')),
             
             o.property('previous_is', a),
@@ -6055,7 +6055,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'Analytics',
+                'AnalyticsPurpose',
                 'to create a profile about a consumer.')),
             
             o.property('previous_is', a),
@@ -6110,7 +6110,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'PrivacyControl',
+        'OptInOptOutControl',
 
         'Non-Discrimination. California residents have the right not to receive discriminatory treatment by us for the exercise of their rights conferred by the CCPA.',
 
@@ -6140,7 +6140,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'Authorized Agent. Only you, or someone legally authorized to act on your behalf, may make a verifiable consumer request related to your personal information. To designate an authorized agent, please contact us as set forth below.',
 
@@ -6174,7 +6174,7 @@ def process_zepp():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'Verification. When you make a request, we will ask you to provide sufficient information that allows us to reasonably verify you are the person about whom we collected personal information or an authorized representative, which may include confirming the email address associated with any personal information we have about you.',
 
@@ -6211,16 +6211,16 @@ def process_zepp():
 
 
     #########################################################################
-    # Personal information, which has fulfilled the purpose for which it was collected or used, and has reached the period of time during which personal information was to be possessed, will be destroyed in an irreversible way. After the expiration of the applicable period, information under the obligation of retention by applicable laws will be promptly destroyed in an irreversible way. Personal information stored in electronic files will be deleted safely in an irreversible way by using technical methods, and printed information will be destroyed by shredding or incinerating such information. Furthermore, in compliance with applicable laws, measures will be taken to destroy or separate the personal information of the users who have not used our services for a period of one year.
+    # Personal information, which has fulfilled the purpose for which it was collected or used, and has reached the period of time during which personal information was to be possessed, will be destroyed in an irreversible way. After the expiration of the applicable period, information under the obligation of DataRetention by applicable laws will be promptly destroyed in an irreversible way. Personal information stored in electronic files will be deleted safely in an irreversible way by using technical methods, and printed information will be destroyed by shredding or incinerating such information. Furthermore, in compliance with applicable laws, measures will be taken to destroy or separate the personal information of the users who have not used our services for a period of one year.
 
     user = o.individual('User')
     first_party = o.individual('FirstParty')
 
     a = o.individual(
 
-        'Retention',
+        'DataRetention',
 
-        'Personal information, which has fulfilled the purpose for which it was collected or used, and has reached the period of time during which personal information was to be possessed, will be destroyed in an irreversible way. After the expiration of the applicable period, information under the obligation of retention by applicable laws will be promptly destroyed in an irreversible way. Personal information stored in electronic files will be deleted safely in an irreversible way by using technical methods, and printed information will be destroyed by shredding or incinerating such information. Furthermore, in compliance with applicable laws, measures will be taken to destroy or separate the personal information of the users who have not used our services for a period of one year.',
+        'Personal information, which has fulfilled the purpose for which it was collected or used, and has reached the period of time during which personal information was to be possessed, will be destroyed in an irreversible way. After the expiration of the applicable period, information under the obligation of DataRetention by applicable laws will be promptly destroyed in an irreversible way. Personal information stored in electronic files will be deleted safely in an irreversible way by using technical methods, and printed information will be destroyed by shredding or incinerating such information. Furthermore, in compliance with applicable laws, measures will be taken to destroy or separate the personal information of the users who have not used our services for a period of one year.',
 
         [
             o.property('initiated_by', first_party),
@@ -6231,7 +6231,7 @@ def process_zepp():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'the purpose for which it was collected or used,')),
 
             o.property('lasts_for', o.individual(
@@ -6251,11 +6251,11 @@ def process_zepp():
                 'by applicable laws')),
             
             o.property('binded_to', o.individual(
-                'Protection',
+                'DataProtection',
                 'Personal information stored in electronic files will be deleted safely in an irreversible way by using technical methods,',
                 [
                     o.property('has_mechanism', o.individual(
-                        'TechnicalMeasure',
+                        'TechnicalSecurityMeasure',
                         'technical methods,')),
                 ])),
             

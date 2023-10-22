@@ -24,7 +24,7 @@ def process_renpho():
             o.property('initiated_by', first_party),
 
             o.property('binded_to', o.individual(
-                'PrivacyControl',
+                'OptInOptOutControl',
                 'You will be deemed to have accepted the changes in any revised Privacy Policy by your continued use of the Services after the date such revised Privacy Policy is posted.',
                 [
                     o.property('initiated_by', user),
@@ -70,11 +70,11 @@ def process_renpho():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'making a purchase, creating or using an account, using our products and their health-related features, seeking customer service or otherwise interacting with us')),
 
             o.property('has_purpose', o.individual(
-                'HealthMonitoring',
+                'HealthMonitoringPurpose',
                 'using our products and their health-related features')),
 
             o.property('previous_is', a),
@@ -168,7 +168,7 @@ def process_renpho():
 
     a = o.individual(
         
-        'PrivacyControl',
+        'OptInOptOutControl',
 
         'You can use the relevant features of Renpho’s health equipment without creating an account. However, creating an account and sharing your personal data allows Renpho to provide you with enhanced health-related insights and Services, including providing health information and recommendations that are most relevant to you and your family, providing insights and analysis of your health tendencies, providing customized health reminders, and overall providing a more personalized, fulfilling user experience.',
 
@@ -467,15 +467,15 @@ def process_renpho():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'Analytics',
+                'AnalyticsPurpose',
                 'review Services usage and operations')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'address problems with the Services')),
 
             o.property('has_purpose', o.individual(
-                'Security',
+                'SecurityPurpose',
                 'protect the security or integrity of the Services and our business')),
 
             o.property('has_basis', o.individual(
@@ -647,7 +647,7 @@ def process_renpho():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'To provide personalized health-related Services and interest-based advertising.')),
 
             o.property('previous_is', a),
@@ -678,7 +678,7 @@ def process_renpho():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'To get you the help you need and deal with the emergency services or insurance and claims.')),
 
             o.property('has_basis', o.individual(
@@ -693,7 +693,7 @@ def process_renpho():
 
 
     #########################################################################
-    # Suspected crime information: details of your identity, image, name and address, suspected or alleged thefts, fraud, assault or other criminal behavior. From crime and fraud prevention agencies, from you, witnesses, and from the police. To protect customers, the public, and our business against risks and crime. Law enforcement and other governmental authorities in accordance with applicable law, and our professional advisors.
+    # Suspected crime information: details of your identity, image, name and address, suspected or alleged thefts, fraud, assault or other first_party behavior. From crime and fraud prevention agencies, from you, witnesses, and from the police. To protect customers, the public, and our business against risks and crime. Law enforcement and other governmental authorities in accordance with applicable law, and our professional advisors.
 
     user = o.individual('User')
     first_party = o.individual('FirstParty')
@@ -702,7 +702,7 @@ def process_renpho():
 
         'FPCollection',
 
-        'Suspected crime information: details of your identity, image, name and address, suspected or alleged thefts, fraud, assault or other criminal behavior. From crime and fraud prevention agencies, from you, witnesses, and from the police. To protect customers, the public, and our business against risks and crime. Law enforcement and other governmental authorities in accordance with applicable law, and our professional advisors.',
+        'Suspected crime information: details of your identity, image, name and address, suspected or alleged thefts, fraud, assault or other first_party behavior. From crime and fraud prevention agencies, from you, witnesses, and from the police. To protect customers, the public, and our business against risks and crime. Law enforcement and other governmental authorities in accordance with applicable law, and our professional advisors.',
 
         [
             o.property('initiated_by', first_party),
@@ -744,11 +744,11 @@ def process_renpho():
 
             o.property('applies_to', o.individual(
                 'CrimeData',
-                'other criminal behavior',
+                'other first_party behavior',
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'Security',
+                'SecurityPurpose',
                 'To protect customers, the public, and our business against risks and crime.')),
 
             o.property('has_basis', o.individual(
@@ -788,11 +788,11 @@ def process_renpho():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'To enable scanning of our Bluetooth equipped products')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to obtain weather information.')),
 
             o.property('previous_is', a),
@@ -1087,11 +1087,11 @@ def process_renpho():
             o.property('applies_to', data),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to enable the properly functioning of our products, website(s) and mobile app(s).')),
 
             o.property('binded_to', o.individual(
-                'PrivacyControl',
+                'OptInOptOutControl',
                 'If you refuse the location function in the service, you may not be able to use some of the functions of our products, website(s) or mobile apps.',
                 [
                     o.property('initiated_by', user),
@@ -1123,7 +1123,7 @@ def process_renpho():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'By entering your phone number in the checkout and initializing a purchase, subscribing via our subscription form or a keyword, you agree that we may send you text notifications (for your order, including abandoned cart reminders) and text marketing offers. Text marketing messages will not exceed [INSERT A NUMBER] a month. You acknowledge that consent is not a condition for any purchase.',
 
@@ -1140,7 +1140,7 @@ def process_renpho():
                 'subscribing via our subscription form or a keyword')),
 
             o.property('binded_to', o.individual(
-                'PrivacyControl',
+                'OptInOptOutControl',
                 'If you refuse the location function in the service, you may not be able to use some of the functions of our products, website(s) or mobile apps.',
                 [
                     o.property('has_consequence', o.individual(
@@ -1162,7 +1162,7 @@ def process_renpho():
 
     a = o.individual(
 
-        'OptControl',
+        'AdvertisingDataControl',
 
         'If you wish to unsubscribe from receiving text marketing messages and notifications reply with STOP to any mobile message sent from us or use the unsubscribe link we provided you with in any of our messages. You understand and agree that alternative methods of opting out, such as using alternative words or requests will not be accounted as a reasonable means of opting out. Message and data rates may apply. For any questions please text HELP to the number you received the messages from. You can also contact us for more information. If you wish to opt out please follow the procedures above.',
 
@@ -1206,7 +1206,7 @@ def process_renpho():
             o.property('shares_with', third_party),
 
             o.property('binded_to', o.individual(
-                'PrivacyControl',
+                'OptInOptOutControl',
                 'With Your Consent',
                 [
                     o.property('initiated_by', user),
@@ -1245,7 +1245,7 @@ def process_renpho():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'Sometimes we send offers to selected groups of Renpho customers on behalf of other businesses.')),
 
             o.property('previous_is', a),
@@ -1282,13 +1282,13 @@ def process_renpho():
             *data,
 
             o.property('binded_to', o.individual(
-                'Protection',
+                'DataProtection',
                 'so you should use care before posting information about yourself online.',
                 [
                     o.property('initiated_by', first_party),
                     *data,
                     o.property('has_mechanism', o.individual(
-                        'UserMaintain',
+                        'UserMaintainsSecurity',
                         'so you should use care before posting information about yourself online.')),
                 ])),
 
@@ -1311,7 +1311,7 @@ def process_renpho():
 
     a = o.individual(
 
-        'PrivacyControl',
+        'OptInOptOutControl',
 
         'In some jurisdictions, individuals may have the right to opt-in or withdraw consent for certain uses. If you reside in such jurisdictions, you may have additional rights which are detailed below, in “User Rights and Choices Regarding Personal Data,” “California Privacy Rights,” or “European Data Protection Rights.”',
 
@@ -1455,12 +1455,12 @@ def process_renpho():
                 [o.property('provided_by', user)])),
 
             o.property('has_mechanism', o.individual(
-                'Automatic',
+                'AutomaticCommunicationMechanism',
                 'When you visit the Services, we may automatically collect certain data',
                 [
                     o.property('has_mode', o.individual(
                         'DataTransmissionMode', 
-                        'Permanent'))
+                        'PermanentTransmission'))
                 ])),
 
             o.property('previous_is', a),
@@ -1491,27 +1491,27 @@ def process_renpho():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'allow you to use the Services without having to re-enter your user name and password;')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'enhance or personalize your Services usage and shopping experience;')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'monitor Services usage;')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'manage the Services;')),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'improve the Services and our products, including providing you with interest-based ads.')),
 
             o.property('has_mechanism', o.individual(
-                'Automatic',
+                'AutomaticCommunicationMechanism',
                 'we analyze how visitors use our Services online')),
 
             o.property('previous_is', a),
@@ -1545,11 +1545,11 @@ def process_renpho():
             o.property('applies_to', data),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to measure our web traffic and how people use our site.')),
 
             o.property('binded_to', o.individual(
-                'OptControl',
+                'AdvertisingDataControl',
                 'opt out of Google Analytics cookies',
                 [
                     o.property('initiated_by', user),
@@ -1570,7 +1570,7 @@ def process_renpho():
 
     a = o.individual(
 
-        'PrivacyControl',
+        'OptInOptOutControl',
 
         'If you choose, you can set your browser to reject cookies or you can manually delete individual cookies or all of the cookies on your computer by following your browser’s help file directions. You can learn more about how to change your cookie settings on common browsers by clicking on the following links: Google Chrome Firefox Safari Internet Explorer. However, if your browser is set to reject cookies or you manually delete cookies, you may have some trouble accessing and using some of the pages and features that are currently on our Services, or that we may put on our Services in the future. You may not decline web beacons. However, they can be rendered ineffective by declining all cookies or by modifying your web browser’s settings to notify you each time a cookie is tendered, permitting you to accept or decline cookies on an individual basis. Note that browser-management tools for cookies are outside of our control and we cannot guarantee their effectiveness.',
 
@@ -1638,7 +1638,7 @@ def process_renpho():
             *data,
 
             o.property('binded_to', o.individual(
-                'ProvidedDataControl',
+                'OptInOptOutControl',
                 'This data may include your username, friends or followers, check-ins, and likes, and you may choose to grant or deny us access to such permissions. For more information regarding any such permissions, refer to the permissions reference pages of the social media networks with which you have an account. For more information regarding Facebook and Instagram permissions, refer to the Facebook Permissions Reference page.',
                 [
                     o.property('initiated_by', user),
@@ -1718,15 +1718,15 @@ def process_renpho():
             o.property('initiated_by', first_party),
 
             o.property('has_purpose', o.individual(
-                'Analytics',
+                'AnalyticsPurpose',
                 'for statistical analysis, research, commercial, and other purposes.')),
 
             o.property('has_purpose', o.individual(
-                'Marketing',
+                'MarketingPurpose',
                 'to help us understand our user demographic, including user demographic interests, habits, and usage patterns for certain of our Services so that we may market our products more effectively.')),
 
             o.property('binded_to', o.individual(
-                'Protection',
+                'DataProtection',
                 'aggregated, deidentified data',
                 [
                     o.property('initiated_by', first_party),
@@ -1768,7 +1768,7 @@ def process_renpho():
             o.property('shares_with', third_party),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'that allows us to create Custom or Lookalike Audiences.')),
 
             o.property('previous_is', a),
@@ -1786,7 +1786,7 @@ def process_renpho():
 
     a = o.individual(
 
-        'PrivacyControl',
+        'OptInOptOutControl',
 
         'You have the choice to tell us not to collect and use this data, and in some jurisdictions, we will only engage in interest-based advertising if you opt-in. If you would like more information about this practice and to know your choices concerning interest-based ads, visit:',
 
@@ -1838,7 +1838,7 @@ def process_renpho():
             o.property('applies_to', data),
 
             o.property('binded_to', o.individual(
-                'ProvidedDataControl',
+                'OptInOptOutControl',
                 'verifiable parental consent.',
                 [
                     o.property('initiated_by', user),
@@ -1859,7 +1859,7 @@ def process_renpho():
 
     a = o.individual(
 
-        'OptControl',
+        'AdvertisingDataControl',
 
         'If you sign up for our mailing list, we will send you informational emails about offers of Services. At any time, you can ‘unsubscribe’ yourself from our email list simply by clicking the “unsubscribe” button.',
 
@@ -1884,7 +1884,7 @@ def process_renpho():
 
     a = o.individual(
 
-        'OptControl',
+        'AdvertisingDataControl',
 
         'If you do not wish to receive communications from us about special offers and promotions, you can opt-out of receiving these communications by following the instructions contained in the messages you receive. Even if you opt-out of receiving these messages, we reserve the right to send you certain communications relating to the Services we provide, and we may send you Services announcements and administrative messages. We do not offer you the opportunity to opt-out of receiving those communications. For more information about interest-based advertising, including how you can manage advertising, please see above: “Interest-Based Advertising.',
 
@@ -1913,7 +1913,7 @@ def process_renpho():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'You may at any time review or change the data in your account or terminate your account by: Logging into your account settings and updating your account; or Contacting us using the contact information provided below in: “Contact Us.”',
 
@@ -1965,7 +1965,7 @@ def process_renpho():
                 [o.property('provided_by', user)])),
 
             o.property('binded_to', o.individual(
-                'Retention',
+                'DataRetention',
                 'Upon your request to terminate your account, we will deactivate or delete your account and personal data from our active databases. However, some data may be retained in our files for permitted or required uses, such as to prevent fraud, troubleshoot problems, assist with any investigations, enforce our Terms of Use and/or comply with legal requirements.',
                 [
                     o.property('initiated_by', first_party),
@@ -1978,16 +1978,16 @@ def process_renpho():
                         'personal data',
                         [o.property('provided_by', user)])),
                     o.property('has_purpose', o.individual(
-                        'ServiceProvision',
+                        'ServiceProvisionPurpose',
                         'to prevent fraud')),
                     o.property('has_purpose', o.individual(
-                        'ServiceProvision',
+                        'ServiceProvisionPurpose',
                         'troubleshoot problems')),
                     o.property('has_purpose', o.individual(
-                        'ServiceProvision',
+                        'ServiceProvisionPurpose',
                         'assist with any investigations')),
                     o.property('has_purpose', o.individual(
-                        'ServiceProvision',
+                        'ServiceProvisionPurpose',
                         'enforce our Terms of Use and/or comply with legal requirements.')),
                     o.property('has_basis', o.individual(
                         'LegalBasis',
@@ -2018,7 +2018,7 @@ def process_renpho():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'You may also exercise your rights, subject to applicable laws, to request that we provide you with certain information on the personal data we have collected about you, or to correct, delete, or restrict our access to your personal data. Please note that we may retain certain data as required or permitted by applicable law. If you are a California resident or European or UK citizen, your specific rights are detailed, respectively, in the “California Privacy Rights” and “European Data Protection Rights” sections below. Under the laws of some regions and countries, we have the power to refuse your requests that are unreasonable or for which access is not required by local law.',
 
@@ -2095,7 +2095,7 @@ def process_renpho():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'Users who are California residents may request and obtain from us, once a year and free of charge, information about categories of personal information (if any) we disclosed to third parties for their own direct marketing purposes, as well as the names and addresses of all such third parties with which we shared personal information in the immediately preceding calendar year. If you are a California resident and would like to make such a request, please submit your request in writing to us using the contact information provided below in: “Contact Us.”',
 
@@ -2132,7 +2132,7 @@ def process_renpho():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'If you are under 18 years of age, reside in California, and have a registered account with the Website, you have the right to request removal of unwanted data that you publicly post on the Website. To request removal of such data, please contact us using the contact information provided below, and include the email address associated with your account and a statement that you reside in California. We will make sure the data is not publicly displayed on the Website, but please be aware that the data may not be completely or comprehensively removed from our systems.',
 
@@ -2167,7 +2167,7 @@ def process_renpho():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'If you are a California resident, the California Consumer Privacy Act ("CCPA") provides you with the following rights that are in addition to those set forth elsewhere in this Privacy Policy regarding our use of your personal information: The right to know the categories or specific personal information we have collected, used, disclosed and sold about you. To submit a request to know, you may contact us by email at: privacy@renpho.com. You also may designate an authorized agent to make a request for access on your behalf. The right to request that we delete any personal information we have collected about you. To submit a request for deletion, you may contact us by email at: privacy@renpho.com.',
 
@@ -2188,7 +2188,7 @@ def process_renpho():
                 'contact us by email at: privacy@renpho.com.')),
             
             o.property('binded_to', o.individual(
-                'Retention',
+                'DataRetention',
                 'You also may designate an authorized agent to make a request for deletion on your behalf. Please note that we may retain certain information as required or permitted by applicable law.',
                 [
                     o.property('initiated_by', first_party),
@@ -2197,10 +2197,10 @@ def process_renpho():
                         'certain information',
                         [o.property('provided_by', user)])),
                     o.property('has_purpose', o.individual(
-                        'ServiceProvision',
+                        'ServiceProvisionPurpose',
                         'to know the categories or specific personal information we have collected, used, disclosed and sold about you.')),
                     o.property('has_purpose', o.individual(
-                        'ServiceProvision',
+                        'ServiceProvisionPurpose',
                         'to request that we delete any personal information we have collected about you.')),
                     o.property('has_basis', o.individual(
                         'LegalBasis',
@@ -2251,7 +2251,7 @@ def process_renpho():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'When you exercise these rights and submit a request to us, we will verify your identity by asking you for your email address, telephone number, order number, the last four digits of a credit or debit card used on our Website, or other uniquely identifying information. We also may use a third party verification provider to verify your identity. Your exercise of these rights will have no adverse effect on the price and quality of our goods or Services.',
 
@@ -2288,7 +2288,7 @@ def process_renpho():
                         'other uniquely identifying information.',
                         [o.property('provided_by', user)])),
                     o.property('has_purpose', o.individual(
-                        'Security',
+                        'SecurityPurpose',
                         'verify your identity by asking you for')),
                 ])),
 
@@ -2313,7 +2313,7 @@ def process_renpho():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'European law provides citizens of countries located in the European Economic Area and the United Kingdom with the following rights with respect to their personal data:',
 
@@ -2355,7 +2355,7 @@ def process_renpho():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'The right to access – You have the right to request copies of your personal data. We may charge you a small fee for this service.',
 
@@ -2385,7 +2385,7 @@ def process_renpho():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'The right to rectification – You have the right to request that Renpho correct any of your personal data you believe is inaccurate. You also have the right to request Renpho to complete your personal data that you believe is incomplete.',
 
@@ -2420,7 +2420,7 @@ def process_renpho():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'Please note that we may retain certain data as required or permitted by applicable law.',
 
@@ -2441,7 +2441,7 @@ def process_renpho():
                 'request')),
 
             o.property('binded_to', o.individual(
-                'Retention',
+                'DataRetention',
                 'Please note that we may retain certain data as required or permitted by applicable law.',
                 [
                     o.property('initiated_by', first_party),
@@ -2450,7 +2450,7 @@ def process_renpho():
                         'certain information',
                         [o.property('provided_by', user)])),
                     o.property('has_purpose', o.individual(
-                        'ServiceProvision',
+                        'ServiceProvisionPurpose',
                         'to request that we delete any personal information we have collected about you.')),
                     o.property('has_basis', o.individual(
                         'LegalBasis',
@@ -2472,7 +2472,7 @@ def process_renpho():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'The right to restrict processing – You have the right to request that Renpho restrict the processing of your personal data, subject to the conditions in this Privacy Policy.',
 
@@ -2520,7 +2520,7 @@ def process_renpho():
                 [o.property('provided_by', user)])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to object to Renpho’s processing of your personal data,')),
 
             o.property('has_basis', o.individual(
@@ -2532,7 +2532,7 @@ def process_renpho():
                 'request')),
 
             o.property('has_mechanism', o.individual(
-                'ByRequest',
+                'TransmissionByRequest',
                 'request')),
 
             o.property('previous_is', a),
@@ -2549,7 +2549,7 @@ def process_renpho():
 
     a = o.individual(
 
-        'ProvidedDataControl',
+        'OptInOptOutControl',
 
         'The right to data portability – You have the right to request that Renpho transfer your personal data that we have collected to another organization, or directly to you, subject to the conditions in this Privacy Policy and so long as such transfer will not adversely affect the rights and freedoms of others.',
 
@@ -2566,7 +2566,7 @@ def process_renpho():
                 'The right to data portability')),
 
             o.property('has_mechanism', o.individual(
-                'Manual',
+                'ManualCommunicationMechanism',
                 'request')),
 
             o.property('previous_is', a),
@@ -2584,7 +2584,7 @@ def process_renpho():
 
     a = o.individual(
 
-        'Protection',
+        'DataProtection',
 
         'We maintain reasonable and appropriate measures designed to maintain data we collect in a secure manner. We have taken certain physical, electronic, and administrative steps to safeguard and secure the data we collect from visitors to the Services. Even though we follow reasonable procedures to try to protect the data in our possession, no security system is perfect and we cannot promise, and you should not expect, that your data will be secure in all circumstances.',
 
@@ -2597,15 +2597,15 @@ def process_renpho():
                 [o.property('provided_by', user)])),
 
             o.property('has_mechanism', o.individual(
-                'TechnicalMeasure',
+                'TechnicalSecurityMeasure',
                 'certain physical,')),
 
             o.property('has_mechanism', o.individual(
-                'TechnicalMeasure',
+                'TechnicalSecurityMeasure',
                 'electronic,')),
 
             o.property('has_mechanism', o.individual(
-                'OrganizationalMeasure',
+                'OrganizationalSecurityMeasure',
                 'administrative')),
 
             o.property('previous_is', a),
@@ -2620,7 +2620,7 @@ def process_renpho():
 
     user = o.individual('User')
     first_party = o.individual('FirstParty')
-    criminal = o.individual('Criminal')
+    
 
     data = [
         o.property('applies_to', o.individual(
@@ -2631,7 +2631,7 @@ def process_renpho():
 
     a = o.individual(
 
-        'Protection',
+        'DataProtection',
 
         'We will never ask for your account password, and we recommend that you do not disclose your password to anyone else. We are not responsible for any of the following circumstances, including without limitation: (1) Any disclosure of personal data made under the laws, regulations, or other mandatory provisions of the government; (2) The disclosure of any personal data resulting from the fact that you have communicated the user`s password to another person or shared the account with others; and (3) Any legal disputes and consequences arising from the disclosure of personal data caused by companies we do not own or control, as well as by persons we do not employ or manage.',
 
@@ -2641,25 +2641,25 @@ def process_renpho():
             *data,
 
             o.property('has_mechanism', o.individual(
-                'UserMaintain',
+                'UserMaintainsSecurity',
                 'We will never ask for your account password, and we recommend that you do not disclose your password to anyone else.')),
 
             o.property('binded_to', o.individual(
-                'Breach',
+                'DataBreachProcessing',
                 'verifiable parental consent.',
                 [
-                    o.property('initiated_by', criminal),
+                    o.property('initiated_by', first_party),
                     *data,
                     o.property('caused_by', o.individual(
-                        'BreachCause',
+                        'DataBreach',
                         'Any disclosure of personal data made under the laws, regulations, or other mandatory provisions of the government;'
                     )),
                     o.property('caused_by', o.individual(
-                        'BreachCause',
+                        'DataBreach',
                         'The disclosure of any personal data resulting from the fact that you have communicated the user`s password to another person or shared the account with others;'
                     )),
                     o.property('caused_by', o.individual(
-                        'BreachCause',
+                        'DataBreach',
                         'Any legal disputes and consequences arising from the disclosure of personal data caused by companies we do not own or control, as well as by persons we do not employ or manage.'
                     )),
                 ])),
@@ -2676,7 +2676,7 @@ def process_renpho():
 
     user = o.individual('User')
     first_party = o.individual('FirstParty', 'we')
-    criminal = o.individual('Criminal')
+    
 
     data = [
         o.property('applies_to', o.individual(
@@ -2687,7 +2687,7 @@ def process_renpho():
 
     a = o.individual(
 
-        'Retention',
+        'DataRetention',
 
         'Personal data that we collect, access, or process will be retained only as long as necessary for the fulfilment of the purposes for which it was collected, unless otherwise provided in agreements between you and Renpho or as required or authorized by law. Personal data that is no longer required to fulfill the identified purposes will be destroyed, erased, aggregated, or made deidentified.',
 
@@ -2705,10 +2705,10 @@ def process_renpho():
                 'as required or authorized by law.')),
 
             o.property('binded_to', o.individual(
-                'Breach',
+                'DataBreachProcessing',
                 'verifiable parental consent.',
                 [
-                    o.property('initiated_by', criminal),
+                    o.property('initiated_by', first_party),
                     *data,
                 ])),
 

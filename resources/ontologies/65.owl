@@ -288,14 +288,14 @@
   </rdfs:subClassOf>
 </owl:Class>
 
-<owl:Class rdf:about="#Breach">
+<owl:Class rdf:about="#DataBreachProcessing">
   <rdfs:subClassOf rdf:resource="#Activity"/>
   <rdfs:subClassOf>
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
           <owl:onProperty rdf:resource="#initiated_by"/>
-          <owl:allValuesFrom rdf:resource="#Criminal"/>
+          <owl:allValuesFrom rdf:resource="#FirstParty"/>
         </owl:Restriction>
         <owl:Restriction>
           <owl:onProperty rdf:resource="#applies_to"/>
@@ -303,11 +303,11 @@
         </owl:Restriction>
         <owl:Restriction>
           <owl:onProperty rdf:resource="#caused_by"/>
-          <owl:allValuesFrom rdf:resource="#BreachCause"/>
+          <owl:allValuesFrom rdf:resource="#DataBreach"/>
         </owl:Restriction>
         <owl:Restriction>
           <owl:onProperty rdf:resource="#has_consequence"/>
-          <owl:allValuesFrom rdf:resource="#BreachConsequence"/>
+          <owl:allValuesFrom rdf:resource="#DataBreachConsequence"/>
         </owl:Restriction>
       </owl:intersectionOf>
     </owl:Class>
@@ -366,11 +366,11 @@
   </rdfs:subClassOf>
 </owl:Class>
 
-<owl:Class rdf:about="#Use">
+<owl:Class rdf:about="#DataUse">
   <rdfs:subClassOf rdf:resource="#DataActivity"/>
 </owl:Class>
 
-<owl:Class rdf:about="#Protection">
+<owl:Class rdf:about="#DataProtection">
   <rdfs:subClassOf rdf:resource="#DataActivity"/>
   <rdfs:subClassOf>
     <owl:Restriction>
@@ -391,7 +391,7 @@
         </owl:Restriction>
         <owl:Restriction>
           <owl:onProperty rdf:resource="#has_mechanism"/>
-          <owl:allValuesFrom rdf:resource="#UserSpecific"/>
+          <owl:allValuesFrom rdf:resource="#UserSpecificCommunicationMechanism"/>
         </owl:Restriction>
         <owl:Restriction>
           <owl:onProperty rdf:resource="#has_mode"/>
@@ -413,7 +413,7 @@
         </owl:Restriction>
         <owl:Restriction>
           <owl:onProperty rdf:resource="#has_mechanism"/>
-          <owl:allValuesFrom rdf:resource="#TPSaCMechanism"/>
+          <owl:allValuesFrom rdf:resource="#TPSharingAndCollectionCMechanism"/>
         </owl:Restriction>
         <owl:Restriction>
           <owl:onProperty rdf:resource="#has_mode"/>
@@ -435,7 +435,7 @@
         </owl:Restriction>
         <owl:Restriction>
           <owl:onProperty rdf:resource="#has_mechanism"/>
-          <owl:allValuesFrom rdf:resource="#TPSaCMechanism"/>
+          <owl:allValuesFrom rdf:resource="#TPSharingAndCollectionCMechanism"/>
         </owl:Restriction>
         <owl:Restriction>
           <owl:onProperty rdf:resource="#has_mode"/>
@@ -446,7 +446,7 @@
   </rdfs:subClassOf>
 </owl:Class>
 
-<owl:Class rdf:about="#Retention">
+<owl:Class rdf:about="#DataRetention">
   <rdfs:subClassOf rdf:resource="#DataActivity"/>
   <rdfs:subClassOf>
     <owl:Class>
@@ -464,7 +464,7 @@
   </rdfs:subClassOf>
 </owl:Class>
 
-<owl:Class rdf:about="#Notification">
+<owl:Class rdf:about="#NotificationActivity">
   <rdfs:subClassOf rdf:resource="#Activity"/>
   <rdfs:subClassOf>
     <owl:Class>
@@ -491,7 +491,7 @@
 </owl:Class>
 
 <owl:Class rdf:about="#FPNotification">
-  <rdfs:subClassOf rdf:resource="#Notification"/>
+  <rdfs:subClassOf rdf:resource="#NotificationActivity"/>
   <owl:disjointWith rdf:resource="#UserNotification"/>
   <rdfs:subClassOf>
     <owl:Class>
@@ -506,7 +506,7 @@
         </owl:Restriction>
         <owl:Restriction>
           <owl:onProperty rdf:resource="#has_mechanism"/>
-          <owl:allValuesFrom rdf:resource="#FPSpecific"/>
+          <owl:allValuesFrom rdf:resource="#FPSpecificCommunicationMechanism"/>
         </owl:Restriction>
       </owl:intersectionOf>
     </owl:Class>
@@ -514,7 +514,7 @@
 </owl:Class>
 
 <owl:Class rdf:about="#UserNotification">
-  <rdfs:subClassOf rdf:resource="#Notification"/>
+  <rdfs:subClassOf rdf:resource="#NotificationActivity"/>
   <rdfs:subClassOf>
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
@@ -528,7 +528,7 @@
         </owl:Restriction>
         <owl:Restriction>
           <owl:onProperty rdf:resource="#has_mechanism"/>
-          <owl:allValuesFrom rdf:resource="#Manual"/>
+          <owl:allValuesFrom rdf:resource="#ManualCommunicationMechanism"/>
         </owl:Restriction>
       </owl:intersectionOf>
     </owl:Class>
@@ -555,22 +555,19 @@
         </owl:Restriction>
         <owl:Restriction>
           <owl:onProperty rdf:resource="#has_mechanism"/>
-          <owl:allValuesFrom rdf:resource="#Manual"/>
+          <owl:allValuesFrom rdf:resource="#ManualCommunicationMechanism"/>
         </owl:Restriction>
       </owl:intersectionOf>
     </owl:Class>
   </rdfs:subClassOf>
 </owl:Class>
 
-<owl:Class rdf:about="#ProvidedDataControl">
+<owl:Class rdf:about="#AdvertisingDataControl">
   <rdfs:subClassOf rdf:resource="#DataControl"/>
+  <owl:disjointWith rdf:resource="#OptInOptOutControl"/>
 </owl:Class>
 
-<owl:Class rdf:about="#PrivacyControl">
-  <rdfs:subClassOf rdf:resource="#DataControl"/>
-</owl:Class>
-
-<owl:Class rdf:about="#OptControl">
+<owl:Class rdf:about="#OptInOptOutControl">
   <rdfs:subClassOf rdf:resource="#DataControl"/>
 </owl:Class>
 
@@ -672,16 +669,6 @@
   </rdfs:subClassOf>
 </owl:Class>
 
-<owl:Class rdf:about="#Criminal">
-  <rdfs:subClassOf rdf:resource="#Agent"/>
-  <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#initiates"/>
-      <owl:allValuesFrom rdf:resource="#Breach"/>
-    </owl:Restriction>
-  </rdfs:subClassOf>
-</owl:Class>
-
 <owl:Class rdf:about="#Data">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
@@ -701,37 +688,32 @@
   <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
-<owl:Class rdf:about="#NonSensitiveData">
+<owl:Class rdf:about="#ServiceData">
   <rdfs:subClassOf rdf:resource="#PersonalData"/>
 </owl:Class>
 
-<owl:Class rdf:about="#ServiceData">
-  <rdfs:subClassOf rdf:resource="#NonSensitiveData"/>
-</owl:Class>
-
 <owl:Class rdf:about="#FinancialData">
-  <rdfs:subClassOf rdf:resource="#NonSensitiveData"/>
+  <rdfs:subClassOf rdf:resource="#PersonalData"/>
 </owl:Class>
 
 <owl:Class rdf:about="#DeviceData">
-  <rdfs:subClassOf rdf:resource="#NonSensitiveData"/>
+  <rdfs:subClassOf rdf:resource="#PersonalData"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ApplicationData">
-  <rdfs:subClassOf rdf:resource="#NonSensitiveData"/>
+  <rdfs:subClassOf rdf:resource="#PersonalData"/>
 </owl:Class>
 
 <owl:Class rdf:about="#AccountData">
-  <rdfs:subClassOf rdf:resource="#NonSensitiveData"/>
+  <rdfs:subClassOf rdf:resource="#PersonalData"/>
 </owl:Class>
 
 <owl:Class rdf:about="#TrackingData">
-  <rdfs:subClassOf rdf:resource="#NonSensitiveData"/>
+  <rdfs:subClassOf rdf:resource="#PersonalData"/>
 </owl:Class>
 
 <owl:Class rdf:about="#SensitiveData">
   <rdfs:subClassOf rdf:resource="#PersonalData"/>
-  <owl:disjointWith rdf:resource="#NonSensitiveData"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ReligionData">
@@ -773,21 +755,21 @@
   <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
-      <owl:allValuesFrom rdf:resource="#Retention"/>
+      <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
 
-<owl:Class rdf:about="#OwnServers">
+<owl:Class rdf:about="#StoreOnOwnServers">
   <rdfs:subClassOf rdf:resource="#DataRetentionMechanism"/>
-  <owl:disjointWith rdf:resource="#EmployedServers"/>
+  <owl:disjointWith rdf:resource="#StoreOnEmployedServers"/>
 </owl:Class>
 
-<owl:Class rdf:about="#EmployedServers">
+<owl:Class rdf:about="#StoreOnEmployedServers">
   <rdfs:subClassOf rdf:resource="#DataRetentionMechanism"/>
 </owl:Class>
 
-<owl:Class rdf:about="#TPSaCMechanism">
+<owl:Class rdf:about="#TPSharingAndCollectionCMechanism">
   <rdfs:subClassOf rdf:resource="#Mechanism"/>
   <rdfs:subClassOf>
     <owl:Restriction>
@@ -804,13 +786,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
-<owl:Class rdf:about="#Contract">
-  <rdfs:subClassOf rdf:resource="#TPSaCMechanism"/>
-  <owl:disjointWith rdf:resource="#ForFree"/>
+<owl:Class rdf:about="#TPSharingOrCollectionByContract">
+  <rdfs:subClassOf rdf:resource="#TPSharingAndCollectionCMechanism"/>
+  <owl:disjointWith rdf:resource="#TPSharingOrCollectionForFree"/>
 </owl:Class>
 
-<owl:Class rdf:about="#ForFree">
-  <rdfs:subClassOf rdf:resource="#TPSaCMechanism"/>
+<owl:Class rdf:about="#TPSharingOrCollectionForFree">
+  <rdfs:subClassOf rdf:resource="#TPSharingAndCollectionCMechanism"/>
 </owl:Class>
 
 <owl:Class rdf:about="#SecurityMechanism">
@@ -818,55 +800,55 @@
   <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
-      <owl:allValuesFrom rdf:resource="#Protection"/>
+      <owl:allValuesFrom rdf:resource="#DataProtection"/>
     </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
 
-<owl:Class rdf:about="#TechnicalMeasure">
+<owl:Class rdf:about="#TechnicalSecurityMeasure">
   <rdfs:subClassOf rdf:resource="#SecurityMechanism"/>
-  <owl:disjointWith rdf:resource="#OrganizationalMeasure"/>
+  <owl:disjointWith rdf:resource="#OrganizationalSecurityMeasure"/>
 </owl:Class>
 
 <owl:Class rdf:about="#PseudoAnonymization">
-  <rdfs:subClassOf rdf:resource="#TechnicalMeasure"/>
+  <rdfs:subClassOf rdf:resource="#TechnicalSecurityMeasure"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Encryption">
-  <rdfs:subClassOf rdf:resource="#TechnicalMeasure"/>
+  <rdfs:subClassOf rdf:resource="#TechnicalSecurityMeasure"/>
 </owl:Class>
 
 <owl:Class rdf:about="#SecureStorage">
   <rdfs:subClassOf rdf:resource="#Encryption"/>
 </owl:Class>
 
-<owl:Class rdf:about="#SecureTunnel">
+<owl:Class rdf:about="#SecuredCommunication">
   <rdfs:subClassOf rdf:resource="#Encryption"/>
   <owl:disjointWith rdf:resource="#SecureStorage"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Firewall">
-  <rdfs:subClassOf rdf:resource="#TechnicalMeasure"/>
+  <rdfs:subClassOf rdf:resource="#TechnicalSecurityMeasure"/>
 </owl:Class>
 
 <owl:Class rdf:about="#AccessControls">
-  <rdfs:subClassOf rdf:resource="#TechnicalMeasure"/>
+  <rdfs:subClassOf rdf:resource="#TechnicalSecurityMeasure"/>
 </owl:Class>
 
-<owl:Class rdf:about="#OrganizationalMeasure">
+<owl:Class rdf:about="#OrganizationalSecurityMeasure">
   <rdfs:subClassOf rdf:resource="#SecurityMechanism"/>
 </owl:Class>
 
 <owl:Class rdf:about="#LockedOffice">
-  <rdfs:subClassOf rdf:resource="#OrganizationalMeasure"/>
+  <rdfs:subClassOf rdf:resource="#OrganizationalSecurityMeasure"/>
 </owl:Class>
 
 <owl:Class rdf:about="#SecurityTraining">
-  <rdfs:subClassOf rdf:resource="#OrganizationalMeasure"/>
+  <rdfs:subClassOf rdf:resource="#OrganizationalSecurityMeasure"/>
 </owl:Class>
 
-<owl:Class rdf:about="#UserMaintain">
-  <rdfs:subClassOf rdf:resource="#OrganizationalMeasure"/>
+<owl:Class rdf:about="#UserMaintainsSecurity">
+  <rdfs:subClassOf rdf:resource="#OrganizationalSecurityMeasure"/>
 </owl:Class>
 
 <owl:Class rdf:about="#CommunicationMechanism">
@@ -877,7 +859,7 @@
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
-            <rdf:Description rdf:about="#Notification"/>
+            <rdf:Description rdf:about="#NotificationActivity"/>
             <rdf:Description rdf:about="#DataControl"/>
             <rdf:Description rdf:about="#FPCollection"/>
           </owl:unionOf>
@@ -887,9 +869,9 @@
   </rdfs:subClassOf>
 </owl:Class>
 
-<owl:Class rdf:about="#UserSpecific">
+<owl:Class rdf:about="#UserSpecificCommunicationMechanism">
   <rdfs:subClassOf rdf:resource="#CommunicationMechanism"/>
-  <owl:disjointWith rdf:resource="#FPSpecific"/>
+  <owl:disjointWith rdf:resource="#FPSpecificCommunicationMechanism"/>
   <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
@@ -902,85 +884,85 @@
   </rdfs:subClassOf>
 </owl:Class>
 
-<owl:Class rdf:about="#Automatic">
-  <rdfs:subClassOf rdf:resource="#UserSpecific"/>
+<owl:Class rdf:about="#AutomaticCommunicationMechanism">
+  <rdfs:subClassOf rdf:resource="#UserSpecificCommunicationMechanism"/>
 </owl:Class>
 
-<owl:Class rdf:about="#ThroughServiceApp">
-  <rdfs:subClassOf rdf:resource="#Automatic"/>
-  <owl:disjointWith rdf:resource="#ThroughWebsite"/>
+<owl:Class rdf:about="#ViaServiceApp">
+  <rdfs:subClassOf rdf:resource="#AutomaticCommunicationMechanism"/>
+  <owl:disjointWith rdf:resource="#ViaWebsite"/>
 </owl:Class>
 
-<owl:Class rdf:about="#ThroughWebsite">
-  <rdfs:subClassOf rdf:resource="#Automatic"/>
+<owl:Class rdf:about="#ViaWebsite">
+  <rdfs:subClassOf rdf:resource="#AutomaticCommunicationMechanism"/>
 </owl:Class>
 
-<owl:Class rdf:about="#Manual">
-  <rdfs:subClassOf rdf:resource="#UserSpecific"/>
-  <owl:disjointWith rdf:resource="#Automatic"/>
+<owl:Class rdf:about="#ManualCommunicationMechanism">
+  <rdfs:subClassOf rdf:resource="#UserSpecificCommunicationMechanism"/>
+  <owl:disjointWith rdf:resource="#AutomaticCommunicationMechanism"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#mechanism_of"/>
+      <owl:allValuesFrom>
+        <owl:Class>
+          <owl:complementOf rdf:resource="#FPNotification"/>
+        </owl:Class>
+      </owl:allValuesFrom>
+    </owl:Restriction>
+  </rdfs:subClassOf>
   <rdfs:subClassOf>
     <owl:Class>
       <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecific"/>
-        <rdf:Description rdf:about="#Mutual"/>
+        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
+        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
       </owl:unionOf>
     </owl:Class>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#mechanism_of"/>
-      <owl:allValuesFrom>
-        <owl:Class>
-          <owl:complementOf rdf:resource="#FPNotification"/>
-        </owl:Class>
-      </owl:allValuesFrom>
-    </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#WebsiteForm">
-  <rdfs:subClassOf rdf:resource="#Manual"/>
+  <rdfs:subClassOf rdf:resource="#ManualCommunicationMechanism"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceAppForm">
-  <rdfs:subClassOf rdf:resource="#Manual"/>
+  <rdfs:subClassOf rdf:resource="#ManualCommunicationMechanism"/>
 </owl:Class>
 
 <owl:Class rdf:about="#DataProvision">
-  <rdfs:subClassOf rdf:resource="#Manual"/>
+  <rdfs:subClassOf rdf:resource="#ManualCommunicationMechanism"/>
 </owl:Class>
 
 <owl:Class rdf:about="#PersonalVisit">
-  <rdfs:subClassOf rdf:resource="#Manual"/>
+  <rdfs:subClassOf rdf:resource="#ManualCommunicationMechanism"/>
 </owl:Class>
 
-<owl:Class rdf:about="#Mutual">
+<owl:Class rdf:about="#GeneralCommunicationMechanism">
   <rdfs:subClassOf rdf:resource="#CommunicationMechanism"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Email">
-  <rdfs:subClassOf rdf:resource="#Mutual"/>
+  <rdfs:subClassOf rdf:resource="#GeneralCommunicationMechanism"/>
 </owl:Class>
 
 <owl:Class rdf:about="#PostalMail">
-  <rdfs:subClassOf rdf:resource="#Mutual"/>
+  <rdfs:subClassOf rdf:resource="#GeneralCommunicationMechanism"/>
 </owl:Class>
 
 <owl:Class rdf:about="#PhoneCall">
-  <rdfs:subClassOf rdf:resource="#Mutual"/>
+  <rdfs:subClassOf rdf:resource="#GeneralCommunicationMechanism"/>
 </owl:Class>
 
 <owl:Class rdf:about="#SMS">
-  <rdfs:subClassOf rdf:resource="#Mutual"/>
+  <rdfs:subClassOf rdf:resource="#GeneralCommunicationMechanism"/>
 </owl:Class>
 
-<owl:Class rdf:about="#FPSpecific">
+<owl:Class rdf:about="#FPSpecificCommunicationMechanism">
   <rdfs:subClassOf rdf:resource="#CommunicationMechanism"/>
   <rdfs:subClassOf>
     <owl:Class>
       <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#FPSpecific"/>
-        <rdf:Description rdf:about="#Mutual"/>
+        <rdf:Description rdf:about="#FPSpecificCommunicationMechanism"/>
+        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
       </owl:unionOf>
     </owl:Class>
   </rdfs:subClassOf>
@@ -993,15 +975,15 @@
 </owl:Class>
 
 <owl:Class rdf:about="#OnWebsitePage">
-  <rdfs:subClassOf rdf:resource="#FPSpecific"/>
+  <rdfs:subClassOf rdf:resource="#FPSpecificCommunicationMechanism"/>
 </owl:Class>
 
 <owl:Class rdf:about="#OnServiceApp">
-  <rdfs:subClassOf rdf:resource="#FPSpecific"/>
+  <rdfs:subClassOf rdf:resource="#FPSpecificCommunicationMechanism"/>
 </owl:Class>
 
 <owl:Class rdf:about="#InPrivacyPolicy">
-  <rdfs:subClassOf rdf:resource="#FPSpecific"/>
+  <rdfs:subClassOf rdf:resource="#FPSpecificCommunicationMechanism"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Mode">
@@ -1032,13 +1014,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
-<owl:Class rdf:about="#Permanent">
+<owl:Class rdf:about="#PermanentTransmission">
   <rdfs:subClassOf rdf:resource="#DataTransmissionMode"/>
 </owl:Class>
 
-<owl:Class rdf:about="#ByRequest">
+<owl:Class rdf:about="#TransmissionByRequest">
   <rdfs:subClassOf rdf:resource="#DataTransmissionMode"/>
-  <owl:disjointWith rdf:resource="#Permanent"/>
+  <owl:disjointWith rdf:resource="#PermanentTransmission"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Cause">
@@ -1051,31 +1033,31 @@
   </rdfs:subClassOf>
 </owl:Class>
 
-<owl:Class rdf:about="#BreachCause">
+<owl:Class rdf:about="#DataBreach">
   <rdfs:subClassOf rdf:resource="#Cause"/>
   <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#causes"/>
-      <owl:allValuesFrom rdf:resource="#Breach"/>
+      <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
 
-<owl:Class rdf:about="#ForceMajeur">
-  <rdfs:subClassOf rdf:resource="#BreachCause"/>
+<owl:Class rdf:about="#ForceMajeurIncident">
+  <rdfs:subClassOf rdf:resource="#DataBreach"/>
 </owl:Class>
 
-<owl:Class rdf:about="#Intentional">
-  <rdfs:subClassOf rdf:resource="#BreachCause"/>
+<owl:Class rdf:about="#IntentionalBreach">
+  <rdfs:subClassOf rdf:resource="#DataBreach"/>
 </owl:Class>
 
-<owl:Class rdf:about="#Unintentional">
-  <rdfs:subClassOf rdf:resource="#BreachCause"/>
+<owl:Class rdf:about="#UnintentionalBreach">
+  <rdfs:subClassOf rdf:resource="#DataBreach"/>
 </owl:Class>
 
 <owl:Class rdf:about="#PolicyChangeCause">
   <rdfs:subClassOf rdf:resource="#Cause"/>
-  <owl:disjointWith rdf:resource="#BreachCause"/>
+  <owl:disjointWith rdf:resource="#DataBreach"/>
   <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#causes"/>
@@ -1084,15 +1066,15 @@
   </rdfs:subClassOf>
 </owl:Class>
 
-<owl:Class rdf:about="#PrivacyRelated">
+<owl:Class rdf:about="#PrivacyRelatedCause">
   <rdfs:subClassOf rdf:resource="#PolicyChangeCause"/>
 </owl:Class>
 
-<owl:Class rdf:about="#NonPrivacyRelated">
+<owl:Class rdf:about="#NonPrivacyRelatedCause">
   <rdfs:subClassOf rdf:resource="#PolicyChangeCause"/>
 </owl:Class>
 
-<owl:Class rdf:about="#MergeAcquisition">
+<owl:Class rdf:about="#MergeAcquisitionCause">
   <rdfs:subClassOf rdf:resource="#PolicyChangeCause"/>
 </owl:Class>
 
@@ -1106,26 +1088,23 @@
   </rdfs:subClassOf>
 </owl:Class>
 
-<owl:Class rdf:about="#BreachConsequence">
+<owl:Class rdf:about="#DataBreachConsequence">
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#is_consequence_of"/>
-      <owl:allValuesFrom rdf:resource="#Breach"/>
+      <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
 
 <owl:Class rdf:about="#RemoveCompromisedInformation">
-  <rdfs:subClassOf rdf:resource="#BreachConsequence"/>
+  <rdfs:subClassOf rdf:resource="#DataBreachConsequence"/>
 </owl:Class>
 
-<owl:Class rdf:about="#Compensation">
-  <rdfs:subClassOf rdf:resource="#BreachConsequence"/>
-</owl:Class>
-
-<owl:Class rdf:about="#BreachInvestigation">
-  <rdfs:subClassOf rdf:resource="#BreachConsequence"/>
+<owl:Class rdf:about="#DataBreachCompensation">
+  <rdfs:subClassOf rdf:resource="#DataBreachConsequence"/>
+  <owl:disjointWith rdf:resource="#RemoveCompromisedInformation"/>
 </owl:Class>
 
 <owl:Class rdf:about="#PolicyChangeConsequence">
@@ -1180,36 +1159,36 @@
   </rdfs:subClassOf>
 </owl:Class>
 
-<owl:Class rdf:about="#LegalCompliance">
+<owl:Class rdf:about="#LegalCompliancePurpose">
   <rdfs:subClassOf rdf:resource="#DataActivityPurpose"/>
 </owl:Class>
 
-<owl:Class rdf:about="#ServiceProvision">
+<owl:Class rdf:about="#ServiceProvisionPurpose">
   <rdfs:subClassOf rdf:resource="#DataActivityPurpose"/>
 </owl:Class>
 
-<owl:Class rdf:about="#HealthMonitoring">
-  <rdfs:subClassOf rdf:resource="#ServiceProvision"/>
+<owl:Class rdf:about="#HealthMonitoringPurpose">
+  <rdfs:subClassOf rdf:resource="#ServiceProvisionPurpose"/>
 </owl:Class>
 
-<owl:Class rdf:about="#ServiceEnhancement">
+<owl:Class rdf:about="#ServiceEnhancementPurpose">
   <rdfs:subClassOf rdf:resource="#DataActivityPurpose"/>
 </owl:Class>
 
-<owl:Class rdf:about="#Analytics">
-  <rdfs:subClassOf rdf:resource="#ServiceEnhancement"/>
+<owl:Class rdf:about="#AnalyticsPurpose">
+  <rdfs:subClassOf rdf:resource="#ServiceEnhancementPurpose"/>
 </owl:Class>
 
-<owl:Class rdf:about="#Security">
-  <rdfs:subClassOf rdf:resource="#ServiceEnhancement"/>
+<owl:Class rdf:about="#SecurityPurpose">
+  <rdfs:subClassOf rdf:resource="#ServiceEnhancementPurpose"/>
 </owl:Class>
 
-<owl:Class rdf:about="#Research">
-  <rdfs:subClassOf rdf:resource="#ServiceEnhancement"/>
+<owl:Class rdf:about="#ResearchPurpose">
+  <rdfs:subClassOf rdf:resource="#ServiceEnhancementPurpose"/>
 </owl:Class>
 
-<owl:Class rdf:about="#Marketing">
-  <rdfs:subClassOf rdf:resource="#ServiceEnhancement"/>
+<owl:Class rdf:about="#MarketingPurpose">
+  <rdfs:subClassOf rdf:resource="#ServiceEnhancementPurpose"/>
 </owl:Class>
 
 <owl:Class rdf:about="#TimePeriod">
@@ -1227,7 +1206,7 @@
   <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#is_period_of"/>
-      <owl:allValuesFrom rdf:resource="#Retention"/>
+      <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
@@ -1237,17 +1216,17 @@
   <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#is_period_of"/>
-      <owl:allValuesFrom rdf:resource="#Notification"/>
+      <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
 
-<owl:Class rdf:about="#BreachInvestigationTime">
+<owl:Class rdf:about="#DataBreachProcessingTime">
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#is_period_of"/>
-      <owl:allValuesFrom rdf:resource="#BreachInvestigation"/>
+      <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
@@ -1321,519 +1300,519 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:Class rdf:about="#Child">
+<owl:Class rdf:about="#ChildCategory">
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#0fb7fb57a40e45319b4835a:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#6d2be747596d42d581c372d:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0fb7fb57a40e45319b4835a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6d2be747596d42d581c372d</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7cd60f6e1a9a471d9b941d3:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#07740dc43c6d4509abcce1b:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#be0a231106f54199b1814da:User"/>
-  <considers rdf:resource="#bbaef06f9e8b417c96e3296:FirstParty"/>
-  <considers rdf:resource="#0a5907b507ad408bad89f2b:ThirdParty"/>
-  <considers rdf:resource="#b56d15fa15a3473a9c84f13:TrackingData"/>
-  <considers rdf:resource="#d595c5dabcf4448580bc949:FPCollection"/>
-  <considers rdf:resource="#2a96a692eede4381bc5a744:TrackingData"/>
-  <considers rdf:resource="#bac2ef5f853241898ada357:PrivacyControl"/>
-  <considers rdf:resource="#a36fd714864a40c190f14bf:GenericData"/>
-  <considers rdf:resource="#0a76f3e9b08441c5914fe03:PrivacyControl"/>
-  <considers rdf:resource="#32b1156520ec451da3a6237:Data"/>
-  <considers rdf:resource="#3041497bc13e4592baa2587:PrivacyControl"/>
-  <considers rdf:resource="#5bcf6a1c3e804e78acf02ed:GenericData"/>
-  <considers rdf:resource="#b72c52a2e5964617b0049a4:PrivacyControl"/>
-  <considers rdf:resource="#9a558c63a152407fa38d8ce:NonSensitiveData"/>
-  <considers rdf:resource="#8f412e245c2844baa947edf:PrivacyControl"/>
-  <considers rdf:resource="#33c0e664f94c4f99b29697a:GenericData"/>
-  <considers rdf:resource="#a3db9d2a3bd443db8de01fd:PrivacyControl"/>
-  <considers rdf:resource="#255cf241e05d44f2a3c831c:AccountData"/>
-  <considers rdf:resource="#1e2651bbbbc04d499c8e3f9:ProvidedDataControl"/>
-  <considers rdf:resource="#5d2bda0abc1e423c9a0c0d9:ProvidedDataControl"/>
-  <considers rdf:resource="#ad724f9629f34dc496c2ece:GenericData"/>
-  <considers rdf:resource="#83fcd47ef1374418a597aea:PrivacyControl"/>
-  <considers rdf:resource="#192cf9cf04f942f6af183b4:Protection"/>
-  <considers rdf:resource="#f7b1959f77944181873725f:TrackingData"/>
-  <considers rdf:resource="#65fc48aa142c4ada8cad116:PrivacyControl"/>
-  <considers rdf:resource="#8f00660078f94f6ab0e1bce:PrivacyControl"/>
-  <considers rdf:resource="#6b622b11acc740f6bd1558a:PolicyChange"/>
-  <considers rdf:resource="#5e89413bfb6b463c93b4227:FPNotification"/>
-  <considers rdf:resource="#34bf6ade5e3f477fa88780f:PrivacyControl"/>
-  <considers rdf:resource="#726bd8b4eb7f47ae94f850c:PolicyChange"/>
-  <considers rdf:resource="#f04fe80fbdaa4788bf564d7:FPNotification"/>
-  <considers rdf:resource="#a9cef79096e84f4f86dc1d4:PrivacyControl"/>
-  <considers rdf:resource="#7a80fd68c1ca45bba5830dc:PolicyChange"/>
-  <considers rdf:resource="#48ac5a99ac714e279841f56:FPNotification"/>
-  <considers rdf:resource="#96ea9f3963aa47969d0f696:PrivacyControl"/>
-  <considers rdf:resource="#0adf82ac79854861b5785c0:PolicyChange"/>
-  <considers rdf:resource="#997111cbc96c474faf51da6:FPNotification"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7cd60f6e1a9a471d9b941d3</uuid>
+  <considers rdf:resource="#669627f12a174419bf3b822:User"/>
+  <considers rdf:resource="#ba6c07f48b9a4fa68153e2e:FirstParty"/>
+  <considers rdf:resource="#d1d7b6458cb84628b15042c:ThirdParty"/>
+  <considers rdf:resource="#865a6e781e7e46a28f85549:TrackingData"/>
+  <considers rdf:resource="#2c71b82a07484e8fab7abc5:FPCollection"/>
+  <considers rdf:resource="#36fd8ed5293c422098c5828:TrackingData"/>
+  <considers rdf:resource="#c77e77252a4348ff9bd074c:OptInOptOutControl"/>
+  <considers rdf:resource="#836449aed64c45c988e7d59:GenericData"/>
+  <considers rdf:resource="#4a1f2e22e6d44a24999fc28:OptInOptOutControl"/>
+  <considers rdf:resource="#2ad0d7d3cb514219a771cf4:Data"/>
+  <considers rdf:resource="#e98a84b6d8664261b343ee7:OptInOptOutControl"/>
+  <considers rdf:resource="#8f292b1331ba462bbbe1053:GenericData"/>
+  <considers rdf:resource="#035d37a8c06741619046f01:OptInOptOutControl"/>
+  <considers rdf:resource="#14924da6fbc74937ad1e669:PersonalData"/>
+  <considers rdf:resource="#b7140613cbaa43af85d6c9f:OptInOptOutControl"/>
+  <considers rdf:resource="#39d56c1d8a454d358a62d35:GenericData"/>
+  <considers rdf:resource="#2d55d5fbac0a4b5aaa715f9:OptInOptOutControl"/>
+  <considers rdf:resource="#681dae083ff246248e8225c:AccountData"/>
+  <considers rdf:resource="#bf0d07f548c945acbba432f:OptInOptOutControl"/>
+  <considers rdf:resource="#53c56fc9b614415da7878eb:OptInOptOutControl"/>
+  <considers rdf:resource="#de494b79be99493d9809039:GenericData"/>
+  <considers rdf:resource="#4cbda42728434a0ba5e4a70:OptInOptOutControl"/>
+  <considers rdf:resource="#ca4423cbcbc94d24b11fec7:DataProtection"/>
+  <considers rdf:resource="#a3915424611746bfb9f5a46:TrackingData"/>
+  <considers rdf:resource="#6aa487cd2a8b4d0d8c7eb30:OptInOptOutControl"/>
+  <considers rdf:resource="#73ede650e7694d24a98c7c9:OptInOptOutControl"/>
+  <considers rdf:resource="#fdbfc0de13fe4b46bc36151:PolicyChange"/>
+  <considers rdf:resource="#ab4183a9480d48a3b730b41:FPNotification"/>
+  <considers rdf:resource="#a5002fd1d5ef493db04fe30:OptInOptOutControl"/>
+  <considers rdf:resource="#37ca0da6ba9447148311502:PolicyChange"/>
+  <considers rdf:resource="#9c0e8759af6141b0a910376:FPNotification"/>
+  <considers rdf:resource="#6a23f6f6675d45dca378362:OptInOptOutControl"/>
+  <considers rdf:resource="#005a5bafb3634605a961e4c:PolicyChange"/>
+  <considers rdf:resource="#165210220de44cd29726ed9:FPNotification"/>
+  <considers rdf:resource="#fb15215adbc44c29acf8d58:OptInOptOutControl"/>
+  <considers rdf:resource="#3e8e2060664341e58b46fd0:PolicyChange"/>
+  <considers rdf:resource="#8861566fb8ea4f0a9546f68:FPNotification"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">07740dc43c6d4509abcce1b</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">washingtonian.com</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#be0a231106f54199b1814da:User">
+<owl:NamedIndividual rdf:about="#669627f12a174419bf3b822:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">be0a231106f54199b1814da</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">669627f12a174419bf3b822</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bbaef06f9e8b417c96e3296:FirstParty">
+<owl:NamedIndividual rdf:about="#ba6c07f48b9a4fa68153e2e:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bbaef06f9e8b417c96e3296</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ba6c07f48b9a4fa68153e2e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0a5907b507ad408bad89f2b:ThirdParty">
+<owl:NamedIndividual rdf:about="#d1d7b6458cb84628b15042c:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0a5907b507ad408bad89f2b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d1d7b6458cb84628b15042c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b56d15fa15a3473a9c84f13:TrackingData">
+<owl:NamedIndividual rdf:about="#865a6e781e7e46a28f85549:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#be0a231106f54199b1814da:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b56d15fa15a3473a9c84f13</uuid>
+  <provided_by rdf:resource="#669627f12a174419bf3b822:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">865a6e781e7e46a28f85549</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">"cookies" and "clickstream data."</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a41fc8fd976a4c73bd5acf2:ServiceEnhancement">
-  <rdf:type rdf:resource="#ServiceEnhancement"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a41fc8fd976a4c73bd5acf2</uuid>
+<owl:NamedIndividual rdf:about="#d2aff0c2497a4a4ba71a41c:ServiceEnhancementPurpose">
+  <rdf:type rdf:resource="#ServiceEnhancementPurpose"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d2aff0c2497a4a4ba71a41c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cookies help provide a customized web experience by enabling us to identify web users who visit our site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9203ec69ddad40e182a5400:ThroughWebsite">
-  <rdf:type rdf:resource="#ThroughWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9203ec69ddad40e182a5400</uuid>
+<owl:NamedIndividual rdf:about="#e940dd2de14a4dc1a4651fd:ViaWebsite">
+  <rdf:type rdf:resource="#ViaWebsite"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e940dd2de14a4dc1a4651fd</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Washingtonian.com also collects information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9b6e4eae307246c69a63b3f:Permanent">
-  <rdf:type rdf:resource="#Permanent"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9b6e4eae307246c69a63b3f</uuid>
+<owl:NamedIndividual rdf:about="#bb8ec22197454b31bfb0276:PermanentTransmission">
+  <rdf:type rdf:resource="#PermanentTransmission"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bb8ec22197454b31bfb0276</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">automatically</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d595c5dabcf4448580bc949:FPCollection">
+<owl:NamedIndividual rdf:about="#2c71b82a07484e8fab7abc5:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#bbaef06f9e8b417c96e3296:FirstParty"/>
-  <collects_from rdf:resource="#be0a231106f54199b1814da:User"/>
-  <has_purpose rdf:resource="#a41fc8fd976a4c73bd5acf2:ServiceEnhancement"/>
-  <has_mode rdf:resource="#9b6e4eae307246c69a63b3f:Permanent"/>
-  <has_mechanism rdf:resource="#9203ec69ddad40e182a5400:ThroughWebsite"/>
-  <applies_to rdf:resource="#b56d15fa15a3473a9c84f13:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d595c5dabcf4448580bc949</uuid>
+  <initiated_by rdf:resource="#ba6c07f48b9a4fa68153e2e:FirstParty"/>
+  <collects_from rdf:resource="#669627f12a174419bf3b822:User"/>
+  <has_purpose rdf:resource="#d2aff0c2497a4a4ba71a41c:ServiceEnhancementPurpose"/>
+  <has_mode rdf:resource="#bb8ec22197454b31bfb0276:PermanentTransmission"/>
+  <has_mechanism rdf:resource="#e940dd2de14a4dc1a4651fd:ViaWebsite"/>
+  <applies_to rdf:resource="#865a6e781e7e46a28f85549:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2c71b82a07484e8fab7abc5</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Washingtonian com also collects information automatically through the use of electronic tools such as cookies and clickstream data Cookies help provide a customized web experience by enabling us to identify web users who visit our site Among other things the cookie may store your Washingtonian com user name and password You may choose not to provide such information by adjusting your Internet browser security settings to refuse cookies Doing so however may limit your ability to access certain pages available on the website and may prevent you from enjoying the features on our website enabled by cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#df2a390d2bc248678f02040:Manual">
-  <rdf:type rdf:resource="#Manual"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">df2a390d2bc248678f02040</uuid>
+<owl:NamedIndividual rdf:about="#eb5dac7cc508452398ac671:ManualCommunicationMechanism">
+  <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eb5dac7cc508452398ac671</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may choose not to provide such information by adjusting your Internet browser security settings to refuse cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2a96a692eede4381bc5a744:TrackingData">
+<owl:NamedIndividual rdf:about="#36fd8ed5293c422098c5828:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#be0a231106f54199b1814da:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2a96a692eede4381bc5a744</uuid>
+  <provided_by rdf:resource="#669627f12a174419bf3b822:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">36fd8ed5293c422098c5828</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bac2ef5f853241898ada357:PrivacyControl">
-  <rdf:type rdf:resource="#PrivacyControl"/>
-  <initiated_by rdf:resource="#be0a231106f54199b1814da:User"/>
-  <has_mechanism rdf:resource="#df2a390d2bc248678f02040:Manual"/>
-  <applies_to rdf:resource="#2a96a692eede4381bc5a744:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bac2ef5f853241898ada357</uuid>
+<owl:NamedIndividual rdf:about="#c77e77252a4348ff9bd074c:OptInOptOutControl">
+  <rdf:type rdf:resource="#OptInOptOutControl"/>
+  <initiated_by rdf:resource="#669627f12a174419bf3b822:User"/>
+  <has_mechanism rdf:resource="#eb5dac7cc508452398ac671:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#36fd8ed5293c422098c5828:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c77e77252a4348ff9bd074c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Washingtonian com also collects information automatically through the use of electronic tools such as cookies and clickstream data Cookies help provide a customized web experience by enabling us to identify web users who visit our site Among other things the cookie may store your Washingtonian com user name and password You may choose not to provide such information by adjusting your Internet browser security settings to refuse cookies Doing so however may limit your ability to access certain pages available on the website and may prevent you from enjoying the features on our website enabled by cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#17179574b02e4caf82bffdc:Manual">
-  <rdf:type rdf:resource="#Manual"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">17179574b02e4caf82bffdc</uuid>
+<owl:NamedIndividual rdf:about="#6b154683c3ff40ba8fc3256:ManualCommunicationMechanism">
+  <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6b154683c3ff40ba8fc3256</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can always choose not to submit your personal information on the Washingtonian.com website</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a36fd714864a40c190f14bf:GenericData">
+<owl:NamedIndividual rdf:about="#836449aed64c45c988e7d59:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#be0a231106f54199b1814da:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a36fd714864a40c190f14bf</uuid>
+  <provided_by rdf:resource="#669627f12a174419bf3b822:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">836449aed64c45c988e7d59</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0a76f3e9b08441c5914fe03:PrivacyControl">
-  <rdf:type rdf:resource="#PrivacyControl"/>
-  <initiated_by rdf:resource="#be0a231106f54199b1814da:User"/>
-  <has_mechanism rdf:resource="#17179574b02e4caf82bffdc:Manual"/>
-  <applies_to rdf:resource="#a36fd714864a40c190f14bf:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0a76f3e9b08441c5914fe03</uuid>
+<owl:NamedIndividual rdf:about="#4a1f2e22e6d44a24999fc28:OptInOptOutControl">
+  <rdf:type rdf:resource="#OptInOptOutControl"/>
+  <initiated_by rdf:resource="#669627f12a174419bf3b822:User"/>
+  <has_mechanism rdf:resource="#6b154683c3ff40ba8fc3256:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#836449aed64c45c988e7d59:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4a1f2e22e6d44a24999fc28</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How You Can Control the Information We Collect About You You can always choose not to submit your personal information on the Washingtonian com website If you do not wish to receive e-mail messages from Washingtonian com about new features or products we think may be of interest you can unsubscribe at any time We will always include an opt-out web link or reply e-mail address in each e-mail message After unsubscribing you will be removed from our e-mail database Please allow up to 10 business days to process your request After unsubscribing you may still receive e-mail messages about the status of your account to resolve technical issues or to confirm a new subscription</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#25266dec44ab45b797d87d6:Manual">
-  <rdf:type rdf:resource="#Manual"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">25266dec44ab45b797d87d6</uuid>
+<owl:NamedIndividual rdf:about="#6273f4a947f144a7ac03c81:ManualCommunicationMechanism">
+  <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6273f4a947f144a7ac03c81</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you can unsubscribe at any time. We will always include an opt-out web link or reply e-mail address in each e-mail message.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#32b1156520ec451da3a6237:Data">
+<owl:NamedIndividual rdf:about="#2ad0d7d3cb514219a771cf4:Data">
   <rdf:type rdf:resource="#Data"/>
-  <provided_by rdf:resource="#be0a231106f54199b1814da:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">32b1156520ec451da3a6237</uuid>
+  <provided_by rdf:resource="#669627f12a174419bf3b822:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2ad0d7d3cb514219a771cf4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">receive e-mail messages from Washingtonian.com</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3041497bc13e4592baa2587:PrivacyControl">
-  <rdf:type rdf:resource="#PrivacyControl"/>
-  <initiated_by rdf:resource="#be0a231106f54199b1814da:User"/>
-  <has_mechanism rdf:resource="#25266dec44ab45b797d87d6:Manual"/>
-  <applies_to rdf:resource="#32b1156520ec451da3a6237:Data"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3041497bc13e4592baa2587</uuid>
+<owl:NamedIndividual rdf:about="#e98a84b6d8664261b343ee7:OptInOptOutControl">
+  <rdf:type rdf:resource="#OptInOptOutControl"/>
+  <initiated_by rdf:resource="#669627f12a174419bf3b822:User"/>
+  <has_mechanism rdf:resource="#6273f4a947f144a7ac03c81:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#2ad0d7d3cb514219a771cf4:Data"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e98a84b6d8664261b343ee7</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How You Can Control the Information We Collect About You You can always choose not to submit your personal information on the Washingtonian com website If you do not wish to receive e-mail messages from Washingtonian com about new features or products we think may be of interest you can unsubscribe at any time We will always include an opt-out web link or reply e-mail address in each e-mail message After unsubscribing you will be removed from our e-mail database Please allow up to 10 business days to process your request After unsubscribing you may still receive e-mail messages about the status of your account to resolve technical issues or to confirm a new subscription</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2f222892683b4487a7c6f46:Manual">
-  <rdf:type rdf:resource="#Manual"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2f222892683b4487a7c6f46</uuid>
+<owl:NamedIndividual rdf:about="#8ee2df4e3a0d43eb9b4c87e:ManualCommunicationMechanism">
+  <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8ee2df4e3a0d43eb9b4c87e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can always choose not to submit your personal information on the Washingtonian.com website.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5bcf6a1c3e804e78acf02ed:GenericData">
+<owl:NamedIndividual rdf:about="#8f292b1331ba462bbbe1053:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#be0a231106f54199b1814da:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5bcf6a1c3e804e78acf02ed</uuid>
+  <provided_by rdf:resource="#669627f12a174419bf3b822:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8f292b1331ba462bbbe1053</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">r personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b72c52a2e5964617b0049a4:PrivacyControl">
-  <rdf:type rdf:resource="#PrivacyControl"/>
-  <initiated_by rdf:resource="#be0a231106f54199b1814da:User"/>
-  <has_mechanism rdf:resource="#2f222892683b4487a7c6f46:Manual"/>
-  <applies_to rdf:resource="#5bcf6a1c3e804e78acf02ed:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b72c52a2e5964617b0049a4</uuid>
+<owl:NamedIndividual rdf:about="#035d37a8c06741619046f01:OptInOptOutControl">
+  <rdf:type rdf:resource="#OptInOptOutControl"/>
+  <initiated_by rdf:resource="#669627f12a174419bf3b822:User"/>
+  <has_mechanism rdf:resource="#8ee2df4e3a0d43eb9b4c87e:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#8f292b1331ba462bbbe1053:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">035d37a8c06741619046f01</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How You Can Control the Information We Collect About You You can always choose not to submit your personal information on the Washingtonian com website If you do not wish to receive e-mail messages from Washingtonian com about new features or products we think may be of interest you can unsubscribe at any time We will always include an opt-out web link or reply e-mail address in each e-mail message After unsubscribing you will be removed from our e-mail database Please allow up to 10 business days to process your request After unsubscribing you may still receive e-mail messages about the status of your account to resolve technical issues or to confirm a new subscription</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c8891d4524914efbb6cfc8e:Manual">
-  <rdf:type rdf:resource="#Manual"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c8891d4524914efbb6cfc8e</uuid>
+<owl:NamedIndividual rdf:about="#8b3f5a4b2e864ce49f94488:ManualCommunicationMechanism">
+  <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8b3f5a4b2e864ce49f94488</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you can unsubscribe at any time. We will always include an opt-out web link or reply e-mail address in each e-mail message.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9a558c63a152407fa38d8ce:NonSensitiveData">
-  <rdf:type rdf:resource="#NonSensitiveData"/>
-  <provided_by rdf:resource="#be0a231106f54199b1814da:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9a558c63a152407fa38d8ce</uuid>
+<owl:NamedIndividual rdf:about="#14924da6fbc74937ad1e669:PersonalData">
+  <rdf:type rdf:resource="#PersonalData"/>
+  <provided_by rdf:resource="#669627f12a174419bf3b822:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">14924da6fbc74937ad1e669</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e-mail</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8f412e245c2844baa947edf:PrivacyControl">
-  <rdf:type rdf:resource="#PrivacyControl"/>
-  <initiated_by rdf:resource="#be0a231106f54199b1814da:User"/>
-  <has_mechanism rdf:resource="#c8891d4524914efbb6cfc8e:Manual"/>
-  <applies_to rdf:resource="#9a558c63a152407fa38d8ce:NonSensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8f412e245c2844baa947edf</uuid>
+<owl:NamedIndividual rdf:about="#b7140613cbaa43af85d6c9f:OptInOptOutControl">
+  <rdf:type rdf:resource="#OptInOptOutControl"/>
+  <initiated_by rdf:resource="#669627f12a174419bf3b822:User"/>
+  <has_mechanism rdf:resource="#8b3f5a4b2e864ce49f94488:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#14924da6fbc74937ad1e669:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b7140613cbaa43af85d6c9f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How You Can Control the Information We Collect About You You can always choose not to submit your personal information on the Washingtonian com website If you do not wish to receive e-mail messages from Washingtonian com about new features or products we think may be of interest you can unsubscribe at any time We will always include an opt-out web link or reply e-mail address in each e-mail message After unsubscribing you will be removed from our e-mail database Please allow up to 10 business days to process your request After unsubscribing you may still receive e-mail messages about the status of your account to resolve technical issues or to confirm a new subscription</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bd4d3e851c6d423dac669d7:Manual">
-  <rdf:type rdf:resource="#Manual"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bd4d3e851c6d423dac669d7</uuid>
+<owl:NamedIndividual rdf:about="#6819ce0bdbe34a83ac9fd0c:ManualCommunicationMechanism">
+  <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6819ce0bdbe34a83ac9fd0c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">choose not to submit</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#33c0e664f94c4f99b29697a:GenericData">
+<owl:NamedIndividual rdf:about="#39d56c1d8a454d358a62d35:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#be0a231106f54199b1814da:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">33c0e664f94c4f99b29697a</uuid>
+  <provided_by rdf:resource="#669627f12a174419bf3b822:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">39d56c1d8a454d358a62d35</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a3db9d2a3bd443db8de01fd:PrivacyControl">
-  <rdf:type rdf:resource="#PrivacyControl"/>
-  <initiated_by rdf:resource="#be0a231106f54199b1814da:User"/>
-  <has_mechanism rdf:resource="#bd4d3e851c6d423dac669d7:Manual"/>
-  <applies_to rdf:resource="#33c0e664f94c4f99b29697a:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a3db9d2a3bd443db8de01fd</uuid>
+<owl:NamedIndividual rdf:about="#2d55d5fbac0a4b5aaa715f9:OptInOptOutControl">
+  <rdf:type rdf:resource="#OptInOptOutControl"/>
+  <initiated_by rdf:resource="#669627f12a174419bf3b822:User"/>
+  <has_mechanism rdf:resource="#6819ce0bdbe34a83ac9fd0c:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#39d56c1d8a454d358a62d35:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2d55d5fbac0a4b5aaa715f9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How You Can Control the Information We Collect About You You can always choose not to submit your personal information on the Washingtonian com website If you do not wish to receive e-mail messages from Washingtonian com about new features or products we think may be of interest you can unsubscribe at any time We will always include an opt-out web link or reply e-mail address in each e-mail message After unsubscribing you will be removed from our e-mail database Please allow up to 10 business days to process your request After unsubscribing you may still receive e-mail messages about the status of your account to resolve technical issues or to confirm a new subscription</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#66f6ee330efd499683073bd:Manual">
-  <rdf:type rdf:resource="#Manual"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">66f6ee330efd499683073bd</uuid>
+<owl:NamedIndividual rdf:about="#b2a24087f1d24cd8a3aa28a:ManualCommunicationMechanism">
+  <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b2a24087f1d24cd8a3aa28a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you wish to make changes to any personal information you have provided us or if you have any questions about what we do with your personal information please contact us by sending an e-mail to privacy washingtonian com</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#255cf241e05d44f2a3c831c:AccountData">
+<owl:NamedIndividual rdf:about="#681dae083ff246248e8225c:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#be0a231106f54199b1814da:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">255cf241e05d44f2a3c831c</uuid>
+  <provided_by rdf:resource="#669627f12a174419bf3b822:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">681dae083ff246248e8225c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1e2651bbbbc04d499c8e3f9:ProvidedDataControl">
-  <rdf:type rdf:resource="#ProvidedDataControl"/>
-  <initiated_by rdf:resource="#be0a231106f54199b1814da:User"/>
-  <has_mechanism rdf:resource="#66f6ee330efd499683073bd:Manual"/>
-  <applies_to rdf:resource="#255cf241e05d44f2a3c831c:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1e2651bbbbc04d499c8e3f9</uuid>
+<owl:NamedIndividual rdf:about="#bf0d07f548c945acbba432f:OptInOptOutControl">
+  <rdf:type rdf:resource="#OptInOptOutControl"/>
+  <initiated_by rdf:resource="#669627f12a174419bf3b822:User"/>
+  <has_mechanism rdf:resource="#b2a24087f1d24cd8a3aa28a:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#681dae083ff246248e8225c:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bf0d07f548c945acbba432f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you wish to make changes to any personal information you have provided us or if you have any questions about what we do with your personal information please contact us by sending an e-mail to privacy washingtonian com</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e1ef385c8efe417ea8a8c52:Manual">
-  <rdf:type rdf:resource="#Manual"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e1ef385c8efe417ea8a8c52</uuid>
+<owl:NamedIndividual rdf:about="#0dc29ddcb05c45eab356820:ManualCommunicationMechanism">
+  <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0dc29ddcb05c45eab356820</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you wish to make changes to any personal information you have provided us or if you have any questions about what we do with your personal information please contact us by sending an e-mail to privacy washingtonian com</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5d2bda0abc1e423c9a0c0d9:ProvidedDataControl">
-  <rdf:type rdf:resource="#ProvidedDataControl"/>
-  <initiated_by rdf:resource="#be0a231106f54199b1814da:User"/>
-  <has_mechanism rdf:resource="#e1ef385c8efe417ea8a8c52:Manual"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5d2bda0abc1e423c9a0c0d9</uuid>
+<owl:NamedIndividual rdf:about="#53c56fc9b614415da7878eb:OptInOptOutControl">
+  <rdf:type rdf:resource="#OptInOptOutControl"/>
+  <initiated_by rdf:resource="#669627f12a174419bf3b822:User"/>
+  <has_mechanism rdf:resource="#0dc29ddcb05c45eab356820:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">53c56fc9b614415da7878eb</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you wish to make changes to any personal information you have provided us or if you have any questions about what we do with your personal information please contact us by sending an e-mail to privacy washingtonian com</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6e85c6809ac84f41bda8270:Manual">
-  <rdf:type rdf:resource="#Manual"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6e85c6809ac84f41bda8270</uuid>
+<owl:NamedIndividual rdf:about="#e1ed13b5b648447caa1a162:ManualCommunicationMechanism">
+  <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e1ed13b5b648447caa1a162</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">please contact us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ad724f9629f34dc496c2ece:GenericData">
+<owl:NamedIndividual rdf:about="#de494b79be99493d9809039:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#be0a231106f54199b1814da:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ad724f9629f34dc496c2ece</uuid>
+  <provided_by rdf:resource="#669627f12a174419bf3b822:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">de494b79be99493d9809039</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#83fcd47ef1374418a597aea:PrivacyControl">
-  <rdf:type rdf:resource="#PrivacyControl"/>
-  <initiated_by rdf:resource="#be0a231106f54199b1814da:User"/>
-  <has_mechanism rdf:resource="#6e85c6809ac84f41bda8270:Manual"/>
-  <applies_to rdf:resource="#ad724f9629f34dc496c2ece:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">83fcd47ef1374418a597aea</uuid>
+<owl:NamedIndividual rdf:about="#4cbda42728434a0ba5e4a70:OptInOptOutControl">
+  <rdf:type rdf:resource="#OptInOptOutControl"/>
+  <initiated_by rdf:resource="#669627f12a174419bf3b822:User"/>
+  <has_mechanism rdf:resource="#e1ed13b5b648447caa1a162:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#de494b79be99493d9809039:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4cbda42728434a0ba5e4a70</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you wish to make changes to any personal information you have provided us or if you have any questions about what we do with your personal information please contact us by sending an e-mail to privacy washingtonian com</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#52a5a8ccb9614c9eb661d6d:TechnicalMeasure">
-  <rdf:type rdf:resource="#TechnicalMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">52a5a8ccb9614c9eb661d6d</uuid>
+<owl:NamedIndividual rdf:about="#a8906fd8fe6a4da29dd938e:TechnicalSecurityMeasure">
+  <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a8906fd8fe6a4da29dd938e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To prevent unauthorized access, maintain data accuracy, and ensure the appropriate use of personally identifiable information, we have put in place physical, electronic, and administrative procedures to protect the personally identifiable information we collect online.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#192cf9cf04f942f6af183b4:Protection">
-  <rdf:type rdf:resource="#Protection"/>
-  <initiated_by rdf:resource="#bbaef06f9e8b417c96e3296:FirstParty"/>
-  <has_mechanism rdf:resource="#52a5a8ccb9614c9eb661d6d:TechnicalMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">192cf9cf04f942f6af183b4</uuid>
+<owl:NamedIndividual rdf:about="#ca4423cbcbc94d24b11fec7:DataProtection">
+  <rdf:type rdf:resource="#DataProtection"/>
+  <initiated_by rdf:resource="#ba6c07f48b9a4fa68153e2e:FirstParty"/>
+  <has_mechanism rdf:resource="#a8906fd8fe6a4da29dd938e:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ca4423cbcbc94d24b11fec7</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How Your Personal Information is Protected Online To prevent unauthorized access maintain data accuracy and ensure the appropriate use of personally identifiable information we have put in place physical electronic and administrative procedures to protect the personally identifiable information we collect online</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e05de2e4bf7f4fe6b4d0425:Manual">
-  <rdf:type rdf:resource="#Manual"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e05de2e4bf7f4fe6b4d0425</uuid>
+<owl:NamedIndividual rdf:about="#7dc3e478cd4547d9a96eaf1:ManualCommunicationMechanism">
+  <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7dc3e478cd4547d9a96eaf1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">and how to "opt-out" of receiving cookies,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f7b1959f77944181873725f:TrackingData">
+<owl:NamedIndividual rdf:about="#a3915424611746bfb9f5a46:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#be0a231106f54199b1814da:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f7b1959f77944181873725f</uuid>
+  <provided_by rdf:resource="#669627f12a174419bf3b822:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a3915424611746bfb9f5a46</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#65fc48aa142c4ada8cad116:PrivacyControl">
-  <rdf:type rdf:resource="#PrivacyControl"/>
-  <initiated_by rdf:resource="#be0a231106f54199b1814da:User"/>
-  <has_mechanism rdf:resource="#e05de2e4bf7f4fe6b4d0425:Manual"/>
-  <applies_to rdf:resource="#f7b1959f77944181873725f:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">65fc48aa142c4ada8cad116</uuid>
+<owl:NamedIndividual rdf:about="#6aa487cd2a8b4d0d8c7eb30:OptInOptOutControl">
+  <rdf:type rdf:resource="#OptInOptOutControl"/>
+  <initiated_by rdf:resource="#669627f12a174419bf3b822:User"/>
+  <has_mechanism rdf:resource="#7dc3e478cd4547d9a96eaf1:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#a3915424611746bfb9f5a46:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6aa487cd2a8b4d0d8c7eb30</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You also should be aware that our Web advertising partners may place or recognize a unique cookie on your browser Cookies enable advertisers to determine whether you have seen a particular advertisement before For more information about DoubleClick s privacy practices cookies and how to opt-out of receiving cookies please visit http //www doubleclick net/us/corporate/privacy For more information about Google s privacy practices please visit http //www google com/privacy html</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f473a014926f4b6b9b11802:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#aae5575d3e284e5dac2ef4f:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#be0a231106f54199b1814da:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f473a014926f4b6b9b11802</uuid>
+  <is_special_category_for rdf:resource="#669627f12a174419bf3b822:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aae5575d3e284e5dac2ef4f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Children Washingtonian com does not knowingly collect or solicit personally identifiable information from or about children under 13 except as permitted by federal law If we discover that we have received any personally identifiable information from a child under 13 in violation of this policy we will delete such information from our servers immediately If you believe Washingtonian com has any information from or pertaining to anyone under 13 please contact us at the address listed below</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#37b458d410e04f22a970885:InPrivacyPolicy">
+<owl:NamedIndividual rdf:about="#5a0bb7d5ec9f42fc9bcc15e:InPrivacyPolicy">
   <rdf:type rdf:resource="#InPrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">37b458d410e04f22a970885</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5a0bb7d5ec9f42fc9bcc15e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please check this page periodically for changes. We will post a notice on this site if and when this policy changes to alert visitors that a new policy is in place.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8f00660078f94f6ab0e1bce:PrivacyControl">
-  <rdf:type rdf:resource="#PrivacyControl"/>
-  <initiated_by rdf:resource="#be0a231106f54199b1814da:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8f00660078f94f6ab0e1bce</uuid>
+<owl:NamedIndividual rdf:about="#73ede650e7694d24a98c7c9:OptInOptOutControl">
+  <rdf:type rdf:resource="#OptInOptOutControl"/>
+  <initiated_by rdf:resource="#669627f12a174419bf3b822:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">73ede650e7694d24a98c7c9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to This Policy Washingtonian com reserves the right to change this policy at any time Please check this page periodically for changes We will post a notice on this site if and when this policy changes to alert visitors that a new policy is in place Your continued use of our website following the posting of changes to our privacy policy will mean that you accept such changes Information collected prior to the time any change is posted will be used according to the policy and applicable laws in place at the time the information was collected</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6b622b11acc740f6bd1558a:PolicyChange">
+<owl:NamedIndividual rdf:about="#fdbfc0de13fe4b46bc36151:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#bbaef06f9e8b417c96e3296:FirstParty"/>
-  <binded_to rdf:resource="#8f00660078f94f6ab0e1bce:PrivacyControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6b622b11acc740f6bd1558a</uuid>
+  <initiated_by rdf:resource="#ba6c07f48b9a4fa68153e2e:FirstParty"/>
+  <binded_to rdf:resource="#73ede650e7694d24a98c7c9:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fdbfc0de13fe4b46bc36151</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to This Policy Washingtonian com reserves the right to change this policy at any time Please check this page periodically for changes We will post a notice on this site if and when this policy changes to alert visitors that a new policy is in place Your continued use of our website following the posting of changes to our privacy policy will mean that you accept such changes Information collected prior to the time any change is posted will be used according to the policy and applicable laws in place at the time the information was collected</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5e89413bfb6b463c93b4227:FPNotification">
+<owl:NamedIndividual rdf:about="#ab4183a9480d48a3b730b41:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#bbaef06f9e8b417c96e3296:FirstParty"/>
-  <notifies rdf:resource="#be0a231106f54199b1814da:User"/>
-  <has_mechanism rdf:resource="#37b458d410e04f22a970885:InPrivacyPolicy"/>
-  <binded_to rdf:resource="#6b622b11acc740f6bd1558a:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5e89413bfb6b463c93b4227</uuid>
+  <initiated_by rdf:resource="#ba6c07f48b9a4fa68153e2e:FirstParty"/>
+  <notifies rdf:resource="#669627f12a174419bf3b822:User"/>
+  <has_mechanism rdf:resource="#5a0bb7d5ec9f42fc9bcc15e:InPrivacyPolicy"/>
+  <binded_to rdf:resource="#fdbfc0de13fe4b46bc36151:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ab4183a9480d48a3b730b41</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to This Policy Washingtonian com reserves the right to change this policy at any time Please check this page periodically for changes We will post a notice on this site if and when this policy changes to alert visitors that a new policy is in place Your continued use of our website following the posting of changes to our privacy policy will mean that you accept such changes Information collected prior to the time any change is posted will be used according to the policy and applicable laws in place at the time the information was collected</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f541e0ea0a044b269d67b2b:InPrivacyPolicy">
+<owl:NamedIndividual rdf:about="#09f29f1bcc914e83815876a:InPrivacyPolicy">
   <rdf:type rdf:resource="#InPrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f541e0ea0a044b269d67b2b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">09f29f1bcc914e83815876a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We will post a notice on this site if and when this policy changes to alert visitors that a new policy is in place</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#34bf6ade5e3f477fa88780f:PrivacyControl">
-  <rdf:type rdf:resource="#PrivacyControl"/>
-  <initiated_by rdf:resource="#be0a231106f54199b1814da:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">34bf6ade5e3f477fa88780f</uuid>
+<owl:NamedIndividual rdf:about="#a5002fd1d5ef493db04fe30:OptInOptOutControl">
+  <rdf:type rdf:resource="#OptInOptOutControl"/>
+  <initiated_by rdf:resource="#669627f12a174419bf3b822:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a5002fd1d5ef493db04fe30</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to This Policy Washingtonian com reserves the right to change this policy at any time Please check this page periodically for changes We will post a notice on this site if and when this policy changes to alert visitors that a new policy is in place Your continued use of our website following the posting of changes to our privacy policy will mean that you accept such changes Information collected prior to the time any change is posted will be used according to the policy and applicable laws in place at the time the information was collected</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#726bd8b4eb7f47ae94f850c:PolicyChange">
+<owl:NamedIndividual rdf:about="#37ca0da6ba9447148311502:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#bbaef06f9e8b417c96e3296:FirstParty"/>
-  <binded_to rdf:resource="#34bf6ade5e3f477fa88780f:PrivacyControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">726bd8b4eb7f47ae94f850c</uuid>
+  <initiated_by rdf:resource="#ba6c07f48b9a4fa68153e2e:FirstParty"/>
+  <binded_to rdf:resource="#a5002fd1d5ef493db04fe30:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">37ca0da6ba9447148311502</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to This Policy Washingtonian com reserves the right to change this policy at any time Please check this page periodically for changes We will post a notice on this site if and when this policy changes to alert visitors that a new policy is in place Your continued use of our website following the posting of changes to our privacy policy will mean that you accept such changes Information collected prior to the time any change is posted will be used according to the policy and applicable laws in place at the time the information was collected</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f04fe80fbdaa4788bf564d7:FPNotification">
+<owl:NamedIndividual rdf:about="#9c0e8759af6141b0a910376:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#bbaef06f9e8b417c96e3296:FirstParty"/>
-  <notifies rdf:resource="#be0a231106f54199b1814da:User"/>
-  <has_mechanism rdf:resource="#f541e0ea0a044b269d67b2b:InPrivacyPolicy"/>
-  <binded_to rdf:resource="#726bd8b4eb7f47ae94f850c:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f04fe80fbdaa4788bf564d7</uuid>
+  <initiated_by rdf:resource="#ba6c07f48b9a4fa68153e2e:FirstParty"/>
+  <notifies rdf:resource="#669627f12a174419bf3b822:User"/>
+  <has_mechanism rdf:resource="#09f29f1bcc914e83815876a:InPrivacyPolicy"/>
+  <binded_to rdf:resource="#37ca0da6ba9447148311502:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9c0e8759af6141b0a910376</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to This Policy Washingtonian com reserves the right to change this policy at any time Please check this page periodically for changes We will post a notice on this site if and when this policy changes to alert visitors that a new policy is in place Your continued use of our website following the posting of changes to our privacy policy will mean that you accept such changes Information collected prior to the time any change is posted will be used according to the policy and applicable laws in place at the time the information was collected</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#be9cfb5c36694930aeea8f3:InPrivacyPolicy">
+<owl:NamedIndividual rdf:about="#7f0cd837b8554d568d12a8f:InPrivacyPolicy">
   <rdf:type rdf:resource="#InPrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">be9cfb5c36694930aeea8f3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7f0cd837b8554d568d12a8f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We will post a notice on this site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e38f4f40e48b4c2eb228ebe:PrivacyRelated">
-  <rdf:type rdf:resource="#PrivacyRelated"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e38f4f40e48b4c2eb228ebe</uuid>
+<owl:NamedIndividual rdf:about="#7ad04d48e0454d53a85700e:PrivacyRelatedCause">
+  <rdf:type rdf:resource="#PrivacyRelatedCause"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7ad04d48e0454d53a85700e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your continued use of our website following the posting of changes to our privacy policy will mean that you accept such changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a9cef79096e84f4f86dc1d4:PrivacyControl">
-  <rdf:type rdf:resource="#PrivacyControl"/>
-  <initiated_by rdf:resource="#be0a231106f54199b1814da:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a9cef79096e84f4f86dc1d4</uuid>
+<owl:NamedIndividual rdf:about="#6a23f6f6675d45dca378362:OptInOptOutControl">
+  <rdf:type rdf:resource="#OptInOptOutControl"/>
+  <initiated_by rdf:resource="#669627f12a174419bf3b822:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6a23f6f6675d45dca378362</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to This Policy Washingtonian com reserves the right to change this policy at any time Please check this page periodically for changes We will post a notice on this site if and when this policy changes to alert visitors that a new policy is in place Your continued use of our website following the posting of changes to our privacy policy will mean that you accept such changes Information collected prior to the time any change is posted will be used according to the policy and applicable laws in place at the time the information was collected</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7a80fd68c1ca45bba5830dc:PolicyChange">
+<owl:NamedIndividual rdf:about="#005a5bafb3634605a961e4c:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#bbaef06f9e8b417c96e3296:FirstParty"/>
-  <caused_by rdf:resource="#e38f4f40e48b4c2eb228ebe:PrivacyRelated"/>
-  <binded_to rdf:resource="#a9cef79096e84f4f86dc1d4:PrivacyControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7a80fd68c1ca45bba5830dc</uuid>
+  <initiated_by rdf:resource="#ba6c07f48b9a4fa68153e2e:FirstParty"/>
+  <caused_by rdf:resource="#7ad04d48e0454d53a85700e:PrivacyRelatedCause"/>
+  <binded_to rdf:resource="#6a23f6f6675d45dca378362:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">005a5bafb3634605a961e4c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to This Policy Washingtonian com reserves the right to change this policy at any time Please check this page periodically for changes We will post a notice on this site if and when this policy changes to alert visitors that a new policy is in place Your continued use of our website following the posting of changes to our privacy policy will mean that you accept such changes Information collected prior to the time any change is posted will be used according to the policy and applicable laws in place at the time the information was collected</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#48ac5a99ac714e279841f56:FPNotification">
+<owl:NamedIndividual rdf:about="#165210220de44cd29726ed9:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#bbaef06f9e8b417c96e3296:FirstParty"/>
-  <notifies rdf:resource="#be0a231106f54199b1814da:User"/>
-  <has_mechanism rdf:resource="#be9cfb5c36694930aeea8f3:InPrivacyPolicy"/>
-  <binded_to rdf:resource="#7a80fd68c1ca45bba5830dc:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">48ac5a99ac714e279841f56</uuid>
+  <initiated_by rdf:resource="#ba6c07f48b9a4fa68153e2e:FirstParty"/>
+  <notifies rdf:resource="#669627f12a174419bf3b822:User"/>
+  <has_mechanism rdf:resource="#7f0cd837b8554d568d12a8f:InPrivacyPolicy"/>
+  <binded_to rdf:resource="#005a5bafb3634605a961e4c:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">165210220de44cd29726ed9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to This Policy Washingtonian com reserves the right to change this policy at any time Please check this page periodically for changes We will post a notice on this site if and when this policy changes to alert visitors that a new policy is in place Your continued use of our website following the posting of changes to our privacy policy will mean that you accept such changes Information collected prior to the time any change is posted will be used according to the policy and applicable laws in place at the time the information was collected</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#09835dd0813b4883b711b84:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#6365cbb1ac1347a79493ec4:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#be0a231106f54199b1814da:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">09835dd0813b4883b711b84</uuid>
+  <is_special_category_for rdf:resource="#669627f12a174419bf3b822:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6365cbb1ac1347a79493ec4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Governing Law This policy and the use of this website are governed by District of Columbia law Any claim related to the website or this policy shall be brought in a federal or state court in Washington D C within one year after the claim arises You agree that no such claim may be brought as a class action Users of Washingtonian com consent to the jurisdiction and venue of such court as the most convenient and appropriate for the resolution of disputes concerning this policy Washingtonian com is controlled operated and administered entirely within the United States If you are located outside the United States please note that the information you provide to us will be transferred to the United States You hereby consent to this transfer</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b2d065d2db28462e8bb7fff:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#53cbb5cf942b44179a2181d:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#be0a231106f54199b1814da:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b2d065d2db28462e8bb7fff</uuid>
+  <is_special_category_for rdf:resource="#669627f12a174419bf3b822:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">53cbb5cf942b44179a2181d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Special Notification for California Residents From time-to-time Washingtonian magazine and/or Washingtonian com may provide its business partners with your name and mailing address for marketing relevant services products and programs to you</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#117851bf26034a2bbfbb51e:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#cb46dc9ad6b149569760fc8:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#be0a231106f54199b1814da:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">117851bf26034a2bbfbb51e</uuid>
+  <is_special_category_for rdf:resource="#669627f12a174419bf3b822:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cb46dc9ad6b149569760fc8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you reside in California you may request information about our disclosures of your personal information to third parties for their direct marketing purposes Such requests must be submitted to us by e-mail at privacy washingtonian com or by mail to Washingtonian com 1828 L Street NW Suite 200 Washington D C 20035 ATTN CALIFORNIA PRIVACY DISCLOSURES Within thirty days of receiving such a request we will provide a list of the categories of personal information e g your mailing address disclosed to third-parties for third-party direct marketing purposes during the immediately preceding calendar year along with the names and addresses of these third parties This request may be made no more than once per calendar year We reserve the right not to respond to requests submitted other than as specified in this paragraph</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4316f0ac879b45bd9230942:InPrivacyPolicy">
+<owl:NamedIndividual rdf:about="#a44549d0dffa4db7bbec9e7:InPrivacyPolicy">
   <rdf:type rdf:resource="#InPrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4316f0ac879b45bd9230942</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a44549d0dffa4db7bbec9e7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This Privacy Policy is effective as of February 6, 2009.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#96ea9f3963aa47969d0f696:PrivacyControl">
-  <rdf:type rdf:resource="#PrivacyControl"/>
-  <initiated_by rdf:resource="#be0a231106f54199b1814da:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">96ea9f3963aa47969d0f696</uuid>
+<owl:NamedIndividual rdf:about="#fb15215adbc44c29acf8d58:OptInOptOutControl">
+  <rdf:type rdf:resource="#OptInOptOutControl"/>
+  <initiated_by rdf:resource="#669627f12a174419bf3b822:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fb15215adbc44c29acf8d58</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Effective Date This Privacy Policy is effective as of February 6 2009</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0adf82ac79854861b5785c0:PolicyChange">
+<owl:NamedIndividual rdf:about="#3e8e2060664341e58b46fd0:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#bbaef06f9e8b417c96e3296:FirstParty"/>
-  <binded_to rdf:resource="#96ea9f3963aa47969d0f696:PrivacyControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0adf82ac79854861b5785c0</uuid>
+  <initiated_by rdf:resource="#ba6c07f48b9a4fa68153e2e:FirstParty"/>
+  <binded_to rdf:resource="#fb15215adbc44c29acf8d58:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3e8e2060664341e58b46fd0</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Effective Date This Privacy Policy is effective as of February 6 2009</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#997111cbc96c474faf51da6:FPNotification">
+<owl:NamedIndividual rdf:about="#8861566fb8ea4f0a9546f68:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#bbaef06f9e8b417c96e3296:FirstParty"/>
-  <notifies rdf:resource="#be0a231106f54199b1814da:User"/>
-  <has_mechanism rdf:resource="#4316f0ac879b45bd9230942:InPrivacyPolicy"/>
-  <binded_to rdf:resource="#0adf82ac79854861b5785c0:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">997111cbc96c474faf51da6</uuid>
+  <initiated_by rdf:resource="#ba6c07f48b9a4fa68153e2e:FirstParty"/>
+  <notifies rdf:resource="#669627f12a174419bf3b822:User"/>
+  <has_mechanism rdf:resource="#a44549d0dffa4db7bbec9e7:InPrivacyPolicy"/>
+  <binded_to rdf:resource="#3e8e2060664341e58b46fd0:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8861566fb8ea4f0a9546f68</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Effective Date This Privacy Policy is effective as of February 6 2009</evidence>
 </owl:NamedIndividual>
@@ -1843,7 +1822,7 @@
     <rdf:Description rdf:about="#EuropeanResident"/>
     <rdf:Description rdf:about="#RussianFederationResident"/>
     <rdf:Description rdf:about="#CaliforniaResident"/>
-    <rdf:Description rdf:about="#Child"/>
+    <rdf:Description rdf:about="#ChildCategory"/>
   </owl:members>
 </owl:AllDisjointClasses>
 
@@ -1860,12 +1839,13 @@
 
 <owl:AllDisjointClasses>
   <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#SensitiveData"/>
+    <rdf:Description rdf:about="#ServiceData"/>
     <rdf:Description rdf:about="#FinancialData"/>
-    <rdf:Description rdf:about="#ApplicationData"/>
     <rdf:Description rdf:about="#DeviceData"/>
+    <rdf:Description rdf:about="#ApplicationData"/>
     <rdf:Description rdf:about="#AccountData"/>
     <rdf:Description rdf:about="#TrackingData"/>
-    <rdf:Description rdf:about="#ServiceData"/>
   </owl:members>
 </owl:AllDisjointClasses>
 
@@ -1874,7 +1854,7 @@
     <rdf:Description rdf:about="#PolicyAcceptanceTime"/>
     <rdf:Description rdf:about="#DataRetentionTime"/>
     <rdf:Description rdf:about="#NotificationTime"/>
-    <rdf:Description rdf:about="#BreachInvestigationTime"/>
+    <rdf:Description rdf:about="#DataBreachProcessingTime"/>
   </owl:members>
 </owl:AllDisjointClasses>
 
@@ -1888,33 +1868,25 @@
 
 <owl:AllDisjointClasses>
   <owl:members rdf:parseType="Collection">
-    <rdf:Description rdf:about="#Compensation"/>
-    <rdf:Description rdf:about="#RemoveCompromisedInformation"/>
-    <rdf:Description rdf:about="#BreachInvestigation"/>
-  </owl:members>
-</owl:AllDisjointClasses>
-
-<owl:AllDisjointClasses>
-  <owl:members rdf:parseType="Collection">
     <rdf:Description rdf:about="#PolicyChangeConsequence"/>
-    <rdf:Description rdf:about="#BreachConsequence"/>
+    <rdf:Description rdf:about="#DataBreachConsequence"/>
     <rdf:Description rdf:about="#UserChoiceConsequence"/>
   </owl:members>
 </owl:AllDisjointClasses>
 
 <owl:AllDisjointClasses>
   <owl:members rdf:parseType="Collection">
-    <rdf:Description rdf:about="#MergeAcquisition"/>
-    <rdf:Description rdf:about="#NonPrivacyRelated"/>
-    <rdf:Description rdf:about="#PrivacyRelated"/>
+    <rdf:Description rdf:about="#MergeAcquisitionCause"/>
+    <rdf:Description rdf:about="#NonPrivacyRelatedCause"/>
+    <rdf:Description rdf:about="#PrivacyRelatedCause"/>
   </owl:members>
 </owl:AllDisjointClasses>
 
 <owl:AllDisjointClasses>
   <owl:members rdf:parseType="Collection">
-    <rdf:Description rdf:about="#ForceMajeur"/>
-    <rdf:Description rdf:about="#Unintentional"/>
-    <rdf:Description rdf:about="#Intentional"/>
+    <rdf:Description rdf:about="#ForceMajeurIncident"/>
+    <rdf:Description rdf:about="#UnintentionalBreach"/>
+    <rdf:Description rdf:about="#IntentionalBreach"/>
   </owl:members>
 </owl:AllDisjointClasses>
 
@@ -1957,14 +1929,14 @@
   <owl:members rdf:parseType="Collection">
     <rdf:Description rdf:about="#LockedOffice"/>
     <rdf:Description rdf:about="#SecurityTraining"/>
-    <rdf:Description rdf:about="#UserMaintain"/>
+    <rdf:Description rdf:about="#UserMaintainsSecurity"/>
   </owl:members>
 </owl:AllDisjointClasses>
 
 <owl:AllDisjointClasses>
   <owl:members rdf:parseType="Collection">
     <rdf:Description rdf:about="#SecurityMechanism"/>
-    <rdf:Description rdf:about="#TPSaCMechanism"/>
+    <rdf:Description rdf:about="#TPSharingAndCollectionCMechanism"/>
     <rdf:Description rdf:about="#DataRetentionMechanism"/>
     <rdf:Description rdf:about="#CommunicationMechanism"/>
   </owl:members>
@@ -1972,47 +1944,39 @@
 
 <owl:AllDisjointClasses>
   <owl:members rdf:parseType="Collection">
-    <rdf:Description rdf:about="#Analytics"/>
-    <rdf:Description rdf:about="#Marketing"/>
-    <rdf:Description rdf:about="#Research"/>
-    <rdf:Description rdf:about="#Security"/>
+    <rdf:Description rdf:about="#AnalyticsPurpose"/>
+    <rdf:Description rdf:about="#MarketingPurpose"/>
+    <rdf:Description rdf:about="#ResearchPurpose"/>
+    <rdf:Description rdf:about="#SecurityPurpose"/>
   </owl:members>
 </owl:AllDisjointClasses>
 
 <owl:AllDisjointClasses>
   <owl:members rdf:parseType="Collection">
-    <rdf:Description rdf:about="#LegalCompliance"/>
-    <rdf:Description rdf:about="#ServiceEnhancement"/>
-    <rdf:Description rdf:about="#ServiceProvision"/>
+    <rdf:Description rdf:about="#LegalCompliancePurpose"/>
+    <rdf:Description rdf:about="#ServiceEnhancementPurpose"/>
+    <rdf:Description rdf:about="#ServiceProvisionPurpose"/>
   </owl:members>
 </owl:AllDisjointClasses>
 
 <owl:AllDisjointClasses>
   <owl:members rdf:parseType="Collection">
-    <rdf:Description rdf:about="#ProvidedDataControl"/>
-    <rdf:Description rdf:about="#PrivacyControl"/>
-    <rdf:Description rdf:about="#OptControl"/>
-  </owl:members>
-</owl:AllDisjointClasses>
-
-<owl:AllDisjointClasses>
-  <owl:members rdf:parseType="Collection">
-    <rdf:Description rdf:about="#Use"/>
-    <rdf:Description rdf:about="#Protection"/>
+    <rdf:Description rdf:about="#DataUse"/>
+    <rdf:Description rdf:about="#DataProtection"/>
     <rdf:Description rdf:about="#FPCollection"/>
     <rdf:Description rdf:about="#TPCollection"/>
     <rdf:Description rdf:about="#TPSharing"/>
-    <rdf:Description rdf:about="#Retention"/>
+    <rdf:Description rdf:about="#DataRetention"/>
     <rdf:Description rdf:about="#PolicyChange"/>
   </owl:members>
 </owl:AllDisjointClasses>
 
 <owl:AllDisjointClasses>
   <owl:members rdf:parseType="Collection">
-    <rdf:Description rdf:about="#Breach"/>
+    <rdf:Description rdf:about="#DataBreachProcessing"/>
     <rdf:Description rdf:about="#DataActivity"/>
     <rdf:Description rdf:about="#DataControl"/>
-    <rdf:Description rdf:about="#Notification"/>
+    <rdf:Description rdf:about="#NotificationActivity"/>
   </owl:members>
 </owl:AllDisjointClasses>
 
@@ -2021,7 +1985,6 @@
     <rdf:Description rdf:about="#User"/>
     <rdf:Description rdf:about="#FirstParty"/>
     <rdf:Description rdf:about="#ThirdParty"/>
-    <rdf:Description rdf:about="#Criminal"/>
   </owl:members>
 </owl:AllDisjointClasses>
 

@@ -100,7 +100,7 @@ def first_party_scenario(onto, r, pi, fp, u):
             data = onto.SensitiveData()
 
         if r["attributes"]["Personal Information Type"]["value"] == "Contact":
-            data = onto.NonSensitiveData()
+            data = onto.PersonalData()
 
         if r["attributes"]["Personal Information Type"]["value"] == "Other":
             data = onto.Data()
@@ -120,7 +120,7 @@ def first_party_scenario(onto, r, pi, fp, u):
             data = onto.SensitiveData()
 
         if r["attributes"]["Personal Information Type"]["value"] == "Social media data":
-            data = onto.NonSensitiveData()
+            data = onto.PersonalData()
 
         if r["attributes"]["Personal Information Type"]["value"] == "Location":
             data = onto.TrackingData()
@@ -264,7 +264,7 @@ def third_party_scenario(onto, r, pi, fp, tp, u):
             data = onto.SensitiveData()
 
         if r["attributes"]["Personal Information Type"]["value"] == "Contact":
-            data = onto.NonSensitiveData()
+            data = onto.PersonalData()
 
         if r["attributes"]["Personal Information Type"]["value"] == "Other":
             data = onto.Data()
@@ -284,7 +284,7 @@ def third_party_scenario(onto, r, pi, fp, tp, u):
             data = onto.SensitiveData()
 
         if r["attributes"]["Personal Information Type"]["value"] == "Social media data":
-            data = onto.NonSensitiveData()
+            data = onto.PersonalData()
 
         if r["attributes"]["Personal Information Type"]["value"] == "Location":
             data = onto.TrackingData()
@@ -337,7 +337,7 @@ def user_choice_and_control(onto, r, pi, u):
     mechanism = None
     data = None
 
-    choice_and_control = onto.UserPrivacyControl()
+    choice_and_control = onto.UserOptInOptOutControl()
 
     # Purpose
     if r["attributes"]["Purpose"]["value"] != "null" \
@@ -392,7 +392,7 @@ def user_choice_and_control(onto, r, pi, u):
             data = onto.SensitiveData()
 
         if r["attributes"]["Personal Information Type"]["value"] == "Contact":
-            data = onto.NonSensitiveData()
+            data = onto.PersonalData()
 
         if r["attributes"]["Personal Information Type"]["value"] == "Other":
             data = onto.Data()
@@ -412,7 +412,7 @@ def user_choice_and_control(onto, r, pi, u):
             data = onto.SensitiveData()
 
         if r["attributes"]["Personal Information Type"]["value"] == "Social media data":
-            data = onto.NonSensitiveData()
+            data = onto.PersonalData()
 
         if r["attributes"]["Personal Information Type"]["value"] == "Location":
             data = onto.TrackingData()
@@ -435,34 +435,34 @@ def user_choice_and_control(onto, r, pi, u):
     if purpose:
         choice_and_control.has.append(purpose)
     if mechanism:
-        choice_and_control.hasPrivacyControlMechanism.append(mechanism)
+        choice_and_control.hasOptInOptOutControlMechanism.append(mechanism)
     if data:
         choice_and_control.isAppliedToData.append(data)
     choice_and_control.hasEvidence.append(evidence)
 
 
-def data_retention(onto, r, pi, fp, u):
+def data_DataRetention(onto, r, pi, fp, u):
     purpose = None
     period = None
     data = None
 
-    retention = onto.DataRetentionActivity()
+    DataRetention = onto.DataRetentionActivity()
 
     # Purpose
-    if r["attributes"]["Retention Purpose"]["value"] != "null" \
-            and "selectedText" in r["attributes"]["Retention Purpose"].keys():
+    if r["attributes"]["DataRetention Purpose"]["value"] != "null" \
+            and "selectedText" in r["attributes"]["DataRetention Purpose"].keys():
         purpose_e = onto.Evidence()
-        purpose_e.evidenceContent = r["attributes"]["Retention Purpose"][
+        purpose_e.evidenceContent = r["attributes"]["DataRetention Purpose"][
             "selectedText"]
 
         purpose = onto.DataActivityPurpose()
         purpose.hasEvidence.append(purpose_e)
 
-    # Retention Period
-    if r["attributes"]["Retention Period"]["value"] != "null" \
-            and "selectedText" in r["attributes"]["Retention Period"].keys():
+    # DataRetention Period
+    if r["attributes"]["DataRetention Period"]["value"] != "null" \
+            and "selectedText" in r["attributes"]["DataRetention Period"].keys():
         period_e = onto.Evidence()
-        period_e.evidenceContent = r["attributes"]["Retention Period"][
+        period_e.evidenceContent = r["attributes"]["DataRetention Period"][
             "selectedText"]
 
         period = onto.DataRetentionTime()
@@ -501,7 +501,7 @@ def data_retention(onto, r, pi, fp, u):
             data = onto.SensitiveData()
 
         if r["attributes"]["Personal Information Type"]["value"] == "Contact":
-            data = onto.NonSensitiveData()
+            data = onto.PersonalData()
 
         if r["attributes"]["Personal Information Type"]["value"] == "Other":
             data = onto.Data()
@@ -521,7 +521,7 @@ def data_retention(onto, r, pi, fp, u):
             data = onto.SensitiveData()
 
         if r["attributes"]["Personal Information Type"]["value"] == "Social media data":
-            data = onto.NonSensitiveData()
+            data = onto.PersonalData()
 
         if r["attributes"]["Personal Information Type"]["value"] == "Location":
             data = onto.TrackingData()
@@ -539,15 +539,15 @@ def data_retention(onto, r, pi, fp, u):
     evidence = onto.Evidence()
     evidence.evidenceContent = r["segment_text"]
 
-    pi.considersActivity.append(retention)
-    fp.initiatesActivity.append(retention)
+    pi.considersActivity.append(DataRetention)
+    fp.initiatesActivity.append(DataRetention)
     if purpose:
-        retention.hasDataActivityPurpose.append(purpose)
+        DataRetention.hasDataActivityPurpose.append(purpose)
     if period:
-        retention.hasDataRetentionTime.append(period)
+        DataRetention.hasDataRetentionTime.append(period)
     if data:
-        retention.isAppliedToData.append(data)
-    retention.hasEvidence.append(evidence)
+        DataRetention.isAppliedToData.append(data)
+    DataRetention.hasEvidence.append(evidence)
 
 
 def user_access(onto, r, pi, u):
@@ -579,7 +579,7 @@ def user_access(onto, r, pi, u):
             data = onto.AccountData()
 
         if r["attributes"]["Access Scope"]["value"] == "Other data about user":
-            data = onto.NonSensitiveData()
+            data = onto.PersonalData()
 
         if r["attributes"]["Access Scope"]["value"] == "Profile data":
             data = onto.SensitiveData()
@@ -734,7 +734,7 @@ def process_opp(onto, policy):
         "Third Party Sharing/Collection": "DataSharingActivity",
         "User Choice/Control": "ConsentActivity",
         "User Access, Edit and Deletion": "UserAccessActivity",
-        "Data Retention": "DataRetentionActivity",
+        "Data DataRetention": "DataRetentionActivity",
         "Data Security": "SecurityMechanism",
         "Policy Change": "PolicyChangeActivity",
         "Do Not Track": "UserOptActivity",
@@ -774,8 +774,8 @@ def process_opp(onto, policy):
         if a["category"] == "User Choice/Control":
             user_choice_and_control(onto, a, policy_instance, user)
 
-        if a["category"] == "Data Retention":
-            data_retention(onto, a, policy_instance, first_party, user)
+        if a["category"] == "Data DataRetention":
+            data_DataRetention(onto, a, policy_instance, first_party, user)
 
         if a["category"] == "User Access, Edit and Deletion":
             user_access(onto, a, policy_instance, user)

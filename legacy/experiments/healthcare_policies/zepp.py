@@ -323,7 +323,7 @@ def process_zepp():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('isAppliedTo', o.individual(
-                'NonSensitiveData',
+                'PersonalData',
                 'other actions taken through use of the services such as preferences.',
                 [o.connection('isProvidedBy', user)])),
         ]
@@ -472,12 +472,12 @@ def process_zepp():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('isAppliedTo', o.individual(
-                'NonSensitiveData',
+                'PersonalData',
                 'items purchased',
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('isAppliedTo', o.individual(
-                'NonSensitiveData',
+                'PersonalData',
                 'order ID',
                 [o.connection('isProvidedBy', user)])),
 
@@ -980,7 +980,7 @@ def process_zepp():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('isAppliedTo', o.individual(
-                'NonSensitiveData',
+                'PersonalData',
                 'other similar information related to certain features of the Zepp App.',
                 [o.connection('isProvidedBy', user)])),
         ]
@@ -1358,7 +1358,7 @@ def process_zepp():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasDataActivityPurpose', o.individual(
-                'HealthMonitoring',
+                'HealthMonitoringPurpose',
                 'use female health function')),
         ]
     )
@@ -1832,7 +1832,7 @@ def process_zepp():
             o.connection('activityIsInitiatedBy', first_party),
 
             o.connection('isAppliedTo', o.individual(
-                'NonSensitiveData',
+                'PersonalData',
                 'information that your mobile device sends',
                 [o.connection('isProvidedBy', user)])),
 
@@ -2122,7 +2122,7 @@ def process_zepp():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasDataActivityPurpose', o.individual(
-                'HealthMonitoring',
+                'HealthMonitoringPurpose',
                 'is used to accurately calculate and display the exercise result to you')),
         ]
     )
@@ -2226,7 +2226,7 @@ def process_zepp():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasDataActivityPurpose', o.individual(
-                'HealthMonitoring',
+                'HealthMonitoringPurpose',
                 'provide you an analysis related to your physical condition for your reference')),
         ]
     )
@@ -2300,7 +2300,7 @@ def process_zepp():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasDataActivityPurpose', o.individual(
-                'HealthMonitoring',
+                'HealthMonitoringPurpose',
                 'for your reference')),
         ]
     )
@@ -2424,7 +2424,7 @@ def process_zepp():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasDataActivityPurpose', o.individual(
-                'HealthMonitoring',
+                'HealthMonitoringPurpose',
                 'predict your menstrual period and remind you based on the information you provided.')),
         ]
     )
@@ -2453,7 +2453,7 @@ def process_zepp():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasDataActivityPurpose', o.individual(
-                'HealthMonitoring',
+                'HealthMonitoringPurpose',
                 'to show the value to you or to assist providing a sleeping analysis to you.')),
         ]
     )
@@ -2664,17 +2664,17 @@ def process_zepp():
             o.connection('activityIsInitiatedBy', first_party),
 
             o.connection('isAppliedTo', o.individual(
-                'NonSensitiveData',
+                'PersonalData',
                 'music information',
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('isAppliedTo', o.individual(
-                'NonSensitiveData',
+                'PersonalData',
                 'name of song',
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('isAppliedTo', o.individual(
-                'NonSensitiveData',
+                'PersonalData',
                 'singer',
                 [o.connection('isProvidedBy', user)])),
 
@@ -2733,7 +2733,7 @@ def process_zepp():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('isAppliedTo', o.individual(
-                'NonSensitiveData',
+                'PersonalData',
                 'your music reference',
                 [o.connection('isProvidedBy', user)])),
 
@@ -2776,7 +2776,7 @@ def process_zepp():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('isAppliedTo', o.individual(
-                'NonSensitiveData',
+                'PersonalData',
                 'your music reference',
                 [o.connection('isProvidedBy', user)])),
 
@@ -2839,7 +2839,7 @@ def process_zepp():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasDataActivityPurpose', o.individual(
-                'HealthMonitoring',
+                'HealthMonitoringPurpose',
                 'the earphone will play music to remind you to relax your spine for long periods of time.')),
         ]
     )
@@ -2903,7 +2903,7 @@ def process_zepp():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasDataActivityPurpose', o.individual(
-                'HealthMonitoring',
+                'HealthMonitoringPurpose',
                 'will be broadcasted to you.')),
         ]
     )
@@ -2961,7 +2961,7 @@ def process_zepp():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasDataActivityPurpose', o.individual(
-                'HealthMonitoring',
+                'HealthMonitoringPurpose',
                 'display the data to you.')),
         ]
     )
@@ -4270,7 +4270,7 @@ def process_zepp():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasSecurityMechanism', o.individual(
-                'OrganizationalMeasure',
+                'OrganizationalSecurityMeasure',
                 'We require our business partners to agree in writing to maintain the confidentiality and security of personal information they maintain on our behalf and not to use it for any purpose other than the purpose for which we provided them.')),
 
             o.connection('hasDataActivityPurpose', o.individual(
@@ -4535,7 +4535,7 @@ def process_zepp():
                 'all practicable steps to safeguard your personal information.')),
 
             o.connection('hasSecurityMechanism', o.individual(
-                'UserMaintain',
+                'UserMaintainsSecurity',
                 'you should be aware that the use of the Internet is not entirely secure, and for this reason we cannot guarantee the security or integrity of any personal information we process.')),
         ]
     )
@@ -4564,15 +4564,15 @@ def process_zepp():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasSecurityMechanism', o.individual(
-                'OrganizationalMeasure',
+                'OrganizationalSecurityMeasure',
                 'reasonable administrative,')),
 
             o.connection('hasSecurityMechanism', o.individual(
-                'TechnicalMeasure',
+                'TechnicalSecurityMeasure',
                 'technical')),
 
             o.connection('hasSecurityMechanism', o.individual(
-                'TechnicalMeasure',
+                'TechnicalSecurityMeasure',
                 'and physical controls and procedures')),
 
             o.connection('hasDataActivityPurpose', o.individual(
@@ -4613,7 +4613,7 @@ def process_zepp():
                 'two-step verification process')),
 
             o.connection('hasSecurityMechanism', o.individual(
-                'TechnicalMeasure',
+                'TechnicalSecurityMeasure',
                 'they are encrypted using Secure Sockets Layer (`SSL`) and other algorithms.')),
         ]
     )
@@ -4642,11 +4642,11 @@ def process_zepp():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasSecurityMechanism', o.individual(
-                'TechnicalMeasure',
+                'TechnicalSecurityMeasure',
                 'secure servers that are protected in controlled facilities.')),
 
             o.connection('hasSecurityMechanism', o.individual(
-                'OrganizationalMeasure',
+                'OrganizationalSecurityMeasure',
                 'We classify your data based on importance and sensitivity,')),
 
             o.connection('hasSecurityMechanism', o.individual(
@@ -4687,7 +4687,7 @@ def process_zepp():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasSecurityMechanism', o.individual(
-                'UserMaintain',
+                'UserMaintainsSecurity',
                 'We also depend on you to protect your information.')),
         ]
     )
@@ -4776,7 +4776,7 @@ def process_zepp():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasSecurityMechanism', o.individual(
-                'UserMaintain',
+                'UserMaintainsSecurity',
                 'by not disclosing your login password or account information to anybody unless such person is duly authorized by you. Whenever you log in the Zepp App, particularly on somebody else`s mobile phones or on public Internet terminals, you should always log out at the end of your session.')),
         ]
     )
@@ -4808,7 +4808,7 @@ def process_zepp():
 
     o.individual(
 
-        'UserPrivacyControl',
+        'UserOptInOptOutControl',
 
         'The privacy choices you may have about your personal information are determined by applicable law and are described below.',
 
@@ -4864,7 +4864,7 @@ def process_zepp():
 
     o.individual(
 
-        'UserPrivacyControl',
+        'UserOptInOptOutControl',
 
         'Do Not Track (“DNT”) is a privacy preference that users can set in certain web browsers. DNT is a way for users to inform websites and services that they do not want certain information about their webpage visits collected over time and across websites or online services. Please note that we do not respond to or honor DNT signals or similar mechanisms transmitted by web browsers.',
 
@@ -4876,7 +4876,7 @@ def process_zepp():
                 'certain information',
                 [o.connection('isProvidedBy', user)])),
 
-            o.connection('hasPrivacyControlMechanism', o.individual(
+            o.connection('hasOptInOptOutControlMechanism', o.individual(
                 'DataControlMechanism',
                 'privacy preference that users can set in certain web browsers.')),
         ]
@@ -4893,7 +4893,7 @@ def process_zepp():
 
     o.individual(
 
-        'UserPrivacyControl',
+        'UserOptInOptOutControl',
 
         'As noted herein, you may stop or restrict the placement of cookies and other technologies on your computer or remove them from your browser by adjusting your web browser preferences. Please note that cookie-based opt-outs are not effective on mobile applications. However, on many mobile devices, application users may opt out of certain mobile ads via their device settings.',
 
@@ -4905,11 +4905,11 @@ def process_zepp():
                 'cookies',
                 [o.connection('isProvidedBy', user)])),
 
-            o.connection('hasPrivacyControlMechanism', o.individual(
+            o.connection('hasOptInOptOutControlMechanism', o.individual(
                 'DataControlMechanism',
                 'by adjusting your web browser preferences.')),
 
-            o.connection('hasPrivacyControlMechanism', o.individual(
+            o.connection('hasOptInOptOutControlMechanism', o.individual(
                 'DataControlMechanism',
                 'privacy preference that users can set in certain web browsers.')),
         ]
@@ -4997,7 +4997,7 @@ def process_zepp():
 
     #########################################################################
     #                                                                       #
-    # RETENTION POLICY                                                      #
+    # DataRetention POLICY                                                      #
     #                                                                       #
     #########################################################################
 
@@ -5005,7 +5005,7 @@ def process_zepp():
 
 
     #########################################################################
-    # We retain personal information we receive as described in this Privacy Policy for as long as you use our products, services and websites or as necessary to fulfill the purpose(s) for which it was collected, provide our services, resolve disputes, establish legal defenses, conduct audits, pursue legitimate business purposes, enforce our agreements, and comply with applicable laws. We shall cease to retain personal information, or remove the means by which the personal information can be associated with particular individuals, as soon as it is reasonable to assume that the purpose for which that personal information was collected is no longer being served by retention of the personal information.
+    # We retain personal information we receive as described in this Privacy Policy for as long as you use our products, services and websites or as necessary to fulfill the purpose(s) for which it was collected, provide our services, resolve disputes, establish legal defenses, conduct audits, pursue legitimate business purposes, enforce our agreements, and comply with applicable laws. We shall cease to retain personal information, or remove the means by which the personal information can be associated with particular individuals, as soon as it is reasonable to assume that the purpose for which that personal information was collected is no longer being served by DataRetention of the personal information.
 
     user = o.individual('User')
     first_party = o.individual('FirstParty')
@@ -5014,7 +5014,7 @@ def process_zepp():
 
         'DataRetentionActivity',
 
-        'We retain personal information we receive as described in this Privacy Policy for as long as you use our products, services and websites or as necessary to fulfill the purpose(s) for which it was collected, provide our services, resolve disputes, establish legal defenses, conduct audits, pursue legitimate business purposes, enforce our agreements, and comply with applicable laws. We shall cease to retain personal information, or remove the means by which the personal information can be associated with particular individuals, as soon as it is reasonable to assume that the purpose for which that personal information was collected is no longer being served by retention of the personal information.',
+        'We retain personal information we receive as described in this Privacy Policy for as long as you use our products, services and websites or as necessary to fulfill the purpose(s) for which it was collected, provide our services, resolve disputes, establish legal defenses, conduct audits, pursue legitimate business purposes, enforce our agreements, and comply with applicable laws. We shall cease to retain personal information, or remove the means by which the personal information can be associated with particular individuals, as soon as it is reasonable to assume that the purpose for which that personal information was collected is no longer being served by DataRetention of the personal information.',
 
         [
             o.connection('activityIsInitiatedBy', first_party),
@@ -5062,7 +5062,7 @@ def process_zepp():
 
             o.connection('hasSecurityMechanism', o.individual(
                 'SecurityMechanism',
-                'We shall cease to retain personal information, or remove the means by which the personal information can be associated with particular individuals, as soon as it is reasonable to assume that the purpose for which that personal information was collected is no longer being served by retention of the personal information.')),
+                'We shall cease to retain personal information, or remove the means by which the personal information can be associated with particular individuals, as soon as it is reasonable to assume that the purpose for which that personal information was collected is no longer being served by DataRetention of the personal information.')),
 
             o.connection('hasLegalBasis', o.individual(
                 'LegalBasis',
@@ -5531,7 +5531,7 @@ def process_zepp():
 
     o.individual(
 
-        'UserPrivacyControl',
+        'UserOptInOptOutControl',
 
         'This Supplemental California Addendum to this Privacy Policy (“California Addendum”) supplements and should be read in conjunction with this Privacy Policy. This California Addendum only applies to our processing of personal information that is subject to the California Consumer Privacy Act of 2018 (“CCPA”). The CCPA provides California residents with the right to know what categories of personal information we have collected about them and whether we disclosed that personal information for a business purpose (e.g., to a service provider) in the preceding twelve months. California residents can find this information below:',
 
@@ -5864,7 +5864,7 @@ def process_zepp():
 
     o.individual(
 
-        'UserPrivacyControl',
+        'UserOptInOptOutControl',
 
         'Non-Discrimination. California residents have the right not to receive discriminatory treatment by us for the exercise of their rights conferred by the CCPA.',
 
@@ -5959,7 +5959,7 @@ def process_zepp():
 
 
     #########################################################################
-    # Personal information, which has fulfilled the purpose for which it was collected or used, and has reached the period of time during which personal information was to be possessed, will be destroyed in an irreversible way. After the expiration of the applicable period, information under the obligation of retention by applicable laws will be promptly destroyed in an irreversible way. Personal information stored in electronic files will be deleted safely in an irreversible way by using technical methods, and printed information will be destroyed by shredding or incinerating such information. Furthermore, in compliance with applicable laws, measures will be taken to destroy or separate the personal information of the users who have not used our services for a period of one year.
+    # Personal information, which has fulfilled the purpose for which it was collected or used, and has reached the period of time during which personal information was to be possessed, will be destroyed in an irreversible way. After the expiration of the applicable period, information under the obligation of DataRetention by applicable laws will be promptly destroyed in an irreversible way. Personal information stored in electronic files will be deleted safely in an irreversible way by using technical methods, and printed information will be destroyed by shredding or incinerating such information. Furthermore, in compliance with applicable laws, measures will be taken to destroy or separate the personal information of the users who have not used our services for a period of one year.
 
     user = o.individual('User')
     first_party = o.individual('FirstParty')
@@ -5968,7 +5968,7 @@ def process_zepp():
 
         'DataRetentionActivity',
 
-        'Personal information, which has fulfilled the purpose for which it was collected or used, and has reached the period of time during which personal information was to be possessed, will be destroyed in an irreversible way. After the expiration of the applicable period, information under the obligation of retention by applicable laws will be promptly destroyed in an irreversible way. Personal information stored in electronic files will be deleted safely in an irreversible way by using technical methods, and printed information will be destroyed by shredding or incinerating such information. Furthermore, in compliance with applicable laws, measures will be taken to destroy or separate the personal information of the users who have not used our services for a period of one year.',
+        'Personal information, which has fulfilled the purpose for which it was collected or used, and has reached the period of time during which personal information was to be possessed, will be destroyed in an irreversible way. After the expiration of the applicable period, information under the obligation of DataRetention by applicable laws will be promptly destroyed in an irreversible way. Personal information stored in electronic files will be deleted safely in an irreversible way by using technical methods, and printed information will be destroyed by shredding or incinerating such information. Furthermore, in compliance with applicable laws, measures will be taken to destroy or separate the personal information of the users who have not used our services for a period of one year.',
 
         [
             o.connection('activityIsInitiatedBy', first_party),
@@ -5979,7 +5979,7 @@ def process_zepp():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasSecurityMechanism', o.individual(
-                'TechnicalMeasure',
+                'TechnicalSecurityMeasure',
                 'technical methods,')),
 
             o.connection('hasDataActivityPurpose', o.individual(

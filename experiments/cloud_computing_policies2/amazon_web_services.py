@@ -75,7 +75,7 @@ def process_aws():
 
     ca = o.individual(
 
-        'PrivacyControl',
+        'OptInOptOutControl',
 
         "We stand behind the promises we make, however, and will "
         "never materially change our policies and practices to make "

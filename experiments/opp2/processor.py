@@ -30,7 +30,7 @@ def construct_first_party_scenario(o, r, fp, u):
         )
         
         o.individual(
-            'Use', 
+            'DataUse', 
             r["segment_text"],
             [
                 o.property('initiated_by', fp),
@@ -71,7 +71,7 @@ def construct_first_party_scenario(o, r, fp, u):
         protection = parse_identifiability(o, r, fp, data)
 
         o.individual(
-            'Use', 
+            'DataUse', 
             r["segment_text"],
             [
                 o.property('initiated_by', fp),
@@ -167,7 +167,7 @@ def construct_user_choice_and_control(o, r, u):
     if r["attributes"]["Choice Type"]["value"] != "null" and "selectedText" in r["attributes"]["Choice Type"].keys():
         
         o.individual(
-            'PrivacyControl',
+            'OptInOptOutControl',
             r["segment_text"],
             [
                 o.property('initiated_by', u),
@@ -177,14 +177,14 @@ def construct_user_choice_and_control(o, r, u):
         )
 
 
-def construct_data_retention(o, r, fp, u):
+def construct_data_DataRetention(o, r, fp, u):
     o.individual(
-        'Retention',
+        'DataRetention',
         r["segment_text"],
         [
             o.property('initiated_by', fp),
-            *parse_period_retention(o, r),
-            *parse_purpose_retention(o, r),
+            *parse_period_DataRetention(o, r),
+            *parse_purpose_DataRetention(o, r),
             *parse_data(o, r, u)
         ]
     )
@@ -192,11 +192,11 @@ def construct_data_retention(o, r, fp, u):
 
 def construct_user_access_edit_deletion(o, r, u):
     o.individual(
-        'ProvidedDataControl',
+        'OptInOptOutControl',
         r["segment_text"],
         [
             o.property('initiated_by', u),
-            o.property('has_mechanism', o.individual('Manual', r["segment_text"])),
+            o.property('has_mechanism', o.individual('ManualCommunicationMechanism', r["segment_text"])),
             *parse_data_access(o, r, u),
         ]
     )
@@ -204,7 +204,7 @@ def construct_user_access_edit_deletion(o, r, u):
 
 def construct_do_not_track(o, r, u):
     o.individual(
-        'OptControl',
+        'AdvertisingDataControl',
         r["segment_text"],
         [
             o.property('initiated_by', u),
@@ -226,7 +226,7 @@ def construct_data_security(o, r, fp):
     mechanisms = parse_mechanism_security(o, r)
 
     o.individual(
-        'Protection',
+        'DataProtection',
         r["segment_text"],
         [
             o.property('initiated_by', fp),
@@ -251,7 +251,7 @@ def construct_policy_change(o, r, u, fp):
                     o.property('initiated_by', fp),
                     *parse_cause_policy_change(o, r),
                     o.property('binded_to', o.individual(
-                        'PrivacyControl',
+                        'OptInOptOutControl',
                         r["segment_text"],
                         [
                             o.property('initiated_by', u),
@@ -270,7 +270,7 @@ def process_opp(o, policy):
         "Third Party Sharing/Collection": "DataSharingActivity",
         "User Choice/Control": "ConsentActivity",
         "User Access, Edit and Deletion": "UserAccessActivity",
-        "Data Retention": "DataRetentionActivity",
+        "Data DataRetention": "DataRetentionActivity",
         "Data Security": "SecurityMechanism",
         "Policy Change": "PolicyChangeActivity",
         "Do Not Track": "UserOptActivity",
@@ -306,8 +306,8 @@ def process_opp(o, policy):
         if a["category"] == "User Choice/Control":
             construct_user_choice_and_control(o, a, user)
 
-        if a["category"] == "Data Retention":
-            construct_data_retention(o, a, first_party, user)
+        if a["category"] == "Data DataRetention":
+            construct_data_DataRetention(o, a, first_party, user)
 
         if a["category"] == "User Access, Edit and Deletion":
             construct_user_access_edit_deletion(o, a, user)

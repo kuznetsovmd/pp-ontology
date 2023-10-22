@@ -12,25 +12,19 @@ def process_3plususa():
 
     user = o.individual('User', 'you')
     first_party = o.individual('FirstParty', 'we')
-    criminal = o.individual('Criminal')
 
     b = o.individual(
 
-        'Breach',
+        'DataBreachProcessing',
 
         "In order to be in line with Fair Information Practices, " \
         "should a data breach occur.",
 
         [
-            o.property('initiated_by', criminal),
-
-            o.property('applies_to', o.individual(
-                'Data',
-                'data',
-                [o.property('provided_by', user)])),
+            o.property('initiated_by', first_party),
 
             o.property('caused_by', o.individual(
-                'BreachCause'
+                'DataBreach'
             )),
         ]
     )

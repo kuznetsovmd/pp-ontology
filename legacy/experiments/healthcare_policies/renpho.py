@@ -109,7 +109,7 @@ def process_renpho():
                 'making a purchase, creating or using an account, using our products and their health-related features, seeking customer service or otherwise interacting with us')),
 
             o.connection('hasDataActivityPurpose', o.individual(
-                'HealthMonitoring',
+                'HealthMonitoringPurpose',
                 'using our products and their health-related features')),
         ]
     )
@@ -212,7 +212,7 @@ def process_renpho():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasDataActivityPurpose', o.individual(
-                'HealthMonitoring',
+                'HealthMonitoringPurpose',
                 'to provide you with enhanced health-related insights and Services, including providing health information and recommendations that are most relevant to you and your family, providing insights and analysis of your health tendencies, providing customized health reminders, and overall providing a more personalized, fulfilling user experience.')),
         ]
     )
@@ -1296,7 +1296,7 @@ def process_renpho():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasSecurityMechanism', o.individual(
-                'UserMaintain',
+                'UserMaintainsSecurity',
                 'so you should use care before posting information about yourself online.')),
         ]
     )
@@ -2635,15 +2635,15 @@ def process_renpho():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasSecurityMechanism', o.individual(
-                'TechnicalMeasure',
+                'TechnicalSecurityMeasure',
                 'certain physical,')),
 
             o.connection('hasSecurityMechanism', o.individual(
-                'TechnicalMeasure',
+                'TechnicalSecurityMeasure',
                 'electronic,')),
 
             o.connection('hasSecurityMechanism', o.individual(
-                'OrganizationalMeasure',
+                'OrganizationalSecurityMeasure',
                 'administrative')),
         ]
     )
@@ -2673,7 +2673,7 @@ def process_renpho():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasSecurityMechanism', o.individual(
-                'UserMaintain',
+                'UserMaintainsSecurity',
                 'We will never ask for your account password, and we recommend that you do not disclose your password to anyone else.')),
 
             o.connection('initiatesAnotherActivity', o.individual(
@@ -2685,17 +2685,17 @@ def process_renpho():
                     o.connection('isAppliedTo', data),
 
                     o.connection('hasBreachCause', o.individual(
-                        'BreachCause',
+                        'DataBreach',
                         'Any disclosure of personal data made under the laws, regulations, or other mandatory provisions of the government;'
                     )),
 
                     o.connection('hasBreachCause', o.individual(
-                        'BreachCause',
+                        'DataBreach',
                         'The disclosure of any personal data resulting from the fact that you have communicated the user`s password to another person or shared the account with others;'
                     )),
 
                     o.connection('hasBreachCause', o.individual(
-                        'BreachCause',
+                        'DataBreach',
                         'Any legal disputes and consequences arising from the disclosure of personal data caused by companies we do not own or control, as well as by persons we do not employ or manage.'
                     )),
                 ])),
@@ -2726,7 +2726,7 @@ def process_renpho():
                 [o.connection('isProvidedBy', user)])),
 
             o.connection('hasSecurityMechanism', o.individual(
-                'TechnicalMeasure',
+                'TechnicalSecurityMeasure',
                 'Personal data that is no longer required to fulfill the identified purposes will be destroyed, erased, aggregated, or made deidentified.')),
 
             o.connection('hasDataRetentionTime', o.individual(

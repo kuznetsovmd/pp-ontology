@@ -85,7 +85,7 @@ def process_caresense():
                 [o.property('provided_by', o.individual('User'))])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision', 
+                'ServiceProvisionPurpose', 
                 'This information is used to setup the Service and provide support.')),
 
             o.property('previous_is', a),
@@ -117,7 +117,7 @@ def process_caresense():
                 [o.property('provided_by', o.individual('User'))])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision', 
+                'ServiceProvisionPurpose', 
                 'This information is used to monitor attempted security penetrations, detect technical problems, and review site usage patterns.')),
 
             o.property('initiated_by', o.individual(
@@ -148,7 +148,7 @@ def process_caresense():
                 [o.property('provided_by', o.individual('User'))])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision', 
+                'ServiceProvisionPurpose', 
                 'that will only be used to set-up an appointment or demonstration.')),
 
             o.property('initiated_by', o.individual(
@@ -194,7 +194,7 @@ def process_caresense():
                 [o.property('provided_by', o.individual('User'))])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision', 
+                'ServiceProvisionPurpose', 
                 'to perform the Service')),
 
             o.property('previous_is', a),
@@ -380,7 +380,7 @@ def process_caresense():
 
     a = o.individual(
         
-        'Protection',
+        'DataProtection',
         
         'MedTrak provides high quality security controls and protocols to ensure that all information and data is protected against loss, misuse, alteration, or unintentional destruction. MedTrak employs Secure Sockets Layer (SSL) technology to protect information traveling to and from the website and a firewall to block unauthorized use of the web server and database. Information and data are protected by access controls, passwords, employee training regarding security issues, and storage of sensitive information in locked offices, encrypted files, or behind the firewall.',
         
@@ -395,27 +395,27 @@ def process_caresense():
                 'MedTrak')),
 
             o.property('has_mechanism', o.individual(
-                'TechnicalMeasure',
+                'TechnicalSecurityMeasure',
                 'Secure Sockets Layer (SSL) technology')),
 
             o.property('has_mechanism', o.individual(
-                'TechnicalMeasure',
+                'TechnicalSecurityMeasure',
                 'firewall')),
 
             o.property('has_mechanism', o.individual(
-                'TechnicalMeasure',
+                'TechnicalSecurityMeasure',
                 'access controls, passwords')),
 
             o.property('has_mechanism', o.individual(
-                'TechnicalMeasure',
+                'TechnicalSecurityMeasure',
                 'encrypted files')),
 
             o.property('has_mechanism', o.individual(
-                'TechnicalMeasure',
+                'TechnicalSecurityMeasure',
                 'employee training regarding security issues')),
 
             o.property('has_mechanism', o.individual(
-                'TechnicalMeasure',
+                'TechnicalSecurityMeasure',
                 'storage of sensitive information in locked offices')),
 
             o.property('previous_is', a),
@@ -440,7 +440,7 @@ def process_caresense():
 
     a = o.individual(
         
-        'PrivacyControl',
+        'OptInOptOutControl',
 
         'If we ever were to engage in any onward transfers of your data with third parties, for a purpose other than which it was originally collected or subsequently authorized, we would provide you with an opt-out choice to limit the use and disclosure of your personal data.',
 
@@ -467,7 +467,7 @@ def process_caresense():
 
     a = o.individual(
         
-        'OptControl',
+        'AdvertisingDataControl',
 
         'Users may request that MedTrak discontinues use of their contact information by contacting their MedTrak representative or by emailing info@caresense.com.',
 
@@ -493,7 +493,7 @@ def process_caresense():
 
     a = o.individual(
         
-        'OptControl',
+        'AdvertisingDataControl',
 
         'If a patient would like to withdraw or refuse consent for a study, the patient should inform his/her doctor and MedTrak. A patient will always make the choice about the ways that personal information is used and disclosed.',
 
@@ -519,7 +519,7 @@ def process_caresense():
 
     a = o.individual(
         
-        'PrivacyControl',
+        'OptInOptOutControl',
 
         'When using the iOS CareSense patient app, MedTrak will ask for permission to access HealthKit data to track your step count. If HealthKit permission is not granted, only the step counting aspects of the app will stop working.',
 
@@ -544,7 +544,7 @@ def process_caresense():
 
     #########################################################################
     #                                                                       #
-    # DATA RETENTION                                                        #
+    # DATA DataRetention                                                        #
     #                                                                       #
     #########################################################################
 
@@ -554,7 +554,7 @@ def process_caresense():
     # Personal information will be stored only as long as is necessary for the purposes for which it was collected, or as permitted by law. 
 
     a = o.individual(
-        'Retention',
+        'DataRetention',
 
         'Personal information will be stored only as long as is necessary for the purposes for which it was collected, or as permitted by law.',
 
@@ -604,7 +604,7 @@ def process_caresense():
     
     a = o.individual(
         
-        'Use',
+        'DataUse',
 
         'MedTrak uses aggregated, de-identified information and data to create marketing statistics and average scores viewable by all users.',
 
@@ -614,11 +614,11 @@ def process_caresense():
             *data,
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to create marketing statistics and average scores viewable by all users.')),
 
             o.property('binded_to', o.individual(
-                'Protection',
+                'DataProtection',
                 'uses aggregated, de-identified information and data',
                 [
                     o.property('initiated_by', first_party),
@@ -640,7 +640,7 @@ def process_caresense():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'Individual records in MedTrak’s databases may be accessed to provide the Service, resolve an issue, evaluate usage patterns, provide support services, or review contractual issues.',
 
@@ -655,7 +655,7 @@ def process_caresense():
                 [o.property('provided_by', o.individual('User'))])),
 
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to provide the Service, resolve an issue, evaluate usage patterns, provide support services, or review contractual issues.')),
 
             o.property('previous_is', a),
@@ -670,7 +670,7 @@ def process_caresense():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'Personal information will be used in a manner consistent with the consent provided by the patient.',
 
@@ -685,7 +685,7 @@ def process_caresense():
                 [o.property('provided_by', o.individual('User', 'patient'))])),
                     
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to provide the Service, resolve an issue, evaluate usage patterns, provide support services, or review contractual issues.')),
 
             o.property('previous_is', a),
@@ -702,7 +702,7 @@ def process_caresense():
 
     a = o.individual(
 
-        'Use',
+        'DataUse',
 
         'Patient name and date of birth will be used to match patient records properly',
 
@@ -722,11 +722,11 @@ def process_caresense():
                 [o.property('provided_by', user)])),
                     
             o.property('has_purpose', o.individual(
-                'ServiceProvision',
+                'ServiceProvisionPurpose',
                 'to match patient records properly')),
 
             o.property('binded_to', o.individual(
-                'Use',
+                'DataUse',
                 'the email address will be used to collect information from the patient outside of the office.',
                 [
                     o.property('initiated_by', o.individual('FirstParty')),
@@ -735,7 +735,7 @@ def process_caresense():
                         'email address',
                         [o.property('provided_by', user)])),
                     o.property('has_purpose', o.individual(
-                        'ServiceProvision',
+                        'ServiceProvisionPurpose',
                         'to collect information from the patient outside of the office.')),
                 ])),
 
@@ -761,7 +761,7 @@ def process_caresense():
 
     a = o.individual(
         
-        'ProvidedDataControl',
+        'OptInOptOutControl',
                  
         'MedTrak acknowledges that individuals have the right to access the personal information/data that we maintain about them. Patients will be provided access to their own personal information stored on MedTrak’s servers in order to correct any problems or delete it. An individual who seeks access, or who seeks to correct, amend, or delete inaccurate data, should direct his query to info@caresense.com. If requested to remove data, we will respond within a reasonable timeframe.',
 
@@ -788,7 +788,7 @@ def process_caresense():
 
     a = o.individual(
 
-        'Protection',
+        'DataProtection',
 
         'Users are required to maintain the security of their User Name and password as outlined in MedTrak’s password policy.',
 
@@ -806,7 +806,7 @@ def process_caresense():
                 [o.property('provided_by', user)])),
                     
             o.property('has_mechanism', o.individual(
-                'OrganizationalMeasure',
+                'OrganizationalSecurityMeasure',
                 'Users are required to maintain the security')),
 
             o.property('previous_is', a),

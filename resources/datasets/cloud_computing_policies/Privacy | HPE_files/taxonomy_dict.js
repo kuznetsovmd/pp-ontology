@@ -68,7 +68,7 @@ window.analyticsTaxonomy = {
     keywords: 'all service provider solutions, all hpe service provider solutions, digital service provider solutions, it service provider solutions, telecommunications service provider solutions,business IT solutions, IT business solutions, small business solutions, smb business, smbs, hpe small business solutions,hpe service provider solutions,service provider,virtualization server,virtual server,data backup,business technology,data virtualization,file backup,technology in business,backup storage,business tech,business and technology,small business technology,small business it solutions,cloud backup solutions for small business,smb it,smb it solutions,service provider solutions,service provider it,virtualized,office setup,backup files,small business servers,smb server,smb servers,hardware virtualization,smb network,small office set up,technology solutions provider,it for business,system virtualization,service provider services'
   },
   {
-	rule: 'data availability protection and retention',
+	rule: 'data availability protection and DataRetention',
     keywords: 'hpe data protection,hpe object storage,storeever,storeonce backup,hpe storage media,tape storage,what is block storage,data protection solutions,object based storage,file storage system,data protection storage,object storage solutions,block storage definition,nas system,tape drive backup,tape backup drive,nas solutions,data backup solutions,scale-out nas,scality ring,object storage system,data protection systems,scalable object storage'
   },
   { 
@@ -136,7 +136,7 @@ window.analyticsTaxonomy = {
     keywords: 'hpe storage networking,storage networking,storage networking solutions,storage networking products,b-series switch device management,storage switch device management'
   },
   {
-    rule: 'security',
+    rule: 'SecurityPurpose',
     keywords: 'scytale'
   },
   {
@@ -270,7 +270,7 @@ window.analyticsTaxonomy = {
   },
   {
     rule: 'data storage',
-    keywords: 'all flash and hybrid,data availability protection and retention,entry level storage,management and orchestration,midrange and enterprise storage,mission critical storage,storage multi,storage networking'
+    keywords: 'all flash and hybrid,data availability protection and DataRetention,entry level storage,management and orchestration,midrange and enterprise storage,mission critical storage,storage multi,storage networking'
   },
   {
     rule: 'enterprise software',
@@ -359,7 +359,7 @@ window.analyticsTaxonomy = {
   },
   {
     rule: 'storage',
-    keywords: 'all flash and hybrid, data availability protection and retention, entry level storage,management and orchestration,midrange and enterprise storage,mission critical storage,storage multi,storage networking,storage software,hyperconverged infrastructure'
+    keywords: 'all flash and hybrid, data availability protection and DataRetention, entry level storage,management and orchestration,midrange and enterprise storage,mission critical storage,storage multi,storage networking,storage software,hyperconverged infrastructure'
   },
   {
     rule: 'software',

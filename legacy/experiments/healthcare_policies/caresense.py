@@ -455,37 +455,37 @@ def process_caresense():
             o.connection(
                 'hasSecurityMechanism',  
                 o.individual(
-                    'TechnicalMeasure',
+                    'TechnicalSecurityMeasure',
                     'Secure Sockets Layer (SSL) technology')),
 
             o.connection(
                 'hasSecurityMechanism',  
                 o.individual(
-                    'TechnicalMeasure',
+                    'TechnicalSecurityMeasure',
                     'firewall')),
 
             o.connection(
                 'hasSecurityMechanism',  
                 o.individual(
-                    'TechnicalMeasure',
+                    'TechnicalSecurityMeasure',
                     'access controls, passwords')),
 
             o.connection(
                 'hasSecurityMechanism',  
                 o.individual(
-                    'TechnicalMeasure',
+                    'TechnicalSecurityMeasure',
                     'encrypted files')),
 
             o.connection(
                 'hasSecurityMechanism',  
                 o.individual(
-                    'TechnicalMeasure',
+                    'TechnicalSecurityMeasure',
                     'employee training regarding security issues')),
 
             o.connection(
                 'hasSecurityMechanism',  
                 o.individual(
-                    'TechnicalMeasure',
+                    'TechnicalSecurityMeasure',
                     'storage of sensitive information in locked offices')),
         ]
     )
@@ -622,7 +622,7 @@ def process_caresense():
 
     #########################################################################
     #                                                                       #
-    # DATA RETENTION                                                        #
+    # DATA DataRetention                                                        #
     #                                                                       #
     #########################################################################
 
@@ -931,7 +931,7 @@ def process_caresense():
                     
             o.connection(
                 'hasSecurityMechanism',  
-                o.individual('OrganizationalMeasure',
+                o.individual('OrganizationalSecurityMeasure',
                     'Users are required to maintain the security')),
         ]
     )

@@ -107,7 +107,7 @@ class Ontology:
 
             class UserAccessControl(DataControlActivity): pass
 
-            class UserPrivacyControl(DataControlActivity): pass
+            class UserOptInOptOutControl(DataControlActivity): pass
 
             class UserOptControl(DataControlActivity): pass
 
@@ -143,17 +143,17 @@ class Ontology:
 
             class SensitiveData(PersonalData): pass
 
-            class NonSensitiveData(PersonalData): pass
+            class PersonalData(PersonalData): pass
 
-            class FinancialData(NonSensitiveData): pass
+            class FinancialData(PersonalData): pass
 
-            class DeviceData(NonSensitiveData): pass
+            class DeviceData(PersonalData): pass
 
-            class AppData(NonSensitiveData): pass
+            class AppData(PersonalData): pass
 
-            class AccountData(NonSensitiveData): pass
+            class AccountData(PersonalData): pass
 
-            class TrackingData(NonSensitiveData): pass
+            class TrackingData(PersonalData): pass
 
             class ReligionData(SensitiveData): pass
 
@@ -401,11 +401,11 @@ class Ontology:
                 range = [DataActivityPurpose]
                 inverse_property = dataActivityPurposeIsRelatedTo
 
-            class dataRetentionTimeIsRelatedTo(isRelatedTo): pass
+            class DataRetentionTimeIsRelatedTo(isRelatedTo): pass
             class hasDataRetentionTime(has):
                 domain = [DataRetentionActivity]
                 range = [DataRetentionTime]
-                inverse_property = dataRetentionTimeIsRelatedTo
+                inverse_property = DataRetentionTimeIsRelatedTo
 
             class hasNewerVersion(has, FunctionalProperty): pass
             class hasOlderVersion(has, FunctionalProperty):
@@ -431,11 +431,11 @@ class Ontology:
                 range = [Mechanism]
                 inverse_property = mechanismIsRelatedTo
 
-            class privacyControlMechanismIsRelatedTo(mechanismIsRelatedTo): pass
-            class hasPrivacyControlMechanism(hasMechanism):
-                domain = [UserPrivacyControl]
+            class OptInOptOutControlMechanismIsRelatedTo(mechanismIsRelatedTo): pass
+            class hasOptInOptOutControlMechanism(hasMechanism):
+                domain = [UserOptInOptOutControl]
                 range = [DataControlMechanism]
-                inverse_property = privacyControlMechanismIsRelatedTo
+                inverse_property = OptInOptOutControlMechanismIsRelatedTo
 
             class dataControlMechanismIsRelatedTo(mechanismIsRelatedTo): pass
             class hasDataControlMechanism(hasMechanism):

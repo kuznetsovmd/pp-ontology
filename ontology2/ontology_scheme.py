@@ -11,41 +11,38 @@ def construct(onto):
 
         # Activities
         class Activity(Thing): ...
-        class Breach(Activity): ...
+        class DataBreachProcessing(Activity): ...
         class DataActivity(Activity): ...
         class PolicyChange(DataActivity): ...
-        class Use(DataActivity): ...
-        class Protection(DataActivity): ...
+        class DataUse(DataActivity): ...
+        class DataProtection(DataActivity): ...
         class FPCollection(DataActivity): ...
         class TPCollection(DataActivity): ...
         class TPSharing(DataActivity): ...
-        class Retention(DataActivity): ...
-        class Notification(Activity): ...
-        class FPNotification(Notification): ...
-        class UserNotification(Notification): ...
+        class DataRetention(DataActivity): ...
+        class NotificationActivity(Activity): ...
+        class FPNotification(NotificationActivity): ...
+        class UserNotification(NotificationActivity): ...
         class DataControl(Activity): ...
-        class ProvidedDataControl(DataControl): ...
-        class PrivacyControl(DataControl): ...
-        class OptControl(DataControl): ...
+        class AdvertisingDataControl(DataControl): ...
+        class OptInOptOutControl(DataControl): ...
 
         # Agents
         class Agent(Thing): ...
         class User(Agent): ...
         class FirstParty(Agent): ...
         class ThirdParty(Agent): ...
-        class Criminal(Agent): ...
 
         # Data
         class Data(Thing): ...
         class PersonalData(Data): ...
         class NonPersonalData(Data): ...
-        class NonSensitiveData(PersonalData): ...
-        class ServiceData(NonSensitiveData): ...
-        class FinancialData(NonSensitiveData): ...
-        class DeviceData(NonSensitiveData): ...
-        class ApplicationData(NonSensitiveData): ...
-        class AccountData(NonSensitiveData): ...
-        class TrackingData(NonSensitiveData): ...
+        class ServiceData(PersonalData): ...
+        class FinancialData(PersonalData): ...
+        class DeviceData(PersonalData): ...
+        class ApplicationData(PersonalData): ...
+        class AccountData(PersonalData): ...
+        class TrackingData(PersonalData): ...
         class SensitiveData(PersonalData): ...
         class ReligionData(SensitiveData): ...
         class RacialData(SensitiveData): ...
@@ -57,66 +54,65 @@ def construct(onto):
         # Mechanisms
         class Mechanism(Thing): ...
         class DataRetentionMechanism(Mechanism): ...
-        class OwnServers(DataRetentionMechanism): ...
-        class EmployedServers(DataRetentionMechanism): ...
-        class TPSaCMechanism(Mechanism): ...
-        class Contract(TPSaCMechanism): ...
-        class ForFree(TPSaCMechanism): ...
+        class StoreOnOwnServers(DataRetentionMechanism): ...
+        class StoreOnEmployedServers(DataRetentionMechanism): ...
+        class TPSharingAndCollectionCMechanism(Mechanism): ...
+        class TPSharingOrCollectionByContract(TPSharingAndCollectionCMechanism): ...
+        class TPSharingOrCollectionForFree(TPSharingAndCollectionCMechanism): ...
         class SecurityMechanism(Mechanism): ...
-        class TechnicalMeasure(SecurityMechanism): ...
-        class PseudoAnonymization(TechnicalMeasure): ...
-        class Encryption(TechnicalMeasure): ...
+        class TechnicalSecurityMeasure(SecurityMechanism): ...
+        class PseudoAnonymization(TechnicalSecurityMeasure): ...
+        class Encryption(TechnicalSecurityMeasure): ...
         class SecureStorage(Encryption): ...
-        class SecureTunnel(Encryption): ...
-        class Firewall(TechnicalMeasure): ...
-        class AccessControls(TechnicalMeasure): ...
-        class OrganizationalMeasure(SecurityMechanism): ...
-        class LockedOffice(OrganizationalMeasure): ...
-        class SecurityTraining(OrganizationalMeasure): ...
-        class UserMaintain(OrganizationalMeasure): ...
+        class SecuredCommunication(Encryption): ...
+        class Firewall(TechnicalSecurityMeasure): ...
+        class AccessControls(TechnicalSecurityMeasure): ...
+        class OrganizationalSecurityMeasure(SecurityMechanism): ...
+        class LockedOffice(OrganizationalSecurityMeasure): ...
+        class SecurityTraining(OrganizationalSecurityMeasure): ...
+        class UserMaintainsSecurity(OrganizationalSecurityMeasure): ...
         class CommunicationMechanism(Mechanism): ...
-        class UserSpecific(CommunicationMechanism): ...
-        class Automatic(UserSpecific): ...
-        class ThroughServiceApp(Automatic): ...
-        class ThroughWebsite(Automatic): ...
-        class Manual(UserSpecific): ...
-        class WebsiteForm(Manual): ...
-        class ServiceAppForm(Manual): ...
-        class DataProvision(Manual): ...
-        class PersonalVisit(Manual): ...
-        class Mutual(CommunicationMechanism): ...
-        class Email(Mutual): ...
-        class PostalMail(Mutual): ...
-        class PhoneCall(Mutual): ...
-        class SMS(Mutual): ...
-        class FPSpecific(CommunicationMechanism): ...
-        class OnWebsitePage(FPSpecific): ...
-        class OnServiceApp(FPSpecific): ...
-        class InPrivacyPolicy(FPSpecific): ...
+        class UserSpecificCommunicationMechanism(CommunicationMechanism): ...
+        class AutomaticCommunicationMechanism(UserSpecificCommunicationMechanism): ...
+        class ViaServiceApp(AutomaticCommunicationMechanism): ...
+        class ViaWebsite(AutomaticCommunicationMechanism): ...
+        class ManualCommunicationMechanism(UserSpecificCommunicationMechanism): ...
+        class WebsiteForm(ManualCommunicationMechanism): ...
+        class ServiceAppForm(ManualCommunicationMechanism): ...
+        class DataProvision(ManualCommunicationMechanism): ...
+        class PersonalVisit(ManualCommunicationMechanism): ...
+        class GeneralCommunicationMechanism(CommunicationMechanism): ...
+        class Email(GeneralCommunicationMechanism): ...
+        class PostalMail(GeneralCommunicationMechanism): ...
+        class PhoneCall(GeneralCommunicationMechanism): ...
+        class SMS(GeneralCommunicationMechanism): ...
+        class FPSpecificCommunicationMechanism(CommunicationMechanism): ...
+        class OnWebsitePage(FPSpecificCommunicationMechanism): ...
+        class OnServiceApp(FPSpecificCommunicationMechanism): ...
+        class InPrivacyPolicy(FPSpecificCommunicationMechanism): ...
 
         # Modes
         class Mode(Thing): ...
         class DataTransmissionMode(Mode): ...
-        class Permanent(DataTransmissionMode): ...
-        class ByRequest(DataTransmissionMode): ...
+        class PermanentTransmission(DataTransmissionMode): ...
+        class TransmissionByRequest(DataTransmissionMode): ...
 
         # Causes
         class Cause(Thing): ...
-        class BreachCause(Cause): ...
-        class ForceMajeur(BreachCause): ...
-        class Intentional(BreachCause): ...
-        class Unintentional(BreachCause): ...
+        class DataBreach(Cause): ...
+        class ForceMajeurIncident(DataBreach): ...
+        class IntentionalBreach(DataBreach): ...
+        class UnintentionalBreach(DataBreach): ...
         class PolicyChangeCause(Cause): ...
-        class PrivacyRelated(PolicyChangeCause): ...
-        class NonPrivacyRelated(PolicyChangeCause): ...
-        class MergeAcquisition(PolicyChangeCause): ...
+        class PrivacyRelatedCause(PolicyChangeCause): ...
+        class NonPrivacyRelatedCause(PolicyChangeCause): ...
+        class MergeAcquisitionCause(PolicyChangeCause): ...
 
         # Consequences
         class Consequence(Thing): ...
-        class BreachConsequence(Consequence): ...
-        class RemoveCompromisedInformation(BreachConsequence): ...
-        class Compensation(BreachConsequence): ...
-        class BreachInvestigation(BreachConsequence): ...
+        class DataBreachConsequence(Consequence): ...
+        class RemoveCompromisedInformation(DataBreachConsequence): ...
+        class DataBreachCompensation(DataBreachConsequence): ...
         class PolicyChangeConsequence(Consequence): ...
         class UserChoiceConsequence(Consequence): ...
         class NoServiceRestriction(UserChoiceConsequence): ...
@@ -126,20 +122,20 @@ def construct(onto):
         # Purposes
         class Purpose(Thing): ...
         class DataActivityPurpose(Purpose): ...
-        class LegalCompliance(DataActivityPurpose): ...
-        class ServiceProvision(DataActivityPurpose): ...
-        class HealthMonitoring(ServiceProvision): ...
-        class ServiceEnhancement(DataActivityPurpose): ...
-        class Analytics(ServiceEnhancement): ...
-        class Security(ServiceEnhancement): ...
-        class Research(ServiceEnhancement): ...
-        class Marketing(ServiceEnhancement): ...
+        class LegalCompliancePurpose(DataActivityPurpose): ...
+        class ServiceProvisionPurpose(DataActivityPurpose): ...
+        class HealthMonitoringPurpose(ServiceProvisionPurpose): ...
+        class ServiceEnhancementPurpose(DataActivityPurpose): ...
+        class AnalyticsPurpose(ServiceEnhancementPurpose): ...
+        class SecurityPurpose(ServiceEnhancementPurpose): ...
+        class ResearchPurpose(ServiceEnhancementPurpose): ...
+        class MarketingPurpose(ServiceEnhancementPurpose): ...
 
         # Time periods
         class TimePeriod(Thing): ...
         class DataRetentionTime(TimePeriod): ...
         class NotificationTime(TimePeriod): ...
-        class BreachInvestigationTime(TimePeriod): ...
+        class DataBreachProcessingTime(TimePeriod): ...
         class PolicyAcceptanceTime(TimePeriod): ...
 
         # Basis
@@ -154,7 +150,7 @@ def construct(onto):
         class EuropeanResident(UserSpecialCategory): ...
         class CaliforniaResident(UserSpecialCategory): ...
         class RussianFederationResident(UserSpecialCategory): ...
-        class Child(UserSpecialCategory): ...
+        class ChildCategory(UserSpecialCategory): ...
 
         """
         Class disjoints
@@ -164,53 +160,52 @@ def construct(onto):
         AllDisjoint([PrivacyPolicy, Agent, Activity, Data, Basis, Purpose, Mode, 
                      Cause, Consequence, TimePeriod, PolicyChangeScope, UserSpecialCategory])
 
-        AllDisjoint([User, FirstParty, ThirdParty, Criminal])
+        AllDisjoint([User, FirstParty, ThirdParty])
 
-        AllDisjoint([Breach, DataActivity, DataControl, Notification])
+        AllDisjoint([DataBreachProcessing, DataActivity, DataControl, NotificationActivity])
 
-        AllDisjoint([Use, Protection, FPCollection, TPCollection, TPSharing, Retention, PolicyChange])
+        AllDisjoint([DataUse, DataProtection, FPCollection, TPCollection, TPSharing, DataRetention, PolicyChange])
         AllDisjoint([FPNotification, UserNotification])
         AllDisjoint([DataControl, PolicyChange])
-        AllDisjoint([ProvidedDataControl, PrivacyControl, OptControl])
+        AllDisjoint([AdvertisingDataControl, OptInOptOutControl])
 
-        AllDisjoint([LegalCompliance, ServiceEnhancement, ServiceProvision])
-        AllDisjoint([Analytics, Marketing, Research, Security])
+        AllDisjoint([LegalCompliancePurpose, ServiceEnhancementPurpose, ServiceProvisionPurpose])
+        AllDisjoint([AnalyticsPurpose, MarketingPurpose, ResearchPurpose, SecurityPurpose])
 
-        AllDisjoint([ByRequest, Permanent])
+        AllDisjoint([TransmissionByRequest, PermanentTransmission])
 
-        AllDisjoint([SecurityMechanism, TPSaCMechanism, DataRetentionMechanism, CommunicationMechanism])
+        AllDisjoint([SecurityMechanism, TPSharingAndCollectionCMechanism, DataRetentionMechanism, CommunicationMechanism])
 
-        AllDisjoint([OwnServers, EmployedServers])
-        AllDisjoint([Contract, ForFree])
-        AllDisjoint([TechnicalMeasure, OrganizationalMeasure])
-        AllDisjoint([LockedOffice, SecurityTraining, UserMaintain])
+        AllDisjoint([StoreOnOwnServers, StoreOnEmployedServers])
+        AllDisjoint([TPSharingOrCollectionByContract, TPSharingOrCollectionForFree])
+        AllDisjoint([TechnicalSecurityMeasure, OrganizationalSecurityMeasure])
+        AllDisjoint([LockedOffice, SecurityTraining, UserMaintainsSecurity])
         AllDisjoint([Firewall, PseudoAnonymization, AccessControls, Encryption])
-        AllDisjoint([SecureTunnel, SecureStorage])
+        AllDisjoint([SecuredCommunication, SecureStorage])
 
-        AllDisjoint([UserSpecific, FPSpecific])
+        AllDisjoint([UserSpecificCommunicationMechanism, FPSpecificCommunicationMechanism])
 
         AllDisjoint([InPrivacyPolicy, OnWebsitePage, OnServiceApp])
         AllDisjoint([Email, SMS, PhoneCall, PostalMail])
-        AllDisjoint([Manual, Automatic])
-        AllDisjoint([ThroughServiceApp, ThroughWebsite])
+        AllDisjoint([ManualCommunicationMechanism, AutomaticCommunicationMechanism])
+        AllDisjoint([ViaServiceApp, ViaWebsite])
         AllDisjoint([PersonalVisit, DataProvision, WebsiteForm, ServiceAppForm])
 
-        AllDisjoint([PolicyChangeCause, BreachCause])
-        AllDisjoint([ForceMajeur, Unintentional, Intentional])
-        AllDisjoint([MergeAcquisition, NonPrivacyRelated, PrivacyRelated])
+        AllDisjoint([PolicyChangeCause, DataBreach])
+        AllDisjoint([ForceMajeurIncident, UnintentionalBreach, IntentionalBreach])
+        AllDisjoint([MergeAcquisitionCause, NonPrivacyRelatedCause, PrivacyRelatedCause])
 
-        AllDisjoint([PolicyChangeConsequence, BreachConsequence, UserChoiceConsequence])
-        AllDisjoint([Compensation, RemoveCompromisedInformation, BreachInvestigation])
+        AllDisjoint([PolicyChangeConsequence, DataBreachConsequence, UserChoiceConsequence])
+        AllDisjoint([DataBreachCompensation, RemoveCompromisedInformation])
         AllDisjoint([PartialServiceRestriction, NoServiceRestriction, FullServiceRestriction])
 
-        AllDisjoint([PolicyAcceptanceTime, DataRetentionTime, NotificationTime, BreachInvestigationTime])
+        AllDisjoint([PolicyAcceptanceTime, DataRetentionTime, NotificationTime, DataBreachProcessingTime])
 
         AllDisjoint([PersonalData, NonPersonalData])
-        AllDisjoint([SensitiveData, NonSensitiveData])
-        AllDisjoint([FinancialData, ApplicationData, DeviceData, AccountData, TrackingData, ServiceData])
+        AllDisjoint([SensitiveData, ServiceData, FinancialData, DeviceData, ApplicationData, AccountData, TrackingData])
         AllDisjoint([GenericData, CrimeData, HealthData, RacialData, BiometricData, ReligionData])
         
-        AllDisjoint([EuropeanResident, RussianFederationResident, CaliforniaResident, Child])
+        AllDisjoint([EuropeanResident, RussianFederationResident, CaliforniaResident, ChildCategory])
 
         """
         Object properties
@@ -319,11 +314,11 @@ def construct(onto):
             & has_scope.only(PolicyChangeScope)
         ])
 
-        Breach.is_a.extend([
-            initiated_by.only(Criminal)
+        DataBreachProcessing.is_a.extend([
+            initiated_by.only(FirstParty)
             & applies_to.only(Data)
-            & caused_by.only(BreachCause)
-            & has_consequence.only(BreachConsequence)
+            & caused_by.only(DataBreach)
+            & has_consequence.only(DataBreachConsequence)
         ])
 
         DataActivity.is_a.extend([
@@ -333,33 +328,33 @@ def construct(onto):
             & has_basis.only(LegalBasis)
         ])
 
-        Use.is_a.extend([
+        DataUse.is_a.extend([
             DataActivity
         ])
 
-        Protection.is_a.extend([
+        DataProtection.is_a.extend([
             has_mechanism.only(SecurityMechanism)
         ])
 
         FPCollection.is_a.extend([
             collects_from.only(User)
-            & has_mechanism.only(UserSpecific)
+            & has_mechanism.only(UserSpecificCommunicationMechanism)
             & has_mode.only(DataTransmissionMode)
         ])
 
         TPCollection.is_a.extend([
             collects_from.only(ThirdParty)
-            & has_mechanism.only(TPSaCMechanism)
+            & has_mechanism.only(TPSharingAndCollectionCMechanism)
             & has_mode.only(DataTransmissionMode)
         ])
 
         TPSharing.is_a.extend([
             shares_with.only(ThirdParty)
-            & has_mechanism.only(TPSaCMechanism)
+            & has_mechanism.only(TPSharingAndCollectionCMechanism)
             & has_mode.only(DataTransmissionMode)
         ])
 
-        Retention.is_a.extend([
+        DataRetention.is_a.extend([
             has_mechanism.only(DataRetentionMechanism)
             & lasts_for.only(DataRetentionTime)
         ])
@@ -371,7 +366,7 @@ def construct(onto):
             & has_scope.only(PolicyChangeScope)
         ])
 
-        Notification.is_a.extend([
+        NotificationActivity.is_a.extend([
             initiated_by.only(Agent)
             & notifies.only(Agent)
             & has_mechanism.only(CommunicationMechanism)
@@ -381,31 +376,27 @@ def construct(onto):
         FPNotification.is_a.extend([
             initiated_by.only(FirstParty)
             & notifies.only(User)
-            & has_mechanism.only(FPSpecific)
+            & has_mechanism.only(FPSpecificCommunicationMechanism)
         ])
 
         UserNotification.is_a.extend([
             initiated_by.only(User)
             & notifies.only(FirstParty)
-            & has_mechanism.only(Manual)
+            & has_mechanism.only(ManualCommunicationMechanism)
         ])
 
         DataControl.is_a.extend([
             initiated_by.only(User)
             & applies_to.only(Data)
             & has_basis.only(LegalBasis)
-            & has_mechanism.only(Manual)
+            & has_mechanism.only(ManualCommunicationMechanism)
         ])
 
-        ProvidedDataControl.is_a.extend([
+        AdvertisingDataControl.is_a.extend([
             
         ])
 
-        PrivacyControl.is_a.extend([
-            
-        ])
-
-        OptControl.is_a.extend([
+        OptInOptOutControl.is_a.extend([
 
         ])
 
@@ -433,10 +424,6 @@ def construct(onto):
             & is_collected_by.only(TPCollection)
         ])
 
-        Criminal.is_a.extend([
-            initiates.only(Breach)
-        ])
-
 
         # Data
         Data.is_a.extend([
@@ -448,10 +435,6 @@ def construct(onto):
         ])
 
         NonPersonalData.is_a.extend([
-
-        ])
-
-        NonSensitiveData.is_a.extend([
 
         ])
 
@@ -513,34 +496,34 @@ def construct(onto):
         ])
 
         DataRetentionMechanism.is_a.extend([
-            mechanism_of.only(Retention)
+            mechanism_of.only(DataRetention)
         ])
 
-        OwnServers.is_a.extend([
-
-        ])
-
-        EmployedServers.is_a.extend([
+        StoreOnOwnServers.is_a.extend([
 
         ])
 
-        TPSaCMechanism.is_a.extend([
+        StoreOnEmployedServers.is_a.extend([
+
+        ])
+
+        TPSharingAndCollectionCMechanism.is_a.extend([
             mechanism_of.only(TPCollection | TPSharing)
         ])
 
-        Contract.is_a.extend([
+        TPSharingOrCollectionByContract.is_a.extend([
 
         ])
 
-        ForFree.is_a.extend([
+        TPSharingOrCollectionForFree.is_a.extend([
 
         ])
 
         SecurityMechanism.is_a.extend([
-            mechanism_of.only(Protection)
+            mechanism_of.only(DataProtection)
         ])
 
-        TechnicalMeasure.is_a.extend([
+        TechnicalSecurityMeasure.is_a.extend([
 
         ])
 
@@ -556,7 +539,7 @@ def construct(onto):
 
         ])
 
-        SecureTunnel.is_a.extend([
+        SecuredCommunication.is_a.extend([
 
         ])
 
@@ -568,7 +551,7 @@ def construct(onto):
 
         ])
 
-        OrganizationalMeasure.is_a.extend([
+        OrganizationalSecurityMeasure.is_a.extend([
 
         ])
 
@@ -580,32 +563,32 @@ def construct(onto):
 
         ])
 
-        UserMaintain.is_a.extend([
+        UserMaintainsSecurity.is_a.extend([
 
         ])
 
         CommunicationMechanism.is_a.extend([
-            mechanism_of.only(Notification | DataControl | FPCollection)
+            mechanism_of.only(NotificationActivity | DataControl | FPCollection)
         ])
 
-        UserSpecific.is_a.extend([
+        UserSpecificCommunicationMechanism.is_a.extend([
             mechanism_of.only(Not(FPNotification))
         ])
 
-        Automatic.is_a.extend([
+        AutomaticCommunicationMechanism.is_a.extend([
 
         ])
 
-        ThroughServiceApp.is_a.extend([
+        ViaServiceApp.is_a.extend([
 
         ])
 
-        ThroughWebsite.is_a.extend([
+        ViaWebsite.is_a.extend([
 
         ])
 
-        Manual.is_a.extend([
-            (UserSpecific | Mutual),
+        ManualCommunicationMechanism.is_a.extend([
+            (UserSpecificCommunicationMechanism | GeneralCommunicationMechanism),
             mechanism_of.only(Not(FPNotification))
         ])
 
@@ -625,7 +608,7 @@ def construct(onto):
 
         ])
 
-        Mutual.is_a.extend([
+        GeneralCommunicationMechanism.is_a.extend([
             
         ])
 
@@ -645,8 +628,8 @@ def construct(onto):
 
         ])
 
-        FPSpecific.is_a.extend([
-            (FPSpecific | Mutual),
+        FPSpecificCommunicationMechanism.is_a.extend([
+            (FPSpecificCommunicationMechanism | GeneralCommunicationMechanism),
             mechanism_of.only(FPNotification)
         ])
 
@@ -671,11 +654,11 @@ def construct(onto):
             is_mode_for.only(FPCollection | TPCollection | TPSharing)
         ])
 
-        Permanent.is_a.extend([
+        PermanentTransmission.is_a.extend([
 
         ])
 
-        ByRequest.is_a.extend([
+        TransmissionByRequest.is_a.extend([
 
         ])
 
@@ -684,19 +667,19 @@ def construct(onto):
             causes.only(Activity)
         ])
 
-        BreachCause.is_a.extend([
-            causes.only(Breach)
+        DataBreach.is_a.extend([
+            causes.only(DataBreachProcessing)
         ])
 
-        ForceMajeur.is_a.extend([
-
-        ])
-
-        Intentional.is_a.extend([
+        ForceMajeurIncident.is_a.extend([
 
         ])
 
-        Unintentional.is_a.extend([
+        IntentionalBreach.is_a.extend([
+
+        ])
+
+        UnintentionalBreach.is_a.extend([
 
         ])
 
@@ -704,15 +687,15 @@ def construct(onto):
             causes.only(PolicyChange)
         ])
 
-        PrivacyRelated.is_a.extend([
+        PrivacyRelatedCause.is_a.extend([
 
         ])
 
-        NonPrivacyRelated.is_a.extend([
+        NonPrivacyRelatedCause.is_a.extend([
 
         ])
 
-        MergeAcquisition.is_a.extend([
+        MergeAcquisitionCause.is_a.extend([
 
         ])
 
@@ -722,19 +705,19 @@ def construct(onto):
             is_consequence_of.only(Activity)
         ])
 
-        BreachConsequence.is_a.extend([
-            is_consequence_of.only(Breach)
+        DataBreachConsequence.is_a.extend([
+            is_consequence_of.only(DataBreachProcessing)
         ])
 
         RemoveCompromisedInformation.is_a.extend([
 
         ])
 
-        Compensation.is_a.extend([
+        DataBreachCompensation.is_a.extend([
 
         ])
 
-        BreachInvestigation.is_a.extend([
+        DataBreachProcessing.is_a.extend([
 
         ])
 
@@ -767,31 +750,31 @@ def construct(onto):
             is_purpose_for.only(DataActivity)
         ])
 
-        ServiceProvision.is_a.extend([
+        ServiceProvisionPurpose.is_a.extend([
 
         ])
 
-        HealthMonitoring.is_a.extend([
+        HealthMonitoringPurpose.is_a.extend([
 
         ])
 
-        ServiceEnhancement.is_a.extend([
+        ServiceEnhancementPurpose.is_a.extend([
 
         ])
 
-        Analytics.is_a.extend([
+        AnalyticsPurpose.is_a.extend([
 
         ])
 
-        Security.is_a.extend([
+        SecurityPurpose.is_a.extend([
 
         ])
 
-        Research.is_a.extend([
+        ResearchPurpose.is_a.extend([
 
         ])
 
-        Marketing.is_a.extend([
+        MarketingPurpose.is_a.extend([
 
         ])
 
@@ -802,15 +785,15 @@ def construct(onto):
         ])
 
         DataRetentionTime.is_a.extend([
-            is_period_of.only(Retention)
+            is_period_of.only(DataRetention)
         ])
 
         NotificationTime.is_a.extend([
-            is_period_of.only(Notification)
+            is_period_of.only(NotificationActivity)
         ])
 
-        BreachInvestigationTime.is_a.extend([
-            is_period_of.only(BreachInvestigation)
+        DataBreachProcessingTime.is_a.extend([
+            is_period_of.only(DataBreachProcessing)
         ])
 
         PolicyAcceptanceTime.is_a.extend([
@@ -848,7 +831,7 @@ def construct(onto):
 
         ])
 
-        Child.is_a.extend([
+        ChildCategory.is_a.extend([
 
         ])
 

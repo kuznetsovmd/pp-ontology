@@ -55,7 +55,7 @@ def process_google_cloud():
             )),
 
             o.property('has_mechanism', o.individual(
-                'Mutual',
+                'GeneralCommunicationMechanism',
                 'sending you a direct communication.'
             )),
 
