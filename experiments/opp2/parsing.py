@@ -191,7 +191,7 @@ def parse_purpose(o, r):
     return properties
 
 
-def parse_purpose_DataRetention(o, r):
+def parse_purpose_data_retention(o, r):
     properties = []
 
     if "selectedText" not in r["attributes"]["DataRetention Purpose"].keys():
@@ -221,7 +221,7 @@ def parse_purpose_DataRetention(o, r):
     return properties
 
 
-def parse_period_DataRetention(o, r):
+def parse_period_data_retention(o, r):
     properties = []
 
     if "selectedText" not in r["attributes"]["DataRetention Period"].keys():

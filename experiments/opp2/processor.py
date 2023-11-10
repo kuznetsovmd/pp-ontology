@@ -177,14 +177,14 @@ def construct_user_choice_and_control(o, r, u):
         )
 
 
-def construct_data_DataRetention(o, r, fp, u):
+def construct_data_data_retention(o, r, fp, u):
     o.individual(
         'DataRetention',
         r["segment_text"],
         [
             o.property('initiated_by', fp),
-            *parse_period_DataRetention(o, r),
-            *parse_purpose_DataRetention(o, r),
+            *parse_period_data_retention(o, r),
+            *parse_purpose_data_retention(o, r),
             *parse_data(o, r, u)
         ]
     )
@@ -307,7 +307,7 @@ def process_opp(o, policy):
             construct_user_choice_and_control(o, a, user)
 
         if a["category"] == "Data DataRetention":
-            construct_data_DataRetention(o, a, first_party, user)
+            construct_data_data_retention(o, a, first_party, user)
 
         if a["category"] == "User Access, Edit and Deletion":
             construct_user_access_edit_deletion(o, a, user)
