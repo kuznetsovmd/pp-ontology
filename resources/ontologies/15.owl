@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -959,18 +960,18 @@
 <owl:Class rdf:about="#FPSpecificCommunicationMechanism">
   <rdfs:subClassOf rdf:resource="#CommunicationMechanism"/>
   <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#mechanism_of"/>
-      <owl:allValuesFrom rdf:resource="#FPNotification"/>
-    </owl:Restriction>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
     <owl:Class>
       <owl:unionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#FPSpecificCommunicationMechanism"/>
         <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
       </owl:unionOf>
     </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#mechanism_of"/>
+      <owl:allValuesFrom rdf:resource="#FPNotification"/>
+    </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,293 +1305,293 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#f253dbc65d8d4be19e95c28:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#255c8086a79a4e6f85d7c4a:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f253dbc65d8d4be19e95c28</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">255c8086a79a4e6f85d7c4a</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d2447523643d4698a0454aa:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#0b3266e70f8e40b2b80fca0:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#9e499cdf466744c39dac7ef:User"/>
-  <considers rdf:resource="#3553670825ee44efae64eeb:FirstParty"/>
-  <considers rdf:resource="#a479f708b96044d38532893:ThirdParty"/>
-  <considers rdf:resource="#cccd5223957245f1b2e0939:DataProtection"/>
-  <considers rdf:resource="#fc846228b3b744d08968c43:TPCollection"/>
-  <considers rdf:resource="#341ccdb5394f4538af05367:GenericData"/>
-  <considers rdf:resource="#d30b46f268cd4ce085acaf0:OptInOptOutControl"/>
-  <considers rdf:resource="#c791a89292ac45179bb3520:GenericData"/>
-  <considers rdf:resource="#d3f8d246c97a4c05b7acbfd:FPCollection"/>
-  <considers rdf:resource="#9bbe7fbf8dbb487ea90cae2:Data"/>
-  <considers rdf:resource="#52b16cfb1e6648f5826fc47:OptInOptOutControl"/>
-  <considers rdf:resource="#de897765b0734762a49c41d:Data"/>
-  <considers rdf:resource="#b4bbbbd1791d4d12a675312:OptInOptOutControl"/>
-  <considers rdf:resource="#aaa4e4747f584e3e9d2e0f8:OptInOptOutControl"/>
-  <considers rdf:resource="#3226e59ff9c34cd9a2cd229:PolicyChange"/>
-  <considers rdf:resource="#3bc46cc662804a79ba8dd2b:FPNotification"/>
-  <considers rdf:resource="#a128183ba4b74ca9be4922f:GenericData"/>
-  <considers rdf:resource="#cebed38ba7d84dbf87fb9e6:DataRetention"/>
-  <considers rdf:resource="#293b48efcdca4afcb0d93f8:DataProtection"/>
-  <considers rdf:resource="#f979893b1f8c4bdbb35cf7e:DataProtection"/>
-  <considers rdf:resource="#f34ca651539b46c4b1c98eb:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d2447523643d4698a0454aa</uuid>
+  <considers rdf:resource="#dcc561227ae5486abb3cb41:User"/>
+  <considers rdf:resource="#028148269b0f43e9b7acaf5:FirstParty"/>
+  <considers rdf:resource="#6adad74a10b841e69120ace:ThirdParty"/>
+  <considers rdf:resource="#39289acbd8f947719d1cc98:DataProtection"/>
+  <considers rdf:resource="#20fe400594984f1399b9b75:TPCollection"/>
+  <considers rdf:resource="#9021e4f8603a480da0cb155:GenericData"/>
+  <considers rdf:resource="#30d7276d89bf4eebb0ae803:OptInOptOutControl"/>
+  <considers rdf:resource="#973cf11698ee4c5e9f4fc13:GenericData"/>
+  <considers rdf:resource="#4c0c8c3ecef545eab3f318f:FPCollection"/>
+  <considers rdf:resource="#d079ea86a5484ed8928c398:Data"/>
+  <considers rdf:resource="#05a478f86f9948ca894cb41:OptInOptOutControl"/>
+  <considers rdf:resource="#032a5dd33c5141cf8a334fb:Data"/>
+  <considers rdf:resource="#ffdfa0c6c0704fb0aa61735:OptInOptOutControl"/>
+  <considers rdf:resource="#c7021d575f0645918a2dc29:OptInOptOutControl"/>
+  <considers rdf:resource="#5960bc5485c34374b06d830:PolicyChange"/>
+  <considers rdf:resource="#63674cb691de4b90a334e5d:FPNotification"/>
+  <considers rdf:resource="#7397902fe29a4f2caefbf53:GenericData"/>
+  <considers rdf:resource="#4515e41c5e424462acd70a0:DataRetention"/>
+  <considers rdf:resource="#d5bede0f1fdb4e17a1feeb7:DataProtection"/>
+  <considers rdf:resource="#15383e503a0b452c8b3aa14:DataProtection"/>
+  <considers rdf:resource="#4215c743e0d74f73a604092:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0b3266e70f8e40b2b80fca0</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">austincc.edu</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9e499cdf466744c39dac7ef:User">
+<owl:NamedIndividual rdf:about="#dcc561227ae5486abb3cb41:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9e499cdf466744c39dac7ef</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dcc561227ae5486abb3cb41</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3553670825ee44efae64eeb:FirstParty">
+<owl:NamedIndividual rdf:about="#028148269b0f43e9b7acaf5:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3553670825ee44efae64eeb</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">028148269b0f43e9b7acaf5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a479f708b96044d38532893:ThirdParty">
+<owl:NamedIndividual rdf:about="#6adad74a10b841e69120ace:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a479f708b96044d38532893</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6adad74a10b841e69120ace</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#162f25b6854f48d38e26353:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#636dd7b58c374fedb88bd7e:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">162f25b6854f48d38e26353</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">636dd7b58c374fedb88bd7e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">committed to ensuring the privacy of personal information.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cccd5223957245f1b2e0939:DataProtection">
+<owl:NamedIndividual rdf:about="#39289acbd8f947719d1cc98:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#3553670825ee44efae64eeb:FirstParty"/>
-  <has_mechanism rdf:resource="#162f25b6854f48d38e26353:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cccd5223957245f1b2e0939</uuid>
+  <initiated_by rdf:resource="#028148269b0f43e9b7acaf5:FirstParty"/>
+  <has_mechanism rdf:resource="#636dd7b58c374fedb88bd7e:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">39289acbd8f947719d1cc98</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Austin Community College ACC is committed to ensuring the privacy of personal information We do not actively share personal information gathered from our Web servers However because ACC is a public institution some information collected from the ACC web site including summary server log information emails and information collected from Web-based forms may be subject to This means that while we do not share or sell information unless solicited in some cases we may be compelled by Open Records law to release information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f5e0869b888c4bb3a44c57c:LegalCompliancePurpose">
+<owl:NamedIndividual rdf:about="#9280ec2dce154608b19e8cd:LegalCompliancePurpose">
   <rdf:type rdf:resource="#LegalCompliancePurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f5e0869b888c4bb3a44c57c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9280ec2dce154608b19e8cd</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">through the Texas Public Information Act.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fc846228b3b744d08968c43:TPCollection">
+<owl:NamedIndividual rdf:about="#20fe400594984f1399b9b75:TPCollection">
   <rdf:type rdf:resource="#TPCollection"/>
-  <initiated_by rdf:resource="#3553670825ee44efae64eeb:FirstParty"/>
-  <collects_from rdf:resource="#a479f708b96044d38532893:ThirdParty"/>
-  <has_purpose rdf:resource="#f5e0869b888c4bb3a44c57c:LegalCompliancePurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fc846228b3b744d08968c43</uuid>
+  <initiated_by rdf:resource="#028148269b0f43e9b7acaf5:FirstParty"/>
+  <collects_from rdf:resource="#6adad74a10b841e69120ace:ThirdParty"/>
+  <has_purpose rdf:resource="#9280ec2dce154608b19e8cd:LegalCompliancePurpose"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">20fe400594984f1399b9b75</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Student directory information is routinely requested by vendors through the Texas Public Information Act Students have the option of excluding their personal information from the directory during registration</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c5deaa070a46457f8b16666:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#c58d5b27c54d466cba70dd8:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c5deaa070a46457f8b16666</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c58d5b27c54d466cba70dd8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the option of excluding</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#341ccdb5394f4538af05367:GenericData">
+<owl:NamedIndividual rdf:about="#9021e4f8603a480da0cb155:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#9e499cdf466744c39dac7ef:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">341ccdb5394f4538af05367</uuid>
+  <provided_by rdf:resource="#dcc561227ae5486abb3cb41:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9021e4f8603a480da0cb155</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">their personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d30b46f268cd4ce085acaf0:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#30d7276d89bf4eebb0ae803:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#9e499cdf466744c39dac7ef:User"/>
-  <has_mechanism rdf:resource="#c5deaa070a46457f8b16666:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#341ccdb5394f4538af05367:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d30b46f268cd4ce085acaf0</uuid>
+  <initiated_by rdf:resource="#dcc561227ae5486abb3cb41:User"/>
+  <has_mechanism rdf:resource="#c58d5b27c54d466cba70dd8:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#9021e4f8603a480da0cb155:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">30d7276d89bf4eebb0ae803</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Student directory information is routinely requested by vendors through the Texas Public Information Act Students have the option of excluding their personal information from the directory during registration</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c791a89292ac45179bb3520:GenericData">
+<owl:NamedIndividual rdf:about="#973cf11698ee4c5e9f4fc13:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#9e499cdf466744c39dac7ef:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c791a89292ac45179bb3520</uuid>
+  <provided_by rdf:resource="#dcc561227ae5486abb3cb41:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">973cf11698ee4c5e9f4fc13</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a17f1c845f4c47a9aec4343:LegalCompliancePurpose">
+<owl:NamedIndividual rdf:about="#3b5616c8c73f44f483151e1:LegalCompliancePurpose">
   <rdf:type rdf:resource="#LegalCompliancePurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a17f1c845f4c47a9aec4343</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3b5616c8c73f44f483151e1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Texas Public Information Act.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#57b07db55677467899c0c44:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#a24fae7108f8416ab16bc58:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">57b07db55677467899c0c44</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a24fae7108f8416ab16bc58</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">during registration</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d3f8d246c97a4c05b7acbfd:FPCollection">
+<owl:NamedIndividual rdf:about="#4c0c8c3ecef545eab3f318f:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#3553670825ee44efae64eeb:FirstParty"/>
-  <collects_from rdf:resource="#9e499cdf466744c39dac7ef:User"/>
-  <has_purpose rdf:resource="#a17f1c845f4c47a9aec4343:LegalCompliancePurpose"/>
-  <has_mode rdf:resource="#57b07db55677467899c0c44:TransmissionByRequest"/>
-  <applies_to rdf:resource="#c791a89292ac45179bb3520:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d3f8d246c97a4c05b7acbfd</uuid>
+  <initiated_by rdf:resource="#028148269b0f43e9b7acaf5:FirstParty"/>
+  <collects_from rdf:resource="#dcc561227ae5486abb3cb41:User"/>
+  <has_purpose rdf:resource="#3b5616c8c73f44f483151e1:LegalCompliancePurpose"/>
+  <has_mode rdf:resource="#a24fae7108f8416ab16bc58:TransmissionByRequest"/>
+  <applies_to rdf:resource="#973cf11698ee4c5e9f4fc13:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4c0c8c3ecef545eab3f318f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Student directory information is routinely requested by vendors through the Texas Public Information Act Students have the option of excluding their personal information from the directory during registration</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b7aff49f06ca4b78a00d77a:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#c6dc8744ae7a42459461840:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b7aff49f06ca4b78a00d77a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c6dc8744ae7a42459461840</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">without student permission</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9bbe7fbf8dbb487ea90cae2:Data">
+<owl:NamedIndividual rdf:about="#d079ea86a5484ed8928c398:Data">
   <rdf:type rdf:resource="#Data"/>
-  <provided_by rdf:resource="#9e499cdf466744c39dac7ef:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9bbe7fbf8dbb487ea90cae2</uuid>
+  <provided_by rdf:resource="#dcc561227ae5486abb3cb41:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d079ea86a5484ed8928c398</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">education records</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#52b16cfb1e6648f5826fc47:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#05a478f86f9948ca894cb41:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#9e499cdf466744c39dac7ef:User"/>
-  <has_mechanism rdf:resource="#b7aff49f06ca4b78a00d77a:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#9bbe7fbf8dbb487ea90cae2:Data"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">52b16cfb1e6648f5826fc47</uuid>
+  <initiated_by rdf:resource="#dcc561227ae5486abb3cb41:User"/>
+  <has_mechanism rdf:resource="#c6dc8744ae7a42459461840:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#d079ea86a5484ed8928c398:Data"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">05a478f86f9948ca894cb41</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ACC complies with the Family Educational Rights and Privacy Act FERPA which prohibits the release of education records without student permission</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a5a19ff9cf75444f87c7baf:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#08f6539bc1a94e959831d6d:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a5a19ff9cf75444f87c7baf</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">08f6539bc1a94e959831d6d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">prohibits the release of education records without student permission.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#de897765b0734762a49c41d:Data">
+<owl:NamedIndividual rdf:about="#032a5dd33c5141cf8a334fb:Data">
   <rdf:type rdf:resource="#Data"/>
-  <provided_by rdf:resource="#9e499cdf466744c39dac7ef:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">de897765b0734762a49c41d</uuid>
+  <provided_by rdf:resource="#dcc561227ae5486abb3cb41:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">032a5dd33c5141cf8a334fb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">education records</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b4bbbbd1791d4d12a675312:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#ffdfa0c6c0704fb0aa61735:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#9e499cdf466744c39dac7ef:User"/>
-  <has_mechanism rdf:resource="#a5a19ff9cf75444f87c7baf:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#de897765b0734762a49c41d:Data"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b4bbbbd1791d4d12a675312</uuid>
+  <initiated_by rdf:resource="#dcc561227ae5486abb3cb41:User"/>
+  <has_mechanism rdf:resource="#08f6539bc1a94e959831d6d:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#032a5dd33c5141cf8a334fb:Data"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ffdfa0c6c0704fb0aa61735</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ACC complies with the Family Educational Rights and Privacy Act FERPA which prohibits the release of education records without student permission</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6487d9210182448f86144c7:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#5ebb7862035c4349a13ad4d:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6487d9210182448f86144c7</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5ebb7862035c4349a13ad4d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">that policy will be posted on their site.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#aaa4e4747f584e3e9d2e0f8:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#c7021d575f0645918a2dc29:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#9e499cdf466744c39dac7ef:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aaa4e4747f584e3e9d2e0f8</uuid>
+  <initiated_by rdf:resource="#dcc561227ae5486abb3cb41:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c7021d575f0645918a2dc29</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The ACC website consists of several web servers Some servers hosted by ACC may adopt different privacy statements as their specific needs require If another ACC web server has a privacy statement that is different from this statement that policy will be posted on their site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3226e59ff9c34cd9a2cd229:PolicyChange">
+<owl:NamedIndividual rdf:about="#5960bc5485c34374b06d830:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#3553670825ee44efae64eeb:FirstParty"/>
-  <binded_to rdf:resource="#aaa4e4747f584e3e9d2e0f8:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3226e59ff9c34cd9a2cd229</uuid>
+  <initiated_by rdf:resource="#028148269b0f43e9b7acaf5:FirstParty"/>
+  <binded_to rdf:resource="#c7021d575f0645918a2dc29:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5960bc5485c34374b06d830</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The ACC website consists of several web servers Some servers hosted by ACC may adopt different privacy statements as their specific needs require If another ACC web server has a privacy statement that is different from this statement that policy will be posted on their site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3bc46cc662804a79ba8dd2b:FPNotification">
+<owl:NamedIndividual rdf:about="#63674cb691de4b90a334e5d:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#3553670825ee44efae64eeb:FirstParty"/>
-  <notifies rdf:resource="#9e499cdf466744c39dac7ef:User"/>
-  <has_mechanism rdf:resource="#6487d9210182448f86144c7:OnWebsitePage"/>
-  <binded_to rdf:resource="#3226e59ff9c34cd9a2cd229:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3bc46cc662804a79ba8dd2b</uuid>
+  <initiated_by rdf:resource="#028148269b0f43e9b7acaf5:FirstParty"/>
+  <notifies rdf:resource="#dcc561227ae5486abb3cb41:User"/>
+  <has_mechanism rdf:resource="#5ebb7862035c4349a13ad4d:OnWebsitePage"/>
+  <binded_to rdf:resource="#5960bc5485c34374b06d830:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">63674cb691de4b90a334e5d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The ACC website consists of several web servers Some servers hosted by ACC may adopt different privacy statements as their specific needs require If another ACC web server has a privacy statement that is different from this statement that policy will be posted on their site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#93fbf712f1b848f8b16ab80:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#d59890ccfc334fa68a996a0:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">93fbf712f1b848f8b16ab80</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d59890ccfc334fa68a996a0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">does not retain</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#20ab57929773456aaff4ab0:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#b8caa402fc0742438df3ac6:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">20ab57929773456aaff4ab0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b8caa402fc0742438df3ac6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sending an email, participating in a survey, responding to a request for information or "contact us" form</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a128183ba4b74ca9be4922f:GenericData">
+<owl:NamedIndividual rdf:about="#7397902fe29a4f2caefbf53:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#9e499cdf466744c39dac7ef:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a128183ba4b74ca9be4922f</uuid>
+  <provided_by rdf:resource="#dcc561227ae5486abb3cb41:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7397902fe29a4f2caefbf53</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally identifiable information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cebed38ba7d84dbf87fb9e6:DataRetention">
+<owl:NamedIndividual rdf:about="#4515e41c5e424462acd70a0:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#3553670825ee44efae64eeb:FirstParty"/>
-  <lasts_for rdf:resource="#93fbf712f1b848f8b16ab80:DataRetentionTime"/>
-  <has_purpose rdf:resource="#20ab57929773456aaff4ab0:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#a128183ba4b74ca9be4922f:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cebed38ba7d84dbf87fb9e6</uuid>
+  <initiated_by rdf:resource="#028148269b0f43e9b7acaf5:FirstParty"/>
+  <lasts_for rdf:resource="#d59890ccfc334fa68a996a0:DataRetentionTime"/>
+  <has_purpose rdf:resource="#b8caa402fc0742438df3ac6:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#7397902fe29a4f2caefbf53:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4515e41c5e424462acd70a0</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personal information you provide to us ACC does not retain personally identifiable information about you when you visit our web sites unless you choose to provide such information to us i e sending an email participating in a survey responding to a request for information or contact us form etc</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0548eccd3b34414fa27fdb3:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#7376379eaab7497db1e837e:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0548eccd3b34414fa27fdb3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7376379eaab7497db1e837e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Security accuracy of personal and confidential information Although no computer system is 100 percent secure, Austin Community College has deployed extensive security measures to protect against the loss, misuse, or alteration of the information under our control.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#293b48efcdca4afcb0d93f8:DataProtection">
+<owl:NamedIndividual rdf:about="#d5bede0f1fdb4e17a1feeb7:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#3553670825ee44efae64eeb:FirstParty"/>
-  <has_mechanism rdf:resource="#0548eccd3b34414fa27fdb3:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">293b48efcdca4afcb0d93f8</uuid>
+  <initiated_by rdf:resource="#028148269b0f43e9b7acaf5:FirstParty"/>
+  <has_mechanism rdf:resource="#7376379eaab7497db1e837e:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d5bede0f1fdb4e17a1feeb7</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Security accuracy of personal and confidential information Although no computer system is 100 percent secure Austin Community College has deployed extensive security measures to protect against the loss misuse or alteration of the information under our control</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0c6a86b5b4134d25beca8e0:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#9aed8c11d03943f8b8edb4d:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0c6a86b5b4134d25beca8e0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9aed8c11d03943f8b8edb4d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">deployed extensive security measures to protect against the loss, misuse, or alteration of the information under our control.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f979893b1f8c4bdbb35cf7e:DataProtection">
+<owl:NamedIndividual rdf:about="#15383e503a0b452c8b3aa14:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#3553670825ee44efae64eeb:FirstParty"/>
-  <has_mechanism rdf:resource="#0c6a86b5b4134d25beca8e0:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f979893b1f8c4bdbb35cf7e</uuid>
+  <initiated_by rdf:resource="#028148269b0f43e9b7acaf5:FirstParty"/>
+  <has_mechanism rdf:resource="#9aed8c11d03943f8b8edb4d:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">15383e503a0b452c8b3aa14</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Security accuracy of personal and confidential information Although no computer system is 100 percent secure Austin Community College has deployed extensive security measures to protect against the loss misuse or alteration of the information under our control</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7214c41477d240ebb63333a:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#5896b45ba13e4562a3e9fba:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7214c41477d240ebb63333a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5896b45ba13e4562a3e9fba</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you are concerned about the accuracy of information contained in your personal records you should contact the custodian of the record which is typically the department that collects and maintains the information For example contact the Admissions and Records Office about information collected through the Web application for admission</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f34ca651539b46c4b1c98eb:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#4215c743e0d74f73a604092:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#9e499cdf466744c39dac7ef:User"/>
-  <has_mechanism rdf:resource="#7214c41477d240ebb63333a:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f34ca651539b46c4b1c98eb</uuid>
+  <initiated_by rdf:resource="#dcc561227ae5486abb3cb41:User"/>
+  <has_mechanism rdf:resource="#5896b45ba13e4562a3e9fba:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4215c743e0d74f73a604092</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you are concerned about the accuracy of information contained in your personal records you should contact the custodian of the record which is typically the department that collects and maintains the information For example contact the Admissions and Records Office about information collected through the Web application for admission</evidence>
 </owl:NamedIndividual>

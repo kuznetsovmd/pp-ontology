@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -901,14 +902,6 @@
   <rdfs:subClassOf rdf:resource="#UserSpecificCommunicationMechanism"/>
   <owl:disjointWith rdf:resource="#AutomaticCommunicationMechanism"/>
   <rdfs:subClassOf>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
-        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
       <owl:allValuesFrom>
@@ -917,6 +910,14 @@
         </owl:Class>
       </owl:allValuesFrom>
     </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
+        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
+      </owl:unionOf>
+    </owl:Class>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -959,18 +960,18 @@
 <owl:Class rdf:about="#FPSpecificCommunicationMechanism">
   <rdfs:subClassOf rdf:resource="#CommunicationMechanism"/>
   <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#mechanism_of"/>
-      <owl:allValuesFrom rdf:resource="#FPNotification"/>
-    </owl:Restriction>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
     <owl:Class>
       <owl:unionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#FPSpecificCommunicationMechanism"/>
         <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
       </owl:unionOf>
     </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#mechanism_of"/>
+      <owl:allValuesFrom rdf:resource="#FPNotification"/>
+    </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,935 +1305,934 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#763bea45bcbd48a6b306ce6:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#abee9da9d33f41b793086a8:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">763bea45bcbd48a6b306ce6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">abee9da9d33f41b793086a8</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ab2d4117f947459cb035720:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#14f594a562cd4bc9ba0d91e:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <considers rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <considers rdf:resource="#fe4589222ed24985b189e56:ThirdParty"/>
-  <considers rdf:resource="#a9b037963b554060945f51a:DataProtection"/>
-  <considers rdf:resource="#4e2aa8b0751f41d08c7d949:SensitiveData"/>
-  <considers rdf:resource="#6340ac387d9146c2ac8b192:FPCollection"/>
-  <considers rdf:resource="#5a0dc957d30c4afeb9cdfd2:PersonalData"/>
-  <considers rdf:resource="#1dc48fa4afda4bb7837927e:FPCollection"/>
-  <considers rdf:resource="#bb468f1375124662abc21e1:SensitiveData"/>
-  <considers rdf:resource="#7e6e9fd4421a4ea99a4fdbf:FPCollection"/>
-  <considers rdf:resource="#da582f71af5e4e4e8163495:TrackingData"/>
-  <considers rdf:resource="#5b99654ba71649b1b1a0540:FPCollection"/>
-  <considers rdf:resource="#2c5e8e3345f34c2c9be6d9c:Data"/>
-  <considers rdf:resource="#42e32a3e00a049c2accd057:OptInOptOutControl"/>
-  <considers rdf:resource="#76a5be2176c74e72946d289:OptInOptOutControl"/>
-  <considers rdf:resource="#6274faa20b384cffb53730f:GenericData"/>
-  <considers rdf:resource="#050266a513b84c75aee2089:FPCollection"/>
-  <considers rdf:resource="#c5ee9eba5c5f46518cec970:GenericData"/>
-  <considers rdf:resource="#d8537cc208be4915b5c63f1:FPCollection"/>
-  <considers rdf:resource="#9315b573c3804d1ab0c149d:FPCollection"/>
-  <considers rdf:resource="#dcfcfde9c0a84b9ebe662b7:SensitiveData"/>
-  <considers rdf:resource="#811391fe4cf24b0e9e985c6:FPCollection"/>
-  <considers rdf:resource="#8630111dffa640b6b151bf5:GenericData"/>
-  <considers rdf:resource="#4c1d90e7861045ac9a93295:FPCollection"/>
-  <considers rdf:resource="#cde2d76bd0ac4290b8576c8:GenericData"/>
-  <considers rdf:resource="#654601fa7b994116802c479:FPCollection"/>
-  <considers rdf:resource="#c63e0be03f63458ab28c795:SensitiveData"/>
-  <considers rdf:resource="#cf729cd3ffe94a04b74ffda:FPCollection"/>
-  <considers rdf:resource="#190125ff5fd846e1ac6cdff:OptInOptOutControl"/>
-  <considers rdf:resource="#cec04447f88047d29a826f9:PersonalData"/>
-  <considers rdf:resource="#5f62efe448524cba9baba34:OptInOptOutControl"/>
-  <considers rdf:resource="#43f3b7070ac74ad19472357:PersonalData"/>
-  <considers rdf:resource="#73cb5c9606e342bfa890c9f:DataUse"/>
-  <considers rdf:resource="#fc8482577d874c6a88afb99:TPCollection"/>
-  <considers rdf:resource="#d00ca00933a9489286698bb:TPSharing"/>
-  <considers rdf:resource="#f3bc4ba1ab654f9aa425cd4:TPCollection"/>
-  <considers rdf:resource="#7e0a05a50b1c44d8a642565:DataProtection"/>
-  <considers rdf:resource="#25c80c0c059d449da4301f9:DataProtection"/>
-  <considers rdf:resource="#41198cd3c1be491096931f6:FPCollection"/>
-  <considers rdf:resource="#39be8c487e90423582eddbc:DataProtection"/>
-  <considers rdf:resource="#7860ca1e8f56468f908f2a5:OptInOptOutControl"/>
-  <considers rdf:resource="#70ec28488b8643199115f25:OptInOptOutControl"/>
-  <considers rdf:resource="#1339ac02e8b848be944bcbd:PersonalData"/>
-  <considers rdf:resource="#450118e7c0a04ea699e98fd:OptInOptOutControl"/>
-  <considers rdf:resource="#378a8287907a4e7aaaebcb0:PersonalData"/>
-  <considers rdf:resource="#f46ccbe74eaa4e0d9e8c7d5:OptInOptOutControl"/>
-  <considers rdf:resource="#66a8ee31379641b89518cf1:PersonalData"/>
-  <considers rdf:resource="#15e647e834874918b979ca2:OptInOptOutControl"/>
-  <considers rdf:resource="#3d56681e244e4fc4aad5128:PersonalData"/>
-  <considers rdf:resource="#ff7f3d0f6aec43eb90afdfb:OptInOptOutControl"/>
-  <considers rdf:resource="#50b59024c2d2496198745eb:PersonalData"/>
-  <considers rdf:resource="#43bcc9a5ae1d45dda8211b2:OptInOptOutControl"/>
-  <considers rdf:resource="#15e5782c5151460ebafdd1a:DataProtection"/>
-  <considers rdf:resource="#724d979763a343fa8c776aa:DataProtection"/>
-  <considers rdf:resource="#d16dc2de5e1f472aadfd7d6:DataProtection"/>
-  <considers rdf:resource="#7a3b49b6f16f425aa0ba52f:DataProtection"/>
-  <considers rdf:resource="#c7d34bd4289c4a228a48e28:DataProtection"/>
-  <considers rdf:resource="#587d40254bc541a49aee0cc:DataProtection"/>
-  <considers rdf:resource="#9b10ab0a5bd14954881b03b:OptInOptOutControl"/>
-  <considers rdf:resource="#0dc80dd0348b4e079179976:PolicyChange"/>
-  <considers rdf:resource="#b144f5799a2847389c2cdff:FPNotification"/>
-  <considers rdf:resource="#80cbaf4083104348b0bc17f:OptInOptOutControl"/>
-  <considers rdf:resource="#99a8f360092f465fb705b1a:PolicyChange"/>
-  <considers rdf:resource="#bc98ff1708ba4fb9aeaf64a:FPNotification"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ab2d4117f947459cb035720</uuid>
+  <considers rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <considers rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <considers rdf:resource="#5ad3530f810c4d50a58f7eb:ThirdParty"/>
+  <considers rdf:resource="#b02ce5f1032b4e4c9e59d6e:DataProtection"/>
+  <considers rdf:resource="#ce7a352e1dbf42fc9ee01be:SensitiveData"/>
+  <considers rdf:resource="#d6bcb9c4fa38418cb708714:FPCollection"/>
+  <considers rdf:resource="#cb99f1ef46a049a09d14fde:PersonalData"/>
+  <considers rdf:resource="#59fe5476ae004de598530b5:FPCollection"/>
+  <considers rdf:resource="#3015bffbdd784207b731178:SensitiveData"/>
+  <considers rdf:resource="#b521f1671d8a4cb29245e25:FPCollection"/>
+  <considers rdf:resource="#db7cdb47e9324c9bb12850c:TrackingData"/>
+  <considers rdf:resource="#d496e098952c48fe8b23f61:FPCollection"/>
+  <considers rdf:resource="#cc49f60898784a02b593907:Data"/>
+  <considers rdf:resource="#16f8ade67a14407d904a705:OptInOptOutControl"/>
+  <considers rdf:resource="#fe35030e70474a3f853f54b:OptInOptOutControl"/>
+  <considers rdf:resource="#63af190848ea4eaa8f970d9:GenericData"/>
+  <considers rdf:resource="#880f4c0eb58e4273bb8c37a:FPCollection"/>
+  <considers rdf:resource="#fde616746f3d40e58995867:GenericData"/>
+  <considers rdf:resource="#48ace8d78aa64f708ccbd6e:FPCollection"/>
+  <considers rdf:resource="#32ab31f3de3c4bacbbe487f:FPCollection"/>
+  <considers rdf:resource="#900aacdd35e7461d916c2ce:SensitiveData"/>
+  <considers rdf:resource="#b2c3b20cfcdf4cffb1fc677:FPCollection"/>
+  <considers rdf:resource="#c0abdc2ae28c4e96a3a68c6:GenericData"/>
+  <considers rdf:resource="#741c8827280449d6bb64f02:FPCollection"/>
+  <considers rdf:resource="#51a373679a5b437e899d994:GenericData"/>
+  <considers rdf:resource="#ead27542c95144a7ad6f775:FPCollection"/>
+  <considers rdf:resource="#f16c0b3523fc417db9bc6fa:SensitiveData"/>
+  <considers rdf:resource="#551df274ebaa426ba92633a:FPCollection"/>
+  <considers rdf:resource="#aadfe1ce8dd74f17960b58a:OptInOptOutControl"/>
+  <considers rdf:resource="#92dbf2a647fb4511bce58ef:PersonalData"/>
+  <considers rdf:resource="#c4c2d65fffaf4d97b83aa0b:OptInOptOutControl"/>
+  <considers rdf:resource="#ab8d549f9ccf48e6ac2c1e0:PersonalData"/>
+  <considers rdf:resource="#97dd46c34af2498b9344dd3:DataUse"/>
+  <considers rdf:resource="#eb7187425af14bde9a749da:TPCollection"/>
+  <considers rdf:resource="#163e8d0e78db430d9ae6a03:TPSharing"/>
+  <considers rdf:resource="#85630c6ed9af4db582b2384:TPCollection"/>
+  <considers rdf:resource="#51755cb7aa2949db9f64592:DataProtection"/>
+  <considers rdf:resource="#89c77b6447b44a18a729233:DataProtection"/>
+  <considers rdf:resource="#8aa3d182c3d742d1a9f0864:FPCollection"/>
+  <considers rdf:resource="#854de13c11b54da1bd44855:DataProtection"/>
+  <considers rdf:resource="#ebf8d346e7c24d3e830d516:OptInOptOutControl"/>
+  <considers rdf:resource="#186842ef5c7947db8190d8f:OptInOptOutControl"/>
+  <considers rdf:resource="#4c137033309c4263a4966bc:PersonalData"/>
+  <considers rdf:resource="#423542af6bfe486298e9854:OptInOptOutControl"/>
+  <considers rdf:resource="#76810b40d86140c8999fc0c:PersonalData"/>
+  <considers rdf:resource="#a4d673cd2a8c43d0bb68707:OptInOptOutControl"/>
+  <considers rdf:resource="#93a82ea546e04f1894b650c:PersonalData"/>
+  <considers rdf:resource="#ce6fe87ac76d41dda5d3d48:OptInOptOutControl"/>
+  <considers rdf:resource="#1691cc48925e44f6b3f78c8:PersonalData"/>
+  <considers rdf:resource="#5833c896d0cd4a8394332ee:OptInOptOutControl"/>
+  <considers rdf:resource="#70051ff2b4764af5b9455b4:PersonalData"/>
+  <considers rdf:resource="#9e7e8e4265df413ea41381d:OptInOptOutControl"/>
+  <considers rdf:resource="#1d57e02bb2034eb2af09a9b:DataProtection"/>
+  <considers rdf:resource="#827fd3f0a6344076a4f93ce:DataProtection"/>
+  <considers rdf:resource="#2275b042098643d0b1b8e1c:DataProtection"/>
+  <considers rdf:resource="#02f9239f8a63480286531a6:DataProtection"/>
+  <considers rdf:resource="#aa95daa6b7ac4a76b2da886:DataProtection"/>
+  <considers rdf:resource="#bfbc6c79f365470d9fd1975:DataProtection"/>
+  <considers rdf:resource="#85ac2b38f98d4f1a881f603:OptInOptOutControl"/>
+  <considers rdf:resource="#b6111972b2284758b4e16a6:PolicyChange"/>
+  <considers rdf:resource="#7a673e0af3f74f698571206:FPNotification"/>
+  <considers rdf:resource="#94eda96052ba4e30bd2236f:OptInOptOutControl"/>
+  <considers rdf:resource="#ced8e0c7d63a47459328601:PolicyChange"/>
+  <considers rdf:resource="#5d6bb060f3d248008a066ba:FPNotification"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">14f594a562cd4bc9ba0d91e</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">tgifridays.com</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5d2f7cff96be420db2d1c11:User">
+<owl:NamedIndividual rdf:about="#6e93a5d39fba4bccac932a0:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5d2f7cff96be420db2d1c11</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6e93a5d39fba4bccac932a0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2729914762664769834aa97:FirstParty">
+<owl:NamedIndividual rdf:about="#aeabbbf2ec6e4c30acdd999:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2729914762664769834aa97</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aeabbbf2ec6e4c30acdd999</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fe4589222ed24985b189e56:ThirdParty">
+<owl:NamedIndividual rdf:about="#5ad3530f810c4d50a58f7eb:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fe4589222ed24985b189e56</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5ad3530f810c4d50a58f7eb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#554ba8aed5bf4327ac2dda7:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#e9afa933878d43da9fc85b6:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">554ba8aed5bf4327ac2dda7</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e9afa933878d43da9fc85b6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We recognize that the loyalty of our customers depends upon our relationships with them and we strongly support the rights of customers to maintain privacy of personal data. Don't worry, at TGI Fridays, your personal information is safe.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a9b037963b554060945f51a:DataProtection">
+<owl:NamedIndividual rdf:about="#b02ce5f1032b4e4c9e59d6e:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <has_mechanism rdf:resource="#554ba8aed5bf4327ac2dda7:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a9b037963b554060945f51a</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <has_mechanism rdf:resource="#e9afa933878d43da9fc85b6:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b02ce5f1032b4e4c9e59d6e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">When you use our digital or mobile application certain information about your activity is collected We use this information to determine our users preferences to design initiatives to meet those preferences to eliminate hassles and to generally make your TGI Fridays experience more satisfying From time to time we may initiate a program service or survey that requests your name birthday email address city of residence ZIP code or information about what you like and do not like about TGI Fridays We recognize that the loyalty of our customers depends upon our relationships with them and we strongly support the rights of customers to maintain privacy of personal data Don t worry at TGI Fridays your personal information is safe</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4e2aa8b0751f41d08c7d949:SensitiveData">
+<owl:NamedIndividual rdf:about="#ce7a352e1dbf42fc9ee01be:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4e2aa8b0751f41d08c7d949</uuid>
+  <provided_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ce7a352e1dbf42fc9ee01be</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">survey</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#81eb00ae67d54e59a8d7c08:ViaServiceApp">
+<owl:NamedIndividual rdf:about="#bed1cdaa2fc147ed948acf7:ViaServiceApp">
   <rdf:type rdf:resource="#ViaServiceApp"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">81eb00ae67d54e59a8d7c08</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bed1cdaa2fc147ed948acf7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">When you use our digital or mobile application,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a80516302bed4d1aa711ab1:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#17c580df098e4e13b5e9812:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a80516302bed4d1aa711ab1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">17c580df098e4e13b5e9812</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a program, service or survey that requests</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6340ac387d9146c2ac8b192:FPCollection">
+<owl:NamedIndividual rdf:about="#d6bcb9c4fa38418cb708714:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <collects_from rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <has_mode rdf:resource="#a80516302bed4d1aa711ab1:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#81eb00ae67d54e59a8d7c08:ViaServiceApp"/>
-  <applies_to rdf:resource="#4e2aa8b0751f41d08c7d949:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6340ac387d9146c2ac8b192</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <collects_from rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <has_mode rdf:resource="#17c580df098e4e13b5e9812:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#bed1cdaa2fc147ed948acf7:ViaServiceApp"/>
+  <applies_to rdf:resource="#ce7a352e1dbf42fc9ee01be:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d6bcb9c4fa38418cb708714</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">When you use our digital or mobile application certain information about your activity is collected We use this information to determine our users preferences to design initiatives to meet those preferences to eliminate hassles and to generally make your TGI Fridays experience more satisfying From time to time we may initiate a program service or survey that requests your name birthday email address city of residence ZIP code or information about what you like and do not like about TGI Fridays We recognize that the loyalty of our customers depends upon our relationships with them and we strongly support the rights of customers to maintain privacy of personal data Don t worry at TGI Fridays your personal information is safe</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5a0dc957d30c4afeb9cdfd2:PersonalData">
+<owl:NamedIndividual rdf:about="#cb99f1ef46a049a09d14fde:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5a0dc957d30c4afeb9cdfd2</uuid>
+  <provided_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cb99f1ef46a049a09d14fde</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">name</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8199d1bd288247f09ff09f3:ViaServiceApp">
+<owl:NamedIndividual rdf:about="#a83ad91d6698457da869e71:ViaServiceApp">
   <rdf:type rdf:resource="#ViaServiceApp"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8199d1bd288247f09ff09f3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a83ad91d6698457da869e71</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">When you use our digital or mobile application,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c9ac639fd0c540809797eea:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#2710bd0e9811447590aec68:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c9ac639fd0c540809797eea</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2710bd0e9811447590aec68</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a program, service or survey that requests</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1dc48fa4afda4bb7837927e:FPCollection">
+<owl:NamedIndividual rdf:about="#59fe5476ae004de598530b5:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <collects_from rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <has_mode rdf:resource="#c9ac639fd0c540809797eea:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#8199d1bd288247f09ff09f3:ViaServiceApp"/>
-  <applies_to rdf:resource="#5a0dc957d30c4afeb9cdfd2:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1dc48fa4afda4bb7837927e</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <collects_from rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <has_mode rdf:resource="#2710bd0e9811447590aec68:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#a83ad91d6698457da869e71:ViaServiceApp"/>
+  <applies_to rdf:resource="#cb99f1ef46a049a09d14fde:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">59fe5476ae004de598530b5</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">When you use our digital or mobile application certain information about your activity is collected We use this information to determine our users preferences to design initiatives to meet those preferences to eliminate hassles and to generally make your TGI Fridays experience more satisfying From time to time we may initiate a program service or survey that requests your name birthday email address city of residence ZIP code or information about what you like and do not like about TGI Fridays We recognize that the loyalty of our customers depends upon our relationships with them and we strongly support the rights of customers to maintain privacy of personal data Don t worry at TGI Fridays your personal information is safe</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bb468f1375124662abc21e1:SensitiveData">
+<owl:NamedIndividual rdf:about="#3015bffbdd784207b731178:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bb468f1375124662abc21e1</uuid>
+  <provided_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3015bffbdd784207b731178</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">birthday,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#00107af72a844d739994991:ViaServiceApp">
+<owl:NamedIndividual rdf:about="#e113c23da3734abdae97e4c:ViaServiceApp">
   <rdf:type rdf:resource="#ViaServiceApp"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">00107af72a844d739994991</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e113c23da3734abdae97e4c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">When you use our digital or mobile application,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#eae60f11503e465697421aa:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#729041d1f256455cb301a63:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eae60f11503e465697421aa</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">729041d1f256455cb301a63</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a program, service or survey that requests</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7e6e9fd4421a4ea99a4fdbf:FPCollection">
+<owl:NamedIndividual rdf:about="#b521f1671d8a4cb29245e25:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <collects_from rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <has_mode rdf:resource="#eae60f11503e465697421aa:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#00107af72a844d739994991:ViaServiceApp"/>
-  <applies_to rdf:resource="#bb468f1375124662abc21e1:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7e6e9fd4421a4ea99a4fdbf</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <collects_from rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <has_mode rdf:resource="#729041d1f256455cb301a63:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#e113c23da3734abdae97e4c:ViaServiceApp"/>
+  <applies_to rdf:resource="#3015bffbdd784207b731178:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b521f1671d8a4cb29245e25</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">When you use our digital or mobile application certain information about your activity is collected We use this information to determine our users preferences to design initiatives to meet those preferences to eliminate hassles and to generally make your TGI Fridays experience more satisfying From time to time we may initiate a program service or survey that requests your name birthday email address city of residence ZIP code or information about what you like and do not like about TGI Fridays We recognize that the loyalty of our customers depends upon our relationships with them and we strongly support the rights of customers to maintain privacy of personal data Don t worry at TGI Fridays your personal information is safe</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#da582f71af5e4e4e8163495:TrackingData">
+<owl:NamedIndividual rdf:about="#db7cdb47e9324c9bb12850c:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">da582f71af5e4e4e8163495</uuid>
+  <provided_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">db7cdb47e9324c9bb12850c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">city of residence, ZIP code</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#00a428685f3e426a8c4a534:ViaServiceApp">
+<owl:NamedIndividual rdf:about="#c8553e86abdf406d86d25eb:ViaServiceApp">
   <rdf:type rdf:resource="#ViaServiceApp"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">00a428685f3e426a8c4a534</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c8553e86abdf406d86d25eb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">When you use our digital or mobile application,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#96ab768f09074c519153ad9:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#b6a097cd032a47088f76c3c:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">96ab768f09074c519153ad9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b6a097cd032a47088f76c3c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a program, service or survey that requests</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5b99654ba71649b1b1a0540:FPCollection">
+<owl:NamedIndividual rdf:about="#d496e098952c48fe8b23f61:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <collects_from rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <has_mode rdf:resource="#96ab768f09074c519153ad9:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#00a428685f3e426a8c4a534:ViaServiceApp"/>
-  <applies_to rdf:resource="#da582f71af5e4e4e8163495:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5b99654ba71649b1b1a0540</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <collects_from rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <has_mode rdf:resource="#b6a097cd032a47088f76c3c:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#c8553e86abdf406d86d25eb:ViaServiceApp"/>
+  <applies_to rdf:resource="#db7cdb47e9324c9bb12850c:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d496e098952c48fe8b23f61</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">When you use our digital or mobile application certain information about your activity is collected We use this information to determine our users preferences to design initiatives to meet those preferences to eliminate hassles and to generally make your TGI Fridays experience more satisfying From time to time we may initiate a program service or survey that requests your name birthday email address city of residence ZIP code or information about what you like and do not like about TGI Fridays We recognize that the loyalty of our customers depends upon our relationships with them and we strongly support the rights of customers to maintain privacy of personal data Don t worry at TGI Fridays your personal information is safe</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a6912ed4ac74422ea752f00:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#2aeec1951c7c45b79c3e011:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a6912ed4ac74422ea752f00</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2aeec1951c7c45b79c3e011</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">When you log in to our mobile application, you will be asked whether you want the mobile application to remember you. If you choose yes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2c5e8e3345f34c2c9be6d9c:Data">
+<owl:NamedIndividual rdf:about="#cc49f60898784a02b593907:Data">
   <rdf:type rdf:resource="#Data"/>
-  <provided_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2c5e8e3345f34c2c9be6d9c</uuid>
+  <provided_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cc49f60898784a02b593907</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">log in</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#42e32a3e00a049c2accd057:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#16f8ade67a14407d904a705:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <has_mechanism rdf:resource="#a6912ed4ac74422ea752f00:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#2c5e8e3345f34c2c9be6d9c:Data"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">42e32a3e00a049c2accd057</uuid>
+  <initiated_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <has_mechanism rdf:resource="#2aeec1951c7c45b79c3e011:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#cc49f60898784a02b593907:Data"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">16f8ade67a14407d904a705</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LOGGING IN TO MOBILE APPLICATION When you log in to our mobile application you will be asked whether you want the mobile application to remember you If you choose yes the mobile application will remain logged in to your information At any time you can choose to log out by choosing the logout button on the application</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#71515ebd7427481e940d598:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#212d256bbf194730a0a876b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">71515ebd7427481e940d598</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">212d256bbf194730a0a876b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">When you log in to our mobile application, you will be asked whether you want the mobile application to remember you. If you choose yes, the mobile application will remain logged in to your information. At any time you can choose to log out by choosing the logout button on the application.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#76a5be2176c74e72946d289:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#fe35030e70474a3f853f54b:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <has_mechanism rdf:resource="#71515ebd7427481e940d598:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">76a5be2176c74e72946d289</uuid>
+  <initiated_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <has_mechanism rdf:resource="#212d256bbf194730a0a876b:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fe35030e70474a3f853f54b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LOGGING IN TO MOBILE APPLICATION When you log in to our mobile application you will be asked whether you want the mobile application to remember you If you choose yes the mobile application will remain logged in to your information At any time you can choose to log out by choosing the logout button on the application</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#97e535ced3c041ed98da4b3:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#f6d97e6d874541e0b4b0a34:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">97e535ced3c041ed98da4b3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f6d97e6d874541e0b4b0a34</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OUR COMMITMENTS TO YOUR FAMILY Like you we have children of our own and are concerned about their safety when they use the Internet We want you and your family to be safe while visiting our website That is why consistent with the Federal Children s Online Privacy Protection Act of 1998 COPPA we do not offer program participation to minors and will never knowingly request information from children For more information about protecting the privacy and safety of minors online we recommend you visit http //www ftc gov/privacy/privacyinitiatives/childrens html</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6274faa20b384cffb53730f:GenericData">
+<owl:NamedIndividual rdf:about="#63af190848ea4eaa8f970d9:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6274faa20b384cffb53730f</uuid>
+  <provided_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">63af190848ea4eaa8f970d9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you will be asked to submit personal information,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b78541bf8bc34115b56d735:ViaWebsite">
+<owl:NamedIndividual rdf:about="#80799c9a2d2d4ad5aa844bc:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b78541bf8bc34115b56d735</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">80799c9a2d2d4ad5aa844bc</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Our website provides a direct link (among others) to the TGI Fridays Give Me More Stripes Guest Recognition Program site ( www.givememorestripes.com) where, should you choose to enroll, you will be asked to submit personal information, which will be subject to the Give Me More Stripes terms and conditions, separate privacy policy and other policies.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3e3ffb6ab8304d50811b7d1:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#503678d5cfa84ea08499f3b:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3e3ffb6ab8304d50811b7d1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">503678d5cfa84ea08499f3b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">where, should you choose to enroll, you will be asked to submit personal information,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#050266a513b84c75aee2089:FPCollection">
+<owl:NamedIndividual rdf:about="#880f4c0eb58e4273bb8c37a:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <collects_from rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <has_mode rdf:resource="#3e3ffb6ab8304d50811b7d1:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#b78541bf8bc34115b56d735:ViaWebsite"/>
-  <applies_to rdf:resource="#6274faa20b384cffb53730f:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">050266a513b84c75aee2089</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <collects_from rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <has_mode rdf:resource="#503678d5cfa84ea08499f3b:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#80799c9a2d2d4ad5aa844bc:ViaWebsite"/>
+  <applies_to rdf:resource="#63af190848ea4eaa8f970d9:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">880f4c0eb58e4273bb8c37a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WHAT INFORMATION DO WE COLLECT? We collect information in several different ways We collect the domain name of visitors to our web pages user-specific information on the pages visitors access and information such as survey information or other information that you provide voluntarily Like many other commercial websites our website may employ a standard technology called a cookie to collect information about how our site is used Our website provides a direct link among others to the TGI Fridays Give Me More Stripes Guest Recognition Program site www givememorestripes com where should you choose to enroll you will be asked to submit personal information which will be subject to the Give Me More Stripes terms and conditions separate privacy policy and other policies Our mobile application also allows enrollment in the Give Me More Stripes program by providing the same information In addition we may from time to time provide direct links to news or promotional sites featuring articles about TGI Fridays which would be subject to those sites policies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c5ee9eba5c5f46518cec970:GenericData">
+<owl:NamedIndividual rdf:about="#fde616746f3d40e58995867:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c5ee9eba5c5f46518cec970</uuid>
+  <provided_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fde616746f3d40e58995867</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you will be asked to submit personal information,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3376784f9c104ed18bb67fa:ViaServiceApp">
+<owl:NamedIndividual rdf:about="#a36ba40eb16e4990bf1ef8a:ViaServiceApp">
   <rdf:type rdf:resource="#ViaServiceApp"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3376784f9c104ed18bb67fa</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a36ba40eb16e4990bf1ef8a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Our mobile application also allows enrollment in the Give Me More Stripes program by providing the same information.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9bd834e0e27f4b08826bdf4:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#6a0dbc5a897b4e48bdbcbfb:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9bd834e0e27f4b08826bdf4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6a0dbc5a897b4e48bdbcbfb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">where, should you choose to enroll, you will be asked to submit personal information,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d8537cc208be4915b5c63f1:FPCollection">
+<owl:NamedIndividual rdf:about="#48ace8d78aa64f708ccbd6e:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <collects_from rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <has_mode rdf:resource="#9bd834e0e27f4b08826bdf4:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#3376784f9c104ed18bb67fa:ViaServiceApp"/>
-  <applies_to rdf:resource="#c5ee9eba5c5f46518cec970:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d8537cc208be4915b5c63f1</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <collects_from rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <has_mode rdf:resource="#6a0dbc5a897b4e48bdbcbfb:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#a36ba40eb16e4990bf1ef8a:ViaServiceApp"/>
+  <applies_to rdf:resource="#fde616746f3d40e58995867:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">48ace8d78aa64f708ccbd6e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WHAT INFORMATION DO WE COLLECT? We collect information in several different ways We collect the domain name of visitors to our web pages user-specific information on the pages visitors access and information such as survey information or other information that you provide voluntarily Like many other commercial websites our website may employ a standard technology called a cookie to collect information about how our site is used Our website provides a direct link among others to the TGI Fridays Give Me More Stripes Guest Recognition Program site www givememorestripes com where should you choose to enroll you will be asked to submit personal information which will be subject to the Give Me More Stripes terms and conditions separate privacy policy and other policies Our mobile application also allows enrollment in the Give Me More Stripes program by providing the same information In addition we may from time to time provide direct links to news or promotional sites featuring articles about TGI Fridays which would be subject to those sites policies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#20fc954b9e914fbfa08a797:ViaWebsite">
+<owl:NamedIndividual rdf:about="#205e503744f34b278b218ae:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">20fc954b9e914fbfa08a797</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">205e503744f34b278b218ae</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">web pages</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b516c0c68a1d4cefbac8487:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#4219a5387baf49e48fc9cc3:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b516c0c68a1d4cefbac8487</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4219a5387baf49e48fc9cc3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you provide</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9315b573c3804d1ab0c149d:FPCollection">
+<owl:NamedIndividual rdf:about="#32ab31f3de3c4bacbbe487f:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <collects_from rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <has_mode rdf:resource="#b516c0c68a1d4cefbac8487:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#20fc954b9e914fbfa08a797:ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9315b573c3804d1ab0c149d</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <collects_from rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <has_mode rdf:resource="#4219a5387baf49e48fc9cc3:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#205e503744f34b278b218ae:ViaWebsite"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">32ab31f3de3c4bacbbe487f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WHAT INFORMATION DO WE COLLECT? We collect information in several different ways We collect the domain name of visitors to our web pages user-specific information on the pages visitors access and information such as survey information or other information that you provide voluntarily Like many other commercial websites our website may employ a standard technology called a cookie to collect information about how our site is used Our website provides a direct link among others to the TGI Fridays Give Me More Stripes Guest Recognition Program site www givememorestripes com where should you choose to enroll you will be asked to submit personal information which will be subject to the Give Me More Stripes terms and conditions separate privacy policy and other policies Our mobile application also allows enrollment in the Give Me More Stripes program by providing the same information In addition we may from time to time provide direct links to news or promotional sites featuring articles about TGI Fridays which would be subject to those sites policies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dcfcfde9c0a84b9ebe662b7:SensitiveData">
+<owl:NamedIndividual rdf:about="#900aacdd35e7461d916c2ce:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dcfcfde9c0a84b9ebe662b7</uuid>
+  <provided_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">900aacdd35e7461d916c2ce</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">survey information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#096e9f0467b040f282a0f1c:ViaWebsite">
+<owl:NamedIndividual rdf:about="#aa1c1213f46c4914947287e:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">096e9f0467b040f282a0f1c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aa1c1213f46c4914947287e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">web pages</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ccfcac4a154d47f98ac7ecd:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#a465bccbc1cc49798bdc97a:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ccfcac4a154d47f98ac7ecd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a465bccbc1cc49798bdc97a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you provide</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#811391fe4cf24b0e9e985c6:FPCollection">
+<owl:NamedIndividual rdf:about="#b2c3b20cfcdf4cffb1fc677:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <collects_from rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <has_mode rdf:resource="#ccfcac4a154d47f98ac7ecd:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#096e9f0467b040f282a0f1c:ViaWebsite"/>
-  <applies_to rdf:resource="#dcfcfde9c0a84b9ebe662b7:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">811391fe4cf24b0e9e985c6</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <collects_from rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <has_mode rdf:resource="#a465bccbc1cc49798bdc97a:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#aa1c1213f46c4914947287e:ViaWebsite"/>
+  <applies_to rdf:resource="#900aacdd35e7461d916c2ce:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b2c3b20cfcdf4cffb1fc677</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WHAT INFORMATION DO WE COLLECT? We collect information in several different ways We collect the domain name of visitors to our web pages user-specific information on the pages visitors access and information such as survey information or other information that you provide voluntarily Like many other commercial websites our website may employ a standard technology called a cookie to collect information about how our site is used Our website provides a direct link among others to the TGI Fridays Give Me More Stripes Guest Recognition Program site www givememorestripes com where should you choose to enroll you will be asked to submit personal information which will be subject to the Give Me More Stripes terms and conditions separate privacy policy and other policies Our mobile application also allows enrollment in the Give Me More Stripes program by providing the same information In addition we may from time to time provide direct links to news or promotional sites featuring articles about TGI Fridays which would be subject to those sites policies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8630111dffa640b6b151bf5:GenericData">
+<owl:NamedIndividual rdf:about="#c0abdc2ae28c4e96a3a68c6:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8630111dffa640b6b151bf5</uuid>
+  <provided_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c0abdc2ae28c4e96a3a68c6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personal information,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d0b9d0266100488fad550c4:ViaWebsite">
+<owl:NamedIndividual rdf:about="#ee8e13c4d3ef4b8cb972c0b:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d0b9d0266100488fad550c4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ee8e13c4d3ef4b8cb972c0b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Our website provides a direct link (among others) to the TGI Fridays Give Me More Stripes Guest Recognition Program site ( www.givememorestripes.com) where,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4062c82adcda4818833483b:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#5b1478b0ba014dd29f6356f:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4062c82adcda4818833483b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5b1478b0ba014dd29f6356f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you will be asked</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4c1d90e7861045ac9a93295:FPCollection">
+<owl:NamedIndividual rdf:about="#741c8827280449d6bb64f02:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <collects_from rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <has_mode rdf:resource="#4062c82adcda4818833483b:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#d0b9d0266100488fad550c4:ViaWebsite"/>
-  <applies_to rdf:resource="#8630111dffa640b6b151bf5:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4c1d90e7861045ac9a93295</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <collects_from rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <has_mode rdf:resource="#5b1478b0ba014dd29f6356f:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#ee8e13c4d3ef4b8cb972c0b:ViaWebsite"/>
+  <applies_to rdf:resource="#c0abdc2ae28c4e96a3a68c6:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">741c8827280449d6bb64f02</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WHAT INFORMATION DO WE COLLECT? We collect information in several different ways We collect the domain name of visitors to our web pages user-specific information on the pages visitors access and information such as survey information or other information that you provide voluntarily Like many other commercial websites our website may employ a standard technology called a cookie to collect information about how our site is used Our website provides a direct link among others to the TGI Fridays Give Me More Stripes Guest Recognition Program site www givememorestripes com where should you choose to enroll you will be asked to submit personal information which will be subject to the Give Me More Stripes terms and conditions separate privacy policy and other policies Our mobile application also allows enrollment in the Give Me More Stripes program by providing the same information In addition we may from time to time provide direct links to news or promotional sites featuring articles about TGI Fridays which would be subject to those sites policies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cde2d76bd0ac4290b8576c8:GenericData">
+<owl:NamedIndividual rdf:about="#51a373679a5b437e899d994:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cde2d76bd0ac4290b8576c8</uuid>
+  <provided_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">51a373679a5b437e899d994</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personal information,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#21b2a95614254876bd91fe0:ViaServiceApp">
+<owl:NamedIndividual rdf:about="#ed7b06a08c334e63b49d457:ViaServiceApp">
   <rdf:type rdf:resource="#ViaServiceApp"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">21b2a95614254876bd91fe0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ed7b06a08c334e63b49d457</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Our mobile application also allows enrollment in the Give Me More Stripes program by providing the same information.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#768338ccec0f4233a65b7d9:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#89129da45c3541128daeeb3:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">768338ccec0f4233a65b7d9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">89129da45c3541128daeeb3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you will be asked</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#654601fa7b994116802c479:FPCollection">
+<owl:NamedIndividual rdf:about="#ead27542c95144a7ad6f775:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <collects_from rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <has_mode rdf:resource="#768338ccec0f4233a65b7d9:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#21b2a95614254876bd91fe0:ViaServiceApp"/>
-  <applies_to rdf:resource="#cde2d76bd0ac4290b8576c8:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">654601fa7b994116802c479</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <collects_from rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <has_mode rdf:resource="#89129da45c3541128daeeb3:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#ed7b06a08c334e63b49d457:ViaServiceApp"/>
+  <applies_to rdf:resource="#51a373679a5b437e899d994:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ead27542c95144a7ad6f775</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WHAT INFORMATION DO WE COLLECT? We collect information in several different ways We collect the domain name of visitors to our web pages user-specific information on the pages visitors access and information such as survey information or other information that you provide voluntarily Like many other commercial websites our website may employ a standard technology called a cookie to collect information about how our site is used Our website provides a direct link among others to the TGI Fridays Give Me More Stripes Guest Recognition Program site www givememorestripes com where should you choose to enroll you will be asked to submit personal information which will be subject to the Give Me More Stripes terms and conditions separate privacy policy and other policies Our mobile application also allows enrollment in the Give Me More Stripes program by providing the same information In addition we may from time to time provide direct links to news or promotional sites featuring articles about TGI Fridays which would be subject to those sites policies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c63e0be03f63458ab28c795:SensitiveData">
+<owl:NamedIndividual rdf:about="#f16c0b3523fc417db9bc6fa:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c63e0be03f63458ab28c795</uuid>
+  <provided_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f16c0b3523fc417db9bc6fa</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">surveys</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9f85924a3d4741de995a4a8:AnalyticsPurpose">
+<owl:NamedIndividual rdf:about="#a2d5530a8d8b48c19747f45:AnalyticsPurpose">
   <rdf:type rdf:resource="#AnalyticsPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9f85924a3d4741de995a4a8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a2d5530a8d8b48c19747f45</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to understand your preferences and history using our website, mobile application and related services. With this information we make it easier and more rewarding for you to use our website, mobile application, any related services, and enjoy your guest experience at our restaurants (in the case of voluntary surveys).</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#26974b85baff4fa2873df3f:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#7a43bbeda1a04c57baa2392:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">26974b85baff4fa2873df3f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7a43bbeda1a04c57baa2392</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">voluntary surveys).</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cf729cd3ffe94a04b74ffda:FPCollection">
+<owl:NamedIndividual rdf:about="#551df274ebaa426ba92633a:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <collects_from rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <has_purpose rdf:resource="#9f85924a3d4741de995a4a8:AnalyticsPurpose"/>
-  <has_mode rdf:resource="#26974b85baff4fa2873df3f:TransmissionByRequest"/>
-  <applies_to rdf:resource="#c63e0be03f63458ab28c795:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cf729cd3ffe94a04b74ffda</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <collects_from rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <has_purpose rdf:resource="#a2d5530a8d8b48c19747f45:AnalyticsPurpose"/>
+  <has_mode rdf:resource="#7a43bbeda1a04c57baa2392:TransmissionByRequest"/>
+  <applies_to rdf:resource="#f16c0b3523fc417db9bc6fa:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">551df274ebaa426ba92633a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HOW THE INFORMATION IS USED We use the information that we collect to understand your preferences and history using our website mobile application and related services With this information we make it easier and more rewarding for you to use our website mobile application any related services and enjoy your guest experience at our restaurants in the case of voluntary surveys</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6692d028871f4d97876d82d:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#5bd799edfebc452caa0fa78:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6692d028871f4d97876d82d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5bd799edfebc452caa0fa78</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">It is our policy to never send messages to website users unless they request that we do so.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#190125ff5fd846e1ac6cdff:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#aadfe1ce8dd74f17960b58a:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <has_mechanism rdf:resource="#6692d028871f4d97876d82d:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">190125ff5fd846e1ac6cdff</uuid>
+  <initiated_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <has_mechanism rdf:resource="#5bd799edfebc452caa0fa78:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aadfe1ce8dd74f17960b58a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">It is our policy to never send messages to website users unless they request that we do so</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b1a1e00b4eac4e35872e1bd:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#43289c45047149488591522:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b1a1e00b4eac4e35872e1bd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">43289c45047149488591522</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">It is our policy to never send messages to website users unless they request that we do so.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cec04447f88047d29a826f9:PersonalData">
+<owl:NamedIndividual rdf:about="#92dbf2a647fb4511bce58ef:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cec04447f88047d29a826f9</uuid>
+  <provided_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">92dbf2a647fb4511bce58ef</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">send messages to website users</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5f62efe448524cba9baba34:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#c4c2d65fffaf4d97b83aa0b:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <has_mechanism rdf:resource="#b1a1e00b4eac4e35872e1bd:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#cec04447f88047d29a826f9:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5f62efe448524cba9baba34</uuid>
+  <initiated_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <has_mechanism rdf:resource="#43289c45047149488591522:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#92dbf2a647fb4511bce58ef:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c4c2d65fffaf4d97b83aa0b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">It is our policy to never send messages to website users unless they request that we do so</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#43f3b7070ac74ad19472357:PersonalData">
+<owl:NamedIndividual rdf:about="#ab8d549f9ccf48e6ac2c1e0:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">43f3b7070ac74ad19472357</uuid>
+  <provided_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ab8d549f9ccf48e6ac2c1e0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">messages</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#73cb5c9606e342bfa890c9f:DataUse">
+<owl:NamedIndividual rdf:about="#97dd46c34af2498b9344dd3:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <applies_to rdf:resource="#43f3b7070ac74ad19472357:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">73cb5c9606e342bfa890c9f</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <applies_to rdf:resource="#ab8d549f9ccf48e6ac2c1e0:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">97dd46c34af2498b9344dd3</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">It is our policy to never send messages to website users unless they request that we do so</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ee130ef4fef44c5daa97dab:SecurityPurpose">
+<owl:NamedIndividual rdf:about="#b54ff02fcb194e82955a52a:SecurityPurpose">
   <rdf:type rdf:resource="#SecurityPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ee130ef4fef44c5daa97dab</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b54ff02fcb194e82955a52a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">administer those websites or mobile application and the services they provide</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fc8482577d874c6a88afb99:TPCollection">
+<owl:NamedIndividual rdf:about="#eb7187425af14bde9a749da:TPCollection">
   <rdf:type rdf:resource="#TPCollection"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <collects_from rdf:resource="#fe4589222ed24985b189e56:ThirdParty"/>
-  <has_purpose rdf:resource="#ee130ef4fef44c5daa97dab:SecurityPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fc8482577d874c6a88afb99</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <collects_from rdf:resource="#5ad3530f810c4d50a58f7eb:ThirdParty"/>
+  <has_purpose rdf:resource="#b54ff02fcb194e82955a52a:SecurityPurpose"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eb7187425af14bde9a749da</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WHO HAS ACCESS TO YOUR PERSONAL INFORMATION The information that you provide is collected by TGI Fridays In the case of links to our gift card and guest recognition sites the information you voluntarily provide at those sites will only be shared with those service vendors who help TGI Fridays administer those websites or mobile application and the services they provide In any case TGI Fridays is the lawful owner of the information and each of these vendors may use the information only for the purpose of administering the digital or mobile application and its services for TGI Fridays and will take all necessary precautions to protect the information Ownership of any information you provide us will be held solely by TGI Fridays We will not sell ownership of this data to any other company or organization</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d00ca00933a9489286698bb:TPSharing">
+<owl:NamedIndividual rdf:about="#163e8d0e78db430d9ae6a03:TPSharing">
   <rdf:type rdf:resource="#TPSharing"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <shares_with rdf:resource="#fe4589222ed24985b189e56:ThirdParty"/>
-  <has_purpose rdf:resource="#ee130ef4fef44c5daa97dab:SecurityPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d00ca00933a9489286698bb</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <shares_with rdf:resource="#5ad3530f810c4d50a58f7eb:ThirdParty"/>
+  <has_purpose rdf:resource="#b54ff02fcb194e82955a52a:SecurityPurpose"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">163e8d0e78db430d9ae6a03</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WHO HAS ACCESS TO YOUR PERSONAL INFORMATION The information that you provide is collected by TGI Fridays In the case of links to our gift card and guest recognition sites the information you voluntarily provide at those sites will only be shared with those service vendors who help TGI Fridays administer those websites or mobile application and the services they provide In any case TGI Fridays is the lawful owner of the information and each of these vendors may use the information only for the purpose of administering the digital or mobile application and its services for TGI Fridays and will take all necessary precautions to protect the information Ownership of any information you provide us will be held solely by TGI Fridays We will not sell ownership of this data to any other company or organization</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#243cf1184c504f1fb5a917a:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#fe2c2865abbc4e17ae7ddac:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">243cf1184c504f1fb5a917a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fe2c2865abbc4e17ae7ddac</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">In the case of links to our gift card and guest recognition sites,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f3bc4ba1ab654f9aa425cd4:TPCollection">
+<owl:NamedIndividual rdf:about="#85630c6ed9af4db582b2384:TPCollection">
   <rdf:type rdf:resource="#TPCollection"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <collects_from rdf:resource="#fe4589222ed24985b189e56:ThirdParty"/>
-  <has_purpose rdf:resource="#243cf1184c504f1fb5a917a:ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f3bc4ba1ab654f9aa425cd4</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <collects_from rdf:resource="#5ad3530f810c4d50a58f7eb:ThirdParty"/>
+  <has_purpose rdf:resource="#fe2c2865abbc4e17ae7ddac:ServiceProvisionPurpose"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">85630c6ed9af4db582b2384</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WHO HAS ACCESS TO YOUR PERSONAL INFORMATION The information that you provide is collected by TGI Fridays In the case of links to our gift card and guest recognition sites the information you voluntarily provide at those sites will only be shared with those service vendors who help TGI Fridays administer those websites or mobile application and the services they provide In any case TGI Fridays is the lawful owner of the information and each of these vendors may use the information only for the purpose of administering the digital or mobile application and its services for TGI Fridays and will take all necessary precautions to protect the information Ownership of any information you provide us will be held solely by TGI Fridays We will not sell ownership of this data to any other company or organization</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6c84b8d4c5f940bc83edae2:AccessControls">
+<owl:NamedIndividual rdf:about="#f0cbcb2c271346cb8cf8a44:AccessControls">
   <rdf:type rdf:resource="#AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6c84b8d4c5f940bc83edae2</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f0cbcb2c271346cb8cf8a44</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">each of these vendors may use the information only for the purpose of administering the digital or mobile application and its services for TGI Fridays,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7e0a05a50b1c44d8a642565:DataProtection">
+<owl:NamedIndividual rdf:about="#51755cb7aa2949db9f64592:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <has_mechanism rdf:resource="#6c84b8d4c5f940bc83edae2:AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7e0a05a50b1c44d8a642565</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <has_mechanism rdf:resource="#f0cbcb2c271346cb8cf8a44:AccessControls"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">51755cb7aa2949db9f64592</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WHO HAS ACCESS TO YOUR PERSONAL INFORMATION The information that you provide is collected by TGI Fridays In the case of links to our gift card and guest recognition sites the information you voluntarily provide at those sites will only be shared with those service vendors who help TGI Fridays administer those websites or mobile application and the services they provide In any case TGI Fridays is the lawful owner of the information and each of these vendors may use the information only for the purpose of administering the digital or mobile application and its services for TGI Fridays and will take all necessary precautions to protect the information Ownership of any information you provide us will be held solely by TGI Fridays We will not sell ownership of this data to any other company or organization</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#06207994eabd4cfda25af40:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#37a32995101e4df49489c52:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">06207994eabd4cfda25af40</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">37a32995101e4df49489c52</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">will take all necessary precautions to protect the information.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#25c80c0c059d449da4301f9:DataProtection">
+<owl:NamedIndividual rdf:about="#89c77b6447b44a18a729233:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <has_mechanism rdf:resource="#06207994eabd4cfda25af40:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">25c80c0c059d449da4301f9</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <has_mechanism rdf:resource="#37a32995101e4df49489c52:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">89c77b6447b44a18a729233</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WHO HAS ACCESS TO YOUR PERSONAL INFORMATION The information that you provide is collected by TGI Fridays In the case of links to our gift card and guest recognition sites the information you voluntarily provide at those sites will only be shared with those service vendors who help TGI Fridays administer those websites or mobile application and the services they provide In any case TGI Fridays is the lawful owner of the information and each of these vendors may use the information only for the purpose of administering the digital or mobile application and its services for TGI Fridays and will take all necessary precautions to protect the information Ownership of any information you provide us will be held solely by TGI Fridays We will not sell ownership of this data to any other company or organization</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0337279997464286be244cf:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#b6e521a7670047b6ae9f739:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0337279997464286be244cf</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b6e521a7670047b6ae9f739</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you provide</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#41198cd3c1be491096931f6:FPCollection">
+<owl:NamedIndividual rdf:about="#8aa3d182c3d742d1a9f0864:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <collects_from rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <has_mode rdf:resource="#0337279997464286be244cf:TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">41198cd3c1be491096931f6</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <collects_from rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <has_mode rdf:resource="#b6e521a7670047b6ae9f739:TransmissionByRequest"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8aa3d182c3d742d1a9f0864</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WHO HAS ACCESS TO YOUR PERSONAL INFORMATION The information that you provide is collected by TGI Fridays In the case of links to our gift card and guest recognition sites the information you voluntarily provide at those sites will only be shared with those service vendors who help TGI Fridays administer those websites or mobile application and the services they provide In any case TGI Fridays is the lawful owner of the information and each of these vendors may use the information only for the purpose of administering the digital or mobile application and its services for TGI Fridays and will take all necessary precautions to protect the information Ownership of any information you provide us will be held solely by TGI Fridays We will not sell ownership of this data to any other company or organization</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3b7331d2c5c24f42830896c:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#73fc5bfea50045b3a5e932f:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3b7331d2c5c24f42830896c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">73fc5bfea50045b3a5e932f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">At TGI Fridays, your personal information is safe.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#39be8c487e90423582eddbc:DataProtection">
+<owl:NamedIndividual rdf:about="#854de13c11b54da1bd44855:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <has_mechanism rdf:resource="#3b7331d2c5c24f42830896c:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">39be8c487e90423582eddbc</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <has_mechanism rdf:resource="#73fc5bfea50045b3a5e932f:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">854de13c11b54da1bd44855</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We will not transfer information to competitors Your information will always be used only to help us ensure that our website mobile application and any related services meet your expectations At TGI Fridays your personal information is safe We don t sell or lend your information to anyone and only share information with the parties described above</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7d56e2757abf448badefa2b:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#72b6961857b64b5aa2d557e:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7d56e2757abf448badefa2b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">72b6961857b64b5aa2d557e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">"unsubscribe"</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7860ca1e8f56468f908f2a5:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#ebf8d346e7c24d3e830d516:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <has_mechanism rdf:resource="#7d56e2757abf448badefa2b:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7860ca1e8f56468f908f2a5</uuid>
+  <initiated_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <has_mechanism rdf:resource="#72b6961857b64b5aa2d557e:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ebf8d346e7c24d3e830d516</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">From time to time TGI Fridays may engage in certain promotions and giveaways on its website As part of registering for those giveaways you may be asked whether you d like to receive notifications via text message If you agree to those communications you may receive text messages regarding that promotion or giveaway This messaging may be subject to text message and data rates If you have opted in to receive email communications from TGI Fridays and are NOT a Give Me More Stripes member and wish to no longer receive those emails you can click unsubscribe on any of those email messages or Contact Us at http //www tgifridays com/contact</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#89cb4a5caa09481c9d034af:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#cac8f6c0323746a790690ed:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">89cb4a5caa09481c9d034af</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cac8f6c0323746a790690ed</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Contact Us at http://www.tgifridays.com/contact.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#70ec28488b8643199115f25:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#186842ef5c7947db8190d8f:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <has_mechanism rdf:resource="#89cb4a5caa09481c9d034af:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">70ec28488b8643199115f25</uuid>
+  <initiated_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <has_mechanism rdf:resource="#cac8f6c0323746a790690ed:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">186842ef5c7947db8190d8f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">From time to time TGI Fridays may engage in certain promotions and giveaways on its website As part of registering for those giveaways you may be asked whether you d like to receive notifications via text message If you agree to those communications you may receive text messages regarding that promotion or giveaway This messaging may be subject to text message and data rates If you have opted in to receive email communications from TGI Fridays and are NOT a Give Me More Stripes member and wish to no longer receive those emails you can click unsubscribe on any of those email messages or Contact Us at http //www tgifridays com/contact</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a34e8612590747a28af8901:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#e1db962cbc2944efa61aba1:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a34e8612590747a28af8901</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e1db962cbc2944efa61aba1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you have opted in to receive email communications from TGI Fridays (and are NOT a Give Me More Stripes member) and wish to no longer receive those emails, you can click "unsubscribe" on any of those email messages,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1339ac02e8b848be944bcbd:PersonalData">
+<owl:NamedIndividual rdf:about="#4c137033309c4263a4966bc:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1339ac02e8b848be944bcbd</uuid>
+  <provided_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4c137033309c4263a4966bc</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email communications</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#450118e7c0a04ea699e98fd:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#423542af6bfe486298e9854:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <has_mechanism rdf:resource="#a34e8612590747a28af8901:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#1339ac02e8b848be944bcbd:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">450118e7c0a04ea699e98fd</uuid>
+  <initiated_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <has_mechanism rdf:resource="#e1db962cbc2944efa61aba1:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#4c137033309c4263a4966bc:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">423542af6bfe486298e9854</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">From time to time TGI Fridays may engage in certain promotions and giveaways on its website As part of registering for those giveaways you may be asked whether you d like to receive notifications via text message If you agree to those communications you may receive text messages regarding that promotion or giveaway This messaging may be subject to text message and data rates If you have opted in to receive email communications from TGI Fridays and are NOT a Give Me More Stripes member and wish to no longer receive those emails you can click unsubscribe on any of those email messages or Contact Us at http //www tgifridays com/contact</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2341a900ca0b401a83fcab8:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#e2c7772ff659426fbf0c5cf:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2341a900ca0b401a83fcab8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e2c7772ff659426fbf0c5cf</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">or Contact Us at http://www.tgifridays.com/contact.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#378a8287907a4e7aaaebcb0:PersonalData">
+<owl:NamedIndividual rdf:about="#76810b40d86140c8999fc0c:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">378a8287907a4e7aaaebcb0</uuid>
+  <provided_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">76810b40d86140c8999fc0c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email communications</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f46ccbe74eaa4e0d9e8c7d5:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#a4d673cd2a8c43d0bb68707:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <has_mechanism rdf:resource="#2341a900ca0b401a83fcab8:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#378a8287907a4e7aaaebcb0:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f46ccbe74eaa4e0d9e8c7d5</uuid>
+  <initiated_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <has_mechanism rdf:resource="#e2c7772ff659426fbf0c5cf:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#76810b40d86140c8999fc0c:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a4d673cd2a8c43d0bb68707</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">From time to time TGI Fridays may engage in certain promotions and giveaways on its website As part of registering for those giveaways you may be asked whether you d like to receive notifications via text message If you agree to those communications you may receive text messages regarding that promotion or giveaway This messaging may be subject to text message and data rates If you have opted in to receive email communications from TGI Fridays and are NOT a Give Me More Stripes member and wish to no longer receive those emails you can click unsubscribe on any of those email messages or Contact Us at http //www tgifridays com/contact</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b2d0465aa90d4f3d8d67afa:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#e4acdf0a065e4d718ce3a71:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b2d0465aa90d4f3d8d67afa</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e4acdf0a065e4d718ce3a71</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you can click "unsubscribe" on any of those email messages,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#66a8ee31379641b89518cf1:PersonalData">
+<owl:NamedIndividual rdf:about="#93a82ea546e04f1894b650c:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">66a8ee31379641b89518cf1</uuid>
+  <provided_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">93a82ea546e04f1894b650c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email communications</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#15e647e834874918b979ca2:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#ce6fe87ac76d41dda5d3d48:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <has_mechanism rdf:resource="#b2d0465aa90d4f3d8d67afa:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#66a8ee31379641b89518cf1:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">15e647e834874918b979ca2</uuid>
+  <initiated_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <has_mechanism rdf:resource="#e4acdf0a065e4d718ce3a71:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#93a82ea546e04f1894b650c:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ce6fe87ac76d41dda5d3d48</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">From time to time TGI Fridays may engage in certain promotions and giveaways on its website As part of registering for those giveaways you may be asked whether you d like to receive notifications via text message If you agree to those communications you may receive text messages regarding that promotion or giveaway This messaging may be subject to text message and data rates If you have opted in to receive email communications from TGI Fridays and are NOT a Give Me More Stripes member and wish to no longer receive those emails you can click unsubscribe on any of those email messages or Contact Us at http //www tgifridays com/contact</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7c5b408144414ef884b10df:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#cd147dbc34a24050a9c0c5b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7c5b408144414ef884b10df</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cd147dbc34a24050a9c0c5b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Contact Us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3d56681e244e4fc4aad5128:PersonalData">
+<owl:NamedIndividual rdf:about="#1691cc48925e44f6b3f78c8:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3d56681e244e4fc4aad5128</uuid>
+  <provided_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1691cc48925e44f6b3f78c8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email communications</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ff7f3d0f6aec43eb90afdfb:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#5833c896d0cd4a8394332ee:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <has_mechanism rdf:resource="#7c5b408144414ef884b10df:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#3d56681e244e4fc4aad5128:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ff7f3d0f6aec43eb90afdfb</uuid>
+  <initiated_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <has_mechanism rdf:resource="#cd147dbc34a24050a9c0c5b:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#1691cc48925e44f6b3f78c8:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5833c896d0cd4a8394332ee</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">From time to time TGI Fridays may engage in certain promotions and giveaways on its website As part of registering for those giveaways you may be asked whether you d like to receive notifications via text message If you agree to those communications you may receive text messages regarding that promotion or giveaway This messaging may be subject to text message and data rates If you have opted in to receive email communications from TGI Fridays and are NOT a Give Me More Stripes member and wish to no longer receive those emails you can click unsubscribe on any of those email messages or Contact Us at http //www tgifridays com/contact</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#69ea06a5b6a146a4ace3609:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#9004adfec61543d295dae4d:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">69ea06a5b6a146a4ace3609</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9004adfec61543d295dae4d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you may be asked whether you'd like to</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#50b59024c2d2496198745eb:PersonalData">
+<owl:NamedIndividual rdf:about="#70051ff2b4764af5b9455b4:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">50b59024c2d2496198745eb</uuid>
+  <provided_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">70051ff2b4764af5b9455b4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">text message</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#43bcc9a5ae1d45dda8211b2:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#9e7e8e4265df413ea41381d:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <has_mechanism rdf:resource="#69ea06a5b6a146a4ace3609:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#50b59024c2d2496198745eb:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">43bcc9a5ae1d45dda8211b2</uuid>
+  <initiated_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <has_mechanism rdf:resource="#9004adfec61543d295dae4d:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#70051ff2b4764af5b9455b4:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9e7e8e4265df413ea41381d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">From time to time TGI Fridays may engage in certain promotions and giveaways on its website As part of registering for those giveaways you may be asked whether you d like to receive notifications via text message If you agree to those communications you may receive text messages regarding that promotion or giveaway This messaging may be subject to text message and data rates If you have opted in to receive email communications from TGI Fridays and are NOT a Give Me More Stripes member and wish to no longer receive those emails you can click unsubscribe on any of those email messages or Contact Us at http //www tgifridays com/contact</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d6c7cd0bb656463f922c343:AccessControls">
+<owl:NamedIndividual rdf:about="#2857be7421c04c6a83ca8da:AccessControls">
   <rdf:type rdf:resource="#AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d6c7cd0bb656463f922c343</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2857be7421c04c6a83ca8da</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">only authorized individuals have access to the information provided by our customers.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#15e5782c5151460ebafdd1a:DataProtection">
+<owl:NamedIndividual rdf:about="#1d57e02bb2034eb2af09a9b:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <has_mechanism rdf:resource="#d6c7cd0bb656463f922c343:AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">15e5782c5151460ebafdd1a</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <has_mechanism rdf:resource="#2857be7421c04c6a83ca8da:AccessControls"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1d57e02bb2034eb2af09a9b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WHAT KIND OF SECURITY PROCEDURES ARE IN PLACE TO PROTECT THE LOSS MISUSE OR ALTERATION OF INFORMATION UNDER THE COMPANY S CONTROL We operate secure data networks protected by industry standard firewall and password protection systems Our security and privacy policies are periodically reviewed and enhanced as necessary and only authorized individuals have access to the information provided by our customers Any particularly sensitive information such as a customer s credit card number is encrypted prior to transmission To the extent that administration of the program requires us to grant our Service Vendors access to customer information we insist that they implement similar controls</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ea32102f470b4662851b581:SecuredCommunication">
+<owl:NamedIndividual rdf:about="#73775b7a9a5f462a82aaa7c:SecuredCommunication">
   <rdf:type rdf:resource="#SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ea32102f470b4662851b581</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">73775b7a9a5f462a82aaa7c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Any particularly sensitive information, such as a customer's credit card number, is encrypted prior to transmission.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#724d979763a343fa8c776aa:DataProtection">
+<owl:NamedIndividual rdf:about="#827fd3f0a6344076a4f93ce:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <has_mechanism rdf:resource="#ea32102f470b4662851b581:SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">724d979763a343fa8c776aa</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <has_mechanism rdf:resource="#73775b7a9a5f462a82aaa7c:SecuredCommunication"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">827fd3f0a6344076a4f93ce</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WHAT KIND OF SECURITY PROCEDURES ARE IN PLACE TO PROTECT THE LOSS MISUSE OR ALTERATION OF INFORMATION UNDER THE COMPANY S CONTROL We operate secure data networks protected by industry standard firewall and password protection systems Our security and privacy policies are periodically reviewed and enhanced as necessary and only authorized individuals have access to the information provided by our customers Any particularly sensitive information such as a customer s credit card number is encrypted prior to transmission To the extent that administration of the program requires us to grant our Service Vendors access to customer information we insist that they implement similar controls</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6b4e171e8582400ebae1155:SecureStorage">
+<owl:NamedIndividual rdf:about="#6c7dae07c4c14e83ade0ef7:SecureStorage">
   <rdf:type rdf:resource="#SecureStorage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6b4e171e8582400ebae1155</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6c7dae07c4c14e83ade0ef7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We operate secure data networks protected by industry standard firewall and password protection systems.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d16dc2de5e1f472aadfd7d6:DataProtection">
+<owl:NamedIndividual rdf:about="#2275b042098643d0b1b8e1c:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <has_mechanism rdf:resource="#6b4e171e8582400ebae1155:SecureStorage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d16dc2de5e1f472aadfd7d6</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <has_mechanism rdf:resource="#6c7dae07c4c14e83ade0ef7:SecureStorage"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2275b042098643d0b1b8e1c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WHAT KIND OF SECURITY PROCEDURES ARE IN PLACE TO PROTECT THE LOSS MISUSE OR ALTERATION OF INFORMATION UNDER THE COMPANY S CONTROL We operate secure data networks protected by industry standard firewall and password protection systems Our security and privacy policies are periodically reviewed and enhanced as necessary and only authorized individuals have access to the information provided by our customers Any particularly sensitive information such as a customer s credit card number is encrypted prior to transmission To the extent that administration of the program requires us to grant our Service Vendors access to customer information we insist that they implement similar controls</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b9696bb98b7d4706a4f1876:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#2387a0d24d154fdda628cb4:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b9696bb98b7d4706a4f1876</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2387a0d24d154fdda628cb4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We operate secure data networks protected by industry standard firewall and password protection systems. Our security and privacy policies are periodically reviewed and enhanced as necessary</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7a3b49b6f16f425aa0ba52f:DataProtection">
+<owl:NamedIndividual rdf:about="#02f9239f8a63480286531a6:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <has_mechanism rdf:resource="#b9696bb98b7d4706a4f1876:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7a3b49b6f16f425aa0ba52f</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <has_mechanism rdf:resource="#2387a0d24d154fdda628cb4:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">02f9239f8a63480286531a6</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WHAT KIND OF SECURITY PROCEDURES ARE IN PLACE TO PROTECT THE LOSS MISUSE OR ALTERATION OF INFORMATION UNDER THE COMPANY S CONTROL We operate secure data networks protected by industry standard firewall and password protection systems Our security and privacy policies are periodically reviewed and enhanced as necessary and only authorized individuals have access to the information provided by our customers Any particularly sensitive information such as a customer s credit card number is encrypted prior to transmission To the extent that administration of the program requires us to grant our Service Vendors access to customer information we insist that they implement similar controls</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9cbb117fb17d42978a18667:OrganizationalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#53a4721256ff4086b376eb7:OrganizationalSecurityMeasure">
   <rdf:type rdf:resource="#OrganizationalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9cbb117fb17d42978a18667</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">53a4721256ff4086b376eb7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Our security and privacy policies are periodically reviewed and enhanced as necessary</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c7d34bd4289c4a228a48e28:DataProtection">
+<owl:NamedIndividual rdf:about="#aa95daa6b7ac4a76b2da886:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <has_mechanism rdf:resource="#9cbb117fb17d42978a18667:OrganizationalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c7d34bd4289c4a228a48e28</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <has_mechanism rdf:resource="#53a4721256ff4086b376eb7:OrganizationalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aa95daa6b7ac4a76b2da886</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WHAT KIND OF SECURITY PROCEDURES ARE IN PLACE TO PROTECT THE LOSS MISUSE OR ALTERATION OF INFORMATION UNDER THE COMPANY S CONTROL We operate secure data networks protected by industry standard firewall and password protection systems Our security and privacy policies are periodically reviewed and enhanced as necessary and only authorized individuals have access to the information provided by our customers Any particularly sensitive information such as a customer s credit card number is encrypted prior to transmission To the extent that administration of the program requires us to grant our Service Vendors access to customer information we insist that they implement similar controls</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#117446736cbd42e18df20cf:SecurityMechanism">
+<owl:NamedIndividual rdf:about="#de0e6a2d95fe40839166e5f:SecurityMechanism">
   <rdf:type rdf:resource="#SecurityMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">117446736cbd42e18df20cf</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">de0e6a2d95fe40839166e5f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To the extent that administration of the program requires us to grant our Service Vendors access to customer information, we insist that they implement similar controls.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#587d40254bc541a49aee0cc:DataProtection">
+<owl:NamedIndividual rdf:about="#bfbc6c79f365470d9fd1975:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <has_mechanism rdf:resource="#117446736cbd42e18df20cf:SecurityMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">587d40254bc541a49aee0cc</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <has_mechanism rdf:resource="#de0e6a2d95fe40839166e5f:SecurityMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bfbc6c79f365470d9fd1975</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WHAT KIND OF SECURITY PROCEDURES ARE IN PLACE TO PROTECT THE LOSS MISUSE OR ALTERATION OF INFORMATION UNDER THE COMPANY S CONTROL We operate secure data networks protected by industry standard firewall and password protection systems Our security and privacy policies are periodically reviewed and enhanced as necessary and only authorized individuals have access to the information provided by our customers Any particularly sensitive information such as a customer s credit card number is encrypted prior to transmission To the extent that administration of the program requires us to grant our Service Vendors access to customer information we insist that they implement similar controls</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9b10ab0a5bd14954881b03b:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#85ac2b38f98d4f1a881f603:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9b10ab0a5bd14954881b03b</uuid>
+  <initiated_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">85ac2b38f98d4f1a881f603</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">YOUR ACCEPTANCE OF THESE TERMS By using this site or mobile application you agree to our Privacy Policy We may also change the policy from time to time so please be sure to visit this site often to see if anything has changed If we post changes and you continue to use the site you will be deemed to have agreed to the changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0dc80dd0348b4e079179976:PolicyChange">
+<owl:NamedIndividual rdf:about="#b6111972b2284758b4e16a6:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <binded_to rdf:resource="#9b10ab0a5bd14954881b03b:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0dc80dd0348b4e079179976</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <binded_to rdf:resource="#85ac2b38f98d4f1a881f603:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b6111972b2284758b4e16a6</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">YOUR ACCEPTANCE OF THESE TERMS By using this site or mobile application you agree to our Privacy Policy We may also change the policy from time to time so please be sure to visit this site often to see if anything has changed If we post changes and you continue to use the site you will be deemed to have agreed to the changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b144f5799a2847389c2cdff:FPNotification">
+<owl:NamedIndividual rdf:about="#7a673e0af3f74f698571206:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <notifies rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <binded_to rdf:resource="#0dc80dd0348b4e079179976:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b144f5799a2847389c2cdff</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <notifies rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <binded_to rdf:resource="#b6111972b2284758b4e16a6:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7a673e0af3f74f698571206</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">YOUR ACCEPTANCE OF THESE TERMS By using this site or mobile application you agree to our Privacy Policy We may also change the policy from time to time so please be sure to visit this site often to see if anything has changed If we post changes and you continue to use the site you will be deemed to have agreed to the changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#80cbaf4083104348b0bc17f:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#94eda96052ba4e30bd2236f:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">80cbaf4083104348b0bc17f</uuid>
+  <initiated_by rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">94eda96052ba4e30bd2236f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">YOUR ACCEPTANCE OF THESE TERMS By using this site or mobile application you agree to our Privacy Policy We may also change the policy from time to time so please be sure to visit this site often to see if anything has changed If we post changes and you continue to use the site you will be deemed to have agreed to the changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#99a8f360092f465fb705b1a:PolicyChange">
+<owl:NamedIndividual rdf:about="#ced8e0c7d63a47459328601:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <binded_to rdf:resource="#80cbaf4083104348b0bc17f:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">99a8f360092f465fb705b1a</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <binded_to rdf:resource="#94eda96052ba4e30bd2236f:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ced8e0c7d63a47459328601</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">YOUR ACCEPTANCE OF THESE TERMS By using this site or mobile application you agree to our Privacy Policy We may also change the policy from time to time so please be sure to visit this site often to see if anything has changed If we post changes and you continue to use the site you will be deemed to have agreed to the changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bc98ff1708ba4fb9aeaf64a:FPNotification">
+<owl:NamedIndividual rdf:about="#5d6bb060f3d248008a066ba:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#2729914762664769834aa97:FirstParty"/>
-  <notifies rdf:resource="#5d2f7cff96be420db2d1c11:User"/>
-  <binded_to rdf:resource="#99a8f360092f465fb705b1a:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bc98ff1708ba4fb9aeaf64a</uuid>
+  <initiated_by rdf:resource="#aeabbbf2ec6e4c30acdd999:FirstParty"/>
+  <notifies rdf:resource="#6e93a5d39fba4bccac932a0:User"/>
+  <binded_to rdf:resource="#ced8e0c7d63a47459328601:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5d6bb060f3d248008a066ba</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">YOUR ACCEPTANCE OF THESE TERMS By using this site or mobile application you agree to our Privacy Policy We may also change the policy from time to time so please be sure to visit this site often to see if anything has changed If we post changes and you continue to use the site you will be deemed to have agreed to the changes</evidence>
 </owl:NamedIndividual>

@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -959,18 +960,18 @@
 <owl:Class rdf:about="#FPSpecificCommunicationMechanism">
   <rdfs:subClassOf rdf:resource="#CommunicationMechanism"/>
   <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#mechanism_of"/>
+      <owl:allValuesFrom rdf:resource="#FPNotification"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
     <owl:Class>
       <owl:unionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#FPSpecificCommunicationMechanism"/>
         <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
       </owl:unionOf>
     </owl:Class>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#mechanism_of"/>
-      <owl:allValuesFrom rdf:resource="#FPNotification"/>
-    </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,157 +1305,157 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#c2a21d830a9041b7870ad1f:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#60ca680472c34e57a780b50:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c2a21d830a9041b7870ad1f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">60ca680472c34e57a780b50</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#38af3c74ddd84efca9d26a9:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#d299c95ca20145c89002522:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#0482b17303f840e9b2deda1:User"/>
-  <considers rdf:resource="#31a01071a57d4f54ac748de:FirstParty"/>
-  <considers rdf:resource="#d6539071f79849909fa6dbe:ThirdParty"/>
-  <considers rdf:resource="#fbc7dc69dbe349538ee11ff:DataProtection"/>
-  <considers rdf:resource="#fb9d320e643f406ba9a11c6:TPCollection"/>
-  <considers rdf:resource="#6758bede7fd0419caafcd24:TPSharing"/>
-  <considers rdf:resource="#4dceb490f11c44a282003cc:AccountData"/>
-  <considers rdf:resource="#951a25a76d404555925fe00:TPCollection"/>
-  <considers rdf:resource="#c892b947d77b4c07a2de16c:TPSharing"/>
-  <considers rdf:resource="#e8b5b58470f34b37b824b07:DeviceData"/>
-  <considers rdf:resource="#41e1cc351e694233b542d75:TPCollection"/>
-  <considers rdf:resource="#1be6dea9aa534138b7781a9:TPSharing"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">38af3c74ddd84efca9d26a9</uuid>
+  <considers rdf:resource="#2804ef53546a4560aaba3e8:User"/>
+  <considers rdf:resource="#82b6b3a99f5d40f39bbf611:FirstParty"/>
+  <considers rdf:resource="#d17d0ce3b7174daba63f132:ThirdParty"/>
+  <considers rdf:resource="#aaf6614fb9834a22857f923:DataProtection"/>
+  <considers rdf:resource="#cad1a58036404aada8d6ccf:TPCollection"/>
+  <considers rdf:resource="#eaa369b40f244dd6bd5e52a:TPSharing"/>
+  <considers rdf:resource="#c6e17258fb0e45d285d1416:AccountData"/>
+  <considers rdf:resource="#0b54832b0ba64a90a534110:TPCollection"/>
+  <considers rdf:resource="#0521e6ffd8c448ebb48eeb6:TPSharing"/>
+  <considers rdf:resource="#3fff5f4e6d924a899899706:DeviceData"/>
+  <considers rdf:resource="#47d5f0e5c90044a3ac6a185:TPCollection"/>
+  <considers rdf:resource="#26fa032adfa44e8ea9b010e:TPSharing"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d299c95ca20145c89002522</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">solarviews.com</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0482b17303f840e9b2deda1:User">
+<owl:NamedIndividual rdf:about="#2804ef53546a4560aaba3e8:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0482b17303f840e9b2deda1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2804ef53546a4560aaba3e8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#31a01071a57d4f54ac748de:FirstParty">
+<owl:NamedIndividual rdf:about="#82b6b3a99f5d40f39bbf611:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">31a01071a57d4f54ac748de</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">82b6b3a99f5d40f39bbf611</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d6539071f79849909fa6dbe:ThirdParty">
+<owl:NamedIndividual rdf:about="#d17d0ce3b7174daba63f132:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d6539071f79849909fa6dbe</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d17d0ce3b7174daba63f132</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1cf5e2324d09473dbbd5f07:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#f552451780f34dda9d51a8e:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1cf5e2324d09473dbbd5f07</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f552451780f34dda9d51a8e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ads</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bdfbe5c2be41429894ec0ff:PseudoAnonymization">
+<owl:NamedIndividual rdf:about="#378f6b67b69346ae91525d1:PseudoAnonymization">
   <rdf:type rdf:resource="#PseudoAnonymization"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bdfbe5c2be41429894ec0ff</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">378f6b67b69346ae91525d1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">anonymous</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fbc7dc69dbe349538ee11ff:DataProtection">
+<owl:NamedIndividual rdf:about="#aaf6614fb9834a22857f923:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#31a01071a57d4f54ac748de:FirstParty"/>
-  <has_mechanism rdf:resource="#bdfbe5c2be41429894ec0ff:PseudoAnonymization"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fbc7dc69dbe349538ee11ff</uuid>
+  <initiated_by rdf:resource="#82b6b3a99f5d40f39bbf611:FirstParty"/>
+  <has_mechanism rdf:resource="#378f6b67b69346ae91525d1:PseudoAnonymization"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aaf6614fb9834a22857f923</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Privacy Statement We allow third-party companies to serve ads and/or collect certain anonymous information when you visit our web site These companies may use non-personally identifiable information e g click stream information browser type time and date subject of advertisements clicked or scrolled over during your visits to this and other Web sites in order to provide advertisements about goods and services likely to be of greater interest to you These companies typically use a cookie or third party web beacon to collect this information To learn more about this behavioral advertising practice or to opt-out of this type of advertising you can visit networkadvertising org</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fb9d320e643f406ba9a11c6:TPCollection">
+<owl:NamedIndividual rdf:about="#cad1a58036404aada8d6ccf:TPCollection">
   <rdf:type rdf:resource="#TPCollection"/>
-  <initiated_by rdf:resource="#31a01071a57d4f54ac748de:FirstParty"/>
-  <collects_from rdf:resource="#d6539071f79849909fa6dbe:ThirdParty"/>
-  <has_purpose rdf:resource="#1cf5e2324d09473dbbd5f07:MarketingPurpose"/>
-  <binded_to rdf:resource="#fbc7dc69dbe349538ee11ff:DataProtection"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fb9d320e643f406ba9a11c6</uuid>
+  <initiated_by rdf:resource="#82b6b3a99f5d40f39bbf611:FirstParty"/>
+  <collects_from rdf:resource="#d17d0ce3b7174daba63f132:ThirdParty"/>
+  <has_purpose rdf:resource="#f552451780f34dda9d51a8e:MarketingPurpose"/>
+  <binded_to rdf:resource="#aaf6614fb9834a22857f923:DataProtection"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cad1a58036404aada8d6ccf</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Privacy Statement We allow third-party companies to serve ads and/or collect certain anonymous information when you visit our web site These companies may use non-personally identifiable information e g click stream information browser type time and date subject of advertisements clicked or scrolled over during your visits to this and other Web sites in order to provide advertisements about goods and services likely to be of greater interest to you These companies typically use a cookie or third party web beacon to collect this information To learn more about this behavioral advertising practice or to opt-out of this type of advertising you can visit networkadvertising org</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6758bede7fd0419caafcd24:TPSharing">
+<owl:NamedIndividual rdf:about="#eaa369b40f244dd6bd5e52a:TPSharing">
   <rdf:type rdf:resource="#TPSharing"/>
-  <initiated_by rdf:resource="#31a01071a57d4f54ac748de:FirstParty"/>
-  <shares_with rdf:resource="#d6539071f79849909fa6dbe:ThirdParty"/>
-  <has_purpose rdf:resource="#1cf5e2324d09473dbbd5f07:MarketingPurpose"/>
-  <binded_to rdf:resource="#fbc7dc69dbe349538ee11ff:DataProtection"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6758bede7fd0419caafcd24</uuid>
+  <initiated_by rdf:resource="#82b6b3a99f5d40f39bbf611:FirstParty"/>
+  <shares_with rdf:resource="#d17d0ce3b7174daba63f132:ThirdParty"/>
+  <has_purpose rdf:resource="#f552451780f34dda9d51a8e:MarketingPurpose"/>
+  <binded_to rdf:resource="#aaf6614fb9834a22857f923:DataProtection"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eaa369b40f244dd6bd5e52a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Privacy Statement We allow third-party companies to serve ads and/or collect certain anonymous information when you visit our web site These companies may use non-personally identifiable information e g click stream information browser type time and date subject of advertisements clicked or scrolled over during your visits to this and other Web sites in order to provide advertisements about goods and services likely to be of greater interest to you These companies typically use a cookie or third party web beacon to collect this information To learn more about this behavioral advertising practice or to opt-out of this type of advertising you can visit networkadvertising org</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4dceb490f11c44a282003cc:AccountData">
+<owl:NamedIndividual rdf:about="#c6e17258fb0e45d285d1416:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#0482b17303f840e9b2deda1:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4dceb490f11c44a282003cc</uuid>
+  <provided_by rdf:resource="#2804ef53546a4560aaba3e8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c6e17258fb0e45d285d1416</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">click stream information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7e1c5e898ff442a286d1ea8:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#735bc838fc7a409cb62cba2:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7e1c5e898ff442a286d1ea8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">735bc838fc7a409cb62cba2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">provide advertisements about goods and services likely to be of greater interest to you</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#951a25a76d404555925fe00:TPCollection">
+<owl:NamedIndividual rdf:about="#0b54832b0ba64a90a534110:TPCollection">
   <rdf:type rdf:resource="#TPCollection"/>
-  <initiated_by rdf:resource="#31a01071a57d4f54ac748de:FirstParty"/>
-  <collects_from rdf:resource="#d6539071f79849909fa6dbe:ThirdParty"/>
-  <has_purpose rdf:resource="#7e1c5e898ff442a286d1ea8:MarketingPurpose"/>
-  <applies_to rdf:resource="#4dceb490f11c44a282003cc:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">951a25a76d404555925fe00</uuid>
+  <initiated_by rdf:resource="#82b6b3a99f5d40f39bbf611:FirstParty"/>
+  <collects_from rdf:resource="#d17d0ce3b7174daba63f132:ThirdParty"/>
+  <has_purpose rdf:resource="#735bc838fc7a409cb62cba2:MarketingPurpose"/>
+  <applies_to rdf:resource="#c6e17258fb0e45d285d1416:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0b54832b0ba64a90a534110</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Privacy Statement We allow third-party companies to serve ads and/or collect certain anonymous information when you visit our web site These companies may use non-personally identifiable information e g click stream information browser type time and date subject of advertisements clicked or scrolled over during your visits to this and other Web sites in order to provide advertisements about goods and services likely to be of greater interest to you These companies typically use a cookie or third party web beacon to collect this information To learn more about this behavioral advertising practice or to opt-out of this type of advertising you can visit networkadvertising org</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c892b947d77b4c07a2de16c:TPSharing">
+<owl:NamedIndividual rdf:about="#0521e6ffd8c448ebb48eeb6:TPSharing">
   <rdf:type rdf:resource="#TPSharing"/>
-  <initiated_by rdf:resource="#31a01071a57d4f54ac748de:FirstParty"/>
-  <shares_with rdf:resource="#d6539071f79849909fa6dbe:ThirdParty"/>
-  <has_purpose rdf:resource="#7e1c5e898ff442a286d1ea8:MarketingPurpose"/>
-  <applies_to rdf:resource="#4dceb490f11c44a282003cc:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c892b947d77b4c07a2de16c</uuid>
+  <initiated_by rdf:resource="#82b6b3a99f5d40f39bbf611:FirstParty"/>
+  <shares_with rdf:resource="#d17d0ce3b7174daba63f132:ThirdParty"/>
+  <has_purpose rdf:resource="#735bc838fc7a409cb62cba2:MarketingPurpose"/>
+  <applies_to rdf:resource="#c6e17258fb0e45d285d1416:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0521e6ffd8c448ebb48eeb6</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Privacy Statement We allow third-party companies to serve ads and/or collect certain anonymous information when you visit our web site These companies may use non-personally identifiable information e g click stream information browser type time and date subject of advertisements clicked or scrolled over during your visits to this and other Web sites in order to provide advertisements about goods and services likely to be of greater interest to you These companies typically use a cookie or third party web beacon to collect this information To learn more about this behavioral advertising practice or to opt-out of this type of advertising you can visit networkadvertising org</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e8b5b58470f34b37b824b07:DeviceData">
+<owl:NamedIndividual rdf:about="#3fff5f4e6d924a899899706:DeviceData">
   <rdf:type rdf:resource="#DeviceData"/>
-  <provided_by rdf:resource="#0482b17303f840e9b2deda1:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e8b5b58470f34b37b824b07</uuid>
+  <provided_by rdf:resource="#2804ef53546a4560aaba3e8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3fff5f4e6d924a899899706</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">browser type, time and date</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e6f02e33c7b04880b0a3503:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#d319cb93a6484b4eb7bba89:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e6f02e33c7b04880b0a3503</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d319cb93a6484b4eb7bba89</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">provide advertisements about goods and services likely to be of greater interest to you</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#41e1cc351e694233b542d75:TPCollection">
+<owl:NamedIndividual rdf:about="#47d5f0e5c90044a3ac6a185:TPCollection">
   <rdf:type rdf:resource="#TPCollection"/>
-  <initiated_by rdf:resource="#31a01071a57d4f54ac748de:FirstParty"/>
-  <collects_from rdf:resource="#d6539071f79849909fa6dbe:ThirdParty"/>
-  <has_purpose rdf:resource="#e6f02e33c7b04880b0a3503:MarketingPurpose"/>
-  <applies_to rdf:resource="#e8b5b58470f34b37b824b07:DeviceData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">41e1cc351e694233b542d75</uuid>
+  <initiated_by rdf:resource="#82b6b3a99f5d40f39bbf611:FirstParty"/>
+  <collects_from rdf:resource="#d17d0ce3b7174daba63f132:ThirdParty"/>
+  <has_purpose rdf:resource="#d319cb93a6484b4eb7bba89:MarketingPurpose"/>
+  <applies_to rdf:resource="#3fff5f4e6d924a899899706:DeviceData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">47d5f0e5c90044a3ac6a185</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Privacy Statement We allow third-party companies to serve ads and/or collect certain anonymous information when you visit our web site These companies may use non-personally identifiable information e g click stream information browser type time and date subject of advertisements clicked or scrolled over during your visits to this and other Web sites in order to provide advertisements about goods and services likely to be of greater interest to you These companies typically use a cookie or third party web beacon to collect this information To learn more about this behavioral advertising practice or to opt-out of this type of advertising you can visit networkadvertising org</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1be6dea9aa534138b7781a9:TPSharing">
+<owl:NamedIndividual rdf:about="#26fa032adfa44e8ea9b010e:TPSharing">
   <rdf:type rdf:resource="#TPSharing"/>
-  <initiated_by rdf:resource="#31a01071a57d4f54ac748de:FirstParty"/>
-  <shares_with rdf:resource="#d6539071f79849909fa6dbe:ThirdParty"/>
-  <has_purpose rdf:resource="#e6f02e33c7b04880b0a3503:MarketingPurpose"/>
-  <applies_to rdf:resource="#e8b5b58470f34b37b824b07:DeviceData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1be6dea9aa534138b7781a9</uuid>
+  <initiated_by rdf:resource="#82b6b3a99f5d40f39bbf611:FirstParty"/>
+  <shares_with rdf:resource="#d17d0ce3b7174daba63f132:ThirdParty"/>
+  <has_purpose rdf:resource="#d319cb93a6484b4eb7bba89:MarketingPurpose"/>
+  <applies_to rdf:resource="#3fff5f4e6d924a899899706:DeviceData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">26fa032adfa44e8ea9b010e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Privacy Statement We allow third-party companies to serve ads and/or collect certain anonymous information when you visit our web site These companies may use non-personally identifiable information e g click stream information browser type time and date subject of advertisements clicked or scrolled over during your visits to this and other Web sites in order to provide advertisements about goods and services likely to be of greater interest to you These companies typically use a cookie or third party web beacon to collect this information To learn more about this behavioral advertising practice or to opt-out of this type of advertising you can visit networkadvertising org</evidence>
 </owl:NamedIndividual>

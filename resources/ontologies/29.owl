@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -901,6 +902,14 @@
   <rdfs:subClassOf rdf:resource="#UserSpecificCommunicationMechanism"/>
   <owl:disjointWith rdf:resource="#AutomaticCommunicationMechanism"/>
   <rdfs:subClassOf>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
+        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
+      </owl:unionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
       <owl:allValuesFrom>
@@ -909,14 +918,6 @@
         </owl:Class>
       </owl:allValuesFrom>
     </owl:Restriction>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
-        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
-      </owl:unionOf>
-    </owl:Class>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -959,18 +960,18 @@
 <owl:Class rdf:about="#FPSpecificCommunicationMechanism">
   <rdfs:subClassOf rdf:resource="#CommunicationMechanism"/>
   <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#mechanism_of"/>
-      <owl:allValuesFrom rdf:resource="#FPNotification"/>
-    </owl:Restriction>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
     <owl:Class>
       <owl:unionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#FPSpecificCommunicationMechanism"/>
         <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
       </owl:unionOf>
     </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#mechanism_of"/>
+      <owl:allValuesFrom rdf:resource="#FPNotification"/>
+    </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,495 +1305,491 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#e033bc4d2d6f4d7cb7cb1df:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#4d61ee294fae4fe288680ae:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e033bc4d2d6f4d7cb7cb1df</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4d61ee294fae4fe288680ae</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#27a4cb57d5084494b2a9c2d:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#cb69fe7be1ce4c85a31156d:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <considers rdf:resource="#c8d283544bbf40a2a48604b:FirstParty"/>
-  <considers rdf:resource="#3219437032284d97b90ce98:ThirdParty"/>
-  <considers rdf:resource="#f6e1a3d028ea4311a7b3c8f:OptInOptOutControl"/>
-  <considers rdf:resource="#cf988c43df314c95849eb64:PolicyChange"/>
-  <considers rdf:resource="#313043652a4d40a3964255a:FPNotification"/>
-  <considers rdf:resource="#a36183480e25404a8595504:OptInOptOutControl"/>
-  <considers rdf:resource="#486dc4e46bb74efa966a00c:PolicyChange"/>
-  <considers rdf:resource="#a1e30c1c2ec34f3d8ac2149:FPNotification"/>
-  <considers rdf:resource="#3407712b5d844b68be7404a:TrackingData"/>
-  <considers rdf:resource="#f9142f97326c4a7dbdba092:OptInOptOutControl"/>
-  <considers rdf:resource="#dc847838bae04bbf8108f6c:TrackingData"/>
-  <considers rdf:resource="#3b401ed9f64945878cbb87b:OptInOptOutControl"/>
-  <considers rdf:resource="#6ea2e0b72d904fddbdb5f10:TrackingData"/>
-  <considers rdf:resource="#b14f271f9fb04b50a5ddba7:OptInOptOutControl"/>
-  <considers rdf:resource="#41b1bf33503f453caaabe01:OptInOptOutControl"/>
-  <considers rdf:resource="#6f90d83f43d247b19001564:PersonalData"/>
-  <considers rdf:resource="#48d1460667ff431eb302278:OptInOptOutControl"/>
-  <considers rdf:resource="#523eb007ecc24c5688a9ef9:PersonalData"/>
-  <considers rdf:resource="#69c950bf79094647976306a:OptInOptOutControl"/>
-  <considers rdf:resource="#8830f2a3e3f44fdf9aff31b:DataProtection"/>
-  <considers rdf:resource="#524ed54e5b68400a83107b3:DataProtection"/>
-  <considers rdf:resource="#e2e45062c5e44f559c2673a:PersonalData"/>
-  <considers rdf:resource="#c782e8c160f5420081e9efd:OptInOptOutControl"/>
-  <considers rdf:resource="#692dba7c685c40b095386f1:PersonalData"/>
-  <considers rdf:resource="#c85a4d5691d54c12b154356:OptInOptOutControl"/>
-  <considers rdf:resource="#443bcd0712ca4fb282a7b63:OptInOptOutControl"/>
-  <considers rdf:resource="#ac48cdb71697468696ffc64:OptInOptOutControl"/>
-  <considers rdf:resource="#78f759dc04214caca52dab7:OptInOptOutControl"/>
-  <considers rdf:resource="#6c9046c4363e4366a2d3529:PersonalData"/>
-  <considers rdf:resource="#8403475f88a047029471aae:OptInOptOutControl"/>
-  <considers rdf:resource="#69ede0a21496409086de59b:OptInOptOutControl"/>
-  <considers rdf:resource="#5c064c5ff40543d8a8cba26:OptInOptOutControl"/>
-  <considers rdf:resource="#5c0b7f6830844c81a0021f6:OptInOptOutControl"/>
-  <considers rdf:resource="#e3a9a55e7d2540daa9eb091:PolicyChange"/>
-  <considers rdf:resource="#0fa679b9535a456d92602bf:FPNotification"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">27a4cb57d5084494b2a9c2d</uuid>
+  <considers rdf:resource="#b6578b93b45e40938852646:User"/>
+  <considers rdf:resource="#8aaab68095184a71ad1a951:FirstParty"/>
+  <considers rdf:resource="#0aee2e5604984007bee365c:ThirdParty"/>
+  <considers rdf:resource="#630c058781694f9aa758de4:OptInOptOutControl"/>
+  <considers rdf:resource="#8fe6d0798f6c4e96a9da8bd:PolicyChange"/>
+  <considers rdf:resource="#00d48ec2625341efb3497c1:FPNotification"/>
+  <considers rdf:resource="#27724f094bd64a0bab334e2:OptInOptOutControl"/>
+  <considers rdf:resource="#18dab2e3a2c14c7898a2a3b:PolicyChange"/>
+  <considers rdf:resource="#2a478a2ab138444eb1cb679:FPNotification"/>
+  <considers rdf:resource="#69a4c77006f740bd9b00196:TrackingData"/>
+  <considers rdf:resource="#e3ac9e2dbc42441e8d919ed:OptInOptOutControl"/>
+  <considers rdf:resource="#cdf309ff76244330ba7a302:TrackingData"/>
+  <considers rdf:resource="#9742d7e0b58548fdad36175:OptInOptOutControl"/>
+  <considers rdf:resource="#35982f7a92be46a6b297bcd:TrackingData"/>
+  <considers rdf:resource="#13aa3e3798c14ae3a84e53a:OptInOptOutControl"/>
+  <considers rdf:resource="#f605a2dc57f34ffaa99bfe3:OptInOptOutControl"/>
+  <considers rdf:resource="#046e344eeffc4a8eb6e51ab:PersonalData"/>
+  <considers rdf:resource="#cf0b5dfcd5704f5dbebde43:OptInOptOutControl"/>
+  <considers rdf:resource="#972f351ce51541fa9f1427a:PersonalData"/>
+  <considers rdf:resource="#57c2ebd9dfeb4d64bfd1755:OptInOptOutControl"/>
+  <considers rdf:resource="#d4962e911c174a5ebddbd7a:DataProtection"/>
+  <considers rdf:resource="#fcc13407bfe34987af4f155:DataProtection"/>
+  <considers rdf:resource="#92d8a94ff36d4454a588353:PersonalData"/>
+  <considers rdf:resource="#f9c4845fef254053bec364a:OptInOptOutControl"/>
+  <considers rdf:resource="#f4058db568f64d38aafb000:PersonalData"/>
+  <considers rdf:resource="#56f7fc4cba584577a9ddc32:OptInOptOutControl"/>
+  <considers rdf:resource="#fe2ec0b1e28b498f815fead:OptInOptOutControl"/>
+  <considers rdf:resource="#7aa6d426f6094ec6af1050a:OptInOptOutControl"/>
+  <considers rdf:resource="#c26e70b2cf444f218798a7b:OptInOptOutControl"/>
+  <considers rdf:resource="#69f69e0636c64c8fb3f4e23:PersonalData"/>
+  <considers rdf:resource="#cfc863999b274929962a5c4:OptInOptOutControl"/>
+  <considers rdf:resource="#09bcb10f1e014b53a08606d:OptInOptOutControl"/>
+  <considers rdf:resource="#b78fcbb9bda446d1aebcb79:OptInOptOutControl"/>
+  <considers rdf:resource="#43cd885facc9418c9469648:OptInOptOutControl"/>
+  <considers rdf:resource="#03597511c5434f8f973e978:PolicyChange"/>
+  <considers rdf:resource="#ece5c7c38d5f474db935cc8:FPNotification"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cb69fe7be1ce4c85a31156d</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">steampowered.com</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#154eb9df80b5406ca05565b:User">
+<owl:NamedIndividual rdf:about="#b6578b93b45e40938852646:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">154eb9df80b5406ca05565b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b6578b93b45e40938852646</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c8d283544bbf40a2a48604b:FirstParty">
+<owl:NamedIndividual rdf:about="#8aaab68095184a71ad1a951:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c8d283544bbf40a2a48604b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8aaab68095184a71ad1a951</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3219437032284d97b90ce98:ThirdParty">
+<owl:NamedIndividual rdf:about="#0aee2e5604984007bee365c:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3219437032284d97b90ce98</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0aee2e5604984007bee365c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0904ec85853840d6b1b84ef:InPrivacyPolicy">
+<owl:NamedIndividual rdf:about="#799f6dffac5a421c97df77a:InPrivacyPolicy">
   <rdf:type rdf:resource="#InPrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0904ec85853840d6b1b84ef</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">799f6dffac5a421c97df77a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please check back for the most current version before relying on any of the provisions in this privacy policy.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f6e1a3d028ea4311a7b3c8f:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#630c058781694f9aa758de4:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f6e1a3d028ea4311a7b3c8f</uuid>
+  <initiated_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">630c058781694f9aa758de4</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This policy is current as of its last revision date However please note that this policy may be amended from time to time to reflect changes and additions to the privacy policy Please check back for the most current version before relying on any of the provisions in this privacy policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cf988c43df314c95849eb64:PolicyChange">
+<owl:NamedIndividual rdf:about="#8fe6d0798f6c4e96a9da8bd:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#c8d283544bbf40a2a48604b:FirstParty"/>
-  <binded_to rdf:resource="#f6e1a3d028ea4311a7b3c8f:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cf988c43df314c95849eb64</uuid>
+  <initiated_by rdf:resource="#8aaab68095184a71ad1a951:FirstParty"/>
+  <binded_to rdf:resource="#630c058781694f9aa758de4:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8fe6d0798f6c4e96a9da8bd</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This policy is current as of its last revision date However please note that this policy may be amended from time to time to reflect changes and additions to the privacy policy Please check back for the most current version before relying on any of the provisions in this privacy policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#313043652a4d40a3964255a:FPNotification">
+<owl:NamedIndividual rdf:about="#00d48ec2625341efb3497c1:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#c8d283544bbf40a2a48604b:FirstParty"/>
-  <notifies rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <has_mechanism rdf:resource="#0904ec85853840d6b1b84ef:InPrivacyPolicy"/>
-  <binded_to rdf:resource="#cf988c43df314c95849eb64:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">313043652a4d40a3964255a</uuid>
+  <initiated_by rdf:resource="#8aaab68095184a71ad1a951:FirstParty"/>
+  <notifies rdf:resource="#b6578b93b45e40938852646:User"/>
+  <has_mechanism rdf:resource="#799f6dffac5a421c97df77a:InPrivacyPolicy"/>
+  <binded_to rdf:resource="#8fe6d0798f6c4e96a9da8bd:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">00d48ec2625341efb3497c1</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This policy is current as of its last revision date However please note that this policy may be amended from time to time to reflect changes and additions to the privacy policy Please check back for the most current version before relying on any of the provisions in this privacy policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a36183480e25404a8595504:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#27724f094bd64a0bab334e2:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a36183480e25404a8595504</uuid>
+  <initiated_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">27724f094bd64a0bab334e2</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This policy is current as of its last revision date However please note that this policy may be amended from time to time to reflect changes and additions to the privacy policy Please check back for the most current version before relying on any of the provisions in this privacy policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#486dc4e46bb74efa966a00c:PolicyChange">
+<owl:NamedIndividual rdf:about="#18dab2e3a2c14c7898a2a3b:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#c8d283544bbf40a2a48604b:FirstParty"/>
-  <binded_to rdf:resource="#a36183480e25404a8595504:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">486dc4e46bb74efa966a00c</uuid>
+  <initiated_by rdf:resource="#8aaab68095184a71ad1a951:FirstParty"/>
+  <binded_to rdf:resource="#27724f094bd64a0bab334e2:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">18dab2e3a2c14c7898a2a3b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This policy is current as of its last revision date However please note that this policy may be amended from time to time to reflect changes and additions to the privacy policy Please check back for the most current version before relying on any of the provisions in this privacy policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a1e30c1c2ec34f3d8ac2149:FPNotification">
+<owl:NamedIndividual rdf:about="#2a478a2ab138444eb1cb679:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#c8d283544bbf40a2a48604b:FirstParty"/>
-  <notifies rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <binded_to rdf:resource="#486dc4e46bb74efa966a00c:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a1e30c1c2ec34f3d8ac2149</uuid>
+  <initiated_by rdf:resource="#8aaab68095184a71ad1a951:FirstParty"/>
+  <notifies rdf:resource="#b6578b93b45e40938852646:User"/>
+  <binded_to rdf:resource="#18dab2e3a2c14c7898a2a3b:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2a478a2ab138444eb1cb679</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This policy is current as of its last revision date However please note that this policy may be amended from time to time to reflect changes and additions to the privacy policy Please check back for the most current version before relying on any of the provisions in this privacy policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#54bce535a4ef4ab7a6ba111:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#342550f8ba7740c0ae15de8:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">54bce535a4ef4ab7a6ba111</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">342550f8ba7740c0ae15de8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personally Identifiable Information Personally identifiable information is information that can be used to uniquely identify a user such as name address or credit card number If you are an EU user personally identifiable information means personal data within the meaning of article 2 a of the Directive 95/46 of 24 October 1995 You may be asked to provide personally identifiable information during the sign in process and then in connection with the use of Valves products services and online sites While Valve collects personally identifiable information on a voluntary basis for certain products and services Valve s collection of personally identifiable information may be a requirement for access to the product or service or to process a users order</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#91d2964f329c467999a07e0:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#1224153642c043f8ab57704:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">91d2964f329c467999a07e0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1224153642c043f8ab57704</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Children Under The Age of 13 Valve will not knowingly collect personally identifiable information from any person under the age of 13 Valve encourages parents to instruct their children to never give out personal information when online Parents who are concerned about the transfer of personal information from their children may contact us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a75cab8e977f4335894fc02:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#c0b7bdf02a5440a89874cf0:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a75cab8e977f4335894fc02</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c0b7bdf02a5440a89874cf0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">disable</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3407712b5d844b68be7404a:TrackingData">
+<owl:NamedIndividual rdf:about="#69a4c77006f740bd9b00196:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3407712b5d844b68be7404a</uuid>
+  <provided_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">69a4c77006f740bd9b00196</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f9142f97326c4a7dbdba092:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#e3ac9e2dbc42441e8d919ed:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <has_mechanism rdf:resource="#a75cab8e977f4335894fc02:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#3407712b5d844b68be7404a:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f9142f97326c4a7dbdba092</uuid>
+  <initiated_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <has_mechanism rdf:resource="#c0b7bdf02a5440a89874cf0:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#69a4c77006f740bd9b00196:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e3ac9e2dbc42441e8d919ed</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">However users can disable cookies by changing their browser settings</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8475712670a74a13b1df83b:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#e05a000157cc482ebd6635e:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8475712670a74a13b1df83b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e05a000157cc482ebd6635e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">However, users can disable cookies by changing their browser settings.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dc847838bae04bbf8108f6c:TrackingData">
+<owl:NamedIndividual rdf:about="#cdf309ff76244330ba7a302:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dc847838bae04bbf8108f6c</uuid>
+  <provided_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cdf309ff76244330ba7a302</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3b401ed9f64945878cbb87b:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#9742d7e0b58548fdad36175:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <has_mechanism rdf:resource="#8475712670a74a13b1df83b:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#dc847838bae04bbf8108f6c:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3b401ed9f64945878cbb87b</uuid>
+  <initiated_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <has_mechanism rdf:resource="#e05a000157cc482ebd6635e:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#cdf309ff76244330ba7a302:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9742d7e0b58548fdad36175</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">However users can disable cookies by changing their browser settings</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#19d73f7d643c48d19792cc3:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#91922cbc4618401fb2b9a08:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">19d73f7d643c48d19792cc3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">91922cbc4618401fb2b9a08</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">However, users can disable cookies by changing their browser settings.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6ea2e0b72d904fddbdb5f10:TrackingData">
+<owl:NamedIndividual rdf:about="#35982f7a92be46a6b297bcd:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6ea2e0b72d904fddbdb5f10</uuid>
+  <provided_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">35982f7a92be46a6b297bcd</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">However, users can disable cookies by changing their browser settings.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b14f271f9fb04b50a5ddba7:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#13aa3e3798c14ae3a84e53a:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <has_mechanism rdf:resource="#19d73f7d643c48d19792cc3:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#6ea2e0b72d904fddbdb5f10:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b14f271f9fb04b50a5ddba7</uuid>
+  <initiated_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <has_mechanism rdf:resource="#91922cbc4618401fb2b9a08:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#35982f7a92be46a6b297bcd:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">13aa3e3798c14ae3a84e53a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">However users can disable cookies by changing their browser settings</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3394c3c8d5164f5ca32c703:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#00b8c46b21bf45509de6dd5:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3394c3c8d5164f5ca32c703</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">00b8c46b21bf45509de6dd5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">opt out of these communications.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#41b1bf33503f453caaabe01:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#f605a2dc57f34ffaa99bfe3:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <has_mechanism rdf:resource="#3394c3c8d5164f5ca32c703:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">41b1bf33503f453caaabe01</uuid>
+  <initiated_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <has_mechanism rdf:resource="#00b8c46b21bf45509de6dd5:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f605a2dc57f34ffaa99bfe3</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Choice/Opt-out Valve gives users the option to receive promotional email communications from Valve Users may opt out of these communications Instructions for discontinuing receipt of promotional email communications from Valve will be provided in email communications to users</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b019e5815c244a508e6501c:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#87a0ab1a4b13413c892652e:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b019e5815c244a508e6501c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">87a0ab1a4b13413c892652e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Users may opt out of these communications. Instructions for discontinuing receipt of promotional email communications from Valve will be provided in email communications to users.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6f90d83f43d247b19001564:PersonalData">
+<owl:NamedIndividual rdf:about="#046e344eeffc4a8eb6e51ab:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6f90d83f43d247b19001564</uuid>
+  <provided_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">046e344eeffc4a8eb6e51ab</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email communications</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#48d1460667ff431eb302278:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#cf0b5dfcd5704f5dbebde43:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <has_mechanism rdf:resource="#b019e5815c244a508e6501c:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#6f90d83f43d247b19001564:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">48d1460667ff431eb302278</uuid>
+  <initiated_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <has_mechanism rdf:resource="#87a0ab1a4b13413c892652e:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#046e344eeffc4a8eb6e51ab:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cf0b5dfcd5704f5dbebde43</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Choice/Opt-out Valve gives users the option to receive promotional email communications from Valve Users may opt out of these communications Instructions for discontinuing receipt of promotional email communications from Valve will be provided in email communications to users</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a7873e67110241a7ac4a8cb:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#bf5f1bdc7d9142a897b0ab5:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a7873e67110241a7ac4a8cb</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bf5f1bdc7d9142a897b0ab5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Valve gives users the option to receive promotional email communications from Valve. Users may opt out of these communications. Instructions for discontinuing receipt of promotional email communications from Valve will be provided in email communications to users.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#523eb007ecc24c5688a9ef9:PersonalData">
+<owl:NamedIndividual rdf:about="#972f351ce51541fa9f1427a:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">523eb007ecc24c5688a9ef9</uuid>
+  <provided_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">972f351ce51541fa9f1427a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Valve gives users the option to receive promotional email communications</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#69c950bf79094647976306a:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#57c2ebd9dfeb4d64bfd1755:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <has_mechanism rdf:resource="#a7873e67110241a7ac4a8cb:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#523eb007ecc24c5688a9ef9:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">69c950bf79094647976306a</uuid>
+  <initiated_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <has_mechanism rdf:resource="#bf5f1bdc7d9142a897b0ab5:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#972f351ce51541fa9f1427a:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">57c2ebd9dfeb4d64bfd1755</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Choice/Opt-out Valve gives users the option to receive promotional email communications from Valve Users may opt out of these communications Instructions for discontinuing receipt of promotional email communications from Valve will be provided in email communications to users</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ca7fee928be644f4808661a:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#a4b7d430049c45b7a9f0985:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ca7fee928be644f4808661a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a4b7d430049c45b7a9f0985</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Storage and Security of Personally Identifiable Information Personally identifiable information provided to Valve by customers in the EU is controlled by Valve S a r l with place of business set out below Personally identifiable information provided to Valve will be collected processed and stored by Valve Corporation in the United States Valve has taken reasonable steps to protect the information users share with us including but not limited to setup of processes equipment and software to avoid unauthorized access or disclosure of this information Valve Corporation complies with the Safe Harbor framework developed by the U S Department of Commerce and the European Union relating to the transfer and processing of personally identifiable information For more information about the Safe Harbor program or to view Valves certification visit http //export gov/safeharbor/eu/eg main 018476 asp</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4239a7c46d1342d3bfff67d:SecureStorage">
+<owl:NamedIndividual rdf:about="#660aefc828c74c95a25133e:SecureStorage">
   <rdf:type rdf:resource="#SecureStorage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4239a7c46d1342d3bfff67d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">660aefc828c74c95a25133e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to avoid unauthorized access or disclosure of this information.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8830f2a3e3f44fdf9aff31b:DataProtection">
+<owl:NamedIndividual rdf:about="#d4962e911c174a5ebddbd7a:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#c8d283544bbf40a2a48604b:FirstParty"/>
-  <has_mechanism rdf:resource="#4239a7c46d1342d3bfff67d:SecureStorage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8830f2a3e3f44fdf9aff31b</uuid>
+  <initiated_by rdf:resource="#8aaab68095184a71ad1a951:FirstParty"/>
+  <has_mechanism rdf:resource="#660aefc828c74c95a25133e:SecureStorage"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d4962e911c174a5ebddbd7a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Storage and Security of Personally Identifiable Information Personally identifiable information provided to Valve by customers in the EU is controlled by Valve S a r l with place of business set out below Personally identifiable information provided to Valve will be collected processed and stored by Valve Corporation in the United States Valve has taken reasonable steps to protect the information users share with us including but not limited to setup of processes equipment and software to avoid unauthorized access or disclosure of this information Valve Corporation complies with the Safe Harbor framework developed by the U S Department of Commerce and the European Union relating to the transfer and processing of personally identifiable information For more information about the Safe Harbor program or to view Valves certification visit http //export gov/safeharbor/eu/eg main 018476 asp</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e49571da140e43cbae3757b:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#417ad1902a594350ae28d9c:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e49571da140e43cbae3757b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">417ad1902a594350ae28d9c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Valve has taken reasonable steps to protect the information users share with us, including, but not limited to, setup of processes, equipment and software to avoid unauthorized access or disclosure of this information.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#524ed54e5b68400a83107b3:DataProtection">
+<owl:NamedIndividual rdf:about="#fcc13407bfe34987af4f155:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#c8d283544bbf40a2a48604b:FirstParty"/>
-  <has_mechanism rdf:resource="#e49571da140e43cbae3757b:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">524ed54e5b68400a83107b3</uuid>
+  <initiated_by rdf:resource="#8aaab68095184a71ad1a951:FirstParty"/>
+  <has_mechanism rdf:resource="#417ad1902a594350ae28d9c:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fcc13407bfe34987af4f155</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Storage and Security of Personally Identifiable Information Personally identifiable information provided to Valve by customers in the EU is controlled by Valve S a r l with place of business set out below Personally identifiable information provided to Valve will be collected processed and stored by Valve Corporation in the United States Valve has taken reasonable steps to protect the information users share with us including but not limited to setup of processes equipment and software to avoid unauthorized access or disclosure of this information Valve Corporation complies with the Safe Harbor framework developed by the U S Department of Commerce and the European Union relating to the transfer and processing of personally identifiable information For more information about the Safe Harbor program or to view Valves certification visit http //export gov/safeharbor/eu/eg main 018476 asp</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9d349ea4fa00499e8381e9e:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#0ad6dffc6f784ddf8094c9d:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9d349ea4fa00499e8381e9e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0ad6dffc6f784ddf8094c9d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Storage and Security of Personally Identifiable Information Personally identifiable information provided to Valve by customers in the EU is controlled by Valve S a r l with place of business set out below Personally identifiable information provided to Valve will be collected processed and stored by Valve Corporation in the United States Valve has taken reasonable steps to protect the information users share with us including but not limited to setup of processes equipment and software to avoid unauthorized access or disclosure of this information Valve Corporation complies with the Safe Harbor framework developed by the U S Department of Commerce and the European Union relating to the transfer and processing of personally identifiable information For more information about the Safe Harbor program or to view Valves certification visit http //export gov/safeharbor/eu/eg main 018476 asp</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#32250e9f10c34b3cbc9f1b3:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#7ee167ddbeb847a293d11a2:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">32250e9f10c34b3cbc9f1b3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7ee167ddbeb847a293d11a2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corrections Updates and Removal of Personally Identifiable Information If you are concerned about the accuracy of personally identifiable information maintained by Valve or wish to review access amend or correct it or would like your personally identifiable information removed from Valve s records or otherwise deactivated please contact us here We may decline requests that are unreasonably repetitive require disproportionate technical effort jeopardize the privacy of others or are extremely impractical</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e2e45062c5e44f559c2673a:PersonalData">
+<owl:NamedIndividual rdf:about="#92d8a94ff36d4454a588353:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e2e45062c5e44f559c2673a</uuid>
+  <provided_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">92d8a94ff36d4454a588353</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Other data about user</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c782e8c160f5420081e9efd:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#f9c4845fef254053bec364a:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <has_mechanism rdf:resource="#32250e9f10c34b3cbc9f1b3:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#e2e45062c5e44f559c2673a:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c782e8c160f5420081e9efd</uuid>
+  <initiated_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <has_mechanism rdf:resource="#7ee167ddbeb847a293d11a2:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#92d8a94ff36d4454a588353:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f9c4845fef254053bec364a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corrections Updates and Removal of Personally Identifiable Information If you are concerned about the accuracy of personally identifiable information maintained by Valve or wish to review access amend or correct it or would like your personally identifiable information removed from Valve s records or otherwise deactivated please contact us here We may decline requests that are unreasonably repetitive require disproportionate technical effort jeopardize the privacy of others or are extremely impractical</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a798cdaecda9474395182f8:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#41277526fda44ad5aa31f5b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a798cdaecda9474395182f8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">41277526fda44ad5aa31f5b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corrections Updates and Removal of Personally Identifiable Information If you are concerned about the accuracy of personally identifiable information maintained by Valve or wish to review access amend or correct it or would like your personally identifiable information removed from Valve s records or otherwise deactivated please contact us here We may decline requests that are unreasonably repetitive require disproportionate technical effort jeopardize the privacy of others or are extremely impractical</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#692dba7c685c40b095386f1:PersonalData">
+<owl:NamedIndividual rdf:about="#f4058db568f64d38aafb000:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">692dba7c685c40b095386f1</uuid>
+  <provided_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f4058db568f64d38aafb000</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Other data about user</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c85a4d5691d54c12b154356:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#56f7fc4cba584577a9ddc32:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <has_mechanism rdf:resource="#a798cdaecda9474395182f8:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#692dba7c685c40b095386f1:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c85a4d5691d54c12b154356</uuid>
+  <initiated_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <has_mechanism rdf:resource="#41277526fda44ad5aa31f5b:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#f4058db568f64d38aafb000:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">56f7fc4cba584577a9ddc32</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corrections Updates and Removal of Personally Identifiable Information If you are concerned about the accuracy of personally identifiable information maintained by Valve or wish to review access amend or correct it or would like your personally identifiable information removed from Valve s records or otherwise deactivated please contact us here We may decline requests that are unreasonably repetitive require disproportionate technical effort jeopardize the privacy of others or are extremely impractical</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#38fe5354843a4d148d1203c:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#11919b8c3aa445398a4ab9d:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">38fe5354843a4d148d1203c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11919b8c3aa445398a4ab9d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corrections Updates and Removal of Personally Identifiable Information If you are concerned about the accuracy of personally identifiable information maintained by Valve or wish to review access amend or correct it or would like your personally identifiable information removed from Valve s records or otherwise deactivated please contact us here We may decline requests that are unreasonably repetitive require disproportionate technical effort jeopardize the privacy of others or are extremely impractical</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#443bcd0712ca4fb282a7b63:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#fe2ec0b1e28b498f815fead:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <has_mechanism rdf:resource="#38fe5354843a4d148d1203c:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">443bcd0712ca4fb282a7b63</uuid>
+  <initiated_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <has_mechanism rdf:resource="#11919b8c3aa445398a4ab9d:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fe2ec0b1e28b498f815fead</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corrections Updates and Removal of Personally Identifiable Information If you are concerned about the accuracy of personally identifiable information maintained by Valve or wish to review access amend or correct it or would like your personally identifiable information removed from Valve s records or otherwise deactivated please contact us here We may decline requests that are unreasonably repetitive require disproportionate technical effort jeopardize the privacy of others or are extremely impractical</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b6a7ee71560c4afa85d052f:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#499a76d1543c4797ba87518:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b6a7ee71560c4afa85d052f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">499a76d1543c4797ba87518</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corrections Updates and Removal of Personally Identifiable Information If you are concerned about the accuracy of personally identifiable information maintained by Valve or wish to review access amend or correct it or would like your personally identifiable information removed from Valve s records or otherwise deactivated please contact us here We may decline requests that are unreasonably repetitive require disproportionate technical effort jeopardize the privacy of others or are extremely impractical</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ac48cdb71697468696ffc64:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#7aa6d426f6094ec6af1050a:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <has_mechanism rdf:resource="#b6a7ee71560c4afa85d052f:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ac48cdb71697468696ffc64</uuid>
+  <initiated_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <has_mechanism rdf:resource="#499a76d1543c4797ba87518:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7aa6d426f6094ec6af1050a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corrections Updates and Removal of Personally Identifiable Information If you are concerned about the accuracy of personally identifiable information maintained by Valve or wish to review access amend or correct it or would like your personally identifiable information removed from Valve s records or otherwise deactivated please contact us here We may decline requests that are unreasonably repetitive require disproportionate technical effort jeopardize the privacy of others or are extremely impractical</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fc3a4801876e4c01aba6c84:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#76e9ccb883e94d66b4caafa:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fc3a4801876e4c01aba6c84</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">76e9ccb883e94d66b4caafa</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corrections Updates and Removal of Personally Identifiable Information If you are concerned about the accuracy of personally identifiable information maintained by Valve or wish to review access amend or correct it or would like your personally identifiable information removed from Valve s records or otherwise deactivated please contact us here We may decline requests that are unreasonably repetitive require disproportionate technical effort jeopardize the privacy of others or are extremely impractical</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#78f759dc04214caca52dab7:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#c26e70b2cf444f218798a7b:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <has_mechanism rdf:resource="#fc3a4801876e4c01aba6c84:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">78f759dc04214caca52dab7</uuid>
+  <initiated_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <has_mechanism rdf:resource="#76e9ccb883e94d66b4caafa:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c26e70b2cf444f218798a7b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corrections Updates and Removal of Personally Identifiable Information If you are concerned about the accuracy of personally identifiable information maintained by Valve or wish to review access amend or correct it or would like your personally identifiable information removed from Valve s records or otherwise deactivated please contact us here We may decline requests that are unreasonably repetitive require disproportionate technical effort jeopardize the privacy of others or are extremely impractical</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#57419bb598a943a696bb641:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#2a40baf6e7e049b6b01bb8d:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">57419bb598a943a696bb641</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2a40baf6e7e049b6b01bb8d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corrections Updates and Removal of Personally Identifiable Information If you are concerned about the accuracy of personally identifiable information maintained by Valve or wish to review access amend or correct it or would like your personally identifiable information removed from Valve s records or otherwise deactivated please contact us here We may decline requests that are unreasonably repetitive require disproportionate technical effort jeopardize the privacy of others or are extremely impractical</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6c9046c4363e4366a2d3529:PersonalData">
+<owl:NamedIndividual rdf:about="#69f69e0636c64c8fb3f4e23:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6c9046c4363e4366a2d3529</uuid>
+  <provided_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">69f69e0636c64c8fb3f4e23</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Other data about user</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8403475f88a047029471aae:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#cfc863999b274929962a5c4:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <has_mechanism rdf:resource="#57419bb598a943a696bb641:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#6c9046c4363e4366a2d3529:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8403475f88a047029471aae</uuid>
+  <initiated_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <has_mechanism rdf:resource="#2a40baf6e7e049b6b01bb8d:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#69f69e0636c64c8fb3f4e23:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cfc863999b274929962a5c4</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corrections Updates and Removal of Personally Identifiable Information If you are concerned about the accuracy of personally identifiable information maintained by Valve or wish to review access amend or correct it or would like your personally identifiable information removed from Valve s records or otherwise deactivated please contact us here We may decline requests that are unreasonably repetitive require disproportionate technical effort jeopardize the privacy of others or are extremely impractical</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c6ca9e2248ca4ea58682dea:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#114412c69b484382bbe826f:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c6ca9e2248ca4ea58682dea</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">114412c69b484382bbe826f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corrections Updates and Removal of Personally Identifiable Information If you are concerned about the accuracy of personally identifiable information maintained by Valve or wish to review access amend or correct it or would like your personally identifiable information removed from Valve s records or otherwise deactivated please contact us here We may decline requests that are unreasonably repetitive require disproportionate technical effort jeopardize the privacy of others or are extremely impractical</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#69ede0a21496409086de59b:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#09bcb10f1e014b53a08606d:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <has_mechanism rdf:resource="#c6ca9e2248ca4ea58682dea:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">69ede0a21496409086de59b</uuid>
+  <initiated_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <has_mechanism rdf:resource="#114412c69b484382bbe826f:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">09bcb10f1e014b53a08606d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corrections Updates and Removal of Personally Identifiable Information If you are concerned about the accuracy of personally identifiable information maintained by Valve or wish to review access amend or correct it or would like your personally identifiable information removed from Valve s records or otherwise deactivated please contact us here We may decline requests that are unreasonably repetitive require disproportionate technical effort jeopardize the privacy of others or are extremely impractical</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#027e1704dacb489992aae34:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#a1d6f8201c504de1a53242a:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">027e1704dacb489992aae34</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a1d6f8201c504de1a53242a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corrections Updates and Removal of Personally Identifiable Information If you are concerned about the accuracy of personally identifiable information maintained by Valve or wish to review access amend or correct it or would like your personally identifiable information removed from Valve s records or otherwise deactivated please contact us here We may decline requests that are unreasonably repetitive require disproportionate technical effort jeopardize the privacy of others or are extremely impractical</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5c064c5ff40543d8a8cba26:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#b78fcbb9bda446d1aebcb79:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <has_mechanism rdf:resource="#027e1704dacb489992aae34:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5c064c5ff40543d8a8cba26</uuid>
+  <initiated_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <has_mechanism rdf:resource="#a1d6f8201c504de1a53242a:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b78fcbb9bda446d1aebcb79</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Corrections Updates and Removal of Personally Identifiable Information If you are concerned about the accuracy of personally identifiable information maintained by Valve or wish to review access amend or correct it or would like your personally identifiable information removed from Valve s records or otherwise deactivated please contact us here We may decline requests that are unreasonably repetitive require disproportionate technical effort jeopardize the privacy of others or are extremely impractical</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#98405e31698e47cd9ee0961:InPrivacyPolicy">
+<owl:NamedIndividual rdf:about="#ca3a78f683084ebfb18a8e8:InPrivacyPolicy">
   <rdf:type rdf:resource="#InPrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">98405e31698e47cd9ee0961</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ca3a78f683084ebfb18a8e8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Revision Date: March 24th 2015</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5c0b7f6830844c81a0021f6:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#43cd885facc9418c9469648:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5c0b7f6830844c81a0021f6</uuid>
+  <initiated_by rdf:resource="#b6578b93b45e40938852646:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">43cd885facc9418c9469648</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Revision Date March 24th 2015</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e3a9a55e7d2540daa9eb091:PolicyChange">
+<owl:NamedIndividual rdf:about="#03597511c5434f8f973e978:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#c8d283544bbf40a2a48604b:FirstParty"/>
-  <binded_to rdf:resource="#5c0b7f6830844c81a0021f6:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e3a9a55e7d2540daa9eb091</uuid>
+  <initiated_by rdf:resource="#8aaab68095184a71ad1a951:FirstParty"/>
+  <binded_to rdf:resource="#43cd885facc9418c9469648:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">03597511c5434f8f973e978</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Revision Date March 24th 2015</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0fa679b9535a456d92602bf:FPNotification">
+<owl:NamedIndividual rdf:about="#ece5c7c38d5f474db935cc8:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#c8d283544bbf40a2a48604b:FirstParty"/>
-  <notifies rdf:resource="#154eb9df80b5406ca05565b:User"/>
-  <has_mechanism rdf:resource="#98405e31698e47cd9ee0961:InPrivacyPolicy"/>
-  <binded_to rdf:resource="#e3a9a55e7d2540daa9eb091:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0fa679b9535a456d92602bf</uuid>
+  <initiated_by rdf:resource="#8aaab68095184a71ad1a951:FirstParty"/>
+  <notifies rdf:resource="#b6578b93b45e40938852646:User"/>
+  <has_mechanism rdf:resource="#ca3a78f683084ebfb18a8e8:InPrivacyPolicy"/>
+  <binded_to rdf:resource="#03597511c5434f8f973e978:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ece5c7c38d5f474db935cc8</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Revision Date March 24th 2015</evidence>
 </owl:NamedIndividual>

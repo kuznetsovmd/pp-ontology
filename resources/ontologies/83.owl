@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -901,6 +902,14 @@
   <rdfs:subClassOf rdf:resource="#UserSpecificCommunicationMechanism"/>
   <owl:disjointWith rdf:resource="#AutomaticCommunicationMechanism"/>
   <rdfs:subClassOf>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
+        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
+      </owl:unionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
       <owl:allValuesFrom>
@@ -909,14 +918,6 @@
         </owl:Class>
       </owl:allValuesFrom>
     </owl:Restriction>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
-        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
-      </owl:unionOf>
-    </owl:Class>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -959,18 +960,18 @@
 <owl:Class rdf:about="#FPSpecificCommunicationMechanism">
   <rdfs:subClassOf rdf:resource="#CommunicationMechanism"/>
   <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#mechanism_of"/>
-      <owl:allValuesFrom rdf:resource="#FPNotification"/>
-    </owl:Restriction>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
     <owl:Class>
       <owl:unionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#FPSpecificCommunicationMechanism"/>
         <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
       </owl:unionOf>
     </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#mechanism_of"/>
+      <owl:allValuesFrom rdf:resource="#FPNotification"/>
+    </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,1414 +1305,1408 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#9845bde1ec774e0c8aaa13c:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#71a960cb78c84ae3a703d23:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9845bde1ec774e0c8aaa13c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">71a960cb78c84ae3a703d23</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c81c81f6a7fd42dd90c4bc7:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#c2b53b0c946e42f4b95a420:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <considers rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <considers rdf:resource="#27186d7496be4bbea277b22:ThirdParty"/>
-  <considers rdf:resource="#eef2048c7915417284392a0:DataProtection"/>
-  <considers rdf:resource="#2194e577fc7747078d5a563:DataProtection"/>
-  <considers rdf:resource="#de90377aa4544058b00e12f:DataProtection"/>
-  <considers rdf:resource="#71a79c08de3c4b9491a871b:OptInOptOutControl"/>
-  <considers rdf:resource="#a2d84307163e4bc3b3a56ff:GenericData"/>
-  <considers rdf:resource="#0909158934cc426b8c1fe23:FPCollection"/>
-  <considers rdf:resource="#97336304d5254ef1bc6ef40:SensitiveData"/>
-  <considers rdf:resource="#27f33cecdc6f445c8736a6c:FPCollection"/>
-  <considers rdf:resource="#482910de1ef241ed973f416:PersonalData"/>
-  <considers rdf:resource="#fc954532592b46538ddc6bc:FPCollection"/>
-  <considers rdf:resource="#381791897dca469d808d323:FinancialData"/>
-  <considers rdf:resource="#f605fb7726184b33a0a5bf3:FPCollection"/>
-  <considers rdf:resource="#4527ce96656844faa68f603:GenericData"/>
-  <considers rdf:resource="#5a7c16c934ea41c69954ba2:FPCollection"/>
-  <considers rdf:resource="#4a55384238a44db9afd8cd2:GenericData"/>
-  <considers rdf:resource="#af81772e10694f798eb8e98:FPCollection"/>
-  <considers rdf:resource="#2fa70b0a0266499e876d36e:DataProtection"/>
-  <considers rdf:resource="#2dff47be12f743aab35b64a:DeviceData"/>
-  <considers rdf:resource="#3f4a0aefcdf74255be29276:FPCollection"/>
-  <considers rdf:resource="#3ff9008e63044ce99949a9e:GenericData"/>
-  <considers rdf:resource="#2def057d45ff4bab9101c2c:DataUse"/>
-  <considers rdf:resource="#b3d2713307144bc5aacfc54:GenericData"/>
-  <considers rdf:resource="#e058d714f3c8403db99b7c4:FPCollection"/>
-  <considers rdf:resource="#05fcc9d80f614780a4159d8:GenericData"/>
-  <considers rdf:resource="#75d84eac8aad4757a9f3050:FPCollection"/>
-  <considers rdf:resource="#7e35dd1ed75a4efcb0e0161:DataUse"/>
-  <considers rdf:resource="#8a97382dbb634f5fb8f703e:OptInOptOutControl"/>
-  <considers rdf:resource="#e24f7f961dbb45d8bd9ecdb:GenericData"/>
-  <considers rdf:resource="#4e710262962a425aadef4d7:OptInOptOutControl"/>
-  <considers rdf:resource="#14f5b251b21244d993db672:Data"/>
-  <considers rdf:resource="#1820fd88b934458dae4a80c:DataRetention"/>
-  <considers rdf:resource="#cfae4c4911154d98973ea3f:Data"/>
-  <considers rdf:resource="#fbf731e512184ccfbe94950:DataRetention"/>
-  <considers rdf:resource="#232a6665137e4336a946411:OptInOptOutControl"/>
-  <considers rdf:resource="#674efb04385343e0987e71c:GenericData"/>
-  <considers rdf:resource="#3af0d3f82b214df99ff8e5b:DataUse"/>
-  <considers rdf:resource="#120e078ffd9042fe9df4d3e:GenericData"/>
-  <considers rdf:resource="#c3c91b37368f408489c7497:FPCollection"/>
-  <considers rdf:resource="#5134d2debe634563be9c107:DataUse"/>
-  <considers rdf:resource="#c1d226b1d3744afd9cc9870:PersonalData"/>
-  <considers rdf:resource="#c240f2796e3f4e4d98db266:DataRetention"/>
-  <considers rdf:resource="#d5af332758de4518a929a68:FPCollection"/>
-  <considers rdf:resource="#ce32cd27f3694e85a9f773e:FinancialData"/>
-  <considers rdf:resource="#1340ed487db5491f89b2ffc:FPCollection"/>
-  <considers rdf:resource="#cc72b8c1c412437abfa85dc:DataRetention"/>
-  <considers rdf:resource="#1dc37caada0843998a8011c:DataProtection"/>
-  <considers rdf:resource="#a46186814e234220b6cf4f2:OptInOptOutControl"/>
-  <considers rdf:resource="#932b3538deef423caec4c15:AccountData"/>
-  <considers rdf:resource="#f7836d89d33c4ddbaa23e7d:OptInOptOutControl"/>
-  <considers rdf:resource="#a67b32bf66774f48aaeb4f7:DataProtection"/>
-  <considers rdf:resource="#2a04796d26a14d2a91ffad4:AccountData"/>
-  <considers rdf:resource="#aaa93723cc0748cbbdea69f:OptInOptOutControl"/>
-  <considers rdf:resource="#7a0540a96cb149fb9033d32:PersonalData"/>
-  <considers rdf:resource="#35aadebecc5647f796d2c25:FPCollection"/>
-  <considers rdf:resource="#bbf837ec706042e4a4ddea2:SensitiveData"/>
-  <considers rdf:resource="#ff15e9a82b824879b4cb40d:OptInOptOutControl"/>
-  <considers rdf:resource="#cf0bd52ce2594142814d068:SensitiveData"/>
-  <considers rdf:resource="#b7177535c7a44baabf66df7:OptInOptOutControl"/>
-  <considers rdf:resource="#660c82af58694a44b7b3763:SensitiveData"/>
-  <considers rdf:resource="#ee47d7be8cb6499c89d1bda:OptInOptOutControl"/>
-  <considers rdf:resource="#5f67970ad73242e1a79be1e:DataProtection"/>
-  <considers rdf:resource="#862586c209b34e0f9c80698:DataProtection"/>
-  <considers rdf:resource="#746156d85cec4c81832448c:DataProtection"/>
-  <considers rdf:resource="#6d17ed28851b48e7862ceee:DataProtection"/>
-  <considers rdf:resource="#b4776b30d9e941a38508a98:DataProtection"/>
-  <considers rdf:resource="#952fd9b4f01e47be9395017:AccountData"/>
-  <considers rdf:resource="#2dd3dd3d88974a378c62a6d:DataRetention"/>
-  <considers rdf:resource="#957bab9361c942639eb3186:OptInOptOutControl"/>
-  <considers rdf:resource="#9f6eb88d35a24d03bc7ac39:PolicyChange"/>
-  <considers rdf:resource="#ff0df1718e3d464a835927b:FPNotification"/>
-  <considers rdf:resource="#392b5e73ad10443fbe6716e:OptInOptOutControl"/>
-  <considers rdf:resource="#a6b38ca907ea4561942161e:PolicyChange"/>
-  <considers rdf:resource="#2c299d194781460f9e9beab:FPNotification"/>
-  <considers rdf:resource="#fe0cbde051f246b59253501:OptInOptOutControl"/>
-  <considers rdf:resource="#0cd4b4f6313842fbaf35340:PolicyChange"/>
-  <considers rdf:resource="#d39e545c8abd4ca1a07b09c:FPNotification"/>
-  <considers rdf:resource="#76118aec06fb49228a3818b:OptInOptOutControl"/>
-  <considers rdf:resource="#66b5f5ed6c5747e9986ae4d:PolicyChange"/>
-  <considers rdf:resource="#143c3ca0b37c441abc4bf9d:FPNotification"/>
-  <considers rdf:resource="#8ad6d97331d144d2b2d7e5c:OptInOptOutControl"/>
-  <considers rdf:resource="#45904b57f07e48aab27e8d6:PolicyChange"/>
-  <considers rdf:resource="#ca0ffb10a8864f71a1d9176:FPNotification"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c81c81f6a7fd42dd90c4bc7</uuid>
+  <considers rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <considers rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <considers rdf:resource="#751c9f33f8cc4ef4a70800d:ThirdParty"/>
+  <considers rdf:resource="#3162d984dba2408cbedbcb9:DataProtection"/>
+  <considers rdf:resource="#550ed30f37ad417daa972de:DataProtection"/>
+  <considers rdf:resource="#2193d357fa3c494a93a39f4:DataProtection"/>
+  <considers rdf:resource="#9a2332a2150c4a2ab7c0ac3:OptInOptOutControl"/>
+  <considers rdf:resource="#a576fbea4059486788d1a31:GenericData"/>
+  <considers rdf:resource="#3cd9a332885344cb99774a7:FPCollection"/>
+  <considers rdf:resource="#7f24a71cb1e545dc9d59e9d:SensitiveData"/>
+  <considers rdf:resource="#844cd1af0ce341bd9439e66:FPCollection"/>
+  <considers rdf:resource="#739e8229f8cd4555bdcec07:PersonalData"/>
+  <considers rdf:resource="#8085f9453fcf47baa629510:FPCollection"/>
+  <considers rdf:resource="#d89fe5aeddc94433b02bbb0:FinancialData"/>
+  <considers rdf:resource="#162949d925044041a129261:FPCollection"/>
+  <considers rdf:resource="#120c1ef78d024018bcb514d:GenericData"/>
+  <considers rdf:resource="#0c19589d6dcc40ceb56a19f:FPCollection"/>
+  <considers rdf:resource="#e243bd140062401ab59b7f8:GenericData"/>
+  <considers rdf:resource="#d8fd87359d1740ad84a11e1:FPCollection"/>
+  <considers rdf:resource="#1db8cd9faa1048aea19a889:DataProtection"/>
+  <considers rdf:resource="#b675a95fd27b4779bc62d24:DeviceData"/>
+  <considers rdf:resource="#0a6d86726741462a9c1e1ab:FPCollection"/>
+  <considers rdf:resource="#da9585c767324d14860788a:GenericData"/>
+  <considers rdf:resource="#3e0dab269a4049ccbd426d1:DataUse"/>
+  <considers rdf:resource="#8a918a154be24c3d96c626b:GenericData"/>
+  <considers rdf:resource="#267a94ea326a41ee8ca1828:FPCollection"/>
+  <considers rdf:resource="#2d344c349f4d47f7a8ba0e6:GenericData"/>
+  <considers rdf:resource="#c60fafcfbb3d48c3a2151c5:FPCollection"/>
+  <considers rdf:resource="#b9e6d834c9984540bc2fb48:DataUse"/>
+  <considers rdf:resource="#5596243b1bb64a0b8f0e061:OptInOptOutControl"/>
+  <considers rdf:resource="#9ec3a2bf637044fabd8d803:GenericData"/>
+  <considers rdf:resource="#6b53ed0d803244da95b384e:OptInOptOutControl"/>
+  <considers rdf:resource="#822a1e9ae2a6425f8e475d4:Data"/>
+  <considers rdf:resource="#2142d07744ee4d72b477433:DataRetention"/>
+  <considers rdf:resource="#19e5636327114f0283f4650:Data"/>
+  <considers rdf:resource="#ce0f6ea36f7a4713b2bb970:DataRetention"/>
+  <considers rdf:resource="#32239883d4a745a7b370c81:OptInOptOutControl"/>
+  <considers rdf:resource="#2557af5a20e74085a0955e2:GenericData"/>
+  <considers rdf:resource="#2919f2bec8694966b83d113:DataUse"/>
+  <considers rdf:resource="#24b1b61861d943f58d41569:GenericData"/>
+  <considers rdf:resource="#7d89b126d8124766904b434:FPCollection"/>
+  <considers rdf:resource="#a027f6740c664bcd8c4e6c4:DataUse"/>
+  <considers rdf:resource="#6de168e8cbcc4beea897386:PersonalData"/>
+  <considers rdf:resource="#7179b6322e2e481c90beb3e:DataRetention"/>
+  <considers rdf:resource="#93457533805346cf9113fb3:FPCollection"/>
+  <considers rdf:resource="#22cb81b67b41480587739ba:FinancialData"/>
+  <considers rdf:resource="#ffdba9ba5c914b2bbabf10e:FPCollection"/>
+  <considers rdf:resource="#4ddaba99b40242979ed0928:DataRetention"/>
+  <considers rdf:resource="#9e52848c5617429b9c3a7ef:DataProtection"/>
+  <considers rdf:resource="#03613e486749417aa5d0b34:OptInOptOutControl"/>
+  <considers rdf:resource="#be5db47c21514491821e006:AccountData"/>
+  <considers rdf:resource="#f9c67f5436aa4d29bf7164f:OptInOptOutControl"/>
+  <considers rdf:resource="#cab5b6f17971490180f9e39:DataProtection"/>
+  <considers rdf:resource="#b43bb9b6b7994644b5b567b:AccountData"/>
+  <considers rdf:resource="#001a16f35b3347a2a7f09e4:OptInOptOutControl"/>
+  <considers rdf:resource="#c7b47602cb024d0a889ceff:PersonalData"/>
+  <considers rdf:resource="#460a9f948f574634bbda81f:FPCollection"/>
+  <considers rdf:resource="#e577476ad77e4db2ae9f1ac:SensitiveData"/>
+  <considers rdf:resource="#cbdaeba30179428aa4287c8:OptInOptOutControl"/>
+  <considers rdf:resource="#fae6b4e22d1b42b6bfac314:SensitiveData"/>
+  <considers rdf:resource="#7bba535484824332ac1e74e:OptInOptOutControl"/>
+  <considers rdf:resource="#4f62b67e59e64ec486a6a36:SensitiveData"/>
+  <considers rdf:resource="#cfcd4df5ca4b40bca36d837:OptInOptOutControl"/>
+  <considers rdf:resource="#a2d93388d6da4ffe9699874:DataProtection"/>
+  <considers rdf:resource="#1a25dc3ac1b64fb49acac35:DataProtection"/>
+  <considers rdf:resource="#138a7f2ebb8a47d9a950c86:DataProtection"/>
+  <considers rdf:resource="#70ea603aa11841e18ed37b5:DataProtection"/>
+  <considers rdf:resource="#b37eefc2347d4e51ac3549d:DataProtection"/>
+  <considers rdf:resource="#3a416008d640477f9faf4da:AccountData"/>
+  <considers rdf:resource="#2881f8c278fe410e9b51023:DataRetention"/>
+  <considers rdf:resource="#db82eea9a03f4c8c93553c5:OptInOptOutControl"/>
+  <considers rdf:resource="#99acadf84ca44a9dbe5776d:PolicyChange"/>
+  <considers rdf:resource="#b3e4195344304119a7c20b6:FPNotification"/>
+  <considers rdf:resource="#291d2a50a3194a6ea1c3315:OptInOptOutControl"/>
+  <considers rdf:resource="#3b04d7b9a23b4fa780016af:PolicyChange"/>
+  <considers rdf:resource="#886ca59b7f394122a00b1b7:FPNotification"/>
+  <considers rdf:resource="#3e19b9d5ad3a479595ce7a2:OptInOptOutControl"/>
+  <considers rdf:resource="#5526c40d04e343acaba567b:PolicyChange"/>
+  <considers rdf:resource="#0c6c51b801c24ab68af0061:FPNotification"/>
+  <considers rdf:resource="#768f8a7b4fc94d6194b28ab:OptInOptOutControl"/>
+  <considers rdf:resource="#a7a138f6caac4fd0bd1559b:PolicyChange"/>
+  <considers rdf:resource="#a1d29cb1ed31410b94da273:FPNotification"/>
+  <considers rdf:resource="#672c6f84d63b45efabf0e81:OptInOptOutControl"/>
+  <considers rdf:resource="#16a01660265e4d53b10a443:PolicyChange"/>
+  <considers rdf:resource="#64131bb497cc4765ab63baa:FPNotification"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c2b53b0c946e42f4b95a420</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">playstation.com</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1dd25052655c459590ffe9e:User">
+<owl:NamedIndividual rdf:about="#25881862b0d440a7b0e254b:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1dd25052655c459590ffe9e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">25881862b0d440a7b0e254b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#71430054d7cb4a6a9a1c5ab:FirstParty">
+<owl:NamedIndividual rdf:about="#0dd5b482ea0c41aba68cfbb:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">71430054d7cb4a6a9a1c5ab</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0dd5b482ea0c41aba68cfbb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#27186d7496be4bbea277b22:ThirdParty">
+<owl:NamedIndividual rdf:about="#751c9f33f8cc4ef4a70800d:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">27186d7496be4bbea277b22</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">751c9f33f8cc4ef4a70800d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b016d616b7e144bb9a57c8f:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#d9f31fcbb08b4952af40713:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b016d616b7e144bb9a57c8f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d9f31fcbb08b4952af40713</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To protect your privacy to the maximum extent possible, we have undertaken this privacy initiative and our websites have been reviewed and certified by ESRB Privacy Online to meet established online information collection and use practices. As part of the privacy program, we are subject to frequent audits of our sites and other enforcement and accountability mechanisms administered independently by ESRB.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#eef2048c7915417284392a0:DataProtection">
+<owl:NamedIndividual rdf:about="#3162d984dba2408cbedbcb9:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <has_mechanism rdf:resource="#b016d616b7e144bb9a57c8f:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eef2048c7915417284392a0</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <has_mechanism rdf:resource="#d9f31fcbb08b4952af40713:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3162d984dba2408cbedbcb9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This Privacy Statement and the certification seal located to your right confirms that SCEA is a valid licensee and participating member in the Entertainment Software Rating Board s Privacy Online Program ESRB Privacy Online To protect your privacy to the maximum extent possible we have undertaken this privacy initiative and our websites have been reviewed and certified by ESRB Privacy Online to meet established online information collection and use practices As part of the privacy program we are subject to frequent audits of our sites and other enforcement and accountability mechanisms administered independently by ESRB</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#874cae9f249b44cfa45215a:OrganizationalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#494405fd74f044319fc045b:OrganizationalSecurityMeasure">
   <rdf:type rdf:resource="#OrganizationalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">874cae9f249b44cfa45215a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">494405fd74f044319fc045b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ESRB Privacy Online is a third-party seal provider whose mission is to protect consumers' online privacy and make the Internet a secure, reliable and private place to share information and conduct business. ESRB Privacy Online promotes and enforces established principles and guidelines for fair information collection practices that include requirements of full disclosure, notice and informed consent.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2194e577fc7747078d5a563:DataProtection">
+<owl:NamedIndividual rdf:about="#550ed30f37ad417daa972de:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <has_mechanism rdf:resource="#874cae9f249b44cfa45215a:OrganizationalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2194e577fc7747078d5a563</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <has_mechanism rdf:resource="#494405fd74f044319fc045b:OrganizationalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">550ed30f37ad417daa972de</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ESRB Privacy Online is a third-party seal provider whose mission is to protect consumers online privacy and make the Internet a secure reliable and private place to share information and conduct business ESRB Privacy Online promotes and enforces established principles and guidelines for fair information collection practices that include requirements of full disclosure notice and informed consent</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#19c27a2bfef14756bd31485:OrganizationalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#e566676a4b024043b5c952b:OrganizationalSecurityMeasure">
   <rdf:type rdf:resource="#OrganizationalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">19c27a2bfef14756bd31485</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e566676a4b024043b5c952b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Whenever you visit a website that displays the ESRB Privacy Online certification seal, you can expect to be notified of: What personal information may be collected and by what means Who, if anyone, is collecting your personal information How this information may be used, including who, if anyone, it might be shared with The consequences, if any, resulting from your refusal to provide personal information How you can access and, if necessary, change the personal information a company maintains How a company ensures data security, quality and integrity Where and how to ask questions or file complaints</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#de90377aa4544058b00e12f:DataProtection">
+<owl:NamedIndividual rdf:about="#2193d357fa3c494a93a39f4:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <has_mechanism rdf:resource="#19c27a2bfef14756bd31485:OrganizationalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">de90377aa4544058b00e12f</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <has_mechanism rdf:resource="#e566676a4b024043b5c952b:OrganizationalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2193d357fa3c494a93a39f4</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Whenever you visit a website that displays the ESRB Privacy Online certification seal you can expect to be notified of What personal information may be collected and by what means Who if anyone is collecting your personal information How this information may be used including who if anyone it might be shared with The consequences if any resulting from your refusal to provide personal information How you can access and if necessary change the personal information a company maintains How a company ensures data security quality and integrity Where and how to ask questions or file complaints</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b60cd2d1d13943df99eca89:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#e6acb1e08ae54d088f3c8b6:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b60cd2d1d13943df99eca89</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e6acb1e08ae54d088f3c8b6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">By use of our websites and games that have dynamic in-game advertising, you signify your assent to SCEA's privacy policy. If you do not agree to this policy, please do not use our websites or games with dynamic in-game advertising.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#71a79c08de3c4b9491a871b:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#9a2332a2150c4a2ab7c0ac3:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_mechanism rdf:resource="#b60cd2d1d13943df99eca89:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">71a79c08de3c4b9491a871b</uuid>
+  <initiated_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_mechanism rdf:resource="#e6acb1e08ae54d088f3c8b6:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9a2332a2150c4a2ab7c0ac3</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">THIS POLICY APPLIES TO This policy applies to the websites us playstation com and naughtydog com In addition we own several other domain names that point to us playstation com From time to time we may add new websites not listed above and will provide a link to this policy or the applicable privacy policy Finally we collect information via dynamic in-game advertising that is served to some online PlayStation3 games By use of our websites and games that have dynamic in-game advertising you signify your assent to SCEA s privacy policy If you do not agree to this policy please do not use our websites or games with dynamic in-game advertising</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e349d50095654e03b93c1aa:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#bfb7de6267b54bcfbb8278c:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e349d50095654e03b93c1aa</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bfb7de6267b54bcfbb8278c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">THIS POLICY DOES NOT APPLY TO PlayStationNetwork In parts of North America and South America Sony Network Entertainment America Inc SNEA operates Sony Online Services a network of online games movies music other media and content and communication services PlayStation Network PSN is one of these Sony Online Services With a Sony Online Services or Sony Entertainment Network account users can purchase goods and services from SNEA through Sony Online Services and may have the opportunity to participate in various network community activities Users can register for and log into a Sony Entertainment Network account via us playstation com Collection and use of your information by Sony Online Services is governed by the SNEA Privacy Policy which can be found here http //www qriocity com/us/en/legal-privacy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a2d84307163e4bc3b3a56ff:GenericData">
+<owl:NamedIndividual rdf:about="#a576fbea4059486788d1a31:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a2d84307163e4bc3b3a56ff</uuid>
+  <provided_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a576fbea4059486788d1a31</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally identifying information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6192ce5d957c425998f10d7:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#a366576042894b078e546fd:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6192ce5d957c425998f10d7</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a366576042894b078e546fd</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">certain promotions</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#22bda67bac7f4f2883d346e:ViaWebsite">
+<owl:NamedIndividual rdf:about="#f752f41f568b41b6b59113e:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">22bda67bac7f4f2883d346e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f752f41f568b41b6b59113e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Collection of Personal Information through our Websites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#166083a4c30d441b957fca4:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#e672656a1cb2450e9571638:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">166083a4c30d441b957fca4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e672656a1cb2450e9571638</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">participants provide this information on a voluntary basis only.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0909158934cc426b8c1fe23:FPCollection">
+<owl:NamedIndividual rdf:about="#3cd9a332885344cb99774a7:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <collects_from rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_purpose rdf:resource="#6192ce5d957c425998f10d7:MarketingPurpose"/>
-  <has_mode rdf:resource="#166083a4c30d441b957fca4:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#22bda67bac7f4f2883d346e:ViaWebsite"/>
-  <applies_to rdf:resource="#a2d84307163e4bc3b3a56ff:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0909158934cc426b8c1fe23</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <collects_from rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_purpose rdf:resource="#a366576042894b078e546fd:MarketingPurpose"/>
+  <has_mode rdf:resource="#e672656a1cb2450e9571638:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#f752f41f568b41b6b59113e:ViaWebsite"/>
+  <applies_to rdf:resource="#a576fbea4059486788d1a31:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3cd9a332885344cb99774a7</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WHAT WE COLLECT Collection of Personal Information through our Websites We do not require that website visitors reveal any personally identifying information in order to gain general access to our websites However visitors who do not wish to or are not allowed by law to share personally identifying information may not be able to access certain areas of our websites participate in certain activities or make a purchase from the PlayStationShop Although personally identifying information may be required to participate in certain promotions or features offered through our websites or to make a purchase from the PlayStationShop participants provide this information on a voluntary basis only Collection of personal information required to access certain website services may include the collection of date of birth name mailing address email address or credit card information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#97336304d5254ef1bc6ef40:SensitiveData">
+<owl:NamedIndividual rdf:about="#7f24a71cb1e545dc9d59e9d:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">97336304d5254ef1bc6ef40</uuid>
+  <provided_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7f24a71cb1e545dc9d59e9d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">date of birth</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e9ca021da8a946dc8dc1856:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#afd2e96711544c2e86da69b:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e9ca021da8a946dc8dc1856</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">afd2e96711544c2e86da69b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">features offered through our websites or to make a purchase from the PlayStationShop</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#74ea56fa2c23434593b22f5:ViaWebsite">
+<owl:NamedIndividual rdf:about="#962f807dd8b048ce99edddc:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">74ea56fa2c23434593b22f5</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">962f807dd8b048ce99edddc</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Collection of Personal Information through our Websites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#db675badd5fb42d9b652e7d:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#bdf28f9013854ea0a31f13b:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">db675badd5fb42d9b652e7d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bdf28f9013854ea0a31f13b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">participants provide this information on a voluntary basis only.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#27f33cecdc6f445c8736a6c:FPCollection">
+<owl:NamedIndividual rdf:about="#844cd1af0ce341bd9439e66:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <collects_from rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_purpose rdf:resource="#e9ca021da8a946dc8dc1856:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#db675badd5fb42d9b652e7d:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#74ea56fa2c23434593b22f5:ViaWebsite"/>
-  <applies_to rdf:resource="#97336304d5254ef1bc6ef40:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">27f33cecdc6f445c8736a6c</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <collects_from rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_purpose rdf:resource="#afd2e96711544c2e86da69b:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#bdf28f9013854ea0a31f13b:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#962f807dd8b048ce99edddc:ViaWebsite"/>
+  <applies_to rdf:resource="#7f24a71cb1e545dc9d59e9d:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">844cd1af0ce341bd9439e66</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WHAT WE COLLECT Collection of Personal Information through our Websites We do not require that website visitors reveal any personally identifying information in order to gain general access to our websites However visitors who do not wish to or are not allowed by law to share personally identifying information may not be able to access certain areas of our websites participate in certain activities or make a purchase from the PlayStationShop Although personally identifying information may be required to participate in certain promotions or features offered through our websites or to make a purchase from the PlayStationShop participants provide this information on a voluntary basis only Collection of personal information required to access certain website services may include the collection of date of birth name mailing address email address or credit card information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#482910de1ef241ed973f416:PersonalData">
+<owl:NamedIndividual rdf:about="#739e8229f8cd4555bdcec07:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">482910de1ef241ed973f416</uuid>
+  <provided_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">739e8229f8cd4555bdcec07</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">name, mailing address, email address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ce13f26013724466a96c8b0:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#649ba968d3f64cc9b682873:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ce13f26013724466a96c8b0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">649ba968d3f64cc9b682873</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">features offered through our websites or to make a purchase from the PlayStationShop</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8c4a9d9b0b8844d08c74682:ViaWebsite">
+<owl:NamedIndividual rdf:about="#e0d7140f5b4a45f0921ae8c:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8c4a9d9b0b8844d08c74682</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e0d7140f5b4a45f0921ae8c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Collection of Personal Information through our Websites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#417c1c280e9842848ab238d:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#66aa35554d494958b248afc:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">417c1c280e9842848ab238d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">66aa35554d494958b248afc</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">participants provide this information on a voluntary basis only.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fc954532592b46538ddc6bc:FPCollection">
+<owl:NamedIndividual rdf:about="#8085f9453fcf47baa629510:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <collects_from rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_purpose rdf:resource="#ce13f26013724466a96c8b0:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#417c1c280e9842848ab238d:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#8c4a9d9b0b8844d08c74682:ViaWebsite"/>
-  <applies_to rdf:resource="#482910de1ef241ed973f416:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fc954532592b46538ddc6bc</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <collects_from rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_purpose rdf:resource="#649ba968d3f64cc9b682873:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#66aa35554d494958b248afc:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#e0d7140f5b4a45f0921ae8c:ViaWebsite"/>
+  <applies_to rdf:resource="#739e8229f8cd4555bdcec07:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8085f9453fcf47baa629510</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WHAT WE COLLECT Collection of Personal Information through our Websites We do not require that website visitors reveal any personally identifying information in order to gain general access to our websites However visitors who do not wish to or are not allowed by law to share personally identifying information may not be able to access certain areas of our websites participate in certain activities or make a purchase from the PlayStationShop Although personally identifying information may be required to participate in certain promotions or features offered through our websites or to make a purchase from the PlayStationShop participants provide this information on a voluntary basis only Collection of personal information required to access certain website services may include the collection of date of birth name mailing address email address or credit card information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#381791897dca469d808d323:FinancialData">
+<owl:NamedIndividual rdf:about="#d89fe5aeddc94433b02bbb0:FinancialData">
   <rdf:type rdf:resource="#FinancialData"/>
-  <provided_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">381791897dca469d808d323</uuid>
+  <provided_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d89fe5aeddc94433b02bbb0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">credit card information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4708c3ed38704b26b68369a:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#7fd1817dade447328836d65:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4708c3ed38704b26b68369a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7fd1817dade447328836d65</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">features offered through our websites or to make a purchase from the PlayStationShop</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a692d6b9cc0e4e13a9f863a:ViaWebsite">
+<owl:NamedIndividual rdf:about="#8089f7c1c815416484951b7:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a692d6b9cc0e4e13a9f863a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8089f7c1c815416484951b7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Collection of Personal Information through our Websites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#679a98a7d4a7456096c796f:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#778c509d07da4471bf6bd90:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">679a98a7d4a7456096c796f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">778c509d07da4471bf6bd90</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">participants provide this information on a voluntary basis only.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f605fb7726184b33a0a5bf3:FPCollection">
+<owl:NamedIndividual rdf:about="#162949d925044041a129261:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <collects_from rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_purpose rdf:resource="#4708c3ed38704b26b68369a:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#679a98a7d4a7456096c796f:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#a692d6b9cc0e4e13a9f863a:ViaWebsite"/>
-  <applies_to rdf:resource="#381791897dca469d808d323:FinancialData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f605fb7726184b33a0a5bf3</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <collects_from rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_purpose rdf:resource="#7fd1817dade447328836d65:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#778c509d07da4471bf6bd90:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#8089f7c1c815416484951b7:ViaWebsite"/>
+  <applies_to rdf:resource="#d89fe5aeddc94433b02bbb0:FinancialData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">162949d925044041a129261</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WHAT WE COLLECT Collection of Personal Information through our Websites We do not require that website visitors reveal any personally identifying information in order to gain general access to our websites However visitors who do not wish to or are not allowed by law to share personally identifying information may not be able to access certain areas of our websites participate in certain activities or make a purchase from the PlayStationShop Although personally identifying information may be required to participate in certain promotions or features offered through our websites or to make a purchase from the PlayStationShop participants provide this information on a voluntary basis only Collection of personal information required to access certain website services may include the collection of date of birth name mailing address email address or credit card information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4527ce96656844faa68f603:GenericData">
+<owl:NamedIndividual rdf:about="#120c1ef78d024018bcb514d:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4527ce96656844faa68f603</uuid>
+  <provided_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">120c1ef78d024018bcb514d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally identifying information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4fcc16df97b3469a8b7454f:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#3132e84b73b54e57b3fcae7:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4fcc16df97b3469a8b7454f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3132e84b73b54e57b3fcae7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Questions or comments sent through our websites to Consumer Services Repair of, replacement of or service on system hardware</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f0b91f8bf6234504b6f3d9a:ViaWebsite">
+<owl:NamedIndividual rdf:about="#dd0fceb64d7345d6b44ac0a:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f0b91f8bf6234504b6f3d9a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dd0fceb64d7345d6b44ac0a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Questions or comments sent through our websites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#61d33565b97942bb943ece4:DataTransmissionMode">
+<owl:NamedIndividual rdf:about="#96b940a09791441cb6ee1be:DataTransmissionMode">
   <rdf:type rdf:resource="#DataTransmissionMode"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">61d33565b97942bb943ece4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">96b940a09791441cb6ee1be</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not selected</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5a7c16c934ea41c69954ba2:FPCollection">
+<owl:NamedIndividual rdf:about="#0c19589d6dcc40ceb56a19f:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <collects_from rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_purpose rdf:resource="#4fcc16df97b3469a8b7454f:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#61d33565b97942bb943ece4:DataTransmissionMode"/>
-  <has_mechanism rdf:resource="#f0b91f8bf6234504b6f3d9a:ViaWebsite"/>
-  <applies_to rdf:resource="#4527ce96656844faa68f603:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5a7c16c934ea41c69954ba2</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <collects_from rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_purpose rdf:resource="#3132e84b73b54e57b3fcae7:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#96b940a09791441cb6ee1be:DataTransmissionMode"/>
+  <has_mechanism rdf:resource="#dd0fceb64d7345d6b44ac0a:ViaWebsite"/>
+  <applies_to rdf:resource="#120c1ef78d024018bcb514d:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0c19589d6dcc40ceb56a19f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We collect personally identifying information in connection with the following Questions or comments sent through our websites to Consumer Services Repair of replacement of or service on system hardware Subscription to a non-PSN marketing program Send-to-a-Friend emails Purchases made from the PlayStation Shop</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4a55384238a44db9afd8cd2:GenericData">
+<owl:NamedIndividual rdf:about="#e243bd140062401ab59b7f8:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4a55384238a44db9afd8cd2</uuid>
+  <provided_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e243bd140062401ab59b7f8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally identifying information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4e43c9bd8a93495fa0357bb:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#7d3bd31922f84139b7ec5b7:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4e43c9bd8a93495fa0357bb</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7d3bd31922f84139b7ec5b7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Subscription to a non-PSN marketing program</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e32cabc1c3a4432893d1aa6:ViaWebsite">
+<owl:NamedIndividual rdf:about="#bb97c3cfb8c2484c948a01c:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e32cabc1c3a4432893d1aa6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bb97c3cfb8c2484c948a01c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Questions or comments sent through our websites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bc9cedd8dce1451ea5bea91:DataTransmissionMode">
+<owl:NamedIndividual rdf:about="#550bab54416f474aa5875e1:DataTransmissionMode">
   <rdf:type rdf:resource="#DataTransmissionMode"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bc9cedd8dce1451ea5bea91</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">550bab54416f474aa5875e1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not selected</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#af81772e10694f798eb8e98:FPCollection">
+<owl:NamedIndividual rdf:about="#d8fd87359d1740ad84a11e1:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <collects_from rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_purpose rdf:resource="#4e43c9bd8a93495fa0357bb:MarketingPurpose"/>
-  <has_mode rdf:resource="#bc9cedd8dce1451ea5bea91:DataTransmissionMode"/>
-  <has_mechanism rdf:resource="#e32cabc1c3a4432893d1aa6:ViaWebsite"/>
-  <applies_to rdf:resource="#4a55384238a44db9afd8cd2:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">af81772e10694f798eb8e98</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <collects_from rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_purpose rdf:resource="#7d3bd31922f84139b7ec5b7:MarketingPurpose"/>
+  <has_mode rdf:resource="#550bab54416f474aa5875e1:DataTransmissionMode"/>
+  <has_mechanism rdf:resource="#bb97c3cfb8c2484c948a01c:ViaWebsite"/>
+  <applies_to rdf:resource="#e243bd140062401ab59b7f8:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d8fd87359d1740ad84a11e1</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We collect personally identifying information in connection with the following Questions or comments sent through our websites to Consumer Services Repair of replacement of or service on system hardware Subscription to a non-PSN marketing program Send-to-a-Friend emails Purchases made from the PlayStation Shop</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3d4a8c0d753f42f2af08a5e:AccessControls">
+<owl:NamedIndividual rdf:about="#66d5717b56474078a8e8c65:AccessControls">
   <rdf:type rdf:resource="#AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3d4a8c0d753f42f2af08a5e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">66d5717b56474078a8e8c65</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">On our websites, PlayStation Network log in information is being authenticated by SNEA, not SCEA.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2fa70b0a0266499e876d36e:DataProtection">
+<owl:NamedIndividual rdf:about="#1db8cd9faa1048aea19a889:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <has_mechanism rdf:resource="#3d4a8c0d753f42f2af08a5e:AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2fa70b0a0266499e876d36e</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <has_mechanism rdf:resource="#66d5717b56474078a8e8c65:AccessControls"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1db8cd9faa1048aea19a889</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Some of our website activities require that the user log in using a PlayStationNetwork PSN account for information regarding SNEA s collection of information in association with a Sony Entertainment Network account please see their Privacy Policy http //www qriocity com/us/en/legal-privacy On our websites PlayStation Network log in information is being authenticated by SNEA not SCEA</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2dff47be12f743aab35b64a:DeviceData">
+<owl:NamedIndividual rdf:about="#b675a95fd27b4779bc62d24:DeviceData">
   <rdf:type rdf:resource="#DeviceData"/>
-  <provided_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2dff47be12f743aab35b64a</uuid>
+  <provided_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b675a95fd27b4779bc62d24</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">system IP address, system MAC address,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#da5b03224fe347fcabce934:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#2e9c38253a164e749fe5634:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">da5b03224fe347fcabce934</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2e9c38253a164e749fe5634</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to ensure that advertisements are being appropriately served to him or her and to track information about the advertisements displayed during his or her gaming session.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3c463123066a49baa18709f:UserSpecificCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#c52046e4648b4b18949779f:UserSpecificCommunicationMechanism">
   <rdf:type rdf:resource="#UserSpecificCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3c463123066a49baa18709f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c52046e4648b4b18949779f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SCEA will log information about his or her system and game play</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ef4f1cc5c1ce40f7b782da9:PermanentTransmission">
+<owl:NamedIndividual rdf:about="#5c6e98954dd341e19d78846:PermanentTransmission">
   <rdf:type rdf:resource="#PermanentTransmission"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ef4f1cc5c1ce40f7b782da9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5c6e98954dd341e19d78846</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">log information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3f4a0aefcdf74255be29276:FPCollection">
+<owl:NamedIndividual rdf:about="#0a6d86726741462a9c1e1ab:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <collects_from rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_purpose rdf:resource="#da5b03224fe347fcabce934:MarketingPurpose"/>
-  <has_mode rdf:resource="#ef4f1cc5c1ce40f7b782da9:PermanentTransmission"/>
-  <has_mechanism rdf:resource="#3c463123066a49baa18709f:UserSpecificCommunicationMechanism"/>
-  <applies_to rdf:resource="#2dff47be12f743aab35b64a:DeviceData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3f4a0aefcdf74255be29276</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <collects_from rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_purpose rdf:resource="#2e9c38253a164e749fe5634:MarketingPurpose"/>
+  <has_mode rdf:resource="#5c6e98954dd341e19d78846:PermanentTransmission"/>
+  <has_mechanism rdf:resource="#c52046e4648b4b18949779f:UserSpecificCommunicationMechanism"/>
+  <applies_to rdf:resource="#b675a95fd27b4779bc62d24:DeviceData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0a6d86726741462a9c1e1ab</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dynamic advertisement serving technology enables advertisements to be temporarily loaded or cached to a Sony Entertainment Network account holder s PS3 system for display only in games that incorporate this technology If a Sony Entertainment Network account holder plays a game that utilizes this feature SCEA will log information about his or her system and game play to ensure that advertisements are being appropriately served to him or her and to track information about the advertisements displayed during his or her gaming session Logged data may include Online ID system IP address system MAC address in-game advertisement location the length of time an advertisement was visible relative size of advertisements the angle of view and other information related to each advertisement visible during the gaming session</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3ff9008e63044ce99949a9e:GenericData">
+<owl:NamedIndividual rdf:about="#da9585c767324d14860788a:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3ff9008e63044ce99949a9e</uuid>
+  <provided_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">da9585c767324d14860788a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personally identifying information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a732ae95913a46fc9a48081:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#db5e558cf37e4a278cc9b8e:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a732ae95913a46fc9a48081</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">db5e558cf37e4a278cc9b8e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">promotional purpose through one of our websites or to make a purchase from the PlayStation Shop is saved and used only for that purpose,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2def057d45ff4bab9101c2c:DataUse">
+<owl:NamedIndividual rdf:about="#3e0dab269a4049ccbd426d1:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <has_purpose rdf:resource="#a732ae95913a46fc9a48081:MarketingPurpose"/>
-  <applies_to rdf:resource="#3ff9008e63044ce99949a9e:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2def057d45ff4bab9101c2c</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <has_purpose rdf:resource="#db5e558cf37e4a278cc9b8e:MarketingPurpose"/>
+  <applies_to rdf:resource="#da9585c767324d14860788a:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3e0dab269a4049ccbd426d1</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HOW WE USE YOUR INFORMATION Personally identifying information that we collect for a particular promotional purpose through one of our websites or to make a purchase from the PlayStation Shop is saved and used only for that purpose unless the participant chooses to opt-in to one of our marketing programs Visitors to our websites may be given the opportunity to opt-in to two different programs The first option is to receive marketing content from SCEA The second is to have personal information shared with SCEA s third party partners so that they may send you marketing materials</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b3d2713307144bc5aacfc54:GenericData">
+<owl:NamedIndividual rdf:about="#8a918a154be24c3d96c626b:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b3d2713307144bc5aacfc54</uuid>
+  <provided_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8a918a154be24c3d96c626b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personally identifying information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8d0061a11efb467c8773c9b:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#15d9c384973a47408e1b86f:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8d0061a11efb467c8773c9b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">15d9c384973a47408e1b86f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">promotional purpose through one of our websites or to make a purchase from the PlayStation Shop is saved and used only for that purpose,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2a7f774f037d4f5981dde7c:ViaWebsite">
+<owl:NamedIndividual rdf:about="#27b673a7513a476685fe9f3:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2a7f774f037d4f5981dde7c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">27b673a7513a476685fe9f3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">that we collect for a particular promotional purpose through one of our websites or to make a purchase from the PlayStation Shop</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e058d714f3c8403db99b7c4:FPCollection">
+<owl:NamedIndividual rdf:about="#267a94ea326a41ee8ca1828:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <collects_from rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_purpose rdf:resource="#8d0061a11efb467c8773c9b:MarketingPurpose"/>
-  <has_mechanism rdf:resource="#2a7f774f037d4f5981dde7c:ViaWebsite"/>
-  <applies_to rdf:resource="#b3d2713307144bc5aacfc54:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e058d714f3c8403db99b7c4</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <collects_from rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_purpose rdf:resource="#15d9c384973a47408e1b86f:MarketingPurpose"/>
+  <has_mechanism rdf:resource="#27b673a7513a476685fe9f3:ViaWebsite"/>
+  <applies_to rdf:resource="#8a918a154be24c3d96c626b:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">267a94ea326a41ee8ca1828</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HOW WE USE YOUR INFORMATION Personally identifying information that we collect for a particular promotional purpose through one of our websites or to make a purchase from the PlayStation Shop is saved and used only for that purpose unless the participant chooses to opt-in to one of our marketing programs Visitors to our websites may be given the opportunity to opt-in to two different programs The first option is to receive marketing content from SCEA The second is to have personal information shared with SCEA s third party partners so that they may send you marketing materials</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#05fcc9d80f614780a4159d8:GenericData">
+<owl:NamedIndividual rdf:about="#2d344c349f4d47f7a8ba0e6:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">05fcc9d80f614780a4159d8</uuid>
+  <provided_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2d344c349f4d47f7a8ba0e6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personally identifying information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3dae0258c8ef411497d399c:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#6f7e6050c7234213960a372:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3dae0258c8ef411497d399c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6f7e6050c7234213960a372</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">particular promotional purpose through one of our websites or to make a purchase from the PlayStation Shop</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#864319cd8def48db94132ac:ViaWebsite">
+<owl:NamedIndividual rdf:about="#b07e3c18bc624238a775e93:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">864319cd8def48db94132ac</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b07e3c18bc624238a775e93</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">through one of our websites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#aea82214df5645e6a56f138:DataTransmissionMode">
+<owl:NamedIndividual rdf:about="#4432eb5e034b4c50bb162f7:DataTransmissionMode">
   <rdf:type rdf:resource="#DataTransmissionMode"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aea82214df5645e6a56f138</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4432eb5e034b4c50bb162f7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not selected</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#75d84eac8aad4757a9f3050:FPCollection">
+<owl:NamedIndividual rdf:about="#c60fafcfbb3d48c3a2151c5:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <collects_from rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_purpose rdf:resource="#3dae0258c8ef411497d399c:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#aea82214df5645e6a56f138:DataTransmissionMode"/>
-  <has_mechanism rdf:resource="#864319cd8def48db94132ac:ViaWebsite"/>
-  <applies_to rdf:resource="#05fcc9d80f614780a4159d8:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">75d84eac8aad4757a9f3050</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <collects_from rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_purpose rdf:resource="#6f7e6050c7234213960a372:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#4432eb5e034b4c50bb162f7:DataTransmissionMode"/>
+  <has_mechanism rdf:resource="#b07e3c18bc624238a775e93:ViaWebsite"/>
+  <applies_to rdf:resource="#2d344c349f4d47f7a8ba0e6:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c60fafcfbb3d48c3a2151c5</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HOW WE USE YOUR INFORMATION Personally identifying information that we collect for a particular promotional purpose through one of our websites or to make a purchase from the PlayStation Shop is saved and used only for that purpose unless the participant chooses to opt-in to one of our marketing programs Visitors to our websites may be given the opportunity to opt-in to two different programs The first option is to receive marketing content from SCEA The second is to have personal information shared with SCEA s third party partners so that they may send you marketing materials</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7e35dd1ed75a4efcb0e0161:DataUse">
+<owl:NamedIndividual rdf:about="#b9e6d834c9984540bc2fb48:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <has_purpose rdf:resource="#3dae0258c8ef411497d399c:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#05fcc9d80f614780a4159d8:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7e35dd1ed75a4efcb0e0161</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <has_purpose rdf:resource="#6f7e6050c7234213960a372:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#2d344c349f4d47f7a8ba0e6:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b9e6d834c9984540bc2fb48</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HOW WE USE YOUR INFORMATION Personally identifying information that we collect for a particular promotional purpose through one of our websites or to make a purchase from the PlayStation Shop is saved and used only for that purpose unless the participant chooses to opt-in to one of our marketing programs Visitors to our websites may be given the opportunity to opt-in to two different programs The first option is to receive marketing content from SCEA The second is to have personal information shared with SCEA s third party partners so that they may send you marketing materials</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0ffeb02defe84f87b747d59:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#7514552688c84143a3d27a6:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0ffeb02defe84f87b747d59</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7514552688c84143a3d27a6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">null</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8a97382dbb634f5fb8f703e:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#5596243b1bb64a0b8f0e061:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_mechanism rdf:resource="#0ffeb02defe84f87b747d59:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8a97382dbb634f5fb8f703e</uuid>
+  <initiated_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_mechanism rdf:resource="#7514552688c84143a3d27a6:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5596243b1bb64a0b8f0e061</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HOW WE USE YOUR INFORMATION Personally identifying information that we collect for a particular promotional purpose through one of our websites or to make a purchase from the PlayStation Shop is saved and used only for that purpose unless the participant chooses to opt-in to one of our marketing programs Visitors to our websites may be given the opportunity to opt-in to two different programs The first option is to receive marketing content from SCEA The second is to have personal information shared with SCEA s third party partners so that they may send you marketing materials</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e9027fead88b4f71a556803:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#0092fd3c482246dfa8e5260:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e9027fead88b4f71a556803</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0092fd3c482246dfa8e5260</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">have personal information shared with SCEA's third party partners</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e24f7f961dbb45d8bd9ecdb:GenericData">
+<owl:NamedIndividual rdf:about="#9ec3a2bf637044fabd8d803:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e24f7f961dbb45d8bd9ecdb</uuid>
+  <provided_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9ec3a2bf637044fabd8d803</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4e710262962a425aadef4d7:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#6b53ed0d803244da95b384e:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_mechanism rdf:resource="#e9027fead88b4f71a556803:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#e24f7f961dbb45d8bd9ecdb:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4e710262962a425aadef4d7</uuid>
+  <initiated_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_mechanism rdf:resource="#0092fd3c482246dfa8e5260:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#9ec3a2bf637044fabd8d803:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6b53ed0d803244da95b384e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HOW WE USE YOUR INFORMATION Personally identifying information that we collect for a particular promotional purpose through one of our websites or to make a purchase from the PlayStation Shop is saved and used only for that purpose unless the participant chooses to opt-in to one of our marketing programs Visitors to our websites may be given the opportunity to opt-in to two different programs The first option is to receive marketing content from SCEA The second is to have personal information shared with SCEA s third party partners so that they may send you marketing materials</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#016da4ed293b4d9f9f86656:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#5bc8f539081242978d9e91e:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">016da4ed293b4d9f9f86656</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5bc8f539081242978d9e91e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">saved and used only for that purpose</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#39ed3e642fdb45c0b126857:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#58a84ded393640efbd2c626:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">39ed3e642fdb45c0b126857</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">58a84ded393640efbd2c626</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">promotional purpose through one of our websites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#14f5b251b21244d993db672:Data">
+<owl:NamedIndividual rdf:about="#822a1e9ae2a6425f8e475d4:Data">
   <rdf:type rdf:resource="#Data"/>
-  <provided_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">14f5b251b21244d993db672</uuid>
+  <provided_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">822a1e9ae2a6425f8e475d4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personally identifying information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1820fd88b934458dae4a80c:DataRetention">
+<owl:NamedIndividual rdf:about="#2142d07744ee4d72b477433:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <lasts_for rdf:resource="#016da4ed293b4d9f9f86656:DataRetentionTime"/>
-  <has_purpose rdf:resource="#39ed3e642fdb45c0b126857:MarketingPurpose"/>
-  <applies_to rdf:resource="#14f5b251b21244d993db672:Data"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1820fd88b934458dae4a80c</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <lasts_for rdf:resource="#5bc8f539081242978d9e91e:DataRetentionTime"/>
+  <has_purpose rdf:resource="#58a84ded393640efbd2c626:MarketingPurpose"/>
+  <applies_to rdf:resource="#822a1e9ae2a6425f8e475d4:Data"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2142d07744ee4d72b477433</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HOW WE USE YOUR INFORMATION Personally identifying information that we collect for a particular promotional purpose through one of our websites or to make a purchase from the PlayStation Shop is saved and used only for that purpose unless the participant chooses to opt-in to one of our marketing programs Visitors to our websites may be given the opportunity to opt-in to two different programs The first option is to receive marketing content from SCEA The second is to have personal information shared with SCEA s third party partners so that they may send you marketing materials</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6450ef37d17a476d8e38b82:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#73a0b967084b4f13886f3e9:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6450ef37d17a476d8e38b82</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">73a0b967084b4f13886f3e9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">saved and used only for that purpose</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d337a875210b44d1bdbf7f3:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#147c7cd367e44db2af20d7e:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d337a875210b44d1bdbf7f3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">147c7cd367e44db2af20d7e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">or to make a purchase from the PlayStation Shop</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cfae4c4911154d98973ea3f:Data">
+<owl:NamedIndividual rdf:about="#19e5636327114f0283f4650:Data">
   <rdf:type rdf:resource="#Data"/>
-  <provided_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cfae4c4911154d98973ea3f</uuid>
+  <provided_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">19e5636327114f0283f4650</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personally identifying information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fbf731e512184ccfbe94950:DataRetention">
+<owl:NamedIndividual rdf:about="#ce0f6ea36f7a4713b2bb970:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <lasts_for rdf:resource="#6450ef37d17a476d8e38b82:DataRetentionTime"/>
-  <has_purpose rdf:resource="#d337a875210b44d1bdbf7f3:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#cfae4c4911154d98973ea3f:Data"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fbf731e512184ccfbe94950</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <lasts_for rdf:resource="#73a0b967084b4f13886f3e9:DataRetentionTime"/>
+  <has_purpose rdf:resource="#147c7cd367e44db2af20d7e:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#19e5636327114f0283f4650:Data"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ce0f6ea36f7a4713b2bb970</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HOW WE USE YOUR INFORMATION Personally identifying information that we collect for a particular promotional purpose through one of our websites or to make a purchase from the PlayStation Shop is saved and used only for that purpose unless the participant chooses to opt-in to one of our marketing programs Visitors to our websites may be given the opportunity to opt-in to two different programs The first option is to receive marketing content from SCEA The second is to have personal information shared with SCEA s third party partners so that they may send you marketing materials</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f0a7b936c5ed4a01bb4eda2:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#dba786b19b0845c0ad907f8:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f0a7b936c5ed4a01bb4eda2</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dba786b19b0845c0ad907f8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">"opt-in" to two different programs.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#232a6665137e4336a946411:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#32239883d4a745a7b370c81:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_mechanism rdf:resource="#f0a7b936c5ed4a01bb4eda2:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">232a6665137e4336a946411</uuid>
+  <initiated_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_mechanism rdf:resource="#dba786b19b0845c0ad907f8:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">32239883d4a745a7b370c81</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HOW WE USE YOUR INFORMATION Personally identifying information that we collect for a particular promotional purpose through one of our websites or to make a purchase from the PlayStation Shop is saved and used only for that purpose unless the participant chooses to opt-in to one of our marketing programs Visitors to our websites may be given the opportunity to opt-in to two different programs The first option is to receive marketing content from SCEA The second is to have personal information shared with SCEA s third party partners so that they may send you marketing materials</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#674efb04385343e0987e71c:GenericData">
+<owl:NamedIndividual rdf:about="#2557af5a20e74085a0955e2:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">674efb04385343e0987e71c</uuid>
+  <provided_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2557af5a20e74085a0955e2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally identifying information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e0ba80dc608145b2a883d6d:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#f3169e775b1740c99871fe9:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e0ba80dc608145b2a883d6d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f3169e775b1740c99871fe9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">for purposes of receiving marketing materials or who opt-in to receiving marketing materials when they register a Network Adaptor (Ethernet/Modem)(for PlayStation2) or PlayStation2 with integrated network and line connectors for online gaming through the Online Start-Up Disc, become members of our marketing program</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3af0d3f82b214df99ff8e5b:DataUse">
+<owl:NamedIndividual rdf:about="#2919f2bec8694966b83d113:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <has_purpose rdf:resource="#e0ba80dc608145b2a883d6d:MarketingPurpose"/>
-  <applies_to rdf:resource="#674efb04385343e0987e71c:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3af0d3f82b214df99ff8e5b</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <has_purpose rdf:resource="#f3169e775b1740c99871fe9:MarketingPurpose"/>
+  <applies_to rdf:resource="#2557af5a20e74085a0955e2:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2919f2bec8694966b83d113</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Consumers who voluntarily provide personally identifying information via our website for purposes of receiving marketing materials or who opt-in to receiving marketing materials when they register a Network Adaptor Ethernet/Modem for PlayStation2 or PlayStation2 with integrated network and line connectors for online gaming through the Online Start-Up Disc become members of our marketing program</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#120e078ffd9042fe9df4d3e:GenericData">
+<owl:NamedIndividual rdf:about="#24b1b61861d943f58d41569:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">120e078ffd9042fe9df4d3e</uuid>
+  <provided_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">24b1b61861d943f58d41569</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally identifying information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0de2594201aa4d7abe7ea06:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#1e2a6e86bfe7445b905140e:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0de2594201aa4d7abe7ea06</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1e2a6e86bfe7445b905140e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">receiving marketing materials</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#aa76b7414ad04abc80a325f:ViaWebsite">
+<owl:NamedIndividual rdf:about="#4c3250bbb1ed4344a782b3c:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aa76b7414ad04abc80a325f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4c3250bbb1ed4344a782b3c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Consumers who voluntarily provide personally identifying information via our website</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7a9709dce0e749ca93fd834:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#017e2c895dea498dbb35643:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7a9709dce0e749ca93fd834</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">017e2c895dea498dbb35643</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Consumers who voluntarily provide</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c3c91b37368f408489c7497:FPCollection">
+<owl:NamedIndividual rdf:about="#7d89b126d8124766904b434:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <collects_from rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_purpose rdf:resource="#0de2594201aa4d7abe7ea06:MarketingPurpose"/>
-  <has_mode rdf:resource="#7a9709dce0e749ca93fd834:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#aa76b7414ad04abc80a325f:ViaWebsite"/>
-  <applies_to rdf:resource="#120e078ffd9042fe9df4d3e:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c3c91b37368f408489c7497</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <collects_from rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_purpose rdf:resource="#1e2a6e86bfe7445b905140e:MarketingPurpose"/>
+  <has_mode rdf:resource="#017e2c895dea498dbb35643:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#4c3250bbb1ed4344a782b3c:ViaWebsite"/>
+  <applies_to rdf:resource="#24b1b61861d943f58d41569:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7d89b126d8124766904b434</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Consumers who voluntarily provide personally identifying information via our website for purposes of receiving marketing materials or who opt-in to receiving marketing materials when they register a Network Adaptor Ethernet/Modem for PlayStation2 or PlayStation2 with integrated network and line connectors for online gaming through the Online Start-Up Disc become members of our marketing program</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5134d2debe634563be9c107:DataUse">
+<owl:NamedIndividual rdf:about="#a027f6740c664bcd8c4e6c4:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <has_purpose rdf:resource="#0de2594201aa4d7abe7ea06:MarketingPurpose"/>
-  <applies_to rdf:resource="#120e078ffd9042fe9df4d3e:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5134d2debe634563be9c107</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <has_purpose rdf:resource="#1e2a6e86bfe7445b905140e:MarketingPurpose"/>
+  <applies_to rdf:resource="#24b1b61861d943f58d41569:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a027f6740c664bcd8c4e6c4</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Consumers who voluntarily provide personally identifying information via our website for purposes of receiving marketing materials or who opt-in to receiving marketing materials when they register a Network Adaptor Ethernet/Modem for PlayStation2 or PlayStation2 with integrated network and line connectors for online gaming through the Online Start-Up Disc become members of our marketing program</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9cdd708d57c54fa0b5edffd:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#0b5741f4d2374f23ae048e8:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9cdd708d57c54fa0b5edffd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0b5741f4d2374f23ae048e8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">are not retained by us, and are only used to send a one-time email notification on a consumer's behalf.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8798642825084b1ea41ae10:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#db9810b7823f451398da023:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8798642825084b1ea41ae10</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">db9810b7823f451398da023</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Email addresses collected from consumers during the use of the E-Cards or "Send-to-a-Friend" email feature on our websites are not retained by us, and are only used to send a one-time email notification on a consumer's behalf.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c1d226b1d3744afd9cc9870:PersonalData">
+<owl:NamedIndividual rdf:about="#6de168e8cbcc4beea897386:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c1d226b1d3744afd9cc9870</uuid>
+  <provided_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6de168e8cbcc4beea897386</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Email addresses</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c240f2796e3f4e4d98db266:DataRetention">
+<owl:NamedIndividual rdf:about="#7179b6322e2e481c90beb3e:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <lasts_for rdf:resource="#9cdd708d57c54fa0b5edffd:DataRetentionTime"/>
-  <has_purpose rdf:resource="#8798642825084b1ea41ae10:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#c1d226b1d3744afd9cc9870:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c240f2796e3f4e4d98db266</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <lasts_for rdf:resource="#0b5741f4d2374f23ae048e8:DataRetentionTime"/>
+  <has_purpose rdf:resource="#db9810b7823f451398da023:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#6de168e8cbcc4beea897386:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7179b6322e2e481c90beb3e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Email addresses collected from consumers during the use of the E-Cards or Send-to-a-Friend email feature on our websites are not retained by us and are only used to send a one-time email notification on a consumer s behalf</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9e296f2195dc447b99a9fdd:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#5d957f21aa7242b4817872d:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9e296f2195dc447b99a9fdd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5d957f21aa7242b4817872d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">so that we may assist these customers with current or future service issues.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#aa37fbaad4c44770a4e29dd:ViaWebsite">
+<owl:NamedIndividual rdf:about="#0dc96cad12504333b738751:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aa37fbaad4c44770a4e29dd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0dc96cad12504333b738751</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">who contact or submit an online complaint</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bced84b9a92c494b82c8b91:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#4346fc443dee480d9062875:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bced84b9a92c494b82c8b91</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4346fc443dee480d9062875</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">who contact or submit an online complaint</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d5af332758de4518a929a68:FPCollection">
+<owl:NamedIndividual rdf:about="#93457533805346cf9113fb3:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <collects_from rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_purpose rdf:resource="#9e296f2195dc447b99a9fdd:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#bced84b9a92c494b82c8b91:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#aa37fbaad4c44770a4e29dd:ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d5af332758de4518a929a68</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <collects_from rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_purpose rdf:resource="#5d957f21aa7242b4817872d:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#4346fc443dee480d9062875:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#0dc96cad12504333b738751:ViaWebsite"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">93457533805346cf9113fb3</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SCEA s consumer services department maintains information obtained from consumers who contact or submit an online complaint so that we may assist these customers with current or future service issues SCEA s consumer services department may collect additional information such as credit card personal check information if a consumer contacts consumer services to request repair of exchange of or service on a PlayStation system Consumer Services uses this information only for payment and payment verification purposes SCEA s consumer services department may direct consumers to the consumer services departments of other companies with whom SCEA has arranged to provide consumer service so that the consumer receives appropriate assistance</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ce32cd27f3694e85a9f773e:FinancialData">
+<owl:NamedIndividual rdf:about="#22cb81b67b41480587739ba:FinancialData">
   <rdf:type rdf:resource="#FinancialData"/>
-  <provided_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ce32cd27f3694e85a9f773e</uuid>
+  <provided_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">22cb81b67b41480587739ba</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">redit card, personal check information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2eeca9540a1140398c73ea1:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#d98d18ec34534094b639bf8:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2eeca9540a1140398c73ea1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d98d18ec34534094b639bf8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">if a consumer contacts consumer services to request repair of, exchange of, or service on, a PlayStation system</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1254e331b48f4fc0875c6dd:ViaWebsite">
+<owl:NamedIndividual rdf:about="#bafcf5eabf9e4214bada1d5:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1254e331b48f4fc0875c6dd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bafcf5eabf9e4214bada1d5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">who contact or submit an online complaint</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#70a3dd845b104caf8fd4640:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#ee97df4d69844137b469f2d:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">70a3dd845b104caf8fd4640</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ee97df4d69844137b469f2d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">who contact or submit an online complaint</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1340ed487db5491f89b2ffc:FPCollection">
+<owl:NamedIndividual rdf:about="#ffdba9ba5c914b2bbabf10e:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <collects_from rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_purpose rdf:resource="#2eeca9540a1140398c73ea1:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#70a3dd845b104caf8fd4640:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#1254e331b48f4fc0875c6dd:ViaWebsite"/>
-  <applies_to rdf:resource="#ce32cd27f3694e85a9f773e:FinancialData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1340ed487db5491f89b2ffc</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <collects_from rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_purpose rdf:resource="#d98d18ec34534094b639bf8:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#ee97df4d69844137b469f2d:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#bafcf5eabf9e4214bada1d5:ViaWebsite"/>
+  <applies_to rdf:resource="#22cb81b67b41480587739ba:FinancialData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ffdba9ba5c914b2bbabf10e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SCEA s consumer services department maintains information obtained from consumers who contact or submit an online complaint so that we may assist these customers with current or future service issues SCEA s consumer services department may collect additional information such as credit card personal check information if a consumer contacts consumer services to request repair of exchange of or service on a PlayStation system Consumer Services uses this information only for payment and payment verification purposes SCEA s consumer services department may direct consumers to the consumer services departments of other companies with whom SCEA has arranged to provide consumer service so that the consumer receives appropriate assistance</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ffb016b216194e24975bced:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#c38b179406e84eeb9c3fd96:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ffb016b216194e24975bced</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c38b179406e84eeb9c3fd96</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">maintains information obtained from consumers who contact or submit an online complaint</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fdb0a4a48348453d9b4449c:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#dd9860ce1690474a8468389:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fdb0a4a48348453d9b4449c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dd9860ce1690474a8468389</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">so that we may assist these customers with current or future service issues.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cc72b8c1c412437abfa85dc:DataRetention">
+<owl:NamedIndividual rdf:about="#4ddaba99b40242979ed0928:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <lasts_for rdf:resource="#ffb016b216194e24975bced:DataRetentionTime"/>
-  <has_purpose rdf:resource="#fdb0a4a48348453d9b4449c:ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cc72b8c1c412437abfa85dc</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <lasts_for rdf:resource="#c38b179406e84eeb9c3fd96:DataRetentionTime"/>
+  <has_purpose rdf:resource="#dd9860ce1690474a8468389:ServiceProvisionPurpose"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4ddaba99b40242979ed0928</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SCEA s consumer services department maintains information obtained from consumers who contact or submit an online complaint so that we may assist these customers with current or future service issues SCEA s consumer services department may collect additional information such as credit card personal check information if a consumer contacts consumer services to request repair of exchange of or service on a PlayStation system Consumer Services uses this information only for payment and payment verification purposes SCEA s consumer services department may direct consumers to the consumer services departments of other companies with whom SCEA has arranged to provide consumer service so that the consumer receives appropriate assistance</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dc6f8f4d60c3463aae2160e:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#5e38c06758434049913e826:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dc6f8f4d60c3463aae2160e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5e38c06758434049913e826</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We do not control our affiliates' or third parties' use of your information after we share it, but we use reasonable efforts to obtain our affiliates' and third parties' agreement to protect the confidentiality, security, and integrity of any personal information we share with them or that we permit them to collect directly. If consumers do not want their personal information made available to others in these ways, they should not provide their personal information to us.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1dc37caada0843998a8011c:DataProtection">
+<owl:NamedIndividual rdf:about="#9e52848c5617429b9c3a7ef:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <has_mechanism rdf:resource="#dc6f8f4d60c3463aae2160e:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1dc37caada0843998a8011c</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <has_mechanism rdf:resource="#5e38c06758434049913e826:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9e52848c5617429b9c3a7ef</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We do not control our affiliates or third parties use of your information after we share it but we use reasonable efforts to obtain our affiliates and third parties agreement to protect the confidentiality security and integrity of any personal information we share with them or that we permit them to collect directly If consumers do not want their personal information made available to others in these ways they should not provide their personal information to us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#00f2baab55db4d1cae0ff7d:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#95c55a954f4b4d0fbdc44b6:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">00f2baab55db4d1cae0ff7d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">95c55a954f4b4d0fbdc44b6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">they should not provide their personal information to us.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a46186814e234220b6cf4f2:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#03613e486749417aa5d0b34:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_mechanism rdf:resource="#00f2baab55db4d1cae0ff7d:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a46186814e234220b6cf4f2</uuid>
+  <initiated_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_mechanism rdf:resource="#95c55a954f4b4d0fbdc44b6:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">03613e486749417aa5d0b34</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We do not control our affiliates or third parties use of your information after we share it but we use reasonable efforts to obtain our affiliates and third parties agreement to protect the confidentiality security and integrity of any personal information we share with them or that we permit them to collect directly If consumers do not want their personal information made available to others in these ways they should not provide their personal information to us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2fa40ad6b6dd463fb26dbf4:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#ad43ef0eb4d342ed913b78e:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2fa40ad6b6dd463fb26dbf4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ad43ef0eb4d342ed913b78e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">California Privacy Rights Beginning on January 1 2005 California Civil Code section 1798 83 permits SCEA customers who are California residents to request certain information regarding SCEA s disclosure within the immediately preceding calendar year of that California resident s personal information to third parties for their direct marketing purposes To make such a request contact our consumer services department through the following link http //us playstation com/corporate/contactus or via telephone at 1-800-345-7669 If you would like to change your current account preferences go to the account management section of your Sony Online Services account</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#260fe370ca8d4fdb86029c5:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#e9ee925d6e344d37bcb7a5f:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">260fe370ca8d4fdb86029c5</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e9ee925d6e344d37bcb7a5f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Policies for Children SCEA does not knowingly collect personally identifying information from children under 13 years of age via our websites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#518c02dc1aee46d8ad2a77d:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#6a40dda11bc447378b872e7:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">518c02dc1aee46d8ad2a77d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6a40dda11bc447378b872e7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Data from Sony Online Services accounts is transferred from SNEA to SCEA for community administration and depending on your child s age marketing purposes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#37e26292821c46649cf23df:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#99bc6ae35aaf451ba28b3ef:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">37e26292821c46649cf23df</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">99bc6ae35aaf451ba28b3ef</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PlayStation Website Message Boards Our PlayStation website message boards are a place where users can go to freely share their thoughts and ideas about the PlayStation brand A Sony Entertainment Network account is required to contribute to these message boards We prohibit message board participants from disclosing their own personally identifying information other than their own Online IDs We ask our users to respect the privacy of others Disclosure of phone numbers addresses age or other personally identifying information that may violate someone else s privacy is prohibited Encouraging or asking users to disclose publicly their personally identifying information is also prohibited</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#932b3538deef423caec4c15:AccountData">
+<owl:NamedIndividual rdf:about="#be5db47c21514491821e006:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">932b3538deef423caec4c15</uuid>
+  <provided_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">be5db47c21514491821e006</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f7836d89d33c4ddbaa23e7d:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#f9c67f5436aa4d29bf7164f:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_mechanism rdf:resource="#37e26292821c46649cf23df:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#932b3538deef423caec4c15:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f7836d89d33c4ddbaa23e7d</uuid>
+  <initiated_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_mechanism rdf:resource="#99bc6ae35aaf451ba28b3ef:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#be5db47c21514491821e006:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f9c67f5436aa4d29bf7164f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PlayStation Website Message Boards Our PlayStation website message boards are a place where users can go to freely share their thoughts and ideas about the PlayStation brand A Sony Entertainment Network account is required to contribute to these message boards We prohibit message board participants from disclosing their own personally identifying information other than their own Online IDs We ask our users to respect the privacy of others Disclosure of phone numbers addresses age or other personally identifying information that may violate someone else s privacy is prohibited Encouraging or asking users to disclose publicly their personally identifying information is also prohibited</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#693ad35c557f4a0abc58505:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#aaeecc021edd418db8172a0:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">693ad35c557f4a0abc58505</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aaeecc021edd418db8172a0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We ask our users to respect the privacy of others. Disclosure of phone numbers, addresses, age or other personally identifying information that may violate someone else's privacy is prohibited. Encouraging or asking users to disclose publicly their personally identifying information is also prohibited.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a67b32bf66774f48aaeb4f7:DataProtection">
+<owl:NamedIndividual rdf:about="#cab5b6f17971490180f9e39:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <has_mechanism rdf:resource="#693ad35c557f4a0abc58505:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a67b32bf66774f48aaeb4f7</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <has_mechanism rdf:resource="#aaeecc021edd418db8172a0:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cab5b6f17971490180f9e39</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PlayStation Website Message Boards Our PlayStation website message boards are a place where users can go to freely share their thoughts and ideas about the PlayStation brand A Sony Entertainment Network account is required to contribute to these message boards We prohibit message board participants from disclosing their own personally identifying information other than their own Online IDs We ask our users to respect the privacy of others Disclosure of phone numbers addresses age or other personally identifying information that may violate someone else s privacy is prohibited Encouraging or asking users to disclose publicly their personally identifying information is also prohibited</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b25ce4008c8a482b8ee9bc7:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#a646437420fb4704884541b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b25ce4008c8a482b8ee9bc7</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a646437420fb4704884541b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Business Contacts Through our job page at http //us playstation com/corporate/about/careers SCEA allows job seekers to inquire about jobs and submit personally identifying information in connection with applying for employment If a job seeker creates a job profile he or she will be asked to provide an email address and create a password He or she can use that email address and password to access his or her account review the information in his or her profile edit or delete his or her profile at any time</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2a04796d26a14d2a91ffad4:AccountData">
+<owl:NamedIndividual rdf:about="#b43bb9b6b7994644b5b567b:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2a04796d26a14d2a91ffad4</uuid>
+  <provided_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b43bb9b6b7994644b5b567b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#aaa93723cc0748cbbdea69f:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#001a16f35b3347a2a7f09e4:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_mechanism rdf:resource="#b25ce4008c8a482b8ee9bc7:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#2a04796d26a14d2a91ffad4:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aaa93723cc0748cbbdea69f</uuid>
+  <initiated_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_mechanism rdf:resource="#a646437420fb4704884541b:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#b43bb9b6b7994644b5b567b:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">001a16f35b3347a2a7f09e4</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Business Contacts Through our job page at http //us playstation com/corporate/about/careers SCEA allows job seekers to inquire about jobs and submit personally identifying information in connection with applying for employment If a job seeker creates a job profile he or she will be asked to provide an email address and create a password He or she can use that email address and password to access his or her account review the information in his or her profile edit or delete his or her profile at any time</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7a0540a96cb149fb9033d32:PersonalData">
+<owl:NamedIndividual rdf:about="#c7b47602cb024d0a889ceff:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7a0540a96cb149fb9033d32</uuid>
+  <provided_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c7b47602cb024d0a889ceff</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#81cd28c9e0ec46d295a689d:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#7b5a346bdc1f40ea9820098:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">81cd28c9e0ec46d295a689d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7b5a346bdc1f40ea9820098</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to inquire about jobs</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#434b877e0310417fbafcf0a:ViaWebsite">
+<owl:NamedIndividual rdf:about="#55ba4975d31540bf9c32271:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">434b877e0310417fbafcf0a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">55ba4975d31540bf9c32271</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SCEA allows job seekers to inquire about jobs and submit personally identifying information in connection with applying for employment.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bc2c62de26fd4699a7425b8:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#f14d358115cb47de9abf562:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bc2c62de26fd4699a7425b8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f14d358115cb47de9abf562</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">allows job seekers to inquire about jobs and submit personally identifying information in connection with applying for employment.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#35aadebecc5647f796d2c25:FPCollection">
+<owl:NamedIndividual rdf:about="#460a9f948f574634bbda81f:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <collects_from rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_purpose rdf:resource="#81cd28c9e0ec46d295a689d:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#bc2c62de26fd4699a7425b8:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#434b877e0310417fbafcf0a:ViaWebsite"/>
-  <applies_to rdf:resource="#7a0540a96cb149fb9033d32:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">35aadebecc5647f796d2c25</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <collects_from rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_purpose rdf:resource="#7b5a346bdc1f40ea9820098:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#f14d358115cb47de9abf562:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#55ba4975d31540bf9c32271:ViaWebsite"/>
+  <applies_to rdf:resource="#c7b47602cb024d0a889ceff:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">460a9f948f574634bbda81f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Business Contacts Through our job page at http //us playstation com/corporate/about/careers SCEA allows job seekers to inquire about jobs and submit personally identifying information in connection with applying for employment If a job seeker creates a job profile he or she will be asked to provide an email address and create a password He or she can use that email address and password to access his or her account review the information in his or her profile edit or delete his or her profile at any time</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bedb0a42e7944c35b904811:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#0f04488c4b274cbf8026ec3:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bedb0a42e7944c35b904811</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0f04488c4b274cbf8026ec3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Business Contacts Through our job page at http //us playstation com/corporate/about/careers SCEA allows job seekers to inquire about jobs and submit personally identifying information in connection with applying for employment If a job seeker creates a job profile he or she will be asked to provide an email address and create a password He or she can use that email address and password to access his or her account review the information in his or her profile edit or delete his or her profile at any time</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bbf837ec706042e4a4ddea2:SensitiveData">
+<owl:NamedIndividual rdf:about="#e577476ad77e4db2ae9f1ac:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bbf837ec706042e4a4ddea2</uuid>
+  <provided_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e577476ad77e4db2ae9f1ac</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Profile data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ff15e9a82b824879b4cb40d:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#cbdaeba30179428aa4287c8:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_mechanism rdf:resource="#bedb0a42e7944c35b904811:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#bbf837ec706042e4a4ddea2:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ff15e9a82b824879b4cb40d</uuid>
+  <initiated_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_mechanism rdf:resource="#0f04488c4b274cbf8026ec3:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#e577476ad77e4db2ae9f1ac:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cbdaeba30179428aa4287c8</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Business Contacts Through our job page at http //us playstation com/corporate/about/careers SCEA allows job seekers to inquire about jobs and submit personally identifying information in connection with applying for employment If a job seeker creates a job profile he or she will be asked to provide an email address and create a password He or she can use that email address and password to access his or her account review the information in his or her profile edit or delete his or her profile at any time</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6130da98b02949eaa3d62c1:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#4bbd362045b64acf87e4d10:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6130da98b02949eaa3d62c1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4bbd362045b64acf87e4d10</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Business Contacts Through our job page at http //us playstation com/corporate/about/careers SCEA allows job seekers to inquire about jobs and submit personally identifying information in connection with applying for employment If a job seeker creates a job profile he or she will be asked to provide an email address and create a password He or she can use that email address and password to access his or her account review the information in his or her profile edit or delete his or her profile at any time</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cf0bd52ce2594142814d068:SensitiveData">
+<owl:NamedIndividual rdf:about="#fae6b4e22d1b42b6bfac314:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cf0bd52ce2594142814d068</uuid>
+  <provided_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fae6b4e22d1b42b6bfac314</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Profile data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b7177535c7a44baabf66df7:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#7bba535484824332ac1e74e:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_mechanism rdf:resource="#6130da98b02949eaa3d62c1:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#cf0bd52ce2594142814d068:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b7177535c7a44baabf66df7</uuid>
+  <initiated_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_mechanism rdf:resource="#4bbd362045b64acf87e4d10:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#fae6b4e22d1b42b6bfac314:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7bba535484824332ac1e74e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Business Contacts Through our job page at http //us playstation com/corporate/about/careers SCEA allows job seekers to inquire about jobs and submit personally identifying information in connection with applying for employment If a job seeker creates a job profile he or she will be asked to provide an email address and create a password He or she can use that email address and password to access his or her account review the information in his or her profile edit or delete his or her profile at any time</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ade284dc9d1e4b58bc21e9e:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#9ad1893ea5754f53ae9a489:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ade284dc9d1e4b58bc21e9e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9ad1893ea5754f53ae9a489</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Business Contacts Through our job page at http //us playstation com/corporate/about/careers SCEA allows job seekers to inquire about jobs and submit personally identifying information in connection with applying for employment If a job seeker creates a job profile he or she will be asked to provide an email address and create a password He or she can use that email address and password to access his or her account review the information in his or her profile edit or delete his or her profile at any time</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#660c82af58694a44b7b3763:SensitiveData">
+<owl:NamedIndividual rdf:about="#4f62b67e59e64ec486a6a36:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">660c82af58694a44b7b3763</uuid>
+  <provided_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4f62b67e59e64ec486a6a36</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Profile data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ee47d7be8cb6499c89d1bda:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#cfcd4df5ca4b40bca36d837:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_mechanism rdf:resource="#ade284dc9d1e4b58bc21e9e:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#660c82af58694a44b7b3763:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ee47d7be8cb6499c89d1bda</uuid>
+  <initiated_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_mechanism rdf:resource="#9ad1893ea5754f53ae9a489:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#4f62b67e59e64ec486a6a36:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cfcd4df5ca4b40bca36d837</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Business Contacts Through our job page at http //us playstation com/corporate/about/careers SCEA allows job seekers to inquire about jobs and submit personally identifying information in connection with applying for employment If a job seeker creates a job profile he or she will be asked to provide an email address and create a password He or she can use that email address and password to access his or her account review the information in his or her profile edit or delete his or her profile at any time</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#255af67326fc465fa3b96d3:SecurityMechanism">
+<owl:NamedIndividual rdf:about="#f01056bb9438414abdc1800:SecurityMechanism">
   <rdf:type rdf:resource="#SecurityMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">255af67326fc465fa3b96d3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f01056bb9438414abdc1800</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Unfortunately, there is no such thing as perfect security. As a result, although we strive to protect personally identifying information, we cannot ensure or warrant the security of any information transmitted to us through or in connection with our websites, that we store on our systems or that is stored on our service providers' systems.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5f67970ad73242e1a79be1e:DataProtection">
+<owl:NamedIndividual rdf:about="#a2d93388d6da4ffe9699874:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <has_mechanism rdf:resource="#255af67326fc465fa3b96d3:SecurityMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5f67970ad73242e1a79be1e</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <has_mechanism rdf:resource="#f01056bb9438414abdc1800:SecurityMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a2d93388d6da4ffe9699874</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Accuracy Security We take reasonable measures to protect the confidentiality security and integrity of the personal information collected from our website visitors Personal information is stored in secure operating environments that are not available to the public and that are only accessible to authorized employees We also have security measures in place to protect the loss misuse and alteration of the information under our control Unfortunately there is no such thing as perfect security As a result although we strive to protect personally identifying information we cannot ensure or warrant the security of any information transmitted to us through or in connection with our websites that we store on our systems or that is stored on our service providers systems</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f6f27e3ff89948df9d745b7:SecureStorage">
+<owl:NamedIndividual rdf:about="#e262fe20b5354b8b85cabc7:SecureStorage">
   <rdf:type rdf:resource="#SecureStorage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f6f27e3ff89948df9d745b7</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e262fe20b5354b8b85cabc7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personal information is stored in secure operating environments that are not available to the public and that are only accessible to authorized employees</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#862586c209b34e0f9c80698:DataProtection">
+<owl:NamedIndividual rdf:about="#1a25dc3ac1b64fb49acac35:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <has_mechanism rdf:resource="#f6f27e3ff89948df9d745b7:SecureStorage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">862586c209b34e0f9c80698</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <has_mechanism rdf:resource="#e262fe20b5354b8b85cabc7:SecureStorage"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1a25dc3ac1b64fb49acac35</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Accuracy Security We take reasonable measures to protect the confidentiality security and integrity of the personal information collected from our website visitors Personal information is stored in secure operating environments that are not available to the public and that are only accessible to authorized employees We also have security measures in place to protect the loss misuse and alteration of the information under our control Unfortunately there is no such thing as perfect security As a result although we strive to protect personally identifying information we cannot ensure or warrant the security of any information transmitted to us through or in connection with our websites that we store on our systems or that is stored on our service providers systems</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e4d4c4458f8644dab69228c:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#02aaec50dc424f58ab4c40a:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e4d4c4458f8644dab69228c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">02aaec50dc424f58ab4c40a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We also have security measures in place to protect the loss, misuse, and alteration of the information under our control.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#746156d85cec4c81832448c:DataProtection">
+<owl:NamedIndividual rdf:about="#138a7f2ebb8a47d9a950c86:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <has_mechanism rdf:resource="#e4d4c4458f8644dab69228c:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">746156d85cec4c81832448c</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <has_mechanism rdf:resource="#02aaec50dc424f58ab4c40a:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">138a7f2ebb8a47d9a950c86</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Accuracy Security We take reasonable measures to protect the confidentiality security and integrity of the personal information collected from our website visitors Personal information is stored in secure operating environments that are not available to the public and that are only accessible to authorized employees We also have security measures in place to protect the loss misuse and alteration of the information under our control Unfortunately there is no such thing as perfect security As a result although we strive to protect personally identifying information we cannot ensure or warrant the security of any information transmitted to us through or in connection with our websites that we store on our systems or that is stored on our service providers systems</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7630868947d140259857ec1:AccessControls">
+<owl:NamedIndividual rdf:about="#77a66dce4ffc48e7a3e5af0:AccessControls">
   <rdf:type rdf:resource="#AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7630868947d140259857ec1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">77a66dce4ffc48e7a3e5af0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Accuracy Security We take reasonable measures to protect the confidentiality, security, and integrity of the personal information collected from our website visitors. Personal information is stored in secure operating environments that are not available to the public and that are only accessible to authorized employees.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6d17ed28851b48e7862ceee:DataProtection">
+<owl:NamedIndividual rdf:about="#70ea603aa11841e18ed37b5:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <has_mechanism rdf:resource="#7630868947d140259857ec1:AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6d17ed28851b48e7862ceee</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <has_mechanism rdf:resource="#77a66dce4ffc48e7a3e5af0:AccessControls"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">70ea603aa11841e18ed37b5</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Accuracy Security We take reasonable measures to protect the confidentiality security and integrity of the personal information collected from our website visitors Personal information is stored in secure operating environments that are not available to the public and that are only accessible to authorized employees We also have security measures in place to protect the loss misuse and alteration of the information under our control Unfortunately there is no such thing as perfect security As a result although we strive to protect personally identifying information we cannot ensure or warrant the security of any information transmitted to us through or in connection with our websites that we store on our systems or that is stored on our service providers systems</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#522e0a2172d64576976b46a:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#94141b6cfbea4fe3938fa43:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">522e0a2172d64576976b46a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">94141b6cfbea4fe3938fa43</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We take reasonable measures to protect the confidentiality, security, and integrity of the personal information collected from our website visitors.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b4776b30d9e941a38508a98:DataProtection">
+<owl:NamedIndividual rdf:about="#b37eefc2347d4e51ac3549d:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <has_mechanism rdf:resource="#522e0a2172d64576976b46a:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b4776b30d9e941a38508a98</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <has_mechanism rdf:resource="#94141b6cfbea4fe3938fa43:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b37eefc2347d4e51ac3549d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Accuracy Security We take reasonable measures to protect the confidentiality security and integrity of the personal information collected from our website visitors Personal information is stored in secure operating environments that are not available to the public and that are only accessible to authorized employees We also have security measures in place to protect the loss misuse and alteration of the information under our control Unfortunately there is no such thing as perfect security As a result although we strive to protect personally identifying information we cannot ensure or warrant the security of any information transmitted to us through or in connection with our websites that we store on our systems or that is stored on our service providers systems</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fe24c2b558964a2f9f840ea:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#cc23bd59601c41b2ad44304:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fe24c2b558964a2f9f840ea</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cc23bd59601c41b2ad44304</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Governing Law SCEA operates in parts of North and South America but this site is intended for consumers in the United States When we process personal data and information and personally identifying information in the United States we follow United States data protection and privacy regulations which may not offer the same level of protection as in other parts of the world such as the European Union If we are made aware that a consumer s country of residence is outside the United States that consumer will be directed to the appropriate Sony company</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#131e1bb4e37a457cb87cc5e:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#3633ade802224c4394e6406:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">131e1bb4e37a457cb87cc5e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3633ade802224c4394e6406</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Governing Law SCEA operates in parts of North and South America but this site is intended for consumers in the United States When we process personal data and information and personally identifying information in the United States we follow United States data protection and privacy regulations which may not offer the same level of protection as in other parts of the world such as the European Union If we are made aware that a consumer s country of residence is outside the United States that consumer will be directed to the appropriate Sony company</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5c87241083754b66b89e420:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#c833ca3c21394c3b925fa0d:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5c87241083754b66b89e420</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c833ca3c21394c3b925fa0d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We will retain personally identifying information about you for the period necessary to fulfill the purposes outlined in this policy unless a longer DataRetention period is required by law or regulations.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2a2718768cac4cd0be6c2ea:DataActivityPurpose">
+<owl:NamedIndividual rdf:about="#dd0cee5467114128981acb0:DataActivityPurpose">
   <rdf:type rdf:resource="#DataActivityPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2a2718768cac4cd0be6c2ea</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dd0cee5467114128981acb0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">necessary to fulfill the purposes outlined in this policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#952fd9b4f01e47be9395017:AccountData">
+<owl:NamedIndividual rdf:about="#3a416008d640477f9faf4da:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">952fd9b4f01e47be9395017</uuid>
+  <provided_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3a416008d640477f9faf4da</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally identifying information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2dd3dd3d88974a378c62a6d:DataRetention">
+<owl:NamedIndividual rdf:about="#2881f8c278fe410e9b51023:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <lasts_for rdf:resource="#5c87241083754b66b89e420:DataRetentionTime"/>
-  <has_purpose rdf:resource="#2a2718768cac4cd0be6c2ea:DataActivityPurpose"/>
-  <applies_to rdf:resource="#952fd9b4f01e47be9395017:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2dd3dd3d88974a378c62a6d</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <lasts_for rdf:resource="#c833ca3c21394c3b925fa0d:DataRetentionTime"/>
+  <has_purpose rdf:resource="#dd0cee5467114128981acb0:DataActivityPurpose"/>
+  <applies_to rdf:resource="#3a416008d640477f9faf4da:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2881f8c278fe410e9b51023</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DataRetention Policy We will retain personally identifying information about you for the period necessary to fulfill the purposes outlined in this policy unless a longer DataRetention period is required by law or regulations</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#44ea05a77af747cba28216b:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#7a6f8c5fd4874eb58a5cdef:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">44ea05a77af747cba28216b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7a6f8c5fd4874eb58a5cdef</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">we will notify you by posting notice of the change on www.us.playstation.com or on our other websites. We will post the changes in the privacy policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1c27ec952a7d4e919b3f685:PrivacyRelatedCause">
+<owl:NamedIndividual rdf:about="#c184af78dbcc42e2acbc3f2:PrivacyRelatedCause">
   <rdf:type rdf:resource="#PrivacyRelatedCause"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1c27ec952a7d4e919b3f685</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c184af78dbcc42e2acbc3f2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">and, if necessary, give you additional choices regarding changes. Please check this privacy policy from time to time to ensure that you are aware of these changes. Your continued use of our websites or other SCEA online portals subject to this privacy policy will signify your acceptance of privacy policy changes.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#957bab9361c942639eb3186:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#db82eea9a03f4c8c93553c5:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">957bab9361c942639eb3186</uuid>
+  <initiated_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">db82eea9a03f4c8c93553c5</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to Our Privacy Policy We reserve the right to make changes to this privacy policy at any time If we make a material change to this privacy policy we will notify you by posting notice of the change on www us playstation com or on our other websites We will post the changes in the privacy policy and if necessary give you additional choices regarding changes Please check this privacy policy from time to time to ensure that you are aware of these changes Your continued use of our websites or other SCEA online portals subject to this privacy policy will signify your acceptance of privacy policy changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9f6eb88d35a24d03bc7ac39:PolicyChange">
+<owl:NamedIndividual rdf:about="#99acadf84ca44a9dbe5776d:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <caused_by rdf:resource="#1c27ec952a7d4e919b3f685:PrivacyRelatedCause"/>
-  <binded_to rdf:resource="#957bab9361c942639eb3186:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9f6eb88d35a24d03bc7ac39</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <caused_by rdf:resource="#c184af78dbcc42e2acbc3f2:PrivacyRelatedCause"/>
+  <binded_to rdf:resource="#db82eea9a03f4c8c93553c5:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">99acadf84ca44a9dbe5776d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to Our Privacy Policy We reserve the right to make changes to this privacy policy at any time If we make a material change to this privacy policy we will notify you by posting notice of the change on www us playstation com or on our other websites We will post the changes in the privacy policy and if necessary give you additional choices regarding changes Please check this privacy policy from time to time to ensure that you are aware of these changes Your continued use of our websites or other SCEA online portals subject to this privacy policy will signify your acceptance of privacy policy changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ff0df1718e3d464a835927b:FPNotification">
+<owl:NamedIndividual rdf:about="#b3e4195344304119a7c20b6:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <notifies rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_mechanism rdf:resource="#44ea05a77af747cba28216b:OnWebsitePage"/>
-  <binded_to rdf:resource="#9f6eb88d35a24d03bc7ac39:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ff0df1718e3d464a835927b</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <notifies rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_mechanism rdf:resource="#7a6f8c5fd4874eb58a5cdef:OnWebsitePage"/>
+  <binded_to rdf:resource="#99acadf84ca44a9dbe5776d:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b3e4195344304119a7c20b6</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to Our Privacy Policy We reserve the right to make changes to this privacy policy at any time If we make a material change to this privacy policy we will notify you by posting notice of the change on www us playstation com or on our other websites We will post the changes in the privacy policy and if necessary give you additional choices regarding changes Please check this privacy policy from time to time to ensure that you are aware of these changes Your continued use of our websites or other SCEA online portals subject to this privacy policy will signify your acceptance of privacy policy changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1f22339a70244f11b001612:InPrivacyPolicy">
+<owl:NamedIndividual rdf:about="#a80abdcb5dbd495ebe143fc:InPrivacyPolicy">
   <rdf:type rdf:resource="#InPrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1f22339a70244f11b001612</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a80abdcb5dbd495ebe143fc</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e will post the changes in the privacy policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#15b1f592794647d39924ab5:PrivacyRelatedCause">
+<owl:NamedIndividual rdf:about="#9ef5e6b6e82940a596aa97c:PrivacyRelatedCause">
   <rdf:type rdf:resource="#PrivacyRelatedCause"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">15b1f592794647d39924ab5</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9ef5e6b6e82940a596aa97c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">and, if necessary, give you additional choices regarding changes. Please check this privacy policy from time to time to ensure that you are aware of these changes. Your continued use of our websites or other SCEA online portals subject to this privacy policy will signify your acceptance of privacy policy changes.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#392b5e73ad10443fbe6716e:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#291d2a50a3194a6ea1c3315:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">392b5e73ad10443fbe6716e</uuid>
+  <initiated_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">291d2a50a3194a6ea1c3315</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to Our Privacy Policy We reserve the right to make changes to this privacy policy at any time If we make a material change to this privacy policy we will notify you by posting notice of the change on www us playstation com or on our other websites We will post the changes in the privacy policy and if necessary give you additional choices regarding changes Please check this privacy policy from time to time to ensure that you are aware of these changes Your continued use of our websites or other SCEA online portals subject to this privacy policy will signify your acceptance of privacy policy changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a6b38ca907ea4561942161e:PolicyChange">
+<owl:NamedIndividual rdf:about="#3b04d7b9a23b4fa780016af:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <caused_by rdf:resource="#15b1f592794647d39924ab5:PrivacyRelatedCause"/>
-  <binded_to rdf:resource="#392b5e73ad10443fbe6716e:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a6b38ca907ea4561942161e</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <caused_by rdf:resource="#9ef5e6b6e82940a596aa97c:PrivacyRelatedCause"/>
+  <binded_to rdf:resource="#291d2a50a3194a6ea1c3315:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3b04d7b9a23b4fa780016af</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to Our Privacy Policy We reserve the right to make changes to this privacy policy at any time If we make a material change to this privacy policy we will notify you by posting notice of the change on www us playstation com or on our other websites We will post the changes in the privacy policy and if necessary give you additional choices regarding changes Please check this privacy policy from time to time to ensure that you are aware of these changes Your continued use of our websites or other SCEA online portals subject to this privacy policy will signify your acceptance of privacy policy changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2c299d194781460f9e9beab:FPNotification">
+<owl:NamedIndividual rdf:about="#886ca59b7f394122a00b1b7:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <notifies rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_mechanism rdf:resource="#1f22339a70244f11b001612:InPrivacyPolicy"/>
-  <binded_to rdf:resource="#a6b38ca907ea4561942161e:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2c299d194781460f9e9beab</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <notifies rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_mechanism rdf:resource="#a80abdcb5dbd495ebe143fc:InPrivacyPolicy"/>
+  <binded_to rdf:resource="#3b04d7b9a23b4fa780016af:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">886ca59b7f394122a00b1b7</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to Our Privacy Policy We reserve the right to make changes to this privacy policy at any time If we make a material change to this privacy policy we will notify you by posting notice of the change on www us playstation com or on our other websites We will post the changes in the privacy policy and if necessary give you additional choices regarding changes Please check this privacy policy from time to time to ensure that you are aware of these changes Your continued use of our websites or other SCEA online portals subject to this privacy policy will signify your acceptance of privacy policy changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#75ca913681ee4c20810de33:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#779c185377174439a05de91:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">75ca913681ee4c20810de33</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">779c185377174439a05de91</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">we will notify you by posting notice of the change on www.us.playstation.com or on our other websites.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#61df17b82904414e8f86da3:PrivacyRelatedCause">
+<owl:NamedIndividual rdf:about="#69280578dbf04e4ebb862b9:PrivacyRelatedCause">
   <rdf:type rdf:resource="#PrivacyRelatedCause"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">61df17b82904414e8f86da3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">69280578dbf04e4ebb862b9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">if necessary, give you additional choices regarding changes.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fe0cbde051f246b59253501:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#3e19b9d5ad3a479595ce7a2:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fe0cbde051f246b59253501</uuid>
+  <initiated_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3e19b9d5ad3a479595ce7a2</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to Our Privacy Policy We reserve the right to make changes to this privacy policy at any time If we make a material change to this privacy policy we will notify you by posting notice of the change on www us playstation com or on our other websites We will post the changes in the privacy policy and if necessary give you additional choices regarding changes Please check this privacy policy from time to time to ensure that you are aware of these changes Your continued use of our websites or other SCEA online portals subject to this privacy policy will signify your acceptance of privacy policy changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0cd4b4f6313842fbaf35340:PolicyChange">
+<owl:NamedIndividual rdf:about="#5526c40d04e343acaba567b:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <caused_by rdf:resource="#61df17b82904414e8f86da3:PrivacyRelatedCause"/>
-  <binded_to rdf:resource="#fe0cbde051f246b59253501:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0cd4b4f6313842fbaf35340</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <caused_by rdf:resource="#69280578dbf04e4ebb862b9:PrivacyRelatedCause"/>
+  <binded_to rdf:resource="#3e19b9d5ad3a479595ce7a2:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5526c40d04e343acaba567b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to Our Privacy Policy We reserve the right to make changes to this privacy policy at any time If we make a material change to this privacy policy we will notify you by posting notice of the change on www us playstation com or on our other websites We will post the changes in the privacy policy and if necessary give you additional choices regarding changes Please check this privacy policy from time to time to ensure that you are aware of these changes Your continued use of our websites or other SCEA online portals subject to this privacy policy will signify your acceptance of privacy policy changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d39e545c8abd4ca1a07b09c:FPNotification">
+<owl:NamedIndividual rdf:about="#0c6c51b801c24ab68af0061:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <notifies rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_mechanism rdf:resource="#75ca913681ee4c20810de33:OnWebsitePage"/>
-  <binded_to rdf:resource="#0cd4b4f6313842fbaf35340:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d39e545c8abd4ca1a07b09c</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <notifies rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_mechanism rdf:resource="#779c185377174439a05de91:OnWebsitePage"/>
+  <binded_to rdf:resource="#5526c40d04e343acaba567b:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0c6c51b801c24ab68af0061</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to Our Privacy Policy We reserve the right to make changes to this privacy policy at any time If we make a material change to this privacy policy we will notify you by posting notice of the change on www us playstation com or on our other websites We will post the changes in the privacy policy and if necessary give you additional choices regarding changes Please check this privacy policy from time to time to ensure that you are aware of these changes Your continued use of our websites or other SCEA online portals subject to this privacy policy will signify your acceptance of privacy policy changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7bd3b6965e644d5c82025e0:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#b7b19c6d3cd747bb9d79cc5:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7bd3b6965e644d5c82025e0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b7b19c6d3cd747bb9d79cc5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">we will notify you by posting notice of the change on www.us.playstation.com or on our other websites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#27d62961c67d466fa821658:PrivacyRelatedCause">
+<owl:NamedIndividual rdf:about="#798e34359a034989a114f89:PrivacyRelatedCause">
   <rdf:type rdf:resource="#PrivacyRelatedCause"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">27d62961c67d466fa821658</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">798e34359a034989a114f89</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your continued use of our websites or other SCEA online portals subject to this privacy policy will signify your acceptance of privacy policy changes.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#76118aec06fb49228a3818b:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#768f8a7b4fc94d6194b28ab:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">76118aec06fb49228a3818b</uuid>
+  <initiated_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">768f8a7b4fc94d6194b28ab</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to Our Privacy Policy We reserve the right to make changes to this privacy policy at any time If we make a material change to this privacy policy we will notify you by posting notice of the change on www us playstation com or on our other websites We will post the changes in the privacy policy and if necessary give you additional choices regarding changes Please check this privacy policy from time to time to ensure that you are aware of these changes Your continued use of our websites or other SCEA online portals subject to this privacy policy will signify your acceptance of privacy policy changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#66b5f5ed6c5747e9986ae4d:PolicyChange">
+<owl:NamedIndividual rdf:about="#a7a138f6caac4fd0bd1559b:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <caused_by rdf:resource="#27d62961c67d466fa821658:PrivacyRelatedCause"/>
-  <binded_to rdf:resource="#76118aec06fb49228a3818b:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">66b5f5ed6c5747e9986ae4d</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <caused_by rdf:resource="#798e34359a034989a114f89:PrivacyRelatedCause"/>
+  <binded_to rdf:resource="#768f8a7b4fc94d6194b28ab:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a7a138f6caac4fd0bd1559b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to Our Privacy Policy We reserve the right to make changes to this privacy policy at any time If we make a material change to this privacy policy we will notify you by posting notice of the change on www us playstation com or on our other websites We will post the changes in the privacy policy and if necessary give you additional choices regarding changes Please check this privacy policy from time to time to ensure that you are aware of these changes Your continued use of our websites or other SCEA online portals subject to this privacy policy will signify your acceptance of privacy policy changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#143c3ca0b37c441abc4bf9d:FPNotification">
+<owl:NamedIndividual rdf:about="#a1d29cb1ed31410b94da273:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <notifies rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_mechanism rdf:resource="#7bd3b6965e644d5c82025e0:OnWebsitePage"/>
-  <binded_to rdf:resource="#66b5f5ed6c5747e9986ae4d:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">143c3ca0b37c441abc4bf9d</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <notifies rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_mechanism rdf:resource="#b7b19c6d3cd747bb9d79cc5:OnWebsitePage"/>
+  <binded_to rdf:resource="#a7a138f6caac4fd0bd1559b:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a1d29cb1ed31410b94da273</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to Our Privacy Policy We reserve the right to make changes to this privacy policy at any time If we make a material change to this privacy policy we will notify you by posting notice of the change on www us playstation com or on our other websites We will post the changes in the privacy policy and if necessary give you additional choices regarding changes Please check this privacy policy from time to time to ensure that you are aware of these changes Your continued use of our websites or other SCEA online portals subject to this privacy policy will signify your acceptance of privacy policy changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#98bc45eb41c64d76a7abb93:InPrivacyPolicy">
+<owl:NamedIndividual rdf:about="#a1bf43ed0543485d9cb9d42:InPrivacyPolicy">
   <rdf:type rdf:resource="#InPrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">98bc45eb41c64d76a7abb93</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a1bf43ed0543485d9cb9d42</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We will post the changes in the privacy policy and, if necessary, give you additional choices regarding changes.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ab76f75cafe94ad3a5ab366:PrivacyRelatedCause">
+<owl:NamedIndividual rdf:about="#16190fa58d0741ebb15aa43:PrivacyRelatedCause">
   <rdf:type rdf:resource="#PrivacyRelatedCause"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ab76f75cafe94ad3a5ab366</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">16190fa58d0741ebb15aa43</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your continued use of our websites or other SCEA online portals subject to this privacy policy will signify your acceptance of privacy policy changes.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8ad6d97331d144d2b2d7e5c:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#672c6f84d63b45efabf0e81:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8ad6d97331d144d2b2d7e5c</uuid>
+  <initiated_by rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">672c6f84d63b45efabf0e81</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to Our Privacy Policy We reserve the right to make changes to this privacy policy at any time If we make a material change to this privacy policy we will notify you by posting notice of the change on www us playstation com or on our other websites We will post the changes in the privacy policy and if necessary give you additional choices regarding changes Please check this privacy policy from time to time to ensure that you are aware of these changes Your continued use of our websites or other SCEA online portals subject to this privacy policy will signify your acceptance of privacy policy changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#45904b57f07e48aab27e8d6:PolicyChange">
+<owl:NamedIndividual rdf:about="#16a01660265e4d53b10a443:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <caused_by rdf:resource="#ab76f75cafe94ad3a5ab366:PrivacyRelatedCause"/>
-  <binded_to rdf:resource="#8ad6d97331d144d2b2d7e5c:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">45904b57f07e48aab27e8d6</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <caused_by rdf:resource="#16190fa58d0741ebb15aa43:PrivacyRelatedCause"/>
+  <binded_to rdf:resource="#672c6f84d63b45efabf0e81:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">16a01660265e4d53b10a443</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to Our Privacy Policy We reserve the right to make changes to this privacy policy at any time If we make a material change to this privacy policy we will notify you by posting notice of the change on www us playstation com or on our other websites We will post the changes in the privacy policy and if necessary give you additional choices regarding changes Please check this privacy policy from time to time to ensure that you are aware of these changes Your continued use of our websites or other SCEA online portals subject to this privacy policy will signify your acceptance of privacy policy changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ca0ffb10a8864f71a1d9176:FPNotification">
+<owl:NamedIndividual rdf:about="#64131bb497cc4765ab63baa:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#71430054d7cb4a6a9a1c5ab:FirstParty"/>
-  <notifies rdf:resource="#1dd25052655c459590ffe9e:User"/>
-  <has_mechanism rdf:resource="#98bc45eb41c64d76a7abb93:InPrivacyPolicy"/>
-  <binded_to rdf:resource="#45904b57f07e48aab27e8d6:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ca0ffb10a8864f71a1d9176</uuid>
+  <initiated_by rdf:resource="#0dd5b482ea0c41aba68cfbb:FirstParty"/>
+  <notifies rdf:resource="#25881862b0d440a7b0e254b:User"/>
+  <has_mechanism rdf:resource="#a1bf43ed0543485d9cb9d42:InPrivacyPolicy"/>
+  <binded_to rdf:resource="#16a01660265e4d53b10a443:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">64131bb497cc4765ab63baa</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to Our Privacy Policy We reserve the right to make changes to this privacy policy at any time If we make a material change to this privacy policy we will notify you by posting notice of the change on www us playstation com or on our other websites We will post the changes in the privacy policy and if necessary give you additional choices regarding changes Please check this privacy policy from time to time to ensure that you are aware of these changes Your continued use of our websites or other SCEA online portals subject to this privacy policy will signify your acceptance of privacy policy changes</evidence>
 </owl:NamedIndividual>

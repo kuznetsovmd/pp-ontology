@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -901,14 +902,6 @@
   <rdfs:subClassOf rdf:resource="#UserSpecificCommunicationMechanism"/>
   <owl:disjointWith rdf:resource="#AutomaticCommunicationMechanism"/>
   <rdfs:subClassOf>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
-        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
       <owl:allValuesFrom>
@@ -917,6 +910,14 @@
         </owl:Class>
       </owl:allValuesFrom>
     </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
+        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
+      </owl:unionOf>
+    </owl:Class>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -959,18 +960,18 @@
 <owl:Class rdf:about="#FPSpecificCommunicationMechanism">
   <rdfs:subClassOf rdf:resource="#CommunicationMechanism"/>
   <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#mechanism_of"/>
+      <owl:allValuesFrom rdf:resource="#FPNotification"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
     <owl:Class>
       <owl:unionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#FPSpecificCommunicationMechanism"/>
         <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
       </owl:unionOf>
     </owl:Class>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#mechanism_of"/>
-      <owl:allValuesFrom rdf:resource="#FPNotification"/>
-    </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,772 +1305,771 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#23c0b078122e4ccd912836d:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#2851199a84454a1e865a8ea:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">23c0b078122e4ccd912836d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2851199a84454a1e865a8ea</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2e9d9df841ea497292d9b80:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#9dc67b8be85048c3b8a1640:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <considers rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <considers rdf:resource="#d6bd778cbc014debb44f038:ThirdParty"/>
-  <considers rdf:resource="#4f25721fd7f649dda524ccd:GenericData"/>
-  <considers rdf:resource="#43e00d82cb8f4c7389d42ee:FPCollection"/>
-  <considers rdf:resource="#d534b9ebf43e4cf48a47a26:DeviceData"/>
-  <considers rdf:resource="#7bb4f24e59944eb2b08805a:DataRetention"/>
-  <considers rdf:resource="#ec3ed54d57a24a45b623ce4:Data"/>
-  <considers rdf:resource="#e85d60d28bf04483b91cdfe:DataRetention"/>
-  <considers rdf:resource="#760e2639e7764831ab99d1e:DeviceData"/>
-  <considers rdf:resource="#0111392aa88643109b7e603:DataRetention"/>
-  <considers rdf:resource="#b9be7e7136a54955ab90131:AccountData"/>
-  <considers rdf:resource="#75bbefb542994d9abf82d7d:DataRetention"/>
-  <considers rdf:resource="#d365f9b7897d480b997ac7c:TrackingData"/>
-  <considers rdf:resource="#046b1688db1b45e88cbe784:DataProtection"/>
-  <considers rdf:resource="#352f69da63784504abd4939:TPCollection"/>
-  <considers rdf:resource="#5484da89792847c3842bedf:FPCollection"/>
-  <considers rdf:resource="#c1ee416bd2da41a89421a33:FPCollection"/>
-  <considers rdf:resource="#d92d3b1d1a404809893c384:DataRetention"/>
-  <considers rdf:resource="#afe2f12eee7e4855a44a1fb:OptInOptOutControl"/>
-  <considers rdf:resource="#3a98831ae1a94fd9aea32b8:SensitiveData"/>
-  <considers rdf:resource="#777ae9e090f246d993a58c6:DataUse"/>
-  <considers rdf:resource="#502c9fbd5a614439a8ed2c9:SensitiveData"/>
-  <considers rdf:resource="#63e0e70059c94cc3ad2b801:TPCollection"/>
-  <considers rdf:resource="#70e89d2647fe4fc0808fca0:TPSharing"/>
-  <considers rdf:resource="#40a89de0734a461bb9f54e4:GenericData"/>
-  <considers rdf:resource="#3057027caf67458ab3a10cf:DataUse"/>
-  <considers rdf:resource="#a4f8527215044defb467912:GenericData"/>
-  <considers rdf:resource="#bc2a7d81d9964de2ab09133:DataUse"/>
-  <considers rdf:resource="#b437eb5c1a2448658e3371d:FPCollection"/>
-  <considers rdf:resource="#21c2b94853d541f3a1014fc:FPCollection"/>
-  <considers rdf:resource="#fd5d5487919f4746a2b11a3:PersonalData"/>
-  <considers rdf:resource="#063e67d973214d708dff135:OptInOptOutControl"/>
-  <considers rdf:resource="#476e2159b4ff40ef87d9570:PersonalData"/>
-  <considers rdf:resource="#25dc3ad6b22a466da0b7b8e:OptInOptOutControl"/>
-  <considers rdf:resource="#6becaab7d0334715801495f:OptInOptOutControl"/>
-  <considers rdf:resource="#c99dc579423547ac935c6e2:DataProtection"/>
-  <considers rdf:resource="#03c8fd20d84549c9aadfc77:OptInOptOutControl"/>
-  <considers rdf:resource="#c40d66435bf04e9bb4457d5:PersonalData"/>
-  <considers rdf:resource="#33529b7c84f543afb6c53f5:OptInOptOutControl"/>
-  <considers rdf:resource="#94dcb7993b0f453fbf04e2e:PersonalData"/>
-  <considers rdf:resource="#1d178af43d194b28b3fc32c:OptInOptOutControl"/>
-  <considers rdf:resource="#aca9ead55beb43e8a3f2758:OptInOptOutControl"/>
-  <considers rdf:resource="#2a1563207c76469e8681c05:DataProtection"/>
-  <considers rdf:resource="#845d135f37584b7fbe68aa8:DataProtection"/>
-  <considers rdf:resource="#d0afbdce6d064bbfba01c72:DataProtection"/>
-  <considers rdf:resource="#d7d87a28eab3444f91dfd39:DataProtection"/>
-  <considers rdf:resource="#9251157988e5429d8e73e93:DataProtection"/>
-  <considers rdf:resource="#0b7a0de75acb42e297fd983:DataProtection"/>
-  <considers rdf:resource="#c17045a77c7d4ee8846f315:DataProtection"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2e9d9df841ea497292d9b80</uuid>
+  <considers rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <considers rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <considers rdf:resource="#c5f86d48f86b4ae2a46cadb:ThirdParty"/>
+  <considers rdf:resource="#df5d7e8616104ab7be3df57:GenericData"/>
+  <considers rdf:resource="#2c910a4a955f4ca18832ca4:FPCollection"/>
+  <considers rdf:resource="#980301cd9de54ede99fc0ca:DeviceData"/>
+  <considers rdf:resource="#f8cdea7d1ef2440e81c375f:DataRetention"/>
+  <considers rdf:resource="#16daf8dc090d462eb4c5235:Data"/>
+  <considers rdf:resource="#5d40bb6566564e0eac38bab:DataRetention"/>
+  <considers rdf:resource="#1c624f0905d24e3abc90010:DeviceData"/>
+  <considers rdf:resource="#6d310868699243b1b858e99:DataRetention"/>
+  <considers rdf:resource="#28c56592ac504f0288bae10:AccountData"/>
+  <considers rdf:resource="#f58cb4d37c8449b0a4b9339:DataRetention"/>
+  <considers rdf:resource="#31e76f82b5944ac289c4270:TrackingData"/>
+  <considers rdf:resource="#4678b5998a9146648501434:DataProtection"/>
+  <considers rdf:resource="#fda2588ef6c84c5ea18cce3:TPCollection"/>
+  <considers rdf:resource="#5b2a67a56ef9496d9d7d7aa:FPCollection"/>
+  <considers rdf:resource="#31974b96ea024f4a97dcc77:FPCollection"/>
+  <considers rdf:resource="#b0b01d471bac4463964f1f9:DataRetention"/>
+  <considers rdf:resource="#c5475bd0096444b8a7a6abe:OptInOptOutControl"/>
+  <considers rdf:resource="#e87555ec121b4770b3b88be:SensitiveData"/>
+  <considers rdf:resource="#267b51433ad647988227bec:DataUse"/>
+  <considers rdf:resource="#52cd2b46f06841ca9284a3d:SensitiveData"/>
+  <considers rdf:resource="#efd1fe02c94b40efa161650:TPCollection"/>
+  <considers rdf:resource="#081246ba75bc46ab955757b:TPSharing"/>
+  <considers rdf:resource="#3b20b1134d424d3c870c119:GenericData"/>
+  <considers rdf:resource="#fc8dc62153dd4a76a1ae9e9:DataUse"/>
+  <considers rdf:resource="#2630c4b66fa34d16978f552:GenericData"/>
+  <considers rdf:resource="#584102bd8f58458ea85c240:DataUse"/>
+  <considers rdf:resource="#3f8327e9a87444049a050d5:FPCollection"/>
+  <considers rdf:resource="#a227f877185e4dabafa9a7e:FPCollection"/>
+  <considers rdf:resource="#525c6b0a37a2412fa9df346:PersonalData"/>
+  <considers rdf:resource="#699fe18fbdb74bb4bfa1995:OptInOptOutControl"/>
+  <considers rdf:resource="#1a24e645588d4a1aaf7069b:PersonalData"/>
+  <considers rdf:resource="#63b74ba52b224892b20b7ca:OptInOptOutControl"/>
+  <considers rdf:resource="#96b9c9d70abe49c6974804a:OptInOptOutControl"/>
+  <considers rdf:resource="#a35a7aa71dd14a34889a82c:DataProtection"/>
+  <considers rdf:resource="#66eaf78ca2e34c35af4b796:OptInOptOutControl"/>
+  <considers rdf:resource="#b80518b5824a4b568bdc296:PersonalData"/>
+  <considers rdf:resource="#9ace90f775f74b7987fbd18:OptInOptOutControl"/>
+  <considers rdf:resource="#a36976cbabd143ff9caabc3:PersonalData"/>
+  <considers rdf:resource="#c8677759801b4e5686cd7ef:OptInOptOutControl"/>
+  <considers rdf:resource="#3f048626519b427c9e91735:OptInOptOutControl"/>
+  <considers rdf:resource="#aee28fa864e84ae5868fe90:DataProtection"/>
+  <considers rdf:resource="#3176677ba1ed436e9f0a65a:DataProtection"/>
+  <considers rdf:resource="#4343969316544aacbd5a11c:DataProtection"/>
+  <considers rdf:resource="#5ab2184dd0cc4cf4aa1c060:DataProtection"/>
+  <considers rdf:resource="#b05f1de7aec04a21a7c9dbc:DataProtection"/>
+  <considers rdf:resource="#2ce1db49b43f41f2868a116:DataProtection"/>
+  <considers rdf:resource="#11a8006bc867438f8456747:DataProtection"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9dc67b8be85048c3b8a1640</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">si.edu</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2de3c1da5d4d4b289a9a948:User">
+<owl:NamedIndividual rdf:about="#c5189993b8c44ef9bfe25b0:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2de3c1da5d4d4b289a9a948</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c5189993b8c44ef9bfe25b0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b7abd010b3394fda84bc112:FirstParty">
+<owl:NamedIndividual rdf:about="#acedbbfc332440859a9ab13:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b7abd010b3394fda84bc112</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">acedbbfc332440859a9ab13</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d6bd778cbc014debb44f038:ThirdParty">
+<owl:NamedIndividual rdf:about="#c5f86d48f86b4ae2a46cadb:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d6bd778cbc014debb44f038</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c5f86d48f86b4ae2a46cadb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4f25721fd7f649dda524ccd:GenericData">
+<owl:NamedIndividual rdf:about="#df5d7e8616104ab7be3df57:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4f25721fd7f649dda524ccd</uuid>
+  <provided_by rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">df5d7e8616104ab7be3df57</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#92ccf35fc505449f8709207:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#2b97373afd0c4314afe03cb:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">92ccf35fc505449f8709207</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2b97373afd0c4314afe03cb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The Smithsonian will use that information to respond to your message and to help us get you the information you have requested.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c63d91e2b66c46d0b49ee16:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#562b4473bc084f07914f3ce:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c63d91e2b66c46d0b49ee16</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">562b4473bc084f07914f3ce</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unless you choose to provide that information to us.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#43e00d82cb8f4c7389d42ee:FPCollection">
+<owl:NamedIndividual rdf:about="#2c910a4a955f4ca18832ca4:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <collects_from rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <has_purpose rdf:resource="#92ccf35fc505449f8709207:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#c63d91e2b66c46d0b49ee16:TransmissionByRequest"/>
-  <applies_to rdf:resource="#4f25721fd7f649dda524ccd:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">43e00d82cb8f4c7389d42ee</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <collects_from rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <has_purpose rdf:resource="#2b97373afd0c4314afe03cb:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#562b4473bc084f07914f3ce:TransmissionByRequest"/>
+  <applies_to rdf:resource="#df5d7e8616104ab7be3df57:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2c910a4a955f4ca18832ca4</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Overview Thank you for visiting the Smithsonian Institution network of Websites and reviewing our Privacy Statement The Smithsonian Institution does not collect personal information about visitors to our Websites unless you choose to provide that information to us The Smithsonian will use that information to respond to your message and to help us get you the information you have requested</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1c5d858034c94d13bceaf64:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#9dd17adac2f043fdb4feb4d:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1c5d858034c94d13bceaf64</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9dd17adac2f043fdb4feb4d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">store</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d534b9ebf43e4cf48a47a26:DeviceData">
+<owl:NamedIndividual rdf:about="#980301cd9de54ede99fc0ca:DeviceData">
   <rdf:type rdf:resource="#DeviceData"/>
-  <provided_by rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d534b9ebf43e4cf48a47a26</uuid>
+  <provided_by rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">980301cd9de54ede99fc0ca</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The IP address from which you access our Websites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7bb4f24e59944eb2b08805a:DataRetention">
+<owl:NamedIndividual rdf:about="#f8cdea7d1ef2440e81c375f:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <lasts_for rdf:resource="#1c5d858034c94d13bceaf64:DataRetentionTime"/>
-  <applies_to rdf:resource="#d534b9ebf43e4cf48a47a26:DeviceData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7bb4f24e59944eb2b08805a</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <lasts_for rdf:resource="#9dd17adac2f043fdb4feb4d:DataRetentionTime"/>
+  <applies_to rdf:resource="#980301cd9de54ede99fc0ca:DeviceData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f8cdea7d1ef2440e81c375f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information Collected and Stored Automatically When you visit our Websites we automatically gather and store the following information about your visit so that we can track the use of our Websites in order to make improvements This information is stored and used in the aggregate only and is not used to contact you personally The IP address from which you access our Websites The name of the domain from which you access the Internet for example gmail com if you are connecting from a Google account The type of browser and operating system used to access our Websites The date and time you access our sites The pages files documents and links that you visit and The domain of the website which referred you to this Website the last website you visited before visiting this one</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#31f23909b4e840b0bbe3ad1:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#ae33807ae45447fbaf9aa8f:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">31f23909b4e840b0bbe3ad1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ae33807ae45447fbaf9aa8f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">store</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ec3ed54d57a24a45b623ce4:Data">
+<owl:NamedIndividual rdf:about="#16daf8dc090d462eb4c5235:Data">
   <rdf:type rdf:resource="#Data"/>
-  <provided_by rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ec3ed54d57a24a45b623ce4</uuid>
+  <provided_by rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">16daf8dc090d462eb4c5235</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The name of the domain from which you access the Internet (for example, gmail.com, if you are connecting from a Google account);</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e85d60d28bf04483b91cdfe:DataRetention">
+<owl:NamedIndividual rdf:about="#5d40bb6566564e0eac38bab:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <lasts_for rdf:resource="#31f23909b4e840b0bbe3ad1:DataRetentionTime"/>
-  <applies_to rdf:resource="#ec3ed54d57a24a45b623ce4:Data"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e85d60d28bf04483b91cdfe</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <lasts_for rdf:resource="#ae33807ae45447fbaf9aa8f:DataRetentionTime"/>
+  <applies_to rdf:resource="#16daf8dc090d462eb4c5235:Data"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5d40bb6566564e0eac38bab</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information Collected and Stored Automatically When you visit our Websites we automatically gather and store the following information about your visit so that we can track the use of our Websites in order to make improvements This information is stored and used in the aggregate only and is not used to contact you personally The IP address from which you access our Websites The name of the domain from which you access the Internet for example gmail com if you are connecting from a Google account The type of browser and operating system used to access our Websites The date and time you access our sites The pages files documents and links that you visit and The domain of the website which referred you to this Website the last website you visited before visiting this one</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f9a8e4093d92408f9e572d9:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#9d585d7903044350ae688cd:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f9a8e4093d92408f9e572d9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9d585d7903044350ae688cd</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">store</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#760e2639e7764831ab99d1e:DeviceData">
+<owl:NamedIndividual rdf:about="#1c624f0905d24e3abc90010:DeviceData">
   <rdf:type rdf:resource="#DeviceData"/>
-  <provided_by rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">760e2639e7764831ab99d1e</uuid>
+  <provided_by rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1c624f0905d24e3abc90010</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The type of browser and operating system used to access our Websites;</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0111392aa88643109b7e603:DataRetention">
+<owl:NamedIndividual rdf:about="#6d310868699243b1b858e99:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <lasts_for rdf:resource="#f9a8e4093d92408f9e572d9:DataRetentionTime"/>
-  <applies_to rdf:resource="#760e2639e7764831ab99d1e:DeviceData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0111392aa88643109b7e603</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <lasts_for rdf:resource="#9d585d7903044350ae688cd:DataRetentionTime"/>
+  <applies_to rdf:resource="#1c624f0905d24e3abc90010:DeviceData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6d310868699243b1b858e99</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information Collected and Stored Automatically When you visit our Websites we automatically gather and store the following information about your visit so that we can track the use of our Websites in order to make improvements This information is stored and used in the aggregate only and is not used to contact you personally The IP address from which you access our Websites The name of the domain from which you access the Internet for example gmail com if you are connecting from a Google account The type of browser and operating system used to access our Websites The date and time you access our sites The pages files documents and links that you visit and The domain of the website which referred you to this Website the last website you visited before visiting this one</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4f77fb583ec8426abd38622:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#3bcd8a6449cf4abe939f0e5:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4f77fb583ec8426abd38622</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3bcd8a6449cf4abe939f0e5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">store</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b9be7e7136a54955ab90131:AccountData">
+<owl:NamedIndividual rdf:about="#28c56592ac504f0288bae10:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b9be7e7136a54955ab90131</uuid>
+  <provided_by rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">28c56592ac504f0288bae10</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The date and time you access our sites; The pages, files, documents and links that you visit; and The domain of the website which referred you to this Website (the last website you visited before visiting this one).</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#75bbefb542994d9abf82d7d:DataRetention">
+<owl:NamedIndividual rdf:about="#f58cb4d37c8449b0a4b9339:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <lasts_for rdf:resource="#4f77fb583ec8426abd38622:DataRetentionTime"/>
-  <applies_to rdf:resource="#b9be7e7136a54955ab90131:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">75bbefb542994d9abf82d7d</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <lasts_for rdf:resource="#3bcd8a6449cf4abe939f0e5:DataRetentionTime"/>
+  <applies_to rdf:resource="#28c56592ac504f0288bae10:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f58cb4d37c8449b0a4b9339</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information Collected and Stored Automatically When you visit our Websites we automatically gather and store the following information about your visit so that we can track the use of our Websites in order to make improvements This information is stored and used in the aggregate only and is not used to contact you personally The IP address from which you access our Websites The name of the domain from which you access the Internet for example gmail com if you are connecting from a Google account The type of browser and operating system used to access our Websites The date and time you access our sites The pages files documents and links that you visit and The domain of the website which referred you to this Website the last website you visited before visiting this one</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d365f9b7897d480b997ac7c:TrackingData">
+<owl:NamedIndividual rdf:about="#31e76f82b5944ac289c4270:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d365f9b7897d480b997ac7c</uuid>
+  <provided_by rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">31e76f82b5944ac289c4270</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#77af81eac3514eb09ac4008:AnalyticsPurpose">
+<owl:NamedIndividual rdf:about="#c002f96b0e7a4fe5a625852:AnalyticsPurpose">
   <rdf:type rdf:resource="#AnalyticsPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">77af81eac3514eb09ac4008</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c002f96b0e7a4fe5a625852</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">analyze the information collected by cookies in order to make the Smithsonian Websites more interesting and useful to you.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cf464605a02240a3bf27453:PseudoAnonymization">
+<owl:NamedIndividual rdf:about="#82319c5681b94f749186a5f:PseudoAnonymization">
   <rdf:type rdf:resource="#PseudoAnonymization"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cf464605a02240a3bf27453</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">82319c5681b94f749186a5f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">No personally identifiable information is collected. Information that we collect from cookies will not be used to create profiles of individual users and only will be used in aggregate form.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#046b1688db1b45e88cbe784:DataProtection">
+<owl:NamedIndividual rdf:about="#4678b5998a9146648501434:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <has_mechanism rdf:resource="#cf464605a02240a3bf27453:PseudoAnonymization"/>
-  <applies_to rdf:resource="#d365f9b7897d480b997ac7c:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">046b1688db1b45e88cbe784</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <has_mechanism rdf:resource="#82319c5681b94f749186a5f:PseudoAnonymization"/>
+  <applies_to rdf:resource="#31e76f82b5944ac289c4270:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4678b5998a9146648501434</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cookies In addition to information collected automatically we use cookies to support the internal functionality of the Websites Cookies which are small pieces of information sent to your browser by a website that you visit are used to track usage patterns traffic trends and customer behavior as well as to record other information from the Website When you register on the Websites cookies also allow us to save information so that you will not have to re-enter it the next time you visit Many content adjustments and customer service improvements are made based on the data derived from cookies Some Smithsonian Websites use third-party vendors such as Google Analytics to place cookies and analyze the information collected by cookies in order to make the Smithsonian Websites more interesting and useful to you No personally identifiable information is collected Information that we collect from cookies will not be used to create profiles of individual users and only will be used in aggregate form The data is retained for as long as necessary to support the mission of the Smithsonian Websites You may set your browser to refuse cookies from any website that you visit If you so choose you may still gain access to most of the Smithsonian s Websites but you may not be able to conduct certain types of transactions such as shopping or take advantage of some of the interactive elements offered You may opt-out of Google Analytics using the Google Analytics Opt-out Browser Add-on</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#352f69da63784504abd4939:TPCollection">
+<owl:NamedIndividual rdf:about="#fda2588ef6c84c5ea18cce3:TPCollection">
   <rdf:type rdf:resource="#TPCollection"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <collects_from rdf:resource="#d6bd778cbc014debb44f038:ThirdParty"/>
-  <has_purpose rdf:resource="#77af81eac3514eb09ac4008:AnalyticsPurpose"/>
-  <applies_to rdf:resource="#d365f9b7897d480b997ac7c:TrackingData"/>
-  <binded_to rdf:resource="#046b1688db1b45e88cbe784:DataProtection"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">352f69da63784504abd4939</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <collects_from rdf:resource="#c5f86d48f86b4ae2a46cadb:ThirdParty"/>
+  <has_purpose rdf:resource="#c002f96b0e7a4fe5a625852:AnalyticsPurpose"/>
+  <applies_to rdf:resource="#31e76f82b5944ac289c4270:TrackingData"/>
+  <binded_to rdf:resource="#4678b5998a9146648501434:DataProtection"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fda2588ef6c84c5ea18cce3</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cookies In addition to information collected automatically we use cookies to support the internal functionality of the Websites Cookies which are small pieces of information sent to your browser by a website that you visit are used to track usage patterns traffic trends and customer behavior as well as to record other information from the Website When you register on the Websites cookies also allow us to save information so that you will not have to re-enter it the next time you visit Many content adjustments and customer service improvements are made based on the data derived from cookies Some Smithsonian Websites use third-party vendors such as Google Analytics to place cookies and analyze the information collected by cookies in order to make the Smithsonian Websites more interesting and useful to you No personally identifiable information is collected Information that we collect from cookies will not be used to create profiles of individual users and only will be used in aggregate form The data is retained for as long as necessary to support the mission of the Smithsonian Websites You may set your browser to refuse cookies from any website that you visit If you so choose you may still gain access to most of the Smithsonian s Websites but you may not be able to conduct certain types of transactions such as shopping or take advantage of some of the interactive elements offered You may opt-out of Google Analytics using the Google Analytics Opt-out Browser Add-on</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1d840427666643e2bce56c8:ServiceEnhancementPurpose">
+<owl:NamedIndividual rdf:about="#c39635b86d294410967d9ca:ServiceEnhancementPurpose">
   <rdf:type rdf:resource="#ServiceEnhancementPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1d840427666643e2bce56c8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c39635b86d294410967d9ca</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">When you register on the Websites, cookies also allow us to save information so that you will not have to re-enter it the next time you visit.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7e40a58ca4af459fb2bf3c5:ViaWebsite">
+<owl:NamedIndividual rdf:about="#2aead76c808a4b15a87e57c:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7e40a58ca4af459fb2bf3c5</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2aead76c808a4b15a87e57c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cookies, which are small pieces of information sent to your browser by a website that you visit,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#737eef953a834a81a663ad7:PermanentTransmission">
+<owl:NamedIndividual rdf:about="#2976523637644163a659f32:PermanentTransmission">
   <rdf:type rdf:resource="#PermanentTransmission"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">737eef953a834a81a663ad7</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2976523637644163a659f32</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">collected automatically</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5484da89792847c3842bedf:FPCollection">
+<owl:NamedIndividual rdf:about="#5b2a67a56ef9496d9d7d7aa:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <collects_from rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <has_purpose rdf:resource="#1d840427666643e2bce56c8:ServiceEnhancementPurpose"/>
-  <has_mode rdf:resource="#737eef953a834a81a663ad7:PermanentTransmission"/>
-  <has_mechanism rdf:resource="#7e40a58ca4af459fb2bf3c5:ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5484da89792847c3842bedf</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <collects_from rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <has_purpose rdf:resource="#c39635b86d294410967d9ca:ServiceEnhancementPurpose"/>
+  <has_mode rdf:resource="#2976523637644163a659f32:PermanentTransmission"/>
+  <has_mechanism rdf:resource="#2aead76c808a4b15a87e57c:ViaWebsite"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5b2a67a56ef9496d9d7d7aa</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cookies In addition to information collected automatically we use cookies to support the internal functionality of the Websites Cookies which are small pieces of information sent to your browser by a website that you visit are used to track usage patterns traffic trends and customer behavior as well as to record other information from the Website When you register on the Websites cookies also allow us to save information so that you will not have to re-enter it the next time you visit Many content adjustments and customer service improvements are made based on the data derived from cookies Some Smithsonian Websites use third-party vendors such as Google Analytics to place cookies and analyze the information collected by cookies in order to make the Smithsonian Websites more interesting and useful to you No personally identifiable information is collected Information that we collect from cookies will not be used to create profiles of individual users and only will be used in aggregate form The data is retained for as long as necessary to support the mission of the Smithsonian Websites You may set your browser to refuse cookies from any website that you visit If you so choose you may still gain access to most of the Smithsonian s Websites but you may not be able to conduct certain types of transactions such as shopping or take advantage of some of the interactive elements offered You may opt-out of Google Analytics using the Google Analytics Opt-out Browser Add-on</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#15802616b0614442833c0be:AnalyticsPurpose">
+<owl:NamedIndividual rdf:about="#7a3a54b9083d461290f7b54:AnalyticsPurpose">
   <rdf:type rdf:resource="#AnalyticsPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">15802616b0614442833c0be</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7a3a54b9083d461290f7b54</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">content adjustments and customer service improvements are made based on the data derived from cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d4c0b997976a456ea7ee1dd:ViaWebsite">
+<owl:NamedIndividual rdf:about="#b2b46bdb17234b83927936c:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d4c0b997976a456ea7ee1dd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b2b46bdb17234b83927936c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cookies, which are small pieces of information sent to your browser by a website that you visit,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c4fac408bfe2450fb452b6e:PermanentTransmission">
+<owl:NamedIndividual rdf:about="#973e3b63b1ad4d918c093ec:PermanentTransmission">
   <rdf:type rdf:resource="#PermanentTransmission"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c4fac408bfe2450fb452b6e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">973e3b63b1ad4d918c093ec</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">collected automatically</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c1ee416bd2da41a89421a33:FPCollection">
+<owl:NamedIndividual rdf:about="#31974b96ea024f4a97dcc77:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <collects_from rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <has_purpose rdf:resource="#15802616b0614442833c0be:AnalyticsPurpose"/>
-  <has_mode rdf:resource="#c4fac408bfe2450fb452b6e:PermanentTransmission"/>
-  <has_mechanism rdf:resource="#d4c0b997976a456ea7ee1dd:ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c1ee416bd2da41a89421a33</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <collects_from rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <has_purpose rdf:resource="#7a3a54b9083d461290f7b54:AnalyticsPurpose"/>
+  <has_mode rdf:resource="#973e3b63b1ad4d918c093ec:PermanentTransmission"/>
+  <has_mechanism rdf:resource="#b2b46bdb17234b83927936c:ViaWebsite"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">31974b96ea024f4a97dcc77</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cookies In addition to information collected automatically we use cookies to support the internal functionality of the Websites Cookies which are small pieces of information sent to your browser by a website that you visit are used to track usage patterns traffic trends and customer behavior as well as to record other information from the Website When you register on the Websites cookies also allow us to save information so that you will not have to re-enter it the next time you visit Many content adjustments and customer service improvements are made based on the data derived from cookies Some Smithsonian Websites use third-party vendors such as Google Analytics to place cookies and analyze the information collected by cookies in order to make the Smithsonian Websites more interesting and useful to you No personally identifiable information is collected Information that we collect from cookies will not be used to create profiles of individual users and only will be used in aggregate form The data is retained for as long as necessary to support the mission of the Smithsonian Websites You may set your browser to refuse cookies from any website that you visit If you so choose you may still gain access to most of the Smithsonian s Websites but you may not be able to conduct certain types of transactions such as shopping or take advantage of some of the interactive elements offered You may opt-out of Google Analytics using the Google Analytics Opt-out Browser Add-on</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ca509f568e0b4c33bc2d56d:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#5eb7142fc1f64f34b904f7a:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ca509f568e0b4c33bc2d56d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5eb7142fc1f64f34b904f7a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The data is retained for as long as necessary to support the mission of the Smithsonian Websites.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bbd8a12640794e38b1d95ea:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#6b1f038a398a489495bac0a:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bbd8a12640794e38b1d95ea</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6b1f038a398a489495bac0a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">support the mission of the Smithsonian Websites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d92d3b1d1a404809893c384:DataRetention">
+<owl:NamedIndividual rdf:about="#b0b01d471bac4463964f1f9:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <lasts_for rdf:resource="#ca509f568e0b4c33bc2d56d:DataRetentionTime"/>
-  <has_purpose rdf:resource="#bbd8a12640794e38b1d95ea:ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d92d3b1d1a404809893c384</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <lasts_for rdf:resource="#5eb7142fc1f64f34b904f7a:DataRetentionTime"/>
+  <has_purpose rdf:resource="#6b1f038a398a489495bac0a:ServiceProvisionPurpose"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b0b01d471bac4463964f1f9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cookies In addition to information collected automatically we use cookies to support the internal functionality of the Websites Cookies which are small pieces of information sent to your browser by a website that you visit are used to track usage patterns traffic trends and customer behavior as well as to record other information from the Website When you register on the Websites cookies also allow us to save information so that you will not have to re-enter it the next time you visit Many content adjustments and customer service improvements are made based on the data derived from cookies Some Smithsonian Websites use third-party vendors such as Google Analytics to place cookies and analyze the information collected by cookies in order to make the Smithsonian Websites more interesting and useful to you No personally identifiable information is collected Information that we collect from cookies will not be used to create profiles of individual users and only will be used in aggregate form The data is retained for as long as necessary to support the mission of the Smithsonian Websites You may set your browser to refuse cookies from any website that you visit If you so choose you may still gain access to most of the Smithsonian s Websites but you may not be able to conduct certain types of transactions such as shopping or take advantage of some of the interactive elements offered You may opt-out of Google Analytics using the Google Analytics Opt-out Browser Add-on</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f74e4b1b14fc417eaa803ac:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#639592f436724a4395ed496:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f74e4b1b14fc417eaa803ac</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">639592f436724a4395ed496</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may set your browser to refuse cookies from any website that you visit.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#afe2f12eee7e4855a44a1fb:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#c5475bd0096444b8a7a6abe:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <has_mechanism rdf:resource="#f74e4b1b14fc417eaa803ac:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">afe2f12eee7e4855a44a1fb</uuid>
+  <initiated_by rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <has_mechanism rdf:resource="#639592f436724a4395ed496:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c5475bd0096444b8a7a6abe</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cookies In addition to information collected automatically we use cookies to support the internal functionality of the Websites Cookies which are small pieces of information sent to your browser by a website that you visit are used to track usage patterns traffic trends and customer behavior as well as to record other information from the Website When you register on the Websites cookies also allow us to save information so that you will not have to re-enter it the next time you visit Many content adjustments and customer service improvements are made based on the data derived from cookies Some Smithsonian Websites use third-party vendors such as Google Analytics to place cookies and analyze the information collected by cookies in order to make the Smithsonian Websites more interesting and useful to you No personally identifiable information is collected Information that we collect from cookies will not be used to create profiles of individual users and only will be used in aggregate form The data is retained for as long as necessary to support the mission of the Smithsonian Websites You may set your browser to refuse cookies from any website that you visit If you so choose you may still gain access to most of the Smithsonian s Websites but you may not be able to conduct certain types of transactions such as shopping or take advantage of some of the interactive elements offered You may opt-out of Google Analytics using the Google Analytics Opt-out Browser Add-on</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3a98831ae1a94fd9aea32b8:SensitiveData">
+<owl:NamedIndividual rdf:about="#e87555ec121b4770b3b88be:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3a98831ae1a94fd9aea32b8</uuid>
+  <provided_by rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e87555ec121b4770b3b88be</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Demographics and Interest reporting feature for Google Analytics for Display Advertising. The data provided by this service (such as age, gender, and interests)</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dd4cbbb2181440ad8e16f52:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#4786a2ac9b6a47339e21a5c:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dd4cbbb2181440ad8e16f52</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4786a2ac9b6a47339e21a5c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">for Display Advertising.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#777ae9e090f246d993a58c6:DataUse">
+<owl:NamedIndividual rdf:about="#267b51433ad647988227bec:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <has_purpose rdf:resource="#dd4cbbb2181440ad8e16f52:MarketingPurpose"/>
-  <applies_to rdf:resource="#3a98831ae1a94fd9aea32b8:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">777ae9e090f246d993a58c6</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <has_purpose rdf:resource="#4786a2ac9b6a47339e21a5c:MarketingPurpose"/>
+  <applies_to rdf:resource="#e87555ec121b4770b3b88be:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">267b51433ad647988227bec</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Additionally some Smithsonian Websites may use the Demographics and Interest reporting feature for Google Analytics for Display Advertising The data provided by this service such as age gender and interests is used to better understand visitors to these Websites and customize our Websites to our users interest You may opt-out of Google Analytics for Display Advertising by visiting Ad Settings</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#502c9fbd5a614439a8ed2c9:SensitiveData">
+<owl:NamedIndividual rdf:about="#52cd2b46f06841ca9284a3d:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">502c9fbd5a614439a8ed2c9</uuid>
+  <provided_by rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">52cd2b46f06841ca9284a3d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">age, gender, and interests</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3352174ddd034592b4d1632:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#8bc295f34ec9402f8f14ad4:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3352174ddd034592b4d1632</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8bc295f34ec9402f8f14ad4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Display Advertising</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#63e0e70059c94cc3ad2b801:TPCollection">
+<owl:NamedIndividual rdf:about="#efd1fe02c94b40efa161650:TPCollection">
   <rdf:type rdf:resource="#TPCollection"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <collects_from rdf:resource="#d6bd778cbc014debb44f038:ThirdParty"/>
-  <has_purpose rdf:resource="#3352174ddd034592b4d1632:MarketingPurpose"/>
-  <applies_to rdf:resource="#502c9fbd5a614439a8ed2c9:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">63e0e70059c94cc3ad2b801</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <collects_from rdf:resource="#c5f86d48f86b4ae2a46cadb:ThirdParty"/>
+  <has_purpose rdf:resource="#8bc295f34ec9402f8f14ad4:MarketingPurpose"/>
+  <applies_to rdf:resource="#52cd2b46f06841ca9284a3d:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">efd1fe02c94b40efa161650</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Additionally some Smithsonian Websites may use the Demographics and Interest reporting feature for Google Analytics for Display Advertising The data provided by this service such as age gender and interests is used to better understand visitors to these Websites and customize our Websites to our users interest You may opt-out of Google Analytics for Display Advertising by visiting Ad Settings</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#70e89d2647fe4fc0808fca0:TPSharing">
+<owl:NamedIndividual rdf:about="#081246ba75bc46ab955757b:TPSharing">
   <rdf:type rdf:resource="#TPSharing"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <shares_with rdf:resource="#d6bd778cbc014debb44f038:ThirdParty"/>
-  <has_purpose rdf:resource="#3352174ddd034592b4d1632:MarketingPurpose"/>
-  <applies_to rdf:resource="#502c9fbd5a614439a8ed2c9:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">70e89d2647fe4fc0808fca0</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <shares_with rdf:resource="#c5f86d48f86b4ae2a46cadb:ThirdParty"/>
+  <has_purpose rdf:resource="#8bc295f34ec9402f8f14ad4:MarketingPurpose"/>
+  <applies_to rdf:resource="#52cd2b46f06841ca9284a3d:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">081246ba75bc46ab955757b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Additionally some Smithsonian Websites may use the Demographics and Interest reporting feature for Google Analytics for Display Advertising The data provided by this service such as age gender and interests is used to better understand visitors to these Websites and customize our Websites to our users interest You may opt-out of Google Analytics for Display Advertising by visiting Ad Settings</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#40a89de0734a461bb9f54e4:GenericData">
+<owl:NamedIndividual rdf:about="#3b20b1134d424d3c870c119:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">40a89de0734a461bb9f54e4</uuid>
+  <provided_by rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3b20b1134d424d3c870c119</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e80dfdc3629f4c57af4d5eb:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#1ef1c9d10f8e46b7b7d44b1:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e80dfdc3629f4c57af4d5eb</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1ef1c9d10f8e46b7b7d44b1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may also contact you to provide information about Smithsonian activities, programs, membership and development opportunities, products and special events that may interest you.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3057027caf67458ab3a10cf:DataUse">
+<owl:NamedIndividual rdf:about="#fc8dc62153dd4a76a1ae9e9:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <has_purpose rdf:resource="#e80dfdc3629f4c57af4d5eb:MarketingPurpose"/>
-  <applies_to rdf:resource="#40a89de0734a461bb9f54e4:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3057027caf67458ab3a10cf</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <has_purpose rdf:resource="#1ef1c9d10f8e46b7b7d44b1:MarketingPurpose"/>
+  <applies_to rdf:resource="#3b20b1134d424d3c870c119:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fc8dc62153dd4a76a1ae9e9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If You Send Us Personal Information The Smithsonian s Websites will only collect personal information which you knowingly and voluntarily provide by for example sending emails completing membership forms registering for classes events or other programs responding to surveys or ordering merchandise If you provide us with personal information we will normally respond to your inquiry request or order We may also contact you to provide information about Smithsonian activities programs membership and development opportunities products and special events that may interest you Except as described below we will not share your name or information outside the Smithsonian unless you affirmatively authorize us to do so by opting-in</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a4f8527215044defb467912:GenericData">
+<owl:NamedIndividual rdf:about="#2630c4b66fa34d16978f552:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a4f8527215044defb467912</uuid>
+  <provided_by rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2630c4b66fa34d16978f552</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ba58feceb20e4b1482cfea9:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#f53622d884154b7ea8d924b:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ba58feceb20e4b1482cfea9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f53622d884154b7ea8d924b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you provide us with personal information, we will normally respond to your inquiry, request or order.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bc2a7d81d9964de2ab09133:DataUse">
+<owl:NamedIndividual rdf:about="#584102bd8f58458ea85c240:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <has_purpose rdf:resource="#ba58feceb20e4b1482cfea9:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#a4f8527215044defb467912:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bc2a7d81d9964de2ab09133</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <has_purpose rdf:resource="#f53622d884154b7ea8d924b:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#2630c4b66fa34d16978f552:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">584102bd8f58458ea85c240</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If You Send Us Personal Information The Smithsonian s Websites will only collect personal information which you knowingly and voluntarily provide by for example sending emails completing membership forms registering for classes events or other programs responding to surveys or ordering merchandise If you provide us with personal information we will normally respond to your inquiry request or order We may also contact you to provide information about Smithsonian activities programs membership and development opportunities products and special events that may interest you Except as described below we will not share your name or information outside the Smithsonian unless you affirmatively authorize us to do so by opting-in</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#078174c29f2e4ab19eb79e9:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#c0270c3f260643b2abec9f7:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">078174c29f2e4ab19eb79e9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c0270c3f260643b2abec9f7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">respond to your inquiry, request or order.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ef84b20280024f32ba88ced:ViaWebsite">
+<owl:NamedIndividual rdf:about="#3f4d54e35d904dc0a8dae26:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ef84b20280024f32ba88ced</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3f4d54e35d904dc0a8dae26</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The Smithsonian's Websites will only collect</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d4f28870c3114847815470b:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#cc836d13dbe949af9aa4c08:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d4f28870c3114847815470b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cc836d13dbe949af9aa4c08</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">will only collect personal information which you knowingly and voluntarily provide</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b437eb5c1a2448658e3371d:FPCollection">
+<owl:NamedIndividual rdf:about="#3f8327e9a87444049a050d5:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <collects_from rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <has_purpose rdf:resource="#078174c29f2e4ab19eb79e9:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#d4f28870c3114847815470b:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#ef84b20280024f32ba88ced:ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b437eb5c1a2448658e3371d</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <collects_from rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <has_purpose rdf:resource="#c0270c3f260643b2abec9f7:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#cc836d13dbe949af9aa4c08:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#3f4d54e35d904dc0a8dae26:ViaWebsite"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3f8327e9a87444049a050d5</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If You Send Us Personal Information The Smithsonian s Websites will only collect personal information which you knowingly and voluntarily provide by for example sending emails completing membership forms registering for classes events or other programs responding to surveys or ordering merchandise If you provide us with personal information we will normally respond to your inquiry request or order We may also contact you to provide information about Smithsonian activities programs membership and development opportunities products and special events that may interest you Except as described below we will not share your name or information outside the Smithsonian unless you affirmatively authorize us to do so by opting-in</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#51a2d2bd0e084d2aa92f8c6:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#6050cb3adb3c4015951e5c3:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">51a2d2bd0e084d2aa92f8c6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6050cb3adb3c4015951e5c3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may also contact you to provide information about Smithsonian activities, programs, membership and development opportunities, products and special events that may interest you.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#825f839d73b543efb9bb664:ViaWebsite">
+<owl:NamedIndividual rdf:about="#188c72c588104b789996d5a:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">825f839d73b543efb9bb664</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">188c72c588104b789996d5a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The Smithsonian's Websites will only collect</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bb52daecf1394966a5c4694:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#783297fe13da4f339c3bc73:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bb52daecf1394966a5c4694</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">783297fe13da4f339c3bc73</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">will only collect personal information which you knowingly and voluntarily provide</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#21c2b94853d541f3a1014fc:FPCollection">
+<owl:NamedIndividual rdf:about="#a227f877185e4dabafa9a7e:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <collects_from rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <has_purpose rdf:resource="#51a2d2bd0e084d2aa92f8c6:MarketingPurpose"/>
-  <has_mode rdf:resource="#bb52daecf1394966a5c4694:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#825f839d73b543efb9bb664:ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">21c2b94853d541f3a1014fc</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <collects_from rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <has_purpose rdf:resource="#6050cb3adb3c4015951e5c3:MarketingPurpose"/>
+  <has_mode rdf:resource="#783297fe13da4f339c3bc73:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#188c72c588104b789996d5a:ViaWebsite"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a227f877185e4dabafa9a7e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If You Send Us Personal Information The Smithsonian s Websites will only collect personal information which you knowingly and voluntarily provide by for example sending emails completing membership forms registering for classes events or other programs responding to surveys or ordering merchandise If you provide us with personal information we will normally respond to your inquiry request or order We may also contact you to provide information about Smithsonian activities programs membership and development opportunities products and special events that may interest you Except as described below we will not share your name or information outside the Smithsonian unless you affirmatively authorize us to do so by opting-in</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f01b57abcb324916a0dbbad:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#f7d3d13d87ca4d4f994698b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f01b57abcb324916a0dbbad</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f7d3d13d87ca4d4f994698b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">When we send you such information by email, you will always have an immediate opportunity to decline further communication. Please use the contact specified in the email</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fd5d5487919f4746a2b11a3:PersonalData">
+<owl:NamedIndividual rdf:about="#525c6b0a37a2412fa9df346:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fd5d5487919f4746a2b11a3</uuid>
+  <provided_by rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">525c6b0a37a2412fa9df346</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">contact</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#063e67d973214d708dff135:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#699fe18fbdb74bb4bfa1995:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <has_mechanism rdf:resource="#f01b57abcb324916a0dbbad:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#fd5d5487919f4746a2b11a3:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">063e67d973214d708dff135</uuid>
+  <initiated_by rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <has_mechanism rdf:resource="#f7d3d13d87ca4d4f994698b:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#525c6b0a37a2412fa9df346:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">699fe18fbdb74bb4bfa1995</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">When we send you such information by email you will always have an immediate opportunity to decline further communication Please use the contact specified in the email so that we can remove you from the list that contains your name If you are uncertain about whom to contact you may contact our webmaster at webmaster si edu</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#87283bbadfbc4922a19d7ef:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#feab633064df414e99995e4:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">87283bbadfbc4922a19d7ef</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">feab633064df414e99995e4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please use the contact specified in the email so that we can remove you from the list that contains your name. If you are uncertain about whom to contact, you may contact our webmaster at webmaster@si.edu.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#476e2159b4ff40ef87d9570:PersonalData">
+<owl:NamedIndividual rdf:about="#1a24e645588d4a1aaf7069b:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">476e2159b4ff40ef87d9570</uuid>
+  <provided_by rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1a24e645588d4a1aaf7069b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#25dc3ad6b22a466da0b7b8e:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#63b74ba52b224892b20b7ca:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <has_mechanism rdf:resource="#87283bbadfbc4922a19d7ef:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#476e2159b4ff40ef87d9570:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">25dc3ad6b22a466da0b7b8e</uuid>
+  <initiated_by rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <has_mechanism rdf:resource="#feab633064df414e99995e4:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#1a24e645588d4a1aaf7069b:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">63b74ba52b224892b20b7ca</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">When we send you such information by email you will always have an immediate opportunity to decline further communication Please use the contact specified in the email so that we can remove you from the list that contains your name If you are uncertain about whom to contact you may contact our webmaster at webmaster si edu</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#79a5832cf19c422aa8996f4:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#c2f26164e38a489b9cb8f4b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">79a5832cf19c422aa8996f4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c2f26164e38a489b9cb8f4b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please use the contact specified in the email so that we can remove you from the list that contains your name.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6becaab7d0334715801495f:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#96b9c9d70abe49c6974804a:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <has_mechanism rdf:resource="#79a5832cf19c422aa8996f4:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6becaab7d0334715801495f</uuid>
+  <initiated_by rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <has_mechanism rdf:resource="#c2f26164e38a489b9cb8f4b:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">96b9c9d70abe49c6974804a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">When we send you such information by email you will always have an immediate opportunity to decline further communication Please use the contact specified in the email so that we can remove you from the list that contains your name If you are uncertain about whom to contact you may contact our webmaster at webmaster si edu</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0627dde72c0d4a568a48422:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#4cec8dbe177140a8a941093:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0627dde72c0d4a568a48422</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4cec8dbe177140a8a941093</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">These third-party vendors will have access to the information needed to perform their functions, but may not use your information for any other purpose.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c99dc579423547ac935c6e2:DataProtection">
+<owl:NamedIndividual rdf:about="#a35a7aa71dd14a34889a82c:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <has_mechanism rdf:resource="#0627dde72c0d4a568a48422:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c99dc579423547ac935c6e2</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <has_mechanism rdf:resource="#4cec8dbe177140a8a941093:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a35a7aa71dd14a34889a82c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The Smithsonian uses outside vendors to provide certain services such as companies that process credit card transactions for the Smithsonian These third-party vendors will have access to the information needed to perform their functions but may not use your information for any other purpose Some Smithsonian units on occasion rent or exchange select member name and address information with other charitable or cultural non-profit organizations You will be notified of any such sharing and provided an opportunity to opt-out</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#63f9b0f0d4ed402384ddaf6:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#f1bce94100a1443e9bfdc4b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">63f9b0f0d4ed402384ddaf6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f1bce94100a1443e9bfdc4b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">opt-in</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#03c8fd20d84549c9aadfc77:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#66eaf78ca2e34c35af4b796:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <has_mechanism rdf:resource="#63f9b0f0d4ed402384ddaf6:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">03c8fd20d84549c9aadfc77</uuid>
+  <initiated_by rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <has_mechanism rdf:resource="#f1bce94100a1443e9bfdc4b:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">66eaf78ca2e34c35af4b796</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">There may be sites within the Smithsonian s network of Websites where you can opt-in to receive information from non-Smithsonian entities If you opt-in you may receive correspondence from these organizations on programs products or services that might interest you If you decide to opt-out of receiving any further correspondence from a non-Smithsonian entity please correspond directly with that business or organization to be removed from its mailing list</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#325ece7e71994f659c94f3b:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#f87fb480d4ba439fa45b17d:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">325ece7e71994f659c94f3b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f87fb480d4ba439fa45b17d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">There may be sites within the Smithsonian's network of Websites where you can opt-in</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c40d66435bf04e9bb4457d5:PersonalData">
+<owl:NamedIndividual rdf:about="#b80518b5824a4b568bdc296:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c40d66435bf04e9bb4457d5</uuid>
+  <provided_by rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b80518b5824a4b568bdc296</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">correspondence</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#33529b7c84f543afb6c53f5:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#9ace90f775f74b7987fbd18:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <has_mechanism rdf:resource="#325ece7e71994f659c94f3b:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#c40d66435bf04e9bb4457d5:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">33529b7c84f543afb6c53f5</uuid>
+  <initiated_by rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <has_mechanism rdf:resource="#f87fb480d4ba439fa45b17d:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#b80518b5824a4b568bdc296:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9ace90f775f74b7987fbd18</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">There may be sites within the Smithsonian s network of Websites where you can opt-in to receive information from non-Smithsonian entities If you opt-in you may receive correspondence from these organizations on programs products or services that might interest you If you decide to opt-out of receiving any further correspondence from a non-Smithsonian entity please correspond directly with that business or organization to be removed from its mailing list</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#68eaf9010e794d13ad74972:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#8d6017f089584d97b94a035:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">68eaf9010e794d13ad74972</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8d6017f089584d97b94a035</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you decide to opt-out of receiving any further correspondence from a non-Smithsonian entity, please correspond directly with that business or organization to be removed from its mailing list.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#94dcb7993b0f453fbf04e2e:PersonalData">
+<owl:NamedIndividual rdf:about="#a36976cbabd143ff9caabc3:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">94dcb7993b0f453fbf04e2e</uuid>
+  <provided_by rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a36976cbabd143ff9caabc3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">correspondence</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1d178af43d194b28b3fc32c:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#c8677759801b4e5686cd7ef:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <has_mechanism rdf:resource="#68eaf9010e794d13ad74972:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#94dcb7993b0f453fbf04e2e:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1d178af43d194b28b3fc32c</uuid>
+  <initiated_by rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <has_mechanism rdf:resource="#8d6017f089584d97b94a035:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#a36976cbabd143ff9caabc3:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c8677759801b4e5686cd7ef</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">There may be sites within the Smithsonian s network of Websites where you can opt-in to receive information from non-Smithsonian entities If you opt-in you may receive correspondence from these organizations on programs products or services that might interest you If you decide to opt-out of receiving any further correspondence from a non-Smithsonian entity please correspond directly with that business or organization to be removed from its mailing list</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bfbcb48fde8643f29be022a:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#54a3ca9406c54e3cbd8535d:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bfbcb48fde8643f29be022a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">54a3ca9406c54e3cbd8535d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">requires your consent</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#aca9ead55beb43e8a3f2758:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#3f048626519b427c9e91735:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <has_mechanism rdf:resource="#bfbcb48fde8643f29be022a:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aca9ead55beb43e8a3f2758</uuid>
+  <initiated_by rdf:resource="#c5189993b8c44ef9bfe25b0:User"/>
+  <has_mechanism rdf:resource="#54a3ca9406c54e3cbd8535d:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3f048626519b427c9e91735</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Any further sharing or disclosure requires your consent</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8053874cd65f470194d2572:SecuredCommunication">
+<owl:NamedIndividual rdf:about="#72693f0ec6534a55b4ead87:SecuredCommunication">
   <rdf:type rdf:resource="#SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8053874cd65f470194d2572</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">72693f0ec6534a55b4ead87</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The Smithsonian requires credit card processing be secured based on compliance with Payment Card Industry (PCI) standards. When you use your credit card for any purchase on a Smithsonian Website, that transaction is always encrypted when traveling over the Internet.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2a1563207c76469e8681c05:DataProtection">
+<owl:NamedIndividual rdf:about="#aee28fa864e84ae5868fe90:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <has_mechanism rdf:resource="#8053874cd65f470194d2572:SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2a1563207c76469e8681c05</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <has_mechanism rdf:resource="#72693f0ec6534a55b4ead87:SecuredCommunication"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aee28fa864e84ae5868fe90</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Security The Smithsonian takes reasonable steps to design and manage our Websites technology to ensure that its information technology systems applications and information technology infrastructure are secure The Smithsonian requires credit card processing be secured based on compliance with Payment Card Industry PCI standards When you use your credit card for any purchase on a Smithsonian Website that transaction is always encrypted when traveling over the Internet</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#aef6911b1ecd44698242d4c:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#a7c084f0c8da454196fe0d5:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aef6911b1ecd44698242d4c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a7c084f0c8da454196fe0d5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The Smithsonian takes reasonable steps to design and manage our Websites' technology to ensure that its information technology systems, applications, and information technology infrastructure are secure</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#845d135f37584b7fbe68aa8:DataProtection">
+<owl:NamedIndividual rdf:about="#3176677ba1ed436e9f0a65a:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <has_mechanism rdf:resource="#aef6911b1ecd44698242d4c:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">845d135f37584b7fbe68aa8</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <has_mechanism rdf:resource="#a7c084f0c8da454196fe0d5:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3176677ba1ed436e9f0a65a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Security The Smithsonian takes reasonable steps to design and manage our Websites technology to ensure that its information technology systems applications and information technology infrastructure are secure The Smithsonian requires credit card processing be secured based on compliance with Payment Card Industry PCI standards When you use your credit card for any purchase on a Smithsonian Website that transaction is always encrypted when traveling over the Internet</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#785cafb1b5204c55a44d63f:AccessControls">
+<owl:NamedIndividual rdf:about="#4bb19f3e80a2467eac1ffcd:AccessControls">
   <rdf:type rdf:resource="#AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">785cafb1b5204c55a44d63f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4bb19f3e80a2467eac1ffcd</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">In addition to limiting access to personal information to those who have a business "need to know"</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d0afbdce6d064bbfba01c72:DataProtection">
+<owl:NamedIndividual rdf:about="#4343969316544aacbd5a11c:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <has_mechanism rdf:resource="#785cafb1b5204c55a44d63f:AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d0afbdce6d064bbfba01c72</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <has_mechanism rdf:resource="#4bb19f3e80a2467eac1ffcd:AccessControls"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4343969316544aacbd5a11c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">As appropriate and feasible the Smithsonian monitors network traffic to identify unauthorized attempts to access upload or change information or otherwise cause damage Unauthorized access and/or unauthorized attempts to change information on Smithsonian Websites are strictly prohibited and punishable under the Computer Fraud and Abuse Act of 1986 and the National Information Infrastructure Protection Act In addition to limiting access to personal information to those who have a business need to know the Smithsonian requires its service providers who help maintain or operate its Websites to contractually agree to protect the confidentiality integrity availability and security of the personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e82dceab85184c1493efd47:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#480aa8622f51412da1c23a6:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e82dceab85184c1493efd47</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">480aa8622f51412da1c23a6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the Smithsonian requires its service providers who help maintain or operate its Websites to contractually agree to protect the confidentiality, integrity, availability and security of the personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d7d87a28eab3444f91dfd39:DataProtection">
+<owl:NamedIndividual rdf:about="#5ab2184dd0cc4cf4aa1c060:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <has_mechanism rdf:resource="#e82dceab85184c1493efd47:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d7d87a28eab3444f91dfd39</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <has_mechanism rdf:resource="#480aa8622f51412da1c23a6:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5ab2184dd0cc4cf4aa1c060</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">As appropriate and feasible the Smithsonian monitors network traffic to identify unauthorized attempts to access upload or change information or otherwise cause damage Unauthorized access and/or unauthorized attempts to change information on Smithsonian Websites are strictly prohibited and punishable under the Computer Fraud and Abuse Act of 1986 and the National Information Infrastructure Protection Act In addition to limiting access to personal information to those who have a business need to know the Smithsonian requires its service providers who help maintain or operate its Websites to contractually agree to protect the confidentiality integrity availability and security of the personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#88bd89d0427c4db1982381f:AccessControls">
+<owl:NamedIndividual rdf:about="#fd1ef1b0afc54a6689a2354:AccessControls">
   <rdf:type rdf:resource="#AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">88bd89d0427c4db1982381f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fd1ef1b0afc54a6689a2354</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">As appropriate and feasible, the Smithsonian monitors network traffic to identify unauthorized attempts to access, upload, or change information or otherwise cause damage. Unauthorized access and/or unauthorized attempts to change information on Smithsonian Websites are strictly prohibited and punishable under the Computer Fraud and Abuse Act of 1986 and the National Information Infrastructure Protection Act.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9251157988e5429d8e73e93:DataProtection">
+<owl:NamedIndividual rdf:about="#b05f1de7aec04a21a7c9dbc:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <has_mechanism rdf:resource="#88bd89d0427c4db1982381f:AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9251157988e5429d8e73e93</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <has_mechanism rdf:resource="#fd1ef1b0afc54a6689a2354:AccessControls"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b05f1de7aec04a21a7c9dbc</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">As appropriate and feasible the Smithsonian monitors network traffic to identify unauthorized attempts to access upload or change information or otherwise cause damage Unauthorized access and/or unauthorized attempts to change information on Smithsonian Websites are strictly prohibited and punishable under the Computer Fraud and Abuse Act of 1986 and the National Information Infrastructure Protection Act In addition to limiting access to personal information to those who have a business need to know the Smithsonian requires its service providers who help maintain or operate its Websites to contractually agree to protect the confidentiality integrity availability and security of the personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e62e95d53e484bbd9c46eb6:OrganizationalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#cbfb06bdd5264def95b4e82:OrganizationalSecurityMeasure">
   <rdf:type rdf:resource="#OrganizationalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e62e95d53e484bbd9c46eb6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cbfb06bdd5264def95b4e82</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the Smithsonian monitors network traffic to identify unauthorized attempts to access, upload, or change information or otherwise cause damage. Unauthorized access and/or unauthorized attempts to change information on Smithsonian Websites are strictly prohibited and punishable under the Computer Fraud and Abuse Act of 1986 and the National Information Infrastructure Protection Act.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0b7a0de75acb42e297fd983:DataProtection">
+<owl:NamedIndividual rdf:about="#2ce1db49b43f41f2868a116:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <has_mechanism rdf:resource="#e62e95d53e484bbd9c46eb6:OrganizationalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0b7a0de75acb42e297fd983</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <has_mechanism rdf:resource="#cbfb06bdd5264def95b4e82:OrganizationalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2ce1db49b43f41f2868a116</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">As appropriate and feasible the Smithsonian monitors network traffic to identify unauthorized attempts to access upload or change information or otherwise cause damage Unauthorized access and/or unauthorized attempts to change information on Smithsonian Websites are strictly prohibited and punishable under the Computer Fraud and Abuse Act of 1986 and the National Information Infrastructure Protection Act In addition to limiting access to personal information to those who have a business need to know the Smithsonian requires its service providers who help maintain or operate its Websites to contractually agree to protect the confidentiality integrity availability and security of the personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ddaf25452bb049da8dc0b96:SecurityMechanism">
+<owl:NamedIndividual rdf:about="#432c83c9a5d64a4985fcb0e:SecurityMechanism">
   <rdf:type rdf:resource="#SecurityMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ddaf25452bb049da8dc0b96</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">432c83c9a5d64a4985fcb0e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">As appropriate and feasible, the Smithsonian monitors network traffic to identify unauthorized attempts to access, upload, or change information or otherwise cause damage</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c17045a77c7d4ee8846f315:DataProtection">
+<owl:NamedIndividual rdf:about="#11a8006bc867438f8456747:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#b7abd010b3394fda84bc112:FirstParty"/>
-  <has_mechanism rdf:resource="#ddaf25452bb049da8dc0b96:SecurityMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c17045a77c7d4ee8846f315</uuid>
+  <initiated_by rdf:resource="#acedbbfc332440859a9ab13:FirstParty"/>
+  <has_mechanism rdf:resource="#432c83c9a5d64a4985fcb0e:SecurityMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11a8006bc867438f8456747</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">As appropriate and feasible the Smithsonian monitors network traffic to identify unauthorized attempts to access upload or change information or otherwise cause damage Unauthorized access and/or unauthorized attempts to change information on Smithsonian Websites are strictly prohibited and punishable under the Computer Fraud and Abuse Act of 1986 and the National Information Infrastructure Protection Act In addition to limiting access to personal information to those who have a business need to know the Smithsonian requires its service providers who help maintain or operate its Websites to contractually agree to protect the confidentiality integrity availability and security of the personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2b760691d8b642c7b72169d:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#7c3780d992d941149b1319d:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#2de3c1da5d4d4b289a9a948:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2b760691d8b642c7b72169d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7c3780d992d941149b1319d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Children The Smithsonian s Websites are intended to be accessible and enjoyed by general audiences We do not knowingly collect personal information from children under the age of 13 without first providing the parent or legal guardian with notice and obtaining prior verifiable consent Where a Smithsonian Website is specifically directed toward children under the age of 13 the terms of the Smithsonian s Kids Online Privacy SKOP Statement will apply and the Website will include a link to the SKOP</evidence>
 </owl:NamedIndividual>
 

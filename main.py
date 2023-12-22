@@ -1,17 +1,18 @@
 #!/usr/bin/env python
 
-from ontology2.interface import Ontology as Ontology2
-from experiments.opp2.processor import process_opp
-from experiments.opp2.reader import read_opp
-from experiments.cloud_computing_policies2.amazon_web_services import process_aws
-from experiments.cloud_computing_policies2.google_cloud import process_google_cloud
-from experiments.cloud_computing_policies2.threeplususa import process_3plususa
-from experiments.cloud_computing_policies2.hpe import process_hpe
-from experiments.cloud_computing_policies2.yandex import process_yandex
-from experiments.healthcare_policies2.caresense import process_caresense
-from experiments.healthcare_policies2.renpho import process_renpho
-from experiments.healthcare_policies2.zepp import process_zepp
-from experiments.onto2_examples import process_onto_test
+from ontology2.ontology.interface import Ontology as Ontology2
+from ontology2.experiments.opp2.processor import process_opp
+from ontology2.experiments.opp2.reader import read_opp
+from ontology2.experiments.cloud_computing_policies2.amazon_web_services import process_aws
+from ontology2.experiments.cloud_computing_policies2.google_cloud import process_google_cloud
+from ontology2.experiments.cloud_computing_policies2.threeplususa import process_3plususa
+from ontology2.experiments.cloud_computing_policies2.hpe import process_hpe
+from ontology2.experiments.cloud_computing_policies2.yandex import process_yandex
+from ontology2.experiments.healthcare_policies2.caresense import process_caresense
+from ontology2.experiments.healthcare_policies2.renpho import process_renpho
+from ontology2.experiments.healthcare_policies2.zepp import process_zepp
+from ontology2.experiments.onto2_examples import process_onto_test
+from annotations_builder.builder import read
 
 
 def main():
@@ -93,4 +94,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # main()
+    read(file='resources/3ab7d210df923c46b3d2a9fef768f97f.json', out='annotations')

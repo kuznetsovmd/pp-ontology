@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -901,6 +902,14 @@
   <rdfs:subClassOf rdf:resource="#UserSpecificCommunicationMechanism"/>
   <owl:disjointWith rdf:resource="#AutomaticCommunicationMechanism"/>
   <rdfs:subClassOf>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
+        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
+      </owl:unionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
       <owl:allValuesFrom>
@@ -909,14 +918,6 @@
         </owl:Class>
       </owl:allValuesFrom>
     </owl:Restriction>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
-        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
-      </owl:unionOf>
-    </owl:Class>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,206 +1305,206 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#c01e32c9cf334f8295d149b:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#c2c536cc55e84338b0e1a38:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c01e32c9cf334f8295d149b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c2c536cc55e84338b0e1a38</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3d7b6eee23b747d2992074b:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#902472fd436e440a8fe6bfa:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#8052aa2b039d455395f5d61:User"/>
-  <considers rdf:resource="#00efb699d2f44825a753273:FirstParty"/>
-  <considers rdf:resource="#b3ed7d51e86d4a5098efeb3:ThirdParty"/>
-  <considers rdf:resource="#711997ee9da04c3e950353d:OptInOptOutControl"/>
-  <considers rdf:resource="#1f95db7a176343cf94ec46e:PolicyChange"/>
-  <considers rdf:resource="#063a2823e65c4c86899bb6e:FPNotification"/>
-  <considers rdf:resource="#129b20cb7789466aa8c1262:OptInOptOutControl"/>
-  <considers rdf:resource="#2dcb119f02e6465d9b5437e:PolicyChange"/>
-  <considers rdf:resource="#701acd149d0344338d7dac6:FPNotification"/>
-  <considers rdf:resource="#70cc0a2a00c04a8da94afe2:OptInOptOutControl"/>
-  <considers rdf:resource="#67847f831b5a482f987cde0:PolicyChange"/>
-  <considers rdf:resource="#47efe426a1bd47f88330526:FPNotification"/>
-  <considers rdf:resource="#fce3d91679714d6e9ec673d:OptInOptOutControl"/>
-  <considers rdf:resource="#848098a2ac13423dac7f9ce:PolicyChange"/>
-  <considers rdf:resource="#9546c731612f4c8f837937a:FPNotification"/>
-  <considers rdf:resource="#5767f283cb9d4b2cb062c40:OptInOptOutControl"/>
-  <considers rdf:resource="#21ece14afe744e1094a785c:PolicyChange"/>
-  <considers rdf:resource="#650db160998643a68b17595:FPNotification"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3d7b6eee23b747d2992074b</uuid>
+  <considers rdf:resource="#5ee9d57dc8c94ba5a8db6e6:User"/>
+  <considers rdf:resource="#8707629d2de7491584ce304:FirstParty"/>
+  <considers rdf:resource="#1366915a81684b498e76df0:ThirdParty"/>
+  <considers rdf:resource="#f642654b3833409485d493d:OptInOptOutControl"/>
+  <considers rdf:resource="#060772999aee41a685cdc50:PolicyChange"/>
+  <considers rdf:resource="#47b72e80b9074faa9096f5a:FPNotification"/>
+  <considers rdf:resource="#0417d6d91c7c4f35addfcff:OptInOptOutControl"/>
+  <considers rdf:resource="#745aea8089ea4c2889f9c63:PolicyChange"/>
+  <considers rdf:resource="#bd31e26138e843b4b06fd0a:FPNotification"/>
+  <considers rdf:resource="#5d3c662b018c4ac5bb8355d:OptInOptOutControl"/>
+  <considers rdf:resource="#1a9be8b1f97840908051633:PolicyChange"/>
+  <considers rdf:resource="#8ec7a609e81444fe979a89a:FPNotification"/>
+  <considers rdf:resource="#41c66ac05b914ee099a88ce:OptInOptOutControl"/>
+  <considers rdf:resource="#2548681508034969b6f7535:PolicyChange"/>
+  <considers rdf:resource="#a7f3e146d47c49e4b5a66ce:FPNotification"/>
+  <considers rdf:resource="#4f19d090bbae4d44b5b1946:OptInOptOutControl"/>
+  <considers rdf:resource="#8ed54fe770e8489db2bd72d:PolicyChange"/>
+  <considers rdf:resource="#b7d2384cb29342999ec1352:FPNotification"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">902472fd436e440a8fe6bfa</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">boardgamegeek.com</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8052aa2b039d455395f5d61:User">
+<owl:NamedIndividual rdf:about="#5ee9d57dc8c94ba5a8db6e6:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8052aa2b039d455395f5d61</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5ee9d57dc8c94ba5a8db6e6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#00efb699d2f44825a753273:FirstParty">
+<owl:NamedIndividual rdf:about="#8707629d2de7491584ce304:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">00efb699d2f44825a753273</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8707629d2de7491584ce304</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b3ed7d51e86d4a5098efeb3:ThirdParty">
+<owl:NamedIndividual rdf:about="#1366915a81684b498e76df0:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b3ed7d51e86d4a5098efeb3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1366915a81684b498e76df0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#711997ee9da04c3e950353d:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#f642654b3833409485d493d:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#8052aa2b039d455395f5d61:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">711997ee9da04c3e950353d</uuid>
+  <initiated_by rdf:resource="#5ee9d57dc8c94ba5a8db6e6:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f642654b3833409485d493d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Geekdo reserves the right to modify all or some of this Privacy Policy at any time without notice If we modify our Privacy Policy we may post a notice on our website so our users are aware of what information we collect how we use it and under what circumstances if any we disclose it We will use information only in accordance with the Privacy Policy under which the information was collected unless we have received explicit authorization from the appropriate user s to do otherwise</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1f95db7a176343cf94ec46e:PolicyChange">
+<owl:NamedIndividual rdf:about="#060772999aee41a685cdc50:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#00efb699d2f44825a753273:FirstParty"/>
-  <binded_to rdf:resource="#711997ee9da04c3e950353d:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1f95db7a176343cf94ec46e</uuid>
+  <initiated_by rdf:resource="#8707629d2de7491584ce304:FirstParty"/>
+  <binded_to rdf:resource="#f642654b3833409485d493d:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">060772999aee41a685cdc50</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Geekdo reserves the right to modify all or some of this Privacy Policy at any time without notice If we modify our Privacy Policy we may post a notice on our website so our users are aware of what information we collect how we use it and under what circumstances if any we disclose it We will use information only in accordance with the Privacy Policy under which the information was collected unless we have received explicit authorization from the appropriate user s to do otherwise</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#063a2823e65c4c86899bb6e:FPNotification">
+<owl:NamedIndividual rdf:about="#47b72e80b9074faa9096f5a:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#00efb699d2f44825a753273:FirstParty"/>
-  <notifies rdf:resource="#8052aa2b039d455395f5d61:User"/>
-  <binded_to rdf:resource="#1f95db7a176343cf94ec46e:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">063a2823e65c4c86899bb6e</uuid>
+  <initiated_by rdf:resource="#8707629d2de7491584ce304:FirstParty"/>
+  <notifies rdf:resource="#5ee9d57dc8c94ba5a8db6e6:User"/>
+  <binded_to rdf:resource="#060772999aee41a685cdc50:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">47b72e80b9074faa9096f5a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Geekdo reserves the right to modify all or some of this Privacy Policy at any time without notice If we modify our Privacy Policy we may post a notice on our website so our users are aware of what information we collect how we use it and under what circumstances if any we disclose it We will use information only in accordance with the Privacy Policy under which the information was collected unless we have received explicit authorization from the appropriate user s to do otherwise</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#022ce3d023124d83ada32ba:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#51185257c5044f00988c35d:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">022ce3d023124d83ada32ba</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">51185257c5044f00988c35d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If we modify our Privacy Policy, we may post a notice on our website</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#129b20cb7789466aa8c1262:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#0417d6d91c7c4f35addfcff:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#8052aa2b039d455395f5d61:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">129b20cb7789466aa8c1262</uuid>
+  <initiated_by rdf:resource="#5ee9d57dc8c94ba5a8db6e6:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0417d6d91c7c4f35addfcff</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Geekdo reserves the right to modify all or some of this Privacy Policy at any time without notice If we modify our Privacy Policy we may post a notice on our website so our users are aware of what information we collect how we use it and under what circumstances if any we disclose it We will use information only in accordance with the Privacy Policy under which the information was collected unless we have received explicit authorization from the appropriate user s to do otherwise</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2dcb119f02e6465d9b5437e:PolicyChange">
+<owl:NamedIndividual rdf:about="#745aea8089ea4c2889f9c63:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#00efb699d2f44825a753273:FirstParty"/>
-  <binded_to rdf:resource="#129b20cb7789466aa8c1262:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2dcb119f02e6465d9b5437e</uuid>
+  <initiated_by rdf:resource="#8707629d2de7491584ce304:FirstParty"/>
+  <binded_to rdf:resource="#0417d6d91c7c4f35addfcff:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">745aea8089ea4c2889f9c63</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Geekdo reserves the right to modify all or some of this Privacy Policy at any time without notice If we modify our Privacy Policy we may post a notice on our website so our users are aware of what information we collect how we use it and under what circumstances if any we disclose it We will use information only in accordance with the Privacy Policy under which the information was collected unless we have received explicit authorization from the appropriate user s to do otherwise</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#701acd149d0344338d7dac6:FPNotification">
+<owl:NamedIndividual rdf:about="#bd31e26138e843b4b06fd0a:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#00efb699d2f44825a753273:FirstParty"/>
-  <notifies rdf:resource="#8052aa2b039d455395f5d61:User"/>
-  <has_mechanism rdf:resource="#022ce3d023124d83ada32ba:OnWebsitePage"/>
-  <binded_to rdf:resource="#2dcb119f02e6465d9b5437e:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">701acd149d0344338d7dac6</uuid>
+  <initiated_by rdf:resource="#8707629d2de7491584ce304:FirstParty"/>
+  <notifies rdf:resource="#5ee9d57dc8c94ba5a8db6e6:User"/>
+  <has_mechanism rdf:resource="#51185257c5044f00988c35d:OnWebsitePage"/>
+  <binded_to rdf:resource="#745aea8089ea4c2889f9c63:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bd31e26138e843b4b06fd0a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Geekdo reserves the right to modify all or some of this Privacy Policy at any time without notice If we modify our Privacy Policy we may post a notice on our website so our users are aware of what information we collect how we use it and under what circumstances if any we disclose it We will use information only in accordance with the Privacy Policy under which the information was collected unless we have received explicit authorization from the appropriate user s to do otherwise</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#70cc0a2a00c04a8da94afe2:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#5d3c662b018c4ac5bb8355d:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#8052aa2b039d455395f5d61:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">70cc0a2a00c04a8da94afe2</uuid>
+  <initiated_by rdf:resource="#5ee9d57dc8c94ba5a8db6e6:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5d3c662b018c4ac5bb8355d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Geekdo reserves the right to modify all or some of this Privacy Policy at any time without notice If we modify our Privacy Policy we may post a notice on our website so our users are aware of what information we collect how we use it and under what circumstances if any we disclose it We will use information only in accordance with the Privacy Policy under which the information was collected unless we have received explicit authorization from the appropriate user s to do otherwise</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#67847f831b5a482f987cde0:PolicyChange">
+<owl:NamedIndividual rdf:about="#1a9be8b1f97840908051633:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#00efb699d2f44825a753273:FirstParty"/>
-  <binded_to rdf:resource="#70cc0a2a00c04a8da94afe2:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">67847f831b5a482f987cde0</uuid>
+  <initiated_by rdf:resource="#8707629d2de7491584ce304:FirstParty"/>
+  <binded_to rdf:resource="#5d3c662b018c4ac5bb8355d:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1a9be8b1f97840908051633</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Geekdo reserves the right to modify all or some of this Privacy Policy at any time without notice If we modify our Privacy Policy we may post a notice on our website so our users are aware of what information we collect how we use it and under what circumstances if any we disclose it We will use information only in accordance with the Privacy Policy under which the information was collected unless we have received explicit authorization from the appropriate user s to do otherwise</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#47efe426a1bd47f88330526:FPNotification">
+<owl:NamedIndividual rdf:about="#8ec7a609e81444fe979a89a:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#00efb699d2f44825a753273:FirstParty"/>
-  <notifies rdf:resource="#8052aa2b039d455395f5d61:User"/>
-  <binded_to rdf:resource="#67847f831b5a482f987cde0:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">47efe426a1bd47f88330526</uuid>
+  <initiated_by rdf:resource="#8707629d2de7491584ce304:FirstParty"/>
+  <notifies rdf:resource="#5ee9d57dc8c94ba5a8db6e6:User"/>
+  <binded_to rdf:resource="#1a9be8b1f97840908051633:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8ec7a609e81444fe979a89a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Geekdo reserves the right to modify all or some of this Privacy Policy at any time without notice If we modify our Privacy Policy we may post a notice on our website so our users are aware of what information we collect how we use it and under what circumstances if any we disclose it We will use information only in accordance with the Privacy Policy under which the information was collected unless we have received explicit authorization from the appropriate user s to do otherwise</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#224ea9a6741f497f8d8de74:InPrivacyPolicy">
+<owl:NamedIndividual rdf:about="#92ee46ce432f4fc8a4e82a4:InPrivacyPolicy">
   <rdf:type rdf:resource="#InPrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">224ea9a6741f497f8d8de74</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">92ee46ce432f4fc8a4e82a4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">we may post a notice on our website</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fce3d91679714d6e9ec673d:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#41c66ac05b914ee099a88ce:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#8052aa2b039d455395f5d61:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fce3d91679714d6e9ec673d</uuid>
+  <initiated_by rdf:resource="#5ee9d57dc8c94ba5a8db6e6:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">41c66ac05b914ee099a88ce</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Geekdo reserves the right to modify all or some of this Privacy Policy at any time without notice If we modify our Privacy Policy we may post a notice on our website so our users are aware of what information we collect how we use it and under what circumstances if any we disclose it We will use information only in accordance with the Privacy Policy under which the information was collected unless we have received explicit authorization from the appropriate user s to do otherwise</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#848098a2ac13423dac7f9ce:PolicyChange">
+<owl:NamedIndividual rdf:about="#2548681508034969b6f7535:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#00efb699d2f44825a753273:FirstParty"/>
-  <binded_to rdf:resource="#fce3d91679714d6e9ec673d:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">848098a2ac13423dac7f9ce</uuid>
+  <initiated_by rdf:resource="#8707629d2de7491584ce304:FirstParty"/>
+  <binded_to rdf:resource="#41c66ac05b914ee099a88ce:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2548681508034969b6f7535</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Geekdo reserves the right to modify all or some of this Privacy Policy at any time without notice If we modify our Privacy Policy we may post a notice on our website so our users are aware of what information we collect how we use it and under what circumstances if any we disclose it We will use information only in accordance with the Privacy Policy under which the information was collected unless we have received explicit authorization from the appropriate user s to do otherwise</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9546c731612f4c8f837937a:FPNotification">
+<owl:NamedIndividual rdf:about="#a7f3e146d47c49e4b5a66ce:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#00efb699d2f44825a753273:FirstParty"/>
-  <notifies rdf:resource="#8052aa2b039d455395f5d61:User"/>
-  <has_mechanism rdf:resource="#224ea9a6741f497f8d8de74:InPrivacyPolicy"/>
-  <binded_to rdf:resource="#848098a2ac13423dac7f9ce:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9546c731612f4c8f837937a</uuid>
+  <initiated_by rdf:resource="#8707629d2de7491584ce304:FirstParty"/>
+  <notifies rdf:resource="#5ee9d57dc8c94ba5a8db6e6:User"/>
+  <has_mechanism rdf:resource="#92ee46ce432f4fc8a4e82a4:InPrivacyPolicy"/>
+  <binded_to rdf:resource="#2548681508034969b6f7535:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a7f3e146d47c49e4b5a66ce</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Geekdo reserves the right to modify all or some of this Privacy Policy at any time without notice If we modify our Privacy Policy we may post a notice on our website so our users are aware of what information we collect how we use it and under what circumstances if any we disclose it We will use information only in accordance with the Privacy Policy under which the information was collected unless we have received explicit authorization from the appropriate user s to do otherwise</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b146ba0bfc914685a6bb99d:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#5f7e2dc48b2d4a61a16ce40:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b146ba0bfc914685a6bb99d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5f7e2dc48b2d4a61a16ce40</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">post a notice on our website so our users are aware of what information we collect,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5767f283cb9d4b2cb062c40:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#4f19d090bbae4d44b5b1946:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#8052aa2b039d455395f5d61:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5767f283cb9d4b2cb062c40</uuid>
+  <initiated_by rdf:resource="#5ee9d57dc8c94ba5a8db6e6:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4f19d090bbae4d44b5b1946</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Geekdo reserves the right to modify all or some of this Privacy Policy at any time without notice If we modify our Privacy Policy we may post a notice on our website so our users are aware of what information we collect how we use it and under what circumstances if any we disclose it We will use information only in accordance with the Privacy Policy under which the information was collected unless we have received explicit authorization from the appropriate user s to do otherwise</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#21ece14afe744e1094a785c:PolicyChange">
+<owl:NamedIndividual rdf:about="#8ed54fe770e8489db2bd72d:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#00efb699d2f44825a753273:FirstParty"/>
-  <binded_to rdf:resource="#5767f283cb9d4b2cb062c40:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">21ece14afe744e1094a785c</uuid>
+  <initiated_by rdf:resource="#8707629d2de7491584ce304:FirstParty"/>
+  <binded_to rdf:resource="#4f19d090bbae4d44b5b1946:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8ed54fe770e8489db2bd72d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Geekdo reserves the right to modify all or some of this Privacy Policy at any time without notice If we modify our Privacy Policy we may post a notice on our website so our users are aware of what information we collect how we use it and under what circumstances if any we disclose it We will use information only in accordance with the Privacy Policy under which the information was collected unless we have received explicit authorization from the appropriate user s to do otherwise</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#650db160998643a68b17595:FPNotification">
+<owl:NamedIndividual rdf:about="#b7d2384cb29342999ec1352:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#00efb699d2f44825a753273:FirstParty"/>
-  <notifies rdf:resource="#8052aa2b039d455395f5d61:User"/>
-  <has_mechanism rdf:resource="#b146ba0bfc914685a6bb99d:OnWebsitePage"/>
-  <binded_to rdf:resource="#21ece14afe744e1094a785c:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">650db160998643a68b17595</uuid>
+  <initiated_by rdf:resource="#8707629d2de7491584ce304:FirstParty"/>
+  <notifies rdf:resource="#5ee9d57dc8c94ba5a8db6e6:User"/>
+  <has_mechanism rdf:resource="#5f7e2dc48b2d4a61a16ce40:OnWebsitePage"/>
+  <binded_to rdf:resource="#8ed54fe770e8489db2bd72d:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b7d2384cb29342999ec1352</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Geekdo reserves the right to modify all or some of this Privacy Policy at any time without notice If we modify our Privacy Policy we may post a notice on our website so our users are aware of what information we collect how we use it and under what circumstances if any we disclose it We will use information only in accordance with the Privacy Policy under which the information was collected unless we have received explicit authorization from the appropriate user s to do otherwise</evidence>
 </owl:NamedIndividual>

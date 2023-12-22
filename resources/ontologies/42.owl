@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -901,6 +902,14 @@
   <rdfs:subClassOf rdf:resource="#UserSpecificCommunicationMechanism"/>
   <owl:disjointWith rdf:resource="#AutomaticCommunicationMechanism"/>
   <rdfs:subClassOf>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
+        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
+      </owl:unionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
       <owl:allValuesFrom>
@@ -909,14 +918,6 @@
         </owl:Class>
       </owl:allValuesFrom>
     </owl:Restriction>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
-        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
-      </owl:unionOf>
-    </owl:Class>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,946 +1305,935 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#d6f0e13a01e84db2addfc7f:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#98dac4158aef47f6abeb66a:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d6f0e13a01e84db2addfc7f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">98dac4158aef47f6abeb66a</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#17df3f7b0f674381bcac31b:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#4047d5fd22924c9c87feb1b:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <considers rdf:resource="#e212b9963f9848b9be83308:FirstParty"/>
-  <considers rdf:resource="#1e44b2ded45f4098a92a4e9:ThirdParty"/>
-  <considers rdf:resource="#e05874748ab147bcadfe69f:OptInOptOutControl"/>
-  <considers rdf:resource="#4b80f8a00fe942bab3fd6c0:PolicyChange"/>
-  <considers rdf:resource="#494ffc3a268845668a9a697:FPNotification"/>
-  <considers rdf:resource="#50407416999c4bdabef8519:OptInOptOutControl"/>
-  <considers rdf:resource="#ed45563e360348a89744a96:PolicyChange"/>
-  <considers rdf:resource="#c0d69c7a822e4ff8849589c:FPNotification"/>
-  <considers rdf:resource="#d2854c16ab0d4503bd7800a:OptInOptOutControl"/>
-  <considers rdf:resource="#ace58c76d9264dea8108715:OptInOptOutControl"/>
-  <considers rdf:resource="#0a858dad103d4876b792a76:OptInOptOutControl"/>
-  <considers rdf:resource="#c3651469a2e342dc9b012ec:OptInOptOutControl"/>
-  <considers rdf:resource="#53673b8c1f8d483f90d2a2b:AccountData"/>
-  <considers rdf:resource="#b88fcd60bb8543d596b8f55:OptInOptOutControl"/>
-  <considers rdf:resource="#1f6e14951d6e48de9f94341:SensitiveData"/>
-  <considers rdf:resource="#a2f4136034d9427b9127208:OptInOptOutControl"/>
-  <considers rdf:resource="#00a343478ee54c0a9848e93:PersonalData"/>
-  <considers rdf:resource="#c8bd2eee33454966a21fd1e:DataRetention"/>
-  <considers rdf:resource="#54728bcd899848d5983f674:GenericData"/>
-  <considers rdf:resource="#ae41683e01c541b590a201f:OptInOptOutControl"/>
-  <considers rdf:resource="#47d3d763992b439397012d9:GenericData"/>
-  <considers rdf:resource="#b348c55b18ba4973b2a509e:OptInOptOutControl"/>
-  <considers rdf:resource="#c1fe461ee7f44143a844235:GenericData"/>
-  <considers rdf:resource="#b10d92c595274f4b8b87f22:OptInOptOutControl"/>
-  <considers rdf:resource="#18f0d54844a243839812920:OptInOptOutControl"/>
-  <considers rdf:resource="#363204215e7c4b3784f92a2:OptInOptOutControl"/>
-  <considers rdf:resource="#05506170391149dc9033811:GenericData"/>
-  <considers rdf:resource="#75046fe1b326448dabb9880:OptInOptOutControl"/>
-  <considers rdf:resource="#3f78a80be0a74b048dcfffc:GenericData"/>
-  <considers rdf:resource="#ccfd2d3d439e4d169ba8813:OptInOptOutControl"/>
-  <considers rdf:resource="#211459be63294a6db5ccfd9:OptInOptOutControl"/>
-  <considers rdf:resource="#75fd1481210547b9b2b3161:OptInOptOutControl"/>
-  <considers rdf:resource="#7b19d77eafa0465199128c7:OptInOptOutControl"/>
-  <considers rdf:resource="#6198395e0ece46e288805b3:GenericData"/>
-  <considers rdf:resource="#204ba9c893ac43739001c61:OptInOptOutControl"/>
-  <considers rdf:resource="#c7ebc255ac85471189a52fe:OptInOptOutControl"/>
-  <considers rdf:resource="#26f0e2ec186d4c6f8b10298:OptInOptOutControl"/>
-  <considers rdf:resource="#c096e7d554e84e14bfb0505:OptInOptOutControl"/>
-  <considers rdf:resource="#6db672f1ef2a4291b99b6d9:AccountData"/>
-  <considers rdf:resource="#97d491230f3647378a63b36:OptInOptOutControl"/>
-  <considers rdf:resource="#4b0b22c53be5452cbe14606:AccountData"/>
-  <considers rdf:resource="#f1b18e0e0f0b4f598863796:OptInOptOutControl"/>
-  <considers rdf:resource="#dd046fbcddf84f21a7a3709:SensitiveData"/>
-  <considers rdf:resource="#4620d3b5bae5498eb1115cf:OptInOptOutControl"/>
-  <considers rdf:resource="#8794adce72ba4b1bad22503:DataProtection"/>
-  <considers rdf:resource="#25756331067c401e801e860:AdvertisingDataControl"/>
-  <considers rdf:resource="#f9ba027b1c6e4f4284f93ed:AdvertisingDataControl"/>
-  <considers rdf:resource="#463c8a3918eb45aebd1ff3f:DataProtection"/>
-  <considers rdf:resource="#7d854357d37e4d008180827:GenericData"/>
-  <considers rdf:resource="#34d210de411449148b5a693:DataRetention"/>
-  <considers rdf:resource="#7623004aa25c419f9c5d70e:DataProtection"/>
-  <considers rdf:resource="#1e64c613a6a3401590ebb7e:OptInOptOutControl"/>
-  <considers rdf:resource="#a005c6d0c4d643af9d4db61:OptInOptOutControl"/>
-  <considers rdf:resource="#1c291a4831d2491baa77053:OptInOptOutControl"/>
-  <considers rdf:resource="#def8a5ee34d64cb8bdfcb79:OptInOptOutControl"/>
-  <considers rdf:resource="#07222a06b4564fc996617ee:OptInOptOutControl"/>
-  <considers rdf:resource="#b48c25d0c85d4d79ad6b244:OptInOptOutControl"/>
-  <considers rdf:resource="#f14560a109b14521afadcea:OptInOptOutControl"/>
-  <considers rdf:resource="#98fdb64033f94d5fa6e7f21:PolicyChange"/>
-  <considers rdf:resource="#2a215943fd76414a9e9a5e2:FPNotification"/>
-  <considers rdf:resource="#e63aaa1497f8417ca39b748:OptInOptOutControl"/>
-  <considers rdf:resource="#9d7162df23164d7cbf49a88:PolicyChange"/>
-  <considers rdf:resource="#45018535e7f1414ca4a1462:FPNotification"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">17df3f7b0f674381bcac31b</uuid>
+  <considers rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <considers rdf:resource="#7fe911f57285437ab7659d6:FirstParty"/>
+  <considers rdf:resource="#e2f0a56b1a9c4d398fd6b28:ThirdParty"/>
+  <considers rdf:resource="#cd03c8aaffb5435791d8f1c:OptInOptOutControl"/>
+  <considers rdf:resource="#a64fca7afc06495eb20cca5:PolicyChange"/>
+  <considers rdf:resource="#f3105b350e4246ae91f767e:FPNotification"/>
+  <considers rdf:resource="#ee7434985da8415cbb62971:OptInOptOutControl"/>
+  <considers rdf:resource="#c47bdcb126b44beaadc054c:PolicyChange"/>
+  <considers rdf:resource="#477a037d0e524766b6e724f:FPNotification"/>
+  <considers rdf:resource="#efc6282b30824a269950bb5:OptInOptOutControl"/>
+  <considers rdf:resource="#c9ec6354915544c9905009d:OptInOptOutControl"/>
+  <considers rdf:resource="#166761f1077e47bf82a6cac:OptInOptOutControl"/>
+  <considers rdf:resource="#a0d9f81c54d949fd9a0d73a:OptInOptOutControl"/>
+  <considers rdf:resource="#c8b87d4c74bb4517913dedb:AccountData"/>
+  <considers rdf:resource="#8e71922307fb4451936553f:OptInOptOutControl"/>
+  <considers rdf:resource="#261871f192b645a8bfdd1a7:SensitiveData"/>
+  <considers rdf:resource="#1f89a423dd134d15abfb453:OptInOptOutControl"/>
+  <considers rdf:resource="#33b6e76e482d4ba8aaa5d55:PersonalData"/>
+  <considers rdf:resource="#aa170768e0c347c2b642ea4:DataRetention"/>
+  <considers rdf:resource="#bbbe585f451d440a8a083a3:GenericData"/>
+  <considers rdf:resource="#9f76d30da7b14b9bb74c605:OptInOptOutControl"/>
+  <considers rdf:resource="#5b4e546bd25e4ce2a4864a6:GenericData"/>
+  <considers rdf:resource="#543e7a5891af48f980f667c:OptInOptOutControl"/>
+  <considers rdf:resource="#38f891a40c714c56bd01557:GenericData"/>
+  <considers rdf:resource="#817c9550cd144b27bf52ee4:OptInOptOutControl"/>
+  <considers rdf:resource="#a572a772872e4067822e891:OptInOptOutControl"/>
+  <considers rdf:resource="#50ab82d809014dfe9a935d3:OptInOptOutControl"/>
+  <considers rdf:resource="#63706c89acbc43b6abe7c73:GenericData"/>
+  <considers rdf:resource="#a45056c8d05f45fab7dc10a:OptInOptOutControl"/>
+  <considers rdf:resource="#38260ebf1ce64a5387c245f:GenericData"/>
+  <considers rdf:resource="#1f9322ada3754fffbb471ff:OptInOptOutControl"/>
+  <considers rdf:resource="#f55e39fe18934f0081ce761:OptInOptOutControl"/>
+  <considers rdf:resource="#aa34489ff1fd4ebba3ab149:OptInOptOutControl"/>
+  <considers rdf:resource="#c075bd1b96e048418184ed5:OptInOptOutControl"/>
+  <considers rdf:resource="#0bfae3ec8ab24d0588e3fbe:GenericData"/>
+  <considers rdf:resource="#9ad73bf0bb7141498dc84fe:OptInOptOutControl"/>
+  <considers rdf:resource="#b39e95c3c2834607a8f8e11:OptInOptOutControl"/>
+  <considers rdf:resource="#5daaffae02ea40e0b0a3fe4:OptInOptOutControl"/>
+  <considers rdf:resource="#4b5e0b9e3bc84a6a8f31576:OptInOptOutControl"/>
+  <considers rdf:resource="#b935b00e111744a09c35195:AccountData"/>
+  <considers rdf:resource="#ab3aaddc12a1484ea293729:OptInOptOutControl"/>
+  <considers rdf:resource="#4e3c669094024c26b61fe52:AccountData"/>
+  <considers rdf:resource="#f7e1c9b4d1b14f0c9d2907b:OptInOptOutControl"/>
+  <considers rdf:resource="#06d546c7f38c491a900d405:SensitiveData"/>
+  <considers rdf:resource="#1903a203edb442c58fc48ea:OptInOptOutControl"/>
+  <considers rdf:resource="#a5a008475b794fd391dfda3:DataProtection"/>
+  <considers rdf:resource="#f763553a568c4f1a92d3f7b:AdvertisingDataControl"/>
+  <considers rdf:resource="#305196fde2fe47828ac90ae:AdvertisingDataControl"/>
+  <considers rdf:resource="#315e6df16a1a436286a26bc:DataProtection"/>
+  <considers rdf:resource="#df61117d9f76423583b2544:GenericData"/>
+  <considers rdf:resource="#0f70f1ccd3de4fc5ac33692:DataRetention"/>
+  <considers rdf:resource="#c9daf7294e6747738b9fdec:DataProtection"/>
+  <considers rdf:resource="#86541178ba674b5785f6a16:OptInOptOutControl"/>
+  <considers rdf:resource="#dd383fef9efc41fe819dc31:OptInOptOutControl"/>
+  <considers rdf:resource="#dcfe3ff65be048febd9f716:OptInOptOutControl"/>
+  <considers rdf:resource="#59dbbd8104f941f9a2c3108:OptInOptOutControl"/>
+  <considers rdf:resource="#40e6af73f54d427d82ec4a9:OptInOptOutControl"/>
+  <considers rdf:resource="#060787d331824298a632a89:OptInOptOutControl"/>
+  <considers rdf:resource="#22f807b353dd43e39a9957c:OptInOptOutControl"/>
+  <considers rdf:resource="#7771496a2e4c481384a1c2e:PolicyChange"/>
+  <considers rdf:resource="#2974894b88f744a08b1fc58:FPNotification"/>
+  <considers rdf:resource="#bff303aad1da495fb8fae5e:OptInOptOutControl"/>
+  <considers rdf:resource="#0f6816133de44d678523762:PolicyChange"/>
+  <considers rdf:resource="#2f836badff094262b987187:FPNotification"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4047d5fd22924c9c87feb1b</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dailynews.com</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c7743e8193554b0f9ee7250:User">
+<owl:NamedIndividual rdf:about="#66ae4a0bce14495a8b63625:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c7743e8193554b0f9ee7250</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">66ae4a0bce14495a8b63625</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e212b9963f9848b9be83308:FirstParty">
+<owl:NamedIndividual rdf:about="#7fe911f57285437ab7659d6:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e212b9963f9848b9be83308</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7fe911f57285437ab7659d6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1e44b2ded45f4098a92a4e9:ThirdParty">
+<owl:NamedIndividual rdf:about="#e2f0a56b1a9c4d398fd6b28:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1e44b2ded45f4098a92a4e9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e2f0a56b1a9c4d398fd6b28</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9c6738d3a969479c979c88c:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#26f78a75db38437b94bfadd:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9c6738d3a969479c979c88c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">26f78a75db38437b94bfadd</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The revised policy will be posted on the MediaNews Web site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e05874748ab147bcadfe69f:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#cd03c8aaffb5435791d8f1c:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e05874748ab147bcadfe69f</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cd03c8aaffb5435791d8f1c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MediaNews may change this privacy policy from time to time The revised policy will be posted on the MediaNews Web site Please check this page periodically for changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4b80f8a00fe942bab3fd6c0:PolicyChange">
+<owl:NamedIndividual rdf:about="#a64fca7afc06495eb20cca5:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#e212b9963f9848b9be83308:FirstParty"/>
-  <binded_to rdf:resource="#e05874748ab147bcadfe69f:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4b80f8a00fe942bab3fd6c0</uuid>
+  <initiated_by rdf:resource="#7fe911f57285437ab7659d6:FirstParty"/>
+  <binded_to rdf:resource="#cd03c8aaffb5435791d8f1c:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a64fca7afc06495eb20cca5</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MediaNews may change this privacy policy from time to time The revised policy will be posted on the MediaNews Web site Please check this page periodically for changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#494ffc3a268845668a9a697:FPNotification">
+<owl:NamedIndividual rdf:about="#f3105b350e4246ae91f767e:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#e212b9963f9848b9be83308:FirstParty"/>
-  <notifies rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#9c6738d3a969479c979c88c:OnWebsitePage"/>
-  <binded_to rdf:resource="#4b80f8a00fe942bab3fd6c0:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">494ffc3a268845668a9a697</uuid>
+  <initiated_by rdf:resource="#7fe911f57285437ab7659d6:FirstParty"/>
+  <notifies rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#26f78a75db38437b94bfadd:OnWebsitePage"/>
+  <binded_to rdf:resource="#a64fca7afc06495eb20cca5:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f3105b350e4246ae91f767e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MediaNews may change this privacy policy from time to time The revised policy will be posted on the MediaNews Web site Please check this page periodically for changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#50407416999c4bdabef8519:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#ee7434985da8415cbb62971:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">50407416999c4bdabef8519</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ee7434985da8415cbb62971</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MediaNews may change this privacy policy from time to time The revised policy will be posted on the MediaNews Web site Please check this page periodically for changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ed45563e360348a89744a96:PolicyChange">
+<owl:NamedIndividual rdf:about="#c47bdcb126b44beaadc054c:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#e212b9963f9848b9be83308:FirstParty"/>
-  <binded_to rdf:resource="#50407416999c4bdabef8519:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ed45563e360348a89744a96</uuid>
+  <initiated_by rdf:resource="#7fe911f57285437ab7659d6:FirstParty"/>
+  <binded_to rdf:resource="#ee7434985da8415cbb62971:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c47bdcb126b44beaadc054c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MediaNews may change this privacy policy from time to time The revised policy will be posted on the MediaNews Web site Please check this page periodically for changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c0d69c7a822e4ff8849589c:FPNotification">
+<owl:NamedIndividual rdf:about="#477a037d0e524766b6e724f:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#e212b9963f9848b9be83308:FirstParty"/>
-  <notifies rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <binded_to rdf:resource="#ed45563e360348a89744a96:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c0d69c7a822e4ff8849589c</uuid>
+  <initiated_by rdf:resource="#7fe911f57285437ab7659d6:FirstParty"/>
+  <notifies rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <binded_to rdf:resource="#c47bdcb126b44beaadc054c:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">477a037d0e524766b6e724f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MediaNews may change this privacy policy from time to time The revised policy will be posted on the MediaNews Web site Please check this page periodically for changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e4381d66ee0245918709caa:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#2560f938dc3d4f34877ad3b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e4381d66ee0245918709caa</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2560f938dc3d4f34877ad3b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">opt-in</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d2854c16ab0d4503bd7800a:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#efc6282b30824a269950bb5:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#e4381d66ee0245918709caa:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d2854c16ab0d4503bd7800a</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#2560f938dc3d4f34877ad3b:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">efc6282b30824a269950bb5</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Web Site User Registration User registration is required to access the majority of content services and features on MediaNews Web sites Upon registration we require you provide your email address or your first name as a username and a password that will allow you to change your PIN as needed User registration with MediaNews Web sites is completed and membership activated upon clicking a link e-mailed to the address provided in registration At that time you have the opportunity to opt-in to e-mail newsletters and alerts and have e-mail offers sent to you on behalf of MediaNews advertisers however you can update your preferences at a later time</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#35f5eabe4cf54e5f968aae5:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#1f3c947488d141eb9ae3826:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">35f5eabe4cf54e5f968aae5</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1f3c947488d141eb9ae3826</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">opt-in</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ace58c76d9264dea8108715:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#c9ec6354915544c9905009d:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#35f5eabe4cf54e5f968aae5:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ace58c76d9264dea8108715</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#1f3c947488d141eb9ae3826:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c9ec6354915544c9905009d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Web Site User Registration User registration is required to access the majority of content services and features on MediaNews Web sites Upon registration we require you provide your email address or your first name as a username and a password that will allow you to change your PIN as needed User registration with MediaNews Web sites is completed and membership activated upon clicking a link e-mailed to the address provided in registration At that time you have the opportunity to opt-in to e-mail newsletters and alerts and have e-mail offers sent to you on behalf of MediaNews advertisers however you can update your preferences at a later time</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ba21fb593dcd439f81c86c4:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#005093fb8c3d49968d1379b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ba21fb593dcd439f81c86c4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">005093fb8c3d49968d1379b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">opt-in</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0a858dad103d4876b792a76:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#166761f1077e47bf82a6cac:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#ba21fb593dcd439f81c86c4:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0a858dad103d4876b792a76</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#005093fb8c3d49968d1379b:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">166761f1077e47bf82a6cac</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Web Site User Registration User registration is required to access the majority of content services and features on MediaNews Web sites Upon registration we require you provide your email address or your first name as a username and a password that will allow you to change your PIN as needed User registration with MediaNews Web sites is completed and membership activated upon clicking a link e-mailed to the address provided in registration At that time you have the opportunity to opt-in to e-mail newsletters and alerts and have e-mail offers sent to you on behalf of MediaNews advertisers however you can update your preferences at a later time</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#93ddff8fa22743be9e06241:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#3d2766b4bb6e4540b6301c6:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">93ddff8fa22743be9e06241</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3d2766b4bb6e4540b6301c6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">opt-in</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c3651469a2e342dc9b012ec:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#a0d9f81c54d949fd9a0d73a:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#93ddff8fa22743be9e06241:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c3651469a2e342dc9b012ec</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#3d2766b4bb6e4540b6301c6:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a0d9f81c54d949fd9a0d73a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Web Site User Registration User registration is required to access the majority of content services and features on MediaNews Web sites Upon registration we require you provide your email address or your first name as a username and a password that will allow you to change your PIN as needed User registration with MediaNews Web sites is completed and membership activated upon clicking a link e-mailed to the address provided in registration At that time you have the opportunity to opt-in to e-mail newsletters and alerts and have e-mail offers sent to you on behalf of MediaNews advertisers however you can update your preferences at a later time</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bf16f16ec11548c9984886c:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#728f5e4d923a490fbb610d9:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bf16f16ec11548c9984886c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">728f5e4d923a490fbb610d9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Web Site User Registration User registration is required to access the majority of content services and features on MediaNews Web sites Upon registration we require you provide your email address or your first name as a username and a password that will allow you to change your PIN as needed User registration with MediaNews Web sites is completed and membership activated upon clicking a link e-mailed to the address provided in registration At that time you have the opportunity to opt-in to e-mail newsletters and alerts and have e-mail offers sent to you on behalf of MediaNews advertisers however you can update your preferences at a later time</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#53673b8c1f8d483f90d2a2b:AccountData">
+<owl:NamedIndividual rdf:about="#c8b87d4c74bb4517913dedb:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">53673b8c1f8d483f90d2a2b</uuid>
+  <provided_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c8b87d4c74bb4517913dedb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b88fcd60bb8543d596b8f55:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#8e71922307fb4451936553f:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#bf16f16ec11548c9984886c:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#53673b8c1f8d483f90d2a2b:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b88fcd60bb8543d596b8f55</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#728f5e4d923a490fbb610d9:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#c8b87d4c74bb4517913dedb:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8e71922307fb4451936553f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Web Site User Registration User registration is required to access the majority of content services and features on MediaNews Web sites Upon registration we require you provide your email address or your first name as a username and a password that will allow you to change your PIN as needed User registration with MediaNews Web sites is completed and membership activated upon clicking a link e-mailed to the address provided in registration At that time you have the opportunity to opt-in to e-mail newsletters and alerts and have e-mail offers sent to you on behalf of MediaNews advertisers however you can update your preferences at a later time</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#aff2f56d1cc84cadaf05234:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#79063d5f26464de0818e701:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aff2f56d1cc84cadaf05234</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">79063d5f26464de0818e701</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Web Site User Registration User registration is required to access the majority of content services and features on MediaNews Web sites Upon registration we require you provide your email address or your first name as a username and a password that will allow you to change your PIN as needed User registration with MediaNews Web sites is completed and membership activated upon clicking a link e-mailed to the address provided in registration At that time you have the opportunity to opt-in to e-mail newsletters and alerts and have e-mail offers sent to you on behalf of MediaNews advertisers however you can update your preferences at a later time</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1f6e14951d6e48de9f94341:SensitiveData">
+<owl:NamedIndividual rdf:about="#261871f192b645a8bfdd1a7:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1f6e14951d6e48de9f94341</uuid>
+  <provided_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">261871f192b645a8bfdd1a7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Profile data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a2f4136034d9427b9127208:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#1f89a423dd134d15abfb453:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#aff2f56d1cc84cadaf05234:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#1f6e14951d6e48de9f94341:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a2f4136034d9427b9127208</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#79063d5f26464de0818e701:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#261871f192b645a8bfdd1a7:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1f89a423dd134d15abfb453</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Web Site User Registration User registration is required to access the majority of content services and features on MediaNews Web sites Upon registration we require you provide your email address or your first name as a username and a password that will allow you to change your PIN as needed User registration with MediaNews Web sites is completed and membership activated upon clicking a link e-mailed to the address provided in registration At that time you have the opportunity to opt-in to e-mail newsletters and alerts and have e-mail offers sent to you on behalf of MediaNews advertisers however you can update your preferences at a later time</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3608234393e942f387c6f57:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#7c2f6746e80b4ada8668427:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3608234393e942f387c6f57</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7c2f6746e80b4ada8668427</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MediaNews will retain this information only to provide the forwarding services.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b830105e759d426abe5f343:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#bf93fe0cbbbb4a068e4a6c3:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b830105e759d426abe5f343</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bf93fe0cbbbb4a068e4a6c3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">etain this information only to provide the forwarding services</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#00a343478ee54c0a9848e93:PersonalData">
+<owl:NamedIndividual rdf:about="#33b6e76e482d4ba8aaa5d55:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">00a343478ee54c0a9848e93</uuid>
+  <provided_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">33b6e76e482d4ba8aaa5d55</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">name and e-mail address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c8bd2eee33454966a21fd1e:DataRetention">
+<owl:NamedIndividual rdf:about="#aa170768e0c347c2b642ea4:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#e212b9963f9848b9be83308:FirstParty"/>
-  <lasts_for rdf:resource="#3608234393e942f387c6f57:DataRetentionTime"/>
-  <has_purpose rdf:resource="#b830105e759d426abe5f343:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#00a343478ee54c0a9848e93:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c8bd2eee33454966a21fd1e</uuid>
+  <initiated_by rdf:resource="#7fe911f57285437ab7659d6:FirstParty"/>
+  <lasts_for rdf:resource="#7c2f6746e80b4ada8668427:DataRetentionTime"/>
+  <has_purpose rdf:resource="#bf93fe0cbbbb4a068e4a6c3:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#33b6e76e482d4ba8aaa5d55:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aa170768e0c347c2b642ea4</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Forwarding Forwarding an article found on a MediaNews Web site generally requires that you disclose the name and e-mail address of the person to whom you are forwarding the article MediaNews will retain this information only to provide the forwarding services</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#631fe948ea234cc8ba58caa:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#a3e4264511be4733b8b38e7:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">631fe948ea234cc8ba58caa</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a3e4264511be4733b8b38e7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not wish to share your PIN, you always have the option to not provide the information or use the MediaNews Web sites that require it.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#54728bcd899848d5983f674:GenericData">
+<owl:NamedIndividual rdf:about="#bbbe585f451d440a8a083a3:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">54728bcd899848d5983f674</uuid>
+  <provided_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bbbe585f451d440a8a083a3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PIN,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ae41683e01c541b590a201f:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#9f76d30da7b14b9bb74c605:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#631fe948ea234cc8ba58caa:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#54728bcd899848d5983f674:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ae41683e01c541b590a201f</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#a3e4264511be4733b8b38e7:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#bbbe585f451d440a8a083a3:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9f76d30da7b14b9bb74c605</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OPTING-OUT If you do not wish to share your PIN you always have the option to not provide the information or use the MediaNews Web sites that require it Opting-Out If you are a current MediaNews registered Web site user or would like to become one but do not want your PIN shared with third parties or do not want to receive promotion and/or marketing information about other products services and offerings from MediaNews and/or any third parties please review the following</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d38e20cf7a8c44b7b3675c2:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#af51f2e6d5874d8fa4016cf:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d38e20cf7a8c44b7b3675c2</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">af51f2e6d5874d8fa4016cf</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not wish to share your PIN, you always have the option to not provide the information or use the MediaNews Web sites that require it.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#47d3d763992b439397012d9:GenericData">
+<owl:NamedIndividual rdf:about="#5b4e546bd25e4ce2a4864a6:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">47d3d763992b439397012d9</uuid>
+  <provided_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5b4e546bd25e4ce2a4864a6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PIN,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b348c55b18ba4973b2a509e:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#543e7a5891af48f980f667c:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#d38e20cf7a8c44b7b3675c2:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#47d3d763992b439397012d9:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b348c55b18ba4973b2a509e</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#af51f2e6d5874d8fa4016cf:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#5b4e546bd25e4ce2a4864a6:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">543e7a5891af48f980f667c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OPTING-OUT If you do not wish to share your PIN you always have the option to not provide the information or use the MediaNews Web sites that require it Opting-Out If you are a current MediaNews registered Web site user or would like to become one but do not want your PIN shared with third parties or do not want to receive promotion and/or marketing information about other products services and offerings from MediaNews and/or any third parties please review the following</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a9ddef3fad994af2ab5a16c:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#1f9aae6631964daeb737e1d:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a9ddef3fad994af2ab5a16c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1f9aae6631964daeb737e1d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not wish to share your PIN, you always have the option to not provide the information or use the MediaNews Web sites that require it.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c1fe461ee7f44143a844235:GenericData">
+<owl:NamedIndividual rdf:about="#38f891a40c714c56bd01557:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c1fe461ee7f44143a844235</uuid>
+  <provided_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">38f891a40c714c56bd01557</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PIN,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b10d92c595274f4b8b87f22:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#817c9550cd144b27bf52ee4:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#a9ddef3fad994af2ab5a16c:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#c1fe461ee7f44143a844235:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b10d92c595274f4b8b87f22</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#1f9aae6631964daeb737e1d:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#38f891a40c714c56bd01557:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">817c9550cd144b27bf52ee4</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OPTING-OUT If you do not wish to share your PIN you always have the option to not provide the information or use the MediaNews Web sites that require it Opting-Out If you are a current MediaNews registered Web site user or would like to become one but do not want your PIN shared with third parties or do not want to receive promotion and/or marketing information about other products services and offerings from MediaNews and/or any third parties please review the following</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3cad0c55721a4ca098e82d0:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#1c729debf2fa46db8dea820:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3cad0c55721a4ca098e82d0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1c729debf2fa46db8dea820</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you may email us at</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#18f0d54844a243839812920:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#a572a772872e4067822e891:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#3cad0c55721a4ca098e82d0:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">18f0d54844a243839812920</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#1c729debf2fa46db8dea820:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a572a772872e4067822e891</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Third Party Opt-Out If at any time you do not want us to share your information with third parties who wish to send you information about their products and services you may opt-out of such messages by going to the Manage an Account page and simply unclicking an opt-in box or you may email us at privacycoordinator medianewsgroup com or write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 If you choose to opt-out via email please put THIRD PARTY OPT-OUT in the subject line along with the name of the applicable site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#82fc67b0668e45c68550d41:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#8be2a1696a734ceeabffef9:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">82fc67b0668e45c68550d41</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8be2a1696a734ceeabffef9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">opt-out of such messages by going to the "Manage an Account"</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#363204215e7c4b3784f92a2:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#50ab82d809014dfe9a935d3:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#82fc67b0668e45c68550d41:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">363204215e7c4b3784f92a2</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#8be2a1696a734ceeabffef9:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">50ab82d809014dfe9a935d3</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Third Party Opt-Out If at any time you do not want us to share your information with third parties who wish to send you information about their products and services you may opt-out of such messages by going to the Manage an Account page and simply unclicking an opt-in box or you may email us at privacycoordinator medianewsgroup com or write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 If you choose to opt-out via email please put THIRD PARTY OPT-OUT in the subject line along with the name of the applicable site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#69109bfe8c3e422ab9c22d2:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#647d9cf228c64f85a011509:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">69109bfe8c3e422ab9c22d2</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">647d9cf228c64f85a011509</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">may opt-out of such messages by going to the "Manage an Account" page and simply unclicking an opt-in box</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#05506170391149dc9033811:GenericData">
+<owl:NamedIndividual rdf:about="#63706c89acbc43b6abe7c73:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">05506170391149dc9033811</uuid>
+  <provided_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">63706c89acbc43b6abe7c73</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#75046fe1b326448dabb9880:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#a45056c8d05f45fab7dc10a:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#69109bfe8c3e422ab9c22d2:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#05506170391149dc9033811:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">75046fe1b326448dabb9880</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#647d9cf228c64f85a011509:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#63706c89acbc43b6abe7c73:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a45056c8d05f45fab7dc10a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Third Party Opt-Out If at any time you do not want us to share your information with third parties who wish to send you information about their products and services you may opt-out of such messages by going to the Manage an Account page and simply unclicking an opt-in box or you may email us at privacycoordinator medianewsgroup com or write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 If you choose to opt-out via email please put THIRD PARTY OPT-OUT in the subject line along with the name of the applicable site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#993327f407bb463594805ff:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#6fa3bd4de5b547a8b3d79ca:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">993327f407bb463594805ff</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6fa3bd4de5b547a8b3d79ca</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you may email us at privacycoordinator@medianewsgroup.com or write to us at: Privacy Coordinator, MediaNews Group Interactive, 101 W. Colfax Ave., Suite 950, Denver, CO 80202.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3f78a80be0a74b048dcfffc:GenericData">
+<owl:NamedIndividual rdf:about="#38260ebf1ce64a5387c245f:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3f78a80be0a74b048dcfffc</uuid>
+  <provided_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">38260ebf1ce64a5387c245f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ccfd2d3d439e4d169ba8813:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#1f9322ada3754fffbb471ff:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#993327f407bb463594805ff:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#3f78a80be0a74b048dcfffc:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ccfd2d3d439e4d169ba8813</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#6fa3bd4de5b547a8b3d79ca:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#38260ebf1ce64a5387c245f:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1f9322ada3754fffbb471ff</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Third Party Opt-Out If at any time you do not want us to share your information with third parties who wish to send you information about their products and services you may opt-out of such messages by going to the Manage an Account page and simply unclicking an opt-in box or you may email us at privacycoordinator medianewsgroup com or write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 If you choose to opt-out via email please put THIRD PARTY OPT-OUT in the subject line along with the name of the applicable site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#856bdc8b315946d8a8086e8:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#4af5447c52ec439fa1a1642:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">856bdc8b315946d8a8086e8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4af5447c52ec439fa1a1642</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you may opt-out of such messages by going to the "Manage an Account" page and simply unclicking an opt-in box o</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#211459be63294a6db5ccfd9:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#f55e39fe18934f0081ce761:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#856bdc8b315946d8a8086e8:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">211459be63294a6db5ccfd9</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#4af5447c52ec439fa1a1642:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f55e39fe18934f0081ce761</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MediaNews Opt-Out If at any time you do not want to receive information about special offers and new products and features from MediaNews you may opt-out of such messages by going to the Manage an Account page and simply unclicking an opt-in box or you may e-mail us at privacycoordinator medianewsgroup com or write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 Please reference the name of the applicable site If you choose to opt-out via email please put MEDIANEWS OPT-OUT in the subject line</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d14a5d6c56c7475bb51ab10:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#fc8276a2368849dc91f9c23:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d14a5d6c56c7475bb51ab10</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fc8276a2368849dc91f9c23</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Manage an Account"</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#75fd1481210547b9b2b3161:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#aa34489ff1fd4ebba3ab149:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#d14a5d6c56c7475bb51ab10:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">75fd1481210547b9b2b3161</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#fc8276a2368849dc91f9c23:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aa34489ff1fd4ebba3ab149</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MediaNews Opt-Out If at any time you do not want to receive information about special offers and new products and features from MediaNews you may opt-out of such messages by going to the Manage an Account page and simply unclicking an opt-in box or you may e-mail us at privacycoordinator medianewsgroup com or write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 Please reference the name of the applicable site If you choose to opt-out via email please put MEDIANEWS OPT-OUT in the subject line</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#da0c0d8ad58843d2956f752:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#19028176964c4c858a1387e:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">da0c0d8ad58843d2956f752</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">19028176964c4c858a1387e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e-mail us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7b19d77eafa0465199128c7:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#c075bd1b96e048418184ed5:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#da0c0d8ad58843d2956f752:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7b19d77eafa0465199128c7</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#19028176964c4c858a1387e:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c075bd1b96e048418184ed5</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MediaNews Opt-Out If at any time you do not want to receive information about special offers and new products and features from MediaNews you may opt-out of such messages by going to the Manage an Account page and simply unclicking an opt-in box or you may e-mail us at privacycoordinator medianewsgroup com or write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 Please reference the name of the applicable site If you choose to opt-out via email please put MEDIANEWS OPT-OUT in the subject line</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#67357a9507f44f72a4002c8:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#969edc4f66e64946a99dafe:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">67357a9507f44f72a4002c8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">969edc4f66e64946a99dafe</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you may e-mail us at privacycoordinator@medianewsgroup.com or write to us at: Privacy Coordinator, MediaNews Group Interactive, 101 W. Colfax Ave., Suite 950, Denver, CO 80202. Please reference the name of the applicable site.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6198395e0ece46e288805b3:GenericData">
+<owl:NamedIndividual rdf:about="#0bfae3ec8ab24d0588e3fbe:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6198395e0ece46e288805b3</uuid>
+  <provided_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0bfae3ec8ab24d0588e3fbe</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#204ba9c893ac43739001c61:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#9ad73bf0bb7141498dc84fe:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#67357a9507f44f72a4002c8:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#6198395e0ece46e288805b3:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">204ba9c893ac43739001c61</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#969edc4f66e64946a99dafe:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#0bfae3ec8ab24d0588e3fbe:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9ad73bf0bb7141498dc84fe</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MediaNews Opt-Out If at any time you do not want to receive information about special offers and new products and features from MediaNews you may opt-out of such messages by going to the Manage an Account page and simply unclicking an opt-in box or you may e-mail us at privacycoordinator medianewsgroup com or write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 Please reference the name of the applicable site If you choose to opt-out via email please put MEDIANEWS OPT-OUT in the subject line</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b6661ef29bb74538bf381cf:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#c3a1951f98d8461fac0ea85:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b6661ef29bb74538bf381cf</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c3a1951f98d8461fac0ea85</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you may e-mail us at privacycoordinator@medianewsgroup.com or write to us at: Privacy Coordinator, MediaNews Group Interactive, 101 W. Colfax Ave., Suite 950, Denver, CO 80202.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c7ebc255ac85471189a52fe:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#b39e95c3c2834607a8f8e11:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#b6661ef29bb74538bf381cf:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c7ebc255ac85471189a52fe</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#c3a1951f98d8461fac0ea85:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b39e95c3c2834607a8f8e11</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MediaNews Opt-Out If at any time you do not want to receive information about special offers and new products and features from MediaNews you may opt-out of such messages by going to the Manage an Account page and simply unclicking an opt-in box or you may e-mail us at privacycoordinator medianewsgroup com or write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 Please reference the name of the applicable site If you choose to opt-out via email please put MEDIANEWS OPT-OUT in the subject line</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4e094e231d7d45fda8f166d:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#a91e30bb078f41e4bcafdef:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4e094e231d7d45fda8f166d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a91e30bb078f41e4bcafdef</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Review Update Your PIN A registered user of MediaNews Web sites may review and change his or her PIN and/or e-mail preferences by clicking on the Manage Account link after signing in A registered user may also review and request an update of the PIN and/or e-mail preferences which he or she provided to MediaNews at any time by e-mailing us at privacycoordinator medianewsgroup com or write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 Please include the name of the applicable site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#26f0e2ec186d4c6f8b10298:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#5daaffae02ea40e0b0a3fe4:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#4e094e231d7d45fda8f166d:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">26f0e2ec186d4c6f8b10298</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#a91e30bb078f41e4bcafdef:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5daaffae02ea40e0b0a3fe4</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Review Update Your PIN A registered user of MediaNews Web sites may review and change his or her PIN and/or e-mail preferences by clicking on the Manage Account link after signing in A registered user may also review and request an update of the PIN and/or e-mail preferences which he or she provided to MediaNews at any time by e-mailing us at privacycoordinator medianewsgroup com or write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 Please include the name of the applicable site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f4e58adb2bad4f25b2ea15e:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#6c86146e15ca41a3bade936:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f4e58adb2bad4f25b2ea15e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6c86146e15ca41a3bade936</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Review Update Your PIN A registered user of MediaNews Web sites may review and change his or her PIN and/or e-mail preferences by clicking on the Manage Account link after signing in A registered user may also review and request an update of the PIN and/or e-mail preferences which he or she provided to MediaNews at any time by e-mailing us at privacycoordinator medianewsgroup com or write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 Please include the name of the applicable site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c096e7d554e84e14bfb0505:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#4b5e0b9e3bc84a6a8f31576:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#f4e58adb2bad4f25b2ea15e:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c096e7d554e84e14bfb0505</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#6c86146e15ca41a3bade936:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4b5e0b9e3bc84a6a8f31576</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Review Update Your PIN A registered user of MediaNews Web sites may review and change his or her PIN and/or e-mail preferences by clicking on the Manage Account link after signing in A registered user may also review and request an update of the PIN and/or e-mail preferences which he or she provided to MediaNews at any time by e-mailing us at privacycoordinator medianewsgroup com or write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 Please include the name of the applicable site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#50da9e49cac745c684d5835:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#4a6b2798689b410c958f7fd:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">50da9e49cac745c684d5835</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4a6b2798689b410c958f7fd</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Review Update Your PIN A registered user of MediaNews Web sites may review and change his or her PIN and/or e-mail preferences by clicking on the Manage Account link after signing in A registered user may also review and request an update of the PIN and/or e-mail preferences which he or she provided to MediaNews at any time by e-mailing us at privacycoordinator medianewsgroup com or write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 Please include the name of the applicable site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6db672f1ef2a4291b99b6d9:AccountData">
+<owl:NamedIndividual rdf:about="#b935b00e111744a09c35195:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6db672f1ef2a4291b99b6d9</uuid>
+  <provided_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b935b00e111744a09c35195</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#97d491230f3647378a63b36:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#ab3aaddc12a1484ea293729:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#50da9e49cac745c684d5835:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#6db672f1ef2a4291b99b6d9:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">97d491230f3647378a63b36</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#4a6b2798689b410c958f7fd:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#b935b00e111744a09c35195:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ab3aaddc12a1484ea293729</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Review Update Your PIN A registered user of MediaNews Web sites may review and change his or her PIN and/or e-mail preferences by clicking on the Manage Account link after signing in A registered user may also review and request an update of the PIN and/or e-mail preferences which he or she provided to MediaNews at any time by e-mailing us at privacycoordinator medianewsgroup com or write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 Please include the name of the applicable site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#df5cb8f87eff4d3a8a5e785:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#cd38a14b58f5453fb9ed38a:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">df5cb8f87eff4d3a8a5e785</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cd38a14b58f5453fb9ed38a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Review Update Your PIN A registered user of MediaNews Web sites may review and change his or her PIN and/or e-mail preferences by clicking on the Manage Account link after signing in A registered user may also review and request an update of the PIN and/or e-mail preferences which he or she provided to MediaNews at any time by e-mailing us at privacycoordinator medianewsgroup com or write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 Please include the name of the applicable site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4b0b22c53be5452cbe14606:AccountData">
+<owl:NamedIndividual rdf:about="#4e3c669094024c26b61fe52:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4b0b22c53be5452cbe14606</uuid>
+  <provided_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4e3c669094024c26b61fe52</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f1b18e0e0f0b4f598863796:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#f7e1c9b4d1b14f0c9d2907b:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#df5cb8f87eff4d3a8a5e785:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#4b0b22c53be5452cbe14606:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f1b18e0e0f0b4f598863796</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#cd38a14b58f5453fb9ed38a:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#4e3c669094024c26b61fe52:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f7e1c9b4d1b14f0c9d2907b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Review Update Your PIN A registered user of MediaNews Web sites may review and change his or her PIN and/or e-mail preferences by clicking on the Manage Account link after signing in A registered user may also review and request an update of the PIN and/or e-mail preferences which he or she provided to MediaNews at any time by e-mailing us at privacycoordinator medianewsgroup com or write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 Please include the name of the applicable site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6befa97910d247ffb2438da:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#32827e7f4c3548cb94dfad6:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6befa97910d247ffb2438da</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">32827e7f4c3548cb94dfad6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Review Update Your PIN A registered user of MediaNews Web sites may review and change his or her PIN and/or e-mail preferences by clicking on the Manage Account link after signing in A registered user may also review and request an update of the PIN and/or e-mail preferences which he or she provided to MediaNews at any time by e-mailing us at privacycoordinator medianewsgroup com or write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 Please include the name of the applicable site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dd046fbcddf84f21a7a3709:SensitiveData">
+<owl:NamedIndividual rdf:about="#06d546c7f38c491a900d405:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dd046fbcddf84f21a7a3709</uuid>
+  <provided_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">06d546c7f38c491a900d405</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Profile data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4620d3b5bae5498eb1115cf:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#1903a203edb442c58fc48ea:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#6befa97910d247ffb2438da:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#dd046fbcddf84f21a7a3709:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4620d3b5bae5498eb1115cf</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#32827e7f4c3548cb94dfad6:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#06d546c7f38c491a900d405:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1903a203edb442c58fc48ea</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Review Update Your PIN A registered user of MediaNews Web sites may review and change his or her PIN and/or e-mail preferences by clicking on the Manage Account link after signing in A registered user may also review and request an update of the PIN and/or e-mail preferences which he or she provided to MediaNews at any time by e-mailing us at privacycoordinator medianewsgroup com or write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 Please include the name of the applicable site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#34d9da71b6be4f2eb62b884:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#7d8011caf833437ea944f38:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">34d9da71b6be4f2eb62b884</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7d8011caf833437ea944f38</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MediaNews uses procedures to safeguard and help prevent unauthorized access to the information collected on the MediaNews Web sites. Although such protective measures have been put in place, MediaNews cannot ensure that the information collected will never be disclosed in a manner inconsistent with this Privacy Policy.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8794adce72ba4b1bad22503:DataProtection">
+<owl:NamedIndividual rdf:about="#a5a008475b794fd391dfda3:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#e212b9963f9848b9be83308:FirstParty"/>
-  <has_mechanism rdf:resource="#34d9da71b6be4f2eb62b884:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8794adce72ba4b1bad22503</uuid>
+  <initiated_by rdf:resource="#7fe911f57285437ab7659d6:FirstParty"/>
+  <has_mechanism rdf:resource="#7d8011caf833437ea944f38:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a5a008475b794fd391dfda3</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SECURITY MediaNews uses procedures to safeguard and help prevent unauthorized access to the information collected on the MediaNews Web sites Although such protective measures have been put in place MediaNews cannot ensure that the information collected will never be disclosed in a manner inconsistent with this Privacy Policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#765238fc8b244ddf88390a9:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#968844aaba38441fb0a0853:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">765238fc8b244ddf88390a9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">968844aaba38441fb0a0853</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CALIFORNIA PRIVACY RIGHTS Under California law California residents may request once a year free of charge certain information regarding MediaNews disclosure of personal information to third parties for direct marketing purposes To make such a request please write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 Please include the name and the address to which you would like us to respond along with the name of the applicable site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#77d9f1687961406193767ab:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#f94c8d9cfc1d4539a25488e:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">77d9f1687961406193767ab</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f94c8d9cfc1d4539a25488e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CALIFORNIA PRIVACY RIGHTS Under California law California residents may request once a year free of charge certain information regarding MediaNews disclosure of personal information to third parties for direct marketing purposes To make such a request please write to us at Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 Please include the name and the address to which you would like us to respond along with the name of the applicable site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#25756331067c401e801e860:AdvertisingDataControl">
+<owl:NamedIndividual rdf:about="#f763553a568c4f1a92d3f7b:AdvertisingDataControl">
   <rdf:type rdf:resource="#AdvertisingDataControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">25756331067c401e801e860</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f763553a568c4f1a92d3f7b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DO NOT TRACK MNG currently does not support Do Not Track browser settings and does not currently participate in any Do Not Track frameworks that would allow us to respond to signals or other mechanism from you regarding the collection of information including PIN or CIN As Industry standards evolve and develop we will continue to evaluate this position As previously stated in the INFORMATION COLLECTED section above other parties particularly third party advertising networks also collect information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f9ba027b1c6e4f4284f93ed:AdvertisingDataControl">
+<owl:NamedIndividual rdf:about="#305196fde2fe47828ac90ae:AdvertisingDataControl">
   <rdf:type rdf:resource="#AdvertisingDataControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f9ba027b1c6e4f4284f93ed</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">305196fde2fe47828ac90ae</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DO NOT TRACK MNG currently does not support Do Not Track browser settings and does not currently participate in any Do Not Track frameworks that would allow us to respond to signals or other mechanism from you regarding the collection of information including PIN or CIN As Industry standards evolve and develop we will continue to evaluate this position As previously stated in the INFORMATION COLLECTED section above other parties particularly third party advertising networks also collect information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1e67a0ce8cb4492eb013546:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#9f5b6ad78c8e43e1bd6eca1:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1e67a0ce8cb4492eb013546</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9f5b6ad78c8e43e1bd6eca1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHILDREN S PRIVACY POLICY This policy describes the privacy practices of MediaNews Group Inc and MediaNews Group Interactive Inc as well as MediaNews Group affiliates MediaNews relating to information collected from children This privacy policy does not apply to third party web sites or to companies and persons that are not controlled by affiliated with or managed by MediaNews For most MediaNews Web sites MediaNews does not knowingly collect information from children under 13 years of age In the event that MediaNews collects information from children under 13 years of age this Children s Privacy Policy shall apply</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0861f32ef02846bda09eafc:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#5630f3b2e6874fdc933809e:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0861f32ef02846bda09eafc</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5630f3b2e6874fdc933809e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">INFORMATION COLLECTED FROM CHILDREN MediaNews does not ask children to disclose more personal information than is necessary for them to participate in a particular activity We urge children to check with their parents before entering information on any web site and we urge parents to discuss with their children restrictions regarding the online release of personal information MediaNews limits its collection of information from children to what is known as non-personally identifiable information e g first name screen names age gender city state zip code and country of residence This information is collected so children can participate in activities e g completing polls or online surveys posting jokes book reviews movie reviews toy reviews video reviews concert reviews game reviews artwork or questions/comments online or playing online games without giving unnecessary personal information From time to time however we may request personally identifiable information e g child s email address and/or parent s or guardian s email address as explained below in order to conduct online contests or sweepstakes email newsletters and offers provide subscriptions participate in chat rooms and message boards or offer other online activities MediaNews does not and cannot condition a child s participation in any of our online activities on the disclosure of more information than is reasonably necessary to participate in the activity Information is collected actively such as through registration forms and passively such as through cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9598fc44104d41e49efeb55:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#15cd7cc152b543c2a7eec71:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9598fc44104d41e49efeb55</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">15cd7cc152b543c2a7eec71</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USE OF PERSONAL INFORMATION FROM CHILDREN MediaNews occasionally offers contest and sweepstakes which may be entered online When a child under thirteen 13 enters a contest or sweepstakes or participates in another activity that requires the use of personal information we will ask for a parent s email address so that we can notify the parent of the child s participation obtain the parent s consent and give the parent the option to have the child s information deleted All of the child s personal information collected by MediaNews is securely maintained and used only for the specified purpose such as conducting the contest or sweepstakes and awarding prizes MediaNews does not keep any of the child s personal information after the particular event is completed Sometimes MediaNews uses agents or contractors to provide services that support the internal operations of the site such as helping us conduct a sweepstakes or sending prizes to winners In these cases MediaNews requires the agent or contractor to maintain the confidentiality security and integrity of the information and limit use to the specific services they are performing on our behalf MediaNews may disclose information maintained as required by law for example in response to a court order or a subpoena MediaNews may also disclose such information in response to a specific law enforcement agency s request Personal information is not disclosed to third parties except those who provide support for the internal operations of the site Parents can consent to the collection and use of their child s personal information without consenting to the disclosure of the information to third parties</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#02b2276ef797453ca68b328:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#8ed0227a5e904e5e9830147:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">02b2276ef797453ca68b328</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8ed0227a5e904e5e9830147</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USE OF PERSONAL INFORMATION FROM CHILDREN MediaNews occasionally offers contest and sweepstakes which may be entered online When a child under thirteen 13 enters a contest or sweepstakes or participates in another activity that requires the use of personal information we will ask for a parent s email address so that we can notify the parent of the child s participation obtain the parent s consent and give the parent the option to have the child s information deleted All of the child s personal information collected by MediaNews is securely maintained and used only for the specified purpose such as conducting the contest or sweepstakes and awarding prizes MediaNews does not keep any of the child s personal information after the particular event is completed Sometimes MediaNews uses agents or contractors to provide services that support the internal operations of the site such as helping us conduct a sweepstakes or sending prizes to winners In these cases MediaNews requires the agent or contractor to maintain the confidentiality security and integrity of the information and limit use to the specific services they are performing on our behalf MediaNews may disclose information maintained as required by law for example in response to a court order or a subpoena MediaNews may also disclose such information in response to a specific law enforcement agency s request Personal information is not disclosed to third parties except those who provide support for the internal operations of the site Parents can consent to the collection and use of their child s personal information without consenting to the disclosure of the information to third parties</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0411e675fa9d4dad9a5d2fa:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#5c64933e21bb418d8e62485:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0411e675fa9d4dad9a5d2fa</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5c64933e21bb418d8e62485</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">securely maintained</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#463c8a3918eb45aebd1ff3f:DataProtection">
+<owl:NamedIndividual rdf:about="#315e6df16a1a436286a26bc:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#e212b9963f9848b9be83308:FirstParty"/>
-  <has_mechanism rdf:resource="#0411e675fa9d4dad9a5d2fa:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">463c8a3918eb45aebd1ff3f</uuid>
+  <initiated_by rdf:resource="#7fe911f57285437ab7659d6:FirstParty"/>
+  <has_mechanism rdf:resource="#5c64933e21bb418d8e62485:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">315e6df16a1a436286a26bc</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USE OF PERSONAL INFORMATION FROM CHILDREN MediaNews occasionally offers contest and sweepstakes which may be entered online When a child under thirteen 13 enters a contest or sweepstakes or participates in another activity that requires the use of personal information we will ask for a parent s email address so that we can notify the parent of the child s participation obtain the parent s consent and give the parent the option to have the child s information deleted All of the child s personal information collected by MediaNews is securely maintained and used only for the specified purpose such as conducting the contest or sweepstakes and awarding prizes MediaNews does not keep any of the child s personal information after the particular event is completed Sometimes MediaNews uses agents or contractors to provide services that support the internal operations of the site such as helping us conduct a sweepstakes or sending prizes to winners In these cases MediaNews requires the agent or contractor to maintain the confidentiality security and integrity of the information and limit use to the specific services they are performing on our behalf MediaNews may disclose information maintained as required by law for example in response to a court order or a subpoena MediaNews may also disclose such information in response to a specific law enforcement agency s request Personal information is not disclosed to third parties except those who provide support for the internal operations of the site Parents can consent to the collection and use of their child s personal information without consenting to the disclosure of the information to third parties</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#585b52fbe5c5478084e66b4:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#914417225d994f2cb257b3c:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">585b52fbe5c5478084e66b4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">914417225d994f2cb257b3c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MediaNews does not keep any of the child's personal information after the particular event is completed.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8945ebe7b540490c8165a7d:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#2a3d4fe1de434acc9370fe8:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8945ebe7b540490c8165a7d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2a3d4fe1de434acc9370fe8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">after the particular event is completed.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7d854357d37e4d008180827:GenericData">
+<owl:NamedIndividual rdf:about="#df61117d9f76423583b2544:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7d854357d37e4d008180827</uuid>
+  <provided_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">df61117d9f76423583b2544</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#34d210de411449148b5a693:DataRetention">
+<owl:NamedIndividual rdf:about="#0f70f1ccd3de4fc5ac33692:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#e212b9963f9848b9be83308:FirstParty"/>
-  <lasts_for rdf:resource="#585b52fbe5c5478084e66b4:DataRetentionTime"/>
-  <has_purpose rdf:resource="#8945ebe7b540490c8165a7d:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#7d854357d37e4d008180827:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">34d210de411449148b5a693</uuid>
+  <initiated_by rdf:resource="#7fe911f57285437ab7659d6:FirstParty"/>
+  <lasts_for rdf:resource="#914417225d994f2cb257b3c:DataRetentionTime"/>
+  <has_purpose rdf:resource="#2a3d4fe1de434acc9370fe8:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#df61117d9f76423583b2544:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0f70f1ccd3de4fc5ac33692</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USE OF PERSONAL INFORMATION FROM CHILDREN MediaNews occasionally offers contest and sweepstakes which may be entered online When a child under thirteen 13 enters a contest or sweepstakes or participates in another activity that requires the use of personal information we will ask for a parent s email address so that we can notify the parent of the child s participation obtain the parent s consent and give the parent the option to have the child s information deleted All of the child s personal information collected by MediaNews is securely maintained and used only for the specified purpose such as conducting the contest or sweepstakes and awarding prizes MediaNews does not keep any of the child s personal information after the particular event is completed Sometimes MediaNews uses agents or contractors to provide services that support the internal operations of the site such as helping us conduct a sweepstakes or sending prizes to winners In these cases MediaNews requires the agent or contractor to maintain the confidentiality security and integrity of the information and limit use to the specific services they are performing on our behalf MediaNews may disclose information maintained as required by law for example in response to a court order or a subpoena MediaNews may also disclose such information in response to a specific law enforcement agency s request Personal information is not disclosed to third parties except those who provide support for the internal operations of the site Parents can consent to the collection and use of their child s personal information without consenting to the disclosure of the information to third parties</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d6791f54e1fd4bd6a26ab83:AccessControls">
+<owl:NamedIndividual rdf:about="#0883e5c4c10340eb869c748:AccessControls">
   <rdf:type rdf:resource="#AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d6791f54e1fd4bd6a26ab83</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0883e5c4c10340eb869c748</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MediaNews requires the agent or contractor to maintain the confidentiality, security and integrity of the information and limit use to the specific services they are performing on our behalf.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7623004aa25c419f9c5d70e:DataProtection">
+<owl:NamedIndividual rdf:about="#c9daf7294e6747738b9fdec:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#e212b9963f9848b9be83308:FirstParty"/>
-  <has_mechanism rdf:resource="#d6791f54e1fd4bd6a26ab83:AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7623004aa25c419f9c5d70e</uuid>
+  <initiated_by rdf:resource="#7fe911f57285437ab7659d6:FirstParty"/>
+  <has_mechanism rdf:resource="#0883e5c4c10340eb869c748:AccessControls"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c9daf7294e6747738b9fdec</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USE OF PERSONAL INFORMATION FROM CHILDREN MediaNews occasionally offers contest and sweepstakes which may be entered online When a child under thirteen 13 enters a contest or sweepstakes or participates in another activity that requires the use of personal information we will ask for a parent s email address so that we can notify the parent of the child s participation obtain the parent s consent and give the parent the option to have the child s information deleted All of the child s personal information collected by MediaNews is securely maintained and used only for the specified purpose such as conducting the contest or sweepstakes and awarding prizes MediaNews does not keep any of the child s personal information after the particular event is completed Sometimes MediaNews uses agents or contractors to provide services that support the internal operations of the site such as helping us conduct a sweepstakes or sending prizes to winners In these cases MediaNews requires the agent or contractor to maintain the confidentiality security and integrity of the information and limit use to the specific services they are performing on our behalf MediaNews may disclose information maintained as required by law for example in response to a court order or a subpoena MediaNews may also disclose such information in response to a specific law enforcement agency s request Personal information is not disclosed to third parties except those who provide support for the internal operations of the site Parents can consent to the collection and use of their child s personal information without consenting to the disclosure of the information to third parties</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#56745c01ed1a4e76b04fd58:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#56e5d0c7ca254ea68f6702d:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">56745c01ed1a4e76b04fd58</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">56e5d0c7ca254ea68f6702d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USE OF PERSONAL INFORMATION FROM CHILDREN MediaNews occasionally offers contest and sweepstakes which may be entered online When a child under thirteen 13 enters a contest or sweepstakes or participates in another activity that requires the use of personal information we will ask for a parent s email address so that we can notify the parent of the child s participation obtain the parent s consent and give the parent the option to have the child s information deleted All of the child s personal information collected by MediaNews is securely maintained and used only for the specified purpose such as conducting the contest or sweepstakes and awarding prizes MediaNews does not keep any of the child s personal information after the particular event is completed Sometimes MediaNews uses agents or contractors to provide services that support the internal operations of the site such as helping us conduct a sweepstakes or sending prizes to winners In these cases MediaNews requires the agent or contractor to maintain the confidentiality security and integrity of the information and limit use to the specific services they are performing on our behalf MediaNews may disclose information maintained as required by law for example in response to a court order or a subpoena MediaNews may also disclose such information in response to a specific law enforcement agency s request Personal information is not disclosed to third parties except those who provide support for the internal operations of the site Parents can consent to the collection and use of their child s personal information without consenting to the disclosure of the information to third parties</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#29b21029b57a4d9ca138d23:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#f52fcc8724c04ce089a4f45:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">29b21029b57a4d9ca138d23</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f52fcc8724c04ce089a4f45</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PARENTAL ACCESS MediaNews Group and MediaNews Group affiliates are the operators collecting information at this web site Please send an email or letter to our Privacy Coordinator at the email or mailing address provided below if you would like to do any of the following Access personally identifiable information that MediaNews has collected from your child Correct factual errors in such information Request to have this information deleted or Request that we no longer collect or maintain such information about your child</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3c769c41b75644268997454:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#a3903b2837ab4e78a36bbb3:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3c769c41b75644268997454</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a3903b2837ab4e78a36bbb3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PARENTAL ACCESS MediaNews Group and MediaNews Group affiliates are the operators collecting information at this web site Please send an email or letter to our Privacy Coordinator at the email or mailing address provided below if you would like to do any of the following Access personally identifiable information that MediaNews has collected from your child Correct factual errors in such information Request to have this information deleted or Request that we no longer collect or maintain such information about your child</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1e64c613a6a3401590ebb7e:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#86541178ba674b5785f6a16:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#3c769c41b75644268997454:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1e64c613a6a3401590ebb7e</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#a3903b2837ab4e78a36bbb3:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">86541178ba674b5785f6a16</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PARENTAL ACCESS MediaNews Group and MediaNews Group affiliates are the operators collecting information at this web site Please send an email or letter to our Privacy Coordinator at the email or mailing address provided below if you would like to do any of the following Access personally identifiable information that MediaNews has collected from your child Correct factual errors in such information Request to have this information deleted or Request that we no longer collect or maintain such information about your child</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#908ef7e233454eac91e7f0a:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#c3985004ef984924996fe7f:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">908ef7e233454eac91e7f0a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c3985004ef984924996fe7f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PARENTAL ACCESS MediaNews Group and MediaNews Group affiliates are the operators collecting information at this web site Please send an email or letter to our Privacy Coordinator at the email or mailing address provided below if you would like to do any of the following Access personally identifiable information that MediaNews has collected from your child Correct factual errors in such information Request to have this information deleted or Request that we no longer collect or maintain such information about your child</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a005c6d0c4d643af9d4db61:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#dd383fef9efc41fe819dc31:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#908ef7e233454eac91e7f0a:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a005c6d0c4d643af9d4db61</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#c3985004ef984924996fe7f:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dd383fef9efc41fe819dc31</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PARENTAL ACCESS MediaNews Group and MediaNews Group affiliates are the operators collecting information at this web site Please send an email or letter to our Privacy Coordinator at the email or mailing address provided below if you would like to do any of the following Access personally identifiable information that MediaNews has collected from your child Correct factual errors in such information Request to have this information deleted or Request that we no longer collect or maintain such information about your child</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5a744773c0df46019a49499:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#2a0e5f0ffe2f44c8b1314c7:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5a744773c0df46019a49499</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2a0e5f0ffe2f44c8b1314c7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PARENTAL ACCESS MediaNews Group and MediaNews Group affiliates are the operators collecting information at this web site Please send an email or letter to our Privacy Coordinator at the email or mailing address provided below if you would like to do any of the following Access personally identifiable information that MediaNews has collected from your child Correct factual errors in such information Request to have this information deleted or Request that we no longer collect or maintain such information about your child</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1c291a4831d2491baa77053:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#dcfe3ff65be048febd9f716:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#5a744773c0df46019a49499:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1c291a4831d2491baa77053</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#2a0e5f0ffe2f44c8b1314c7:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dcfe3ff65be048febd9f716</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PARENTAL ACCESS MediaNews Group and MediaNews Group affiliates are the operators collecting information at this web site Please send an email or letter to our Privacy Coordinator at the email or mailing address provided below if you would like to do any of the following Access personally identifiable information that MediaNews has collected from your child Correct factual errors in such information Request to have this information deleted or Request that we no longer collect or maintain such information about your child</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ca820ac9c06245e097eec64:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#d4717ec274f745219415307:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ca820ac9c06245e097eec64</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d4717ec274f745219415307</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PARENTAL ACCESS MediaNews Group and MediaNews Group affiliates are the operators collecting information at this web site Please send an email or letter to our Privacy Coordinator at the email or mailing address provided below if you would like to do any of the following Access personally identifiable information that MediaNews has collected from your child Correct factual errors in such information Request to have this information deleted or Request that we no longer collect or maintain such information about your child</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#70d60420432f41c39bd9ff5:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#7238d7a8953b4a87b7119f3:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">70d60420432f41c39bd9ff5</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7238d7a8953b4a87b7119f3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PARENTAL ACCESS MediaNews Group and MediaNews Group affiliates are the operators collecting information at this web site Please send an email or letter to our Privacy Coordinator at the email or mailing address provided below if you would like to do any of the following Access personally identifiable information that MediaNews has collected from your child Correct factual errors in such information Request to have this information deleted or Request that we no longer collect or maintain such information about your child</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#def8a5ee34d64cb8bdfcb79:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#59dbbd8104f941f9a2c3108:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#70d60420432f41c39bd9ff5:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">def8a5ee34d64cb8bdfcb79</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#7238d7a8953b4a87b7119f3:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">59dbbd8104f941f9a2c3108</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PARENTAL ACCESS MediaNews Group and MediaNews Group affiliates are the operators collecting information at this web site Please send an email or letter to our Privacy Coordinator at the email or mailing address provided below if you would like to do any of the following Access personally identifiable information that MediaNews has collected from your child Correct factual errors in such information Request to have this information deleted or Request that we no longer collect or maintain such information about your child</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#42e2be83f20d49918a1d73a:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#34a4537c078e43ad8a6af1c:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">42e2be83f20d49918a1d73a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">34a4537c078e43ad8a6af1c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PARENTAL ACCESS MediaNews Group and MediaNews Group affiliates are the operators collecting information at this web site Please send an email or letter to our Privacy Coordinator at the email or mailing address provided below if you would like to do any of the following Access personally identifiable information that MediaNews has collected from your child Correct factual errors in such information Request to have this information deleted or Request that we no longer collect or maintain such information about your child</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#07222a06b4564fc996617ee:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#40e6af73f54d427d82ec4a9:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#42e2be83f20d49918a1d73a:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">07222a06b4564fc996617ee</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#34a4537c078e43ad8a6af1c:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">40e6af73f54d427d82ec4a9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PARENTAL ACCESS MediaNews Group and MediaNews Group affiliates are the operators collecting information at this web site Please send an email or letter to our Privacy Coordinator at the email or mailing address provided below if you would like to do any of the following Access personally identifiable information that MediaNews has collected from your child Correct factual errors in such information Request to have this information deleted or Request that we no longer collect or maintain such information about your child</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f1b5b4a5dc7e47a2bf3f9c1:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#a07e4d74261046b0a933718:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f1b5b4a5dc7e47a2bf3f9c1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a07e4d74261046b0a933718</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PARENTAL ACCESS MediaNews Group and MediaNews Group affiliates are the operators collecting information at this web site Please send an email or letter to our Privacy Coordinator at the email or mailing address provided below if you would like to do any of the following Access personally identifiable information that MediaNews has collected from your child Correct factual errors in such information Request to have this information deleted or Request that we no longer collect or maintain such information about your child</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b48c25d0c85d4d79ad6b244:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#060787d331824298a632a89:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#f1b5b4a5dc7e47a2bf3f9c1:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b48c25d0c85d4d79ad6b244</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#a07e4d74261046b0a933718:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">060787d331824298a632a89</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PARENTAL ACCESS MediaNews Group and MediaNews Group affiliates are the operators collecting information at this web site Please send an email or letter to our Privacy Coordinator at the email or mailing address provided below if you would like to do any of the following Access personally identifiable information that MediaNews has collected from your child Correct factual errors in such information Request to have this information deleted or Request that we no longer collect or maintain such information about your child</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9de1fb85aa7848ea9bb66d9:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#99704b1ef7a242a79fba3fa:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9de1fb85aa7848ea9bb66d9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">99704b1ef7a242a79fba3fa</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PARENTAL ACCESS MediaNews Group and MediaNews Group affiliates are the operators collecting information at this web site Please send an email or letter to our Privacy Coordinator at the email or mailing address provided below if you would like to do any of the following Access personally identifiable information that MediaNews has collected from your child Correct factual errors in such information Request to have this information deleted or Request that we no longer collect or maintain such information about your child</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2ebd8f315e164051abdfc15:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#c4c37c8b1c994b0f9950f0b:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2ebd8f315e164051abdfc15</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c4c37c8b1c994b0f9950f0b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please include your email address and telephone number where we can reach you MediaNews takes steps to verify the identity of anyone requesting information about a child to ensure that the person is in fact the child s parent or legal guardian</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8936559b6b2f4f6eb28630a:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#5986c44fdb744787bade92b:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8936559b6b2f4f6eb28630a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5986c44fdb744787bade92b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The revised policy will be posted on the MediaNews Web site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f14560a109b14521afadcea:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#22f807b353dd43e39a9957c:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f14560a109b14521afadcea</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">22f807b353dd43e39a9957c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MediaNews may change this privacy policy from time to time The revised policy will be posted on the MediaNews Web site Please check this page periodically for changes If you have any questions comments or concerns regarding our privacy policy and/or practices please contact the Privacy Coordinator using the contact information provided below Please reference the applicable site Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 privacycoordinator medianewsgroup com 303 563-6401</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#98fdb64033f94d5fa6e7f21:PolicyChange">
+<owl:NamedIndividual rdf:about="#7771496a2e4c481384a1c2e:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#e212b9963f9848b9be83308:FirstParty"/>
-  <binded_to rdf:resource="#f14560a109b14521afadcea:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">98fdb64033f94d5fa6e7f21</uuid>
+  <initiated_by rdf:resource="#7fe911f57285437ab7659d6:FirstParty"/>
+  <binded_to rdf:resource="#22f807b353dd43e39a9957c:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7771496a2e4c481384a1c2e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MediaNews may change this privacy policy from time to time The revised policy will be posted on the MediaNews Web site Please check this page periodically for changes If you have any questions comments or concerns regarding our privacy policy and/or practices please contact the Privacy Coordinator using the contact information provided below Please reference the applicable site Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 privacycoordinator medianewsgroup com 303 563-6401</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2a215943fd76414a9e9a5e2:FPNotification">
+<owl:NamedIndividual rdf:about="#2974894b88f744a08b1fc58:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#e212b9963f9848b9be83308:FirstParty"/>
-  <notifies rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#8936559b6b2f4f6eb28630a:OnWebsitePage"/>
-  <binded_to rdf:resource="#98fdb64033f94d5fa6e7f21:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2a215943fd76414a9e9a5e2</uuid>
+  <initiated_by rdf:resource="#7fe911f57285437ab7659d6:FirstParty"/>
+  <notifies rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#5986c44fdb744787bade92b:OnWebsitePage"/>
+  <binded_to rdf:resource="#7771496a2e4c481384a1c2e:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2974894b88f744a08b1fc58</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MediaNews may change this privacy policy from time to time The revised policy will be posted on the MediaNews Web site Please check this page periodically for changes If you have any questions comments or concerns regarding our privacy policy and/or practices please contact the Privacy Coordinator using the contact information provided below Please reference the applicable site Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 privacycoordinator medianewsgroup com 303 563-6401</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9b4aa597938c4fa6ba91d9a:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#09b490364e5c47a8bd63c00:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9b4aa597938c4fa6ba91d9a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">09b490364e5c47a8bd63c00</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">evised policy will be posted on the MediaNews Web site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e63aaa1497f8417ca39b748:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#bff303aad1da495fb8fae5e:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e63aaa1497f8417ca39b748</uuid>
+  <initiated_by rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bff303aad1da495fb8fae5e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MediaNews may change this privacy policy from time to time The revised policy will be posted on the MediaNews Web site Please check this page periodically for changes If you have any questions comments or concerns regarding our privacy policy and/or practices please contact the Privacy Coordinator using the contact information provided below Please reference the applicable site Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 privacycoordinator medianewsgroup com 303 563-6401</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9d7162df23164d7cbf49a88:PolicyChange">
+<owl:NamedIndividual rdf:about="#0f6816133de44d678523762:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#e212b9963f9848b9be83308:FirstParty"/>
-  <binded_to rdf:resource="#e63aaa1497f8417ca39b748:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9d7162df23164d7cbf49a88</uuid>
+  <initiated_by rdf:resource="#7fe911f57285437ab7659d6:FirstParty"/>
+  <binded_to rdf:resource="#bff303aad1da495fb8fae5e:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0f6816133de44d678523762</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MediaNews may change this privacy policy from time to time The revised policy will be posted on the MediaNews Web site Please check this page periodically for changes If you have any questions comments or concerns regarding our privacy policy and/or practices please contact the Privacy Coordinator using the contact information provided below Please reference the applicable site Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 privacycoordinator medianewsgroup com 303 563-6401</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#45018535e7f1414ca4a1462:FPNotification">
+<owl:NamedIndividual rdf:about="#2f836badff094262b987187:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#e212b9963f9848b9be83308:FirstParty"/>
-  <notifies rdf:resource="#c7743e8193554b0f9ee7250:User"/>
-  <has_mechanism rdf:resource="#9b4aa597938c4fa6ba91d9a:OnWebsitePage"/>
-  <binded_to rdf:resource="#9d7162df23164d7cbf49a88:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">45018535e7f1414ca4a1462</uuid>
+  <initiated_by rdf:resource="#7fe911f57285437ab7659d6:FirstParty"/>
+  <notifies rdf:resource="#66ae4a0bce14495a8b63625:User"/>
+  <has_mechanism rdf:resource="#09b490364e5c47a8bd63c00:OnWebsitePage"/>
+  <binded_to rdf:resource="#0f6816133de44d678523762:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2f836badff094262b987187</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MediaNews may change this privacy policy from time to time The revised policy will be posted on the MediaNews Web site Please check this page periodically for changes If you have any questions comments or concerns regarding our privacy policy and/or practices please contact the Privacy Coordinator using the contact information provided below Please reference the applicable site Privacy Coordinator MediaNews Group Interactive 101 W Colfax Ave Suite 950 Denver CO 80202 privacycoordinator medianewsgroup com 303 563-6401</evidence>
 </owl:NamedIndividual>

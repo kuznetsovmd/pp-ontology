@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -901,6 +902,14 @@
   <rdfs:subClassOf rdf:resource="#UserSpecificCommunicationMechanism"/>
   <owl:disjointWith rdf:resource="#AutomaticCommunicationMechanism"/>
   <rdfs:subClassOf>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
+        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
+      </owl:unionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
       <owl:allValuesFrom>
@@ -909,14 +918,6 @@
         </owl:Class>
       </owl:allValuesFrom>
     </owl:Restriction>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
-        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
-      </owl:unionOf>
-    </owl:Class>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -959,18 +960,18 @@
 <owl:Class rdf:about="#FPSpecificCommunicationMechanism">
   <rdfs:subClassOf rdf:resource="#CommunicationMechanism"/>
   <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#mechanism_of"/>
+      <owl:allValuesFrom rdf:resource="#FPNotification"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
     <owl:Class>
       <owl:unionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#FPSpecificCommunicationMechanism"/>
         <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
       </owl:unionOf>
     </owl:Class>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#mechanism_of"/>
-      <owl:allValuesFrom rdf:resource="#FPNotification"/>
-    </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,1363 +1305,1354 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#117ef314373d4d7d99d12f9:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#494723ebdc31443e8be924a:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">117ef314373d4d7d99d12f9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">494723ebdc31443e8be924a</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3d54f41f8f434fac8289b4f:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#a2f5a9962dfc4ad98c71201:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#94007906859745e8abb91e7:User"/>
-  <considers rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <considers rdf:resource="#8888518d6c904096b4cf482:ThirdParty"/>
-  <considers rdf:resource="#0690805bcd0d4688b56db28:OptInOptOutControl"/>
-  <considers rdf:resource="#4647f4446fb4417584ce930:PolicyChange"/>
-  <considers rdf:resource="#0bb28c4aed1b40b19145361:FPNotification"/>
-  <considers rdf:resource="#c3e7be4d84074b6d845373a:OptInOptOutControl"/>
-  <considers rdf:resource="#852343568c1946329579a71:PolicyChange"/>
-  <considers rdf:resource="#17b7f1022e154371822229f:FPNotification"/>
-  <considers rdf:resource="#a4e1ad5c00cd40638aab1d0:OptInOptOutControl"/>
-  <considers rdf:resource="#e6facbcc69744dddb0501d7:PolicyChange"/>
-  <considers rdf:resource="#715df5a4a8744593ad475b6:FPNotification"/>
-  <considers rdf:resource="#c69d9bb53c424886bbb24be:FPCollection"/>
-  <considers rdf:resource="#96b9bbfc8ace4c64a2e8d61:FPCollection"/>
-  <considers rdf:resource="#1c6b5ec5b5134153b5f813d:PersonalData"/>
-  <considers rdf:resource="#fb95155308ff4ed08409a02:FPCollection"/>
-  <considers rdf:resource="#58f53ec05bbe4530a9861bc:PersonalData"/>
-  <considers rdf:resource="#355cb7a5de60477bbf22e36:FPCollection"/>
-  <considers rdf:resource="#8c0719404c0d427c9b707b7:FinancialData"/>
-  <considers rdf:resource="#c394b4ea3ffa4e078fc32c6:FPCollection"/>
-  <considers rdf:resource="#efad215e75854ec8aa6f5f5:FinancialData"/>
-  <considers rdf:resource="#e3a47c21aafc4d679084895:FPCollection"/>
-  <considers rdf:resource="#7e46d7291b5d4956a3faa4a:HealthData"/>
-  <considers rdf:resource="#6bb16f7d080940da946e0a9:FPCollection"/>
-  <considers rdf:resource="#00af6e642bb84e648aadcdc:HealthData"/>
-  <considers rdf:resource="#144af8ad1d544d8aa4d02bd:FPCollection"/>
-  <considers rdf:resource="#1af82c7a245f4ed4bbd3966:SensitiveData"/>
-  <considers rdf:resource="#180ce4e873574133a414411:FPCollection"/>
-  <considers rdf:resource="#532982ef450e48a297723d4:SensitiveData"/>
-  <considers rdf:resource="#2303564ce113427383eab7d:FPCollection"/>
-  <considers rdf:resource="#90b958f2dbab4997ae2c44c:GenericData"/>
-  <considers rdf:resource="#89ba4f40ea68425ebbb0d0a:FPCollection"/>
-  <considers rdf:resource="#f7406d156e5c40c3b88cdc5:PersonalData"/>
-  <considers rdf:resource="#ec0564ec91a24a9daaeab7a:FPCollection"/>
-  <considers rdf:resource="#c767186fe075494eaf60828:SensitiveData"/>
-  <considers rdf:resource="#c4f7c788de39401a883a368:FPCollection"/>
-  <considers rdf:resource="#52c2b738a1434175a1507de:FinancialData"/>
-  <considers rdf:resource="#c1e29c6fd11d47ab966b3a5:FPCollection"/>
-  <considers rdf:resource="#6e136417b36b4223899012e:GenericData"/>
-  <considers rdf:resource="#290e49f3db614c4eb2df362:DataRetention"/>
-  <considers rdf:resource="#14e6926388314a389a403e6:GenericData"/>
-  <considers rdf:resource="#3f4eea4bc227429b9262f2a:FPCollection"/>
-  <considers rdf:resource="#2bcfd03ced214b11a13a714:DataProtection"/>
-  <considers rdf:resource="#7f0fd0104c39449ebc7c165:FPCollection"/>
-  <considers rdf:resource="#48c0b4c89ff84a37bd53811:DataRetention"/>
-  <considers rdf:resource="#f0d2b472ba3849feae8e0c3:DataProtection"/>
-  <considers rdf:resource="#8a298d5d1c0945b9aeaf055:FinancialData"/>
-  <considers rdf:resource="#7bf37692c30b4dad835d586:DataRetention"/>
-  <considers rdf:resource="#d299f92a69734a5e9355f13:FinancialData"/>
-  <considers rdf:resource="#0385efab1d204cf8a822b5d:DataRetention"/>
-  <considers rdf:resource="#7c9e1378ea5b4f20811e949:DataProtection"/>
-  <considers rdf:resource="#ea8793812be64e7aa6bc1cf:FinancialData"/>
-  <considers rdf:resource="#806740c1618d46a1b83ed46:TPCollection"/>
-  <considers rdf:resource="#e4838571f2144fc299e026a:PersonalData"/>
-  <considers rdf:resource="#f70131887d4943de9d4824e:TPCollection"/>
-  <considers rdf:resource="#ed3e9044423c402aa424b8d:DataProtection"/>
-  <considers rdf:resource="#941bc4175ce34e32917d6e8:OptInOptOutControl"/>
-  <considers rdf:resource="#10a9260cd22a4abc90817d9:PersonalData"/>
-  <considers rdf:resource="#89268eeb036e450a9ad9a53:OptInOptOutControl"/>
-  <considers rdf:resource="#9e55d52cedc24c6c8e35588:OptInOptOutControl"/>
-  <considers rdf:resource="#f358c13c70e444eeb29a18c:OptInOptOutControl"/>
-  <considers rdf:resource="#7caa571c45af4e5a811dfba:PersonalData"/>
-  <considers rdf:resource="#d934403bf5594114a66fdcc:OptInOptOutControl"/>
-  <considers rdf:resource="#a71a47f4f6d945beb065366:PersonalData"/>
-  <considers rdf:resource="#ed0706de67c94438a7a474f:OptInOptOutControl"/>
-  <considers rdf:resource="#82ff3c3ad6b147d28383b2f:PersonalData"/>
-  <considers rdf:resource="#533a3a8b31b747d2a72393e:OptInOptOutControl"/>
-  <considers rdf:resource="#b94ed31f30e5430fbf04192:PersonalData"/>
-  <considers rdf:resource="#be9560812a214f9a97c3760:OptInOptOutControl"/>
-  <considers rdf:resource="#6823242b9c73467fb47adb0:PersonalData"/>
-  <considers rdf:resource="#780bc3125f4f46a68d4933c:OptInOptOutControl"/>
-  <considers rdf:resource="#896f31ce3a884f65b4c5e56:PersonalData"/>
-  <considers rdf:resource="#dadf4c3ec2f041ebba93275:TPCollection"/>
-  <considers rdf:resource="#c21c706b55074e55bbd3482:DataProtection"/>
-  <considers rdf:resource="#b1cf60acf2f04d10a3d318d:DataProtection"/>
-  <considers rdf:resource="#436c1ba9f41f4ce6bd5e2e5:DataProtection"/>
-  <considers rdf:resource="#98e060a5ff9c40f48615fd4:DataProtection"/>
-  <considers rdf:resource="#164cfc7094e646aa8fab253:GenericData"/>
-  <considers rdf:resource="#ce722a92014c45d986ff128:OptInOptOutControl"/>
-  <considers rdf:resource="#3bd9147d5fdf46619472040:PersonalData"/>
-  <considers rdf:resource="#14f7b723132442169fafbf5:OptInOptOutControl"/>
-  <considers rdf:resource="#b5292c3dadb74bd99952d48:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3d54f41f8f434fac8289b4f</uuid>
+  <considers rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <considers rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <considers rdf:resource="#691c5fea00ab4fbea174e60:ThirdParty"/>
+  <considers rdf:resource="#8796ae78e212445abe4e7cc:OptInOptOutControl"/>
+  <considers rdf:resource="#455a0c690e9c4766a3d70ab:PolicyChange"/>
+  <considers rdf:resource="#e263b1863de04469b3e7e09:FPNotification"/>
+  <considers rdf:resource="#7bff1281280c44ac875cec0:OptInOptOutControl"/>
+  <considers rdf:resource="#bb46fb7529ec4b698102c3c:PolicyChange"/>
+  <considers rdf:resource="#9fe1bb2c26c9466f9db91d3:FPNotification"/>
+  <considers rdf:resource="#dc5df00f3bdf415eabf1677:OptInOptOutControl"/>
+  <considers rdf:resource="#21c87741cf0346d4a721ad1:PolicyChange"/>
+  <considers rdf:resource="#3cd0f97fe5c54948a5b6ca8:FPNotification"/>
+  <considers rdf:resource="#c691791582874992b6349ee:FPCollection"/>
+  <considers rdf:resource="#5b5e0e75bd294cbc8e23b73:FPCollection"/>
+  <considers rdf:resource="#8ee0242d7b674c658896887:PersonalData"/>
+  <considers rdf:resource="#6cb122a132ae49f3acddc83:FPCollection"/>
+  <considers rdf:resource="#a683699822ad4b71b9e05c3:PersonalData"/>
+  <considers rdf:resource="#1a6502a4fdcc44b0a297912:FPCollection"/>
+  <considers rdf:resource="#d148e922233a4b7a89df6b1:FinancialData"/>
+  <considers rdf:resource="#e1877beb049e430cb58e1e2:FPCollection"/>
+  <considers rdf:resource="#fa62e264b06a437891266c1:FinancialData"/>
+  <considers rdf:resource="#55178029c13540d98f961dc:FPCollection"/>
+  <considers rdf:resource="#f2092c9779304414a586cd2:HealthData"/>
+  <considers rdf:resource="#23f96600326a448497a7b4b:FPCollection"/>
+  <considers rdf:resource="#c70eb81a16a64cd29f958b6:HealthData"/>
+  <considers rdf:resource="#0e5f01aa82ad4ea78c4f241:FPCollection"/>
+  <considers rdf:resource="#94413af3778e45ea9e51191:SensitiveData"/>
+  <considers rdf:resource="#50f06431dc0f48b88202a80:FPCollection"/>
+  <considers rdf:resource="#b16b7c3e803e446e8140510:SensitiveData"/>
+  <considers rdf:resource="#2980f4b7040b40c3a373f3c:FPCollection"/>
+  <considers rdf:resource="#3f410258f7aa46c786c2d5d:GenericData"/>
+  <considers rdf:resource="#8738a87a27364f2a94692b8:FPCollection"/>
+  <considers rdf:resource="#de60188589474e55817815d:PersonalData"/>
+  <considers rdf:resource="#9a1aac49a66843608755ab6:FPCollection"/>
+  <considers rdf:resource="#2568b70c6a7b4d6fa745977:SensitiveData"/>
+  <considers rdf:resource="#ce1e89b1c2c440ddabfce85:FPCollection"/>
+  <considers rdf:resource="#c03f40d00b194d768d49c80:FinancialData"/>
+  <considers rdf:resource="#92ca84fcdd2f4eee8f6bd18:FPCollection"/>
+  <considers rdf:resource="#237ca5d1ab4d4c758f3f512:GenericData"/>
+  <considers rdf:resource="#59c87c851bd84110a8f5bbc:DataRetention"/>
+  <considers rdf:resource="#324b39ff65864289a9d7d07:GenericData"/>
+  <considers rdf:resource="#028eccef300e4b45904fbaa:FPCollection"/>
+  <considers rdf:resource="#0b14c43720dd468eb5b193c:DataProtection"/>
+  <considers rdf:resource="#a576044e6f54404a8bee9e8:FPCollection"/>
+  <considers rdf:resource="#92d348b787d24ad38e20d79:DataRetention"/>
+  <considers rdf:resource="#e6b42261c78c4be8a544d26:DataProtection"/>
+  <considers rdf:resource="#11b2e4e7e14c4a6f85460b4:FinancialData"/>
+  <considers rdf:resource="#7639e8c545a344d18dcba66:DataRetention"/>
+  <considers rdf:resource="#e342502cb7e84afa894ae71:FinancialData"/>
+  <considers rdf:resource="#cc8f0ed166b04485bc25757:DataRetention"/>
+  <considers rdf:resource="#51583098d167415ba6234f2:DataProtection"/>
+  <considers rdf:resource="#9a8945cf86824606a247f02:FinancialData"/>
+  <considers rdf:resource="#88f3d27fa34b4e8fa4af4ea:TPCollection"/>
+  <considers rdf:resource="#26ac863008a044a6beaddde:PersonalData"/>
+  <considers rdf:resource="#1db66b9298e34011afa56fd:TPCollection"/>
+  <considers rdf:resource="#2ab22871c1884616929267b:DataProtection"/>
+  <considers rdf:resource="#46b8dd4572a5445a848c532:OptInOptOutControl"/>
+  <considers rdf:resource="#ddc43f9095594f72b26ca10:PersonalData"/>
+  <considers rdf:resource="#6e19144c7f9b4533b099150:OptInOptOutControl"/>
+  <considers rdf:resource="#11b687ec2e9f4ff0a3f5a7a:OptInOptOutControl"/>
+  <considers rdf:resource="#d54897955bd34f2b8c9b631:OptInOptOutControl"/>
+  <considers rdf:resource="#6f8378fcf58741169520ef6:PersonalData"/>
+  <considers rdf:resource="#6b452e06b331498d8335ad9:OptInOptOutControl"/>
+  <considers rdf:resource="#d5952b49e9dd4064abd0fc2:PersonalData"/>
+  <considers rdf:resource="#56900c2994c94a77aeb392c:OptInOptOutControl"/>
+  <considers rdf:resource="#1c18b29d1ddd499c8bb3d04:PersonalData"/>
+  <considers rdf:resource="#7910c02d819a48db874ad46:OptInOptOutControl"/>
+  <considers rdf:resource="#1dc9dac1fc0c4fd8a2d3ad6:PersonalData"/>
+  <considers rdf:resource="#5fd3a55a52944ed092acb1a:OptInOptOutControl"/>
+  <considers rdf:resource="#bca0e1c92d8a47a2b818617:PersonalData"/>
+  <considers rdf:resource="#1dc3bb5283674d18b5394ad:OptInOptOutControl"/>
+  <considers rdf:resource="#1fae3e9340d144fdaad97e5:PersonalData"/>
+  <considers rdf:resource="#1716342c087c425c92fb767:TPCollection"/>
+  <considers rdf:resource="#5bf25e0f42754dc9b754722:DataProtection"/>
+  <considers rdf:resource="#2b01d2a866c84f79be09218:DataProtection"/>
+  <considers rdf:resource="#44d327d208b24ceb8f91464:DataProtection"/>
+  <considers rdf:resource="#d31abaa97f6c44f782122c7:DataProtection"/>
+  <considers rdf:resource="#516c105db922435bb5609f3:GenericData"/>
+  <considers rdf:resource="#c118645374b84f6ba920c92:OptInOptOutControl"/>
+  <considers rdf:resource="#8b5d889eec9743099a7367e:PersonalData"/>
+  <considers rdf:resource="#caa9176c33c94922be0b233:OptInOptOutControl"/>
+  <considers rdf:resource="#57441db3904e4b9680f8773:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a2f5a9962dfc4ad98c71201</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">foodallergy.org</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#94007906859745e8abb91e7:User">
+<owl:NamedIndividual rdf:about="#66321c6833b74e0fad5da9e:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">94007906859745e8abb91e7</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">66321c6833b74e0fad5da9e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1505e8dd092845dba7af4ef:FirstParty">
+<owl:NamedIndividual rdf:about="#961494b9c3cf40f28e257b4:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1505e8dd092845dba7af4ef</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">961494b9c3cf40f28e257b4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8888518d6c904096b4cf482:ThirdParty">
+<owl:NamedIndividual rdf:about="#691c5fea00ab4fbea174e60:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8888518d6c904096b4cf482</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">691c5fea00ab4fbea174e60</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#169f12251cab4ab6a70c7ee:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#ac6251f4af59402782cbaf3:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">169f12251cab4ab6a70c7ee</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ac6251f4af59402782cbaf3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Contact Information Accessing and Correcting Your Personal Information If you have any questions about this Policy or you wish to review or correct your or your child s personal information you may contact us by U S mail e-mail or telephone at the addresses and numbers listed below Food Allergy Research Education FARE 7925 Jones Branch Drive Suite 1100 McLean VA 22102 email contactfare foodallergy org Telephone 800 929-4040</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1baf9b020d4645f49f38456:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#320db1f1bbb640bca170da1:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1baf9b020d4645f49f38456</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">320db1f1bbb640bca170da1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">we will notify you of any changes to this Policy by posting a notice prominently on the main page of our website (http://www.foodallergy.org) indicating that there has been a change or update to the Privacy Policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0690805bcd0d4688b56db28:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#8796ae78e212445abe4e7cc:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0690805bcd0d4688b56db28</uuid>
+  <initiated_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8796ae78e212445abe4e7cc</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to this Policy Food Allergy Research Education reserves the right to change this Policy at any time To better serve you and your concerns about your privacy we will notify you of any changes to this Policy by posting a notice prominently on the main page of our website http //www foodallergy org indicating that there has been a change or update to the Privacy Policy We encourage you to read this Policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4647f4446fb4417584ce930:PolicyChange">
+<owl:NamedIndividual rdf:about="#455a0c690e9c4766a3d70ab:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <binded_to rdf:resource="#0690805bcd0d4688b56db28:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4647f4446fb4417584ce930</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <binded_to rdf:resource="#8796ae78e212445abe4e7cc:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">455a0c690e9c4766a3d70ab</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to this Policy Food Allergy Research Education reserves the right to change this Policy at any time To better serve you and your concerns about your privacy we will notify you of any changes to this Policy by posting a notice prominently on the main page of our website http //www foodallergy org indicating that there has been a change or update to the Privacy Policy We encourage you to read this Policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0bb28c4aed1b40b19145361:FPNotification">
+<owl:NamedIndividual rdf:about="#e263b1863de04469b3e7e09:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <notifies rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_mechanism rdf:resource="#1baf9b020d4645f49f38456:OnWebsitePage"/>
-  <binded_to rdf:resource="#4647f4446fb4417584ce930:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0bb28c4aed1b40b19145361</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <notifies rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_mechanism rdf:resource="#320db1f1bbb640bca170da1:OnWebsitePage"/>
+  <binded_to rdf:resource="#455a0c690e9c4766a3d70ab:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e263b1863de04469b3e7e09</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to this Policy Food Allergy Research Education reserves the right to change this Policy at any time To better serve you and your concerns about your privacy we will notify you of any changes to this Policy by posting a notice prominently on the main page of our website http //www foodallergy org indicating that there has been a change or update to the Privacy Policy We encourage you to read this Policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6c01ce6623fe498a92cfa85:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#6823461810a44c14965e875:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6c01ce6623fe498a92cfa85</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6823461810a44c14965e875</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">we will notify you of any changes to this Policy by posting a notice prominently on the main page of our website</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c3e7be4d84074b6d845373a:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#7bff1281280c44ac875cec0:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c3e7be4d84074b6d845373a</uuid>
+  <initiated_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7bff1281280c44ac875cec0</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to this Policy Food Allergy Research Education reserves the right to change this Policy at any time To better serve you and your concerns about your privacy we will notify you of any changes to this Policy by posting a notice prominently on the main page of our website http //www foodallergy org indicating that there has been a change or update to the Privacy Policy We encourage you to read this Policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#852343568c1946329579a71:PolicyChange">
+<owl:NamedIndividual rdf:about="#bb46fb7529ec4b698102c3c:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <binded_to rdf:resource="#c3e7be4d84074b6d845373a:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">852343568c1946329579a71</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <binded_to rdf:resource="#7bff1281280c44ac875cec0:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bb46fb7529ec4b698102c3c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to this Policy Food Allergy Research Education reserves the right to change this Policy at any time To better serve you and your concerns about your privacy we will notify you of any changes to this Policy by posting a notice prominently on the main page of our website http //www foodallergy org indicating that there has been a change or update to the Privacy Policy We encourage you to read this Policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#17b7f1022e154371822229f:FPNotification">
+<owl:NamedIndividual rdf:about="#9fe1bb2c26c9466f9db91d3:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <notifies rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_mechanism rdf:resource="#6c01ce6623fe498a92cfa85:OnWebsitePage"/>
-  <binded_to rdf:resource="#852343568c1946329579a71:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">17b7f1022e154371822229f</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <notifies rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_mechanism rdf:resource="#6823461810a44c14965e875:OnWebsitePage"/>
+  <binded_to rdf:resource="#bb46fb7529ec4b698102c3c:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9fe1bb2c26c9466f9db91d3</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to this Policy Food Allergy Research Education reserves the right to change this Policy at any time To better serve you and your concerns about your privacy we will notify you of any changes to this Policy by posting a notice prominently on the main page of our website http //www foodallergy org indicating that there has been a change or update to the Privacy Policy We encourage you to read this Policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0c7053bd96704686bc2a8df:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#ffcd1d6478a744fb8f5d947:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0c7053bd96704686bc2a8df</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ffcd1d6478a744fb8f5d947</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">by posting a notice prominently on the main page of our website</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a4e1ad5c00cd40638aab1d0:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#dc5df00f3bdf415eabf1677:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a4e1ad5c00cd40638aab1d0</uuid>
+  <initiated_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dc5df00f3bdf415eabf1677</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to this Policy Food Allergy Research Education reserves the right to change this Policy at any time To better serve you and your concerns about your privacy we will notify you of any changes to this Policy by posting a notice prominently on the main page of our website http //www foodallergy org indicating that there has been a change or update to the Privacy Policy We encourage you to read this Policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e6facbcc69744dddb0501d7:PolicyChange">
+<owl:NamedIndividual rdf:about="#21c87741cf0346d4a721ad1:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <binded_to rdf:resource="#a4e1ad5c00cd40638aab1d0:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e6facbcc69744dddb0501d7</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <binded_to rdf:resource="#dc5df00f3bdf415eabf1677:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">21c87741cf0346d4a721ad1</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to this Policy Food Allergy Research Education reserves the right to change this Policy at any time To better serve you and your concerns about your privacy we will notify you of any changes to this Policy by posting a notice prominently on the main page of our website http //www foodallergy org indicating that there has been a change or update to the Privacy Policy We encourage you to read this Policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#715df5a4a8744593ad475b6:FPNotification">
+<owl:NamedIndividual rdf:about="#3cd0f97fe5c54948a5b6ca8:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <notifies rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_mechanism rdf:resource="#0c7053bd96704686bc2a8df:OnWebsitePage"/>
-  <binded_to rdf:resource="#e6facbcc69744dddb0501d7:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">715df5a4a8744593ad475b6</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <notifies rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_mechanism rdf:resource="#ffcd1d6478a744fb8f5d947:OnWebsitePage"/>
+  <binded_to rdf:resource="#21c87741cf0346d4a721ad1:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3cd0f97fe5c54948a5b6ca8</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes to this Policy Food Allergy Research Education reserves the right to change this Policy at any time To better serve you and your concerns about your privacy we will notify you of any changes to this Policy by posting a notice prominently on the main page of our website http //www foodallergy org indicating that there has been a change or update to the Privacy Policy We encourage you to read this Policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#187f2d31f2464074b46a0ad:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#1fbbd1bc931e458fb740c8a:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">187f2d31f2464074b46a0ad</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1fbbd1bc931e458fb740c8a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The purpose of collecting such data is to assist FARE in contacting individuals and to collect payments made online.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#91aecfbd336749779de6306:ViaWebsite">
+<owl:NamedIndividual rdf:about="#828d983113e346d7b18997d:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">91aecfbd336749779de6306</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">828d983113e346d7b18997d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food Allergy Research &amp; Education websites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dbff36823175482a9211300:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#8a7c2d77fc744d3e92d9c26:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dbff36823175482a9211300</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8a7c2d77fc744d3e92d9c26</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you will be asked for</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c69d9bb53c424886bbb24be:FPCollection">
+<owl:NamedIndividual rdf:about="#c691791582874992b6349ee:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <collects_from rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_purpose rdf:resource="#187f2d31f2464074b46a0ad:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#dbff36823175482a9211300:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#91aecfbd336749779de6306:ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c69d9bb53c424886bbb24be</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <collects_from rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_purpose rdf:resource="#1fbbd1bc931e458fb740c8a:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#8a7c2d77fc744d3e92d9c26:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#828d983113e346d7b18997d:ViaWebsite"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c691791582874992b6349ee</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The Information We Collect and How We Use It You may browse Food Allergy Research Education websites without submitting personal information However if you choose to sign up for one of our e-mail lists become a member purchase products or participate in an event contest or program you will be asked for applicable personal data such as your name gender postal address e-mail address phone number fax number payment information relationship to food allergies and date of birth The purpose of collecting such data is to assist FARE in contacting individuals and to collect payments made online Food Allergy Research Education also uses this personal information to advise users of new online materials activities and events and to provide users with the opportunity to contribute to local and national programs and research initiatives</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#aa26899b3e4d46adae83815:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#51915894a8b84b1cbe57b3e:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aa26899b3e4d46adae83815</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">51915894a8b84b1cbe57b3e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to advise users of new online materials, activities, and events, and to provide users with the opportunity to contribute to local and national programs and research initiatives.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d1a22af6c09149d6b2e2ca7:ViaWebsite">
+<owl:NamedIndividual rdf:about="#4ebddd611487455a95bbd49:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d1a22af6c09149d6b2e2ca7</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4ebddd611487455a95bbd49</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food Allergy Research &amp; Education websites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#93d40cf2a23845c7aef2648:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#39f774bfba0347b391fd598:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">93d40cf2a23845c7aef2648</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">39f774bfba0347b391fd598</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you will be asked for</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#96b9bbfc8ace4c64a2e8d61:FPCollection">
+<owl:NamedIndividual rdf:about="#5b5e0e75bd294cbc8e23b73:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <collects_from rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_purpose rdf:resource="#aa26899b3e4d46adae83815:MarketingPurpose"/>
-  <has_mode rdf:resource="#93d40cf2a23845c7aef2648:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#d1a22af6c09149d6b2e2ca7:ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">96b9bbfc8ace4c64a2e8d61</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <collects_from rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_purpose rdf:resource="#51915894a8b84b1cbe57b3e:MarketingPurpose"/>
+  <has_mode rdf:resource="#39f774bfba0347b391fd598:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#4ebddd611487455a95bbd49:ViaWebsite"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5b5e0e75bd294cbc8e23b73</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The Information We Collect and How We Use It You may browse Food Allergy Research Education websites without submitting personal information However if you choose to sign up for one of our e-mail lists become a member purchase products or participate in an event contest or program you will be asked for applicable personal data such as your name gender postal address e-mail address phone number fax number payment information relationship to food allergies and date of birth The purpose of collecting such data is to assist FARE in contacting individuals and to collect payments made online Food Allergy Research Education also uses this personal information to advise users of new online materials activities and events and to provide users with the opportunity to contribute to local and national programs and research initiatives</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1c6b5ec5b5134153b5f813d:PersonalData">
+<owl:NamedIndividual rdf:about="#8ee0242d7b674c658896887:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1c6b5ec5b5134153b5f813d</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8ee0242d7b674c658896887</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">postal address, e-mail address, phone number, fax number,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b89a1b1deaae472caf7b2ec:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#243c6546535b4840a90af9e:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b89a1b1deaae472caf7b2ec</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">243c6546535b4840a90af9e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The purpose of collecting such data is to assist FARE in contacting individuals and to collect payments made online.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a4b3e2921a2d498d8bb6517:ViaWebsite">
+<owl:NamedIndividual rdf:about="#fef4462e027d46bc94bdbd8:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a4b3e2921a2d498d8bb6517</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fef4462e027d46bc94bdbd8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food Allergy Research &amp; Education websites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1f8f4a03e9e246998537aad:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#5d490b03f49b4df88cb758e:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1f8f4a03e9e246998537aad</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5d490b03f49b4df88cb758e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you will be asked for</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fb95155308ff4ed08409a02:FPCollection">
+<owl:NamedIndividual rdf:about="#6cb122a132ae49f3acddc83:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <collects_from rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_purpose rdf:resource="#b89a1b1deaae472caf7b2ec:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#1f8f4a03e9e246998537aad:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#a4b3e2921a2d498d8bb6517:ViaWebsite"/>
-  <applies_to rdf:resource="#1c6b5ec5b5134153b5f813d:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fb95155308ff4ed08409a02</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <collects_from rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_purpose rdf:resource="#243c6546535b4840a90af9e:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#5d490b03f49b4df88cb758e:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#fef4462e027d46bc94bdbd8:ViaWebsite"/>
+  <applies_to rdf:resource="#8ee0242d7b674c658896887:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6cb122a132ae49f3acddc83</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The Information We Collect and How We Use It You may browse Food Allergy Research Education websites without submitting personal information However if you choose to sign up for one of our e-mail lists become a member purchase products or participate in an event contest or program you will be asked for applicable personal data such as your name gender postal address e-mail address phone number fax number payment information relationship to food allergies and date of birth The purpose of collecting such data is to assist FARE in contacting individuals and to collect payments made online Food Allergy Research Education also uses this personal information to advise users of new online materials activities and events and to provide users with the opportunity to contribute to local and national programs and research initiatives</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#58f53ec05bbe4530a9861bc:PersonalData">
+<owl:NamedIndividual rdf:about="#a683699822ad4b71b9e05c3:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">58f53ec05bbe4530a9861bc</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a683699822ad4b71b9e05c3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">postal address, e-mail address, phone number, fax number,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2c5aa8121f2c4d579bebd4b:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#8c2c21a5b1224f61ba52149:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2c5aa8121f2c4d579bebd4b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8c2c21a5b1224f61ba52149</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to provide users with the opportunity to contribute to local and national programs and research initiatives.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#074c723dac724ddc83f5de1:ViaWebsite">
+<owl:NamedIndividual rdf:about="#a78ba935a84f43b8a88cdd1:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">074c723dac724ddc83f5de1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a78ba935a84f43b8a88cdd1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food Allergy Research &amp; Education websites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b08a4ede741a4871a183472:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#93048372a3ff45b6baf2196:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b08a4ede741a4871a183472</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">93048372a3ff45b6baf2196</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you will be asked for</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#355cb7a5de60477bbf22e36:FPCollection">
+<owl:NamedIndividual rdf:about="#1a6502a4fdcc44b0a297912:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <collects_from rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_purpose rdf:resource="#2c5aa8121f2c4d579bebd4b:MarketingPurpose"/>
-  <has_mode rdf:resource="#b08a4ede741a4871a183472:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#074c723dac724ddc83f5de1:ViaWebsite"/>
-  <applies_to rdf:resource="#58f53ec05bbe4530a9861bc:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">355cb7a5de60477bbf22e36</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <collects_from rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_purpose rdf:resource="#8c2c21a5b1224f61ba52149:MarketingPurpose"/>
+  <has_mode rdf:resource="#93048372a3ff45b6baf2196:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#a78ba935a84f43b8a88cdd1:ViaWebsite"/>
+  <applies_to rdf:resource="#a683699822ad4b71b9e05c3:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1a6502a4fdcc44b0a297912</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The Information We Collect and How We Use It You may browse Food Allergy Research Education websites without submitting personal information However if you choose to sign up for one of our e-mail lists become a member purchase products or participate in an event contest or program you will be asked for applicable personal data such as your name gender postal address e-mail address phone number fax number payment information relationship to food allergies and date of birth The purpose of collecting such data is to assist FARE in contacting individuals and to collect payments made online Food Allergy Research Education also uses this personal information to advise users of new online materials activities and events and to provide users with the opportunity to contribute to local and national programs and research initiatives</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8c0719404c0d427c9b707b7:FinancialData">
+<owl:NamedIndividual rdf:about="#d148e922233a4b7a89df6b1:FinancialData">
   <rdf:type rdf:resource="#FinancialData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8c0719404c0d427c9b707b7</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d148e922233a4b7a89df6b1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">payment information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e4290907b72c44df8490ec3:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#2e82881df6bb45b9b504600:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e4290907b72c44df8490ec3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2e82881df6bb45b9b504600</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The purpose of collecting such data is to assist FARE in contacting individuals and to collect payments made online.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#782bea1565dd4ae3bf06511:ViaWebsite">
+<owl:NamedIndividual rdf:about="#7906c4cdf7ce48a99d107c0:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">782bea1565dd4ae3bf06511</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7906c4cdf7ce48a99d107c0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food Allergy Research &amp; Education websites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b9a74e28ddc544c5a6e876e:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#1b766bf89e974d6fa36289b:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b9a74e28ddc544c5a6e876e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1b766bf89e974d6fa36289b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you will be asked for</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c394b4ea3ffa4e078fc32c6:FPCollection">
+<owl:NamedIndividual rdf:about="#e1877beb049e430cb58e1e2:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <collects_from rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_purpose rdf:resource="#e4290907b72c44df8490ec3:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#b9a74e28ddc544c5a6e876e:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#782bea1565dd4ae3bf06511:ViaWebsite"/>
-  <applies_to rdf:resource="#8c0719404c0d427c9b707b7:FinancialData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c394b4ea3ffa4e078fc32c6</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <collects_from rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_purpose rdf:resource="#2e82881df6bb45b9b504600:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#1b766bf89e974d6fa36289b:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#7906c4cdf7ce48a99d107c0:ViaWebsite"/>
+  <applies_to rdf:resource="#d148e922233a4b7a89df6b1:FinancialData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e1877beb049e430cb58e1e2</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The Information We Collect and How We Use It You may browse Food Allergy Research Education websites without submitting personal information However if you choose to sign up for one of our e-mail lists become a member purchase products or participate in an event contest or program you will be asked for applicable personal data such as your name gender postal address e-mail address phone number fax number payment information relationship to food allergies and date of birth The purpose of collecting such data is to assist FARE in contacting individuals and to collect payments made online Food Allergy Research Education also uses this personal information to advise users of new online materials activities and events and to provide users with the opportunity to contribute to local and national programs and research initiatives</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#efad215e75854ec8aa6f5f5:FinancialData">
+<owl:NamedIndividual rdf:about="#fa62e264b06a437891266c1:FinancialData">
   <rdf:type rdf:resource="#FinancialData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">efad215e75854ec8aa6f5f5</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fa62e264b06a437891266c1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">payment information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#767baf4399dd48deb3a6df4:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#b78ed73576814b2d8d699fd:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">767baf4399dd48deb3a6df4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b78ed73576814b2d8d699fd</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to provide users with the opportunity to contribute to local and national programs and research initiatives.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e40387b594064ca3a85edfd:ViaWebsite">
+<owl:NamedIndividual rdf:about="#2e9ed2f262ad4a09bbd2366:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e40387b594064ca3a85edfd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2e9ed2f262ad4a09bbd2366</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food Allergy Research &amp; Education websites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d7fd0e7de7334d4f87c807a:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#dabe265a7b7f4062a9d1594:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d7fd0e7de7334d4f87c807a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dabe265a7b7f4062a9d1594</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you will be asked for</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e3a47c21aafc4d679084895:FPCollection">
+<owl:NamedIndividual rdf:about="#55178029c13540d98f961dc:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <collects_from rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_purpose rdf:resource="#767baf4399dd48deb3a6df4:MarketingPurpose"/>
-  <has_mode rdf:resource="#d7fd0e7de7334d4f87c807a:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#e40387b594064ca3a85edfd:ViaWebsite"/>
-  <applies_to rdf:resource="#efad215e75854ec8aa6f5f5:FinancialData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e3a47c21aafc4d679084895</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <collects_from rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_purpose rdf:resource="#b78ed73576814b2d8d699fd:MarketingPurpose"/>
+  <has_mode rdf:resource="#dabe265a7b7f4062a9d1594:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#2e9ed2f262ad4a09bbd2366:ViaWebsite"/>
+  <applies_to rdf:resource="#fa62e264b06a437891266c1:FinancialData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">55178029c13540d98f961dc</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The Information We Collect and How We Use It You may browse Food Allergy Research Education websites without submitting personal information However if you choose to sign up for one of our e-mail lists become a member purchase products or participate in an event contest or program you will be asked for applicable personal data such as your name gender postal address e-mail address phone number fax number payment information relationship to food allergies and date of birth The purpose of collecting such data is to assist FARE in contacting individuals and to collect payments made online Food Allergy Research Education also uses this personal information to advise users of new online materials activities and events and to provide users with the opportunity to contribute to local and national programs and research initiatives</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7e46d7291b5d4956a3faa4a:HealthData">
+<owl:NamedIndividual rdf:about="#f2092c9779304414a586cd2:HealthData">
   <rdf:type rdf:resource="#HealthData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7e46d7291b5d4956a3faa4a</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f2092c9779304414a586cd2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">relationship to food allergies,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d371f2cd50464d9bb6294ff:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#74fc19edb7b24e8980b4cc0:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d371f2cd50464d9bb6294ff</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">74fc19edb7b24e8980b4cc0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The purpose of collecting such data is to assist FARE in contacting individuals and to collect payments made online.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0f9696cf6abc49c6a6733cd:ViaWebsite">
+<owl:NamedIndividual rdf:about="#3f9bbad6029f40faba78dd6:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0f9696cf6abc49c6a6733cd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3f9bbad6029f40faba78dd6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food Allergy Research &amp; Education websites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2e3ed9f692974f499a3d8c3:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#406141d4ee314959a371aee:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2e3ed9f692974f499a3d8c3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">406141d4ee314959a371aee</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you will be asked for</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6bb16f7d080940da946e0a9:FPCollection">
+<owl:NamedIndividual rdf:about="#23f96600326a448497a7b4b:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <collects_from rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_purpose rdf:resource="#d371f2cd50464d9bb6294ff:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#2e3ed9f692974f499a3d8c3:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#0f9696cf6abc49c6a6733cd:ViaWebsite"/>
-  <applies_to rdf:resource="#7e46d7291b5d4956a3faa4a:HealthData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6bb16f7d080940da946e0a9</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <collects_from rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_purpose rdf:resource="#74fc19edb7b24e8980b4cc0:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#406141d4ee314959a371aee:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#3f9bbad6029f40faba78dd6:ViaWebsite"/>
+  <applies_to rdf:resource="#f2092c9779304414a586cd2:HealthData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">23f96600326a448497a7b4b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The Information We Collect and How We Use It You may browse Food Allergy Research Education websites without submitting personal information However if you choose to sign up for one of our e-mail lists become a member purchase products or participate in an event contest or program you will be asked for applicable personal data such as your name gender postal address e-mail address phone number fax number payment information relationship to food allergies and date of birth The purpose of collecting such data is to assist FARE in contacting individuals and to collect payments made online Food Allergy Research Education also uses this personal information to advise users of new online materials activities and events and to provide users with the opportunity to contribute to local and national programs and research initiatives</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#00af6e642bb84e648aadcdc:HealthData">
+<owl:NamedIndividual rdf:about="#c70eb81a16a64cd29f958b6:HealthData">
   <rdf:type rdf:resource="#HealthData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">00af6e642bb84e648aadcdc</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c70eb81a16a64cd29f958b6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">relationship to food allergies,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b2cbc7337c0d4142af99d96:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#694001be43ac49798ab4cde:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b2cbc7337c0d4142af99d96</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">694001be43ac49798ab4cde</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to provide users with the opportunity to contribute to local and national programs and research initiatives.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a013813f7ecf4d58815c585:ViaWebsite">
+<owl:NamedIndividual rdf:about="#bd1c8ef617b94a1d9d2281f:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a013813f7ecf4d58815c585</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bd1c8ef617b94a1d9d2281f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food Allergy Research &amp; Education websites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c5e6c3a401be42d18643a4d:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#287864c9fc6a413d8abd869:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c5e6c3a401be42d18643a4d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">287864c9fc6a413d8abd869</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you will be asked for</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#144af8ad1d544d8aa4d02bd:FPCollection">
+<owl:NamedIndividual rdf:about="#0e5f01aa82ad4ea78c4f241:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <collects_from rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_purpose rdf:resource="#b2cbc7337c0d4142af99d96:MarketingPurpose"/>
-  <has_mode rdf:resource="#c5e6c3a401be42d18643a4d:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#a013813f7ecf4d58815c585:ViaWebsite"/>
-  <applies_to rdf:resource="#00af6e642bb84e648aadcdc:HealthData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">144af8ad1d544d8aa4d02bd</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <collects_from rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_purpose rdf:resource="#694001be43ac49798ab4cde:MarketingPurpose"/>
+  <has_mode rdf:resource="#287864c9fc6a413d8abd869:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#bd1c8ef617b94a1d9d2281f:ViaWebsite"/>
+  <applies_to rdf:resource="#c70eb81a16a64cd29f958b6:HealthData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0e5f01aa82ad4ea78c4f241</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The Information We Collect and How We Use It You may browse Food Allergy Research Education websites without submitting personal information However if you choose to sign up for one of our e-mail lists become a member purchase products or participate in an event contest or program you will be asked for applicable personal data such as your name gender postal address e-mail address phone number fax number payment information relationship to food allergies and date of birth The purpose of collecting such data is to assist FARE in contacting individuals and to collect payments made online Food Allergy Research Education also uses this personal information to advise users of new online materials activities and events and to provide users with the opportunity to contribute to local and national programs and research initiatives</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1af82c7a245f4ed4bbd3966:SensitiveData">
+<owl:NamedIndividual rdf:about="#94413af3778e45ea9e51191:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1af82c7a245f4ed4bbd3966</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">94413af3778e45ea9e51191</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gender</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#02318214683a455386cb449:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#f4dd51d22fa541d984d5858:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">02318214683a455386cb449</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f4dd51d22fa541d984d5858</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The purpose of collecting such data is to assist FARE in contacting individuals and to collect payments made online.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#83e578a7cdc547d3b87f20a:ViaWebsite">
+<owl:NamedIndividual rdf:about="#2d83ae64a3e64282b4cbaee:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">83e578a7cdc547d3b87f20a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2d83ae64a3e64282b4cbaee</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food Allergy Research &amp; Education websites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2591f74d005f4fcc9478600:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#70823ea2745940dc9f2bc79:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2591f74d005f4fcc9478600</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">70823ea2745940dc9f2bc79</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you will be asked for</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#180ce4e873574133a414411:FPCollection">
+<owl:NamedIndividual rdf:about="#50f06431dc0f48b88202a80:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <collects_from rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_purpose rdf:resource="#02318214683a455386cb449:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#2591f74d005f4fcc9478600:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#83e578a7cdc547d3b87f20a:ViaWebsite"/>
-  <applies_to rdf:resource="#1af82c7a245f4ed4bbd3966:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">180ce4e873574133a414411</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <collects_from rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_purpose rdf:resource="#f4dd51d22fa541d984d5858:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#70823ea2745940dc9f2bc79:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#2d83ae64a3e64282b4cbaee:ViaWebsite"/>
+  <applies_to rdf:resource="#94413af3778e45ea9e51191:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">50f06431dc0f48b88202a80</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The Information We Collect and How We Use It You may browse Food Allergy Research Education websites without submitting personal information However if you choose to sign up for one of our e-mail lists become a member purchase products or participate in an event contest or program you will be asked for applicable personal data such as your name gender postal address e-mail address phone number fax number payment information relationship to food allergies and date of birth The purpose of collecting such data is to assist FARE in contacting individuals and to collect payments made online Food Allergy Research Education also uses this personal information to advise users of new online materials activities and events and to provide users with the opportunity to contribute to local and national programs and research initiatives</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#532982ef450e48a297723d4:SensitiveData">
+<owl:NamedIndividual rdf:about="#b16b7c3e803e446e8140510:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">532982ef450e48a297723d4</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b16b7c3e803e446e8140510</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gender</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#be860daa581945d9bb7aabf:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#13b95f6405574b888cd228d:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">be860daa581945d9bb7aabf</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">13b95f6405574b888cd228d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to provide users with the opportunity to contribute to local and national programs and research initiatives.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bfd3df96df794c06b458fc0:ViaWebsite">
+<owl:NamedIndividual rdf:about="#0e36a5f5d90c40859de3ae9:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bfd3df96df794c06b458fc0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0e36a5f5d90c40859de3ae9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food Allergy Research &amp; Education websites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#18ec70052a3f413a86c44b3:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#f19652d433bd4db8adb7d42:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">18ec70052a3f413a86c44b3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f19652d433bd4db8adb7d42</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you will be asked for</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2303564ce113427383eab7d:FPCollection">
+<owl:NamedIndividual rdf:about="#2980f4b7040b40c3a373f3c:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <collects_from rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_purpose rdf:resource="#be860daa581945d9bb7aabf:MarketingPurpose"/>
-  <has_mode rdf:resource="#18ec70052a3f413a86c44b3:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#bfd3df96df794c06b458fc0:ViaWebsite"/>
-  <applies_to rdf:resource="#532982ef450e48a297723d4:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2303564ce113427383eab7d</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <collects_from rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_purpose rdf:resource="#13b95f6405574b888cd228d:MarketingPurpose"/>
+  <has_mode rdf:resource="#f19652d433bd4db8adb7d42:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#0e36a5f5d90c40859de3ae9:ViaWebsite"/>
+  <applies_to rdf:resource="#b16b7c3e803e446e8140510:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2980f4b7040b40c3a373f3c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The Information We Collect and How We Use It You may browse Food Allergy Research Education websites without submitting personal information However if you choose to sign up for one of our e-mail lists become a member purchase products or participate in an event contest or program you will be asked for applicable personal data such as your name gender postal address e-mail address phone number fax number payment information relationship to food allergies and date of birth The purpose of collecting such data is to assist FARE in contacting individuals and to collect payments made online Food Allergy Research Education also uses this personal information to advise users of new online materials activities and events and to provide users with the opportunity to contribute to local and national programs and research initiatives</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#90b958f2dbab4997ae2c44c:GenericData">
+<owl:NamedIndividual rdf:about="#3f410258f7aa46c786c2d5d:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">90b958f2dbab4997ae2c44c</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3f410258f7aa46c786c2d5d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#14cfc6615ba64c0da4e1f1f:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#eeb0f756f8f14f2aa76eba5:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">14cfc6615ba64c0da4e1f1f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eeb0f756f8f14f2aa76eba5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food Allergy Research &amp; Education uses this personal information to inform volunteers and donors of new materials, and activities and events that offer the opportunity to contribute to local and national programs and research initiatives.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6131091b0de6475d907097d:UserSpecificCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#6f61d394816a49dfb54f637:UserSpecificCommunicationMechanism">
   <rdf:type rdf:resource="#UserSpecificCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6131091b0de6475d907097d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6f61d394816a49dfb54f637</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">collects personal information offline</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#89ba4f40ea68425ebbb0d0a:FPCollection">
+<owl:NamedIndividual rdf:about="#8738a87a27364f2a94692b8:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <collects_from rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_purpose rdf:resource="#14cfc6615ba64c0da4e1f1f:MarketingPurpose"/>
-  <has_mechanism rdf:resource="#6131091b0de6475d907097d:UserSpecificCommunicationMechanism"/>
-  <applies_to rdf:resource="#90b958f2dbab4997ae2c44c:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">89ba4f40ea68425ebbb0d0a</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <collects_from rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_purpose rdf:resource="#eeb0f756f8f14f2aa76eba5:MarketingPurpose"/>
+  <has_mechanism rdf:resource="#6f61d394816a49dfb54f637:UserSpecificCommunicationMechanism"/>
+  <applies_to rdf:resource="#3f410258f7aa46c786c2d5d:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8738a87a27364f2a94692b8</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food Allergy Research Education also collects personal information offline from volunteers donors and event participants Such information may include name address telephone number e-mail address age and information regarding the donation The information is collected through offline registration forms telemarketing appeals and postal appeals Food Allergy Research Education uses this personal information to inform volunteers and donors of new materials and activities and events that offer the opportunity to contribute to local and national programs and research initiatives</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f7406d156e5c40c3b88cdc5:PersonalData">
+<owl:NamedIndividual rdf:about="#de60188589474e55817815d:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f7406d156e5c40c3b88cdc5</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">de60188589474e55817815d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">name, address, telephone number, e-mail address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6456ba35610e41408711f03:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#ce8f177529af4976a90689e:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6456ba35610e41408711f03</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ce8f177529af4976a90689e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food Allergy Research &amp; Education uses this personal information to inform volunteers and donors of new materials, and activities and events that offer the opportunity to contribute to local and national programs and research initiatives.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#52b8b821ccf7442ca1ae6f6:UserSpecificCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#5350481a2166431e812ccf2:UserSpecificCommunicationMechanism">
   <rdf:type rdf:resource="#UserSpecificCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">52b8b821ccf7442ca1ae6f6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5350481a2166431e812ccf2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">collects personal information offline</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ec0564ec91a24a9daaeab7a:FPCollection">
+<owl:NamedIndividual rdf:about="#9a1aac49a66843608755ab6:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <collects_from rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_purpose rdf:resource="#6456ba35610e41408711f03:MarketingPurpose"/>
-  <has_mechanism rdf:resource="#52b8b821ccf7442ca1ae6f6:UserSpecificCommunicationMechanism"/>
-  <applies_to rdf:resource="#f7406d156e5c40c3b88cdc5:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ec0564ec91a24a9daaeab7a</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <collects_from rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_purpose rdf:resource="#ce8f177529af4976a90689e:MarketingPurpose"/>
+  <has_mechanism rdf:resource="#5350481a2166431e812ccf2:UserSpecificCommunicationMechanism"/>
+  <applies_to rdf:resource="#de60188589474e55817815d:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9a1aac49a66843608755ab6</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food Allergy Research Education also collects personal information offline from volunteers donors and event participants Such information may include name address telephone number e-mail address age and information regarding the donation The information is collected through offline registration forms telemarketing appeals and postal appeals Food Allergy Research Education uses this personal information to inform volunteers and donors of new materials and activities and events that offer the opportunity to contribute to local and national programs and research initiatives</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c767186fe075494eaf60828:SensitiveData">
+<owl:NamedIndividual rdf:about="#2568b70c6a7b4d6fa745977:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c767186fe075494eaf60828</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2568b70c6a7b4d6fa745977</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">age</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3a718697d40b4dfea5be263:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#0be514b35450471d96a481e:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3a718697d40b4dfea5be263</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0be514b35450471d96a481e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food Allergy Research &amp; Education uses this personal information to inform volunteers and donors of new materials, and activities and events that offer the opportunity to contribute to local and national programs and research initiatives.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f3ba141de8104d93bf09faa:UserSpecificCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#72e9a5128a234b688abaa29:UserSpecificCommunicationMechanism">
   <rdf:type rdf:resource="#UserSpecificCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f3ba141de8104d93bf09faa</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">72e9a5128a234b688abaa29</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">collects personal information offline</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c4f7c788de39401a883a368:FPCollection">
+<owl:NamedIndividual rdf:about="#ce1e89b1c2c440ddabfce85:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <collects_from rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_purpose rdf:resource="#3a718697d40b4dfea5be263:MarketingPurpose"/>
-  <has_mechanism rdf:resource="#f3ba141de8104d93bf09faa:UserSpecificCommunicationMechanism"/>
-  <applies_to rdf:resource="#c767186fe075494eaf60828:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c4f7c788de39401a883a368</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <collects_from rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_purpose rdf:resource="#0be514b35450471d96a481e:MarketingPurpose"/>
+  <has_mechanism rdf:resource="#72e9a5128a234b688abaa29:UserSpecificCommunicationMechanism"/>
+  <applies_to rdf:resource="#2568b70c6a7b4d6fa745977:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ce1e89b1c2c440ddabfce85</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food Allergy Research Education also collects personal information offline from volunteers donors and event participants Such information may include name address telephone number e-mail address age and information regarding the donation The information is collected through offline registration forms telemarketing appeals and postal appeals Food Allergy Research Education uses this personal information to inform volunteers and donors of new materials and activities and events that offer the opportunity to contribute to local and national programs and research initiatives</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#52c2b738a1434175a1507de:FinancialData">
+<owl:NamedIndividual rdf:about="#c03f40d00b194d768d49c80:FinancialData">
   <rdf:type rdf:resource="#FinancialData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">52c2b738a1434175a1507de</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c03f40d00b194d768d49c80</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">information regarding the donation.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c21d4c58f4a74a56987df08:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#69955e9e9e724219844f3b8:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c21d4c58f4a74a56987df08</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">69955e9e9e724219844f3b8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food Allergy Research &amp; Education uses this personal information to inform volunteers and donors of new materials, and activities and events that offer the opportunity to contribute to local and national programs and research initiatives.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3346d5cf61f646858688f9f:UserSpecificCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#45da1d6cbff34572922c0f8:UserSpecificCommunicationMechanism">
   <rdf:type rdf:resource="#UserSpecificCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3346d5cf61f646858688f9f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">45da1d6cbff34572922c0f8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">collects personal information offline</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c1e29c6fd11d47ab966b3a5:FPCollection">
+<owl:NamedIndividual rdf:about="#92ca84fcdd2f4eee8f6bd18:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <collects_from rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_purpose rdf:resource="#c21d4c58f4a74a56987df08:MarketingPurpose"/>
-  <has_mechanism rdf:resource="#3346d5cf61f646858688f9f:UserSpecificCommunicationMechanism"/>
-  <applies_to rdf:resource="#52c2b738a1434175a1507de:FinancialData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c1e29c6fd11d47ab966b3a5</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <collects_from rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_purpose rdf:resource="#69955e9e9e724219844f3b8:MarketingPurpose"/>
+  <has_mechanism rdf:resource="#45da1d6cbff34572922c0f8:UserSpecificCommunicationMechanism"/>
+  <applies_to rdf:resource="#c03f40d00b194d768d49c80:FinancialData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">92ca84fcdd2f4eee8f6bd18</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food Allergy Research Education also collects personal information offline from volunteers donors and event participants Such information may include name address telephone number e-mail address age and information regarding the donation The information is collected through offline registration forms telemarketing appeals and postal appeals Food Allergy Research Education uses this personal information to inform volunteers and donors of new materials and activities and events that offer the opportunity to contribute to local and national programs and research initiatives</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c814c54d0650425da9054a6:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#8e34aab77d8d47e4b6d0474:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c814c54d0650425da9054a6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8e34aab77d8d47e4b6d0474</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">are purged after one calendar year from the date of entry</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#eef635d9a7f347fcada6c14:AnalyticsPurpose">
+<owl:NamedIndividual rdf:about="#055ba01f69094660873dfea:AnalyticsPurpose">
   <rdf:type rdf:resource="#AnalyticsPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eef635d9a7f347fcada6c14</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">055ba01f69094660873dfea</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aggregate reports for internal use</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6e136417b36b4223899012e:GenericData">
+<owl:NamedIndividual rdf:about="#237ca5d1ab4d4c758f3f512:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6e136417b36b4223899012e</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">237ca5d1ab4d4c758f3f512</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#290e49f3db614c4eb2df362:DataRetention">
+<owl:NamedIndividual rdf:about="#59c87c851bd84110a8f5bbc:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <lasts_for rdf:resource="#c814c54d0650425da9054a6:DataRetentionTime"/>
-  <has_purpose rdf:resource="#eef635d9a7f347fcada6c14:AnalyticsPurpose"/>
-  <applies_to rdf:resource="#6e136417b36b4223899012e:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">290e49f3db614c4eb2df362</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <lasts_for rdf:resource="#8e34aab77d8d47e4b6d0474:DataRetentionTime"/>
+  <has_purpose rdf:resource="#055ba01f69094660873dfea:AnalyticsPurpose"/>
+  <applies_to rdf:resource="#237ca5d1ab4d4c758f3f512:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">59c87c851bd84110a8f5bbc</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personal Health-Related Information Personal information included in specific questions submitted to Food Allergy Research Education is used solely as internal market research to help us better serve you All other information entered on this site is used for aggregate demographic analysis only and no personally identifiable information is included in these analyses Records are used to create aggregate reports for internal use only and are purged after one calendar year from the date of entry</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#14e6926388314a389a403e6:GenericData">
+<owl:NamedIndividual rdf:about="#324b39ff65864289a9d7d07:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">14e6926388314a389a403e6</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">324b39ff65864289a9d7d07</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9eaeaa01356943d3b79d84e:AnalyticsPurpose">
+<owl:NamedIndividual rdf:about="#3bbd4ef9f7a540b7b5bda54:AnalyticsPurpose">
   <rdf:type rdf:resource="#AnalyticsPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9eaeaa01356943d3b79d84e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3bbd4ef9f7a540b7b5bda54</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">is used solely as internal market research to help us better serve you.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#71cede455e2146cdafad107:UserSpecificCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#49b158bef2544b128dfd4fa:UserSpecificCommunicationMechanism">
   <rdf:type rdf:resource="#UserSpecificCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">71cede455e2146cdafad107</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">49b158bef2544b128dfd4fa</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personal information included in specific questions submitted</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e73a198886924ecd9adbe3a:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#d7b5a0f8dcc641c3a9d40e0:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e73a198886924ecd9adbe3a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d7b5a0f8dcc641c3a9d40e0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">questions submitted</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3f4eea4bc227429b9262f2a:FPCollection">
+<owl:NamedIndividual rdf:about="#028eccef300e4b45904fbaa:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <collects_from rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_purpose rdf:resource="#9eaeaa01356943d3b79d84e:AnalyticsPurpose"/>
-  <has_mode rdf:resource="#e73a198886924ecd9adbe3a:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#71cede455e2146cdafad107:UserSpecificCommunicationMechanism"/>
-  <applies_to rdf:resource="#14e6926388314a389a403e6:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3f4eea4bc227429b9262f2a</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <collects_from rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_purpose rdf:resource="#3bbd4ef9f7a540b7b5bda54:AnalyticsPurpose"/>
+  <has_mode rdf:resource="#d7b5a0f8dcc641c3a9d40e0:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#49b158bef2544b128dfd4fa:UserSpecificCommunicationMechanism"/>
+  <applies_to rdf:resource="#324b39ff65864289a9d7d07:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">028eccef300e4b45904fbaa</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personal Health-Related Information Personal information included in specific questions submitted to Food Allergy Research Education is used solely as internal market research to help us better serve you All other information entered on this site is used for aggregate demographic analysis only and no personally identifiable information is included in these analyses Records are used to create aggregate reports for internal use only and are purged after one calendar year from the date of entry</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f79d41ce0bea4a36982b08e:AnalyticsPurpose">
+<owl:NamedIndividual rdf:about="#e7d23c3bd1004e4f8ed5d47:AnalyticsPurpose">
   <rdf:type rdf:resource="#AnalyticsPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f79d41ce0bea4a36982b08e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e7d23c3bd1004e4f8ed5d47</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">demographic analysis</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#245c60ec38504cd7a4fb21e:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#30a90826633f4e259df62aa:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">245c60ec38504cd7a4fb21e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">30a90826633f4e259df62aa</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">information entered</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#376947286abe445592341e4:PseudoAnonymization">
+<owl:NamedIndividual rdf:about="#c389057a834e495b958fee9:PseudoAnonymization">
   <rdf:type rdf:resource="#PseudoAnonymization"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">376947286abe445592341e4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c389057a834e495b958fee9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aggregate demographic analysis only and no personally identifiable information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2bcfd03ced214b11a13a714:DataProtection">
+<owl:NamedIndividual rdf:about="#0b14c43720dd468eb5b193c:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <has_mechanism rdf:resource="#376947286abe445592341e4:PseudoAnonymization"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2bcfd03ced214b11a13a714</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <has_mechanism rdf:resource="#c389057a834e495b958fee9:PseudoAnonymization"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0b14c43720dd468eb5b193c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personal Health-Related Information Personal information included in specific questions submitted to Food Allergy Research Education is used solely as internal market research to help us better serve you All other information entered on this site is used for aggregate demographic analysis only and no personally identifiable information is included in these analyses Records are used to create aggregate reports for internal use only and are purged after one calendar year from the date of entry</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7f0fd0104c39449ebc7c165:FPCollection">
+<owl:NamedIndividual rdf:about="#a576044e6f54404a8bee9e8:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <collects_from rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_purpose rdf:resource="#f79d41ce0bea4a36982b08e:AnalyticsPurpose"/>
-  <has_mode rdf:resource="#245c60ec38504cd7a4fb21e:TransmissionByRequest"/>
-  <binded_to rdf:resource="#2bcfd03ced214b11a13a714:DataProtection"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7f0fd0104c39449ebc7c165</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <collects_from rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_purpose rdf:resource="#e7d23c3bd1004e4f8ed5d47:AnalyticsPurpose"/>
+  <has_mode rdf:resource="#30a90826633f4e259df62aa:TransmissionByRequest"/>
+  <binded_to rdf:resource="#0b14c43720dd468eb5b193c:DataProtection"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a576044e6f54404a8bee9e8</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personal Health-Related Information Personal information included in specific questions submitted to Food Allergy Research Education is used solely as internal market research to help us better serve you All other information entered on this site is used for aggregate demographic analysis only and no personally identifiable information is included in these analyses Records are used to create aggregate reports for internal use only and are purged after one calendar year from the date of entry</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dada7869d8b94830b38a01b:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#6c99163cacd44d1b823ef72:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dada7869d8b94830b38a01b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6c99163cacd44d1b823ef72</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">one calendar year from the date of entry</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8432432eea5a4b5e8e29863:DataActivityPurpose">
+<owl:NamedIndividual rdf:about="#9176c1f148664d29adee244:DataActivityPurpose">
   <rdf:type rdf:resource="#DataActivityPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8432432eea5a4b5e8e29863</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9176c1f148664d29adee244</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">s are used to create aggregate reports for internal use only</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#48c0b4c89ff84a37bd53811:DataRetention">
+<owl:NamedIndividual rdf:about="#92d348b787d24ad38e20d79:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <lasts_for rdf:resource="#dada7869d8b94830b38a01b:DataRetentionTime"/>
-  <has_purpose rdf:resource="#8432432eea5a4b5e8e29863:DataActivityPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">48c0b4c89ff84a37bd53811</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <lasts_for rdf:resource="#6c99163cacd44d1b823ef72:DataRetentionTime"/>
+  <has_purpose rdf:resource="#9176c1f148664d29adee244:DataActivityPurpose"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">92d348b787d24ad38e20d79</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personal Health-Related Information Personal information included in specific questions submitted to Food Allergy Research Education is used solely as internal market research to help us better serve you All other information entered on this site is used for aggregate demographic analysis only and no personally identifiable information is included in these analyses Records are used to create aggregate reports for internal use only and are purged after one calendar year from the date of entry</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#211d4e9ce1034d2bb2120ec:SecuredCommunication">
+<owl:NamedIndividual rdf:about="#bdea5e36161c48af9494bf1:SecuredCommunication">
   <rdf:type rdf:resource="#SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">211d4e9ce1034d2bb2120ec</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bdea5e36161c48af9494bf1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your credit card information is encrypted when submitted to the processor and transmitted over a secure connection between your computer and our server using Secure Socket Layers (SSL), the industry standard, to ensure protection of your private information.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f0d2b472ba3849feae8e0c3:DataProtection">
+<owl:NamedIndividual rdf:about="#e6b42261c78c4be8a544d26:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <has_mechanism rdf:resource="#211d4e9ce1034d2bb2120ec:SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f0d2b472ba3849feae8e0c3</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <has_mechanism rdf:resource="#bdea5e36161c48af9494bf1:SecuredCommunication"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e6b42261c78c4be8a544d26</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Payment Information Payment information such as credit card number and expiration date is entered upon completion of a sale or registration that requires a fee Food Allergy Research Education uses Global Payments and Verisign as third-party intermediaries to process your online donations and payments Your credit card information is encrypted when submitted to the processor and transmitted over a secure connection between your computer and our server using Secure Socket Layers SSL the industry standard to ensure protection of your private information This sensitive personal information is not shared with third parties other than the processor and is stored by Food Allergy Research Education for verification purposes or for recurring donations that you have authorized</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#637e1bfed87a4a86ba38559:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#396de62e18f641cb80d2528:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">637e1bfed87a4a86ba38559</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">396de62e18f641cb80d2528</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">stored by Food Allergy Research &amp; Education</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e4d39ef394bb41e0a55eaa3:SecurityPurpose">
+<owl:NamedIndividual rdf:about="#d68c68c5d1c74f8291d8d63:SecurityPurpose">
   <rdf:type rdf:resource="#SecurityPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e4d39ef394bb41e0a55eaa3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d68c68c5d1c74f8291d8d63</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">for verification purposes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8a298d5d1c0945b9aeaf055:FinancialData">
+<owl:NamedIndividual rdf:about="#11b2e4e7e14c4a6f85460b4:FinancialData">
   <rdf:type rdf:resource="#FinancialData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8a298d5d1c0945b9aeaf055</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11b2e4e7e14c4a6f85460b4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Payment information, such as credit card number and expiration date</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7bf37692c30b4dad835d586:DataRetention">
+<owl:NamedIndividual rdf:about="#7639e8c545a344d18dcba66:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <lasts_for rdf:resource="#637e1bfed87a4a86ba38559:DataRetentionTime"/>
-  <has_purpose rdf:resource="#e4d39ef394bb41e0a55eaa3:SecurityPurpose"/>
-  <applies_to rdf:resource="#8a298d5d1c0945b9aeaf055:FinancialData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7bf37692c30b4dad835d586</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <lasts_for rdf:resource="#396de62e18f641cb80d2528:DataRetentionTime"/>
+  <has_purpose rdf:resource="#d68c68c5d1c74f8291d8d63:SecurityPurpose"/>
+  <applies_to rdf:resource="#11b2e4e7e14c4a6f85460b4:FinancialData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7639e8c545a344d18dcba66</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Payment Information Payment information such as credit card number and expiration date is entered upon completion of a sale or registration that requires a fee Food Allergy Research Education uses Global Payments and Verisign as third-party intermediaries to process your online donations and payments Your credit card information is encrypted when submitted to the processor and transmitted over a secure connection between your computer and our server using Secure Socket Layers SSL the industry standard to ensure protection of your private information This sensitive personal information is not shared with third parties other than the processor and is stored by Food Allergy Research Education for verification purposes or for recurring donations that you have authorized</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b8ea64ebbea640efaab8816:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#e8af1fb34a704e069b08a55:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b8ea64ebbea640efaab8816</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e8af1fb34a704e069b08a55</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">stored by Food Allergy Research &amp; Education</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4963a53c8a204f0fb2754ae:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#70ecc15293fb4735afc1fc7:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4963a53c8a204f0fb2754ae</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">70ecc15293fb4735afc1fc7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">for recurring donations</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d299f92a69734a5e9355f13:FinancialData">
+<owl:NamedIndividual rdf:about="#e342502cb7e84afa894ae71:FinancialData">
   <rdf:type rdf:resource="#FinancialData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d299f92a69734a5e9355f13</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e342502cb7e84afa894ae71</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Payment information, such as credit card number and expiration date</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0385efab1d204cf8a822b5d:DataRetention">
+<owl:NamedIndividual rdf:about="#cc8f0ed166b04485bc25757:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <lasts_for rdf:resource="#b8ea64ebbea640efaab8816:DataRetentionTime"/>
-  <has_purpose rdf:resource="#4963a53c8a204f0fb2754ae:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#d299f92a69734a5e9355f13:FinancialData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0385efab1d204cf8a822b5d</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <lasts_for rdf:resource="#e8af1fb34a704e069b08a55:DataRetentionTime"/>
+  <has_purpose rdf:resource="#70ecc15293fb4735afc1fc7:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#e342502cb7e84afa894ae71:FinancialData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cc8f0ed166b04485bc25757</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Payment Information Payment information such as credit card number and expiration date is entered upon completion of a sale or registration that requires a fee Food Allergy Research Education uses Global Payments and Verisign as third-party intermediaries to process your online donations and payments Your credit card information is encrypted when submitted to the processor and transmitted over a secure connection between your computer and our server using Secure Socket Layers SSL the industry standard to ensure protection of your private information This sensitive personal information is not shared with third parties other than the processor and is stored by Food Allergy Research Education for verification purposes or for recurring donations that you have authorized</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#13aab70c0e4c41b3b560274:SecuredCommunication">
+<owl:NamedIndividual rdf:about="#ac128782693243f884515f9:SecuredCommunication">
   <rdf:type rdf:resource="#SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">13aab70c0e4c41b3b560274</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ac128782693243f884515f9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">transmitted over a secure connection between your computer and our server using Secure Socket Layers (SSL),</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7c9e1378ea5b4f20811e949:DataProtection">
+<owl:NamedIndividual rdf:about="#51583098d167415ba6234f2:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <has_mechanism rdf:resource="#13aab70c0e4c41b3b560274:SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7c9e1378ea5b4f20811e949</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <has_mechanism rdf:resource="#ac128782693243f884515f9:SecuredCommunication"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">51583098d167415ba6234f2</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Payment Information Payment information such as credit card number and expiration date is entered upon completion of a sale or registration that requires a fee Food Allergy Research Education uses Global Payments and Verisign as third-party intermediaries to process your online donations and payments Your credit card information is encrypted when submitted to the processor and transmitted over a secure connection between your computer and our server using Secure Socket Layers SSL the industry standard to ensure protection of your private information This sensitive personal information is not shared with third parties other than the processor and is stored by Food Allergy Research Education for verification purposes or for recurring donations that you have authorized</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ea8793812be64e7aa6bc1cf:FinancialData">
+<owl:NamedIndividual rdf:about="#9a8945cf86824606a247f02:FinancialData">
   <rdf:type rdf:resource="#FinancialData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ea8793812be64e7aa6bc1cf</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9a8945cf86824606a247f02</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">credit card information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#596bb6b8bb484d4ba6c030f:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#02923b5768414ec0bd6c914:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">596bb6b8bb484d4ba6c030f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">02923b5768414ec0bd6c914</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">for recurring donations that you have authorized.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#806740c1618d46a1b83ed46:TPCollection">
+<owl:NamedIndividual rdf:about="#88f3d27fa34b4e8fa4af4ea:TPCollection">
   <rdf:type rdf:resource="#TPCollection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <collects_from rdf:resource="#8888518d6c904096b4cf482:ThirdParty"/>
-  <has_purpose rdf:resource="#596bb6b8bb484d4ba6c030f:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#ea8793812be64e7aa6bc1cf:FinancialData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">806740c1618d46a1b83ed46</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <collects_from rdf:resource="#691c5fea00ab4fbea174e60:ThirdParty"/>
+  <has_purpose rdf:resource="#02923b5768414ec0bd6c914:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#9a8945cf86824606a247f02:FinancialData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">88f3d27fa34b4e8fa4af4ea</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Payment Information Payment information such as credit card number and expiration date is entered upon completion of a sale or registration that requires a fee Food Allergy Research Education uses Global Payments and Verisign as third-party intermediaries to process your online donations and payments Your credit card information is encrypted when submitted to the processor and transmitted over a secure connection between your computer and our server using Secure Socket Layers SSL the industry standard to ensure protection of your private information This sensitive personal information is not shared with third parties other than the processor and is stored by Food Allergy Research Education for verification purposes or for recurring donations that you have authorized</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e4838571f2144fc299e026a:PersonalData">
+<owl:NamedIndividual rdf:about="#26ac863008a044a6beaddde:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e4838571f2144fc299e026a</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">26ac863008a044a6beaddde</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e-mail addresses</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f70131887d4943de9d4824e:TPCollection">
+<owl:NamedIndividual rdf:about="#1db66b9298e34011afa56fd:TPCollection">
   <rdf:type rdf:resource="#TPCollection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <collects_from rdf:resource="#8888518d6c904096b4cf482:ThirdParty"/>
-  <applies_to rdf:resource="#e4838571f2144fc299e026a:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f70131887d4943de9d4824e</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <collects_from rdf:resource="#691c5fea00ab4fbea174e60:ThirdParty"/>
+  <applies_to rdf:resource="#26ac863008a044a6beaddde:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1db66b9298e34011afa56fd</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Sharing Your Information with Third Parties Food Allergy Research Education never shares your e-mail addresses with third parties without your consent Personal information collected from our donation pages is never shared with third parties</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1c1f8d58f72c4487899056f:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#c44100ec6be449a3b1aae12:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1c1f8d58f72c4487899056f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c44100ec6be449a3b1aae12</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you are a California resident please click here to view Your Privacy Rights under California law</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7d6aa1aab04e478396f1517:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#3a9ab6cbaaec48beab24e0e:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7d6aa1aab04e478396f1517</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3a9ab6cbaaec48beab24e0e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you are a California resident please click here to view Your Privacy Rights under California law</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cb3b4719ef1d4560890bc05:SecurityMechanism">
+<owl:NamedIndividual rdf:about="#b59e88f7eb0b4bffa69cc08:SecurityMechanism">
   <rdf:type rdf:resource="#SecurityMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cb3b4719ef1d4560890bc05</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b59e88f7eb0b4bffa69cc08</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">accessible only to members</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ed3e9044423c402aa424b8d:DataProtection">
+<owl:NamedIndividual rdf:about="#2ab22871c1884616929267b:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <has_mechanism rdf:resource="#cb3b4719ef1d4560890bc05:SecurityMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ed3e9044423c402aa424b8d</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <has_mechanism rdf:resource="#b59e88f7eb0b4bffa69cc08:SecurityMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2ab22871c1884616929267b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Public Forums Food Allergy Research Education advises users that personal information posted on the website is accessible only to members</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a78d2a639c3c4b1f9d98e5d:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#47f6a6696d6d4bad9ee204f:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a78d2a639c3c4b1f9d98e5d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">47f6a6696d6d4bad9ee204f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Children s Online Privacy Protection Act Compliance We are in compliance with the requirements of COPPA Children s Online Privacy Protection Act we do not collect any information from anyone under 13 years of age Our website products and services are all directed to people who are at least 13 years old or older</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#944b6ec08d7b4b708e1afc9:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#06d938ff04d442aea05ef94:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">944b6ec08d7b4b708e1afc9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">06d938ff04d442aea05ef94</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may opt out of Food Allergy Research &amp; Education communications at any time by contacting contactfare@foodallergy.org.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#941bc4175ce34e32917d6e8:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#46b8dd4572a5445a848c532:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_mechanism rdf:resource="#944b6ec08d7b4b708e1afc9:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">941bc4175ce34e32917d6e8</uuid>
+  <initiated_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_mechanism rdf:resource="#06d938ff04d442aea05ef94:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">46b8dd4572a5445a848c532</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Opting-Out of Future Food Allergy Research Education Communications You may opt out of Food Allergy Research Education communications at any time by contacting contactfare foodallergy org</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c8ad758225ce4c289666f36:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#9b086c9af01b4eb4adfaa76:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c8ad758225ce4c289666f36</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9b086c9af01b4eb4adfaa76</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">by contacting contactfare@foodallergy.org</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#10a9260cd22a4abc90817d9:PersonalData">
+<owl:NamedIndividual rdf:about="#ddc43f9095594f72b26ca10:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">10a9260cd22a4abc90817d9</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ddc43f9095594f72b26ca10</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">communications</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#89268eeb036e450a9ad9a53:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#6e19144c7f9b4533b099150:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_mechanism rdf:resource="#c8ad758225ce4c289666f36:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#10a9260cd22a4abc90817d9:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">89268eeb036e450a9ad9a53</uuid>
+  <initiated_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_mechanism rdf:resource="#9b086c9af01b4eb4adfaa76:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#ddc43f9095594f72b26ca10:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6e19144c7f9b4533b099150</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Opting-Out of Future Food Allergy Research Education Communications You may opt out of Food Allergy Research Education communications at any time by contacting contactfare foodallergy org</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#42772ea6502340cc912f810:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#cd3552c75d3a418a9e4577b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">42772ea6502340cc912f810</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cd3552c75d3a418a9e4577b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you may unsubscribe by following the instructions in the e-mail to which you subscribed</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9e55d52cedc24c6c8e35588:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#11b687ec2e9f4ff0a3f5a7a:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_mechanism rdf:resource="#42772ea6502340cc912f810:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9e55d52cedc24c6c8e35588</uuid>
+  <initiated_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_mechanism rdf:resource="#cd3552c75d3a418a9e4577b:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11b687ec2e9f4ff0a3f5a7a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food Allergy Research Education reserves the right to acknowledge your donation If you have subscribed to any newsletter or publication published by Food Allergy Research Education you may unsubscribe by following the instructions in the e-mail to which you subscribed You may also remove yourself from Food Allergy Research Education e-mail list by contacting us via e-mail at contactfare foodallergy org</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d01da63068924575a7a23f9:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#bec1f6f6f09249ae8567150:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d01da63068924575a7a23f9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bec1f6f6f09249ae8567150</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may also remove yourself from Food Allergy Research &amp; Education e-mail list by contacting us via e-mail at: contactfare@foodallergy.org.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f358c13c70e444eeb29a18c:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#d54897955bd34f2b8c9b631:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_mechanism rdf:resource="#d01da63068924575a7a23f9:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f358c13c70e444eeb29a18c</uuid>
+  <initiated_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_mechanism rdf:resource="#bec1f6f6f09249ae8567150:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d54897955bd34f2b8c9b631</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food Allergy Research Education reserves the right to acknowledge your donation If you have subscribed to any newsletter or publication published by Food Allergy Research Education you may unsubscribe by following the instructions in the e-mail to which you subscribed You may also remove yourself from Food Allergy Research Education e-mail list by contacting us via e-mail at contactfare foodallergy org</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#917dcefb86bf4f03a1268ba:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#f09e1c76e0374b2083a7bb5:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">917dcefb86bf4f03a1268ba</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f09e1c76e0374b2083a7bb5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">remove yourself from Food Allergy Research &amp; Education e-mail list by contacting us via e-mail at: contactfare@foodallergy.org.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7caa571c45af4e5a811dfba:PersonalData">
+<owl:NamedIndividual rdf:about="#6f8378fcf58741169520ef6:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7caa571c45af4e5a811dfba</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6f8378fcf58741169520ef6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">in the e-mail</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d934403bf5594114a66fdcc:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#6b452e06b331498d8335ad9:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_mechanism rdf:resource="#917dcefb86bf4f03a1268ba:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#7caa571c45af4e5a811dfba:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d934403bf5594114a66fdcc</uuid>
+  <initiated_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_mechanism rdf:resource="#f09e1c76e0374b2083a7bb5:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#6f8378fcf58741169520ef6:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6b452e06b331498d8335ad9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food Allergy Research Education reserves the right to acknowledge your donation If you have subscribed to any newsletter or publication published by Food Allergy Research Education you may unsubscribe by following the instructions in the e-mail to which you subscribed You may also remove yourself from Food Allergy Research Education e-mail list by contacting us via e-mail at contactfare foodallergy org</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#63e3e3f81d764978b0c8d3e:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#6861a0b24eb74a04bbf92e0:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">63e3e3f81d764978b0c8d3e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6861a0b24eb74a04bbf92e0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">by contacting us via e-mail at: contactfare@foodallergy.org.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a71a47f4f6d945beb065366:PersonalData">
+<owl:NamedIndividual rdf:about="#d5952b49e9dd4064abd0fc2:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a71a47f4f6d945beb065366</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d5952b49e9dd4064abd0fc2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e-mail</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ed0706de67c94438a7a474f:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#56900c2994c94a77aeb392c:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_mechanism rdf:resource="#63e3e3f81d764978b0c8d3e:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#a71a47f4f6d945beb065366:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ed0706de67c94438a7a474f</uuid>
+  <initiated_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_mechanism rdf:resource="#6861a0b24eb74a04bbf92e0:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#d5952b49e9dd4064abd0fc2:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">56900c2994c94a77aeb392c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food Allergy Research Education reserves the right to acknowledge your donation If you have subscribed to any newsletter or publication published by Food Allergy Research Education you may unsubscribe by following the instructions in the e-mail to which you subscribed You may also remove yourself from Food Allergy Research Education e-mail list by contacting us via e-mail at contactfare foodallergy org</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#74032bbfc439479a91c2314:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#602a476eea04435a9fd2505:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">74032bbfc439479a91c2314</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">602a476eea04435a9fd2505</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unsubscribe by following the instructions in the e-mail</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#82ff3c3ad6b147d28383b2f:PersonalData">
+<owl:NamedIndividual rdf:about="#1c18b29d1ddd499c8bb3d04:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">82ff3c3ad6b147d28383b2f</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1c18b29d1ddd499c8bb3d04</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e-mail</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#533a3a8b31b747d2a72393e:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#7910c02d819a48db874ad46:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_mechanism rdf:resource="#74032bbfc439479a91c2314:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#82ff3c3ad6b147d28383b2f:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">533a3a8b31b747d2a72393e</uuid>
+  <initiated_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_mechanism rdf:resource="#602a476eea04435a9fd2505:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#1c18b29d1ddd499c8bb3d04:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7910c02d819a48db874ad46</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food Allergy Research Education reserves the right to acknowledge your donation If you have subscribed to any newsletter or publication published by Food Allergy Research Education you may unsubscribe by following the instructions in the e-mail to which you subscribed You may also remove yourself from Food Allergy Research Education e-mail list by contacting us via e-mail at contactfare foodallergy org</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5519974b1ba041289c5533c:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#af6487c7db004e13aef045c:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5519974b1ba041289c5533c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">af6487c7db004e13aef045c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please send us your name, phone number, and e-mail and postal addresses and which communications you would like to opt-out of from Food Allergy Research &amp; Education.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b94ed31f30e5430fbf04192:PersonalData">
+<owl:NamedIndividual rdf:about="#1dc9dac1fc0c4fd8a2d3ad6:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b94ed31f30e5430fbf04192</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1dc9dac1fc0c4fd8a2d3ad6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">name, phone number, and e-mail and postal addresses</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#be9560812a214f9a97c3760:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#5fd3a55a52944ed092acb1a:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_mechanism rdf:resource="#5519974b1ba041289c5533c:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#b94ed31f30e5430fbf04192:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">be9560812a214f9a97c3760</uuid>
+  <initiated_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_mechanism rdf:resource="#af6487c7db004e13aef045c:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#1dc9dac1fc0c4fd8a2d3ad6:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5fd3a55a52944ed092acb1a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please send us your name phone number and e-mail and postal addresses and which communications you would like to opt-out of from Food Allergy Research Education Your e-mail address is never shared with third parties without your express consent</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#560ce56cd8a0457a83e7a0c:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#8cbf7e47d25b48a88d6b7c3:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">560ce56cd8a0457a83e7a0c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8cbf7e47d25b48a88d6b7c3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please send us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6823242b9c73467fb47adb0:PersonalData">
+<owl:NamedIndividual rdf:about="#bca0e1c92d8a47a2b818617:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6823242b9c73467fb47adb0</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bca0e1c92d8a47a2b818617</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">name, phone number, and e-mail and postal addresses</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#780bc3125f4f46a68d4933c:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#1dc3bb5283674d18b5394ad:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_mechanism rdf:resource="#560ce56cd8a0457a83e7a0c:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#6823242b9c73467fb47adb0:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">780bc3125f4f46a68d4933c</uuid>
+  <initiated_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_mechanism rdf:resource="#8cbf7e47d25b48a88d6b7c3:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#bca0e1c92d8a47a2b818617:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1dc3bb5283674d18b5394ad</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please send us your name phone number and e-mail and postal addresses and which communications you would like to opt-out of from Food Allergy Research Education Your e-mail address is never shared with third parties without your express consent</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#896f31ce3a884f65b4c5e56:PersonalData">
+<owl:NamedIndividual rdf:about="#1fae3e9340d144fdaad97e5:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">896f31ce3a884f65b4c5e56</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1fae3e9340d144fdaad97e5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your e-mail address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dadf4c3ec2f041ebba93275:TPCollection">
+<owl:NamedIndividual rdf:about="#1716342c087c425c92fb767:TPCollection">
   <rdf:type rdf:resource="#TPCollection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <collects_from rdf:resource="#8888518d6c904096b4cf482:ThirdParty"/>
-  <applies_to rdf:resource="#896f31ce3a884f65b4c5e56:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dadf4c3ec2f041ebba93275</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <collects_from rdf:resource="#691c5fea00ab4fbea174e60:ThirdParty"/>
+  <applies_to rdf:resource="#1fae3e9340d144fdaad97e5:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1716342c087c425c92fb767</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please send us your name phone number and e-mail and postal addresses and which communications you would like to opt-out of from Food Allergy Research Education Your e-mail address is never shared with third parties without your express consent</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#40735fbe525445e6a106b6c:AccessControls">
+<owl:NamedIndividual rdf:about="#65c28ec5db3a427cab3b55f:AccessControls">
   <rdf:type rdf:resource="#AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">40735fbe525445e6a106b6c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">65c28ec5db3a427cab3b55f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Employee access to personal information is strictly on a need-to-know basis.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c21c706b55074e55bbd3482:DataProtection">
+<owl:NamedIndividual rdf:about="#5bf25e0f42754dc9b754722:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <has_mechanism rdf:resource="#40735fbe525445e6a106b6c:AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c21c706b55074e55bbd3482</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <has_mechanism rdf:resource="#65c28ec5db3a427cab3b55f:AccessControls"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5bf25e0f42754dc9b754722</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Our Commitment to Data Security Food Allergy Research Education implements physical electronic and managerial procedures to ensure that your personal information is protected at all times Our servers are housed in an off-site secured co-location facility Employee access to personal information is strictly on a need-to-know basis All employees are made aware of the Privacy Policy and of any updates or changes to it Employees are reminded of the importance of protecting the privacy of our donors and Internet site users</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f9e5716805764c5f842bcd7:SecureStorage">
+<owl:NamedIndividual rdf:about="#5e7a89cf1f1d4f0c94d8026:SecureStorage">
   <rdf:type rdf:resource="#SecureStorage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f9e5716805764c5f842bcd7</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5e7a89cf1f1d4f0c94d8026</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Our servers are housed in an off-site, secured co-location facility.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b1cf60acf2f04d10a3d318d:DataProtection">
+<owl:NamedIndividual rdf:about="#2b01d2a866c84f79be09218:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <has_mechanism rdf:resource="#f9e5716805764c5f842bcd7:SecureStorage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b1cf60acf2f04d10a3d318d</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <has_mechanism rdf:resource="#5e7a89cf1f1d4f0c94d8026:SecureStorage"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2b01d2a866c84f79be09218</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Our Commitment to Data Security Food Allergy Research Education implements physical electronic and managerial procedures to ensure that your personal information is protected at all times Our servers are housed in an off-site secured co-location facility Employee access to personal information is strictly on a need-to-know basis All employees are made aware of the Privacy Policy and of any updates or changes to it Employees are reminded of the importance of protecting the privacy of our donors and Internet site users</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1b03860baa8b4e0d9a7a7cb:SecurityMechanism">
+<owl:NamedIndividual rdf:about="#dc43aec055e94d0a944c77e:SecurityMechanism">
   <rdf:type rdf:resource="#SecurityMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1b03860baa8b4e0d9a7a7cb</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dc43aec055e94d0a944c77e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">All employees are made aware of the Privacy Policy and of any updates or changes to it. Employees are reminded of the importance of protecting the privacy of our donors and Internet site users.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#436c1ba9f41f4ce6bd5e2e5:DataProtection">
+<owl:NamedIndividual rdf:about="#44d327d208b24ceb8f91464:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <has_mechanism rdf:resource="#1b03860baa8b4e0d9a7a7cb:SecurityMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">436c1ba9f41f4ce6bd5e2e5</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <has_mechanism rdf:resource="#dc43aec055e94d0a944c77e:SecurityMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">44d327d208b24ceb8f91464</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Our Commitment to Data Security Food Allergy Research Education implements physical electronic and managerial procedures to ensure that your personal information is protected at all times Our servers are housed in an off-site secured co-location facility Employee access to personal information is strictly on a need-to-know basis All employees are made aware of the Privacy Policy and of any updates or changes to it Employees are reminded of the importance of protecting the privacy of our donors and Internet site users</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f054037cd2f540ddb0426fe:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#af64d69047ce4fb9a4f22b0:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f054037cd2f540ddb0426fe</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">af64d69047ce4fb9a4f22b0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food Allergy Research &amp; Education implements physical, electronic, and managerial procedures to ensure that your personal information is protected at all times.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#98e060a5ff9c40f48615fd4:DataProtection">
+<owl:NamedIndividual rdf:about="#d31abaa97f6c44f782122c7:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#1505e8dd092845dba7af4ef:FirstParty"/>
-  <has_mechanism rdf:resource="#f054037cd2f540ddb0426fe:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">98e060a5ff9c40f48615fd4</uuid>
+  <initiated_by rdf:resource="#961494b9c3cf40f28e257b4:FirstParty"/>
+  <has_mechanism rdf:resource="#af64d69047ce4fb9a4f22b0:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d31abaa97f6c44f782122c7</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Our Commitment to Data Security Food Allergy Research Education implements physical electronic and managerial procedures to ensure that your personal information is protected at all times Our servers are housed in an off-site secured co-location facility Employee access to personal information is strictly on a need-to-know basis All employees are made aware of the Privacy Policy and of any updates or changes to it Employees are reminded of the importance of protecting the privacy of our donors and Internet site users</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#33c98d2085404f6786bd9c4:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#6760f05b6419472196f0c38:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">33c98d2085404f6786bd9c4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6760f05b6419472196f0c38</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Child s Privacy We may collect your child s personal information such as name e-mail address allergies date of birth gender and postal address in order to register him or her in Food Allergy Research Education activities such as school programs or contests</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#05e7af225d5d4197b016b4c:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#92b5501e8543444aa1a2552:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">05e7af225d5d4197b016b4c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">92b5501e8543444aa1a2552</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Child s Privacy We may collect your child s personal information such as name e-mail address allergies date of birth gender and postal address in order to register him or her in Food Allergy Research Education activities such as school programs or contests</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#578735a0cdf94112af89fb5:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#2dc16915daca42bbb30c305:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">578735a0cdf94112af89fb5</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2dc16915daca42bbb30c305</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your child s personal information is subject to all of the terms of this privacy policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cb3209cee59d4de5bae0e51:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#8fd7fcde2b58456492c8091:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cb3209cee59d4de5bae0e51</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8fd7fcde2b58456492c8091</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your child s personal information is subject to all of the terms of this privacy policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a3357d7bbbe14dfd8563b09:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#8e71b7ed9a31481295900e7:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a3357d7bbbe14dfd8563b09</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8e71b7ed9a31481295900e7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Privacy Rights Under California Law Websites owned by organizations that operate in California must comply with the privacy practices outlined in California privacy bill S B 27 pertaining to the collection and use of personal information in direct marketing activities</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#914b04993e6245d4b9f1f79:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#62895322f6f942118392edc:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">914b04993e6245d4b9f1f79</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">62895322f6f942118392edc</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">your requests</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#164cfc7094e646aa8fab253:GenericData">
+<owl:NamedIndividual rdf:about="#516c105db922435bb5609f3:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">164cfc7094e646aa8fab253</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">516c105db922435bb5609f3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ce722a92014c45d986ff128:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#c118645374b84f6ba920c92:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_mechanism rdf:resource="#914b04993e6245d4b9f1f79:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#164cfc7094e646aa8fab253:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ce722a92014c45d986ff128</uuid>
+  <initiated_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_mechanism rdf:resource="#62895322f6f942118392edc:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#516c105db922435bb5609f3:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c118645374b84f6ba920c92</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">As discussed throughout this Policy Food Allergy Research Education honors your requests concerning your own personal information as it pertains to online and postal and telemarketing communications as well as list rentals and exchanges</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cfdc84a005384a00a06ebcc:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#1771e699fef142fdbd5cf2b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cfdc84a005384a00a06ebcc</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1771e699fef142fdbd5cf2b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">please notify us by emailing contactfare@foodallergy.org or calling 800-929-4040.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3bd9147d5fdf46619472040:PersonalData">
+<owl:NamedIndividual rdf:about="#8b5d889eec9743099a7367e:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3bd9147d5fdf46619472040</uuid>
+  <provided_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8b5d889eec9743099a7367e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e-mail communications or postal mail or telephone calls</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#14f7b723132442169fafbf5:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#caa9176c33c94922be0b233:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_mechanism rdf:resource="#cfdc84a005384a00a06ebcc:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#3bd9147d5fdf46619472040:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">14f7b723132442169fafbf5</uuid>
+  <initiated_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_mechanism rdf:resource="#1771e699fef142fdbd5cf2b:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#8b5d889eec9743099a7367e:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">caa9176c33c94922be0b233</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you prefer not to receive e-mail communications or postal mail or telephone calls from Food Allergy Research Education please notify us by emailing contactfare foodallergy org or calling 800-929-4040</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6bee338146ce49e99c1e011:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#6951c62c4a24404bb88dc3f:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6bee338146ce49e99c1e011</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6951c62c4a24404bb88dc3f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you prefer not to receive e-mail communications or postal mail or telephone calls from Food Allergy Research &amp; Education, please notify us by emailing contactfare@foodallergy.org or calling 800-929-4040.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b5292c3dadb74bd99952d48:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#57441db3904e4b9680f8773:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#94007906859745e8abb91e7:User"/>
-  <has_mechanism rdf:resource="#6bee338146ce49e99c1e011:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b5292c3dadb74bd99952d48</uuid>
+  <initiated_by rdf:resource="#66321c6833b74e0fad5da9e:User"/>
+  <has_mechanism rdf:resource="#6951c62c4a24404bb88dc3f:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">57441db3904e4b9680f8773</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you prefer not to receive e-mail communications or postal mail or telephone calls from Food Allergy Research Education please notify us by emailing contactfare foodallergy org or calling 800-929-4040</evidence>
 </owl:NamedIndividual>

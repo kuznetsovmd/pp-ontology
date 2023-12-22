@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -901,6 +902,14 @@
   <rdfs:subClassOf rdf:resource="#UserSpecificCommunicationMechanism"/>
   <owl:disjointWith rdf:resource="#AutomaticCommunicationMechanism"/>
   <rdfs:subClassOf>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
+        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
+      </owl:unionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
       <owl:allValuesFrom>
@@ -909,14 +918,6 @@
         </owl:Class>
       </owl:allValuesFrom>
     </owl:Restriction>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
-        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
-      </owl:unionOf>
-    </owl:Class>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,1076 +1305,1075 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#7c2059cdd320481db208e1f:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#b56ce088d6ac47de96c8c9d:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7c2059cdd320481db208e1f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b56ce088d6ac47de96c8c9d</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d614056d25e64594b667d61:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#09141d0468be468cb18fed7:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <considers rdf:resource="#7f525743187f4a178d64f67:FirstParty"/>
-  <considers rdf:resource="#df0c75df6a03459b8a0a1c5:ThirdParty"/>
-  <considers rdf:resource="#c5d5768196ee4fcb8736844:PersonalData"/>
-  <considers rdf:resource="#318759832ed14a70a7b6d8b:TPCollection"/>
-  <considers rdf:resource="#7e07a20b15c9431781cffe4:TPSharing"/>
-  <considers rdf:resource="#7520a325de4b47dd8d1df63:PersonalData"/>
-  <considers rdf:resource="#8d6a95d8aac34ea28a1ecea:DataUse"/>
-  <considers rdf:resource="#2b0a3aaee6df4237a67f851:PersonalData"/>
-  <considers rdf:resource="#a62a877e3bd741cc86ef439:FPCollection"/>
-  <considers rdf:resource="#40501650212f40909d6e99b:DataUse"/>
-  <considers rdf:resource="#d82fbcd32c724770beb0be7:GenericData"/>
-  <considers rdf:resource="#cdc31122234642fdb2f673c:DataUse"/>
-  <considers rdf:resource="#81cfe9489e464862a0c28d2:PersonalData"/>
-  <considers rdf:resource="#bdd91c04997a432c9d2f4bf:OptInOptOutControl"/>
-  <considers rdf:resource="#69efa048b70847cfa9e2fd4:PersonalData"/>
-  <considers rdf:resource="#18af947d63914968bdb9d63:OptInOptOutControl"/>
-  <considers rdf:resource="#9edb625165a045f08f805cc:GenericData"/>
-  <considers rdf:resource="#355139eedd46463fb48eb6a:FPCollection"/>
-  <considers rdf:resource="#f42b49fc7244488188edfc6:PersonalData"/>
-  <considers rdf:resource="#97f480833d9a4f4488c18b5:OptInOptOutControl"/>
-  <considers rdf:resource="#a0609a33ad804194b9c31f5:PersonalData"/>
-  <considers rdf:resource="#dd965ce9b35f450dae2731a:OptInOptOutControl"/>
-  <considers rdf:resource="#a44d62915cc34c5eba2fd7d:PersonalData"/>
-  <considers rdf:resource="#6813da45f4254864bc06a8b:OptInOptOutControl"/>
-  <considers rdf:resource="#85ca7d8bb4fa4638afcf095:PersonalData"/>
-  <considers rdf:resource="#8aa22770805f44b1a41bdc0:OptInOptOutControl"/>
-  <considers rdf:resource="#b62bb19907234ad0a4c3ccf:PersonalData"/>
-  <considers rdf:resource="#8a5d2c7e2fe64b87b942cfc:FPCollection"/>
-  <considers rdf:resource="#9be6d4f1986d40d28023b2a:DataProtection"/>
-  <considers rdf:resource="#dae344316fab45978fd3863:PersonalData"/>
-  <considers rdf:resource="#7206fa5fb774482fa8476de:DataUse"/>
-  <considers rdf:resource="#24b33f23b36d476bb8af296:OptInOptOutControl"/>
-  <considers rdf:resource="#8d819cc4b6174a68b9cc3a2:DataProtection"/>
-  <considers rdf:resource="#739c7cbcb8fa4591aaf2061:PersonalData"/>
-  <considers rdf:resource="#495f2534b4a049789f94705:TPCollection"/>
-  <considers rdf:resource="#4cefed393a6244a08953eef:OptInOptOutControl"/>
-  <considers rdf:resource="#d83525ec7bac47feaea3c90:PersonalData"/>
-  <considers rdf:resource="#f79523f06daa48fe8f889d2:OptInOptOutControl"/>
-  <considers rdf:resource="#25d7ed0e8ca8403581c5bf8:FinancialData"/>
-  <considers rdf:resource="#5f839d45ba9e4a259fa5032:FPCollection"/>
-  <considers rdf:resource="#6b9d6660249c4c379977809:PersonalData"/>
-  <considers rdf:resource="#433bf3b9bd8940bcbaf3dff:DataUse"/>
-  <considers rdf:resource="#0f719bfe688e481486b80ff:PersonalData"/>
-  <considers rdf:resource="#6c02236ef648482e886cb32:OptInOptOutControl"/>
-  <considers rdf:resource="#1b0b9c1257e34de29ee4ed0:PersonalData"/>
-  <considers rdf:resource="#6ce1f65f11df481281329bb:OptInOptOutControl"/>
-  <considers rdf:resource="#c674814f3ab74cfdb9d99ef:PersonalData"/>
-  <considers rdf:resource="#a7b92b2697604f07887f16b:TPCollection"/>
-  <considers rdf:resource="#d7d8def1799248c0bd5dfe6:TPSharing"/>
-  <considers rdf:resource="#8a9fd53103644dac9b00309:FinancialData"/>
-  <considers rdf:resource="#47766c9f935943a9ba2cc43:FPCollection"/>
-  <considers rdf:resource="#d9df93b6d84f471382c6466:DataUse"/>
-  <considers rdf:resource="#faec156af2f046ac9c04cbd:FinancialData"/>
-  <considers rdf:resource="#75ceef0f40bd420d8b70d91:OptInOptOutControl"/>
-  <considers rdf:resource="#9e10a938c16a4ca48685f03:TrackingData"/>
-  <considers rdf:resource="#93936c5c143043098bb8bf1:FPCollection"/>
-  <considers rdf:resource="#5ffe03317adf4210a1e0959:OptInOptOutControl"/>
-  <considers rdf:resource="#9c530054ae7b43bb8a669db:OptInOptOutControl"/>
-  <considers rdf:resource="#cdb472a29270461abc616d4:PersonalData"/>
-  <considers rdf:resource="#73cf77b337ca4e9ba70a876:OptInOptOutControl"/>
-  <considers rdf:resource="#374045755e6644a8a2bbae4:PersonalData"/>
-  <considers rdf:resource="#786196eb320943c793a487c:OptInOptOutControl"/>
-  <considers rdf:resource="#b9edb262d698433abc75248:PersonalData"/>
-  <considers rdf:resource="#d51136034dc64532846ae80:OptInOptOutControl"/>
-  <considers rdf:resource="#68eba11e61d34723943a8ad:PersonalData"/>
-  <considers rdf:resource="#f3fecac9d8ad44379eec893:OptInOptOutControl"/>
-  <considers rdf:resource="#78b6c371cab14b14b9b802f:PersonalData"/>
-  <considers rdf:resource="#fe62481cfc194d7ea5d8cbb:OptInOptOutControl"/>
-  <considers rdf:resource="#1d439d1d396c44cdb2d4c32:PersonalData"/>
-  <considers rdf:resource="#ce5d77bca7fe43269830572:OptInOptOutControl"/>
-  <considers rdf:resource="#85f122813b594f4f94a8b5e:PersonalData"/>
-  <considers rdf:resource="#550007d583894788bf12da2:OptInOptOutControl"/>
-  <considers rdf:resource="#c27288b6d4eb44c6868a42e:TPCollection"/>
-  <considers rdf:resource="#f008c6590aa24d40816b718:OptInOptOutControl"/>
-  <considers rdf:resource="#091c2d09329242d59826956:OptInOptOutControl"/>
-  <considers rdf:resource="#47831376aab944a39c5d826:OptInOptOutControl"/>
-  <considers rdf:resource="#1c4439ba84a543ca97a6613:PersonalData"/>
-  <considers rdf:resource="#5d010fc9e2a643b3b2d9613:OptInOptOutControl"/>
-  <considers rdf:resource="#339e8627abd74e87b5af18b:PersonalData"/>
-  <considers rdf:resource="#beb849b3023b47c1b671bf0:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d614056d25e64594b667d61</uuid>
+  <considers rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <considers rdf:resource="#debc8a7eb6a0494f94feb39:FirstParty"/>
+  <considers rdf:resource="#2310dbf3c8954f6baba8651:ThirdParty"/>
+  <considers rdf:resource="#3918934510864560a0c7315:PersonalData"/>
+  <considers rdf:resource="#d62692bb2b174f1aabc3334:TPCollection"/>
+  <considers rdf:resource="#9bed54b3d00b4278bc28390:TPSharing"/>
+  <considers rdf:resource="#33cacdae54634331ab82ebe:PersonalData"/>
+  <considers rdf:resource="#746ec19c88aa426b8a9e210:DataUse"/>
+  <considers rdf:resource="#35ef40330088419c8e6c4cc:PersonalData"/>
+  <considers rdf:resource="#52225a7438894369a2b6437:FPCollection"/>
+  <considers rdf:resource="#54c890324c2349d18b1e5c5:DataUse"/>
+  <considers rdf:resource="#3dcd966caf234d8eaec05c4:GenericData"/>
+  <considers rdf:resource="#b4cee00de127401bbeec073:DataUse"/>
+  <considers rdf:resource="#8f5bf9fd3ad9442a8c117ad:PersonalData"/>
+  <considers rdf:resource="#1808270a6685489a953d1d9:OptInOptOutControl"/>
+  <considers rdf:resource="#02485893317945e9879e27d:PersonalData"/>
+  <considers rdf:resource="#a1c3654698124da29b3e0a6:OptInOptOutControl"/>
+  <considers rdf:resource="#81a78f0f1e954aa889754ee:GenericData"/>
+  <considers rdf:resource="#816317a04b2f42a482145e2:FPCollection"/>
+  <considers rdf:resource="#69015364643144e18876461:PersonalData"/>
+  <considers rdf:resource="#155d6d5bafe54d3fa175bcd:OptInOptOutControl"/>
+  <considers rdf:resource="#6efaaa53ad46429596c425a:PersonalData"/>
+  <considers rdf:resource="#05c61b08ad8949f2a74a0ab:OptInOptOutControl"/>
+  <considers rdf:resource="#3f26108bf8ca45e0a91de79:PersonalData"/>
+  <considers rdf:resource="#49e29790f90b47d487f53f1:OptInOptOutControl"/>
+  <considers rdf:resource="#978019d6b38d4b85b5aeaaa:PersonalData"/>
+  <considers rdf:resource="#e8d2fdb07f7e448694454c1:OptInOptOutControl"/>
+  <considers rdf:resource="#87cd165b08ec43a6be5991f:PersonalData"/>
+  <considers rdf:resource="#c05e21a96b644aefb391581:FPCollection"/>
+  <considers rdf:resource="#b5a92e2cb6f443908f94a00:DataProtection"/>
+  <considers rdf:resource="#62bba2385dfb48aa9b68fbb:PersonalData"/>
+  <considers rdf:resource="#990195a8de1b44ecb841a2a:DataUse"/>
+  <considers rdf:resource="#b4733cc6e57640bb9d69942:OptInOptOutControl"/>
+  <considers rdf:resource="#64ecfd3347a54ca2b07815a:DataProtection"/>
+  <considers rdf:resource="#9bc9fc2d3296472185925ab:PersonalData"/>
+  <considers rdf:resource="#597c5e8306dc41eda3d31d5:TPCollection"/>
+  <considers rdf:resource="#45e60138846b40e297f291e:OptInOptOutControl"/>
+  <considers rdf:resource="#f410c30037cc4a8ca596ed0:PersonalData"/>
+  <considers rdf:resource="#74c439a854f9435ba7d43bd:OptInOptOutControl"/>
+  <considers rdf:resource="#be891cf618484ad48053ba8:FinancialData"/>
+  <considers rdf:resource="#feeefac1842d441390013ef:FPCollection"/>
+  <considers rdf:resource="#93a55b7af7154f41a928429:PersonalData"/>
+  <considers rdf:resource="#b9b2343838724d05a4deaa3:DataUse"/>
+  <considers rdf:resource="#ce64001fe7dd4cf89fe85d9:PersonalData"/>
+  <considers rdf:resource="#7dc10ba06a3645b0bc44423:OptInOptOutControl"/>
+  <considers rdf:resource="#a9544c8e32754c8ab0588b4:PersonalData"/>
+  <considers rdf:resource="#a31804cb5ca24b689613966:OptInOptOutControl"/>
+  <considers rdf:resource="#468f392e50b843efad5d0b9:PersonalData"/>
+  <considers rdf:resource="#877f594e5c4c4819be0ecb7:TPCollection"/>
+  <considers rdf:resource="#22164ad1afca42de8bd3630:TPSharing"/>
+  <considers rdf:resource="#ac399030680e4b119b34964:FinancialData"/>
+  <considers rdf:resource="#3400a8b9a39049cc87e09e8:FPCollection"/>
+  <considers rdf:resource="#1c457681cc004cbaa0e6fda:DataUse"/>
+  <considers rdf:resource="#6497aa657c4c45caa93b181:FinancialData"/>
+  <considers rdf:resource="#aad3b049dc4c4260b414893:OptInOptOutControl"/>
+  <considers rdf:resource="#f4744ee869e048938dba63d:TrackingData"/>
+  <considers rdf:resource="#a8fa381cb67d45229a32fdb:FPCollection"/>
+  <considers rdf:resource="#500f9b03963648eaa46aac7:OptInOptOutControl"/>
+  <considers rdf:resource="#34d1b0e7c4704e1e8eda474:OptInOptOutControl"/>
+  <considers rdf:resource="#b69d1b0496c244e395bc8c7:PersonalData"/>
+  <considers rdf:resource="#d8c9cd95500b4469b5c821d:OptInOptOutControl"/>
+  <considers rdf:resource="#df05bb4fc0464f2dbd8e4b7:PersonalData"/>
+  <considers rdf:resource="#9f1f50061b4e49c885ef665:OptInOptOutControl"/>
+  <considers rdf:resource="#9034b75e05b548eb94ee921:PersonalData"/>
+  <considers rdf:resource="#17562a56abdf4961b917369:OptInOptOutControl"/>
+  <considers rdf:resource="#fe59852e18e24dce84a819b:PersonalData"/>
+  <considers rdf:resource="#f12c83fdb0244ccc99a0fcd:OptInOptOutControl"/>
+  <considers rdf:resource="#5f7964697402436eaff08ea:PersonalData"/>
+  <considers rdf:resource="#dd278234a5e54d7fabfe3e6:OptInOptOutControl"/>
+  <considers rdf:resource="#2aa195f3c9014b2b8a12a09:PersonalData"/>
+  <considers rdf:resource="#ac5b1626caf84b6e80eb898:OptInOptOutControl"/>
+  <considers rdf:resource="#bf52eaf82aa2471d85df94d:PersonalData"/>
+  <considers rdf:resource="#0be551716b634638b452816:OptInOptOutControl"/>
+  <considers rdf:resource="#4e0fb95bdcb54989806e58b:TPCollection"/>
+  <considers rdf:resource="#bbfebaf1415e40c6a2bee2c:OptInOptOutControl"/>
+  <considers rdf:resource="#48759f020db54b40bb85154:OptInOptOutControl"/>
+  <considers rdf:resource="#153dc0bba7584213b69dc74:OptInOptOutControl"/>
+  <considers rdf:resource="#2119b361ebb14ec19252ad8:PersonalData"/>
+  <considers rdf:resource="#e0def841282b4f51a3bb324:OptInOptOutControl"/>
+  <considers rdf:resource="#02f10658b4cf400cbfef8cd:PersonalData"/>
+  <considers rdf:resource="#0b28153fb3704753b4bc2c5:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">09141d0468be468cb18fed7</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">zacks.com</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e76379551d2e463a8b9e18e:User">
+<owl:NamedIndividual rdf:about="#cb95499c1b154ac59e698b8:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e76379551d2e463a8b9e18e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cb95499c1b154ac59e698b8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7f525743187f4a178d64f67:FirstParty">
+<owl:NamedIndividual rdf:about="#debc8a7eb6a0494f94feb39:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7f525743187f4a178d64f67</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">debc8a7eb6a0494f94feb39</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#df0c75df6a03459b8a0a1c5:ThirdParty">
+<owl:NamedIndividual rdf:about="#2310dbf3c8954f6baba8651:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">df0c75df6a03459b8a0a1c5</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2310dbf3c8954f6baba8651</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c5d5768196ee4fcb8736844:PersonalData">
+<owl:NamedIndividual rdf:about="#3918934510864560a0c7315:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c5d5768196ee4fcb8736844</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3918934510864560a0c7315</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email address, name, postal address, and phone number.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#318759832ed14a70a7b6d8b:TPCollection">
+<owl:NamedIndividual rdf:about="#d62692bb2b174f1aabc3334:TPCollection">
   <rdf:type rdf:resource="#TPCollection"/>
-  <initiated_by rdf:resource="#7f525743187f4a178d64f67:FirstParty"/>
-  <collects_from rdf:resource="#df0c75df6a03459b8a0a1c5:ThirdParty"/>
-  <applies_to rdf:resource="#c5d5768196ee4fcb8736844:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">318759832ed14a70a7b6d8b</uuid>
+  <initiated_by rdf:resource="#debc8a7eb6a0494f94feb39:FirstParty"/>
+  <collects_from rdf:resource="#2310dbf3c8954f6baba8651:ThirdParty"/>
+  <applies_to rdf:resource="#3918934510864560a0c7315:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d62692bb2b174f1aabc3334</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Since our inception in 1978 we have sought to have long-term relationships with our customers Thus we do not wish to profit from the unwanted distribution of your private information or to inundate you with unnecessary e-mails or other material The information you may choose to provide includes any or all of the following email address name postal address and phone number In fact we only disclose the information you provide us or send you information if you authorize us to do so by choosing to receive e-mail services on our Zacks com Web site or opting into third party mailings With your approval we use the information you provide us in the following ways</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7e07a20b15c9431781cffe4:TPSharing">
+<owl:NamedIndividual rdf:about="#9bed54b3d00b4278bc28390:TPSharing">
   <rdf:type rdf:resource="#TPSharing"/>
-  <initiated_by rdf:resource="#7f525743187f4a178d64f67:FirstParty"/>
-  <shares_with rdf:resource="#df0c75df6a03459b8a0a1c5:ThirdParty"/>
-  <applies_to rdf:resource="#c5d5768196ee4fcb8736844:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7e07a20b15c9431781cffe4</uuid>
+  <initiated_by rdf:resource="#debc8a7eb6a0494f94feb39:FirstParty"/>
+  <shares_with rdf:resource="#2310dbf3c8954f6baba8651:ThirdParty"/>
+  <applies_to rdf:resource="#3918934510864560a0c7315:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9bed54b3d00b4278bc28390</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Since our inception in 1978 we have sought to have long-term relationships with our customers Thus we do not wish to profit from the unwanted distribution of your private information or to inundate you with unnecessary e-mails or other material The information you may choose to provide includes any or all of the following email address name postal address and phone number In fact we only disclose the information you provide us or send you information if you authorize us to do so by choosing to receive e-mail services on our Zacks com Web site or opting into third party mailings With your approval we use the information you provide us in the following ways</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7520a325de4b47dd8d1df63:PersonalData">
+<owl:NamedIndividual rdf:about="#33cacdae54634331ab82ebe:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7520a325de4b47dd8d1df63</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">33cacdae54634331ab82ebe</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email address, name, postal address, and phone number.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8fb90d9b64f74e6abf0be54:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#4612e0bf5f2549b1ad2a07a:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8fb90d9b64f74e6abf0be54</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4612e0bf5f2549b1ad2a07a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">choosing to receive e-mail services on our Zacks.com Web site or opting into third party mailings</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8d6a95d8aac34ea28a1ecea:DataUse">
+<owl:NamedIndividual rdf:about="#746ec19c88aa426b8a9e210:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#7f525743187f4a178d64f67:FirstParty"/>
-  <has_purpose rdf:resource="#8fb90d9b64f74e6abf0be54:MarketingPurpose"/>
-  <applies_to rdf:resource="#7520a325de4b47dd8d1df63:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8d6a95d8aac34ea28a1ecea</uuid>
+  <initiated_by rdf:resource="#debc8a7eb6a0494f94feb39:FirstParty"/>
+  <has_purpose rdf:resource="#4612e0bf5f2549b1ad2a07a:MarketingPurpose"/>
+  <applies_to rdf:resource="#33cacdae54634331ab82ebe:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">746ec19c88aa426b8a9e210</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Since our inception in 1978 we have sought to have long-term relationships with our customers Thus we do not wish to profit from the unwanted distribution of your private information or to inundate you with unnecessary e-mails or other material The information you may choose to provide includes any or all of the following email address name postal address and phone number In fact we only disclose the information you provide us or send you information if you authorize us to do so by choosing to receive e-mail services on our Zacks com Web site or opting into third party mailings With your approval we use the information you provide us in the following ways</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2b0a3aaee6df4237a67f851:PersonalData">
+<owl:NamedIndividual rdf:about="#35ef40330088419c8e6c4cc:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2b0a3aaee6df4237a67f851</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">35ef40330088419c8e6c4cc</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email address, name, postal address, and phone number.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#71154035eb654f19be15441:ViaWebsite">
+<owl:NamedIndividual rdf:about="#5638c157349743adb7fda53:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">71154035eb654f19be15441</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5638c157349743adb7fda53</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">on our Zacks.com Web site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#57aba4dbf28742099ea87b2:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#1861563593184633bcb7eab:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">57aba4dbf28742099ea87b2</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1861563593184633bcb7eab</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you provide us or send you information if you authorize us to do so</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a62a877e3bd741cc86ef439:FPCollection">
+<owl:NamedIndividual rdf:about="#52225a7438894369a2b6437:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#7f525743187f4a178d64f67:FirstParty"/>
-  <collects_from rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mode rdf:resource="#57aba4dbf28742099ea87b2:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#71154035eb654f19be15441:ViaWebsite"/>
-  <applies_to rdf:resource="#2b0a3aaee6df4237a67f851:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a62a877e3bd741cc86ef439</uuid>
+  <initiated_by rdf:resource="#debc8a7eb6a0494f94feb39:FirstParty"/>
+  <collects_from rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mode rdf:resource="#1861563593184633bcb7eab:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#5638c157349743adb7fda53:ViaWebsite"/>
+  <applies_to rdf:resource="#35ef40330088419c8e6c4cc:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">52225a7438894369a2b6437</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Since our inception in 1978 we have sought to have long-term relationships with our customers Thus we do not wish to profit from the unwanted distribution of your private information or to inundate you with unnecessary e-mails or other material The information you may choose to provide includes any or all of the following email address name postal address and phone number In fact we only disclose the information you provide us or send you information if you authorize us to do so by choosing to receive e-mail services on our Zacks com Web site or opting into third party mailings With your approval we use the information you provide us in the following ways</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#40501650212f40909d6e99b:DataUse">
+<owl:NamedIndividual rdf:about="#54c890324c2349d18b1e5c5:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#7f525743187f4a178d64f67:FirstParty"/>
-  <applies_to rdf:resource="#2b0a3aaee6df4237a67f851:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">40501650212f40909d6e99b</uuid>
+  <initiated_by rdf:resource="#debc8a7eb6a0494f94feb39:FirstParty"/>
+  <applies_to rdf:resource="#35ef40330088419c8e6c4cc:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">54c890324c2349d18b1e5c5</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Since our inception in 1978 we have sought to have long-term relationships with our customers Thus we do not wish to profit from the unwanted distribution of your private information or to inundate you with unnecessary e-mails or other material The information you may choose to provide includes any or all of the following email address name postal address and phone number In fact we only disclose the information you provide us or send you information if you authorize us to do so by choosing to receive e-mail services on our Zacks com Web site or opting into third party mailings With your approval we use the information you provide us in the following ways</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d82fbcd32c724770beb0be7:GenericData">
+<owl:NamedIndividual rdf:about="#3dcd966caf234d8eaec05c4:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d82fbcd32c724770beb0be7</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3dcd966caf234d8eaec05c4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#795b4e1b1a5c4660b2fa2ac:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#6493b5347c804f54b1dfed6:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">795b4e1b1a5c4660b2fa2ac</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6493b5347c804f54b1dfed6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">will receive, via e-mail, our free weekly newsletters: Profit from the Pros. Through Profit from the Pros, we provide original and exclusive content from Zacks Investment Research and Zacks.com. We also distribute commentary and investment ideas from independent third parties, who produce financial news publications and who compensate Zacks Investment Research for distributing their newsletters. From time-to-time, we will also send or contact you regarding special offers for products and services from Zacks Investment Research and our affiliates</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cdc31122234642fdb2f673c:DataUse">
+<owl:NamedIndividual rdf:about="#b4cee00de127401bbeec073:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#7f525743187f4a178d64f67:FirstParty"/>
-  <has_purpose rdf:resource="#795b4e1b1a5c4660b2fa2ac:MarketingPurpose"/>
-  <applies_to rdf:resource="#d82fbcd32c724770beb0be7:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cdc31122234642fdb2f673c</uuid>
+  <initiated_by rdf:resource="#debc8a7eb6a0494f94feb39:FirstParty"/>
+  <has_purpose rdf:resource="#6493b5347c804f54b1dfed6:MarketingPurpose"/>
+  <applies_to rdf:resource="#3dcd966caf234d8eaec05c4:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b4cee00de127401bbeec073</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zacks Investment Research Internal List Everyone who submits personal information to Zacks Investment Research online will receive via e-mail our free weekly newsletters Profit from the Pros Through Profit from the Pros we provide original and exclusive content from Zacks Investment Research and Zacks com We also distribute commentary and investment ideas from independent third parties who produce financial news publications and who compensate Zacks Investment Research for distributing their newsletters From time-to-time we will also send or contact you regarding special offers for products and services from Zacks Investment Research and our affiliates You can unsubscribe from these e-mails at any time by going to http //register zacks com/unisub php</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c094625c3f3f4f5481ffa78:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#01dd13e805b94c17bdde14d:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c094625c3f3f4f5481ffa78</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">01dd13e805b94c17bdde14d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unsubscribe</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#81cfe9489e464862a0c28d2:PersonalData">
+<owl:NamedIndividual rdf:about="#8f5bf9fd3ad9442a8c117ad:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">81cfe9489e464862a0c28d2</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8f5bf9fd3ad9442a8c117ad</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e-mails</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bdd91c04997a432c9d2f4bf:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#1808270a6685489a953d1d9:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#c094625c3f3f4f5481ffa78:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#81cfe9489e464862a0c28d2:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bdd91c04997a432c9d2f4bf</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#01dd13e805b94c17bdde14d:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#8f5bf9fd3ad9442a8c117ad:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1808270a6685489a953d1d9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zacks Investment Research Internal List Everyone who submits personal information to Zacks Investment Research online will receive via e-mail our free weekly newsletters Profit from the Pros Through Profit from the Pros we provide original and exclusive content from Zacks Investment Research and Zacks com We also distribute commentary and investment ideas from independent third parties who produce financial news publications and who compensate Zacks Investment Research for distributing their newsletters From time-to-time we will also send or contact you regarding special offers for products and services from Zacks Investment Research and our affiliates You can unsubscribe from these e-mails at any time by going to http //register zacks com/unisub php</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0ce8f2ebbef1402b8d0e990:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#a94dce33cde64140b1d656e:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0ce8f2ebbef1402b8d0e990</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a94dce33cde64140b1d656e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unsubscribe</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#69efa048b70847cfa9e2fd4:PersonalData">
+<owl:NamedIndividual rdf:about="#02485893317945e9879e27d:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">69efa048b70847cfa9e2fd4</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">02485893317945e9879e27d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e-mails</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#18af947d63914968bdb9d63:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#a1c3654698124da29b3e0a6:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#0ce8f2ebbef1402b8d0e990:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#69efa048b70847cfa9e2fd4:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">18af947d63914968bdb9d63</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#a94dce33cde64140b1d656e:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#02485893317945e9879e27d:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a1c3654698124da29b3e0a6</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zacks Investment Research Internal List Everyone who submits personal information to Zacks Investment Research online will receive via e-mail our free weekly newsletters Profit from the Pros Through Profit from the Pros we provide original and exclusive content from Zacks Investment Research and Zacks com We also distribute commentary and investment ideas from independent third parties who produce financial news publications and who compensate Zacks Investment Research for distributing their newsletters From time-to-time we will also send or contact you regarding special offers for products and services from Zacks Investment Research and our affiliates You can unsubscribe from these e-mails at any time by going to http //register zacks com/unisub php</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9edb625165a045f08f805cc:GenericData">
+<owl:NamedIndividual rdf:about="#81a78f0f1e954aa889754ee:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9edb625165a045f08f805cc</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">81a78f0f1e954aa889754ee</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cd777784597d4f8ca7acf37:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#c0fdbfe0301a4d0ca7c8031:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cd777784597d4f8ca7acf37</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c0fdbfe0301a4d0ca7c8031</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">via e-mail, our free weekly newsletters: Profit from the Pros. Through Profit from the Pros, we provide original and exclusive content from Zacks Investment Research and Zacks.com. We also distribute commentary and investment ideas from independent third parties, who produce financial news publications and who compensate Zacks Investment Research for distributing their newsletters.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a4bb21b3e7054247ae557ea:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#7b1ffc2f85bf498f8c3f5dc:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a4bb21b3e7054247ae557ea</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7b1ffc2f85bf498f8c3f5dc</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">submits personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#355139eedd46463fb48eb6a:FPCollection">
+<owl:NamedIndividual rdf:about="#816317a04b2f42a482145e2:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#7f525743187f4a178d64f67:FirstParty"/>
-  <collects_from rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_purpose rdf:resource="#cd777784597d4f8ca7acf37:MarketingPurpose"/>
-  <has_mode rdf:resource="#a4bb21b3e7054247ae557ea:TransmissionByRequest"/>
-  <applies_to rdf:resource="#9edb625165a045f08f805cc:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">355139eedd46463fb48eb6a</uuid>
+  <initiated_by rdf:resource="#debc8a7eb6a0494f94feb39:FirstParty"/>
+  <collects_from rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_purpose rdf:resource="#c0fdbfe0301a4d0ca7c8031:MarketingPurpose"/>
+  <has_mode rdf:resource="#7b1ffc2f85bf498f8c3f5dc:TransmissionByRequest"/>
+  <applies_to rdf:resource="#81a78f0f1e954aa889754ee:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">816317a04b2f42a482145e2</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zacks Investment Research Internal List Everyone who submits personal information to Zacks Investment Research online will receive via e-mail our free weekly newsletters Profit from the Pros Through Profit from the Pros we provide original and exclusive content from Zacks Investment Research and Zacks com We also distribute commentary and investment ideas from independent third parties who produce financial news publications and who compensate Zacks Investment Research for distributing their newsletters From time-to-time we will also send or contact you regarding special offers for products and services from Zacks Investment Research and our affiliates You can unsubscribe from these e-mails at any time by going to http //register zacks com/unisub php</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#af2e3fd5b28344bca079635:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#7a60af8f1edc4cc49f1f761:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">af2e3fd5b28344bca079635</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7a60af8f1edc4cc49f1f761</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can unsubscribe from these e-mails at any time by going to http://register.zacks.com/unisub.php.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f42b49fc7244488188edfc6:PersonalData">
+<owl:NamedIndividual rdf:about="#69015364643144e18876461:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f42b49fc7244488188edfc6</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">69015364643144e18876461</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">send or contact you</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#97f480833d9a4f4488c18b5:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#155d6d5bafe54d3fa175bcd:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#af2e3fd5b28344bca079635:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#f42b49fc7244488188edfc6:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">97f480833d9a4f4488c18b5</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#7a60af8f1edc4cc49f1f761:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#69015364643144e18876461:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">155d6d5bafe54d3fa175bcd</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zacks Investment Research Internal List Everyone who submits personal information to Zacks Investment Research online will receive via e-mail our free weekly newsletters Profit from the Pros Through Profit from the Pros we provide original and exclusive content from Zacks Investment Research and Zacks com We also distribute commentary and investment ideas from independent third parties who produce financial news publications and who compensate Zacks Investment Research for distributing their newsletters From time-to-time we will also send or contact you regarding special offers for products and services from Zacks Investment Research and our affiliates You can unsubscribe from these e-mails at any time by going to http //register zacks com/unisub php</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#70c74a92c7824ece98f9610:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#9012b13b24b84b88a37501b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">70c74a92c7824ece98f9610</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9012b13b24b84b88a37501b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">As always, you can unsubscribe from these e-mails at any time by going to http://register.zacks.com/unisub.php.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a0609a33ad804194b9c31f5:PersonalData">
+<owl:NamedIndividual rdf:about="#6efaaa53ad46429596c425a:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a0609a33ad804194b9c31f5</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6efaaa53ad46429596c425a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e-mails</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dd965ce9b35f450dae2731a:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#05c61b08ad8949f2a74a0ab:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#70c74a92c7824ece98f9610:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#a0609a33ad804194b9c31f5:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dd965ce9b35f450dae2731a</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#9012b13b24b84b88a37501b:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#6efaaa53ad46429596c425a:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">05c61b08ad8949f2a74a0ab</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zacks Investment Research Opt-In Marketing List During the Zacks com registration process we include the contact information you provide us on the Zacks Investment Research opt-in marketing list We rent our opt-in marketing list to outside marketers who have special offers that may be of interest to you Please note that we rent our marketing list but we do not sell your information to third parties Zacks Investment Research controls the process through an agreement with an e-mail service provider which handles the distribution of e-mails from Zacks Investment Research and its business partners We keep tight control over our marketing list at all times We only give outside marketers the right to send you an e-mail through our e-mail service provider Additionally Zacks Investment Research is selective about which companies we permit to send you an offer Zacks will use names for Market Research Our goal is for the e-mails to be of value to you As always you can unsubscribe from these e-mails at any time by going to http //register zacks com/unisub php</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d8be541857ec4e8499de77c:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#e1968af62b79496dab6d7af:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d8be541857ec4e8499de77c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e1968af62b79496dab6d7af</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">opt-in</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a44d62915cc34c5eba2fd7d:PersonalData">
+<owl:NamedIndividual rdf:about="#3f26108bf8ca45e0a91de79:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a44d62915cc34c5eba2fd7d</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3f26108bf8ca45e0a91de79</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">contact information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6813da45f4254864bc06a8b:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#49e29790f90b47d487f53f1:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#d8be541857ec4e8499de77c:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#a44d62915cc34c5eba2fd7d:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6813da45f4254864bc06a8b</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#e1968af62b79496dab6d7af:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#3f26108bf8ca45e0a91de79:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">49e29790f90b47d487f53f1</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zacks Investment Research Opt-In Marketing List During the Zacks com registration process we include the contact information you provide us on the Zacks Investment Research opt-in marketing list We rent our opt-in marketing list to outside marketers who have special offers that may be of interest to you Please note that we rent our marketing list but we do not sell your information to third parties Zacks Investment Research controls the process through an agreement with an e-mail service provider which handles the distribution of e-mails from Zacks Investment Research and its business partners We keep tight control over our marketing list at all times We only give outside marketers the right to send you an e-mail through our e-mail service provider Additionally Zacks Investment Research is selective about which companies we permit to send you an offer Zacks will use names for Market Research Our goal is for the e-mails to be of value to you As always you can unsubscribe from these e-mails at any time by going to http //register zacks com/unisub php</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fe4e13f6dc404aa697ee556:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#6b8c5520b2ac40f4aa71498:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fe4e13f6dc404aa697ee556</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6b8c5520b2ac40f4aa71498</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unsubscribe from these e-mails at any time by going to http://register.zacks.com/unisub.php</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#85ca7d8bb4fa4638afcf095:PersonalData">
+<owl:NamedIndividual rdf:about="#978019d6b38d4b85b5aeaaa:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">85ca7d8bb4fa4638afcf095</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">978019d6b38d4b85b5aeaaa</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e-mails</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8aa22770805f44b1a41bdc0:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#e8d2fdb07f7e448694454c1:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#fe4e13f6dc404aa697ee556:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#85ca7d8bb4fa4638afcf095:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8aa22770805f44b1a41bdc0</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#6b8c5520b2ac40f4aa71498:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#978019d6b38d4b85b5aeaaa:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e8d2fdb07f7e448694454c1</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zacks Investment Research Opt-In Marketing List During the Zacks com registration process we include the contact information you provide us on the Zacks Investment Research opt-in marketing list We rent our opt-in marketing list to outside marketers who have special offers that may be of interest to you Please note that we rent our marketing list but we do not sell your information to third parties Zacks Investment Research controls the process through an agreement with an e-mail service provider which handles the distribution of e-mails from Zacks Investment Research and its business partners We keep tight control over our marketing list at all times We only give outside marketers the right to send you an e-mail through our e-mail service provider Additionally Zacks Investment Research is selective about which companies we permit to send you an offer Zacks will use names for Market Research Our goal is for the e-mails to be of value to you As always you can unsubscribe from these e-mails at any time by going to http //register zacks com/unisub php</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b62bb19907234ad0a4c3ccf:PersonalData">
+<owl:NamedIndividual rdf:about="#87cd165b08ec43a6be5991f:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b62bb19907234ad0a4c3ccf</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">87cd165b08ec43a6be5991f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">contact information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8a208c8469bf45a0a0a3205:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#089667f2ced34eedac0a8dd:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8a208c8469bf45a0a0a3205</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">089667f2ced34eedac0a8dd</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">on the Zacks Investment Research opt-in marketing list.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#67088d3a5bc448238237ade:ViaWebsite">
+<owl:NamedIndividual rdf:about="#d90edfc5e9534498819f2a7:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">67088d3a5bc448238237ade</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d90edfc5e9534498819f2a7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zacks.com</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7fe73b852fcf48a2a92cfa0:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#ba9028821f1448a6a4529ee:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7fe73b852fcf48a2a92cfa0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ba9028821f1448a6a4529ee</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you provide</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8a5d2c7e2fe64b87b942cfc:FPCollection">
+<owl:NamedIndividual rdf:about="#c05e21a96b644aefb391581:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#7f525743187f4a178d64f67:FirstParty"/>
-  <collects_from rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_purpose rdf:resource="#8a208c8469bf45a0a0a3205:MarketingPurpose"/>
-  <has_mode rdf:resource="#7fe73b852fcf48a2a92cfa0:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#67088d3a5bc448238237ade:ViaWebsite"/>
-  <applies_to rdf:resource="#b62bb19907234ad0a4c3ccf:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8a5d2c7e2fe64b87b942cfc</uuid>
+  <initiated_by rdf:resource="#debc8a7eb6a0494f94feb39:FirstParty"/>
+  <collects_from rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_purpose rdf:resource="#089667f2ced34eedac0a8dd:MarketingPurpose"/>
+  <has_mode rdf:resource="#ba9028821f1448a6a4529ee:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#d90edfc5e9534498819f2a7:ViaWebsite"/>
+  <applies_to rdf:resource="#87cd165b08ec43a6be5991f:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c05e21a96b644aefb391581</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zacks Investment Research Opt-In Marketing List During the Zacks com registration process we include the contact information you provide us on the Zacks Investment Research opt-in marketing list We rent our opt-in marketing list to outside marketers who have special offers that may be of interest to you Please note that we rent our marketing list but we do not sell your information to third parties Zacks Investment Research controls the process through an agreement with an e-mail service provider which handles the distribution of e-mails from Zacks Investment Research and its business partners We keep tight control over our marketing list at all times We only give outside marketers the right to send you an e-mail through our e-mail service provider Additionally Zacks Investment Research is selective about which companies we permit to send you an offer Zacks will use names for Market Research Our goal is for the e-mails to be of value to you As always you can unsubscribe from these e-mails at any time by going to http //register zacks com/unisub php</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b5725899c73b477f83993f3:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#31fc010038094f828bc29af:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b5725899c73b477f83993f3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">31fc010038094f828bc29af</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zacks Investment Research controls the process through an agreement with an e-mail service provider, which handles the distribution of e-mails from Zacks Investment Research and its business partners. We keep tight control over our marketing list at all times. We only give outside marketers the right to send you an e-mail through our e-mail service provider. Additionally, Zacks Investment Research is selective about which companies we permit to send you an offer. Zacks will use names for Market Research</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9be6d4f1986d40d28023b2a:DataProtection">
+<owl:NamedIndividual rdf:about="#b5a92e2cb6f443908f94a00:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#7f525743187f4a178d64f67:FirstParty"/>
-  <has_mechanism rdf:resource="#b5725899c73b477f83993f3:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9be6d4f1986d40d28023b2a</uuid>
+  <initiated_by rdf:resource="#debc8a7eb6a0494f94feb39:FirstParty"/>
+  <has_mechanism rdf:resource="#31fc010038094f828bc29af:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b5a92e2cb6f443908f94a00</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zacks Investment Research Opt-In Marketing List During the Zacks com registration process we include the contact information you provide us on the Zacks Investment Research opt-in marketing list We rent our opt-in marketing list to outside marketers who have special offers that may be of interest to you Please note that we rent our marketing list but we do not sell your information to third parties Zacks Investment Research controls the process through an agreement with an e-mail service provider which handles the distribution of e-mails from Zacks Investment Research and its business partners We keep tight control over our marketing list at all times We only give outside marketers the right to send you an e-mail through our e-mail service provider Additionally Zacks Investment Research is selective about which companies we permit to send you an offer Zacks will use names for Market Research Our goal is for the e-mails to be of value to you As always you can unsubscribe from these e-mails at any time by going to http //register zacks com/unisub php</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dae344316fab45978fd3863:PersonalData">
+<owl:NamedIndividual rdf:about="#62bba2385dfb48aa9b68fbb:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dae344316fab45978fd3863</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">62bba2385dfb48aa9b68fbb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">postal and phone number information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8918e8c5e29e42459d25539:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#5d8dcc29dbff4bbc8ec94b9:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8918e8c5e29e42459d25539</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5d8dcc29dbff4bbc8ec94b9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">special direct mail and telemarketing offers</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7206fa5fb774482fa8476de:DataUse">
+<owl:NamedIndividual rdf:about="#990195a8de1b44ecb841a2a:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#7f525743187f4a178d64f67:FirstParty"/>
-  <has_purpose rdf:resource="#8918e8c5e29e42459d25539:MarketingPurpose"/>
-  <applies_to rdf:resource="#dae344316fab45978fd3863:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7206fa5fb774482fa8476de</uuid>
+  <initiated_by rdf:resource="#debc8a7eb6a0494f94feb39:FirstParty"/>
+  <has_purpose rdf:resource="#5d8dcc29dbff4bbc8ec94b9:MarketingPurpose"/>
+  <applies_to rdf:resource="#62bba2385dfb48aa9b68fbb:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">990195a8de1b44ecb841a2a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zacks Investment Research Postal and Telemarketing Lists Everyone who submits personal postal and phone number information to Zacks Investment Research online may receive special direct mail and telemarketing offers from outside marketers that may be of interest to you As with our other lists we rent our postal and phone marketing lists and do not sell your information to third parties Zacks Investment Research controls the process through an agreement with a postal list service bureau and phone call centers which handles the distribution of direct mail and telemarketing offers from Zacks Investment Research and its business partners Outside marketers are only given the right to send you a piece of direct mail through our bureau or call you through a telemarketing firm with our approval All phone numbers on the Zacks telemarketing list are processed through the National Do Not Call Directory to remove anyone registered there Zacks Investment Research is selective about the companies we permit to send your offers and the offers being sent Naturally you can unsubscribe from these direct marketing offers at any time by calling us at 1-800-767-3771 ext 9339 or emailing your request to support zacks com</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#271b2dfd8bf447b5866d375:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#ae465ec361bf4be386bd3d8:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">271b2dfd8bf447b5866d375</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ae465ec361bf4be386bd3d8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">calling us at 1-800-767-3771 ext. 9339 or emailing your request to support@zacks.com</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#24b33f23b36d476bb8af296:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#b4733cc6e57640bb9d69942:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#271b2dfd8bf447b5866d375:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">24b33f23b36d476bb8af296</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#ae465ec361bf4be386bd3d8:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b4733cc6e57640bb9d69942</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zacks Investment Research Postal and Telemarketing Lists Everyone who submits personal postal and phone number information to Zacks Investment Research online may receive special direct mail and telemarketing offers from outside marketers that may be of interest to you As with our other lists we rent our postal and phone marketing lists and do not sell your information to third parties Zacks Investment Research controls the process through an agreement with a postal list service bureau and phone call centers which handles the distribution of direct mail and telemarketing offers from Zacks Investment Research and its business partners Outside marketers are only given the right to send you a piece of direct mail through our bureau or call you through a telemarketing firm with our approval All phone numbers on the Zacks telemarketing list are processed through the National Do Not Call Directory to remove anyone registered there Zacks Investment Research is selective about the companies we permit to send your offers and the offers being sent Naturally you can unsubscribe from these direct marketing offers at any time by calling us at 1-800-767-3771 ext 9339 or emailing your request to support zacks com</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6c11fde286a5417d8499fc8:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#430f99b51a9b40de8d0aa12:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6c11fde286a5417d8499fc8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">430f99b51a9b40de8d0aa12</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zacks Investment Research controls the process through an agreement with a postal list service bureau and phone call centers, which handles the distribution of direct mail and telemarketing offers from Zacks Investment Research and its business partners. Outside marketers are only given the right to send you a piece of direct mail through our bureau or call you through a telemarketing firm with our approval. All phone numbers on the Zacks telemarketing list are processed through the National Do Not Call Directory to remove anyone registered there. Zacks Investment Research is selective about the companies we permit to send your offers and the offers being sent.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8d819cc4b6174a68b9cc3a2:DataProtection">
+<owl:NamedIndividual rdf:about="#64ecfd3347a54ca2b07815a:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#7f525743187f4a178d64f67:FirstParty"/>
-  <has_mechanism rdf:resource="#6c11fde286a5417d8499fc8:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8d819cc4b6174a68b9cc3a2</uuid>
+  <initiated_by rdf:resource="#debc8a7eb6a0494f94feb39:FirstParty"/>
+  <has_mechanism rdf:resource="#430f99b51a9b40de8d0aa12:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">64ecfd3347a54ca2b07815a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zacks Investment Research Postal and Telemarketing Lists Everyone who submits personal postal and phone number information to Zacks Investment Research online may receive special direct mail and telemarketing offers from outside marketers that may be of interest to you As with our other lists we rent our postal and phone marketing lists and do not sell your information to third parties Zacks Investment Research controls the process through an agreement with a postal list service bureau and phone call centers which handles the distribution of direct mail and telemarketing offers from Zacks Investment Research and its business partners Outside marketers are only given the right to send you a piece of direct mail through our bureau or call you through a telemarketing firm with our approval All phone numbers on the Zacks telemarketing list are processed through the National Do Not Call Directory to remove anyone registered there Zacks Investment Research is selective about the companies we permit to send your offers and the offers being sent Naturally you can unsubscribe from these direct marketing offers at any time by calling us at 1-800-767-3771 ext 9339 or emailing your request to support zacks com</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#739c7cbcb8fa4591aaf2061:PersonalData">
+<owl:NamedIndividual rdf:about="#9bc9fc2d3296472185925ab:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">739c7cbcb8fa4591aaf2061</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9bc9fc2d3296472185925ab</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personal postal and phone number information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6922ee3513ee48a79f9f377:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#c5edb5ee99dc4d85aec19df:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6922ee3513ee48a79f9f377</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c5edb5ee99dc4d85aec19df</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">may receive special direct mail and telemarketing offers from outside marketers that may be of interest to you.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c43cab9eb04e4ef08c7d0a3:TPSharingAndCollectionCMechanism">
+<owl:NamedIndividual rdf:about="#776d131aea7f400aae19d91:TPSharingAndCollectionCMechanism">
   <rdf:type rdf:resource="#TPSharingAndCollectionCMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c43cab9eb04e4ef08c7d0a3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">776d131aea7f400aae19d91</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">As with our other lists, we "rent" our postal and phone marketing lists</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#495f2534b4a049789f94705:TPCollection">
+<owl:NamedIndividual rdf:about="#597c5e8306dc41eda3d31d5:TPCollection">
   <rdf:type rdf:resource="#TPCollection"/>
-  <initiated_by rdf:resource="#7f525743187f4a178d64f67:FirstParty"/>
-  <collects_from rdf:resource="#df0c75df6a03459b8a0a1c5:ThirdParty"/>
-  <has_purpose rdf:resource="#6922ee3513ee48a79f9f377:MarketingPurpose"/>
-  <has_mechanism rdf:resource="#c43cab9eb04e4ef08c7d0a3:TPSharingAndCollectionCMechanism"/>
-  <applies_to rdf:resource="#739c7cbcb8fa4591aaf2061:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">495f2534b4a049789f94705</uuid>
+  <initiated_by rdf:resource="#debc8a7eb6a0494f94feb39:FirstParty"/>
+  <collects_from rdf:resource="#2310dbf3c8954f6baba8651:ThirdParty"/>
+  <has_purpose rdf:resource="#c5edb5ee99dc4d85aec19df:MarketingPurpose"/>
+  <has_mechanism rdf:resource="#776d131aea7f400aae19d91:TPSharingAndCollectionCMechanism"/>
+  <applies_to rdf:resource="#9bc9fc2d3296472185925ab:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">597c5e8306dc41eda3d31d5</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zacks Investment Research Postal and Telemarketing Lists Everyone who submits personal postal and phone number information to Zacks Investment Research online may receive special direct mail and telemarketing offers from outside marketers that may be of interest to you As with our other lists we rent our postal and phone marketing lists and do not sell your information to third parties Zacks Investment Research controls the process through an agreement with a postal list service bureau and phone call centers which handles the distribution of direct mail and telemarketing offers from Zacks Investment Research and its business partners Outside marketers are only given the right to send you a piece of direct mail through our bureau or call you through a telemarketing firm with our approval All phone numbers on the Zacks telemarketing list are processed through the National Do Not Call Directory to remove anyone registered there Zacks Investment Research is selective about the companies we permit to send your offers and the offers being sent Naturally you can unsubscribe from these direct marketing offers at any time by calling us at 1-800-767-3771 ext 9339 or emailing your request to support zacks com</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a66d7f411b514dd29c06436:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#eb77f5073d51404e94c13ed:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a66d7f411b514dd29c06436</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eb77f5073d51404e94c13ed</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you subscribe to the Zacks Premium subscription service, you will be included in our internal email and postal marketing lists. You will only be added to the Opt-In Marketing list if you do not uncheck the offer box included as part of registration.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4cefed393a6244a08953eef:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#45e60138846b40e297f291e:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#a66d7f411b514dd29c06436:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4cefed393a6244a08953eef</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#eb77f5073d51404e94c13ed:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">45e60138846b40e297f291e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zacks Premium If you subscribe to the Zacks Premium subscription service you will be included in our internal email and postal marketing lists You will only be added to the Opt-In Marketing list if you do not uncheck the offer box included as part of registration We collect your credit card information solely for payment of your subscription It is shared only with our credit card processor in order to complete the transaction</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a8c7bde8681d4d889812a48:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#dea5e6a5a36747c3a0c8016:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a8c7bde8681d4d889812a48</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dea5e6a5a36747c3a0c8016</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you subscribe</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d83525ec7bac47feaea3c90:PersonalData">
+<owl:NamedIndividual rdf:about="#f410c30037cc4a8ca596ed0:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d83525ec7bac47feaea3c90</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f410c30037cc4a8ca596ed0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email and postal</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f79523f06daa48fe8f889d2:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#74c439a854f9435ba7d43bd:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#a8c7bde8681d4d889812a48:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#d83525ec7bac47feaea3c90:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f79523f06daa48fe8f889d2</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#dea5e6a5a36747c3a0c8016:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#f410c30037cc4a8ca596ed0:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">74c439a854f9435ba7d43bd</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zacks Premium If you subscribe to the Zacks Premium subscription service you will be included in our internal email and postal marketing lists You will only be added to the Opt-In Marketing list if you do not uncheck the offer box included as part of registration We collect your credit card information solely for payment of your subscription It is shared only with our credit card processor in order to complete the transaction</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#25d7ed0e8ca8403581c5bf8:FinancialData">
+<owl:NamedIndividual rdf:about="#be891cf618484ad48053ba8:FinancialData">
   <rdf:type rdf:resource="#FinancialData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">25d7ed0e8ca8403581c5bf8</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">be891cf618484ad48053ba8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">credit card information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2ce4a02ba88047acb2b0901:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#64e3eb6a0eaf45b0b0f87ce:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2ce4a02ba88047acb2b0901</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">64e3eb6a0eaf45b0b0f87ce</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">payment of your subscription</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5f839d45ba9e4a259fa5032:FPCollection">
+<owl:NamedIndividual rdf:about="#feeefac1842d441390013ef:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#7f525743187f4a178d64f67:FirstParty"/>
-  <collects_from rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_purpose rdf:resource="#2ce4a02ba88047acb2b0901:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#25d7ed0e8ca8403581c5bf8:FinancialData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5f839d45ba9e4a259fa5032</uuid>
+  <initiated_by rdf:resource="#debc8a7eb6a0494f94feb39:FirstParty"/>
+  <collects_from rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_purpose rdf:resource="#64e3eb6a0eaf45b0b0f87ce:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#be891cf618484ad48053ba8:FinancialData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">feeefac1842d441390013ef</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zacks Premium If you subscribe to the Zacks Premium subscription service you will be included in our internal email and postal marketing lists You will only be added to the Opt-In Marketing list if you do not uncheck the offer box included as part of registration We collect your credit card information solely for payment of your subscription It is shared only with our credit card processor in order to complete the transaction</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6b9d6660249c4c379977809:PersonalData">
+<owl:NamedIndividual rdf:about="#93a55b7af7154f41a928429:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6b9d6660249c4c379977809</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">93a55b7af7154f41a928429</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email and postal</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b3396cc1e671489c9ef4fc9:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#0e88044b85784756a48c502:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b3396cc1e671489c9ef4fc9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0e88044b85784756a48c502</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">marketing</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#433bf3b9bd8940bcbaf3dff:DataUse">
+<owl:NamedIndividual rdf:about="#b9b2343838724d05a4deaa3:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#7f525743187f4a178d64f67:FirstParty"/>
-  <has_purpose rdf:resource="#b3396cc1e671489c9ef4fc9:MarketingPurpose"/>
-  <applies_to rdf:resource="#6b9d6660249c4c379977809:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">433bf3b9bd8940bcbaf3dff</uuid>
+  <initiated_by rdf:resource="#debc8a7eb6a0494f94feb39:FirstParty"/>
+  <has_purpose rdf:resource="#0e88044b85784756a48c502:MarketingPurpose"/>
+  <applies_to rdf:resource="#93a55b7af7154f41a928429:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b9b2343838724d05a4deaa3</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zacks Premium If you subscribe to the Zacks Premium subscription service you will be included in our internal email and postal marketing lists You will only be added to the Opt-In Marketing list if you do not uncheck the offer box included as part of registration We collect your credit card information solely for payment of your subscription It is shared only with our credit card processor in order to complete the transaction</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a5a1bcd056564683a7455a4:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#3965fc0d203c48a28d6411d:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a5a1bcd056564683a7455a4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3965fc0d203c48a28d6411d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">In various registration processes on the Zacks web site, we offer you the opportunity to take free offers from third-party publishers by checking an "opt-in" box by each offer.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0f719bfe688e481486b80ff:PersonalData">
+<owl:NamedIndividual rdf:about="#ce64001fe7dd4cf89fe85d9:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0f719bfe688e481486b80ff</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ce64001fe7dd4cf89fe85d9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you check any box to receive an offer, your name, email address, and/or mailing address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6c02236ef648482e886cb32:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#7dc10ba06a3645b0bc44423:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#a5a1bcd056564683a7455a4:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#0f719bfe688e481486b80ff:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6c02236ef648482e886cb32</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#3965fc0d203c48a28d6411d:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#ce64001fe7dd4cf89fe85d9:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7dc10ba06a3645b0bc44423</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Co-Registration In various registration processes on the Zacks web site we offer you the opportunity to take free offers from third-party publishers by checking an opt-in box by each offer If you check any box to receive an offer your name email address and/or mailing address will be shared with the appropriate publisher</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9e3ac2dc548d4df4aab0781:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#65308eb8e9eb4d3a9a044e1:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9e3ac2dc548d4df4aab0781</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">65308eb8e9eb4d3a9a044e1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">"opt-in" box</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1b0b9c1257e34de29ee4ed0:PersonalData">
+<owl:NamedIndividual rdf:about="#a9544c8e32754c8ab0588b4:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1b0b9c1257e34de29ee4ed0</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a9544c8e32754c8ab0588b4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">name, email address, and/or mailing address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6ce1f65f11df481281329bb:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#a31804cb5ca24b689613966:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#9e3ac2dc548d4df4aab0781:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#1b0b9c1257e34de29ee4ed0:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6ce1f65f11df481281329bb</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#65308eb8e9eb4d3a9a044e1:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#a9544c8e32754c8ab0588b4:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a31804cb5ca24b689613966</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Co-Registration In various registration processes on the Zacks web site we offer you the opportunity to take free offers from third-party publishers by checking an opt-in box by each offer If you check any box to receive an offer your name email address and/or mailing address will be shared with the appropriate publisher</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c674814f3ab74cfdb9d99ef:PersonalData">
+<owl:NamedIndividual rdf:about="#468f392e50b843efad5d0b9:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c674814f3ab74cfdb9d99ef</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">468f392e50b843efad5d0b9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">your name, email address, and/or mailing address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#99668257a23a4439b5219a9:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#cf01076c8b014eecb0bf705:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">99668257a23a4439b5219a9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cf01076c8b014eecb0bf705</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you check any box to receive an offer,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a7b92b2697604f07887f16b:TPCollection">
+<owl:NamedIndividual rdf:about="#877f594e5c4c4819be0ecb7:TPCollection">
   <rdf:type rdf:resource="#TPCollection"/>
-  <initiated_by rdf:resource="#7f525743187f4a178d64f67:FirstParty"/>
-  <collects_from rdf:resource="#df0c75df6a03459b8a0a1c5:ThirdParty"/>
-  <has_purpose rdf:resource="#99668257a23a4439b5219a9:MarketingPurpose"/>
-  <applies_to rdf:resource="#c674814f3ab74cfdb9d99ef:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a7b92b2697604f07887f16b</uuid>
+  <initiated_by rdf:resource="#debc8a7eb6a0494f94feb39:FirstParty"/>
+  <collects_from rdf:resource="#2310dbf3c8954f6baba8651:ThirdParty"/>
+  <has_purpose rdf:resource="#cf01076c8b014eecb0bf705:MarketingPurpose"/>
+  <applies_to rdf:resource="#468f392e50b843efad5d0b9:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">877f594e5c4c4819be0ecb7</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Co-Registration In various registration processes on the Zacks web site we offer you the opportunity to take free offers from third-party publishers by checking an opt-in box by each offer If you check any box to receive an offer your name email address and/or mailing address will be shared with the appropriate publisher</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d7d8def1799248c0bd5dfe6:TPSharing">
+<owl:NamedIndividual rdf:about="#22164ad1afca42de8bd3630:TPSharing">
   <rdf:type rdf:resource="#TPSharing"/>
-  <initiated_by rdf:resource="#7f525743187f4a178d64f67:FirstParty"/>
-  <shares_with rdf:resource="#df0c75df6a03459b8a0a1c5:ThirdParty"/>
-  <has_purpose rdf:resource="#99668257a23a4439b5219a9:MarketingPurpose"/>
-  <applies_to rdf:resource="#c674814f3ab74cfdb9d99ef:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d7d8def1799248c0bd5dfe6</uuid>
+  <initiated_by rdf:resource="#debc8a7eb6a0494f94feb39:FirstParty"/>
+  <shares_with rdf:resource="#2310dbf3c8954f6baba8651:ThirdParty"/>
+  <has_purpose rdf:resource="#cf01076c8b014eecb0bf705:MarketingPurpose"/>
+  <applies_to rdf:resource="#468f392e50b843efad5d0b9:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">22164ad1afca42de8bd3630</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Co-Registration In various registration processes on the Zacks web site we offer you the opportunity to take free offers from third-party publishers by checking an opt-in box by each offer If you check any box to receive an offer your name email address and/or mailing address will be shared with the appropriate publisher</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8a9fd53103644dac9b00309:FinancialData">
+<owl:NamedIndividual rdf:about="#ac399030680e4b119b34964:FinancialData">
   <rdf:type rdf:resource="#FinancialData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8a9fd53103644dac9b00309</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ac399030680e4b119b34964</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">your credit card information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#434fb848c1f941048db0ab9:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#547cd38ab2e743309f62cb7:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">434fb848c1f941048db0ab9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">547cd38ab2e743309f62cb7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you decide to subscribe to any of our paid newsletters,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#47766c9f935943a9ba2cc43:FPCollection">
+<owl:NamedIndividual rdf:about="#3400a8b9a39049cc87e09e8:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#7f525743187f4a178d64f67:FirstParty"/>
-  <collects_from rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mode rdf:resource="#434fb848c1f941048db0ab9:TransmissionByRequest"/>
-  <applies_to rdf:resource="#8a9fd53103644dac9b00309:FinancialData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">47766c9f935943a9ba2cc43</uuid>
+  <initiated_by rdf:resource="#debc8a7eb6a0494f94feb39:FirstParty"/>
+  <collects_from rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mode rdf:resource="#547cd38ab2e743309f62cb7:TransmissionByRequest"/>
+  <applies_to rdf:resource="#ac399030680e4b119b34964:FinancialData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3400a8b9a39049cc87e09e8</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Paid Expert Newsletters If you decide to subscribe to any of our paid newsletters we collect your credit card information solely for payment of your subscription and it is shared only with our credit card processor in order to complete the transaction</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d9df93b6d84f471382c6466:DataUse">
+<owl:NamedIndividual rdf:about="#1c457681cc004cbaa0e6fda:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#7f525743187f4a178d64f67:FirstParty"/>
-  <applies_to rdf:resource="#8a9fd53103644dac9b00309:FinancialData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d9df93b6d84f471382c6466</uuid>
+  <initiated_by rdf:resource="#debc8a7eb6a0494f94feb39:FirstParty"/>
+  <applies_to rdf:resource="#ac399030680e4b119b34964:FinancialData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1c457681cc004cbaa0e6fda</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Paid Expert Newsletters If you decide to subscribe to any of our paid newsletters we collect your credit card information solely for payment of your subscription and it is shared only with our credit card processor in order to complete the transaction</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e177bf09a6d744d3b78c908:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#9919e3a956b3488dbdc07e1:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e177bf09a6d744d3b78c908</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9919e3a956b3488dbdc07e1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you decide to subscribe</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#faec156af2f046ac9c04cbd:FinancialData">
+<owl:NamedIndividual rdf:about="#6497aa657c4c45caa93b181:FinancialData">
   <rdf:type rdf:resource="#FinancialData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">faec156af2f046ac9c04cbd</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6497aa657c4c45caa93b181</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">credit card information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#75ceef0f40bd420d8b70d91:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#aad3b049dc4c4260b414893:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#e177bf09a6d744d3b78c908:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#faec156af2f046ac9c04cbd:FinancialData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">75ceef0f40bd420d8b70d91</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#9919e3a956b3488dbdc07e1:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#6497aa657c4c45caa93b181:FinancialData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aad3b049dc4c4260b414893</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Paid Expert Newsletters If you decide to subscribe to any of our paid newsletters we collect your credit card information solely for payment of your subscription and it is shared only with our credit card processor in order to complete the transaction</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9e10a938c16a4ca48685f03:TrackingData">
+<owl:NamedIndividual rdf:about="#f4744ee869e048938dba63d:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9e10a938c16a4ca48685f03</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f4744ee869e048938dba63d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies, tags, pixels and similar technologies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7babafbe35aa474d9caf7ec:PermanentTransmission">
+<owl:NamedIndividual rdf:about="#6c5f4d7823c141cf9a55517:PermanentTransmission">
   <rdf:type rdf:resource="#PermanentTransmission"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7babafbe35aa474d9caf7ec</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6c5f4d7823c141cf9a55517</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">These technologies allow us to recognize your preference information, keep track of the choices you make</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#93936c5c143043098bb8bf1:FPCollection">
+<owl:NamedIndividual rdf:about="#a8fa381cb67d45229a32fdb:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#7f525743187f4a178d64f67:FirstParty"/>
-  <collects_from rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mode rdf:resource="#7babafbe35aa474d9caf7ec:PermanentTransmission"/>
-  <applies_to rdf:resource="#9e10a938c16a4ca48685f03:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">93936c5c143043098bb8bf1</uuid>
+  <initiated_by rdf:resource="#debc8a7eb6a0494f94feb39:FirstParty"/>
+  <collects_from rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mode rdf:resource="#6c5f4d7823c141cf9a55517:PermanentTransmission"/>
+  <applies_to rdf:resource="#f4744ee869e048938dba63d:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a8fa381cb67d45229a32fdb</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Other Privacy Issues Cookies Zacks Investment Research uses cookies tags pixels and similar technologies to enhance your experience on the internet These technologies allow us to recognize your preference information keep track of the choices you make concerning the e-mails you wish to receive and to facilitate effective Web site administration You may elect to refuse cookies Please refer to your browser s Help instructions to learn more about cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#15946e4107734197bba6020:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#e5e12bf3d5584dfa801decb:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">15946e4107734197bba6020</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e5e12bf3d5584dfa801decb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">your browser''s Help instructions</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5ffe03317adf4210a1e0959:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#500f9b03963648eaa46aac7:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#15946e4107734197bba6020:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5ffe03317adf4210a1e0959</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#e5e12bf3d5584dfa801decb:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">500f9b03963648eaa46aac7</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Other Privacy Issues Cookies Zacks Investment Research uses cookies tags pixels and similar technologies to enhance your experience on the internet These technologies allow us to recognize your preference information keep track of the choices you make concerning the e-mails you wish to receive and to facilitate effective Web site administration You may elect to refuse cookies Please refer to your browser s Help instructions to learn more about cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b7cd01606718410383a5cf6:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#2de0c221e9ce4dfb9707480:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b7cd01606718410383a5cf6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2de0c221e9ce4dfb9707480</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">your browser''s Help instructions</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9c530054ae7b43bb8a669db:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#34d1b0e7c4704e1e8eda474:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#b7cd01606718410383a5cf6:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9c530054ae7b43bb8a669db</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#2de0c221e9ce4dfb9707480:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">34d1b0e7c4704e1e8eda474</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Other Privacy Issues Cookies Zacks Investment Research uses cookies tags pixels and similar technologies to enhance your experience on the internet These technologies allow us to recognize your preference information keep track of the choices you make concerning the e-mails you wish to receive and to facilitate effective Web site administration You may elect to refuse cookies Please refer to your browser s Help instructions to learn more about cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fbaefadc1fdb4e86948d87e:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#3006af4d531e465cb159830:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fbaefadc1fdb4e86948d87e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3006af4d531e465cb159830</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unsubscribe from a Zacks offer sent by another list vendor,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cdb472a29270461abc616d4:PersonalData">
+<owl:NamedIndividual rdf:about="#b69d1b0496c244e395bc8c7:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cdb472a29270461abc616d4</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b69d1b0496c244e395bc8c7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mailings</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#73cf77b337ca4e9ba70a876:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#d8c9cd95500b4469b5c821d:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#fbaefadc1fdb4e86948d87e:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#cdb472a29270461abc616d4:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">73cf77b337ca4e9ba70a876</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#3006af4d531e465cb159830:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#b69d1b0496c244e395bc8c7:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d8c9cd95500b4469b5c821d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Do Not Email Lists If you opt out from a Zacks com Opt-In Marketing List Zacks Investment Research Internal List or unsubscribe from a Zacks offer sent by another list vendor you will be added to our Do Not Email list and we will suppress your email address from future mailings to the Zacks Investment Research Internal List and Opt-In Marketing List as well as any other Zacks mailings done through a third party This process usually completes within 72 hours but can take up to 10 days in rare situations However if you later register for a Zacks product again your name will be removed from the Do Not Email list</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e547f1d4c841479cbdb60b8:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#913596c0373f49288d47e85:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e547f1d4c841479cbdb60b8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">913596c0373f49288d47e85</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">opt out from a Zacks.com Opt-In Marketing List, Zacks Investment Research Internal List, or unsubscribe from a Zacks offer sent by another list vendor,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#374045755e6644a8a2bbae4:PersonalData">
+<owl:NamedIndividual rdf:about="#df05bb4fc0464f2dbd8e4b7:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">374045755e6644a8a2bbae4</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">df05bb4fc0464f2dbd8e4b7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#786196eb320943c793a487c:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#9f1f50061b4e49c885ef665:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#e547f1d4c841479cbdb60b8:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#374045755e6644a8a2bbae4:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">786196eb320943c793a487c</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#913596c0373f49288d47e85:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#df05bb4fc0464f2dbd8e4b7:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9f1f50061b4e49c885ef665</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Do Not Email Lists If you opt out from a Zacks com Opt-In Marketing List Zacks Investment Research Internal List or unsubscribe from a Zacks offer sent by another list vendor you will be added to our Do Not Email list and we will suppress your email address from future mailings to the Zacks Investment Research Internal List and Opt-In Marketing List as well as any other Zacks mailings done through a third party This process usually completes within 72 hours but can take up to 10 days in rare situations However if you later register for a Zacks product again your name will be removed from the Do Not Email list</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#db179a13c1dc4027be39b54:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#d118f9d9d00c4923bb9d0fd:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">db179a13c1dc4027be39b54</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d118f9d9d00c4923bb9d0fd</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">opt out from a Zacks.com Opt-In Marketing List, Zacks Investment Research Internal List, or unsubscribe from a Zacks offer sent by another list vendor,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b9edb262d698433abc75248:PersonalData">
+<owl:NamedIndividual rdf:about="#9034b75e05b548eb94ee921:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b9edb262d698433abc75248</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9034b75e05b548eb94ee921</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d51136034dc64532846ae80:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#17562a56abdf4961b917369:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#db179a13c1dc4027be39b54:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#b9edb262d698433abc75248:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d51136034dc64532846ae80</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#d118f9d9d00c4923bb9d0fd:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#9034b75e05b548eb94ee921:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">17562a56abdf4961b917369</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Do Not Email Lists If you opt out from a Zacks com Opt-In Marketing List Zacks Investment Research Internal List or unsubscribe from a Zacks offer sent by another list vendor you will be added to our Do Not Email list and we will suppress your email address from future mailings to the Zacks Investment Research Internal List and Opt-In Marketing List as well as any other Zacks mailings done through a third party This process usually completes within 72 hours but can take up to 10 days in rare situations However if you later register for a Zacks product again your name will be removed from the Do Not Email list</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#eb1ccc5da46c4242a8e8b1c:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#c305555b6e644e029d500bb:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eb1ccc5da46c4242a8e8b1c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c305555b6e644e029d500bb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you opt out from a Zacks.com Opt-In Marketing List,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#68eba11e61d34723943a8ad:PersonalData">
+<owl:NamedIndividual rdf:about="#fe59852e18e24dce84a819b:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">68eba11e61d34723943a8ad</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fe59852e18e24dce84a819b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Email</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f3fecac9d8ad44379eec893:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#f12c83fdb0244ccc99a0fcd:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#eb1ccc5da46c4242a8e8b1c:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#68eba11e61d34723943a8ad:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f3fecac9d8ad44379eec893</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#c305555b6e644e029d500bb:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#fe59852e18e24dce84a819b:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f12c83fdb0244ccc99a0fcd</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Do Not Email Lists If you opt out from a Zacks com Opt-In Marketing List Zacks Investment Research Internal List or unsubscribe from a Zacks offer sent by another list vendor you will be added to our Do Not Email list and we will suppress your email address from future mailings to the Zacks Investment Research Internal List and Opt-In Marketing List as well as any other Zacks mailings done through a third party This process usually completes within 72 hours but can take up to 10 days in rare situations However if you later register for a Zacks product again your name will be removed from the Do Not Email list</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a5b64a70f05a4098b0f310a:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#e01e6d5924ab405b8f1bb78:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a5b64a70f05a4098b0f310a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e01e6d5924ab405b8f1bb78</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Opt-In</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#78b6c371cab14b14b9b802f:PersonalData">
+<owl:NamedIndividual rdf:about="#5f7964697402436eaff08ea:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">78b6c371cab14b14b9b802f</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5f7964697402436eaff08ea</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Email</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fe62481cfc194d7ea5d8cbb:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#dd278234a5e54d7fabfe3e6:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#a5b64a70f05a4098b0f310a:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#78b6c371cab14b14b9b802f:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fe62481cfc194d7ea5d8cbb</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#e01e6d5924ab405b8f1bb78:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#5f7964697402436eaff08ea:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dd278234a5e54d7fabfe3e6</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Do Not Email Lists If you opt out from a Zacks com Opt-In Marketing List Zacks Investment Research Internal List or unsubscribe from a Zacks offer sent by another list vendor you will be added to our Do Not Email list and we will suppress your email address from future mailings to the Zacks Investment Research Internal List and Opt-In Marketing List as well as any other Zacks mailings done through a third party This process usually completes within 72 hours but can take up to 10 days in rare situations However if you later register for a Zacks product again your name will be removed from the Do Not Email list</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d29cbfb51c3b497cab1e5c3:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#4c6805ed96074f95a59a789:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d29cbfb51c3b497cab1e5c3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4c6805ed96074f95a59a789</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zacks Investment Research Internal List,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1d439d1d396c44cdb2d4c32:PersonalData">
+<owl:NamedIndividual rdf:about="#2aa195f3c9014b2b8a12a09:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1d439d1d396c44cdb2d4c32</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2aa195f3c9014b2b8a12a09</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ce5d77bca7fe43269830572:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#ac5b1626caf84b6e80eb898:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#d29cbfb51c3b497cab1e5c3:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#1d439d1d396c44cdb2d4c32:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ce5d77bca7fe43269830572</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#4c6805ed96074f95a59a789:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#2aa195f3c9014b2b8a12a09:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ac5b1626caf84b6e80eb898</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Do Not Email Lists If you opt out from a Zacks com Opt-In Marketing List Zacks Investment Research Internal List or unsubscribe from a Zacks offer sent by another list vendor you will be added to our Do Not Email list and we will suppress your email address from future mailings to the Zacks Investment Research Internal List and Opt-In Marketing List as well as any other Zacks mailings done through a third party This process usually completes within 72 hours but can take up to 10 days in rare situations However if you later register for a Zacks product again your name will be removed from the Do Not Email list</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#af5bd86c1ab34247aedadbc:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#4a2a261770484983bec87e1:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">af5bd86c1ab34247aedadbc</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4a2a261770484983bec87e1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please note that while Zacks will not freely distribute the information you submit, if you click to unsubscribe from mailings sent to the Zacks.com Opt-In Marketing List from a particular marketer, we are obligated to share your email address with that marketer for the purpose of being added to their Do Not Mail list.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#85f122813b594f4f94a8b5e:PersonalData">
+<owl:NamedIndividual rdf:about="#bf52eaf82aa2471d85df94d:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">85f122813b594f4f94a8b5e</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bf52eaf82aa2471d85df94d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">your email address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#550007d583894788bf12da2:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#0be551716b634638b452816:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#af5bd86c1ab34247aedadbc:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#85f122813b594f4f94a8b5e:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">550007d583894788bf12da2</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#4a2a261770484983bec87e1:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#bf52eaf82aa2471d85df94d:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0be551716b634638b452816</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please note that while Zacks will not freely distribute the information you submit if you click to unsubscribe from mailings sent to the Zacks com Opt-In Marketing List from a particular marketer we are obligated to share your email address with that marketer for the purpose of being added to their Do Not Mail list How that mailer manages your email address after that time is beyond Zacks com control</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c27288b6d4eb44c6868a42e:TPCollection">
+<owl:NamedIndividual rdf:about="#4e0fb95bdcb54989806e58b:TPCollection">
   <rdf:type rdf:resource="#TPCollection"/>
-  <initiated_by rdf:resource="#7f525743187f4a178d64f67:FirstParty"/>
-  <collects_from rdf:resource="#df0c75df6a03459b8a0a1c5:ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c27288b6d4eb44c6868a42e</uuid>
+  <initiated_by rdf:resource="#debc8a7eb6a0494f94feb39:FirstParty"/>
+  <collects_from rdf:resource="#2310dbf3c8954f6baba8651:ThirdParty"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4e0fb95bdcb54989806e58b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please note that while Zacks will not freely distribute the information you submit if you click to unsubscribe from mailings sent to the Zacks com Opt-In Marketing List from a particular marketer we are obligated to share your email address with that marketer for the purpose of being added to their Do Not Mail list How that mailer manages your email address after that time is beyond Zacks com control</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bf82d53d781a4f1cbc0f826:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#c8f5a93b526c42608254352:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bf82d53d781a4f1cbc0f826</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c8f5a93b526c42608254352</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Children s Online Privacy Protection Rule If a child has provided us with private information without parental or guardian consent the parent or guardian should e-mail us to remove the information and unsubscribe the child from any promotional contact opportunities Contact Information If you experience any privacy related difficulties on Zacks com please use the following contact information support zacks com</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#64726195956b48f5b86a9b2:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#89aec2b234e04e298c5d64c:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">64726195956b48f5b86a9b2</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">89aec2b234e04e298c5d64c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If a child has provided us with private information without parental or guardian consent, the parent or guardian should e-mail us to remove the information and unsubscribe the child from any promotional contact opportunities.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f008c6590aa24d40816b718:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#bbfebaf1415e40c6a2bee2c:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#64726195956b48f5b86a9b2:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f008c6590aa24d40816b718</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#89aec2b234e04e298c5d64c:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bbfebaf1415e40c6a2bee2c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Children s Online Privacy Protection Rule If a child has provided us with private information without parental or guardian consent the parent or guardian should e-mail us to remove the information and unsubscribe the child from any promotional contact opportunities Contact Information If you experience any privacy related difficulties on Zacks com please use the following contact information support zacks com</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6549a41a2f4b419bb2532fb:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#4314e245eaef40eabe5bf3b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6549a41a2f4b419bb2532fb</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4314e245eaef40eabe5bf3b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the parent or guardian should e-mail us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#091c2d09329242d59826956:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#48759f020db54b40bb85154:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#6549a41a2f4b419bb2532fb:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">091c2d09329242d59826956</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#4314e245eaef40eabe5bf3b:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">48759f020db54b40bb85154</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Children s Online Privacy Protection Rule If a child has provided us with private information without parental or guardian consent the parent or guardian should e-mail us to remove the information and unsubscribe the child from any promotional contact opportunities Contact Information If you experience any privacy related difficulties on Zacks com please use the following contact information support zacks com</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#320e16b7f1854236b3b68f5:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#d95bed871ce8419e830d0cb:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">320e16b7f1854236b3b68f5</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d95bed871ce8419e830d0cb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the parent or guardian should e-mail us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#47831376aab944a39c5d826:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#153dc0bba7584213b69dc74:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#320e16b7f1854236b3b68f5:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">47831376aab944a39c5d826</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#d95bed871ce8419e830d0cb:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">153dc0bba7584213b69dc74</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Children s Online Privacy Protection Rule If a child has provided us with private information without parental or guardian consent the parent or guardian should e-mail us to remove the information and unsubscribe the child from any promotional contact opportunities Contact Information If you experience any privacy related difficulties on Zacks com please use the following contact information support zacks com</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#735502ac4c214153bb8541d:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#e27ddb040a5f4d9a848b2d1:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">735502ac4c214153bb8541d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e27ddb040a5f4d9a848b2d1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the parent or guardian should e-mail us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1c4439ba84a543ca97a6613:PersonalData">
+<owl:NamedIndividual rdf:about="#2119b361ebb14ec19252ad8:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1c4439ba84a543ca97a6613</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2119b361ebb14ec19252ad8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">contact</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5d010fc9e2a643b3b2d9613:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#e0def841282b4f51a3bb324:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#735502ac4c214153bb8541d:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#1c4439ba84a543ca97a6613:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5d010fc9e2a643b3b2d9613</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#e27ddb040a5f4d9a848b2d1:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#2119b361ebb14ec19252ad8:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e0def841282b4f51a3bb324</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Children s Online Privacy Protection Rule If a child has provided us with private information without parental or guardian consent the parent or guardian should e-mail us to remove the information and unsubscribe the child from any promotional contact opportunities Contact Information If you experience any privacy related difficulties on Zacks com please use the following contact information support zacks com</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2321f305dad8496a92df440:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#d4723da87bd841f4b5c68e9:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2321f305dad8496a92df440</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d4723da87bd841f4b5c68e9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the parent or guardian should e-mail us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#339e8627abd74e87b5af18b:PersonalData">
+<owl:NamedIndividual rdf:about="#02f10658b4cf400cbfef8cd:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">339e8627abd74e87b5af18b</uuid>
+  <provided_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">02f10658b4cf400cbfef8cd</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">contact</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#beb849b3023b47c1b671bf0:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#0b28153fb3704753b4bc2c5:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e76379551d2e463a8b9e18e:User"/>
-  <has_mechanism rdf:resource="#2321f305dad8496a92df440:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#339e8627abd74e87b5af18b:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">beb849b3023b47c1b671bf0</uuid>
+  <initiated_by rdf:resource="#cb95499c1b154ac59e698b8:User"/>
+  <has_mechanism rdf:resource="#d4723da87bd841f4b5c68e9:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#02f10658b4cf400cbfef8cd:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0b28153fb3704753b4bc2c5</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Children s Online Privacy Protection Rule If a child has provided us with private information without parental or guardian consent the parent or guardian should e-mail us to remove the information and unsubscribe the child from any promotional contact opportunities Contact Information If you experience any privacy related difficulties on Zacks com please use the following contact information support zacks com</evidence>
 </owl:NamedIndividual>

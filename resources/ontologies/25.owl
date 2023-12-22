@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -901,14 +902,6 @@
   <rdfs:subClassOf rdf:resource="#UserSpecificCommunicationMechanism"/>
   <owl:disjointWith rdf:resource="#AutomaticCommunicationMechanism"/>
   <rdfs:subClassOf>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
-        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
       <owl:allValuesFrom>
@@ -917,6 +910,14 @@
         </owl:Class>
       </owl:allValuesFrom>
     </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
+        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
+      </owl:unionOf>
+    </owl:Class>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -959,18 +960,18 @@
 <owl:Class rdf:about="#FPSpecificCommunicationMechanism">
   <rdfs:subClassOf rdf:resource="#CommunicationMechanism"/>
   <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#mechanism_of"/>
-      <owl:allValuesFrom rdf:resource="#FPNotification"/>
-    </owl:Restriction>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
     <owl:Class>
       <owl:unionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#FPSpecificCommunicationMechanism"/>
         <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
       </owl:unionOf>
     </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#mechanism_of"/>
+      <owl:allValuesFrom rdf:resource="#FPNotification"/>
+    </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,707 +1305,704 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#6465c6862ab44d23878116e:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#9f3be866268d4dddb9cb188:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6465c6862ab44d23878116e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9f3be866268d4dddb9cb188</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#00950012246c4ee8968adc7:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#62180569f9a6495e9f10fd1:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#aa1a136660624005984c99a:User"/>
-  <considers rdf:resource="#9471ef6e412045a18959f39:FirstParty"/>
-  <considers rdf:resource="#9e5fdd667d7f458e91d511e:ThirdParty"/>
-  <considers rdf:resource="#536a0a0b4fc64188a2ac5f8:DataProtection"/>
-  <considers rdf:resource="#412692c5f1634eacb768dba:DataProtection"/>
-  <considers rdf:resource="#16ad7e606ede443290bf91d:OptInOptOutControl"/>
-  <considers rdf:resource="#18ab9349eb3443c4a36f783:SensitiveData"/>
-  <considers rdf:resource="#e8aa96e38466414c8f8e52e:OptInOptOutControl"/>
-  <considers rdf:resource="#886df119ce1745b2af78008:AccountData"/>
-  <considers rdf:resource="#a31ab5dbdedb4b79ab8715d:OptInOptOutControl"/>
-  <considers rdf:resource="#93b7d98a62dc48c3a9ebbcf:AccountData"/>
-  <considers rdf:resource="#264b5caa5615428ca7a774d:OptInOptOutControl"/>
-  <considers rdf:resource="#b893e939bf3d47338cba238:AccountData"/>
-  <considers rdf:resource="#e7d92e4150bf4450b1778c4:OptInOptOutControl"/>
-  <considers rdf:resource="#872f0ee8bd5847b08ee0f24:OptInOptOutControl"/>
-  <considers rdf:resource="#0b71604bff274c62be07ae5:PersonalData"/>
-  <considers rdf:resource="#cda262d41dbe4c9386ed335:OptInOptOutControl"/>
-  <considers rdf:resource="#6bf034b7320145ec81582f1:PersonalData"/>
-  <considers rdf:resource="#e10cc9e5163a4356b2c5f37:OptInOptOutControl"/>
-  <considers rdf:resource="#73fe491e984d410e86c4700:PersonalData"/>
-  <considers rdf:resource="#d5b4194ac54447ef99424f2:OptInOptOutControl"/>
-  <considers rdf:resource="#0e30e307e76841ce987f085:OptInOptOutControl"/>
-  <considers rdf:resource="#8e6055b5a869431e95a601b:AccountData"/>
-  <considers rdf:resource="#147cdb64571a4f65a40253b:OptInOptOutControl"/>
-  <considers rdf:resource="#b770ebf2eea9467dbcf7b2c:AccountData"/>
-  <considers rdf:resource="#80a9bb79e3ac471c9a619bb:OptInOptOutControl"/>
-  <considers rdf:resource="#1f87566521be4bbcbad1b13:SensitiveData"/>
-  <considers rdf:resource="#b2c4ce77bd31440db639023:DataRetention"/>
-  <considers rdf:resource="#9ff9ec3de10d44b1849aff4:OptInOptOutControl"/>
-  <considers rdf:resource="#ea365a5d05a447a5b28770b:DataProtection"/>
-  <considers rdf:resource="#d2598b0a167a49d9bf8564f:DataProtection"/>
-  <considers rdf:resource="#a262339462be446b9f66a46:DataProtection"/>
-  <considers rdf:resource="#393d8a5195f64c478792f4a:OptInOptOutControl"/>
-  <considers rdf:resource="#7e99f8541c8e42dc86800aa:PolicyChange"/>
-  <considers rdf:resource="#5265441c90ce4d33aac8c1b:FPNotification"/>
-  <considers rdf:resource="#e33e92a5f7734b468bb6922:OptInOptOutControl"/>
-  <considers rdf:resource="#d697dac771ae49c8b826129:PolicyChange"/>
-  <considers rdf:resource="#8466b3c9e6944c438cfa0f8:FPNotification"/>
-  <considers rdf:resource="#51ca3df639dc425797b283e:OptInOptOutControl"/>
-  <considers rdf:resource="#fd06b2503da34abe87725b0:PolicyChange"/>
-  <considers rdf:resource="#40b857758bdb495fa0f4878:FPNotification"/>
-  <considers rdf:resource="#80c97d78253c4358b5fce9a:OptInOptOutControl"/>
-  <considers rdf:resource="#d4357e552f844f80854e100:PolicyChange"/>
-  <considers rdf:resource="#c7be737e9781404a8509719:FPNotification"/>
-  <considers rdf:resource="#44567f9c12554cfaa054bf2:OptInOptOutControl"/>
-  <considers rdf:resource="#399e1398610746ab90ae522:PolicyChange"/>
-  <considers rdf:resource="#03f0a9e4ffeb4669beb4343:FPNotification"/>
-  <considers rdf:resource="#9d102d9d383c4fad900f19a:OptInOptOutControl"/>
-  <considers rdf:resource="#3416e7ff4cab46daadcb5bb:PolicyChange"/>
-  <considers rdf:resource="#109efd6fe1e042b4a0bdb9d:FPNotification"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">00950012246c4ee8968adc7</uuid>
+  <considers rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <considers rdf:resource="#68a2de9430e94f54b5b1b01:FirstParty"/>
+  <considers rdf:resource="#7078292b069f4fdb98c9ee2:ThirdParty"/>
+  <considers rdf:resource="#d29dc767e5ae46878961323:DataProtection"/>
+  <considers rdf:resource="#90d36b1bb9834d1fb54e7da:DataProtection"/>
+  <considers rdf:resource="#f3733b08197f4cba8b9dfe9:OptInOptOutControl"/>
+  <considers rdf:resource="#5abfec9ea89641b6b2c5938:SensitiveData"/>
+  <considers rdf:resource="#5c15542fc32145d8ba4184b:OptInOptOutControl"/>
+  <considers rdf:resource="#a3d26a1150f14e8cb9002c6:AccountData"/>
+  <considers rdf:resource="#0d41fbb959cc46aa99ccbcd:OptInOptOutControl"/>
+  <considers rdf:resource="#a8982066554540f6b49a6e5:AccountData"/>
+  <considers rdf:resource="#1b72968409ef4f619b0b109:OptInOptOutControl"/>
+  <considers rdf:resource="#1512a61a7ac2430b900dba0:AccountData"/>
+  <considers rdf:resource="#2c3f2ae3d7bc45a097606cf:OptInOptOutControl"/>
+  <considers rdf:resource="#1e5e8539ef684bf28ce73b3:OptInOptOutControl"/>
+  <considers rdf:resource="#5f2bb32e7a7b41739339a83:PersonalData"/>
+  <considers rdf:resource="#ba94237e17674addb76705d:OptInOptOutControl"/>
+  <considers rdf:resource="#f7ec7a5cb9264503939934d:PersonalData"/>
+  <considers rdf:resource="#e7f64a6affba4810b722e9e:OptInOptOutControl"/>
+  <considers rdf:resource="#2411555c047b41cfb64ebe9:PersonalData"/>
+  <considers rdf:resource="#541fdfb79c4946658af8d7e:OptInOptOutControl"/>
+  <considers rdf:resource="#b12f4f18e18044af914d4bb:OptInOptOutControl"/>
+  <considers rdf:resource="#27a6962dc20b48159e68ea5:AccountData"/>
+  <considers rdf:resource="#7eda8cbc02974028bc0da88:OptInOptOutControl"/>
+  <considers rdf:resource="#ede0759d776c4c098e2594d:AccountData"/>
+  <considers rdf:resource="#16f412f8023746f493bb434:OptInOptOutControl"/>
+  <considers rdf:resource="#005b015789b642e4b17b83f:SensitiveData"/>
+  <considers rdf:resource="#10cf17cbfbf340cd8543663:DataRetention"/>
+  <considers rdf:resource="#c2b62150a5fb4adb883f6c7:OptInOptOutControl"/>
+  <considers rdf:resource="#ec4c28eacfd441298556bfd:DataProtection"/>
+  <considers rdf:resource="#d01965845a8b4b49abbc59e:DataProtection"/>
+  <considers rdf:resource="#6149f51e60314f57be801c0:DataProtection"/>
+  <considers rdf:resource="#af22179c30a34154993c9ed:OptInOptOutControl"/>
+  <considers rdf:resource="#ca657353dff34e368b0799c:PolicyChange"/>
+  <considers rdf:resource="#70d64d515eeb4fd5ad046ba:FPNotification"/>
+  <considers rdf:resource="#9c3b6e36120b42c7b59b749:OptInOptOutControl"/>
+  <considers rdf:resource="#744e59a98e90476fabaedc2:PolicyChange"/>
+  <considers rdf:resource="#1d61ffaf5052423baa19d8e:FPNotification"/>
+  <considers rdf:resource="#fcad2ce148a845d5b7484fd:OptInOptOutControl"/>
+  <considers rdf:resource="#ec764e3d063c4279a6f5d31:PolicyChange"/>
+  <considers rdf:resource="#d23f8af5603046b5b02cc47:FPNotification"/>
+  <considers rdf:resource="#c6241b738f2048e7a138997:OptInOptOutControl"/>
+  <considers rdf:resource="#e1ed8fe001c24d839a59a5a:PolicyChange"/>
+  <considers rdf:resource="#d56e28249b654f12bf8bcde:FPNotification"/>
+  <considers rdf:resource="#6cfadfcb838a4be8a59cc25:OptInOptOutControl"/>
+  <considers rdf:resource="#d954dc19016c492a93f308e:PolicyChange"/>
+  <considers rdf:resource="#66a4490c62504acc9cb35d8:FPNotification"/>
+  <considers rdf:resource="#76a130a40d254f1fba43731:OptInOptOutControl"/>
+  <considers rdf:resource="#1597cd72452a46b79188ecb:PolicyChange"/>
+  <considers rdf:resource="#2270ff184680487c92aa26b:FPNotification"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">62180569f9a6495e9f10fd1</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">yahoo.com</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#aa1a136660624005984c99a:User">
+<owl:NamedIndividual rdf:about="#d9b5e6bdb4be465fbff8d7f:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aa1a136660624005984c99a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d9b5e6bdb4be465fbff8d7f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9471ef6e412045a18959f39:FirstParty">
+<owl:NamedIndividual rdf:about="#68a2de9430e94f54b5b1b01:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9471ef6e412045a18959f39</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">68a2de9430e94f54b5b1b01</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9e5fdd667d7f458e91d511e:ThirdParty">
+<owl:NamedIndividual rdf:about="#7078292b069f4fdb98c9ee2:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9e5fdd667d7f458e91d511e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7078292b069f4fdb98c9ee2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f3185c9543744d23913c69a:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#62f37883cafe44fab289787:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f3185c9543744d23913c69a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">62f37883cafe44fab289787</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Yahoo takes your privacy seriously.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#536a0a0b4fc64188a2ac5f8:DataProtection">
+<owl:NamedIndividual rdf:about="#d29dc767e5ae46878961323:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#9471ef6e412045a18959f39:FirstParty"/>
-  <has_mechanism rdf:resource="#f3185c9543744d23913c69a:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">536a0a0b4fc64188a2ac5f8</uuid>
+  <initiated_by rdf:resource="#68a2de9430e94f54b5b1b01:FirstParty"/>
+  <has_mechanism rdf:resource="#62f37883cafe44fab289787:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d29dc767e5ae46878961323</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">WHAT THIS PRIVACY POLICY COVERS Yahoo takes your privacy seriously Please read the following to learn more about our privacy policy The federal government and technology industry have developed practical tips to help you guard against Internet fraud secure your computer and protect your personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#14eccb26b7cf43f6bba6c82:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#35ff48db853b49e2b4bcc27:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#aa1a136660624005984c99a:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">14eccb26b7cf43f6bba6c82</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">35ff48db853b49e2b4bcc27</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Yahoo s participation in the Safe Harbor program Yahoo participates in the Safe Harbor program developed by the U S Department of Commerce and the European Union To view our certification visit the U S Department of Commerce s Safe Harbor Web site For more information about Yahoo s participation in the Safe Harbor program please visit our Safe Harbor details page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#122f8f51d0fa49d9a84a03e:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#4b4fa2bc43094a779d59855:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">122f8f51d0fa49d9a84a03e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4b4fa2bc43094a779d59855</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Yahoo participates in the Safe Harbor program developed by the U.S. Department of Commerce and the European Union. To view our certification, visit the U.S. Department of Commerce's Safe Harbor Web site. For more information about Yahoo's participation in the Safe Harbor program, please visit our Safe Harbor details page.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#412692c5f1634eacb768dba:DataProtection">
+<owl:NamedIndividual rdf:about="#90d36b1bb9834d1fb54e7da:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#9471ef6e412045a18959f39:FirstParty"/>
-  <has_mechanism rdf:resource="#122f8f51d0fa49d9a84a03e:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">412692c5f1634eacb768dba</uuid>
+  <initiated_by rdf:resource="#68a2de9430e94f54b5b1b01:FirstParty"/>
+  <has_mechanism rdf:resource="#4b4fa2bc43094a779d59855:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">90d36b1bb9834d1fb54e7da</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Yahoo s participation in the Safe Harbor program Yahoo participates in the Safe Harbor program developed by the U S Department of Commerce and the European Union To view our certification visit the U S Department of Commerce s Safe Harbor Web site For more information about Yahoo s participation in the Safe Harbor program please visit our Safe Harbor details page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a25196537485484c8c97b7d:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#a722a6f114024fa88c1b3f7:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#aa1a136660624005984c99a:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a25196537485484c8c97b7d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a722a6f114024fa88c1b3f7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHILDREN With parental permission a child under age 13 might have a Yahoo Family Account Visit Children s Privacy Family Accounts to learn more about childrens privacy on Yahoo</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7a7d0e17d93d4e89936b929:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#0604dbbd4f0549099d51c62:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#aa1a136660624005984c99a:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7a7d0e17d93d4e89936b929</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0604dbbd4f0549099d51c62</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We have a parent s permission to share the information if the user is a child under age 13 See Children s Privacy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ac8c0cbc8772428b960587f:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#6467de6f045642628b5f61d:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ac8c0cbc8772428b960587f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6467de6f045642628b5f61d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can control your personalized experience across Yahoo through our Ad Interest Manager. Learn more</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#16ad7e606ede443290bf91d:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#f3733b08197f4cba8b9dfe9:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <has_mechanism rdf:resource="#ac8c0cbc8772428b960587f:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">16ad7e606ede443290bf91d</uuid>
+  <initiated_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <has_mechanism rdf:resource="#6467de6f045642628b5f61d:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f3733b08197f4cba8b9dfe9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">COOKIES AND SIMILAR TECHNOLOGIES Yahoo may set and access Yahoo cookies on your computer We may also set and access device identifiers which could include IP address user agent information browser version OS type and version and device provided identifiers Once you log into Yahoo on your device Yahoo may recognize your device to provide you with a personalized experience independent of your device settings You can control your personalized experience across Yahoo through our Ad Interest Manager Learn more</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6b9a1c2470e34321a8ae45e:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#57bf6fe00bd74493becf7e7:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6b9a1c2470e34321a8ae45e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">57bf6fe00bd74493becf7e7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Ability to Edit and Delete Your Account Information and Preferences You can edit your Yahoo Account Information including your marketing preferences at any time You can also modify information you have provided to Yahoo through the Yahoo products or services you may use</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#18ab9349eb3443c4a36f783:SensitiveData">
+<owl:NamedIndividual rdf:about="#5abfec9ea89641b6b2c5938:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">18ab9349eb3443c4a36f783</uuid>
+  <provided_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5abfec9ea89641b6b2c5938</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Profile data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e8aa96e38466414c8f8e52e:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#5c15542fc32145d8ba4184b:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <has_mechanism rdf:resource="#6b9a1c2470e34321a8ae45e:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#18ab9349eb3443c4a36f783:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e8aa96e38466414c8f8e52e</uuid>
+  <initiated_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <has_mechanism rdf:resource="#57bf6fe00bd74493becf7e7:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#5abfec9ea89641b6b2c5938:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5c15542fc32145d8ba4184b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Ability to Edit and Delete Your Account Information and Preferences You can edit your Yahoo Account Information including your marketing preferences at any time You can also modify information you have provided to Yahoo through the Yahoo products or services you may use</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4f300573cdfd4f2d982e5a7:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#0cf3bc76d0c94121b42f3ab:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4f300573cdfd4f2d982e5a7</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0cf3bc76d0c94121b42f3ab</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Ability to Edit and Delete Your Account Information and Preferences You can edit your Yahoo Account Information including your marketing preferences at any time You can also modify information you have provided to Yahoo through the Yahoo products or services you may use</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#886df119ce1745b2af78008:AccountData">
+<owl:NamedIndividual rdf:about="#a3d26a1150f14e8cb9002c6:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">886df119ce1745b2af78008</uuid>
+  <provided_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a3d26a1150f14e8cb9002c6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a31ab5dbdedb4b79ab8715d:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#0d41fbb959cc46aa99ccbcd:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <has_mechanism rdf:resource="#4f300573cdfd4f2d982e5a7:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#886df119ce1745b2af78008:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a31ab5dbdedb4b79ab8715d</uuid>
+  <initiated_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <has_mechanism rdf:resource="#0cf3bc76d0c94121b42f3ab:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#a3d26a1150f14e8cb9002c6:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0d41fbb959cc46aa99ccbcd</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Ability to Edit and Delete Your Account Information and Preferences You can edit your Yahoo Account Information including your marketing preferences at any time You can also modify information you have provided to Yahoo through the Yahoo products or services you may use</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6cdda6dcd3f048f4bd96ae5:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#b382929cd45c410983e38d2:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6cdda6dcd3f048f4bd96ae5</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b382929cd45c410983e38d2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Ability to Edit and Delete Your Account Information and Preferences You can edit your Yahoo Account Information including your marketing preferences at any time You can also modify information you have provided to Yahoo through the Yahoo products or services you may use</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#93b7d98a62dc48c3a9ebbcf:AccountData">
+<owl:NamedIndividual rdf:about="#a8982066554540f6b49a6e5:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">93b7d98a62dc48c3a9ebbcf</uuid>
+  <provided_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a8982066554540f6b49a6e5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#264b5caa5615428ca7a774d:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#1b72968409ef4f619b0b109:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <has_mechanism rdf:resource="#6cdda6dcd3f048f4bd96ae5:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#93b7d98a62dc48c3a9ebbcf:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">264b5caa5615428ca7a774d</uuid>
+  <initiated_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <has_mechanism rdf:resource="#b382929cd45c410983e38d2:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#a8982066554540f6b49a6e5:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1b72968409ef4f619b0b109</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Ability to Edit and Delete Your Account Information and Preferences You can edit your Yahoo Account Information including your marketing preferences at any time You can also modify information you have provided to Yahoo through the Yahoo products or services you may use</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3fad7e7bc3f7493489908a7:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#d83b93889a4843da84b9b4b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3fad7e7bc3f7493489908a7</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d83b93889a4843da84b9b4b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Ability to Edit and Delete Your Account Information and Preferences You can edit your Yahoo Account Information including your marketing preferences at any time You can also modify information you have provided to Yahoo through the Yahoo products or services you may use</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b893e939bf3d47338cba238:AccountData">
+<owl:NamedIndividual rdf:about="#1512a61a7ac2430b900dba0:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b893e939bf3d47338cba238</uuid>
+  <provided_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1512a61a7ac2430b900dba0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e7d92e4150bf4450b1778c4:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#2c3f2ae3d7bc45a097606cf:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <has_mechanism rdf:resource="#3fad7e7bc3f7493489908a7:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#b893e939bf3d47338cba238:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e7d92e4150bf4450b1778c4</uuid>
+  <initiated_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <has_mechanism rdf:resource="#d83b93889a4843da84b9b4b:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#1512a61a7ac2430b900dba0:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2c3f2ae3d7bc45a097606cf</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Ability to Edit and Delete Your Account Information and Preferences You can edit your Yahoo Account Information including your marketing preferences at any time You can also modify information you have provided to Yahoo through the Yahoo products or services you may use</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1c1f39f8aa0c4673a108eba:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#5d56c9c95c454db88f3d966:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1c1f39f8aa0c4673a108eba</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5d56c9c95c454db88f3d966</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Users who visit this page can opt out</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#872f0ee8bd5847b08ee0f24:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#1e5e8539ef684bf28ce73b3:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <has_mechanism rdf:resource="#1c1f39f8aa0c4673a108eba:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">872f0ee8bd5847b08ee0f24</uuid>
+  <initiated_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <has_mechanism rdf:resource="#5d56c9c95c454db88f3d966:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1e5e8539ef684bf28ce73b3</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">New categories of marketing communications might be added to the Marketing Preferences page from time to time Users who visit this page can opt out of receiving future marketing communications from these new categories or they can unsubscribe by following instructions contained in the messages they receive</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c77cfe194e184bcbb4dbf63:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#64b8d212c27f4c348ee31e3:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c77cfe194e184bcbb4dbf63</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">64b8d212c27f4c348ee31e3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Users who visit this page can opt out of receiving future marketing communications from these new categories or they can unsubscribe by following instructions contained in the messages they receive.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0b71604bff274c62be07ae5:PersonalData">
+<owl:NamedIndividual rdf:about="#5f2bb32e7a7b41739339a83:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0b71604bff274c62be07ae5</uuid>
+  <provided_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5f2bb32e7a7b41739339a83</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">communications</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cda262d41dbe4c9386ed335:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#ba94237e17674addb76705d:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <has_mechanism rdf:resource="#c77cfe194e184bcbb4dbf63:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#0b71604bff274c62be07ae5:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cda262d41dbe4c9386ed335</uuid>
+  <initiated_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <has_mechanism rdf:resource="#64b8d212c27f4c348ee31e3:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#5f2bb32e7a7b41739339a83:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ba94237e17674addb76705d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">New categories of marketing communications might be added to the Marketing Preferences page from time to time Users who visit this page can opt out of receiving future marketing communications from these new categories or they can unsubscribe by following instructions contained in the messages they receive</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c6e6176122f34673a2ffe52:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#f265c636c1094b308c02a7f:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c6e6176122f34673a2ffe52</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f265c636c1094b308c02a7f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">can opt out of receiving</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6bf034b7320145ec81582f1:PersonalData">
+<owl:NamedIndividual rdf:about="#f7ec7a5cb9264503939934d:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6bf034b7320145ec81582f1</uuid>
+  <provided_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f7ec7a5cb9264503939934d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">they can unsubscribe</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e10cc9e5163a4356b2c5f37:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#e7f64a6affba4810b722e9e:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <has_mechanism rdf:resource="#c6e6176122f34673a2ffe52:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#6bf034b7320145ec81582f1:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e10cc9e5163a4356b2c5f37</uuid>
+  <initiated_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <has_mechanism rdf:resource="#f265c636c1094b308c02a7f:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#f7ec7a5cb9264503939934d:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e7f64a6affba4810b722e9e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">New categories of marketing communications might be added to the Marketing Preferences page from time to time Users who visit this page can opt out of receiving future marketing communications from these new categories or they can unsubscribe by following instructions contained in the messages they receive</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c08f3876eb2740aaaf99d98:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#0aaedfe5c758440da0c61ea:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c08f3876eb2740aaaf99d98</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0aaedfe5c758440da0c61ea</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We reserve the right to send you certain communications relating to the Yahoo service, such as service announcements, administrative messages and the Yahoo Newsletter, that are considered part of your Yahoo account, without offering you the opportunity to opt out of receiving them.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#73fe491e984d410e86c4700:PersonalData">
+<owl:NamedIndividual rdf:about="#2411555c047b41cfb64ebe9:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">73fe491e984d410e86c4700</uuid>
+  <provided_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2411555c047b41cfb64ebe9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">communications</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d5b4194ac54447ef99424f2:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#541fdfb79c4946658af8d7e:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <has_mechanism rdf:resource="#c08f3876eb2740aaaf99d98:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#73fe491e984d410e86c4700:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d5b4194ac54447ef99424f2</uuid>
+  <initiated_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <has_mechanism rdf:resource="#0aaedfe5c758440da0c61ea:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#2411555c047b41cfb64ebe9:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">541fdfb79c4946658af8d7e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We reserve the right to send you certain communications relating to the Yahoo service such as service announcements administrative messages and the Yahoo Newsletter that are considered part of your Yahoo account without offering you the opportunity to opt out of receiving them</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4d098315a88d4a428288912:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#718e50efbf094f9988be74b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4d098315a88d4a428288912</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">718e50efbf094f9988be74b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">without offering you the opportunity to opt out of receiving them</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0e30e307e76841ce987f085:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#b12f4f18e18044af914d4bb:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <has_mechanism rdf:resource="#4d098315a88d4a428288912:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0e30e307e76841ce987f085</uuid>
+  <initiated_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <has_mechanism rdf:resource="#718e50efbf094f9988be74b:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b12f4f18e18044af914d4bb</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We reserve the right to send you certain communications relating to the Yahoo service such as service announcements administrative messages and the Yahoo Newsletter that are considered part of your Yahoo account without offering you the opportunity to opt out of receiving them</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3ac0837b82d747cca897107:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#81923e4b0f6c451e999f5d9:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3ac0837b82d747cca897107</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">81923e4b0f6c451e999f5d9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can delete your Yahoo account by visiting our Account Deletion page Please click here to read about information that might possibly remain in our archived records after your account has been deleted</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8e6055b5a869431e95a601b:AccountData">
+<owl:NamedIndividual rdf:about="#27a6962dc20b48159e68ea5:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8e6055b5a869431e95a601b</uuid>
+  <provided_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">27a6962dc20b48159e68ea5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#147cdb64571a4f65a40253b:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#7eda8cbc02974028bc0da88:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <has_mechanism rdf:resource="#3ac0837b82d747cca897107:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#8e6055b5a869431e95a601b:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">147cdb64571a4f65a40253b</uuid>
+  <initiated_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <has_mechanism rdf:resource="#81923e4b0f6c451e999f5d9:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#27a6962dc20b48159e68ea5:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7eda8cbc02974028bc0da88</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can delete your Yahoo account by visiting our Account Deletion page Please click here to read about information that might possibly remain in our archived records after your account has been deleted</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2f751347579d4f4db28dfa5:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#31105b52fddd42429f7aaca:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2f751347579d4f4db28dfa5</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">31105b52fddd42429f7aaca</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can delete your Yahoo account by visiting our Account Deletion page Please click here to read about information that might possibly remain in our archived records after your account has been deleted</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b770ebf2eea9467dbcf7b2c:AccountData">
+<owl:NamedIndividual rdf:about="#ede0759d776c4c098e2594d:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b770ebf2eea9467dbcf7b2c</uuid>
+  <provided_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ede0759d776c4c098e2594d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#80a9bb79e3ac471c9a619bb:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#16f412f8023746f493bb434:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <has_mechanism rdf:resource="#2f751347579d4f4db28dfa5:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#b770ebf2eea9467dbcf7b2c:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">80a9bb79e3ac471c9a619bb</uuid>
+  <initiated_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <has_mechanism rdf:resource="#31105b52fddd42429f7aaca:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#ede0759d776c4c098e2594d:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">16f412f8023746f493bb434</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can delete your Yahoo account by visiting our Account Deletion page Please click here to read about information that might possibly remain in our archived records after your account has been deleted</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e6379e99a8a3477ebe071c6:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#dc0d23206e9a4316a3cb292:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e6379e99a8a3477ebe071c6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dc0d23206e9a4316a3cb292</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">information that might possibly remain in our archived records after your account has been deleted</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1f87566521be4bbcbad1b13:SensitiveData">
+<owl:NamedIndividual rdf:about="#005b015789b642e4b17b83f:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1f87566521be4bbcbad1b13</uuid>
+  <provided_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">005b015789b642e4b17b83f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Yahoo account</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b2c4ce77bd31440db639023:DataRetention">
+<owl:NamedIndividual rdf:about="#10cf17cbfbf340cd8543663:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#9471ef6e412045a18959f39:FirstParty"/>
-  <lasts_for rdf:resource="#e6379e99a8a3477ebe071c6:DataRetentionTime"/>
-  <applies_to rdf:resource="#1f87566521be4bbcbad1b13:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b2c4ce77bd31440db639023</uuid>
+  <initiated_by rdf:resource="#68a2de9430e94f54b5b1b01:FirstParty"/>
+  <lasts_for rdf:resource="#dc0d23206e9a4316a3cb292:DataRetentionTime"/>
+  <applies_to rdf:resource="#005b015789b642e4b17b83f:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">10cf17cbfbf340cd8543663</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can delete your Yahoo account by visiting our Account Deletion page Please click here to read about information that might possibly remain in our archived records after your account has been deleted</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bc4e7e0800c04255bfb79df:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#7a161971a2a04ed892e252a:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bc4e7e0800c04255bfb79df</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7a161971a2a04ed892e252a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can delete your Yahoo account by visiting our Account Deletion page Please click here to read about information that might possibly remain in our archived records after your account has been deleted</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9ff9ec3de10d44b1849aff4:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#c2b62150a5fb4adb883f6c7:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <has_mechanism rdf:resource="#bc4e7e0800c04255bfb79df:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9ff9ec3de10d44b1849aff4</uuid>
+  <initiated_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <has_mechanism rdf:resource="#7a161971a2a04ed892e252a:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c2b62150a5fb4adb883f6c7</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can delete your Yahoo account by visiting our Account Deletion page Please click here to read about information that might possibly remain in our archived records after your account has been deleted</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#21814234350e42088e526be:AccessControls">
+<owl:NamedIndividual rdf:about="#ed1334cb452c454595f578d:AccessControls">
   <rdf:type rdf:resource="#AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">21814234350e42088e526be</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ed1334cb452c454595f578d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We limit access to personal information about you to employees who we believe reasonably need to come into contact with that information to provide products or services to you or in order to do their jobs.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ea365a5d05a447a5b28770b:DataProtection">
+<owl:NamedIndividual rdf:about="#ec4c28eacfd441298556bfd:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#9471ef6e412045a18959f39:FirstParty"/>
-  <has_mechanism rdf:resource="#21814234350e42088e526be:AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ea365a5d05a447a5b28770b</uuid>
+  <initiated_by rdf:resource="#68a2de9430e94f54b5b1b01:FirstParty"/>
+  <has_mechanism rdf:resource="#ed1334cb452c454595f578d:AccessControls"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ec4c28eacfd441298556bfd</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CONFIDENTIALITY AND SECURITY We limit access to personal information about you to employees who we believe reasonably need to come into contact with that information to provide products or services to you or in order to do their jobs</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#112e1b7e35374dc19a5df15:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#b78c113253b24f33ab6a1fb:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">112e1b7e35374dc19a5df15</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b78c113253b24f33ab6a1fb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We have physical, electronic, and procedural safeguards that comply with federal regulations to protect personal information about you</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d2598b0a167a49d9bf8564f:DataProtection">
+<owl:NamedIndividual rdf:about="#d01965845a8b4b49abbc59e:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#9471ef6e412045a18959f39:FirstParty"/>
-  <has_mechanism rdf:resource="#112e1b7e35374dc19a5df15:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d2598b0a167a49d9bf8564f</uuid>
+  <initiated_by rdf:resource="#68a2de9430e94f54b5b1b01:FirstParty"/>
+  <has_mechanism rdf:resource="#b78c113253b24f33ab6a1fb:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d01965845a8b4b49abbc59e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We have physical electronic and procedural safeguards that comply with federal regulations to protect personal information about you</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ee92c9571b674a4682b213b:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#35213feb65b64f76b9d9389:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ee92c9571b674a4682b213b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">35213feb65b64f76b9d9389</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To learn more about security, including the security steps we have taken and security steps you can take, please read Security at Yahoo.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a262339462be446b9f66a46:DataProtection">
+<owl:NamedIndividual rdf:about="#6149f51e60314f57be801c0:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#9471ef6e412045a18959f39:FirstParty"/>
-  <has_mechanism rdf:resource="#ee92c9571b674a4682b213b:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a262339462be446b9f66a46</uuid>
+  <initiated_by rdf:resource="#68a2de9430e94f54b5b1b01:FirstParty"/>
+  <has_mechanism rdf:resource="#35213feb65b64f76b9d9389:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6149f51e60314f57be801c0</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To learn more about security including the security steps we have taken and security steps you can take please read Security at Yahoo</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#58c044ee09fb41a1b2bccc4:FPSpecificCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#78a9a83c68d9470da7016c8:FPSpecificCommunicationMechanism">
   <rdf:type rdf:resource="#FPSpecificCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">58c044ee09fb41a1b2bccc4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">78a9a83c68d9470da7016c8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sending a notice to the primary email address specified in your Yahoo account</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ced7fadb264445eca71a83a:PrivacyRelatedCause">
+<owl:NamedIndividual rdf:about="#1d532f33495e4c1bb7336cb:PrivacyRelatedCause">
   <rdf:type rdf:resource="#PrivacyRelatedCause"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ced7fadb264445eca71a83a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1d532f33495e4c1bb7336cb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not selected</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#393d8a5195f64c478792f4a:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#af22179c30a34154993c9ed:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">393d8a5195f64c478792f4a</uuid>
+  <initiated_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">af22179c30a34154993c9ed</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHANGES TO THIS PRIVACY POLICY Yahoo may update this policy We will notify you about significant changes in the way we treat personal information by sending a notice to the primary email address specified in your Yahoo account or by placing a prominent notice on our site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7e99f8541c8e42dc86800aa:PolicyChange">
+<owl:NamedIndividual rdf:about="#ca657353dff34e368b0799c:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#9471ef6e412045a18959f39:FirstParty"/>
-  <caused_by rdf:resource="#ced7fadb264445eca71a83a:PrivacyRelatedCause"/>
-  <binded_to rdf:resource="#393d8a5195f64c478792f4a:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7e99f8541c8e42dc86800aa</uuid>
+  <initiated_by rdf:resource="#68a2de9430e94f54b5b1b01:FirstParty"/>
+  <caused_by rdf:resource="#1d532f33495e4c1bb7336cb:PrivacyRelatedCause"/>
+  <binded_to rdf:resource="#af22179c30a34154993c9ed:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ca657353dff34e368b0799c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHANGES TO THIS PRIVACY POLICY Yahoo may update this policy We will notify you about significant changes in the way we treat personal information by sending a notice to the primary email address specified in your Yahoo account or by placing a prominent notice on our site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5265441c90ce4d33aac8c1b:FPNotification">
+<owl:NamedIndividual rdf:about="#70d64d515eeb4fd5ad046ba:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#9471ef6e412045a18959f39:FirstParty"/>
-  <notifies rdf:resource="#aa1a136660624005984c99a:User"/>
-  <has_mechanism rdf:resource="#58c044ee09fb41a1b2bccc4:FPSpecificCommunicationMechanism"/>
-  <binded_to rdf:resource="#7e99f8541c8e42dc86800aa:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5265441c90ce4d33aac8c1b</uuid>
+  <initiated_by rdf:resource="#68a2de9430e94f54b5b1b01:FirstParty"/>
+  <notifies rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <has_mechanism rdf:resource="#78a9a83c68d9470da7016c8:FPSpecificCommunicationMechanism"/>
+  <binded_to rdf:resource="#ca657353dff34e368b0799c:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">70d64d515eeb4fd5ad046ba</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHANGES TO THIS PRIVACY POLICY Yahoo may update this policy We will notify you about significant changes in the way we treat personal information by sending a notice to the primary email address specified in your Yahoo account or by placing a prominent notice on our site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9f6770a140f84a388a31465:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#c0fe291e3a4f4fc9a9ffd57:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9f6770a140f84a388a31465</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c0fe291e3a4f4fc9a9ffd57</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">by placing a prominent notice on our site.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#88d8d84297774409baf558c:PrivacyRelatedCause">
+<owl:NamedIndividual rdf:about="#089243c4030449d59de0f17:PrivacyRelatedCause">
   <rdf:type rdf:resource="#PrivacyRelatedCause"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">88d8d84297774409baf558c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">089243c4030449d59de0f17</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not selected</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e33e92a5f7734b468bb6922:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#9c3b6e36120b42c7b59b749:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e33e92a5f7734b468bb6922</uuid>
+  <initiated_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9c3b6e36120b42c7b59b749</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHANGES TO THIS PRIVACY POLICY Yahoo may update this policy We will notify you about significant changes in the way we treat personal information by sending a notice to the primary email address specified in your Yahoo account or by placing a prominent notice on our site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d697dac771ae49c8b826129:PolicyChange">
+<owl:NamedIndividual rdf:about="#744e59a98e90476fabaedc2:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#9471ef6e412045a18959f39:FirstParty"/>
-  <caused_by rdf:resource="#88d8d84297774409baf558c:PrivacyRelatedCause"/>
-  <binded_to rdf:resource="#e33e92a5f7734b468bb6922:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d697dac771ae49c8b826129</uuid>
+  <initiated_by rdf:resource="#68a2de9430e94f54b5b1b01:FirstParty"/>
+  <caused_by rdf:resource="#089243c4030449d59de0f17:PrivacyRelatedCause"/>
+  <binded_to rdf:resource="#9c3b6e36120b42c7b59b749:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">744e59a98e90476fabaedc2</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHANGES TO THIS PRIVACY POLICY Yahoo may update this policy We will notify you about significant changes in the way we treat personal information by sending a notice to the primary email address specified in your Yahoo account or by placing a prominent notice on our site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8466b3c9e6944c438cfa0f8:FPNotification">
+<owl:NamedIndividual rdf:about="#1d61ffaf5052423baa19d8e:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#9471ef6e412045a18959f39:FirstParty"/>
-  <notifies rdf:resource="#aa1a136660624005984c99a:User"/>
-  <has_mechanism rdf:resource="#9f6770a140f84a388a31465:OnWebsitePage"/>
-  <binded_to rdf:resource="#d697dac771ae49c8b826129:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8466b3c9e6944c438cfa0f8</uuid>
+  <initiated_by rdf:resource="#68a2de9430e94f54b5b1b01:FirstParty"/>
+  <notifies rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <has_mechanism rdf:resource="#c0fe291e3a4f4fc9a9ffd57:OnWebsitePage"/>
+  <binded_to rdf:resource="#744e59a98e90476fabaedc2:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1d61ffaf5052423baa19d8e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHANGES TO THIS PRIVACY POLICY Yahoo may update this policy We will notify you about significant changes in the way we treat personal information by sending a notice to the primary email address specified in your Yahoo account or by placing a prominent notice on our site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2f28cfd55f2e4243aec60a9:FPSpecificCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#65978b40a443470fb077c88:FPSpecificCommunicationMechanism">
   <rdf:type rdf:resource="#FPSpecificCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2f28cfd55f2e4243aec60a9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">65978b40a443470fb077c88</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We will notify you about significant changes in the way we treat personal information by sending a notice to the primary email address specified in your Yahoo account</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9f9a1b00d6f64e119130c95:PrivacyRelatedCause">
+<owl:NamedIndividual rdf:about="#653ea53ac0a1468da7d15a0:PrivacyRelatedCause">
   <rdf:type rdf:resource="#PrivacyRelatedCause"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9f9a1b00d6f64e119130c95</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">653ea53ac0a1468da7d15a0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We will notify you about significant changes in the way we treat personal information by sending a notice to the primary email address specified in your Yahoo account</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#51ca3df639dc425797b283e:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#fcad2ce148a845d5b7484fd:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">51ca3df639dc425797b283e</uuid>
+  <initiated_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fcad2ce148a845d5b7484fd</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHANGES TO THIS PRIVACY POLICY Yahoo may update this policy We will notify you about significant changes in the way we treat personal information by sending a notice to the primary email address specified in your Yahoo account or by placing a prominent notice on our site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fd06b2503da34abe87725b0:PolicyChange">
+<owl:NamedIndividual rdf:about="#ec764e3d063c4279a6f5d31:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#9471ef6e412045a18959f39:FirstParty"/>
-  <caused_by rdf:resource="#9f9a1b00d6f64e119130c95:PrivacyRelatedCause"/>
-  <binded_to rdf:resource="#51ca3df639dc425797b283e:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fd06b2503da34abe87725b0</uuid>
+  <initiated_by rdf:resource="#68a2de9430e94f54b5b1b01:FirstParty"/>
+  <caused_by rdf:resource="#653ea53ac0a1468da7d15a0:PrivacyRelatedCause"/>
+  <binded_to rdf:resource="#fcad2ce148a845d5b7484fd:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ec764e3d063c4279a6f5d31</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHANGES TO THIS PRIVACY POLICY Yahoo may update this policy We will notify you about significant changes in the way we treat personal information by sending a notice to the primary email address specified in your Yahoo account or by placing a prominent notice on our site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#40b857758bdb495fa0f4878:FPNotification">
+<owl:NamedIndividual rdf:about="#d23f8af5603046b5b02cc47:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#9471ef6e412045a18959f39:FirstParty"/>
-  <notifies rdf:resource="#aa1a136660624005984c99a:User"/>
-  <has_mechanism rdf:resource="#2f28cfd55f2e4243aec60a9:FPSpecificCommunicationMechanism"/>
-  <binded_to rdf:resource="#fd06b2503da34abe87725b0:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">40b857758bdb495fa0f4878</uuid>
+  <initiated_by rdf:resource="#68a2de9430e94f54b5b1b01:FirstParty"/>
+  <notifies rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <has_mechanism rdf:resource="#65978b40a443470fb077c88:FPSpecificCommunicationMechanism"/>
+  <binded_to rdf:resource="#ec764e3d063c4279a6f5d31:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d23f8af5603046b5b02cc47</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHANGES TO THIS PRIVACY POLICY Yahoo may update this policy We will notify you about significant changes in the way we treat personal information by sending a notice to the primary email address specified in your Yahoo account or by placing a prominent notice on our site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fdd5439b5ca4435ba422b2b:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#12a64deff67e485196811c0:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fdd5439b5ca4435ba422b2b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">12a64deff67e485196811c0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">or by placing a prominent notice on our site.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e85685709cb640ccb005934:PrivacyRelatedCause">
+<owl:NamedIndividual rdf:about="#6722921e1d56457fab1c143:PrivacyRelatedCause">
   <rdf:type rdf:resource="#PrivacyRelatedCause"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e85685709cb640ccb005934</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6722921e1d56457fab1c143</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">or by placing a prominent notice on our site.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#80c97d78253c4358b5fce9a:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#c6241b738f2048e7a138997:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">80c97d78253c4358b5fce9a</uuid>
+  <initiated_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c6241b738f2048e7a138997</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHANGES TO THIS PRIVACY POLICY Yahoo may update this policy We will notify you about significant changes in the way we treat personal information by sending a notice to the primary email address specified in your Yahoo account or by placing a prominent notice on our site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d4357e552f844f80854e100:PolicyChange">
+<owl:NamedIndividual rdf:about="#e1ed8fe001c24d839a59a5a:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#9471ef6e412045a18959f39:FirstParty"/>
-  <caused_by rdf:resource="#e85685709cb640ccb005934:PrivacyRelatedCause"/>
-  <binded_to rdf:resource="#80c97d78253c4358b5fce9a:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d4357e552f844f80854e100</uuid>
+  <initiated_by rdf:resource="#68a2de9430e94f54b5b1b01:FirstParty"/>
+  <caused_by rdf:resource="#6722921e1d56457fab1c143:PrivacyRelatedCause"/>
+  <binded_to rdf:resource="#c6241b738f2048e7a138997:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e1ed8fe001c24d839a59a5a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHANGES TO THIS PRIVACY POLICY Yahoo may update this policy We will notify you about significant changes in the way we treat personal information by sending a notice to the primary email address specified in your Yahoo account or by placing a prominent notice on our site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c7be737e9781404a8509719:FPNotification">
+<owl:NamedIndividual rdf:about="#d56e28249b654f12bf8bcde:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#9471ef6e412045a18959f39:FirstParty"/>
-  <notifies rdf:resource="#aa1a136660624005984c99a:User"/>
-  <has_mechanism rdf:resource="#fdd5439b5ca4435ba422b2b:OnWebsitePage"/>
-  <binded_to rdf:resource="#d4357e552f844f80854e100:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c7be737e9781404a8509719</uuid>
+  <initiated_by rdf:resource="#68a2de9430e94f54b5b1b01:FirstParty"/>
+  <notifies rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <has_mechanism rdf:resource="#12a64deff67e485196811c0:OnWebsitePage"/>
+  <binded_to rdf:resource="#e1ed8fe001c24d839a59a5a:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d56e28249b654f12bf8bcde</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHANGES TO THIS PRIVACY POLICY Yahoo may update this policy We will notify you about significant changes in the way we treat personal information by sending a notice to the primary email address specified in your Yahoo account or by placing a prominent notice on our site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8cde2f105e8e44979dd9af3:FPSpecificCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#79b83bf9b5be4f63ba68d92:FPSpecificCommunicationMechanism">
   <rdf:type rdf:resource="#FPSpecificCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8cde2f105e8e44979dd9af3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">79b83bf9b5be4f63ba68d92</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sending a notice to the primary email address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#58796d9fbe444ec29dbcfa9:PrivacyRelatedCause">
+<owl:NamedIndividual rdf:about="#5b79b672bc124b588c07a72:PrivacyRelatedCause">
   <rdf:type rdf:resource="#PrivacyRelatedCause"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">58796d9fbe444ec29dbcfa9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5b79b672bc124b588c07a72</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not selected</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#44567f9c12554cfaa054bf2:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#6cfadfcb838a4be8a59cc25:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">44567f9c12554cfaa054bf2</uuid>
+  <initiated_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6cfadfcb838a4be8a59cc25</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHANGES TO THIS PRIVACY POLICY Yahoo may update this policy We will notify you about significant changes in the way we treat personal information by sending a notice to the primary email address specified in your Yahoo account or by placing a prominent notice on our site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#399e1398610746ab90ae522:PolicyChange">
+<owl:NamedIndividual rdf:about="#d954dc19016c492a93f308e:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#9471ef6e412045a18959f39:FirstParty"/>
-  <caused_by rdf:resource="#58796d9fbe444ec29dbcfa9:PrivacyRelatedCause"/>
-  <binded_to rdf:resource="#44567f9c12554cfaa054bf2:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">399e1398610746ab90ae522</uuid>
+  <initiated_by rdf:resource="#68a2de9430e94f54b5b1b01:FirstParty"/>
+  <caused_by rdf:resource="#5b79b672bc124b588c07a72:PrivacyRelatedCause"/>
+  <binded_to rdf:resource="#6cfadfcb838a4be8a59cc25:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d954dc19016c492a93f308e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHANGES TO THIS PRIVACY POLICY Yahoo may update this policy We will notify you about significant changes in the way we treat personal information by sending a notice to the primary email address specified in your Yahoo account or by placing a prominent notice on our site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#03f0a9e4ffeb4669beb4343:FPNotification">
+<owl:NamedIndividual rdf:about="#66a4490c62504acc9cb35d8:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#9471ef6e412045a18959f39:FirstParty"/>
-  <notifies rdf:resource="#aa1a136660624005984c99a:User"/>
-  <has_mechanism rdf:resource="#8cde2f105e8e44979dd9af3:FPSpecificCommunicationMechanism"/>
-  <binded_to rdf:resource="#399e1398610746ab90ae522:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">03f0a9e4ffeb4669beb4343</uuid>
+  <initiated_by rdf:resource="#68a2de9430e94f54b5b1b01:FirstParty"/>
+  <notifies rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <has_mechanism rdf:resource="#79b83bf9b5be4f63ba68d92:FPSpecificCommunicationMechanism"/>
+  <binded_to rdf:resource="#d954dc19016c492a93f308e:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">66a4490c62504acc9cb35d8</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CHANGES TO THIS PRIVACY POLICY Yahoo may update this policy We will notify you about significant changes in the way we treat personal information by sending a notice to the primary email address specified in your Yahoo account or by placing a prominent notice on our site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bdb282e767994488abe1be7:InPrivacyPolicy">
+<owl:NamedIndividual rdf:about="#5676623b3274464994270bc:InPrivacyPolicy">
   <rdf:type rdf:resource="#InPrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bdb282e767994488abe1be7</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5676623b3274464994270bc</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Last Updated: September 25, 2014</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9d102d9d383c4fad900f19a:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#76a130a40d254f1fba43731:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aa1a136660624005984c99a:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9d102d9d383c4fad900f19a</uuid>
+  <initiated_by rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">76a130a40d254f1fba43731</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Last Updated September 25 2014</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3416e7ff4cab46daadcb5bb:PolicyChange">
+<owl:NamedIndividual rdf:about="#1597cd72452a46b79188ecb:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#9471ef6e412045a18959f39:FirstParty"/>
-  <binded_to rdf:resource="#9d102d9d383c4fad900f19a:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3416e7ff4cab46daadcb5bb</uuid>
+  <initiated_by rdf:resource="#68a2de9430e94f54b5b1b01:FirstParty"/>
+  <binded_to rdf:resource="#76a130a40d254f1fba43731:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1597cd72452a46b79188ecb</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Last Updated September 25 2014</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#109efd6fe1e042b4a0bdb9d:FPNotification">
+<owl:NamedIndividual rdf:about="#2270ff184680487c92aa26b:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#9471ef6e412045a18959f39:FirstParty"/>
-  <notifies rdf:resource="#aa1a136660624005984c99a:User"/>
-  <has_mechanism rdf:resource="#bdb282e767994488abe1be7:InPrivacyPolicy"/>
-  <binded_to rdf:resource="#3416e7ff4cab46daadcb5bb:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">109efd6fe1e042b4a0bdb9d</uuid>
+  <initiated_by rdf:resource="#68a2de9430e94f54b5b1b01:FirstParty"/>
+  <notifies rdf:resource="#d9b5e6bdb4be465fbff8d7f:User"/>
+  <has_mechanism rdf:resource="#5676623b3274464994270bc:InPrivacyPolicy"/>
+  <binded_to rdf:resource="#1597cd72452a46b79188ecb:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2270ff184680487c92aa26b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Last Updated September 25 2014</evidence>
 </owl:NamedIndividual>

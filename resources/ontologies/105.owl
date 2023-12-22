@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -901,14 +902,6 @@
   <rdfs:subClassOf rdf:resource="#UserSpecificCommunicationMechanism"/>
   <owl:disjointWith rdf:resource="#AutomaticCommunicationMechanism"/>
   <rdfs:subClassOf>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
-        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
       <owl:allValuesFrom>
@@ -917,6 +910,14 @@
         </owl:Class>
       </owl:allValuesFrom>
     </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
+        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
+      </owl:unionOf>
+    </owl:Class>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -959,18 +960,18 @@
 <owl:Class rdf:about="#FPSpecificCommunicationMechanism">
   <rdfs:subClassOf rdf:resource="#CommunicationMechanism"/>
   <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#mechanism_of"/>
+      <owl:allValuesFrom rdf:resource="#FPNotification"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
     <owl:Class>
       <owl:unionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#FPSpecificCommunicationMechanism"/>
         <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
       </owl:unionOf>
     </owl:Class>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#mechanism_of"/>
-      <owl:allValuesFrom rdf:resource="#FPNotification"/>
-    </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,1080 +1305,1078 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#8acd901daf6f4874852b1d8:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#419a188cad424999a5cf215:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8acd901daf6f4874852b1d8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">419a188cad424999a5cf215</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#85e23e24adc74cf6a610d49:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#042157b23b21413fa9387f3:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <considers rdf:resource="#c576f86d6d0a4368bdd6b5b:FirstParty"/>
-  <considers rdf:resource="#ebd994b6bd1f455ea8e2c4c:ThirdParty"/>
-  <considers rdf:resource="#91147d91a5c74479a19f3c0:OptInOptOutControl"/>
-  <considers rdf:resource="#4b7022cb471f4d20b26a4c8:PolicyChange"/>
-  <considers rdf:resource="#443e7ff291444b7ab8070ba:FPNotification"/>
-  <considers rdf:resource="#c6d74bdfd73d499cb08c5a9:OptInOptOutControl"/>
-  <considers rdf:resource="#b92ecd29dbca43ec9dac9ed:PolicyChange"/>
-  <considers rdf:resource="#c09b945c52a046afb431730:FPNotification"/>
-  <considers rdf:resource="#0c0ea6fa792e468980b2c4a:OptInOptOutControl"/>
-  <considers rdf:resource="#df8ebccc773c4d2d823dfb5:OptInOptOutControl"/>
-  <considers rdf:resource="#67e9829d56d54942bc4445d:OptInOptOutControl"/>
-  <considers rdf:resource="#726c406af19d4429bd33ca6:OptInOptOutControl"/>
-  <considers rdf:resource="#916dd131bdba4c4596716be:TrackingData"/>
-  <considers rdf:resource="#0dd72e8c248848eea871018:OptInOptOutControl"/>
-  <considers rdf:resource="#8ee2757c56d64aed8b8af84:OptInOptOutControl"/>
-  <considers rdf:resource="#00dc0b981241491192c7546:OptInOptOutControl"/>
-  <considers rdf:resource="#c1f5ba40ea7b4c21a9588e1:OptInOptOutControl"/>
-  <considers rdf:resource="#cc3f01ae8679409d9611e21:TrackingData"/>
-  <considers rdf:resource="#753f661e1a5b4d649b18a05:OptInOptOutControl"/>
-  <considers rdf:resource="#da7fc02ec8704360a918343:TrackingData"/>
-  <considers rdf:resource="#858fe77b3d66424aacfbe3b:OptInOptOutControl"/>
-  <considers rdf:resource="#176cd12520c0405a9b37d5b:TrackingData"/>
-  <considers rdf:resource="#b78b99d784434c289243895:OptInOptOutControl"/>
-  <considers rdf:resource="#1f8089bb98654ff99c0784b:TrackingData"/>
-  <considers rdf:resource="#75a7b8b7092d4053bb07711:OptInOptOutControl"/>
-  <considers rdf:resource="#1dad710e81374514bbe64ad:TrackingData"/>
-  <considers rdf:resource="#baefea2c3c734d2a86aeab7:OptInOptOutControl"/>
-  <considers rdf:resource="#a37812b08984408a8ea63d9:AdvertisingDataControl"/>
-  <considers rdf:resource="#1a4d061d3cc64759b89d463:OptInOptOutControl"/>
-  <considers rdf:resource="#ea05a104265f4d3dabdbbfe:AdvertisingDataControl"/>
-  <considers rdf:resource="#57a1d289f8e347fb831c90d:OptInOptOutControl"/>
-  <considers rdf:resource="#985b6f2c21b6498b96fab72:OptInOptOutControl"/>
-  <considers rdf:resource="#d5f93f65d8ec4bec990741e:OptInOptOutControl"/>
-  <considers rdf:resource="#cb175e64bc7a4ee6bf93763:AdvertisingDataControl"/>
-  <considers rdf:resource="#ae6d7b7b242945638b38813:TrackingData"/>
-  <considers rdf:resource="#3502cefebbe442a3aac34f1:OptInOptOutControl"/>
-  <considers rdf:resource="#42e87519d8284eb29247bde:TrackingData"/>
-  <considers rdf:resource="#50fabee394724ed6b86941f:OptInOptOutControl"/>
-  <considers rdf:resource="#f7f0b7ac85094b99a854808:GenericData"/>
-  <considers rdf:resource="#d67965a0982b4e0294193e4:OptInOptOutControl"/>
-  <considers rdf:resource="#01483f0aefa6484c9fe20f8:GenericData"/>
-  <considers rdf:resource="#92ace58c01814bbeadb917e:OptInOptOutControl"/>
-  <considers rdf:resource="#7176edc3525c448087487ab:GenericData"/>
-  <considers rdf:resource="#dd79eca2bf42452d83cbffd:OptInOptOutControl"/>
-  <considers rdf:resource="#5dc84480d62e48e48608ad4:GenericData"/>
-  <considers rdf:resource="#7ae3466df5ba4c4ab828cac:OptInOptOutControl"/>
-  <considers rdf:resource="#fd5772cc29e64d13bd39886:DataProtection"/>
-  <considers rdf:resource="#4c5eed4a897e41739c16fbe:GenericData"/>
-  <considers rdf:resource="#07594178230c4efdb21e06c:TPCollection"/>
-  <considers rdf:resource="#288ca1509b7b4ec79e1a602:GenericData"/>
-  <considers rdf:resource="#ed130a7100db455ea54ae26:TPCollection"/>
-  <considers rdf:resource="#99dc77ee9b7247a88f19ba2:OptInOptOutControl"/>
-  <considers rdf:resource="#d816ef8b6d2f44c98665fe7:OptInOptOutControl"/>
-  <considers rdf:resource="#2777bf0dc24049b8a2a98fe:PersonalData"/>
-  <considers rdf:resource="#8e40eaed55ac4ea1ba7b308:OptInOptOutControl"/>
-  <considers rdf:resource="#e291014e3c954c09b3bb426:PersonalData"/>
-  <considers rdf:resource="#1330d5dba4b94529a4b8cf0:OptInOptOutControl"/>
-  <considers rdf:resource="#944bddbefd35423a979b91a:OptInOptOutControl"/>
-  <considers rdf:resource="#7ccd48fa1064432e862c5a9:OptInOptOutControl"/>
-  <considers rdf:resource="#1c8cb160891444dc83a7981:OptInOptOutControl"/>
-  <considers rdf:resource="#cc8f6b65458046c78933c28:PersonalData"/>
-  <considers rdf:resource="#0d59422549d04b1d9468541:OptInOptOutControl"/>
-  <considers rdf:resource="#e0505ab08bca462c964c246:SensitiveData"/>
-  <considers rdf:resource="#79b15744f2ee446eb3b533f:OptInOptOutControl"/>
-  <considers rdf:resource="#7fd1e32e272441849285147:OptInOptOutControl"/>
-  <considers rdf:resource="#675d79eb8e15420195bb879:OptInOptOutControl"/>
-  <considers rdf:resource="#6f36b13c2355405084a9670:GenericData"/>
-  <considers rdf:resource="#7efb808753f14445b024aa0:DataRetention"/>
-  <considers rdf:resource="#89e887573a8549209244095:DataRetention"/>
-  <considers rdf:resource="#acee53ebce5f41019ad0569:DataProtection"/>
-  <considers rdf:resource="#0480beee62504f2eb8a066b:DataProtection"/>
-  <considers rdf:resource="#f5aead9bf4a24cf59aca01d:DataProtection"/>
-  <considers rdf:resource="#7e2c38709fa24f4fb17b4ab:DataProtection"/>
-  <considers rdf:resource="#0a13fc099c7a43259dfd0dc:DataProtection"/>
-  <considers rdf:resource="#45d2d855beaf4bfe836ccd0:OptInOptOutControl"/>
-  <considers rdf:resource="#128a65fb2f4b4fb6962b39a:PolicyChange"/>
-  <considers rdf:resource="#4259f259186d4ca19b4a02b:FPNotification"/>
-  <considers rdf:resource="#bf9ab3917eaf4244a430fb0:OptInOptOutControl"/>
-  <considers rdf:resource="#75b352f7409c421185ff7f5:PolicyChange"/>
-  <considers rdf:resource="#0eec20cbe30745edac9aedc:FPNotification"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">85e23e24adc74cf6a610d49</uuid>
+  <considers rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <considers rdf:resource="#69bb9f709e7c494e8a9fbee:FirstParty"/>
+  <considers rdf:resource="#ef4a536045ce4444bf3208c:ThirdParty"/>
+  <considers rdf:resource="#243ac0926a2f4fafbe9d0ae:OptInOptOutControl"/>
+  <considers rdf:resource="#1693e061042b4a5fb9967b1:PolicyChange"/>
+  <considers rdf:resource="#20e53c3ea99c4a8a81f93ae:FPNotification"/>
+  <considers rdf:resource="#62bc46ec475f403ca6ade32:OptInOptOutControl"/>
+  <considers rdf:resource="#0b02a7dcae8a4e6cbad6756:PolicyChange"/>
+  <considers rdf:resource="#5dc610a898f846e0a9b40db:FPNotification"/>
+  <considers rdf:resource="#d17861079a2e4348babae40:OptInOptOutControl"/>
+  <considers rdf:resource="#d7b1f3f622004d1bb03c62d:OptInOptOutControl"/>
+  <considers rdf:resource="#44bd920d0c404d39869c706:OptInOptOutControl"/>
+  <considers rdf:resource="#4e0d567fd0be43b9845c220:OptInOptOutControl"/>
+  <considers rdf:resource="#cee4e547afc944a8b8cf8f9:TrackingData"/>
+  <considers rdf:resource="#9c2c28cddefe45d4b44e8fb:OptInOptOutControl"/>
+  <considers rdf:resource="#6c34d899b9454dddb5cb6ec:OptInOptOutControl"/>
+  <considers rdf:resource="#3599774fabd84330a3eafa0:OptInOptOutControl"/>
+  <considers rdf:resource="#abeb9a89b11d41e79b9cbad:OptInOptOutControl"/>
+  <considers rdf:resource="#63ba50dcd5fc479abf13dcc:TrackingData"/>
+  <considers rdf:resource="#047229edd3f844f89a29e63:OptInOptOutControl"/>
+  <considers rdf:resource="#08383187355345bcb7a41d9:TrackingData"/>
+  <considers rdf:resource="#6d7e2071edd342d2af4677f:OptInOptOutControl"/>
+  <considers rdf:resource="#d7b16e091a3b4d01b44c77b:TrackingData"/>
+  <considers rdf:resource="#5ba698c0ecb040e3b58ecce:OptInOptOutControl"/>
+  <considers rdf:resource="#bfe4111d7dc7451b844ab5f:TrackingData"/>
+  <considers rdf:resource="#47561875d0f94246b8968cb:OptInOptOutControl"/>
+  <considers rdf:resource="#e0da0ba3168a4076b746c4a:TrackingData"/>
+  <considers rdf:resource="#63d5ee62e84041ec9c4a0d6:OptInOptOutControl"/>
+  <considers rdf:resource="#f8e252944e7545b19181ff5:AdvertisingDataControl"/>
+  <considers rdf:resource="#befdc24ac30946c194430b2:OptInOptOutControl"/>
+  <considers rdf:resource="#6b6583bbef044c3891b9da2:AdvertisingDataControl"/>
+  <considers rdf:resource="#e1f8c31912b14d67bdd1412:OptInOptOutControl"/>
+  <considers rdf:resource="#63ce5d065d10426d988d57b:OptInOptOutControl"/>
+  <considers rdf:resource="#e128b346e86c4240bd7809d:OptInOptOutControl"/>
+  <considers rdf:resource="#6536db30134b48ca9bb32c5:AdvertisingDataControl"/>
+  <considers rdf:resource="#78d3c5c2740d4b0aaea20e9:TrackingData"/>
+  <considers rdf:resource="#60870062bb3c4355adfbb93:OptInOptOutControl"/>
+  <considers rdf:resource="#43bc0d96911d441db1f2fc5:TrackingData"/>
+  <considers rdf:resource="#cd9f8a6bfa7c4af88359d50:OptInOptOutControl"/>
+  <considers rdf:resource="#c0a2e980581648caab83a39:GenericData"/>
+  <considers rdf:resource="#0e87cf6059be456d89e1240:OptInOptOutControl"/>
+  <considers rdf:resource="#346144d0d46941669397efd:GenericData"/>
+  <considers rdf:resource="#e6c4fcfa10ea45db9e77ca1:OptInOptOutControl"/>
+  <considers rdf:resource="#7428ee99f2d44cfd8768feb:GenericData"/>
+  <considers rdf:resource="#cd5dc8b1e9ff4a11ba36d40:OptInOptOutControl"/>
+  <considers rdf:resource="#d801175b5d114159ba13b38:GenericData"/>
+  <considers rdf:resource="#a5c8029f5ad443f4b8e6bee:OptInOptOutControl"/>
+  <considers rdf:resource="#132e5c1339044616ac38535:DataProtection"/>
+  <considers rdf:resource="#e1643a9ff27c4e008eec2aa:GenericData"/>
+  <considers rdf:resource="#ca034166d4304705b36fbc1:TPCollection"/>
+  <considers rdf:resource="#eec794030a604d1b9a3d42c:GenericData"/>
+  <considers rdf:resource="#e9db83e40b2b4de2b3c01e2:TPCollection"/>
+  <considers rdf:resource="#30b420050a664c9da2d2a98:OptInOptOutControl"/>
+  <considers rdf:resource="#7c2039a9d10c48d09263839:OptInOptOutControl"/>
+  <considers rdf:resource="#998c1bb85a874266af6a4b5:PersonalData"/>
+  <considers rdf:resource="#317c01e9a950450cbed9595:OptInOptOutControl"/>
+  <considers rdf:resource="#cb6f79bde77e4575bbc2850:PersonalData"/>
+  <considers rdf:resource="#3bd7b82659a34919801d3c6:OptInOptOutControl"/>
+  <considers rdf:resource="#b2437045713f483e9720030:OptInOptOutControl"/>
+  <considers rdf:resource="#57edb783badb4dfa9855f3e:OptInOptOutControl"/>
+  <considers rdf:resource="#17e5c4b5e3074a06a61993a:OptInOptOutControl"/>
+  <considers rdf:resource="#174e83f448eb41659491fbf:PersonalData"/>
+  <considers rdf:resource="#c976afa53d48418aba876d7:OptInOptOutControl"/>
+  <considers rdf:resource="#7553797bf66f4f90aa2440f:SensitiveData"/>
+  <considers rdf:resource="#2d2bcd61f51146289d296c9:OptInOptOutControl"/>
+  <considers rdf:resource="#6ccf44f1788948de8b2e9ee:OptInOptOutControl"/>
+  <considers rdf:resource="#8b79d72e8327477ea23211a:OptInOptOutControl"/>
+  <considers rdf:resource="#7fd992aab22a4f40adf5569:GenericData"/>
+  <considers rdf:resource="#9f6257d176b34bd6956ad1a:DataRetention"/>
+  <considers rdf:resource="#031a1b4066224f449e59f8b:DataRetention"/>
+  <considers rdf:resource="#01af303fd37b43939062a56:DataProtection"/>
+  <considers rdf:resource="#a7e88ad858474d71bddb4e5:DataProtection"/>
+  <considers rdf:resource="#6285d445738d4c708765ed3:DataProtection"/>
+  <considers rdf:resource="#3807006d805d4d3892aee0b:DataProtection"/>
+  <considers rdf:resource="#4999e14f16964971b950f5c:DataProtection"/>
+  <considers rdf:resource="#fa41841b60824752888d598:OptInOptOutControl"/>
+  <considers rdf:resource="#7da4e61192d2408ea4490e5:PolicyChange"/>
+  <considers rdf:resource="#e67a3a0b5601443aa0bf9bf:FPNotification"/>
+  <considers rdf:resource="#d5763c9b80d343a996ab2d4:OptInOptOutControl"/>
+  <considers rdf:resource="#676df669cd3a4831867b7a3:PolicyChange"/>
+  <considers rdf:resource="#65428afdf2e14451bf649d1:FPNotification"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">042157b23b21413fa9387f3</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">everydayhealth.com</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ec40d3e89c4047a891cdfe6:User">
+<owl:NamedIndividual rdf:about="#8cdbb1bbdf96409195947c7:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ec40d3e89c4047a891cdfe6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8cdbb1bbdf96409195947c7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c576f86d6d0a4368bdd6b5b:FirstParty">
+<owl:NamedIndividual rdf:about="#69bb9f709e7c494e8a9fbee:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c576f86d6d0a4368bdd6b5b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">69bb9f709e7c494e8a9fbee</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ebd994b6bd1f455ea8e2c4c:ThirdParty">
+<owl:NamedIndividual rdf:about="#ef4a536045ce4444bf3208c:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ebd994b6bd1f455ea8e2c4c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ef4a536045ce4444bf3208c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9a2a1a64efe54a52ac8052e:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#3bb32d2215504519b69f230:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9a2a1a64efe54a52ac8052e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3bb32d2215504519b69f230</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This Policy was last changed on October 24, 2014</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#91147d91a5c74479a19f3c0:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#243ac0926a2f4fafbe9d0ae:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">91147d91a5c74479a19f3c0</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">243ac0926a2f4fafbe9d0ae</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Everyday Health Privacy Policy This Policy was last changed on October 24 2014</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4b7022cb471f4d20b26a4c8:PolicyChange">
+<owl:NamedIndividual rdf:about="#1693e061042b4a5fb9967b1:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#c576f86d6d0a4368bdd6b5b:FirstParty"/>
-  <binded_to rdf:resource="#91147d91a5c74479a19f3c0:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4b7022cb471f4d20b26a4c8</uuid>
+  <initiated_by rdf:resource="#69bb9f709e7c494e8a9fbee:FirstParty"/>
+  <binded_to rdf:resource="#243ac0926a2f4fafbe9d0ae:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1693e061042b4a5fb9967b1</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Everyday Health Privacy Policy This Policy was last changed on October 24 2014</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#443e7ff291444b7ab8070ba:FPNotification">
+<owl:NamedIndividual rdf:about="#20e53c3ea99c4a8a81f93ae:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#c576f86d6d0a4368bdd6b5b:FirstParty"/>
-  <notifies rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#9a2a1a64efe54a52ac8052e:OnWebsitePage"/>
-  <binded_to rdf:resource="#4b7022cb471f4d20b26a4c8:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">443e7ff291444b7ab8070ba</uuid>
+  <initiated_by rdf:resource="#69bb9f709e7c494e8a9fbee:FirstParty"/>
+  <notifies rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#3bb32d2215504519b69f230:OnWebsitePage"/>
+  <binded_to rdf:resource="#1693e061042b4a5fb9967b1:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">20e53c3ea99c4a8a81f93ae</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Everyday Health Privacy Policy This Policy was last changed on October 24 2014</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c6d74bdfd73d499cb08c5a9:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#62bc46ec475f403ca6ade32:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c6d74bdfd73d499cb08c5a9</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">62bc46ec475f403ca6ade32</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">By visiting this Site or using the Services you are accepting the policies and practices described in this Policy Each time you visit the Site or use the Services you agree and expressly consent to our collection use and disclosure of the information that you provide as described in this Policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b92ecd29dbca43ec9dac9ed:PolicyChange">
+<owl:NamedIndividual rdf:about="#0b02a7dcae8a4e6cbad6756:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#c576f86d6d0a4368bdd6b5b:FirstParty"/>
-  <binded_to rdf:resource="#c6d74bdfd73d499cb08c5a9:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b92ecd29dbca43ec9dac9ed</uuid>
+  <initiated_by rdf:resource="#69bb9f709e7c494e8a9fbee:FirstParty"/>
+  <binded_to rdf:resource="#62bc46ec475f403ca6ade32:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0b02a7dcae8a4e6cbad6756</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">By visiting this Site or using the Services you are accepting the policies and practices described in this Policy Each time you visit the Site or use the Services you agree and expressly consent to our collection use and disclosure of the information that you provide as described in this Policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c09b945c52a046afb431730:FPNotification">
+<owl:NamedIndividual rdf:about="#5dc610a898f846e0a9b40db:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#c576f86d6d0a4368bdd6b5b:FirstParty"/>
-  <notifies rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <binded_to rdf:resource="#b92ecd29dbca43ec9dac9ed:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c09b945c52a046afb431730</uuid>
+  <initiated_by rdf:resource="#69bb9f709e7c494e8a9fbee:FirstParty"/>
+  <notifies rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <binded_to rdf:resource="#0b02a7dcae8a4e6cbad6756:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5dc610a898f846e0a9b40db</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">By visiting this Site or using the Services you are accepting the policies and practices described in this Policy Each time you visit the Site or use the Services you agree and expressly consent to our collection use and disclosure of the information that you provide as described in this Policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3847d0e3fdd949e2977d4b8:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#aea12abbb3a9479d943e4f3:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3847d0e3fdd949e2977d4b8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aea12abbb3a9479d943e4f3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Personal Information will be processed by us in the United States</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7aa5e78715bb466a969a300:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#33e37ddea2cd421db6c7572:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7aa5e78715bb466a969a300</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">33e37ddea2cd421db6c7572</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can choose not to provide us with certain information, but this may stop you from gaining access to a Service or limit the features that you can use. For more information, please see the How We Use Your Information section below.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0c0ea6fa792e468980b2c4a:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#d17861079a2e4348babae40:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#7aa5e78715bb466a969a300:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0c0ea6fa792e468980b2c4a</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#33e37ddea2cd421db6c7572:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d17861079a2e4348babae40</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can choose not to provide us with certain information but this may stop you from gaining access to a Service or limit the features that you can use For more information please see the How We Use Your Information section below</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6656859156d546df88bc1da:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#ef2c035faee7438787582b4:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6656859156d546df88bc1da</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ef2c035faee7438787582b4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">may stop you from gaining access to a Service or limit the features that you can use.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#df8ebccc773c4d2d823dfb5:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#d7b1f3f622004d1bb03c62d:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#6656859156d546df88bc1da:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">df8ebccc773c4d2d823dfb5</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#ef2c035faee7438787582b4:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d7b1f3f622004d1bb03c62d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can choose not to provide us with certain information but this may stop you from gaining access to a Service or limit the features that you can use For more information please see the How We Use Your Information section below</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a256221cdc2e4c16b56b910:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#95bd7a5a3f8a4791863140b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a256221cdc2e4c16b56b910</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">95bd7a5a3f8a4791863140b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can limit the way that we tailor advertising based on your self-reported interests and other information in your profile by clicking on the Profile or My Account section of this Site and deleting or modifying the information On some Sites the profile section is accessed through the MySite tab e g MyEverydayHealth Please see the section below on Updating and Control of Your Personal Information for more information Please note that if you have registered on multiple Sites you ll need to modify your profile on each Site In addition you can delete the cookies that we have placed on your browser Please see the section below on Cookies Web Beacons and IP Address Information for more information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#67e9829d56d54942bc4445d:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#44bd920d0c404d39869c706:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#a256221cdc2e4c16b56b910:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">67e9829d56d54942bc4445d</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#95bd7a5a3f8a4791863140b:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">44bd920d0c404d39869c706</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can limit the way that we tailor advertising based on your self-reported interests and other information in your profile by clicking on the Profile or My Account section of this Site and deleting or modifying the information On some Sites the profile section is accessed through the MySite tab e g MyEverydayHealth Please see the section below on Updating and Control of Your Personal Information for more information Please note that if you have registered on multiple Sites you ll need to modify your profile on each Site In addition you can delete the cookies that we have placed on your browser Please see the section below on Cookies Web Beacons and IP Address Information for more information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dddb4546de1143818a7432b:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#869e351e4b8a4018b1e4e3d:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dddb4546de1143818a7432b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">869e351e4b8a4018b1e4e3d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can limit the way that we tailor advertising based on your self-reported interests and other information in your profile by clicking on the Profile or My Account section of this Site and deleting or modifying the information On some Sites the profile section is accessed through the MySite tab e g MyEverydayHealth Please see the section below on Updating and Control of Your Personal Information for more information Please note that if you have registered on multiple Sites you ll need to modify your profile on each Site In addition you can delete the cookies that we have placed on your browser Please see the section below on Cookies Web Beacons and IP Address Information for more information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#726c406af19d4429bd33ca6:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#4e0d567fd0be43b9845c220:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#dddb4546de1143818a7432b:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">726c406af19d4429bd33ca6</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#869e351e4b8a4018b1e4e3d:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4e0d567fd0be43b9845c220</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can limit the way that we tailor advertising based on your self-reported interests and other information in your profile by clicking on the Profile or My Account section of this Site and deleting or modifying the information On some Sites the profile section is accessed through the MySite tab e g MyEverydayHealth Please see the section below on Updating and Control of Your Personal Information for more information Please note that if you have registered on multiple Sites you ll need to modify your profile on each Site In addition you can delete the cookies that we have placed on your browser Please see the section below on Cookies Web Beacons and IP Address Information for more information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6dbe96e6524b452881fe339:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#9dd37e4f94014bf7a159062:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6dbe96e6524b452881fe339</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9dd37e4f94014bf7a159062</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">delete</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#916dd131bdba4c4596716be:TrackingData">
+<owl:NamedIndividual rdf:about="#cee4e547afc944a8b8cf8f9:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">916dd131bdba4c4596716be</uuid>
+  <provided_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cee4e547afc944a8b8cf8f9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0dd72e8c248848eea871018:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#9c2c28cddefe45d4b44e8fb:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#6dbe96e6524b452881fe339:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#916dd131bdba4c4596716be:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0dd72e8c248848eea871018</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#9dd37e4f94014bf7a159062:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#cee4e547afc944a8b8cf8f9:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9c2c28cddefe45d4b44e8fb</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can limit the way that we tailor advertising based on your self-reported interests and other information in your profile by clicking on the Profile or My Account section of this Site and deleting or modifying the information On some Sites the profile section is accessed through the MySite tab e g MyEverydayHealth Please see the section below on Updating and Control of Your Personal Information for more information Please note that if you have registered on multiple Sites you ll need to modify your profile on each Site In addition you can delete the cookies that we have placed on your browser Please see the section below on Cookies Web Beacons and IP Address Information for more information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#134855a8d53f4e0f9963b0c:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#da344c458a2c45ea8173158:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">134855a8d53f4e0f9963b0c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">da344c458a2c45ea8173158</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can limit the way that we tailor advertising based on your self-reported interests and other information in your profile by clicking on the "Profile" or "My Account" section of this Site and deleting or modifying the information.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8ee2757c56d64aed8b8af84:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#6c34d899b9454dddb5cb6ec:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#134855a8d53f4e0f9963b0c:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8ee2757c56d64aed8b8af84</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#da344c458a2c45ea8173158:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6c34d899b9454dddb5cb6ec</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can limit the way that we tailor advertising based on your self-reported interests and other information in your profile by clicking on the Profile or My Account section of this Site and deleting or modifying the information On some Sites the profile section is accessed through the MySite tab e g MyEverydayHealth Please see the section below on Updating and Control of Your Personal Information for more information Please note that if you have registered on multiple Sites you ll need to modify your profile on each Site In addition you can delete the cookies that we have placed on your browser Please see the section below on Cookies Web Beacons and IP Address Information for more information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#81753c663c3341cf8795233:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#a2e1ddebbb8949d085acb5f:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">81753c663c3341cf8795233</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a2e1ddebbb8949d085acb5f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ou can limit the way that we tailor advertising based on your self-reported interests and other information in your profile by clicking on the "Profile" or "My Account" section of this Site and</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#00dc0b981241491192c7546:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#3599774fabd84330a3eafa0:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#81753c663c3341cf8795233:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">00dc0b981241491192c7546</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#a2e1ddebbb8949d085acb5f:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3599774fabd84330a3eafa0</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can limit the way that we tailor advertising based on your self-reported interests and other information in your profile by clicking on the Profile or My Account section of this Site and deleting or modifying the information On some Sites the profile section is accessed through the MySite tab e g MyEverydayHealth Please see the section below on Updating and Control of Your Personal Information for more information Please note that if you have registered on multiple Sites you ll need to modify your profile on each Site In addition you can delete the cookies that we have placed on your browser Please see the section below on Cookies Web Beacons and IP Address Information for more information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9f366d52f5e645c4a2b9e2e:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#b39c75334aec444b891df6c:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9f366d52f5e645c4a2b9e2e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b39c75334aec444b891df6c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can limit the way that we tailor advertising based on your self-reported interests and other information in your profile by clicking on the Profile or My Account section of this Site and deleting or modifying the information On some Sites the profile section is accessed through the MySite tab e g MyEverydayHealth Please see the section below on Updating and Control of Your Personal Information for more information Please note that if you have registered on multiple Sites you ll need to modify your profile on each Site In addition you can delete the cookies that we have placed on your browser Please see the section below on Cookies Web Beacons and IP Address Information for more information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c1f5ba40ea7b4c21a9588e1:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#abeb9a89b11d41e79b9cbad:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#9f366d52f5e645c4a2b9e2e:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c1f5ba40ea7b4c21a9588e1</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#b39c75334aec444b891df6c:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">abeb9a89b11d41e79b9cbad</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can limit the way that we tailor advertising based on your self-reported interests and other information in your profile by clicking on the Profile or My Account section of this Site and deleting or modifying the information On some Sites the profile section is accessed through the MySite tab e g MyEverydayHealth Please see the section below on Updating and Control of Your Personal Information for more information Please note that if you have registered on multiple Sites you ll need to modify your profile on each Site In addition you can delete the cookies that we have placed on your browser Please see the section below on Cookies Web Beacons and IP Address Information for more information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#496a11a8e4744e3cb038f55:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#89690ff326574aa68fa73fa:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">496a11a8e4744e3cb038f55</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">89690ff326574aa68fa73fa</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">removed by following your Internet browser's</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cc3f01ae8679409d9611e21:TrackingData">
+<owl:NamedIndividual rdf:about="#63ba50dcd5fc479abf13dcc:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cc3f01ae8679409d9611e21</uuid>
+  <provided_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">63ba50dcd5fc479abf13dcc</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#753f661e1a5b4d649b18a05:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#047229edd3f844f89a29e63:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#496a11a8e4744e3cb038f55:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#cc3f01ae8679409d9611e21:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">753f661e1a5b4d649b18a05</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#89690ff326574aa68fa73fa:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#63ba50dcd5fc479abf13dcc:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">047229edd3f844f89a29e63</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cookies can be removed by following your Internet browser s directions within the help tab In order to use certain Services offered through the Sites your web browser must accept cookies If you choose to disable cookies some aspects of the Sites may not work properly and you may not be able to access our Services</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cf47256f89a74fa7bf9aa0f:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#6f487c4e4b0645b69794e48:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cf47256f89a74fa7bf9aa0f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6f487c4e4b0645b69794e48</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you choose to disable cookies, some aspects of the Sites may not work properly, and you may not be able to access our Services</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#da7fc02ec8704360a918343:TrackingData">
+<owl:NamedIndividual rdf:about="#08383187355345bcb7a41d9:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">da7fc02ec8704360a918343</uuid>
+  <provided_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">08383187355345bcb7a41d9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#858fe77b3d66424aacfbe3b:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#6d7e2071edd342d2af4677f:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#cf47256f89a74fa7bf9aa0f:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#da7fc02ec8704360a918343:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">858fe77b3d66424aacfbe3b</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#6f487c4e4b0645b69794e48:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#08383187355345bcb7a41d9:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6d7e2071edd342d2af4677f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cookies can be removed by following your Internet browser s directions within the help tab In order to use certain Services offered through the Sites your web browser must accept cookies If you choose to disable cookies some aspects of the Sites may not work properly and you may not be able to access our Services</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2f6b011f93d54fc4be26a50:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#bae72e2588ec45eea3cfa75:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2f6b011f93d54fc4be26a50</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bae72e2588ec45eea3cfa75</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cookies can be removed by following your Internet browser's directions within the help tab.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#176cd12520c0405a9b37d5b:TrackingData">
+<owl:NamedIndividual rdf:about="#d7b16e091a3b4d01b44c77b:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">176cd12520c0405a9b37d5b</uuid>
+  <provided_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d7b16e091a3b4d01b44c77b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b78b99d784434c289243895:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#5ba698c0ecb040e3b58ecce:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#2f6b011f93d54fc4be26a50:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#176cd12520c0405a9b37d5b:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b78b99d784434c289243895</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#bae72e2588ec45eea3cfa75:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#d7b16e091a3b4d01b44c77b:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5ba698c0ecb040e3b58ecce</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cookies can be removed by following your Internet browser s directions within the help tab In order to use certain Services offered through the Sites your web browser must accept cookies If you choose to disable cookies some aspects of the Sites may not work properly and you may not be able to access our Services</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b635561819f04bc7a3b7f88:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#23ef5f087efa479a882f155:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b635561819f04bc7a3b7f88</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">23ef5f087efa479a882f155</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cookies can be removed by following your Internet browser's directions within the help tab</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1f8089bb98654ff99c0784b:TrackingData">
+<owl:NamedIndividual rdf:about="#bfe4111d7dc7451b844ab5f:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1f8089bb98654ff99c0784b</uuid>
+  <provided_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bfe4111d7dc7451b844ab5f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#75a7b8b7092d4053bb07711:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#47561875d0f94246b8968cb:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#b635561819f04bc7a3b7f88:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#1f8089bb98654ff99c0784b:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">75a7b8b7092d4053bb07711</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#23ef5f087efa479a882f155:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#bfe4111d7dc7451b844ab5f:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">47561875d0f94246b8968cb</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cookies can be removed by following your Internet browser s directions within the help tab In order to use certain Services offered through the Sites your web browser must accept cookies If you choose to disable cookies some aspects of the Sites may not work properly and you may not be able to access our Services</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#77e70daad3544a29bc4778a:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#1d02074681c04c9cb084c38:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">77e70daad3544a29bc4778a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1d02074681c04c9cb084c38</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">opting-out of cookies placed by those vendors listed.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1dad710e81374514bbe64ad:TrackingData">
+<owl:NamedIndividual rdf:about="#e0da0ba3168a4076b746c4a:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1dad710e81374514bbe64ad</uuid>
+  <provided_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e0da0ba3168a4076b746c4a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#baefea2c3c734d2a86aeab7:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#63d5ee62e84041ec9c4a0d6:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#77e70daad3544a29bc4778a:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#1dad710e81374514bbe64ad:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">baefea2c3c734d2a86aeab7</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#1d02074681c04c9cb084c38:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#e0da0ba3168a4076b746c4a:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">63d5ee62e84041ec9c4a0d6</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can choose to limit Behavioral Advertising on the Sites by clicking here and opting-out of cookies placed by those vendors listed After you opt-out you will still see advertisements but the advertising may not be as relevant to your interests If you change your computer change your browser or delete your cookies you will need to renew your opt-out Our Sites currently are not setup to process or respond to Do Not Track settings or signals from web browsers We do adhere to the Self-Regulatory Principles for Online Behavioral Advertising of the Digital Advertising Alliance for more information click here</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a37812b08984408a8ea63d9:AdvertisingDataControl">
+<owl:NamedIndividual rdf:about="#f8e252944e7545b19181ff5:AdvertisingDataControl">
   <rdf:type rdf:resource="#AdvertisingDataControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a37812b08984408a8ea63d9</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f8e252944e7545b19181ff5</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can choose to limit Behavioral Advertising on the Sites by clicking here and opting-out of cookies placed by those vendors listed After you opt-out you will still see advertisements but the advertising may not be as relevant to your interests If you change your computer change your browser or delete your cookies you will need to renew your opt-out Our Sites currently are not setup to process or respond to Do Not Track settings or signals from web browsers We do adhere to the Self-Regulatory Principles for Online Behavioral Advertising of the Digital Advertising Alliance for more information click here</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ecd3fb953e9a4aed93091c7:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#e32fa4b6ff9a420a9ae220b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ecd3fb953e9a4aed93091c7</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e32fa4b6ff9a420a9ae220b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We do adhere to the Self-Regulatory Principles for Online Behavioral Advertising of the Digital Advertising Alliance (for more information click here).</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1a4d061d3cc64759b89d463:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#befdc24ac30946c194430b2:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#ecd3fb953e9a4aed93091c7:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1a4d061d3cc64759b89d463</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#e32fa4b6ff9a420a9ae220b:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">befdc24ac30946c194430b2</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can choose to limit Behavioral Advertising on the Sites by clicking here and opting-out of cookies placed by those vendors listed After you opt-out you will still see advertisements but the advertising may not be as relevant to your interests If you change your computer change your browser or delete your cookies you will need to renew your opt-out Our Sites currently are not setup to process or respond to Do Not Track settings or signals from web browsers We do adhere to the Self-Regulatory Principles for Online Behavioral Advertising of the Digital Advertising Alliance for more information click here</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ea05a104265f4d3dabdbbfe:AdvertisingDataControl">
+<owl:NamedIndividual rdf:about="#6b6583bbef044c3891b9da2:AdvertisingDataControl">
   <rdf:type rdf:resource="#AdvertisingDataControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ea05a104265f4d3dabdbbfe</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6b6583bbef044c3891b9da2</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can choose to limit Behavioral Advertising on the Sites by clicking here and opting-out of cookies placed by those vendors listed After you opt-out you will still see advertisements but the advertising may not be as relevant to your interests If you change your computer change your browser or delete your cookies you will need to renew your opt-out Our Sites currently are not setup to process or respond to Do Not Track settings or signals from web browsers We do adhere to the Self-Regulatory Principles for Online Behavioral Advertising of the Digital Advertising Alliance for more information click here</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f7835725e68248838202099:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#685fa7fc0b904ab4bab6bff:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f7835725e68248838202099</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">685fa7fc0b904ab4bab6bff</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can choose to limit Behavioral Advertising on the Sites by clicking here and opting-out of cookies placed by those vendors listed.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#57a1d289f8e347fb831c90d:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#e1f8c31912b14d67bdd1412:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#f7835725e68248838202099:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">57a1d289f8e347fb831c90d</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#685fa7fc0b904ab4bab6bff:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e1f8c31912b14d67bdd1412</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can choose to limit Behavioral Advertising on the Sites by clicking here and opting-out of cookies placed by those vendors listed After you opt-out you will still see advertisements but the advertising may not be as relevant to your interests If you change your computer change your browser or delete your cookies you will need to renew your opt-out Our Sites currently are not setup to process or respond to Do Not Track settings or signals from web browsers We do adhere to the Self-Regulatory Principles for Online Behavioral Advertising of the Digital Advertising Alliance for more information click here</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#88e97ccbc20143ccb25b366:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#d72c8e2fc84e4d9c973360d:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">88e97ccbc20143ccb25b366</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d72c8e2fc84e4d9c973360d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can choose to limit Behavioral Advertising on the Sites by clicking here and opting-out of cookies placed by those vendors listed.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#985b6f2c21b6498b96fab72:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#63ce5d065d10426d988d57b:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#88e97ccbc20143ccb25b366:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">985b6f2c21b6498b96fab72</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#d72c8e2fc84e4d9c973360d:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">63ce5d065d10426d988d57b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can choose to limit Behavioral Advertising on the Sites by clicking here and opting-out of cookies placed by those vendors listed After you opt-out you will still see advertisements but the advertising may not be as relevant to your interests If you change your computer change your browser or delete your cookies you will need to renew your opt-out Our Sites currently are not setup to process or respond to Do Not Track settings or signals from web browsers We do adhere to the Self-Regulatory Principles for Online Behavioral Advertising of the Digital Advertising Alliance for more information click here</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cab6ceecf0e44ff5bb87255:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#695cde5e91004f5b9ed7293:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cab6ceecf0e44ff5bb87255</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">695cde5e91004f5b9ed7293</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can choose to limit Behavioral Advertising on the Sites by clicking here and opting-out of cookies placed by those vendors listed.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d5f93f65d8ec4bec990741e:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#e128b346e86c4240bd7809d:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#cab6ceecf0e44ff5bb87255:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d5f93f65d8ec4bec990741e</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#695cde5e91004f5b9ed7293:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e128b346e86c4240bd7809d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can choose to limit Behavioral Advertising on the Sites by clicking here and opting-out of cookies placed by those vendors listed After you opt-out you will still see advertisements but the advertising may not be as relevant to your interests If you change your computer change your browser or delete your cookies you will need to renew your opt-out Our Sites currently are not setup to process or respond to Do Not Track settings or signals from web browsers We do adhere to the Self-Regulatory Principles for Online Behavioral Advertising of the Digital Advertising Alliance for more information click here</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cb175e64bc7a4ee6bf93763:AdvertisingDataControl">
+<owl:NamedIndividual rdf:about="#6536db30134b48ca9bb32c5:AdvertisingDataControl">
   <rdf:type rdf:resource="#AdvertisingDataControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cb175e64bc7a4ee6bf93763</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6536db30134b48ca9bb32c5</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can choose to limit Behavioral Advertising on the Sites by clicking here and opting-out of cookies placed by those vendors listed After you opt-out you will still see advertisements but the advertising may not be as relevant to your interests If you change your computer change your browser or delete your cookies you will need to renew your opt-out Our Sites currently are not setup to process or respond to Do Not Track settings or signals from web browsers We do adhere to the Self-Regulatory Principles for Online Behavioral Advertising of the Digital Advertising Alliance for more information click here</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1a89aafeb5134604b0bf0da:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#11455167dec94eacb67e71a:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1a89aafeb5134604b0bf0da</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11455167dec94eacb67e71a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can choose to limit Behavioral Advertising on the Sites by clicking here and opting-out of cookies placed by those vendors listed.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ae6d7b7b242945638b38813:TrackingData">
+<owl:NamedIndividual rdf:about="#78d3c5c2740d4b0aaea20e9:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ae6d7b7b242945638b38813</uuid>
+  <provided_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">78d3c5c2740d4b0aaea20e9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3502cefebbe442a3aac34f1:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#60870062bb3c4355adfbb93:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#1a89aafeb5134604b0bf0da:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#ae6d7b7b242945638b38813:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3502cefebbe442a3aac34f1</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#11455167dec94eacb67e71a:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#78d3c5c2740d4b0aaea20e9:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">60870062bb3c4355adfbb93</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can choose to limit Behavioral Advertising on the Sites by clicking here and opting-out of cookies placed by those vendors listed After you opt-out you will still see advertisements but the advertising may not be as relevant to your interests If you change your computer change your browser or delete your cookies you will need to renew your opt-out Our Sites currently are not setup to process or respond to Do Not Track settings or signals from web browsers We do adhere to the Self-Regulatory Principles for Online Behavioral Advertising of the Digital Advertising Alliance for more information click here</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9cc6bf96895a4495a4e73ab:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#02b268ced152408f8d1ca40:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9cc6bf96895a4495a4e73ab</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">02b268ced152408f8d1ca40</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Many third party vendors that engage in Behavioral Advertising participate in the Network Advertising Initiative (NAI) and/or the Digital Advertising Alliance (DAA) and abide by NAI and/or DAA principles. If you wish to opt out of participating in advertising programs conducted by NAI and DAA members or learn more about the NAI and DAA, please go to the NAI Opt-Out website and DAA Choice Page and follow the instructions. After you opt-out, you will still see advertisements, but the advertising may not be as relevant to your interests. If you change your computer, change your browser or delete your cookies, you will need to renew your opt-out.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#42e87519d8284eb29247bde:TrackingData">
+<owl:NamedIndividual rdf:about="#43bc0d96911d441db1f2fc5:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">42e87519d8284eb29247bde</uuid>
+  <provided_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">43bc0d96911d441db1f2fc5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies and web beacons</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#50fabee394724ed6b86941f:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#cd9f8a6bfa7c4af88359d50:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#9cc6bf96895a4495a4e73ab:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#42e87519d8284eb29247bde:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">50fabee394724ed6b86941f</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#02b268ced152408f8d1ca40:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#43bc0d96911d441db1f2fc5:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cd9f8a6bfa7c4af88359d50</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">C Information Collected by Third Party Advertisers Advertisers or other third parties on the Sites may also engage in Behavioral Advertising and use cookies and web beacons in the manner described above We do not control these advertisers or other parties use of cookies or web beacons or what they do with the information they collect Many third party vendors that engage in Behavioral Advertising participate in the Network Advertising Initiative NAI and/or the Digital Advertising Alliance DAA and abide by NAI and/or DAA principles If you wish to opt out of participating in advertising programs conducted by NAI and DAA members or learn more about the NAI and DAA please go to the NAI Opt-Out website and DAA Choice Page and follow the instructions After you opt-out you will still see advertisements but the advertising may not be as relevant to your interests If you change your computer change your browser or delete your cookies you will need to renew your opt-out</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5bdfeb6022c043d5a2b6064:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#290c231667ae415e8d7c6e5:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5bdfeb6022c043d5a2b6064</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">290c231667ae415e8d7c6e5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not want us to use or disclose Personal Information collected about you in the ways identified in this Policy, you should not use the Site or Services.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f7f0b7ac85094b99a854808:GenericData">
+<owl:NamedIndividual rdf:about="#c0a2e980581648caab83a39:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f7f0b7ac85094b99a854808</uuid>
+  <provided_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c0a2e980581648caab83a39</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personal Information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d67965a0982b4e0294193e4:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#0e87cf6059be456d89e1240:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#5bdfeb6022c043d5a2b6064:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#f7f0b7ac85094b99a854808:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d67965a0982b4e0294193e4</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#290c231667ae415e8d7c6e5:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#c0a2e980581648caab83a39:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0e87cf6059be456d89e1240</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4 How We Disclose Information to Third Parties We may share your Personal Information with third parties as specifically approved by you or under the circumstances described below If you do not want us to use or disclose Personal Information collected about you in the ways identified in this Policy you should not use the Site or Services</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#979de10629f140a0ab4a4d8:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#b6019341fbb5432c99e0c30:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">979de10629f140a0ab4a4d8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b6019341fbb5432c99e0c30</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not want us to use or disclose Personal Information collected about you in the ways identified in this Policy, you should not use the Site or Services.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#01483f0aefa6484c9fe20f8:GenericData">
+<owl:NamedIndividual rdf:about="#346144d0d46941669397efd:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">01483f0aefa6484c9fe20f8</uuid>
+  <provided_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">346144d0d46941669397efd</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personal Information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#92ace58c01814bbeadb917e:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#e6c4fcfa10ea45db9e77ca1:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#979de10629f140a0ab4a4d8:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#01483f0aefa6484c9fe20f8:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">92ace58c01814bbeadb917e</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#b6019341fbb5432c99e0c30:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#346144d0d46941669397efd:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e6c4fcfa10ea45db9e77ca1</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4 How We Disclose Information to Third Parties We may share your Personal Information with third parties as specifically approved by you or under the circumstances described below If you do not want us to use or disclose Personal Information collected about you in the ways identified in this Policy you should not use the Site or Services</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d7d5f9ad941b44ba8fd895e:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#545dada6a6b1438eae35316:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d7d5f9ad941b44ba8fd895e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">545dada6a6b1438eae35316</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not want us to use or disclose Personal Information collected about you in the ways identified in this Policy, you should not use the Site or Services.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7176edc3525c448087487ab:GenericData">
+<owl:NamedIndividual rdf:about="#7428ee99f2d44cfd8768feb:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7176edc3525c448087487ab</uuid>
+  <provided_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7428ee99f2d44cfd8768feb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personal Information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dd79eca2bf42452d83cbffd:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#cd5dc8b1e9ff4a11ba36d40:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#d7d5f9ad941b44ba8fd895e:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#7176edc3525c448087487ab:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dd79eca2bf42452d83cbffd</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#545dada6a6b1438eae35316:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#7428ee99f2d44cfd8768feb:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cd5dc8b1e9ff4a11ba36d40</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4 How We Disclose Information to Third Parties We may share your Personal Information with third parties as specifically approved by you or under the circumstances described below If you do not want us to use or disclose Personal Information collected about you in the ways identified in this Policy you should not use the Site or Services</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fcbc2429d6844074a12154a:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#45a44ec8651e46b38af33fe:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fcbc2429d6844074a12154a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">45a44ec8651e46b38af33fe</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not want us to use or disclose Personal Information collected about you in the ways identified in this Policy, you should not use the Site or Services.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5dc84480d62e48e48608ad4:GenericData">
+<owl:NamedIndividual rdf:about="#d801175b5d114159ba13b38:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5dc84480d62e48e48608ad4</uuid>
+  <provided_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d801175b5d114159ba13b38</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personal Information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7ae3466df5ba4c4ab828cac:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#a5c8029f5ad443f4b8e6bee:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#fcbc2429d6844074a12154a:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#5dc84480d62e48e48608ad4:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7ae3466df5ba4c4ab828cac</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#45a44ec8651e46b38af33fe:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#d801175b5d114159ba13b38:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a5c8029f5ad443f4b8e6bee</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4 How We Disclose Information to Third Parties We may share your Personal Information with third parties as specifically approved by you or under the circumstances described below If you do not want us to use or disclose Personal Information collected about you in the ways identified in this Policy you should not use the Site or Services</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8906a84402f84841a1311fe:AccessControls">
+<owl:NamedIndividual rdf:about="#17354f03d1ae44e4940489c:AccessControls">
   <rdf:type rdf:resource="#AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8906a84402f84841a1311fe</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">17354f03d1ae44e4940489c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Access to your Personal Information by these service providers is limited to the information reasonably necessary to perform its limited function.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fd5772cc29e64d13bd39886:DataProtection">
+<owl:NamedIndividual rdf:about="#132e5c1339044616ac38535:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#c576f86d6d0a4368bdd6b5b:FirstParty"/>
-  <has_mechanism rdf:resource="#8906a84402f84841a1311fe:AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fd5772cc29e64d13bd39886</uuid>
+  <initiated_by rdf:resource="#69bb9f709e7c494e8a9fbee:FirstParty"/>
+  <has_mechanism rdf:resource="#17354f03d1ae44e4940489c:AccessControls"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">132e5c1339044616ac38535</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">B Agents and Contractors We may provide your Personal Information to service providers who work on our behalf or help us to operate our business the Sites and the Services Examples of such service providers include vendors and suppliers that provide us with technology research and/or marketing assistance provide services and/or content for sending email and providing customer service analyze data serve advertisements on our Sites and Services and on third-party channels and process payments including credit card payments Access to your Personal Information by these service providers is limited to the information reasonably necessary to perform its limited function</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4c5eed4a897e41739c16fbe:GenericData">
+<owl:NamedIndividual rdf:about="#e1643a9ff27c4e008eec2aa:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4c5eed4a897e41739c16fbe</uuid>
+  <provided_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e1643a9ff27c4e008eec2aa</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personal Information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f6800e2774be4f9291c8dc3:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#7a4bcea19217496aa9bb7c8:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f6800e2774be4f9291c8dc3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7a4bcea19217496aa9bb7c8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">if you purchase a deal, product, or service, we will provide your information to the applicable merchant or vendor.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#07594178230c4efdb21e06c:TPCollection">
+<owl:NamedIndividual rdf:about="#ca034166d4304705b36fbc1:TPCollection">
   <rdf:type rdf:resource="#TPCollection"/>
-  <initiated_by rdf:resource="#c576f86d6d0a4368bdd6b5b:FirstParty"/>
-  <collects_from rdf:resource="#ebd994b6bd1f455ea8e2c4c:ThirdParty"/>
-  <has_purpose rdf:resource="#f6800e2774be4f9291c8dc3:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#4c5eed4a897e41739c16fbe:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">07594178230c4efdb21e06c</uuid>
+  <initiated_by rdf:resource="#69bb9f709e7c494e8a9fbee:FirstParty"/>
+  <collects_from rdf:resource="#ef4a536045ce4444bf3208c:ThirdParty"/>
+  <has_purpose rdf:resource="#7a4bcea19217496aa9bb7c8:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#e1643a9ff27c4e008eec2aa:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ca034166d4304705b36fbc1</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">F Sponsors Merchants and other ways that you approve at the time of collection We may collect Personal Information about you and share it with third parties to the extent that you give us permission at the time of collection For example if you purchase a deal product or service we will provide your information to the applicable merchant or vendor We also sometimes gather Personal Information on behalf of a sponsor in association with a promotion In such a case we will provide you notice at the time of collection that the information is being collected on the sponsor s behalf We do not control and are not responsible for how these third parties use your information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#288ca1509b7b4ec79e1a602:GenericData">
+<owl:NamedIndividual rdf:about="#eec794030a604d1b9a3d42c:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">288ca1509b7b4ec79e1a602</uuid>
+  <provided_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eec794030a604d1b9a3d42c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personal Information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6e2116c992dd4bedb3b989a:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#53089c400bbd4ecfa2b015b:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6e2116c992dd4bedb3b989a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">53089c400bbd4ecfa2b015b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We also sometimes gather Personal Information on behalf of a sponsor in association with a promotion.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ed130a7100db455ea54ae26:TPCollection">
+<owl:NamedIndividual rdf:about="#e9db83e40b2b4de2b3c01e2:TPCollection">
   <rdf:type rdf:resource="#TPCollection"/>
-  <initiated_by rdf:resource="#c576f86d6d0a4368bdd6b5b:FirstParty"/>
-  <collects_from rdf:resource="#ebd994b6bd1f455ea8e2c4c:ThirdParty"/>
-  <has_purpose rdf:resource="#6e2116c992dd4bedb3b989a:MarketingPurpose"/>
-  <applies_to rdf:resource="#288ca1509b7b4ec79e1a602:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ed130a7100db455ea54ae26</uuid>
+  <initiated_by rdf:resource="#69bb9f709e7c494e8a9fbee:FirstParty"/>
+  <collects_from rdf:resource="#ef4a536045ce4444bf3208c:ThirdParty"/>
+  <has_purpose rdf:resource="#53089c400bbd4ecfa2b015b:MarketingPurpose"/>
+  <applies_to rdf:resource="#eec794030a604d1b9a3d42c:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e9db83e40b2b4de2b3c01e2</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">F Sponsors Merchants and other ways that you approve at the time of collection We may collect Personal Information about you and share it with third parties to the extent that you give us permission at the time of collection For example if you purchase a deal product or service we will provide your information to the applicable merchant or vendor We also sometimes gather Personal Information on behalf of a sponsor in association with a promotion In such a case we will provide you notice at the time of collection that the information is being collected on the sponsor s behalf We do not control and are not responsible for how these third parties use your information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9ed8eff6da544a8594570b9:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#4282efa4f63845689577598:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9ed8eff6da544a8594570b9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4282efa4f63845689577598</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6 Children s Information The Site and Services are not directed or intended for children under 13 years of age We do not knowingly collect Personal Information from individuals under 13 years of age If you are under 13 years of age you should not register or provide Personal Information on the Site or through the Services If you are the parent or guardian of a child whom you believe has disclosed Personal Information to us please contact us at privacy everydayhealth com so that we may delete and remove such child s information from our systems</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3fc2f3342fd5464f90cce86:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#227cf387400f446fbe15f25:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3fc2f3342fd5464f90cce86</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">227cf387400f446fbe15f25</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">opt-out"</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#99dc77ee9b7247a88f19ba2:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#30b420050a664c9da2d2a98:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#3fc2f3342fd5464f90cce86:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">99dc77ee9b7247a88f19ba2</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#227cf387400f446fbe15f25:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">30b420050a664c9da2d2a98</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7 Updating and Control of Your Personal Information We offer you choices regarding the collection use and sharing of your Personal Information When you receive promotional communications from us you will have the opportunity to opt-out by following the unsubscribe instructions provided in the promotional e-mail or newsletter you receive or by editing your preference to receive these communications within the Manage My Email or similar feature on the individual Sites when you are logged in as a registered user</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9bd7ec54abba43d4b015bba:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#2a0c4c0387194ed0b534b30:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9bd7ec54abba43d4b015bba</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2a0c4c0387194ed0b534b30</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">opt-out"</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d816ef8b6d2f44c98665fe7:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#7c2039a9d10c48d09263839:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#9bd7ec54abba43d4b015bba:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d816ef8b6d2f44c98665fe7</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#2a0c4c0387194ed0b534b30:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7c2039a9d10c48d09263839</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7 Updating and Control of Your Personal Information We offer you choices regarding the collection use and sharing of your Personal Information When you receive promotional communications from us you will have the opportunity to opt-out by following the unsubscribe instructions provided in the promotional e-mail or newsletter you receive or by editing your preference to receive these communications within the Manage My Email or similar feature on the individual Sites when you are logged in as a registered user</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7b08e3d392db4170a705df8:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#5892a0544c8543e6ba58c34:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7b08e3d392db4170a705df8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5892a0544c8543e6ba58c34</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">When you receive promotional communications from us you will have the opportunity to "opt-out" by following the unsubscribe instructions provided in the promotional e-mail or newsletter you receive</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2777bf0dc24049b8a2a98fe:PersonalData">
+<owl:NamedIndividual rdf:about="#998c1bb85a874266af6a4b5:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2777bf0dc24049b8a2a98fe</uuid>
+  <provided_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">998c1bb85a874266af6a4b5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">communications</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8e40eaed55ac4ea1ba7b308:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#317c01e9a950450cbed9595:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#7b08e3d392db4170a705df8:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#2777bf0dc24049b8a2a98fe:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8e40eaed55ac4ea1ba7b308</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#5892a0544c8543e6ba58c34:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#998c1bb85a874266af6a4b5:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">317c01e9a950450cbed9595</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7 Updating and Control of Your Personal Information We offer you choices regarding the collection use and sharing of your Personal Information When you receive promotional communications from us you will have the opportunity to opt-out by following the unsubscribe instructions provided in the promotional e-mail or newsletter you receive or by editing your preference to receive these communications within the Manage My Email or similar feature on the individual Sites when you are logged in as a registered user</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7eb77451c8fe4ed98039ae4:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#ee0d9f796d5d4cb196503ba:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7eb77451c8fe4ed98039ae4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ee0d9f796d5d4cb196503ba</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">by editing your preference to receive these communications within the "Manage My Email" or similar feature on the individual Sites when you are logged in as a registered user</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e291014e3c954c09b3bb426:PersonalData">
+<owl:NamedIndividual rdf:about="#cb6f79bde77e4575bbc2850:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e291014e3c954c09b3bb426</uuid>
+  <provided_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cb6f79bde77e4575bbc2850</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">communications</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1330d5dba4b94529a4b8cf0:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#3bd7b82659a34919801d3c6:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#7eb77451c8fe4ed98039ae4:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#e291014e3c954c09b3bb426:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1330d5dba4b94529a4b8cf0</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#ee0d9f796d5d4cb196503ba:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#cb6f79bde77e4575bbc2850:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3bd7b82659a34919801d3c6</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7 Updating and Control of Your Personal Information We offer you choices regarding the collection use and sharing of your Personal Information When you receive promotional communications from us you will have the opportunity to opt-out by following the unsubscribe instructions provided in the promotional e-mail or newsletter you receive or by editing your preference to receive these communications within the Manage My Email or similar feature on the individual Sites when you are logged in as a registered user</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4264c84720d344e6a93e32f:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#a3f91fd50fb6450489627db:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4264c84720d344e6a93e32f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a3f91fd50fb6450489627db</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ewsletter you receive or by editing your preference to receive these communications within the "Manage My Email" or similar feature on the individual Sites when you are logged in as a registered user</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#944bddbefd35423a979b91a:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#b2437045713f483e9720030:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#4264c84720d344e6a93e32f:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">944bddbefd35423a979b91a</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#a3f91fd50fb6450489627db:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b2437045713f483e9720030</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7 Updating and Control of Your Personal Information We offer you choices regarding the collection use and sharing of your Personal Information When you receive promotional communications from us you will have the opportunity to opt-out by following the unsubscribe instructions provided in the promotional e-mail or newsletter you receive or by editing your preference to receive these communications within the Manage My Email or similar feature on the individual Sites when you are logged in as a registered user</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#431db3548fb645f091a6b42:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#63e043f7893b4884b325a4d:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">431db3548fb645f091a6b42</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">63e043f7893b4884b325a4d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can update or correct your Personal Information by logging in and clicking on your user name at the top of the Site to access the Profile section If you no longer wish Everyday Health to use or share your Personal Information in accordance with this Policy or you no longer desire to use or access this Site you can also remove your Personal Information from the Profile section of the Site If you would like assistance disabling your account please contact customer service at support everydayhealth com or call 1-888-795-4719</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7ccd48fa1064432e862c5a9:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#57edb783badb4dfa9855f3e:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#431db3548fb645f091a6b42:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7ccd48fa1064432e862c5a9</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#63e043f7893b4884b325a4d:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">57edb783badb4dfa9855f3e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can update or correct your Personal Information by logging in and clicking on your user name at the top of the Site to access the Profile section If you no longer wish Everyday Health to use or share your Personal Information in accordance with this Policy or you no longer desire to use or access this Site you can also remove your Personal Information from the Profile section of the Site If you would like assistance disabling your account please contact customer service at support everydayhealth com or call 1-888-795-4719</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3e3bb4f5b63b47ca9abcfc2:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#c1444119ba9e415786a28b9:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3e3bb4f5b63b47ca9abcfc2</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c1444119ba9e415786a28b9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can update or correct your Personal Information by logging in and clicking on your user name at the top of the Site to access the Profile section If you no longer wish Everyday Health to use or share your Personal Information in accordance with this Policy or you no longer desire to use or access this Site you can also remove your Personal Information from the Profile section of the Site If you would like assistance disabling your account please contact customer service at support everydayhealth com or call 1-888-795-4719</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1c8cb160891444dc83a7981:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#17e5c4b5e3074a06a61993a:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#3e3bb4f5b63b47ca9abcfc2:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1c8cb160891444dc83a7981</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#c1444119ba9e415786a28b9:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">17e5c4b5e3074a06a61993a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can update or correct your Personal Information by logging in and clicking on your user name at the top of the Site to access the Profile section If you no longer wish Everyday Health to use or share your Personal Information in accordance with this Policy or you no longer desire to use or access this Site you can also remove your Personal Information from the Profile section of the Site If you would like assistance disabling your account please contact customer service at support everydayhealth com or call 1-888-795-4719</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0d0b849e35d04000bd173f9:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#f69e22c74da14c99a4a3350:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0d0b849e35d04000bd173f9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f69e22c74da14c99a4a3350</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can update or correct your Personal Information by logging in and clicking on your user name at the top of the Site to access the Profile section If you no longer wish Everyday Health to use or share your Personal Information in accordance with this Policy or you no longer desire to use or access this Site you can also remove your Personal Information from the Profile section of the Site If you would like assistance disabling your account please contact customer service at support everydayhealth com or call 1-888-795-4719</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cc8f6b65458046c78933c28:PersonalData">
+<owl:NamedIndividual rdf:about="#174e83f448eb41659491fbf:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cc8f6b65458046c78933c28</uuid>
+  <provided_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">174e83f448eb41659491fbf</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Other data about user</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0d59422549d04b1d9468541:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#c976afa53d48418aba876d7:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#0d0b849e35d04000bd173f9:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#cc8f6b65458046c78933c28:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0d59422549d04b1d9468541</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#f69e22c74da14c99a4a3350:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#174e83f448eb41659491fbf:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c976afa53d48418aba876d7</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can update or correct your Personal Information by logging in and clicking on your user name at the top of the Site to access the Profile section If you no longer wish Everyday Health to use or share your Personal Information in accordance with this Policy or you no longer desire to use or access this Site you can also remove your Personal Information from the Profile section of the Site If you would like assistance disabling your account please contact customer service at support everydayhealth com or call 1-888-795-4719</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b1b9315cb552430f9e8664e:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#3ece3f2a959f4f09aa82332:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b1b9315cb552430f9e8664e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3ece3f2a959f4f09aa82332</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can update or correct your Personal Information by logging in and clicking on your user name at the top of the Site to access the Profile section If you no longer wish Everyday Health to use or share your Personal Information in accordance with this Policy or you no longer desire to use or access this Site you can also remove your Personal Information from the Profile section of the Site If you would like assistance disabling your account please contact customer service at support everydayhealth com or call 1-888-795-4719</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e0505ab08bca462c964c246:SensitiveData">
+<owl:NamedIndividual rdf:about="#7553797bf66f4f90aa2440f:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e0505ab08bca462c964c246</uuid>
+  <provided_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7553797bf66f4f90aa2440f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Profile data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#79b15744f2ee446eb3b533f:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#2d2bcd61f51146289d296c9:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#b1b9315cb552430f9e8664e:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#e0505ab08bca462c964c246:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">79b15744f2ee446eb3b533f</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#3ece3f2a959f4f09aa82332:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#7553797bf66f4f90aa2440f:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2d2bcd61f51146289d296c9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can update or correct your Personal Information by logging in and clicking on your user name at the top of the Site to access the Profile section If you no longer wish Everyday Health to use or share your Personal Information in accordance with this Policy or you no longer desire to use or access this Site you can also remove your Personal Information from the Profile section of the Site If you would like assistance disabling your account please contact customer service at support everydayhealth com or call 1-888-795-4719</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1e4de03268894b0295d3d45:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#55cc89b9e95346f6a0d72e4:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1e4de03268894b0295d3d45</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">55cc89b9e95346f6a0d72e4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can update or correct your Personal Information by logging in and clicking on your user name at the top of the Site to access the Profile section If you no longer wish Everyday Health to use or share your Personal Information in accordance with this Policy or you no longer desire to use or access this Site you can also remove your Personal Information from the Profile section of the Site If you would like assistance disabling your account please contact customer service at support everydayhealth com or call 1-888-795-4719</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7fd1e32e272441849285147:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#6ccf44f1788948de8b2e9ee:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#1e4de03268894b0295d3d45:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7fd1e32e272441849285147</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#55cc89b9e95346f6a0d72e4:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6ccf44f1788948de8b2e9ee</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can update or correct your Personal Information by logging in and clicking on your user name at the top of the Site to access the Profile section If you no longer wish Everyday Health to use or share your Personal Information in accordance with this Policy or you no longer desire to use or access this Site you can also remove your Personal Information from the Profile section of the Site If you would like assistance disabling your account please contact customer service at support everydayhealth com or call 1-888-795-4719</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cdf61d94738241efa45d7fa:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#a55ba7dcff544328bdac678:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cdf61d94738241efa45d7fa</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a55ba7dcff544328bdac678</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Keep in mind however that even if you delete information from your profile we may retain your Personal Information in conformance with our data DataRetention policy and Personal Information may remain within our databases access logs and other records In addition we are not responsible for updating or removing your Personal Information contained in the lists or databases of third parties who have been provided information as permitted by this Policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#675d79eb8e15420195bb879:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#8b79d72e8327477ea23211a:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <has_mechanism rdf:resource="#cdf61d94738241efa45d7fa:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">675d79eb8e15420195bb879</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <has_mechanism rdf:resource="#a55ba7dcff544328bdac678:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8b79d72e8327477ea23211a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Keep in mind however that even if you delete information from your profile we may retain your Personal Information in conformance with our data DataRetention policy and Personal Information may remain within our databases access logs and other records In addition we are not responsible for updating or removing your Personal Information contained in the lists or databases of third parties who have been provided information as permitted by this Policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#461d4502c37348a692c4968:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#038f18ebf74c42b39f9441a:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">461d4502c37348a692c4968</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">038f18ebf74c42b39f9441a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Keep in mind, however, that even if you delete information from your profile, we may retain your Personal Information in conformance with our data DataRetention policy and Personal Information may remain within our databases, access logs, and other records.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6f36b13c2355405084a9670:GenericData">
+<owl:NamedIndividual rdf:about="#7fd992aab22a4f40adf5569:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6f36b13c2355405084a9670</uuid>
+  <provided_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7fd992aab22a4f40adf5569</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personal Information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7efb808753f14445b024aa0:DataRetention">
+<owl:NamedIndividual rdf:about="#9f6257d176b34bd6956ad1a:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#c576f86d6d0a4368bdd6b5b:FirstParty"/>
-  <lasts_for rdf:resource="#461d4502c37348a692c4968:DataRetentionTime"/>
-  <applies_to rdf:resource="#6f36b13c2355405084a9670:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7efb808753f14445b024aa0</uuid>
+  <initiated_by rdf:resource="#69bb9f709e7c494e8a9fbee:FirstParty"/>
+  <lasts_for rdf:resource="#038f18ebf74c42b39f9441a:DataRetentionTime"/>
+  <applies_to rdf:resource="#7fd992aab22a4f40adf5569:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9f6257d176b34bd6956ad1a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Keep in mind however that even if you delete information from your profile we may retain your Personal Information in conformance with our data DataRetention policy and Personal Information may remain within our databases access logs and other records In addition we are not responsible for updating or removing your Personal Information contained in the lists or databases of third parties who have been provided information as permitted by this Policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c029335bbe3041a69396c4e:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#e926d4d6c2864fd6846be35:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c029335bbe3041a69396c4e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e926d4d6c2864fd6846be35</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Keep in mind, however, that even if you delete information from your profile, we may retain your Personal Information in conformance with our data DataRetention policy and Personal Information may remain within our databases, access logs, and other records. In addition, we are not responsible for updating or removing your Personal Information contained in the lists or databases of third parties who have been provided information as permitted by this Policy.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#89e887573a8549209244095:DataRetention">
+<owl:NamedIndividual rdf:about="#031a1b4066224f449e59f8b:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#c576f86d6d0a4368bdd6b5b:FirstParty"/>
-  <lasts_for rdf:resource="#c029335bbe3041a69396c4e:DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">89e887573a8549209244095</uuid>
+  <initiated_by rdf:resource="#69bb9f709e7c494e8a9fbee:FirstParty"/>
+  <lasts_for rdf:resource="#e926d4d6c2864fd6846be35:DataRetentionTime"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">031a1b4066224f449e59f8b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Keep in mind however that even if you delete information from your profile we may retain your Personal Information in conformance with our data DataRetention policy and Personal Information may remain within our databases access logs and other records In addition we are not responsible for updating or removing your Personal Information contained in the lists or databases of third parties who have been provided information as permitted by this Policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8c9365fae1b248fc97141c8:SecuredCommunication">
+<owl:NamedIndividual rdf:about="#35943ffbb7f44cd68f78e3b:SecuredCommunication">
   <rdf:type rdf:resource="#SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8c9365fae1b248fc97141c8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">35943ffbb7f44cd68f78e3b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SSL</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#acee53ebce5f41019ad0569:DataProtection">
+<owl:NamedIndividual rdf:about="#01af303fd37b43939062a56:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#c576f86d6d0a4368bdd6b5b:FirstParty"/>
-  <has_mechanism rdf:resource="#8c9365fae1b248fc97141c8:SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">acee53ebce5f41019ad0569</uuid>
+  <initiated_by rdf:resource="#69bb9f709e7c494e8a9fbee:FirstParty"/>
+  <has_mechanism rdf:resource="#35943ffbb7f44cd68f78e3b:SecuredCommunication"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">01af303fd37b43939062a56</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">10 Security We place a priority on the security of Personal Information and we undertake reasonable security measures to help protect the data that resides on our servers We also use secure server software SSL to process all financial transactions that occur on the Site SSL technology can encrypt Personal Information transmitted over the Internet However no security system is impenetrable We do not warrant the security of our servers nor do we warrant that your information including Personal Information will be completely secure or not be intercepted while being transmitted over the Internet</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#933a1cb181ea4b87a788c14:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#8f3dd51d4ba946dfb5ac4d7:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">933a1cb181ea4b87a788c14</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8f3dd51d4ba946dfb5ac4d7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We place a priority on the security of Personal Information, and we undertake reasonable security measures to help protect the data that resides on our servers. We also use secure server software (SSL) to process all financial transactions that occur on the Site. SSL technology can encrypt Personal Information transmitted over the Internet. However, no security system is impenetrable. We do not warrant the security of our servers, nor do we warrant that your information, including Personal Information, will be completely secure or not be intercepted while being transmitted over the Internet.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0480beee62504f2eb8a066b:DataProtection">
+<owl:NamedIndividual rdf:about="#a7e88ad858474d71bddb4e5:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#c576f86d6d0a4368bdd6b5b:FirstParty"/>
-  <has_mechanism rdf:resource="#933a1cb181ea4b87a788c14:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0480beee62504f2eb8a066b</uuid>
+  <initiated_by rdf:resource="#69bb9f709e7c494e8a9fbee:FirstParty"/>
+  <has_mechanism rdf:resource="#8f3dd51d4ba946dfb5ac4d7:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a7e88ad858474d71bddb4e5</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">10 Security We place a priority on the security of Personal Information and we undertake reasonable security measures to help protect the data that resides on our servers We also use secure server software SSL to process all financial transactions that occur on the Site SSL technology can encrypt Personal Information transmitted over the Internet However no security system is impenetrable We do not warrant the security of our servers nor do we warrant that your information including Personal Information will be completely secure or not be intercepted while being transmitted over the Internet</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4501eaf8822643d1b8ddee6:SecuredCommunication">
+<owl:NamedIndividual rdf:about="#40b01051cfc74ecc931b9bd:SecuredCommunication">
   <rdf:type rdf:resource="#SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4501eaf8822643d1b8ddee6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">40b01051cfc74ecc931b9bd</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We also use secure server software (SSL) to process all financial transactions that occur on the Site.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f5aead9bf4a24cf59aca01d:DataProtection">
+<owl:NamedIndividual rdf:about="#6285d445738d4c708765ed3:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#c576f86d6d0a4368bdd6b5b:FirstParty"/>
-  <has_mechanism rdf:resource="#4501eaf8822643d1b8ddee6:SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f5aead9bf4a24cf59aca01d</uuid>
+  <initiated_by rdf:resource="#69bb9f709e7c494e8a9fbee:FirstParty"/>
+  <has_mechanism rdf:resource="#40b01051cfc74ecc931b9bd:SecuredCommunication"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6285d445738d4c708765ed3</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">10 Security We place a priority on the security of Personal Information and we undertake reasonable security measures to help protect the data that resides on our servers We also use secure server software SSL to process all financial transactions that occur on the Site SSL technology can encrypt Personal Information transmitted over the Internet However no security system is impenetrable We do not warrant the security of our servers nor do we warrant that your information including Personal Information will be completely secure or not be intercepted while being transmitted over the Internet</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#17339d1254c64f08840dc5d:SecuredCommunication">
+<owl:NamedIndividual rdf:about="#de3bab9b636a40db885f942:SecuredCommunication">
   <rdf:type rdf:resource="#SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">17339d1254c64f08840dc5d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">de3bab9b636a40db885f942</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e place a priority on the security of Personal Information, and we undertake reasonable security measures to help protect the data that resides on our servers. We also use secure server software (SSL) to process all financial transactions that occur on the Site. SSL technology can encrypt Personal Information transmitted over the Internet.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7e2c38709fa24f4fb17b4ab:DataProtection">
+<owl:NamedIndividual rdf:about="#3807006d805d4d3892aee0b:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#c576f86d6d0a4368bdd6b5b:FirstParty"/>
-  <has_mechanism rdf:resource="#17339d1254c64f08840dc5d:SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7e2c38709fa24f4fb17b4ab</uuid>
+  <initiated_by rdf:resource="#69bb9f709e7c494e8a9fbee:FirstParty"/>
+  <has_mechanism rdf:resource="#de3bab9b636a40db885f942:SecuredCommunication"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3807006d805d4d3892aee0b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">10 Security We place a priority on the security of Personal Information and we undertake reasonable security measures to help protect the data that resides on our servers We also use secure server software SSL to process all financial transactions that occur on the Site SSL technology can encrypt Personal Information transmitted over the Internet However no security system is impenetrable We do not warrant the security of our servers nor do we warrant that your information including Personal Information will be completely secure or not be intercepted while being transmitted over the Internet</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c44bb8b344124dedbfbd8d2:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#879b872e04114ba38d62ead:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c44bb8b344124dedbfbd8d2</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">879b872e04114ba38d62ead</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">However, no security system is impenetrable. We do not warrant the security of our servers, nor do we warrant that your information, including Personal Information, will be completely secure or not be intercepted while being transmitted over the Internet.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0a13fc099c7a43259dfd0dc:DataProtection">
+<owl:NamedIndividual rdf:about="#4999e14f16964971b950f5c:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#c576f86d6d0a4368bdd6b5b:FirstParty"/>
-  <has_mechanism rdf:resource="#c44bb8b344124dedbfbd8d2:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0a13fc099c7a43259dfd0dc</uuid>
+  <initiated_by rdf:resource="#69bb9f709e7c494e8a9fbee:FirstParty"/>
+  <has_mechanism rdf:resource="#879b872e04114ba38d62ead:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4999e14f16964971b950f5c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">10 Security We place a priority on the security of Personal Information and we undertake reasonable security measures to help protect the data that resides on our servers We also use secure server software SSL to process all financial transactions that occur on the Site SSL technology can encrypt Personal Information transmitted over the Internet However no security system is impenetrable We do not warrant the security of our servers nor do we warrant that your information including Personal Information will be completely secure or not be intercepted while being transmitted over the Internet</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#45d2d855beaf4bfe836ccd0:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#fa41841b60824752888d598:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">45d2d855beaf4bfe836ccd0</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fa41841b60824752888d598</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11 How To Contact Us If you have any questions regarding privacy or this Policy you may contact us as follows Telephone 888-795-4719 Email privacy everydayhealth com Address Everyday Health LLC 345 Hudson Street 16th Floor New York NY 10014 12 Privacy Policy Changes We reserve the right to change modify add or remove portions of this Policy at any time and without prior notice and any changes will become effective immediately upon being posted unless we advise you otherwise Your continued use of the Site or Services after this Policy has been amended shall be deemed to be your continued acceptance of the terms and conditions of the Policy as amended We encourage you to bookmark this Web page and review this Policy regularly</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#128a65fb2f4b4fb6962b39a:PolicyChange">
+<owl:NamedIndividual rdf:about="#7da4e61192d2408ea4490e5:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#c576f86d6d0a4368bdd6b5b:FirstParty"/>
-  <binded_to rdf:resource="#45d2d855beaf4bfe836ccd0:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">128a65fb2f4b4fb6962b39a</uuid>
+  <initiated_by rdf:resource="#69bb9f709e7c494e8a9fbee:FirstParty"/>
+  <binded_to rdf:resource="#fa41841b60824752888d598:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7da4e61192d2408ea4490e5</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11 How To Contact Us If you have any questions regarding privacy or this Policy you may contact us as follows Telephone 888-795-4719 Email privacy everydayhealth com Address Everyday Health LLC 345 Hudson Street 16th Floor New York NY 10014 12 Privacy Policy Changes We reserve the right to change modify add or remove portions of this Policy at any time and without prior notice and any changes will become effective immediately upon being posted unless we advise you otherwise Your continued use of the Site or Services after this Policy has been amended shall be deemed to be your continued acceptance of the terms and conditions of the Policy as amended We encourage you to bookmark this Web page and review this Policy regularly</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4259f259186d4ca19b4a02b:FPNotification">
+<owl:NamedIndividual rdf:about="#e67a3a0b5601443aa0bf9bf:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#c576f86d6d0a4368bdd6b5b:FirstParty"/>
-  <notifies rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <binded_to rdf:resource="#128a65fb2f4b4fb6962b39a:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4259f259186d4ca19b4a02b</uuid>
+  <initiated_by rdf:resource="#69bb9f709e7c494e8a9fbee:FirstParty"/>
+  <notifies rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <binded_to rdf:resource="#7da4e61192d2408ea4490e5:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e67a3a0b5601443aa0bf9bf</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11 How To Contact Us If you have any questions regarding privacy or this Policy you may contact us as follows Telephone 888-795-4719 Email privacy everydayhealth com Address Everyday Health LLC 345 Hudson Street 16th Floor New York NY 10014 12 Privacy Policy Changes We reserve the right to change modify add or remove portions of this Policy at any time and without prior notice and any changes will become effective immediately upon being posted unless we advise you otherwise Your continued use of the Site or Services after this Policy has been amended shall be deemed to be your continued acceptance of the terms and conditions of the Policy as amended We encourage you to bookmark this Web page and review this Policy regularly</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bf9ab3917eaf4244a430fb0:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#d5763c9b80d343a996ab2d4:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bf9ab3917eaf4244a430fb0</uuid>
+  <initiated_by rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d5763c9b80d343a996ab2d4</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11 How To Contact Us If you have any questions regarding privacy or this Policy you may contact us as follows Telephone 888-795-4719 Email privacy everydayhealth com Address Everyday Health LLC 345 Hudson Street 16th Floor New York NY 10014 12 Privacy Policy Changes We reserve the right to change modify add or remove portions of this Policy at any time and without prior notice and any changes will become effective immediately upon being posted unless we advise you otherwise Your continued use of the Site or Services after this Policy has been amended shall be deemed to be your continued acceptance of the terms and conditions of the Policy as amended We encourage you to bookmark this Web page and review this Policy regularly</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#75b352f7409c421185ff7f5:PolicyChange">
+<owl:NamedIndividual rdf:about="#676df669cd3a4831867b7a3:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#c576f86d6d0a4368bdd6b5b:FirstParty"/>
-  <binded_to rdf:resource="#bf9ab3917eaf4244a430fb0:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">75b352f7409c421185ff7f5</uuid>
+  <initiated_by rdf:resource="#69bb9f709e7c494e8a9fbee:FirstParty"/>
+  <binded_to rdf:resource="#d5763c9b80d343a996ab2d4:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">676df669cd3a4831867b7a3</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11 How To Contact Us If you have any questions regarding privacy or this Policy you may contact us as follows Telephone 888-795-4719 Email privacy everydayhealth com Address Everyday Health LLC 345 Hudson Street 16th Floor New York NY 10014 12 Privacy Policy Changes We reserve the right to change modify add or remove portions of this Policy at any time and without prior notice and any changes will become effective immediately upon being posted unless we advise you otherwise Your continued use of the Site or Services after this Policy has been amended shall be deemed to be your continued acceptance of the terms and conditions of the Policy as amended We encourage you to bookmark this Web page and review this Policy regularly</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0eec20cbe30745edac9aedc:FPNotification">
+<owl:NamedIndividual rdf:about="#65428afdf2e14451bf649d1:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#c576f86d6d0a4368bdd6b5b:FirstParty"/>
-  <notifies rdf:resource="#ec40d3e89c4047a891cdfe6:User"/>
-  <binded_to rdf:resource="#75b352f7409c421185ff7f5:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0eec20cbe30745edac9aedc</uuid>
+  <initiated_by rdf:resource="#69bb9f709e7c494e8a9fbee:FirstParty"/>
+  <notifies rdf:resource="#8cdbb1bbdf96409195947c7:User"/>
+  <binded_to rdf:resource="#676df669cd3a4831867b7a3:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">65428afdf2e14451bf649d1</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11 How To Contact Us If you have any questions regarding privacy or this Policy you may contact us as follows Telephone 888-795-4719 Email privacy everydayhealth com Address Everyday Health LLC 345 Hudson Street 16th Floor New York NY 10014 12 Privacy Policy Changes We reserve the right to change modify add or remove portions of this Policy at any time and without prior notice and any changes will become effective immediately upon being posted unless we advise you otherwise Your continued use of the Site or Services after this Policy has been amended shall be deemed to be your continued acceptance of the terms and conditions of the Policy as amended We encourage you to bookmark this Web page and review this Policy regularly</evidence>
 </owl:NamedIndividual>

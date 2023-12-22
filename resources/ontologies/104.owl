@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -901,14 +902,6 @@
   <rdfs:subClassOf rdf:resource="#UserSpecificCommunicationMechanism"/>
   <owl:disjointWith rdf:resource="#AutomaticCommunicationMechanism"/>
   <rdfs:subClassOf>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
-        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
       <owl:allValuesFrom>
@@ -917,6 +910,14 @@
         </owl:Class>
       </owl:allValuesFrom>
     </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
+        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
+      </owl:unionOf>
+    </owl:Class>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -959,18 +960,18 @@
 <owl:Class rdf:about="#FPSpecificCommunicationMechanism">
   <rdfs:subClassOf rdf:resource="#CommunicationMechanism"/>
   <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#mechanism_of"/>
-      <owl:allValuesFrom rdf:resource="#FPNotification"/>
-    </owl:Restriction>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
     <owl:Class>
       <owl:unionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#FPSpecificCommunicationMechanism"/>
         <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
       </owl:unionOf>
     </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#mechanism_of"/>
+      <owl:allValuesFrom rdf:resource="#FPNotification"/>
+    </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,165 +1305,165 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#f07cd375a62e4a5e8132a9a:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#3aba174a92e64879a427761:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f07cd375a62e4a5e8132a9a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3aba174a92e64879a427761</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#eee86c90ef094ae1868736d:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#4ed9a7633dd5466c9391682:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#aae253222511458595088de:User"/>
-  <considers rdf:resource="#3319cd781578474ab26a9cf:FirstParty"/>
-  <considers rdf:resource="#4bdc72c2a8d54442a6bd644:ThirdParty"/>
-  <considers rdf:resource="#9da78c846c5643098ac9ea6:OptInOptOutControl"/>
-  <considers rdf:resource="#2b163d9f172a4d029112006:PersonalData"/>
-  <considers rdf:resource="#29932e182ed94d718f67bb2:OptInOptOutControl"/>
-  <considers rdf:resource="#7e8880d766cb42beb3d9a0a:OptInOptOutControl"/>
-  <considers rdf:resource="#a39a18adc2b74f158dc3bdd:PersonalData"/>
-  <considers rdf:resource="#446d2198761c41829f98687:OptInOptOutControl"/>
-  <considers rdf:resource="#2ba72e97549f42ec9d18173:OptInOptOutControl"/>
-  <considers rdf:resource="#2f3afd4fb66d4b0798a5341:OptInOptOutControl"/>
-  <considers rdf:resource="#f2b1deb2bfe34c20aef0307:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eee86c90ef094ae1868736d</uuid>
+  <considers rdf:resource="#eb5f4b8adc6245c0a2130d9:User"/>
+  <considers rdf:resource="#a497165d4c4c4d4889ed76b:FirstParty"/>
+  <considers rdf:resource="#76f99654d2044953b040841:ThirdParty"/>
+  <considers rdf:resource="#8d247614b2e741c1a160f9a:OptInOptOutControl"/>
+  <considers rdf:resource="#5317cbddb2704f9dbc82574:PersonalData"/>
+  <considers rdf:resource="#4b5f7b6718aa44c4b974991:OptInOptOutControl"/>
+  <considers rdf:resource="#9ebb1919be884b23ae691da:OptInOptOutControl"/>
+  <considers rdf:resource="#3f77cbe0f8824ca88e7358d:PersonalData"/>
+  <considers rdf:resource="#ced6500c4d704888ae1af0a:OptInOptOutControl"/>
+  <considers rdf:resource="#0af585f49e1f49ad9bf5d31:OptInOptOutControl"/>
+  <considers rdf:resource="#879440ef7b034ec6b74c447:OptInOptOutControl"/>
+  <considers rdf:resource="#eaa64ec39b8449e78c89ce0:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4ed9a7633dd5466c9391682</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">naturalnews.com</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#aae253222511458595088de:User">
+<owl:NamedIndividual rdf:about="#eb5f4b8adc6245c0a2130d9:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aae253222511458595088de</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eb5f4b8adc6245c0a2130d9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3319cd781578474ab26a9cf:FirstParty">
+<owl:NamedIndividual rdf:about="#a497165d4c4c4d4889ed76b:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3319cd781578474ab26a9cf</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a497165d4c4c4d4889ed76b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4bdc72c2a8d54442a6bd644:ThirdParty">
+<owl:NamedIndividual rdf:about="#76f99654d2044953b040841:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4bdc72c2a8d54442a6bd644</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">76f99654d2044953b040841</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d68a01dcb87d49118d76027:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#9ab6cc82dc0a4d648309bdd:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d68a01dcb87d49118d76027</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9ab6cc82dc0a4d648309bdd</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unsubscribe</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9da78c846c5643098ac9ea6:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#8d247614b2e741c1a160f9a:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aae253222511458595088de:User"/>
-  <has_mechanism rdf:resource="#d68a01dcb87d49118d76027:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9da78c846c5643098ac9ea6</uuid>
+  <initiated_by rdf:resource="#eb5f4b8adc6245c0a2130d9:User"/>
+  <has_mechanism rdf:resource="#9ab6cc82dc0a4d648309bdd:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8d247614b2e741c1a160f9a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NaturalNews com honors all email unsubscribe requests and makes every attempt to honor the privacy of its members viewers and sponsors</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#321c6d23e77a48fcb36b033:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#3c4dec1259c24b659e65362:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">321c6d23e77a48fcb36b033</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3c4dec1259c24b659e65362</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NaturalNews.com honors all email unsubscribe requests</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2b163d9f172a4d029112006:PersonalData">
+<owl:NamedIndividual rdf:about="#5317cbddb2704f9dbc82574:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#aae253222511458595088de:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2b163d9f172a4d029112006</uuid>
+  <provided_by rdf:resource="#eb5f4b8adc6245c0a2130d9:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5317cbddb2704f9dbc82574</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email unsubscribe requests</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#29932e182ed94d718f67bb2:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#4b5f7b6718aa44c4b974991:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aae253222511458595088de:User"/>
-  <has_mechanism rdf:resource="#321c6d23e77a48fcb36b033:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#2b163d9f172a4d029112006:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">29932e182ed94d718f67bb2</uuid>
+  <initiated_by rdf:resource="#eb5f4b8adc6245c0a2130d9:User"/>
+  <has_mechanism rdf:resource="#3c4dec1259c24b659e65362:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#5317cbddb2704f9dbc82574:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4b5f7b6718aa44c4b974991</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NaturalNews com honors all email unsubscribe requests and makes every attempt to honor the privacy of its members viewers and sponsors</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9199ef02313942bbb0a5796:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#ba3f843c4e7447689bd7f9a:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9199ef02313942bbb0a5796</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ba3f843c4e7447689bd7f9a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unsubscribe" link</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7e8880d766cb42beb3d9a0a:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#9ebb1919be884b23ae691da:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aae253222511458595088de:User"/>
-  <has_mechanism rdf:resource="#9199ef02313942bbb0a5796:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7e8880d766cb42beb3d9a0a</uuid>
+  <initiated_by rdf:resource="#eb5f4b8adc6245c0a2130d9:User"/>
+  <has_mechanism rdf:resource="#ba3f843c4e7447689bd7f9a:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9ebb1919be884b23ae691da</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To opt-out of NaturalNews emails simply click the unsubscribe link found at the bottom of any email from NaturalNews</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4c26cf5f836c4163a5d480c:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#1029b1a312a24b118d4971c:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4c26cf5f836c4163a5d480c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1029b1a312a24b118d4971c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To opt-out of NaturalNews emails, simply click the "unsubscribe" link found at the bottom of any email from NaturalNews.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a39a18adc2b74f158dc3bdd:PersonalData">
+<owl:NamedIndividual rdf:about="#3f77cbe0f8824ca88e7358d:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#aae253222511458595088de:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a39a18adc2b74f158dc3bdd</uuid>
+  <provided_by rdf:resource="#eb5f4b8adc6245c0a2130d9:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3f77cbe0f8824ca88e7358d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">emails,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#446d2198761c41829f98687:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#ced6500c4d704888ae1af0a:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aae253222511458595088de:User"/>
-  <has_mechanism rdf:resource="#4c26cf5f836c4163a5d480c:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#a39a18adc2b74f158dc3bdd:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">446d2198761c41829f98687</uuid>
+  <initiated_by rdf:resource="#eb5f4b8adc6245c0a2130d9:User"/>
+  <has_mechanism rdf:resource="#1029b1a312a24b118d4971c:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#3f77cbe0f8824ca88e7358d:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ced6500c4d704888ae1af0a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To opt-out of NaturalNews emails simply click the unsubscribe link found at the bottom of any email from NaturalNews</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#212c69583d15494eb2f4dde:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#3f7c361bbc3748afb2b7d5b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">212c69583d15494eb2f4dde</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3f7c361bbc3748afb2b7d5b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To opt-out of NaturalNews emails, simply click the "unsubscribe" link found at the bottom of any email from NaturalNews.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2ba72e97549f42ec9d18173:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#0af585f49e1f49ad9bf5d31:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aae253222511458595088de:User"/>
-  <has_mechanism rdf:resource="#212c69583d15494eb2f4dde:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2ba72e97549f42ec9d18173</uuid>
+  <initiated_by rdf:resource="#eb5f4b8adc6245c0a2130d9:User"/>
+  <has_mechanism rdf:resource="#3f7c361bbc3748afb2b7d5b:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0af585f49e1f49ad9bf5d31</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To opt-out of NaturalNews emails simply click the unsubscribe link found at the bottom of any email from NaturalNews</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9b680bbde8bc4d928b21faf:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#90c0bd7c39d043aebc93e54:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9b680bbde8bc4d928b21faf</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">90c0bd7c39d043aebc93e54</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unsubscribing</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2f3afd4fb66d4b0798a5341:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#879440ef7b034ec6b74c447:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aae253222511458595088de:User"/>
-  <has_mechanism rdf:resource="#9b680bbde8bc4d928b21faf:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2f3afd4fb66d4b0798a5341</uuid>
+  <initiated_by rdf:resource="#eb5f4b8adc6245c0a2130d9:User"/>
+  <has_mechanism rdf:resource="#90c0bd7c39d043aebc93e54:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">879440ef7b034ec6b74c447</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you experience any difficulty unsubscribing simply forward this entire email to reply naturalnews com and you will be automatically unsubscribed</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b7a86778eeaa4759b3a0aad:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#047bc4d5e89e49f8a5d50eb:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b7a86778eeaa4759b3a0aad</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">047bc4d5e89e49f8a5d50eb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you experience any difficulty unsubscribing, simply forward this entire email to reply@naturalnews.com and you will be automatically unsubscribed.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f2b1deb2bfe34c20aef0307:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#eaa64ec39b8449e78c89ce0:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aae253222511458595088de:User"/>
-  <has_mechanism rdf:resource="#b7a86778eeaa4759b3a0aad:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f2b1deb2bfe34c20aef0307</uuid>
+  <initiated_by rdf:resource="#eb5f4b8adc6245c0a2130d9:User"/>
+  <has_mechanism rdf:resource="#047bc4d5e89e49f8a5d50eb:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eaa64ec39b8449e78c89ce0</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you experience any difficulty unsubscribing simply forward this entire email to reply naturalnews com and you will be automatically unsubscribed</evidence>
 </owl:NamedIndividual>

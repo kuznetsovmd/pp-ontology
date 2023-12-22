@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -901,6 +902,14 @@
   <rdfs:subClassOf rdf:resource="#UserSpecificCommunicationMechanism"/>
   <owl:disjointWith rdf:resource="#AutomaticCommunicationMechanism"/>
   <rdfs:subClassOf>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
+        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
+      </owl:unionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
       <owl:allValuesFrom>
@@ -909,14 +918,6 @@
         </owl:Class>
       </owl:allValuesFrom>
     </owl:Restriction>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
-        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
-      </owl:unionOf>
-    </owl:Class>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,799 +1305,791 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#8a34e1d0add64d759825b74:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#0ad04296bef6487cb71b69e:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8a34e1d0add64d759825b74</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0ad04296bef6487cb71b69e</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#633157bb4ac9469da97a2b6:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#59c7bf0281de409b86d2c65:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <considers rdf:resource="#c1a541d05934466f9e226b0:FirstParty"/>
-  <considers rdf:resource="#50470cb0ae454d489a51a4f:ThirdParty"/>
-  <considers rdf:resource="#b60ba076e3414338a40e9f4:OptInOptOutControl"/>
-  <considers rdf:resource="#ab16d0738ddd42fb89a5757:PolicyChange"/>
-  <considers rdf:resource="#f8c95156cf394c2a88a906d:FPNotification"/>
-  <considers rdf:resource="#fdc4400ad83b42f3b9bebf8:OptInOptOutControl"/>
-  <considers rdf:resource="#36e36e7cf8d04182aa4587f:OptInOptOutControl"/>
-  <considers rdf:resource="#5d582b22c22b41efa2e2b6c:PolicyChange"/>
-  <considers rdf:resource="#2953861821024810aa2be29:FPNotification"/>
-  <considers rdf:resource="#30a0d02bb89448c2a324349:OptInOptOutControl"/>
-  <considers rdf:resource="#7f14b3ab4c3b48178170344:PolicyChange"/>
-  <considers rdf:resource="#0a733984701749db91804db:FPNotification"/>
-  <considers rdf:resource="#c76cd7f25a9b42759ac2b48:OptInOptOutControl"/>
-  <considers rdf:resource="#7b11401ee9d6448e9acc4ec:PolicyChange"/>
-  <considers rdf:resource="#96b9ec48986743edbc9710b:FPNotification"/>
-  <considers rdf:resource="#90fa96a224a5468fb626f8c:OptInOptOutControl"/>
-  <considers rdf:resource="#b5c1ee34087e469393cc6d5:OptInOptOutControl"/>
-  <considers rdf:resource="#0feb6ca3cbed4f0e82c808e:OptInOptOutControl"/>
-  <considers rdf:resource="#2d7dcb73eb1742d597fb8ab:AccountData"/>
-  <considers rdf:resource="#1cfb259b08b641df823cafd:OptInOptOutControl"/>
-  <considers rdf:resource="#b39a483f5e824847a3748c8:DataProtection"/>
-  <considers rdf:resource="#2083242e1472442ab08540c:DataProtection"/>
-  <considers rdf:resource="#11984776a659438fa6c7657:DataProtection"/>
-  <considers rdf:resource="#69d73eb150da47b182175db:DataProtection"/>
-  <considers rdf:resource="#b1c5dd7367cc4e43bf01d61:DataProtection"/>
-  <considers rdf:resource="#b80058efdaf64bc9a7251d1:OptInOptOutControl"/>
-  <considers rdf:resource="#d159455848d944009707e8d:PolicyChange"/>
-  <considers rdf:resource="#d1438fed74954c6da8416bc:FPNotification"/>
-  <considers rdf:resource="#4c1b5fb7b89744cfba5358c:OptInOptOutControl"/>
-  <considers rdf:resource="#b7a2b214b1214a23a7619e3:PolicyChange"/>
-  <considers rdf:resource="#f8b6db4f652243168255cb9:FPNotification"/>
-  <considers rdf:resource="#269e2cc6a6a548e1a89da54:GenericData"/>
-  <considers rdf:resource="#2f84e8ee69f042b5bcb9770:TPCollection"/>
-  <considers rdf:resource="#1caafb27e5ee419c94e418e:TPSharing"/>
-  <considers rdf:resource="#8e84adaac4834627a2e03d4:OptInOptOutControl"/>
-  <considers rdf:resource="#95e20ef4dc9742eb8f29fba:OptInOptOutControl"/>
-  <considers rdf:resource="#d66a4765afe045fb854d482:OptInOptOutControl"/>
-  <considers rdf:resource="#08982a7551754c208f87458:OptInOptOutControl"/>
-  <considers rdf:resource="#ac4fce954db847858a2de65:OptInOptOutControl"/>
-  <considers rdf:resource="#9386846f969d439b8c4e24b:OptInOptOutControl"/>
-  <considers rdf:resource="#4b75c08cafa54ae38545c3a:GenericData"/>
-  <considers rdf:resource="#fb02e5e04e4b4d14bea194e:DataRetention"/>
-  <considers rdf:resource="#872458efa8a442248ec3ad6:AccountData"/>
-  <considers rdf:resource="#48a95b49cf294782b5cc72c:OptInOptOutControl"/>
-  <considers rdf:resource="#b2e5cf706f0e4d33a99be12:AccountData"/>
-  <considers rdf:resource="#3a486b47b2ee493a9627551:OptInOptOutControl"/>
-  <considers rdf:resource="#ea73fa0d09804f079692cf5:SensitiveData"/>
-  <considers rdf:resource="#64d7072a5ced4b9baa9e6dc:DataRetention"/>
-  <considers rdf:resource="#e8455df9374746468c3790e:OptInOptOutControl"/>
-  <considers rdf:resource="#192c2ee5fc0b43f79370301:AccountData"/>
-  <considers rdf:resource="#f783a75b1b6a45b2b0628b5:OptInOptOutControl"/>
-  <considers rdf:resource="#7c92ceb5637348ca8263969:OptInOptOutControl"/>
-  <considers rdf:resource="#0deeae33afe84f6da2aace3:AdvertisingDataControl"/>
-  <considers rdf:resource="#09907441342d43cbbdc70a9:AdvertisingDataControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">633157bb4ac9469da97a2b6</uuid>
+  <considers rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <considers rdf:resource="#c4395f1db93340f7bd1d147:FirstParty"/>
+  <considers rdf:resource="#4175edcc76c14242b4af41e:ThirdParty"/>
+  <considers rdf:resource="#e852ef2b8350491683c26cd:OptInOptOutControl"/>
+  <considers rdf:resource="#2b39b87d5cef4422980bbdd:PolicyChange"/>
+  <considers rdf:resource="#4384d15bd1b94e47859a9c4:FPNotification"/>
+  <considers rdf:resource="#bf664ed9d90d416d99221ba:OptInOptOutControl"/>
+  <considers rdf:resource="#0b4039df14b348a5915a09c:OptInOptOutControl"/>
+  <considers rdf:resource="#3d035d45b5484b0d90dc1d5:PolicyChange"/>
+  <considers rdf:resource="#dd9b70556bd941e5af3400f:FPNotification"/>
+  <considers rdf:resource="#f8639348133d432aa1e5047:OptInOptOutControl"/>
+  <considers rdf:resource="#27455544aeb1445bbbbc783:PolicyChange"/>
+  <considers rdf:resource="#e34a4d667cee42e1b01b50d:FPNotification"/>
+  <considers rdf:resource="#a37912383272472c8a48759:OptInOptOutControl"/>
+  <considers rdf:resource="#058b6b2139dd4b33bf46ed6:PolicyChange"/>
+  <considers rdf:resource="#64a04b6788cb4457ab0a45b:FPNotification"/>
+  <considers rdf:resource="#a1df59de5c9842c59ad16cc:OptInOptOutControl"/>
+  <considers rdf:resource="#fa351c3e09704ece916c7d5:OptInOptOutControl"/>
+  <considers rdf:resource="#86eade6392f34fdaa9f3b88:OptInOptOutControl"/>
+  <considers rdf:resource="#8b1e0d5460c14dccbe369c9:AccountData"/>
+  <considers rdf:resource="#9baab7455b91419daa17c7a:OptInOptOutControl"/>
+  <considers rdf:resource="#e41261fdcc5746f0a8b90a1:DataProtection"/>
+  <considers rdf:resource="#b3c7ee836a1848edaa948c8:DataProtection"/>
+  <considers rdf:resource="#dde297719ebd4fb7a666bc1:DataProtection"/>
+  <considers rdf:resource="#ce51bf6fc0774a8a8c9d9db:DataProtection"/>
+  <considers rdf:resource="#f163122701884818bcd10c9:DataProtection"/>
+  <considers rdf:resource="#ed272268f1e64255aae02e0:OptInOptOutControl"/>
+  <considers rdf:resource="#f706807c149f46b4b807a42:PolicyChange"/>
+  <considers rdf:resource="#2c073898f11f4b72ad8ade0:FPNotification"/>
+  <considers rdf:resource="#f7ebe7d6dcc6469ab3decee:OptInOptOutControl"/>
+  <considers rdf:resource="#95c5070af123447db9d3fd9:PolicyChange"/>
+  <considers rdf:resource="#5c6c9a955426428a862b243:FPNotification"/>
+  <considers rdf:resource="#c578bcab2a2e4a278dfaf79:GenericData"/>
+  <considers rdf:resource="#e053caac585e4dea96bb593:TPCollection"/>
+  <considers rdf:resource="#93c7172c6bec48afaeeb55b:TPSharing"/>
+  <considers rdf:resource="#d3cf971dec7343e885d0983:OptInOptOutControl"/>
+  <considers rdf:resource="#adfadc17f2424c84b4460be:OptInOptOutControl"/>
+  <considers rdf:resource="#7ff195143f7c49668e1f184:OptInOptOutControl"/>
+  <considers rdf:resource="#2eb03ed422c6477d9772db4:OptInOptOutControl"/>
+  <considers rdf:resource="#51b7d474fee14633b1af63b:OptInOptOutControl"/>
+  <considers rdf:resource="#4767b1723951428d8ddf70b:OptInOptOutControl"/>
+  <considers rdf:resource="#f3d8d27eff3643b98e82776:GenericData"/>
+  <considers rdf:resource="#f0b4fb2d8d594025a228337:DataRetention"/>
+  <considers rdf:resource="#6519af62dc854916919e5e5:AccountData"/>
+  <considers rdf:resource="#f1485c9a41ea49049e9adac:OptInOptOutControl"/>
+  <considers rdf:resource="#0287b577a64e470c9717fc7:AccountData"/>
+  <considers rdf:resource="#1eb3752aacb74dceb5da64f:OptInOptOutControl"/>
+  <considers rdf:resource="#46d058f3b46d4e06a8f866d:SensitiveData"/>
+  <considers rdf:resource="#e2fde744a20f488fb25d725:DataRetention"/>
+  <considers rdf:resource="#8228d5d02701462f8f534cf:OptInOptOutControl"/>
+  <considers rdf:resource="#420baa48e35d4a5ba84e9fb:AccountData"/>
+  <considers rdf:resource="#19a430eb505a4c739ecf28a:OptInOptOutControl"/>
+  <considers rdf:resource="#751b1aeb6fd7447d85b309e:OptInOptOutControl"/>
+  <considers rdf:resource="#1108c5609978410aabd9f92:AdvertisingDataControl"/>
+  <considers rdf:resource="#a68eeb108dfa4954b61cc20:AdvertisingDataControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">59c7bf0281de409b86d2c65</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">taylorswift.com</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#673d73a7188e4587a1cd33b:User">
+<owl:NamedIndividual rdf:about="#d6aae3e65bee4aecaa49cf0:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">673d73a7188e4587a1cd33b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d6aae3e65bee4aecaa49cf0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c1a541d05934466f9e226b0:FirstParty">
+<owl:NamedIndividual rdf:about="#c4395f1db93340f7bd1d147:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c1a541d05934466f9e226b0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c4395f1db93340f7bd1d147</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#50470cb0ae454d489a51a4f:ThirdParty">
+<owl:NamedIndividual rdf:about="#4175edcc76c14242b4af41e:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">50470cb0ae454d489a51a4f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4175edcc76c14242b4af41e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#50050ed80ad841e7bada3f9:InPrivacyPolicy">
+<owl:NamedIndividual rdf:about="#3d3bda138f5b4efb9b347d3:InPrivacyPolicy">
   <rdf:type rdf:resource="#InPrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">50050ed80ad841e7bada3f9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3d3bda138f5b4efb9b347d3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Last updated and effective as of April 28, 2014</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b60ba076e3414338a40e9f4:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#e852ef2b8350491683c26cd:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b60ba076e3414338a40e9f4</uuid>
+  <initiated_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e852ef2b8350491683c26cd</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Privacy Policy Last updated and effective as of April 28 2014</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ab16d0738ddd42fb89a5757:PolicyChange">
+<owl:NamedIndividual rdf:about="#2b39b87d5cef4422980bbdd:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#c1a541d05934466f9e226b0:FirstParty"/>
-  <binded_to rdf:resource="#b60ba076e3414338a40e9f4:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ab16d0738ddd42fb89a5757</uuid>
+  <initiated_by rdf:resource="#c4395f1db93340f7bd1d147:FirstParty"/>
+  <binded_to rdf:resource="#e852ef2b8350491683c26cd:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2b39b87d5cef4422980bbdd</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Privacy Policy Last updated and effective as of April 28 2014</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f8c95156cf394c2a88a906d:FPNotification">
+<owl:NamedIndividual rdf:about="#4384d15bd1b94e47859a9c4:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#c1a541d05934466f9e226b0:FirstParty"/>
-  <notifies rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <has_mechanism rdf:resource="#50050ed80ad841e7bada3f9:InPrivacyPolicy"/>
-  <binded_to rdf:resource="#ab16d0738ddd42fb89a5757:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f8c95156cf394c2a88a906d</uuid>
+  <initiated_by rdf:resource="#c4395f1db93340f7bd1d147:FirstParty"/>
+  <notifies rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <has_mechanism rdf:resource="#3d3bda138f5b4efb9b347d3:InPrivacyPolicy"/>
+  <binded_to rdf:resource="#2b39b87d5cef4422980bbdd:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4384d15bd1b94e47859a9c4</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Privacy Policy Last updated and effective as of April 28 2014</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e5398423cb3a4bd69fcf3e9:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#dedefd89e8d346ad9556c2f:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e5398423cb3a4bd69fcf3e9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dedefd89e8d346ad9556c2f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">By accessing any part of the Sites or using the Services, you agree to the practices described in this Policy and consent to the collection, use and disclosure of your personal information as set out in this Policy. This Policy is part of the Terms of Use governing your use of the Sites and the Services; please read the Terms of Use. If you do not wish to provide your consent and/or do not agree with any part of this Policy and/or the Terms of Use, please do not use the Sites or the Services.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fdc4400ad83b42f3b9bebf8:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#bf664ed9d90d416d99221ba:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <has_mechanism rdf:resource="#e5398423cb3a4bd69fcf3e9:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fdc4400ad83b42f3b9bebf8</uuid>
+  <initiated_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <has_mechanism rdf:resource="#dedefd89e8d346ad9556c2f:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bf664ed9d90d416d99221ba</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This website http //taylorswift com is operated by GROUND CTRL LLC d/b/a Ground ctrl on behalf of Taylor Nation LLC with the on-line store http //store taylorswift com operated by Miva Merchant Inc on behalf of Taylor Nation LLC each of the foregoing entities and all entities collectively we us or our This Privacy Policy Policy explains how we collect use and protect information that we learn about you as a result of your interaction with us through the websites on which this Policy is posted including the websites that you may access using your mobile electronic device collectively Sites and the services provided through the Sites Services By accessing any part of the Sites or using the Services you agree to the practices described in this Policy and consent to the collection use and disclosure of your personal information as set out in this Policy This Policy is part of the Terms of Use governing your use of the Sites and the Services please read the Terms of Use If you do not wish to provide your consent and/or do not agree with any part of this Policy and/or the Terms of Use please do not use the Sites or the Services</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cdbb5c65288a4330ae16882:FPSpecificCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#fe14d57e8ccd475d8b68b22:FPSpecificCommunicationMechanism">
   <rdf:type rdf:resource="#FPSpecificCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cdbb5c65288a4330ae16882</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fe14d57e8ccd475d8b68b22</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">distribution by electronic mail.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#36e36e7cf8d04182aa4587f:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#0b4039df14b348a5915a09c:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">36e36e7cf8d04182aa4587f</uuid>
+  <initiated_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0b4039df14b348a5915a09c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What is the effective date of this Policy and when does this policy apply? This Policy is effective as of the date set out above We reserve the right to modify this Policy at any time and such revisions will become effective upon the earlier of a posting of the revisions to the Sites or b distribution by electronic mail Your continued use of any of the Sites or the Services after the effective date of the revisions means that you accept and agree to any such revisions This Policy applies solely to our on-line information gathering and disclosure practices in connection with the Sites and does not apply to any of our practices conducted off-line</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5d582b22c22b41efa2e2b6c:PolicyChange">
+<owl:NamedIndividual rdf:about="#3d035d45b5484b0d90dc1d5:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#c1a541d05934466f9e226b0:FirstParty"/>
-  <binded_to rdf:resource="#36e36e7cf8d04182aa4587f:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5d582b22c22b41efa2e2b6c</uuid>
+  <initiated_by rdf:resource="#c4395f1db93340f7bd1d147:FirstParty"/>
+  <binded_to rdf:resource="#0b4039df14b348a5915a09c:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3d035d45b5484b0d90dc1d5</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What is the effective date of this Policy and when does this policy apply? This Policy is effective as of the date set out above We reserve the right to modify this Policy at any time and such revisions will become effective upon the earlier of a posting of the revisions to the Sites or b distribution by electronic mail Your continued use of any of the Sites or the Services after the effective date of the revisions means that you accept and agree to any such revisions This Policy applies solely to our on-line information gathering and disclosure practices in connection with the Sites and does not apply to any of our practices conducted off-line</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2953861821024810aa2be29:FPNotification">
+<owl:NamedIndividual rdf:about="#dd9b70556bd941e5af3400f:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#c1a541d05934466f9e226b0:FirstParty"/>
-  <notifies rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <has_mechanism rdf:resource="#cdbb5c65288a4330ae16882:FPSpecificCommunicationMechanism"/>
-  <binded_to rdf:resource="#5d582b22c22b41efa2e2b6c:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2953861821024810aa2be29</uuid>
+  <initiated_by rdf:resource="#c4395f1db93340f7bd1d147:FirstParty"/>
+  <notifies rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <has_mechanism rdf:resource="#fe14d57e8ccd475d8b68b22:FPSpecificCommunicationMechanism"/>
+  <binded_to rdf:resource="#3d035d45b5484b0d90dc1d5:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dd9b70556bd941e5af3400f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What is the effective date of this Policy and when does this policy apply? This Policy is effective as of the date set out above We reserve the right to modify this Policy at any time and such revisions will become effective upon the earlier of a posting of the revisions to the Sites or b distribution by electronic mail Your continued use of any of the Sites or the Services after the effective date of the revisions means that you accept and agree to any such revisions This Policy applies solely to our on-line information gathering and disclosure practices in connection with the Sites and does not apply to any of our practices conducted off-line</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8400600c8cba4048ab6d5b8:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#c61336f80a804b77ab16364:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8400600c8cba4048ab6d5b8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c61336f80a804b77ab16364</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">posting of the revisions to the Sites,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#30a0d02bb89448c2a324349:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#f8639348133d432aa1e5047:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">30a0d02bb89448c2a324349</uuid>
+  <initiated_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f8639348133d432aa1e5047</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What is the effective date of this Policy and when does this policy apply? This Policy is effective as of the date set out above We reserve the right to modify this Policy at any time and such revisions will become effective upon the earlier of a posting of the revisions to the Sites or b distribution by electronic mail Your continued use of any of the Sites or the Services after the effective date of the revisions means that you accept and agree to any such revisions This Policy applies solely to our on-line information gathering and disclosure practices in connection with the Sites and does not apply to any of our practices conducted off-line</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7f14b3ab4c3b48178170344:PolicyChange">
+<owl:NamedIndividual rdf:about="#27455544aeb1445bbbbc783:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#c1a541d05934466f9e226b0:FirstParty"/>
-  <binded_to rdf:resource="#30a0d02bb89448c2a324349:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7f14b3ab4c3b48178170344</uuid>
+  <initiated_by rdf:resource="#c4395f1db93340f7bd1d147:FirstParty"/>
+  <binded_to rdf:resource="#f8639348133d432aa1e5047:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">27455544aeb1445bbbbc783</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What is the effective date of this Policy and when does this policy apply? This Policy is effective as of the date set out above We reserve the right to modify this Policy at any time and such revisions will become effective upon the earlier of a posting of the revisions to the Sites or b distribution by electronic mail Your continued use of any of the Sites or the Services after the effective date of the revisions means that you accept and agree to any such revisions This Policy applies solely to our on-line information gathering and disclosure practices in connection with the Sites and does not apply to any of our practices conducted off-line</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0a733984701749db91804db:FPNotification">
+<owl:NamedIndividual rdf:about="#e34a4d667cee42e1b01b50d:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#c1a541d05934466f9e226b0:FirstParty"/>
-  <notifies rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <has_mechanism rdf:resource="#8400600c8cba4048ab6d5b8:OnWebsitePage"/>
-  <binded_to rdf:resource="#7f14b3ab4c3b48178170344:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0a733984701749db91804db</uuid>
+  <initiated_by rdf:resource="#c4395f1db93340f7bd1d147:FirstParty"/>
+  <notifies rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <has_mechanism rdf:resource="#c61336f80a804b77ab16364:OnWebsitePage"/>
+  <binded_to rdf:resource="#27455544aeb1445bbbbc783:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e34a4d667cee42e1b01b50d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What is the effective date of this Policy and when does this policy apply? This Policy is effective as of the date set out above We reserve the right to modify this Policy at any time and such revisions will become effective upon the earlier of a posting of the revisions to the Sites or b distribution by electronic mail Your continued use of any of the Sites or the Services after the effective date of the revisions means that you accept and agree to any such revisions This Policy applies solely to our on-line information gathering and disclosure practices in connection with the Sites and does not apply to any of our practices conducted off-line</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c76cd7f25a9b42759ac2b48:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#a37912383272472c8a48759:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c76cd7f25a9b42759ac2b48</uuid>
+  <initiated_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a37912383272472c8a48759</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What is the effective date of this Policy and when does this policy apply? This Policy is effective as of the date set out above We reserve the right to modify this Policy at any time and such revisions will become effective upon the earlier of a posting of the revisions to the Sites or b distribution by electronic mail Your continued use of any of the Sites or the Services after the effective date of the revisions means that you accept and agree to any such revisions This Policy applies solely to our on-line information gathering and disclosure practices in connection with the Sites and does not apply to any of our practices conducted off-line</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7b11401ee9d6448e9acc4ec:PolicyChange">
+<owl:NamedIndividual rdf:about="#058b6b2139dd4b33bf46ed6:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#c1a541d05934466f9e226b0:FirstParty"/>
-  <binded_to rdf:resource="#c76cd7f25a9b42759ac2b48:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7b11401ee9d6448e9acc4ec</uuid>
+  <initiated_by rdf:resource="#c4395f1db93340f7bd1d147:FirstParty"/>
+  <binded_to rdf:resource="#a37912383272472c8a48759:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">058b6b2139dd4b33bf46ed6</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What is the effective date of this Policy and when does this policy apply? This Policy is effective as of the date set out above We reserve the right to modify this Policy at any time and such revisions will become effective upon the earlier of a posting of the revisions to the Sites or b distribution by electronic mail Your continued use of any of the Sites or the Services after the effective date of the revisions means that you accept and agree to any such revisions This Policy applies solely to our on-line information gathering and disclosure practices in connection with the Sites and does not apply to any of our practices conducted off-line</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#96b9ec48986743edbc9710b:FPNotification">
+<owl:NamedIndividual rdf:about="#64a04b6788cb4457ab0a45b:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#c1a541d05934466f9e226b0:FirstParty"/>
-  <notifies rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <binded_to rdf:resource="#7b11401ee9d6448e9acc4ec:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">96b9ec48986743edbc9710b</uuid>
+  <initiated_by rdf:resource="#c4395f1db93340f7bd1d147:FirstParty"/>
+  <notifies rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <binded_to rdf:resource="#058b6b2139dd4b33bf46ed6:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">64a04b6788cb4457ab0a45b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What is the effective date of this Policy and when does this policy apply? This Policy is effective as of the date set out above We reserve the right to modify this Policy at any time and such revisions will become effective upon the earlier of a posting of the revisions to the Sites or b distribution by electronic mail Your continued use of any of the Sites or the Services after the effective date of the revisions means that you accept and agree to any such revisions This Policy applies solely to our on-line information gathering and disclosure practices in connection with the Sites and does not apply to any of our practices conducted off-line</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#abc80600e9834f78a59b686:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#ec7625f70fd2441eada5e00:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">abc80600e9834f78a59b686</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ec7625f70fd2441eada5e00</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What is our policy on children s privacy? The Sites are not for children under 13 years of age However there are some areas of the Sites that may be attractive to children under 13 We do not condition participation by a child of any age in any activity available on or through the Sites on the disclosure of more personally-identifiable information than is reasonably necessary to participate in an activity We do not knowingly collect personally-identifiable information from users of the Sites who are under 13 years of age No personally-identifiable information should be submitted to or posted on the Sites by visitors under 13 years of age</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ef542523096d4a34966cce0:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#0837e6ae401047978091e55:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ef542523096d4a34966cce0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0837e6ae401047978091e55</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If we receive an e-mail message from a child who discloses or is otherwise known to us to be under 13 years of age we may without the consent of the child s parent or guardian Respond to a one-time request from the child Provide notice of the child s communication to the child s parent or guardian Use this information as may be necessary to ensure the safety of the child on the Sites or Send our electronic periodical publications and materials with the notification to the child s parent or guardian of the option to discontinue any future delivery of the electronic periodical publications and materials</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5055f65023d845e0b970a35:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#28877ed9e4164f2da0b1917:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5055f65023d845e0b970a35</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">28877ed9e4164f2da0b1917</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If we receive an e-mail message from a child who discloses or is otherwise known to us to be under 13 years of age we may without the consent of the child s parent or guardian Respond to a one-time request from the child Provide notice of the child s communication to the child s parent or guardian Use this information as may be necessary to ensure the safety of the child on the Sites or Send our electronic periodical publications and materials with the notification to the child s parent or guardian of the option to discontinue any future delivery of the electronic periodical publications and materials</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f16f170b073b4223978ac06:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#53fc85f73cd24496ac599b2:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f16f170b073b4223978ac06</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">53fc85f73cd24496ac599b2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">option to discontinue any future delivery of the electronic periodical publications and materials.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#90fa96a224a5468fb626f8c:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#a1df59de5c9842c59ad16cc:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <has_mechanism rdf:resource="#f16f170b073b4223978ac06:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">90fa96a224a5468fb626f8c</uuid>
+  <initiated_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <has_mechanism rdf:resource="#53fc85f73cd24496ac599b2:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a1df59de5c9842c59ad16cc</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If we receive an e-mail message from a child who discloses or is otherwise known to us to be under 13 years of age we may without the consent of the child s parent or guardian Respond to a one-time request from the child Provide notice of the child s communication to the child s parent or guardian Use this information as may be necessary to ensure the safety of the child on the Sites or Send our electronic periodical publications and materials with the notification to the child s parent or guardian of the option to discontinue any future delivery of the electronic periodical publications and materials</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c00a8800b13c4b7dbd1c612:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#10372d121596411f9e9c2a2:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c00a8800b13c4b7dbd1c612</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">10372d121596411f9e9c2a2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Any parent or guardian of a child under 13 years of age who may have provided personally-identifiable information to us may request a description of the personally-identifiable information that has been collected from or about that child and either limit or restrict any further maintenance or use of such information from that child and/or direct us to delete it A parent may also decline to allow any future collection of personally-identifiable information from that child Such requests can be made by contacting us at privacy taylorswift com We will take reasonable measures to verify that the requesting party is in fact the parent or guardian of the child in question before providing a child s personally-identifiable information to such person</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#031e215ebad04a83a9fe31c:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#9ec89358acbc4d02a459743:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">031e215ebad04a83a9fe31c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9ec89358acbc4d02a459743</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Any parent or guardian of a child under 13 years of age who may have provided personally-identifiable information to us may request a description of the personally-identifiable information that has been collected from or about that child and either limit or restrict any further maintenance or use of such information from that child and/or direct us to delete it A parent may also decline to allow any future collection of personally-identifiable information from that child Such requests can be made by contacting us at privacy taylorswift com We will take reasonable measures to verify that the requesting party is in fact the parent or guardian of the child in question before providing a child s personally-identifiable information to such person</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#848da6196c1d40b19ca3fcd:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#8b5057d2b22c4ba0960b0a1:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">848da6196c1d40b19ca3fcd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8b5057d2b22c4ba0960b0a1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Any parent or guardian of a child under 13 years of age who may have provided personally-identifiable information to us may request a description of the personally-identifiable information that has been collected from or about that child and either limit or restrict any further maintenance or use of such information from that child and/or direct us to delete it A parent may also decline to allow any future collection of personally-identifiable information from that child Such requests can be made by contacting us at privacy taylorswift com We will take reasonable measures to verify that the requesting party is in fact the parent or guardian of the child in question before providing a child s personally-identifiable information to such person</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b5c1ee34087e469393cc6d5:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#fa351c3e09704ece916c7d5:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <has_mechanism rdf:resource="#848da6196c1d40b19ca3fcd:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b5c1ee34087e469393cc6d5</uuid>
+  <initiated_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <has_mechanism rdf:resource="#8b5057d2b22c4ba0960b0a1:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fa351c3e09704ece916c7d5</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Any parent or guardian of a child under 13 years of age who may have provided personally-identifiable information to us may request a description of the personally-identifiable information that has been collected from or about that child and either limit or restrict any further maintenance or use of such information from that child and/or direct us to delete it A parent may also decline to allow any future collection of personally-identifiable information from that child Such requests can be made by contacting us at privacy taylorswift com We will take reasonable measures to verify that the requesting party is in fact the parent or guardian of the child in question before providing a child s personally-identifiable information to such person</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#22e04118e25a43ac8403ead:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#d87815ed2c6a41fd8ab94e5:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">22e04118e25a43ac8403ead</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d87815ed2c6a41fd8ab94e5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Any parent or guardian of a child under 13 years of age who may have provided personally-identifiable information to us may request a description of the personally-identifiable information that has been collected from or about that child and either limit or restrict any further maintenance or use of such information from that child and/or direct us to delete it A parent may also decline to allow any future collection of personally-identifiable information from that child Such requests can be made by contacting us at privacy taylorswift com We will take reasonable measures to verify that the requesting party is in fact the parent or guardian of the child in question before providing a child s personally-identifiable information to such person</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0feb6ca3cbed4f0e82c808e:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#86eade6392f34fdaa9f3b88:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <has_mechanism rdf:resource="#22e04118e25a43ac8403ead:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0feb6ca3cbed4f0e82c808e</uuid>
+  <initiated_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <has_mechanism rdf:resource="#d87815ed2c6a41fd8ab94e5:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">86eade6392f34fdaa9f3b88</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Any parent or guardian of a child under 13 years of age who may have provided personally-identifiable information to us may request a description of the personally-identifiable information that has been collected from or about that child and either limit or restrict any further maintenance or use of such information from that child and/or direct us to delete it A parent may also decline to allow any future collection of personally-identifiable information from that child Such requests can be made by contacting us at privacy taylorswift com We will take reasonable measures to verify that the requesting party is in fact the parent or guardian of the child in question before providing a child s personally-identifiable information to such person</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0627e9ec2b1645838437cf5:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#8fe53710f9fb444a81d3588:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0627e9ec2b1645838437cf5</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8fe53710f9fb444a81d3588</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">may request a description of the personally-identifiable information that has been collected from or about that child and either limit or restrict any further maintenance or use of such information from that child and/or direct us to delete it</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2d7dcb73eb1742d597fb8ab:AccountData">
+<owl:NamedIndividual rdf:about="#8b1e0d5460c14dccbe369c9:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2d7dcb73eb1742d597fb8ab</uuid>
+  <provided_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8b1e0d5460c14dccbe369c9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally-identifiable information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1cfb259b08b641df823cafd:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#9baab7455b91419daa17c7a:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <has_mechanism rdf:resource="#0627e9ec2b1645838437cf5:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#2d7dcb73eb1742d597fb8ab:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1cfb259b08b641df823cafd</uuid>
+  <initiated_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <has_mechanism rdf:resource="#8fe53710f9fb444a81d3588:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#8b1e0d5460c14dccbe369c9:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9baab7455b91419daa17c7a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Any parent or guardian of a child under 13 years of age who may have provided personally-identifiable information to us may request a description of the personally-identifiable information that has been collected from or about that child and either limit or restrict any further maintenance or use of such information from that child and/or direct us to delete it A parent may also decline to allow any future collection of personally-identifiable information from that child Such requests can be made by contacting us at privacy taylorswift com We will take reasonable measures to verify that the requesting party is in fact the parent or guardian of the child in question before providing a child s personally-identifiable information to such person</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dad373da88a74726a70f852:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#48bffbdd4c9643e1844bc58:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dad373da88a74726a70f852</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">48bffbdd4c9643e1844bc58</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We will not knowingly use or disclose any personally-identifiable information of a child under 13 years of age for any purpose except as described above</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a60608c2da944252be3cccc:SecureStorage">
+<owl:NamedIndividual rdf:about="#318952036de04561aa4a53b:SecureStorage">
   <rdf:type rdf:resource="#SecureStorage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a60608c2da944252be3cccc</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">318952036de04561aa4a53b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The personally-identifiable information that you provide to us is stored on servers that are located in secured facilities with restricted access, and protected by protocols and procedures designed to ensure reasonable security of such information.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b39a483f5e824847a3748c8:DataProtection">
+<owl:NamedIndividual rdf:about="#e41261fdcc5746f0a8b90a1:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#c1a541d05934466f9e226b0:FirstParty"/>
-  <has_mechanism rdf:resource="#a60608c2da944252be3cccc:SecureStorage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b39a483f5e824847a3748c8</uuid>
+  <initiated_by rdf:resource="#c4395f1db93340f7bd1d147:FirstParty"/>
+  <has_mechanism rdf:resource="#318952036de04561aa4a53b:SecureStorage"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e41261fdcc5746f0a8b90a1</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What security measures do we take? The personally-identifiable information that you provide to us is stored on servers that are located in secured facilities with restricted access and protected by protocols and procedures designed to ensure reasonable security of such information In addition we restrict access to the personally-identifiable information to those of our employees independent contractors and agents who need to know this information in order to develop operate and maintain the Sites and the Services However no data transmission over the Internet can be guaranteed to be completely secure and for this reason we cannot ensure or warrant the security of any information that you transmit to us You can help protect your personally-identifiable information by using a combination of letters and numbers in your password changing your password often using a secure web browser and signing off and closing your web browser when you are finished with the use of the Sites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c30b456dc76e46628068bc4:AccessControls">
+<owl:NamedIndividual rdf:about="#1d7e82bf5ba04daeb63b45f:AccessControls">
   <rdf:type rdf:resource="#AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c30b456dc76e46628068bc4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1d7e82bf5ba04daeb63b45f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">In addition, we restrict access to the personally-identifiable information to those of our employees, independent contractors and agents who need to know this information in order to develop, operate and maintain the Sites and the Services.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2083242e1472442ab08540c:DataProtection">
+<owl:NamedIndividual rdf:about="#b3c7ee836a1848edaa948c8:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#c1a541d05934466f9e226b0:FirstParty"/>
-  <has_mechanism rdf:resource="#c30b456dc76e46628068bc4:AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2083242e1472442ab08540c</uuid>
+  <initiated_by rdf:resource="#c4395f1db93340f7bd1d147:FirstParty"/>
+  <has_mechanism rdf:resource="#1d7e82bf5ba04daeb63b45f:AccessControls"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b3c7ee836a1848edaa948c8</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What security measures do we take? The personally-identifiable information that you provide to us is stored on servers that are located in secured facilities with restricted access and protected by protocols and procedures designed to ensure reasonable security of such information In addition we restrict access to the personally-identifiable information to those of our employees independent contractors and agents who need to know this information in order to develop operate and maintain the Sites and the Services However no data transmission over the Internet can be guaranteed to be completely secure and for this reason we cannot ensure or warrant the security of any information that you transmit to us You can help protect your personally-identifiable information by using a combination of letters and numbers in your password changing your password often using a secure web browser and signing off and closing your web browser when you are finished with the use of the Sites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#35e752a7b564463ea27ff75:AccessControls">
+<owl:NamedIndividual rdf:about="#0e80591adb144a63b780cdb:AccessControls">
   <rdf:type rdf:resource="#AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">35e752a7b564463ea27ff75</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0e80591adb144a63b780cdb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">restricted access,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#11984776a659438fa6c7657:DataProtection">
+<owl:NamedIndividual rdf:about="#dde297719ebd4fb7a666bc1:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#c1a541d05934466f9e226b0:FirstParty"/>
-  <has_mechanism rdf:resource="#35e752a7b564463ea27ff75:AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11984776a659438fa6c7657</uuid>
+  <initiated_by rdf:resource="#c4395f1db93340f7bd1d147:FirstParty"/>
+  <has_mechanism rdf:resource="#0e80591adb144a63b780cdb:AccessControls"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dde297719ebd4fb7a666bc1</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What security measures do we take? The personally-identifiable information that you provide to us is stored on servers that are located in secured facilities with restricted access and protected by protocols and procedures designed to ensure reasonable security of such information In addition we restrict access to the personally-identifiable information to those of our employees independent contractors and agents who need to know this information in order to develop operate and maintain the Sites and the Services However no data transmission over the Internet can be guaranteed to be completely secure and for this reason we cannot ensure or warrant the security of any information that you transmit to us You can help protect your personally-identifiable information by using a combination of letters and numbers in your password changing your password often using a secure web browser and signing off and closing your web browser when you are finished with the use of the Sites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#80f8d3b55324417ead74e90:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#b58f98cac454487b816dd94:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">80f8d3b55324417ead74e90</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b58f98cac454487b816dd94</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The personally-identifiable information that you provide to us is stored on servers that are located in secured facilities with restricted access, and protected by protocols and procedures designed to ensure reasonable security of such information. In addition, we restrict access to the personally-identifiable information to those of our employees, independent contractors and agents who need to know this information in order to develop, operate and maintain the Sites and the Services. However, no data transmission over the Internet can be guaranteed to be completely secure, and, for this reason, we cannot ensure or warrant the security of any information that you transmit to us. You can help protect your personally-identifiable information by using a combination of letters and numbers in your password, changing your password often, using a secure web browser, and signing off and closing your web browser when you are finished with the use of the Sites.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#69d73eb150da47b182175db:DataProtection">
+<owl:NamedIndividual rdf:about="#ce51bf6fc0774a8a8c9d9db:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#c1a541d05934466f9e226b0:FirstParty"/>
-  <has_mechanism rdf:resource="#80f8d3b55324417ead74e90:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">69d73eb150da47b182175db</uuid>
+  <initiated_by rdf:resource="#c4395f1db93340f7bd1d147:FirstParty"/>
+  <has_mechanism rdf:resource="#b58f98cac454487b816dd94:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ce51bf6fc0774a8a8c9d9db</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What security measures do we take? The personally-identifiable information that you provide to us is stored on servers that are located in secured facilities with restricted access and protected by protocols and procedures designed to ensure reasonable security of such information In addition we restrict access to the personally-identifiable information to those of our employees independent contractors and agents who need to know this information in order to develop operate and maintain the Sites and the Services However no data transmission over the Internet can be guaranteed to be completely secure and for this reason we cannot ensure or warrant the security of any information that you transmit to us You can help protect your personally-identifiable information by using a combination of letters and numbers in your password changing your password often using a secure web browser and signing off and closing your web browser when you are finished with the use of the Sites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#419158488a654a0f9bf00f0:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#5412afc01aa04092a5b90ef:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">419158488a654a0f9bf00f0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5412afc01aa04092a5b90ef</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">However, no data transmission over the Internet can be guaranteed to be completely secure, and, for this reason, we cannot ensure or warrant the security of any information that you transmit to us. You can help protect your personally-identifiable information by using a combination of letters and numbers in your password, changing your password often, using a secure web browser, and signing off and closing your web browser when you are finished with the use of the Sites.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b1c5dd7367cc4e43bf01d61:DataProtection">
+<owl:NamedIndividual rdf:about="#f163122701884818bcd10c9:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#c1a541d05934466f9e226b0:FirstParty"/>
-  <has_mechanism rdf:resource="#419158488a654a0f9bf00f0:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b1c5dd7367cc4e43bf01d61</uuid>
+  <initiated_by rdf:resource="#c4395f1db93340f7bd1d147:FirstParty"/>
+  <has_mechanism rdf:resource="#5412afc01aa04092a5b90ef:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f163122701884818bcd10c9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What security measures do we take? The personally-identifiable information that you provide to us is stored on servers that are located in secured facilities with restricted access and protected by protocols and procedures designed to ensure reasonable security of such information In addition we restrict access to the personally-identifiable information to those of our employees independent contractors and agents who need to know this information in order to develop operate and maintain the Sites and the Services However no data transmission over the Internet can be guaranteed to be completely secure and for this reason we cannot ensure or warrant the security of any information that you transmit to us You can help protect your personally-identifiable information by using a combination of letters and numbers in your password changing your password often using a secure web browser and signing off and closing your web browser when you are finished with the use of the Sites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#228bcd164654478893a5e6c:FPSpecificCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#0b983b13fa78489687d5eed:FPSpecificCommunicationMechanism">
   <rdf:type rdf:resource="#FPSpecificCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">228bcd164654478893a5e6c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0b983b13fa78489687d5eed</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mail a</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b80058efdaf64bc9a7251d1:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#ed272268f1e64255aae02e0:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b80058efdaf64bc9a7251d1</uuid>
+  <initiated_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ed272268f1e64255aae02e0</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Asset Transfers If we become involved in a merger acquisition or other transaction involving the sale of some or all of our assets or in the event of an insolvency or bankruptcy the information including personally-identifiable information collected from you through your use of the Sites may be included in the transferred assets Should such an event occur we will use reasonable measures to notify you either through e-mail and/or a prominent notice on the Sites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d159455848d944009707e8d:PolicyChange">
+<owl:NamedIndividual rdf:about="#f706807c149f46b4b807a42:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#c1a541d05934466f9e226b0:FirstParty"/>
-  <binded_to rdf:resource="#b80058efdaf64bc9a7251d1:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d159455848d944009707e8d</uuid>
+  <initiated_by rdf:resource="#c4395f1db93340f7bd1d147:FirstParty"/>
+  <binded_to rdf:resource="#ed272268f1e64255aae02e0:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f706807c149f46b4b807a42</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Asset Transfers If we become involved in a merger acquisition or other transaction involving the sale of some or all of our assets or in the event of an insolvency or bankruptcy the information including personally-identifiable information collected from you through your use of the Sites may be included in the transferred assets Should such an event occur we will use reasonable measures to notify you either through e-mail and/or a prominent notice on the Sites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d1438fed74954c6da8416bc:FPNotification">
+<owl:NamedIndividual rdf:about="#2c073898f11f4b72ad8ade0:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#c1a541d05934466f9e226b0:FirstParty"/>
-  <notifies rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <has_mechanism rdf:resource="#228bcd164654478893a5e6c:FPSpecificCommunicationMechanism"/>
-  <binded_to rdf:resource="#d159455848d944009707e8d:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d1438fed74954c6da8416bc</uuid>
+  <initiated_by rdf:resource="#c4395f1db93340f7bd1d147:FirstParty"/>
+  <notifies rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <has_mechanism rdf:resource="#0b983b13fa78489687d5eed:FPSpecificCommunicationMechanism"/>
+  <binded_to rdf:resource="#f706807c149f46b4b807a42:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2c073898f11f4b72ad8ade0</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Asset Transfers If we become involved in a merger acquisition or other transaction involving the sale of some or all of our assets or in the event of an insolvency or bankruptcy the information including personally-identifiable information collected from you through your use of the Sites may be included in the transferred assets Should such an event occur we will use reasonable measures to notify you either through e-mail and/or a prominent notice on the Sites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#628b613aedfc4d38ae32d14:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#bffc2a0d67e545a68f82979:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">628b613aedfc4d38ae32d14</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bffc2a0d67e545a68f82979</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">prominent notice on the Sites.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4c1b5fb7b89744cfba5358c:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#f7ebe7d6dcc6469ab3decee:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4c1b5fb7b89744cfba5358c</uuid>
+  <initiated_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f7ebe7d6dcc6469ab3decee</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Asset Transfers If we become involved in a merger acquisition or other transaction involving the sale of some or all of our assets or in the event of an insolvency or bankruptcy the information including personally-identifiable information collected from you through your use of the Sites may be included in the transferred assets Should such an event occur we will use reasonable measures to notify you either through e-mail and/or a prominent notice on the Sites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b7a2b214b1214a23a7619e3:PolicyChange">
+<owl:NamedIndividual rdf:about="#95c5070af123447db9d3fd9:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#c1a541d05934466f9e226b0:FirstParty"/>
-  <binded_to rdf:resource="#4c1b5fb7b89744cfba5358c:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b7a2b214b1214a23a7619e3</uuid>
+  <initiated_by rdf:resource="#c4395f1db93340f7bd1d147:FirstParty"/>
+  <binded_to rdf:resource="#f7ebe7d6dcc6469ab3decee:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">95c5070af123447db9d3fd9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Asset Transfers If we become involved in a merger acquisition or other transaction involving the sale of some or all of our assets or in the event of an insolvency or bankruptcy the information including personally-identifiable information collected from you through your use of the Sites may be included in the transferred assets Should such an event occur we will use reasonable measures to notify you either through e-mail and/or a prominent notice on the Sites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f8b6db4f652243168255cb9:FPNotification">
+<owl:NamedIndividual rdf:about="#5c6c9a955426428a862b243:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#c1a541d05934466f9e226b0:FirstParty"/>
-  <notifies rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <has_mechanism rdf:resource="#628b613aedfc4d38ae32d14:OnWebsitePage"/>
-  <binded_to rdf:resource="#b7a2b214b1214a23a7619e3:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f8b6db4f652243168255cb9</uuid>
+  <initiated_by rdf:resource="#c4395f1db93340f7bd1d147:FirstParty"/>
+  <notifies rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <has_mechanism rdf:resource="#bffc2a0d67e545a68f82979:OnWebsitePage"/>
+  <binded_to rdf:resource="#95c5070af123447db9d3fd9:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5c6c9a955426428a862b243</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Asset Transfers If we become involved in a merger acquisition or other transaction involving the sale of some or all of our assets or in the event of an insolvency or bankruptcy the information including personally-identifiable information collected from you through your use of the Sites may be included in the transferred assets Should such an event occur we will use reasonable measures to notify you either through e-mail and/or a prominent notice on the Sites</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#269e2cc6a6a548e1a89da54:GenericData">
+<owl:NamedIndividual rdf:about="#c578bcab2a2e4a278dfaf79:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">269e2cc6a6a548e1a89da54</uuid>
+  <provided_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c578bcab2a2e4a278dfaf79</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9d1e214e6b4c46209322956:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#b81fbf375427490a9b50a16:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9d1e214e6b4c46209322956</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b81fbf375427490a9b50a16</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">weepstakes and Contests. If you choose to participate in any of our on-line promotions such as a sweepstakes or a contest</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2f84e8ee69f042b5bcb9770:TPCollection">
+<owl:NamedIndividual rdf:about="#e053caac585e4dea96bb593:TPCollection">
   <rdf:type rdf:resource="#TPCollection"/>
-  <initiated_by rdf:resource="#c1a541d05934466f9e226b0:FirstParty"/>
-  <collects_from rdf:resource="#50470cb0ae454d489a51a4f:ThirdParty"/>
-  <has_purpose rdf:resource="#9d1e214e6b4c46209322956:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#269e2cc6a6a548e1a89da54:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2f84e8ee69f042b5bcb9770</uuid>
+  <initiated_by rdf:resource="#c4395f1db93340f7bd1d147:FirstParty"/>
+  <collects_from rdf:resource="#4175edcc76c14242b4af41e:ThirdParty"/>
+  <has_purpose rdf:resource="#b81fbf375427490a9b50a16:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#c578bcab2a2e4a278dfaf79:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e053caac585e4dea96bb593</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Sweepstakes and Contests If you choose to participate in any of our on-line promotions such as a sweepstakes or a contest your personally-identifiable information collected in connection with a promotion may be shared with the third-party sponsor of the promotion or as otherwise provided in the Official Rules You should carefully review the Official Rules of each promotion in which you choose to participate through the Sites as the Official Rules may contain additional important information about a third party s collection and use of your information To the extent that the Official Rules of any promotion conflict with this Policy the Official Rules will govern collection and use of your personally-identifiable information in conjunction with that particular promotion</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1caafb27e5ee419c94e418e:TPSharing">
+<owl:NamedIndividual rdf:about="#93c7172c6bec48afaeeb55b:TPSharing">
   <rdf:type rdf:resource="#TPSharing"/>
-  <initiated_by rdf:resource="#c1a541d05934466f9e226b0:FirstParty"/>
-  <shares_with rdf:resource="#50470cb0ae454d489a51a4f:ThirdParty"/>
-  <has_purpose rdf:resource="#9d1e214e6b4c46209322956:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#269e2cc6a6a548e1a89da54:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1caafb27e5ee419c94e418e</uuid>
+  <initiated_by rdf:resource="#c4395f1db93340f7bd1d147:FirstParty"/>
+  <shares_with rdf:resource="#4175edcc76c14242b4af41e:ThirdParty"/>
+  <has_purpose rdf:resource="#b81fbf375427490a9b50a16:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#c578bcab2a2e4a278dfaf79:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">93c7172c6bec48afaeeb55b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Sweepstakes and Contests If you choose to participate in any of our on-line promotions such as a sweepstakes or a contest your personally-identifiable information collected in connection with a promotion may be shared with the third-party sponsor of the promotion or as otherwise provided in the Official Rules You should carefully review the Official Rules of each promotion in which you choose to participate through the Sites as the Official Rules may contain additional important information about a third party s collection and use of your information To the extent that the Official Rules of any promotion conflict with this Policy the Official Rules will govern collection and use of your personally-identifiable information in conjunction with that particular promotion</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#32db3e9081f84dc09c5d5bb:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#c8d44cb022bd4cffa91fded:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">32db3e9081f84dc09c5d5bb</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c8d44cb022bd4cffa91fded</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8e84adaac4834627a2e03d4:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#d3cf971dec7343e885d0983:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <has_mechanism rdf:resource="#32db3e9081f84dc09c5d5bb:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8e84adaac4834627a2e03d4</uuid>
+  <initiated_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <has_mechanism rdf:resource="#c8d44cb022bd4cffa91fded:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d3cf971dec7343e885d0983</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ea2ad177213543e89f4d2cd:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#c8df21ccc86641bc88b3fae:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ea2ad177213543e89f4d2cd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c8df21ccc86641bc88b3fae</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#95e20ef4dc9742eb8f29fba:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#adfadc17f2424c84b4460be:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <has_mechanism rdf:resource="#ea2ad177213543e89f4d2cd:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">95e20ef4dc9742eb8f29fba</uuid>
+  <initiated_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <has_mechanism rdf:resource="#c8df21ccc86641bc88b3fae:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">adfadc17f2424c84b4460be</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b68a56a44a4a41c3a3df973:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#f8b640251814458ca690928:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b68a56a44a4a41c3a3df973</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f8b640251814458ca690928</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d66a4765afe045fb854d482:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#7ff195143f7c49668e1f184:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <has_mechanism rdf:resource="#b68a56a44a4a41c3a3df973:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d66a4765afe045fb854d482</uuid>
+  <initiated_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <has_mechanism rdf:resource="#f8b640251814458ca690928:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7ff195143f7c49668e1f184</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8793909241a44a3cb8ba2e7:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#fa3f338f4c7643908c1f03a:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8793909241a44a3cb8ba2e7</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fa3f338f4c7643908c1f03a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#08982a7551754c208f87458:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#2eb03ed422c6477d9772db4:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <has_mechanism rdf:resource="#8793909241a44a3cb8ba2e7:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">08982a7551754c208f87458</uuid>
+  <initiated_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <has_mechanism rdf:resource="#fa3f338f4c7643908c1f03a:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2eb03ed422c6477d9772db4</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2f201a57e4f54dee9e740bd:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#a7e4071f838f44ad94833cb:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2f201a57e4f54dee9e740bd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a7e4071f838f44ad94833cb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ac4fce954db847858a2de65:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#51b7d474fee14633b1af63b:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <has_mechanism rdf:resource="#2f201a57e4f54dee9e740bd:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ac4fce954db847858a2de65</uuid>
+  <initiated_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <has_mechanism rdf:resource="#a7e4071f838f44ad94833cb:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">51b7d474fee14633b1af63b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#13826bca1415447d9cff492:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#9e8c8676750d400a8a0c4f2:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">13826bca1415447d9cff492</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9e8c8676750d400a8a0c4f2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9386846f969d439b8c4e24b:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#4767b1723951428d8ddf70b:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <has_mechanism rdf:resource="#13826bca1415447d9cff492:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9386846f969d439b8c4e24b</uuid>
+  <initiated_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <has_mechanism rdf:resource="#9e8c8676750d400a8a0c4f2:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4767b1723951428d8ddf70b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5d8bdf1b0fe744a6a94d58d:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#cd9ddd6eebbe41a083c1d41:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5d8bdf1b0fe744a6a94d58d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cd9ddd6eebbe41a083c1d41</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">reasonable period of time</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b245280454a740268f31992:SecurityPurpose">
+<owl:NamedIndividual rdf:about="#f37ccbaab7e14b5eb60b7ee:SecurityPurpose">
   <rdf:type rdf:resource="#SecurityPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b245280454a740268f31992</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f37ccbaab7e14b5eb60b7ee</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">internal account management and fraud prevention.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4b75c08cafa54ae38545c3a:GenericData">
+<owl:NamedIndividual rdf:about="#f3d8d27eff3643b98e82776:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4b75c08cafa54ae38545c3a</uuid>
+  <provided_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f3d8d27eff3643b98e82776</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">account information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fb02e5e04e4b4d14bea194e:DataRetention">
+<owl:NamedIndividual rdf:about="#f0b4fb2d8d594025a228337:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#c1a541d05934466f9e226b0:FirstParty"/>
-  <lasts_for rdf:resource="#5d8bdf1b0fe744a6a94d58d:DataRetentionTime"/>
-  <has_purpose rdf:resource="#b245280454a740268f31992:SecurityPurpose"/>
-  <applies_to rdf:resource="#4b75c08cafa54ae38545c3a:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fb02e5e04e4b4d14bea194e</uuid>
+  <initiated_by rdf:resource="#c4395f1db93340f7bd1d147:FirstParty"/>
+  <lasts_for rdf:resource="#cd9ddd6eebbe41a083c1d41:DataRetentionTime"/>
+  <has_purpose rdf:resource="#f37ccbaab7e14b5eb60b7ee:SecurityPurpose"/>
+  <applies_to rdf:resource="#f3d8d27eff3643b98e82776:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f0b4fb2d8d594025a228337</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5d7e8ce7f78c487dbbeb6c4:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#ed17948200be41d6bbf0223:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5d7e8ce7f78c487dbbeb6c4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ed17948200be41d6bbf0223</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#872458efa8a442248ec3ad6:AccountData">
+<owl:NamedIndividual rdf:about="#6519af62dc854916919e5e5:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">872458efa8a442248ec3ad6</uuid>
+  <provided_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6519af62dc854916919e5e5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#48a95b49cf294782b5cc72c:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#f1485c9a41ea49049e9adac:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <has_mechanism rdf:resource="#5d7e8ce7f78c487dbbeb6c4:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#872458efa8a442248ec3ad6:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">48a95b49cf294782b5cc72c</uuid>
+  <initiated_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <has_mechanism rdf:resource="#ed17948200be41d6bbf0223:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#6519af62dc854916919e5e5:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f1485c9a41ea49049e9adac</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1910c01eb8b44fd19d0ed32:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#ecf66c6b094d49ae9ec66ac:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1910c01eb8b44fd19d0ed32</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ecf66c6b094d49ae9ec66ac</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b2e5cf706f0e4d33a99be12:AccountData">
+<owl:NamedIndividual rdf:about="#0287b577a64e470c9717fc7:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b2e5cf706f0e4d33a99be12</uuid>
+  <provided_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0287b577a64e470c9717fc7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3a486b47b2ee493a9627551:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#1eb3752aacb74dceb5da64f:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <has_mechanism rdf:resource="#1910c01eb8b44fd19d0ed32:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#b2e5cf706f0e4d33a99be12:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3a486b47b2ee493a9627551</uuid>
+  <initiated_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <has_mechanism rdf:resource="#ecf66c6b094d49ae9ec66ac:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#0287b577a64e470c9717fc7:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1eb3752aacb74dceb5da64f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5be38c64bd564ee6aebc9ac:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#443f82f3d66c4d87a0076b2:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5be38c64bd564ee6aebc9ac</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">443f82f3d66c4d87a0076b2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">we may retain your account information for a reasonable period of time</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6380b9cbeb2b4a2e92d9686:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#e1563098a6384cda8d99f3a:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6380b9cbeb2b4a2e92d9686</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e1563098a6384cda8d99f3a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the purpose of internal account management and fraud prevention.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ea73fa0d09804f079692cf5:SensitiveData">
+<owl:NamedIndividual rdf:about="#46d058f3b46d4e06a8f866d:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ea73fa0d09804f079692cf5</uuid>
+  <provided_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">46d058f3b46d4e06a8f866d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">account information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#64d7072a5ced4b9baa9e6dc:DataRetention">
+<owl:NamedIndividual rdf:about="#e2fde744a20f488fb25d725:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#c1a541d05934466f9e226b0:FirstParty"/>
-  <lasts_for rdf:resource="#5be38c64bd564ee6aebc9ac:DataRetentionTime"/>
-  <has_purpose rdf:resource="#6380b9cbeb2b4a2e92d9686:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#ea73fa0d09804f079692cf5:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">64d7072a5ced4b9baa9e6dc</uuid>
+  <initiated_by rdf:resource="#c4395f1db93340f7bd1d147:FirstParty"/>
+  <lasts_for rdf:resource="#443f82f3d66c4d87a0076b2:DataRetentionTime"/>
+  <has_purpose rdf:resource="#e1563098a6384cda8d99f3a:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#46d058f3b46d4e06a8f866d:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e2fde744a20f488fb25d725</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#60e9d97f7941405994d360e:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#e862da56231f41cdad6f0eb:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">60e9d97f7941405994d360e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e862da56231f41cdad6f0eb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e8455df9374746468c3790e:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#8228d5d02701462f8f534cf:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <has_mechanism rdf:resource="#60e9d97f7941405994d360e:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e8455df9374746468c3790e</uuid>
+  <initiated_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <has_mechanism rdf:resource="#e862da56231f41cdad6f0eb:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8228d5d02701462f8f534cf</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What choices do you have about the collection and use of your information? You may access update or delete your personally-identifiable information and/or modify your account preferences for the Services by accessing the My Account area of the Services or by contacting us at privacy taylorswift com Please note that when you delete your account we may retain your account information for a reasonable period of time for the purpose of internal account management and fraud prevention</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e5331fee19c345618ea0808:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#f2b18cacbceb441ea656b03:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e5331fee19c345618ea0808</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f2b18cacbceb441ea656b03</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you no longer wish to receive our announcements by e-mail you may unsubscribe from receiving them at any time by choosing the Unsubscribe link at the bottom of our e-mails or by writing to us at privacy taylorswift com If you e-mail us to change your contact preferences we will implement your requested changes within a reasonable period of time Please note that your requested changes will not be effective until we implement such changes Please also note that you cannot unsubscribe from certain correspondence from us such as messages relating to your account transactions</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#192c2ee5fc0b43f79370301:AccountData">
+<owl:NamedIndividual rdf:about="#420baa48e35d4a5ba84e9fb:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">192c2ee5fc0b43f79370301</uuid>
+  <provided_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">420baa48e35d4a5ba84e9fb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f783a75b1b6a45b2b0628b5:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#19a430eb505a4c739ecf28a:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <has_mechanism rdf:resource="#e5331fee19c345618ea0808:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#192c2ee5fc0b43f79370301:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f783a75b1b6a45b2b0628b5</uuid>
+  <initiated_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <has_mechanism rdf:resource="#f2b18cacbceb441ea656b03:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#420baa48e35d4a5ba84e9fb:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">19a430eb505a4c739ecf28a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you no longer wish to receive our announcements by e-mail you may unsubscribe from receiving them at any time by choosing the Unsubscribe link at the bottom of our e-mails or by writing to us at privacy taylorswift com If you e-mail us to change your contact preferences we will implement your requested changes within a reasonable period of time Please note that your requested changes will not be effective until we implement such changes Please also note that you cannot unsubscribe from certain correspondence from us such as messages relating to your account transactions</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2234eeeee5164674aca4a41:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#2769cda75fc347f9a2c474d:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2234eeeee5164674aca4a41</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2769cda75fc347f9a2c474d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you may unsubscribe from receiving them at any time by choosing the "Unsubscribe" link</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7c92ceb5637348ca8263969:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#751b1aeb6fd7447d85b309e:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <has_mechanism rdf:resource="#2234eeeee5164674aca4a41:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7c92ceb5637348ca8263969</uuid>
+  <initiated_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <has_mechanism rdf:resource="#2769cda75fc347f9a2c474d:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">751b1aeb6fd7447d85b309e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you no longer wish to receive our announcements by e-mail you may unsubscribe from receiving them at any time by choosing the Unsubscribe link at the bottom of our e-mails or by writing to us at privacy taylorswift com If you e-mail us to change your contact preferences we will implement your requested changes within a reasonable period of time Please note that your requested changes will not be effective until we implement such changes Please also note that you cannot unsubscribe from certain correspondence from us such as messages relating to your account transactions</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0deeae33afe84f6da2aace3:AdvertisingDataControl">
+<owl:NamedIndividual rdf:about="#1108c5609978410aabd9f92:AdvertisingDataControl">
   <rdf:type rdf:resource="#AdvertisingDataControl"/>
-  <initiated_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0deeae33afe84f6da2aace3</uuid>
+  <initiated_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1108c5609978410aabd9f92</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What is our policy on tracking? You may be able to adjust your browser s settings to turn on a do not track feature Although our policy may change in the future currently we do not support do not track and will not honor your web browser s do not track signal</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#09907441342d43cbbdc70a9:AdvertisingDataControl">
+<owl:NamedIndividual rdf:about="#a68eeb108dfa4954b61cc20:AdvertisingDataControl">
   <rdf:type rdf:resource="#AdvertisingDataControl"/>
-  <initiated_by rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">09907441342d43cbbdc70a9</uuid>
+  <initiated_by rdf:resource="#d6aae3e65bee4aecaa49cf0:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a68eeb108dfa4954b61cc20</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What is our policy on tracking? You may be able to adjust your browser s settings to turn on a do not track feature Although our policy may change in the future currently we do not support do not track and will not honor your web browser s do not track signal</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1c9863e9de9e45c79903810:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#731a1240e1ac4388b53366b:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1c9863e9de9e45c79903810</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">731a1240e1ac4388b53366b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does this Policy apply in other countries? We comply with the United States privacy laws and regulations We do not represent that the Sites are governed by or operated in accordance with the laws of other nations or that the Sites or any portion of the Sites are appropriate or available for use in any particular location If you choose to access the Sites you do so at your own risk and you are responsible for complying with all local laws rules and regulations By using the Sites visitors to the Sites from outside the United States acknowledge and agree that the Sites are subject to United States laws and regulations and waive any claims against us that may arise under their own national laws</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8688009fb0984a2bac603f4:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#1191ed0d824949148025c43:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#673d73a7188e4587a1cd33b:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8688009fb0984a2bac603f4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1191ed0d824949148025c43</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does this Policy apply in other countries? We comply with the United States privacy laws and regulations We do not represent that the Sites are governed by or operated in accordance with the laws of other nations or that the Sites or any portion of the Sites are appropriate or available for use in any particular location If you choose to access the Sites you do so at your own risk and you are responsible for complying with all local laws rules and regulations By using the Sites visitors to the Sites from outside the United States acknowledge and agree that the Sites are subject to United States laws and regulations and waive any claims against us that may arise under their own national laws</evidence>
 </owl:NamedIndividual>
 

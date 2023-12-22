@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -901,6 +902,14 @@
   <rdfs:subClassOf rdf:resource="#UserSpecificCommunicationMechanism"/>
   <owl:disjointWith rdf:resource="#AutomaticCommunicationMechanism"/>
   <rdfs:subClassOf>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
+        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
+      </owl:unionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
       <owl:allValuesFrom>
@@ -909,14 +918,6 @@
         </owl:Class>
       </owl:allValuesFrom>
     </owl:Restriction>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
-        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
-      </owl:unionOf>
-    </owl:Class>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,763 +1305,763 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#2b9ffe8742264f7b8325fcd:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#ee3f46ea6cd54347854f824:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2b9ffe8742264f7b8325fcd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ee3f46ea6cd54347854f824</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#77a323d31102473dbd47a9b:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#2b90643cc1c743a8857664a:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <considers rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <considers rdf:resource="#4a9ead2186fb44529af2dcf:ThirdParty"/>
-  <considers rdf:resource="#b3c0268d75f4436090a4870:OptInOptOutControl"/>
-  <considers rdf:resource="#be6048c166834bd8a1a9625:OptInOptOutControl"/>
-  <considers rdf:resource="#a8c442afa8c04979acdbe83:PersonalData"/>
-  <considers rdf:resource="#4ab979e53b4d41ccbbae45f:DataUse"/>
-  <considers rdf:resource="#6dc934f4327a489caade33a:DataUse"/>
-  <considers rdf:resource="#b217e7fe951b46d6a72dd0f:DataUse"/>
-  <considers rdf:resource="#0dfd19d08a7b423095db60f:PersonalData"/>
-  <considers rdf:resource="#9c34410cdd584ddf88c44f5:FPCollection"/>
-  <considers rdf:resource="#3d63d1c1734f41f48d8affc:DataUse"/>
-  <considers rdf:resource="#586091cbbb1949eabc03fdb:PersonalData"/>
-  <considers rdf:resource="#4bec8e41580f4204a3ea8a3:FPCollection"/>
-  <considers rdf:resource="#bbcc29b4f72f4a8aa183b0c:PersonalData"/>
-  <considers rdf:resource="#667d0d34d84f4f9b8ce3b1a:FPCollection"/>
-  <considers rdf:resource="#c6cd809b66ee46c0abbe908:DataUse"/>
-  <considers rdf:resource="#08045e84c56f4678b1f02ff:DataUse"/>
-  <considers rdf:resource="#d45f54f42d1e411c8f58521:DataUse"/>
-  <considers rdf:resource="#64888a32a00742868d96edf:TrackingData"/>
-  <considers rdf:resource="#210cade00c9140e8bd67ae5:DataProtection"/>
-  <considers rdf:resource="#22a5a6f1e5d2407f9762acd:FPCollection"/>
-  <considers rdf:resource="#eb2aabea8e184645aadc94c:TrackingData"/>
-  <considers rdf:resource="#be19a39dbc094de8bfda9ae:DataProtection"/>
-  <considers rdf:resource="#01c43b0e4f7b44989d247f2:FPCollection"/>
-  <considers rdf:resource="#e34a44218de14d9184deb33:TrackingData"/>
-  <considers rdf:resource="#2e3b746cb7ec4f53b40148d:DataProtection"/>
-  <considers rdf:resource="#244fc8d9706f4c4dbf218cb:FPCollection"/>
-  <considers rdf:resource="#8ab244fb59eb48608d0f2db:TrackingData"/>
-  <considers rdf:resource="#34ed67eb8a7d4261baf52f0:DataRetention"/>
-  <considers rdf:resource="#0f457ab7f2fc412da0170f6:TrackingData"/>
-  <considers rdf:resource="#ce990734388049abb0bcb84:DataRetention"/>
-  <considers rdf:resource="#aadd6f45f03d444e99a711d:TrackingData"/>
-  <considers rdf:resource="#7e319e383cd1421ab649258:DataRetention"/>
-  <considers rdf:resource="#00c45df1fd2d416ea7d4067:TrackingData"/>
-  <considers rdf:resource="#a6054d7157974c4380c2669:DataRetention"/>
-  <considers rdf:resource="#644f61b1fd504b65956cf2a:TrackingData"/>
-  <considers rdf:resource="#ecc35c5babfe4029a79c3b9:DataProtection"/>
-  <considers rdf:resource="#e1a28292e0a14f2288d6332:FPCollection"/>
-  <considers rdf:resource="#1c8deda5b169404c8863d86:Data"/>
-  <considers rdf:resource="#f9d5049850b84db9b364dde:DataRetention"/>
-  <considers rdf:resource="#b3e7fc49624d43ad95416dc:DeviceData"/>
-  <considers rdf:resource="#5df46c1b0e7843fbbde2c53:DataRetention"/>
-  <considers rdf:resource="#5d942c1a85844aca8f007b3:DeviceData"/>
-  <considers rdf:resource="#a699e00706d3444db8fc3de:DataRetention"/>
-  <considers rdf:resource="#d53a7a4a127f422d8c9480a:OptInOptOutControl"/>
-  <considers rdf:resource="#489ef56be59748cd9ff1611:PolicyChange"/>
-  <considers rdf:resource="#8b76735a8c5540b6bcefea0:FPNotification"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">77a323d31102473dbd47a9b</uuid>
+  <considers rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <considers rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <considers rdf:resource="#ccedce3dddf1434a99cdd02:ThirdParty"/>
+  <considers rdf:resource="#a7b3421e08fc4fae93e6328:OptInOptOutControl"/>
+  <considers rdf:resource="#e69e4faf18864075af31cd9:OptInOptOutControl"/>
+  <considers rdf:resource="#1884718c804546b7bd687c9:PersonalData"/>
+  <considers rdf:resource="#f33ee517721842ef9fce2a5:DataUse"/>
+  <considers rdf:resource="#0a149c1c352448d88952a88:DataUse"/>
+  <considers rdf:resource="#88394d65d7d1438ab4b6b3c:DataUse"/>
+  <considers rdf:resource="#0b1709c6f8254b2ca12af63:PersonalData"/>
+  <considers rdf:resource="#c5bf6afd08014ed29cfb99f:FPCollection"/>
+  <considers rdf:resource="#7b80db71d0b04621a5d96a9:DataUse"/>
+  <considers rdf:resource="#0013c8f913c443f2aee27e4:PersonalData"/>
+  <considers rdf:resource="#a5143b2a4bb4471483edff6:FPCollection"/>
+  <considers rdf:resource="#0dee7ac6e56d471fa3b850e:PersonalData"/>
+  <considers rdf:resource="#b8cec4b8fa984d1faf3e9e1:FPCollection"/>
+  <considers rdf:resource="#476d9b957f954a6fac80cfe:DataUse"/>
+  <considers rdf:resource="#208bc4f9d0d14212910b511:DataUse"/>
+  <considers rdf:resource="#bc05813ffac04022bb7babe:DataUse"/>
+  <considers rdf:resource="#57d971cffce148899b0d6c8:TrackingData"/>
+  <considers rdf:resource="#99c07bcd85804d42a9b3cf9:DataProtection"/>
+  <considers rdf:resource="#14f6d34523fd4a28b804611:FPCollection"/>
+  <considers rdf:resource="#86ed431413eb4ef4813a8ee:TrackingData"/>
+  <considers rdf:resource="#70bb28aeb190466fa6e63a1:DataProtection"/>
+  <considers rdf:resource="#c42536bf1b8a4b6a987cba2:FPCollection"/>
+  <considers rdf:resource="#dd9cee453b0e47c89bb6733:TrackingData"/>
+  <considers rdf:resource="#9166dd052de2471f9590be4:DataProtection"/>
+  <considers rdf:resource="#cb7864136955441f9c7a330:FPCollection"/>
+  <considers rdf:resource="#817ab4cdb30b4cc8bf52ad7:TrackingData"/>
+  <considers rdf:resource="#9c16cc7a6bd245e0a87dfde:DataRetention"/>
+  <considers rdf:resource="#38c73fcbfb3749bfa68bd2e:TrackingData"/>
+  <considers rdf:resource="#0ea81273d70f4db7828a24c:DataRetention"/>
+  <considers rdf:resource="#4a0be3bbe3ed4172a219118:TrackingData"/>
+  <considers rdf:resource="#db673553a4a749ddbca82c3:DataRetention"/>
+  <considers rdf:resource="#9088c0cd708144e2b810a88:TrackingData"/>
+  <considers rdf:resource="#1aa1891a5efc461e823975c:DataRetention"/>
+  <considers rdf:resource="#f2ba011da1534848a4294d6:TrackingData"/>
+  <considers rdf:resource="#81bd8100177a4d439efc550:DataProtection"/>
+  <considers rdf:resource="#d998e400ff14413eb2c5ec1:FPCollection"/>
+  <considers rdf:resource="#bc79651eea22434fbf3470c:Data"/>
+  <considers rdf:resource="#60daa784e0c8449e91eea52:DataRetention"/>
+  <considers rdf:resource="#b13a2a66e67a4cf08e57347:DeviceData"/>
+  <considers rdf:resource="#bc40f8a179d4421eb633cd8:DataRetention"/>
+  <considers rdf:resource="#5d61ea36652743c2bec2ab8:DeviceData"/>
+  <considers rdf:resource="#af06a93da9734e7aab92df7:DataRetention"/>
+  <considers rdf:resource="#d68c4f9ff84c4461ab8e0d4:OptInOptOutControl"/>
+  <considers rdf:resource="#e7b400457b5242d3872bfba:PolicyChange"/>
+  <considers rdf:resource="#bd0742084fe44366879b2d3:FPNotification"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2b90643cc1c743a8857664a</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">opensecrets.org</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d86704d74fc94656a994ad8:User">
+<owl:NamedIndividual rdf:about="#dbe3358e66d0404ba2de651:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d86704d74fc94656a994ad8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dbe3358e66d0404ba2de651</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#403213b09a59480daca3ad7:FirstParty">
+<owl:NamedIndividual rdf:about="#e21e839a8de246fb9ce29ef:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">403213b09a59480daca3ad7</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e21e839a8de246fb9ce29ef</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4a9ead2186fb44529af2dcf:ThirdParty">
+<owl:NamedIndividual rdf:about="#ccedce3dddf1434a99cdd02:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4a9ead2186fb44529af2dcf</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ccedce3dddf1434a99cdd02</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e6befa60354848cf9de3c9b:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#b79bcf18426743bd9c4c281:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e6befa60354848cf9de3c9b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b79bcf18426743bd9c4c281</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">opt-in</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b3c0268d75f4436090a4870:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#a7b3421e08fc4fae93e6328:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <has_mechanism rdf:resource="#e6befa60354848cf9de3c9b:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b3c0268d75f4436090a4870</uuid>
+  <initiated_by rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <has_mechanism rdf:resource="#b79bcf18426743bd9c4c281:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a7b3421e08fc4fae93e6328</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CRP will not share rent or sell personally identifiable information to any third parties You will never be sent marketing materials by CRP unless you explicitly opt-in</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#aabc500af21a42a29c5dd9c:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#634184b5be974ba39e85d40:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aabc500af21a42a29c5dd9c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">634184b5be974ba39e85d40</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">opt-in.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#be6048c166834bd8a1a9625:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#e69e4faf18864075af31cd9:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <has_mechanism rdf:resource="#aabc500af21a42a29c5dd9c:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">be6048c166834bd8a1a9625</uuid>
+  <initiated_by rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <has_mechanism rdf:resource="#634184b5be974ba39e85d40:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e69e4faf18864075af31cd9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CRP will not share rent or sell personally identifiable information to any third parties You will never be sent marketing materials by CRP unless you explicitly opt-in</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a8c442afa8c04979acdbe83:PersonalData">
+<owl:NamedIndividual rdf:about="#1884718c804546b7bd687c9:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a8c442afa8c04979acdbe83</uuid>
+  <provided_by rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1884718c804546b7bd687c9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sent marketing materials</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#50e5e3cd84d54620a9b3032:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#8ba8ea969e1647dbb18a4c9:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">50e5e3cd84d54620a9b3032</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8ba8ea969e1647dbb18a4c9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">marketing</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4ab979e53b4d41ccbbae45f:DataUse">
+<owl:NamedIndividual rdf:about="#f33ee517721842ef9fce2a5:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <has_purpose rdf:resource="#50e5e3cd84d54620a9b3032:MarketingPurpose"/>
-  <applies_to rdf:resource="#a8c442afa8c04979acdbe83:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4ab979e53b4d41ccbbae45f</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <has_purpose rdf:resource="#8ba8ea969e1647dbb18a4c9:MarketingPurpose"/>
+  <applies_to rdf:resource="#1884718c804546b7bd687c9:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f33ee517721842ef9fce2a5</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CRP will not share rent or sell personally identifiable information to any third parties You will never be sent marketing materials by CRP unless you explicitly opt-in</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0cb7741ff7ab4e088d6b419:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#62df37c81ae5439289e5df1:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0cb7741ff7ab4e088d6b419</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">62df37c81ae5439289e5df1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">contact you if you have subscribed to our newsletter, if you have made a donation</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6dc934f4327a489caade33a:DataUse">
+<owl:NamedIndividual rdf:about="#0a149c1c352448d88952a88:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <has_purpose rdf:resource="#0cb7741ff7ab4e088d6b419:ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6dc934f4327a489caade33a</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <has_purpose rdf:resource="#62df37c81ae5439289e5df1:ServiceProvisionPurpose"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0a149c1c352448d88952a88</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information you submit to our web site will be used to contact you if you have subscribed to our newsletter if you have made a donation or if you respond to an action request made by the Center Should you unsubscribe from a newsletter you will be permanently removed from our contact list</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dbd3034991474f989aae05a:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#ae72c6a2c6cb47a588be71b:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dbd3034991474f989aae05a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ae72c6a2c6cb47a588be71b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">if you respond to an action request made by the Center</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b217e7fe951b46d6a72dd0f:DataUse">
+<owl:NamedIndividual rdf:about="#88394d65d7d1438ab4b6b3c:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <has_purpose rdf:resource="#dbd3034991474f989aae05a:ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b217e7fe951b46d6a72dd0f</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <has_purpose rdf:resource="#ae72c6a2c6cb47a588be71b:ServiceProvisionPurpose"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">88394d65d7d1438ab4b6b3c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information you submit to our web site will be used to contact you if you have subscribed to our newsletter if you have made a donation or if you respond to an action request made by the Center Should you unsubscribe from a newsletter you will be permanently removed from our contact list</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0dfd19d08a7b423095db60f:PersonalData">
+<owl:NamedIndividual rdf:about="#0b1709c6f8254b2ca12af63:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0dfd19d08a7b423095db60f</uuid>
+  <provided_by rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0b1709c6f8254b2ca12af63</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">contact</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f86fffee757045478f68258:DataActivityPurpose">
+<owl:NamedIndividual rdf:about="#61fb65ea9cf74ecc9c54070:DataActivityPurpose">
   <rdf:type rdf:resource="#DataActivityPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f86fffee757045478f68258</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">61fb65ea9cf74ecc9c54070</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information you submit to our web site will be used to contact you if you have subscribed to our newsletter, if you have made a donation or if you respond to an action request made by the Center.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1a4b145f80ff48f4a2123c6:ViaWebsite">
+<owl:NamedIndividual rdf:about="#4eac07591939451ab6a8d21:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1a4b145f80ff48f4a2123c6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4eac07591939451ab6a8d21</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to our web site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#af86c4e4506343ca9e28d40:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#d6d911ffe5b74059904ad9f:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">af86c4e4506343ca9e28d40</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d6d911ffe5b74059904ad9f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information you submit to our web site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9c34410cdd584ddf88c44f5:FPCollection">
+<owl:NamedIndividual rdf:about="#c5bf6afd08014ed29cfb99f:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <collects_from rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <has_purpose rdf:resource="#f86fffee757045478f68258:DataActivityPurpose"/>
-  <has_mode rdf:resource="#af86c4e4506343ca9e28d40:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#1a4b145f80ff48f4a2123c6:ViaWebsite"/>
-  <applies_to rdf:resource="#0dfd19d08a7b423095db60f:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9c34410cdd584ddf88c44f5</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <collects_from rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <has_purpose rdf:resource="#61fb65ea9cf74ecc9c54070:DataActivityPurpose"/>
+  <has_mode rdf:resource="#d6d911ffe5b74059904ad9f:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#4eac07591939451ab6a8d21:ViaWebsite"/>
+  <applies_to rdf:resource="#0b1709c6f8254b2ca12af63:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c5bf6afd08014ed29cfb99f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information you submit to our web site will be used to contact you if you have subscribed to our newsletter if you have made a donation or if you respond to an action request made by the Center Should you unsubscribe from a newsletter you will be permanently removed from our contact list</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3d63d1c1734f41f48d8affc:DataUse">
+<owl:NamedIndividual rdf:about="#7b80db71d0b04621a5d96a9:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <has_purpose rdf:resource="#f86fffee757045478f68258:DataActivityPurpose"/>
-  <applies_to rdf:resource="#0dfd19d08a7b423095db60f:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3d63d1c1734f41f48d8affc</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <has_purpose rdf:resource="#61fb65ea9cf74ecc9c54070:DataActivityPurpose"/>
+  <applies_to rdf:resource="#0b1709c6f8254b2ca12af63:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7b80db71d0b04621a5d96a9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information you submit to our web site will be used to contact you if you have subscribed to our newsletter if you have made a donation or if you respond to an action request made by the Center Should you unsubscribe from a newsletter you will be permanently removed from our contact list</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#586091cbbb1949eabc03fdb:PersonalData">
+<owl:NamedIndividual rdf:about="#0013c8f913c443f2aee27e4:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">586091cbbb1949eabc03fdb</uuid>
+  <provided_by rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0013c8f913c443f2aee27e4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">contact</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b04d5dd21ff14fa4b3e9778:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#2b4d42a242114d669b34244:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b04d5dd21ff14fa4b3e9778</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2b4d42a242114d669b34244</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to contact you if you have subscribed to our newsletter, if you have made a donation or if you respond to an action request made by the Center.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3cb4100897d3421da259a8d:ViaWebsite">
+<owl:NamedIndividual rdf:about="#4d4e828c1d114e13b78d84f:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3cb4100897d3421da259a8d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4d4e828c1d114e13b78d84f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to our web site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9cf9aa4379264a4e8ef64c4:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#55b88a7ffa9f427b9a0684e:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9cf9aa4379264a4e8ef64c4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">55b88a7ffa9f427b9a0684e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information you submit</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4bec8e41580f4204a3ea8a3:FPCollection">
+<owl:NamedIndividual rdf:about="#a5143b2a4bb4471483edff6:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <collects_from rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <has_purpose rdf:resource="#b04d5dd21ff14fa4b3e9778:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#9cf9aa4379264a4e8ef64c4:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#3cb4100897d3421da259a8d:ViaWebsite"/>
-  <applies_to rdf:resource="#586091cbbb1949eabc03fdb:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4bec8e41580f4204a3ea8a3</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <collects_from rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <has_purpose rdf:resource="#2b4d42a242114d669b34244:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#55b88a7ffa9f427b9a0684e:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#4d4e828c1d114e13b78d84f:ViaWebsite"/>
+  <applies_to rdf:resource="#0013c8f913c443f2aee27e4:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a5143b2a4bb4471483edff6</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information you submit to our web site will be used to contact you if you have subscribed to our newsletter if you have made a donation or if you respond to an action request made by the Center Should you unsubscribe from a newsletter you will be permanently removed from our contact list</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bbcc29b4f72f4a8aa183b0c:PersonalData">
+<owl:NamedIndividual rdf:about="#0dee7ac6e56d471fa3b850e:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bbcc29b4f72f4a8aa183b0c</uuid>
+  <provided_by rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0dee7ac6e56d471fa3b850e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">contact</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0199dcf2a231474cb12503d:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#226b0ff2390d4f0f8edfeeb:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0199dcf2a231474cb12503d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">226b0ff2390d4f0f8edfeeb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to contact you if you have subscribed to our newsletter, if you have made a donation or if you respond to an action request made by the Center.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f817ed09fb284780b8d438c:ViaWebsite">
+<owl:NamedIndividual rdf:about="#7f8f911a08c141b9ba060b9:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f817ed09fb284780b8d438c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7f8f911a08c141b9ba060b9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to our web site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#891a570ca33c47618e42536:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#bd2500ecdade4a408884876:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">891a570ca33c47618e42536</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bd2500ecdade4a408884876</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information you submit</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#667d0d34d84f4f9b8ce3b1a:FPCollection">
+<owl:NamedIndividual rdf:about="#b8cec4b8fa984d1faf3e9e1:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <collects_from rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <has_purpose rdf:resource="#0199dcf2a231474cb12503d:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#891a570ca33c47618e42536:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#f817ed09fb284780b8d438c:ViaWebsite"/>
-  <applies_to rdf:resource="#bbcc29b4f72f4a8aa183b0c:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">667d0d34d84f4f9b8ce3b1a</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <collects_from rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <has_purpose rdf:resource="#226b0ff2390d4f0f8edfeeb:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#bd2500ecdade4a408884876:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#7f8f911a08c141b9ba060b9:ViaWebsite"/>
+  <applies_to rdf:resource="#0dee7ac6e56d471fa3b850e:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b8cec4b8fa984d1faf3e9e1</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information you submit to our web site will be used to contact you if you have subscribed to our newsletter if you have made a donation or if you respond to an action request made by the Center Should you unsubscribe from a newsletter you will be permanently removed from our contact list</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c6cd809b66ee46c0abbe908:DataUse">
+<owl:NamedIndividual rdf:about="#476d9b957f954a6fac80cfe:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <has_purpose rdf:resource="#0199dcf2a231474cb12503d:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#bbcc29b4f72f4a8aa183b0c:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c6cd809b66ee46c0abbe908</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <has_purpose rdf:resource="#226b0ff2390d4f0f8edfeeb:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#0dee7ac6e56d471fa3b850e:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">476d9b957f954a6fac80cfe</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information you submit to our web site will be used to contact you if you have subscribed to our newsletter if you have made a donation or if you respond to an action request made by the Center Should you unsubscribe from a newsletter you will be permanently removed from our contact list</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8f6878191d534ababd727f2:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#ed67e1ba80a644128ad1ef9:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8f6878191d534ababd727f2</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ed67e1ba80a644128ad1ef9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">authentication</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#08045e84c56f4678b1f02ff:DataUse">
+<owl:NamedIndividual rdf:about="#208bc4f9d0d14212910b511:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <has_purpose rdf:resource="#8f6878191d534ababd727f2:ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">08045e84c56f4678b1f02ff</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <has_purpose rdf:resource="#ed67e1ba80a644128ad1ef9:ServiceProvisionPurpose"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">208bc4f9d0d14212910b511</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OpenSecrets org uses temporary session cookies data that is generated on our web server and stored on your computer for authentication and other purposes These cookies contain no personally identifiable information and are deleted when the browser window is closed A user may set his or her browser to disallow cookies In such a case some features of the website may not work as intended In addition third party social networking services and advertisements are displayed on OpenSecrets org which may use cookies as well</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d45f54f42d1e411c8f58521:DataUse">
+<owl:NamedIndividual rdf:about="#bc05813ffac04022bb7babe:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d45f54f42d1e411c8f58521</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bc05813ffac04022bb7babe</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OpenSecrets org uses temporary session cookies data that is generated on our web server and stored on your computer for authentication and other purposes These cookies contain no personally identifiable information and are deleted when the browser window is closed A user may set his or her browser to disallow cookies In such a case some features of the website may not work as intended In addition third party social networking services and advertisements are displayed on OpenSecrets org which may use cookies as well</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#64888a32a00742868d96edf:TrackingData">
+<owl:NamedIndividual rdf:about="#57d971cffce148899b0d6c8:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">64888a32a00742868d96edf</uuid>
+  <provided_by rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">57d971cffce148899b0d6c8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">temporary session "cookies"</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#34673af30f3347368821a8c:ViaWebsite">
+<owl:NamedIndividual rdf:about="#776a447d6a394ef48ee2740:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">34673af30f3347368821a8c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">776a447d6a394ef48ee2740</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OpenSecrets.org</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c1f95499a1e347b3839ae0b:PermanentTransmission">
+<owl:NamedIndividual rdf:about="#30ad4b5780264559976b25f:PermanentTransmission">
   <rdf:type rdf:resource="#PermanentTransmission"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c1f95499a1e347b3839ae0b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">30ad4b5780264559976b25f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">(data that is generated on our web server and stored on your computer)</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#10644f26d4a643658230ef0:PseudoAnonymization">
+<owl:NamedIndividual rdf:about="#e0d7c4e657ea461aba15197:PseudoAnonymization">
   <rdf:type rdf:resource="#PseudoAnonymization"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">10644f26d4a643658230ef0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e0d7c4e657ea461aba15197</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">These cookies contain no personally identifiable information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#210cade00c9140e8bd67ae5:DataProtection">
+<owl:NamedIndividual rdf:about="#99c07bcd85804d42a9b3cf9:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <has_mechanism rdf:resource="#10644f26d4a643658230ef0:PseudoAnonymization"/>
-  <applies_to rdf:resource="#64888a32a00742868d96edf:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">210cade00c9140e8bd67ae5</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <has_mechanism rdf:resource="#e0d7c4e657ea461aba15197:PseudoAnonymization"/>
+  <applies_to rdf:resource="#57d971cffce148899b0d6c8:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">99c07bcd85804d42a9b3cf9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OpenSecrets org uses temporary session cookies data that is generated on our web server and stored on your computer for authentication and other purposes These cookies contain no personally identifiable information and are deleted when the browser window is closed A user may set his or her browser to disallow cookies In such a case some features of the website may not work as intended In addition third party social networking services and advertisements are displayed on OpenSecrets org which may use cookies as well</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#22a5a6f1e5d2407f9762acd:FPCollection">
+<owl:NamedIndividual rdf:about="#14f6d34523fd4a28b804611:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <collects_from rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <has_mode rdf:resource="#c1f95499a1e347b3839ae0b:PermanentTransmission"/>
-  <has_mechanism rdf:resource="#34673af30f3347368821a8c:ViaWebsite"/>
-  <applies_to rdf:resource="#64888a32a00742868d96edf:TrackingData"/>
-  <binded_to rdf:resource="#210cade00c9140e8bd67ae5:DataProtection"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">22a5a6f1e5d2407f9762acd</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <collects_from rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <has_mode rdf:resource="#30ad4b5780264559976b25f:PermanentTransmission"/>
+  <has_mechanism rdf:resource="#776a447d6a394ef48ee2740:ViaWebsite"/>
+  <applies_to rdf:resource="#57d971cffce148899b0d6c8:TrackingData"/>
+  <binded_to rdf:resource="#99c07bcd85804d42a9b3cf9:DataProtection"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">14f6d34523fd4a28b804611</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OpenSecrets org uses temporary session cookies data that is generated on our web server and stored on your computer for authentication and other purposes These cookies contain no personally identifiable information and are deleted when the browser window is closed A user may set his or her browser to disallow cookies In such a case some features of the website may not work as intended In addition third party social networking services and advertisements are displayed on OpenSecrets org which may use cookies as well</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#eb2aabea8e184645aadc94c:TrackingData">
+<owl:NamedIndividual rdf:about="#86ed431413eb4ef4813a8ee:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eb2aabea8e184645aadc94c</uuid>
+  <provided_by rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">86ed431413eb4ef4813a8ee</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">temporary session "cookies"</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#15b42f84052a4387b0e650e:ViaWebsite">
+<owl:NamedIndividual rdf:about="#2bdc0fc16c21405ca963945:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">15b42f84052a4387b0e650e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2bdc0fc16c21405ca963945</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OpenSecrets.org</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#49e66f766d8e402099f4705:PermanentTransmission">
+<owl:NamedIndividual rdf:about="#e41db0142abd4895b4eed94:PermanentTransmission">
   <rdf:type rdf:resource="#PermanentTransmission"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">49e66f766d8e402099f4705</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e41db0142abd4895b4eed94</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">(data that is generated on our web server and stored on your computer)</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ba33785a42114fada726b4d:PseudoAnonymization">
+<owl:NamedIndividual rdf:about="#41d9ebffe1db4e1f994809a:PseudoAnonymization">
   <rdf:type rdf:resource="#PseudoAnonymization"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ba33785a42114fada726b4d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">41d9ebffe1db4e1f994809a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">These cookies contain no personally identifiable information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#be19a39dbc094de8bfda9ae:DataProtection">
+<owl:NamedIndividual rdf:about="#70bb28aeb190466fa6e63a1:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <has_mechanism rdf:resource="#ba33785a42114fada726b4d:PseudoAnonymization"/>
-  <applies_to rdf:resource="#eb2aabea8e184645aadc94c:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">be19a39dbc094de8bfda9ae</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <has_mechanism rdf:resource="#41d9ebffe1db4e1f994809a:PseudoAnonymization"/>
+  <applies_to rdf:resource="#86ed431413eb4ef4813a8ee:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">70bb28aeb190466fa6e63a1</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OpenSecrets org uses temporary session cookies data that is generated on our web server and stored on your computer for authentication and other purposes These cookies contain no personally identifiable information and are deleted when the browser window is closed A user may set his or her browser to disallow cookies In such a case some features of the website may not work as intended In addition third party social networking services and advertisements are displayed on OpenSecrets org which may use cookies as well</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#01c43b0e4f7b44989d247f2:FPCollection">
+<owl:NamedIndividual rdf:about="#c42536bf1b8a4b6a987cba2:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <collects_from rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <has_mode rdf:resource="#49e66f766d8e402099f4705:PermanentTransmission"/>
-  <has_mechanism rdf:resource="#15b42f84052a4387b0e650e:ViaWebsite"/>
-  <applies_to rdf:resource="#eb2aabea8e184645aadc94c:TrackingData"/>
-  <binded_to rdf:resource="#be19a39dbc094de8bfda9ae:DataProtection"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">01c43b0e4f7b44989d247f2</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <collects_from rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <has_mode rdf:resource="#e41db0142abd4895b4eed94:PermanentTransmission"/>
+  <has_mechanism rdf:resource="#2bdc0fc16c21405ca963945:ViaWebsite"/>
+  <applies_to rdf:resource="#86ed431413eb4ef4813a8ee:TrackingData"/>
+  <binded_to rdf:resource="#70bb28aeb190466fa6e63a1:DataProtection"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c42536bf1b8a4b6a987cba2</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OpenSecrets org uses temporary session cookies data that is generated on our web server and stored on your computer for authentication and other purposes These cookies contain no personally identifiable information and are deleted when the browser window is closed A user may set his or her browser to disallow cookies In such a case some features of the website may not work as intended In addition third party social networking services and advertisements are displayed on OpenSecrets org which may use cookies as well</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e34a44218de14d9184deb33:TrackingData">
+<owl:NamedIndividual rdf:about="#dd9cee453b0e47c89bb6733:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e34a44218de14d9184deb33</uuid>
+  <provided_by rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dd9cee453b0e47c89bb6733</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">temporary session "cookies"</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#517190739c2a40f69c0f6c1:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#6eb415277265476a84728b4:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">517190739c2a40f69c0f6c1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6eb415277265476a84728b4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">In such a case, some features of the website may not work as intended.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#32f5a61f5f604a249ff7fd2:ViaWebsite">
+<owl:NamedIndividual rdf:about="#3b55bacf0c4c4329a825531:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">32f5a61f5f604a249ff7fd2</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3b55bacf0c4c4329a825531</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OpenSecrets.org</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#93742b7d2cdd4e49b4acd10:PermanentTransmission">
+<owl:NamedIndividual rdf:about="#d27f740f480b4135813801b:PermanentTransmission">
   <rdf:type rdf:resource="#PermanentTransmission"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">93742b7d2cdd4e49b4acd10</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d27f740f480b4135813801b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">(data that is generated on our web server and stored on your computer)</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bf72fd10bcd943669ed711d:PseudoAnonymization">
+<owl:NamedIndividual rdf:about="#14ed0649491a458985fb9d5:PseudoAnonymization">
   <rdf:type rdf:resource="#PseudoAnonymization"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bf72fd10bcd943669ed711d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">14ed0649491a458985fb9d5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">These cookies contain no personally identifiable information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2e3b746cb7ec4f53b40148d:DataProtection">
+<owl:NamedIndividual rdf:about="#9166dd052de2471f9590be4:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <has_mechanism rdf:resource="#bf72fd10bcd943669ed711d:PseudoAnonymization"/>
-  <applies_to rdf:resource="#e34a44218de14d9184deb33:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2e3b746cb7ec4f53b40148d</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <has_mechanism rdf:resource="#14ed0649491a458985fb9d5:PseudoAnonymization"/>
+  <applies_to rdf:resource="#dd9cee453b0e47c89bb6733:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9166dd052de2471f9590be4</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OpenSecrets org uses temporary session cookies data that is generated on our web server and stored on your computer for authentication and other purposes These cookies contain no personally identifiable information and are deleted when the browser window is closed A user may set his or her browser to disallow cookies In such a case some features of the website may not work as intended In addition third party social networking services and advertisements are displayed on OpenSecrets org which may use cookies as well</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#244fc8d9706f4c4dbf218cb:FPCollection">
+<owl:NamedIndividual rdf:about="#cb7864136955441f9c7a330:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <collects_from rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <has_purpose rdf:resource="#517190739c2a40f69c0f6c1:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#93742b7d2cdd4e49b4acd10:PermanentTransmission"/>
-  <has_mechanism rdf:resource="#32f5a61f5f604a249ff7fd2:ViaWebsite"/>
-  <applies_to rdf:resource="#e34a44218de14d9184deb33:TrackingData"/>
-  <binded_to rdf:resource="#2e3b746cb7ec4f53b40148d:DataProtection"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">244fc8d9706f4c4dbf218cb</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <collects_from rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <has_purpose rdf:resource="#6eb415277265476a84728b4:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#d27f740f480b4135813801b:PermanentTransmission"/>
+  <has_mechanism rdf:resource="#3b55bacf0c4c4329a825531:ViaWebsite"/>
+  <applies_to rdf:resource="#dd9cee453b0e47c89bb6733:TrackingData"/>
+  <binded_to rdf:resource="#9166dd052de2471f9590be4:DataProtection"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cb7864136955441f9c7a330</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OpenSecrets org uses temporary session cookies data that is generated on our web server and stored on your computer for authentication and other purposes These cookies contain no personally identifiable information and are deleted when the browser window is closed A user may set his or her browser to disallow cookies In such a case some features of the website may not work as intended In addition third party social networking services and advertisements are displayed on OpenSecrets org which may use cookies as well</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c1f14e295bb54580bd0df86:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#8d73de925d16495f8ec0b8a:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c1f14e295bb54580bd0df86</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8d73de925d16495f8ec0b8a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">are deleted when the browser window is closed.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f00258afb0c44016a0ac56f:SecurityPurpose">
+<owl:NamedIndividual rdf:about="#7b115c05488947d486e644f:SecurityPurpose">
   <rdf:type rdf:resource="#SecurityPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f00258afb0c44016a0ac56f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7b115c05488947d486e644f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">for authentication</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8ab244fb59eb48608d0f2db:TrackingData">
+<owl:NamedIndividual rdf:about="#817ab4cdb30b4cc8bf52ad7:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8ab244fb59eb48608d0f2db</uuid>
+  <provided_by rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">817ab4cdb30b4cc8bf52ad7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">These cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#34ed67eb8a7d4261baf52f0:DataRetention">
+<owl:NamedIndividual rdf:about="#9c16cc7a6bd245e0a87dfde:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <lasts_for rdf:resource="#c1f14e295bb54580bd0df86:DataRetentionTime"/>
-  <has_purpose rdf:resource="#f00258afb0c44016a0ac56f:SecurityPurpose"/>
-  <applies_to rdf:resource="#8ab244fb59eb48608d0f2db:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">34ed67eb8a7d4261baf52f0</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <lasts_for rdf:resource="#8d73de925d16495f8ec0b8a:DataRetentionTime"/>
+  <has_purpose rdf:resource="#7b115c05488947d486e644f:SecurityPurpose"/>
+  <applies_to rdf:resource="#817ab4cdb30b4cc8bf52ad7:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9c16cc7a6bd245e0a87dfde</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OpenSecrets org uses temporary session cookies data that is generated on our web server and stored on your computer for authentication and other purposes These cookies contain no personally identifiable information and are deleted when the browser window is closed A user may set his or her browser to disallow cookies In such a case some features of the website may not work as intended In addition third party social networking services and advertisements are displayed on OpenSecrets org which may use cookies as well</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#03a4ca143b62454ebfa1d1e:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#d575b4bee951479dac4274e:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">03a4ca143b62454ebfa1d1e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d575b4bee951479dac4274e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">are deleted when the browser window is closed.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0f457ab7f2fc412da0170f6:TrackingData">
+<owl:NamedIndividual rdf:about="#38c73fcbfb3749bfa68bd2e:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0f457ab7f2fc412da0170f6</uuid>
+  <provided_by rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">38c73fcbfb3749bfa68bd2e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">These cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ce990734388049abb0bcb84:DataRetention">
+<owl:NamedIndividual rdf:about="#0ea81273d70f4db7828a24c:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <lasts_for rdf:resource="#03a4ca143b62454ebfa1d1e:DataRetentionTime"/>
-  <applies_to rdf:resource="#0f457ab7f2fc412da0170f6:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ce990734388049abb0bcb84</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <lasts_for rdf:resource="#d575b4bee951479dac4274e:DataRetentionTime"/>
+  <applies_to rdf:resource="#38c73fcbfb3749bfa68bd2e:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0ea81273d70f4db7828a24c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OpenSecrets org uses temporary session cookies data that is generated on our web server and stored on your computer for authentication and other purposes These cookies contain no personally identifiable information and are deleted when the browser window is closed A user may set his or her browser to disallow cookies In such a case some features of the website may not work as intended In addition third party social networking services and advertisements are displayed on OpenSecrets org which may use cookies as well</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ceeb37faa8224a7aa99de10:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#5751e10ee4b741f2833bcae:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ceeb37faa8224a7aa99de10</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5751e10ee4b741f2833bcae</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">are deleted when the browser window is closed.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e43338e4a163423fa6fac05:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#c48e0549c80341a78930ec1:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e43338e4a163423fa6fac05</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c48e0549c80341a78930ec1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">In such a case, some features of the website may not work as intended.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#aadd6f45f03d444e99a711d:TrackingData">
+<owl:NamedIndividual rdf:about="#4a0be3bbe3ed4172a219118:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aadd6f45f03d444e99a711d</uuid>
+  <provided_by rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4a0be3bbe3ed4172a219118</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">These cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7e319e383cd1421ab649258:DataRetention">
+<owl:NamedIndividual rdf:about="#db673553a4a749ddbca82c3:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <lasts_for rdf:resource="#ceeb37faa8224a7aa99de10:DataRetentionTime"/>
-  <has_purpose rdf:resource="#e43338e4a163423fa6fac05:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#aadd6f45f03d444e99a711d:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7e319e383cd1421ab649258</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <lasts_for rdf:resource="#5751e10ee4b741f2833bcae:DataRetentionTime"/>
+  <has_purpose rdf:resource="#c48e0549c80341a78930ec1:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#4a0be3bbe3ed4172a219118:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">db673553a4a749ddbca82c3</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OpenSecrets org uses temporary session cookies data that is generated on our web server and stored on your computer for authentication and other purposes These cookies contain no personally identifiable information and are deleted when the browser window is closed A user may set his or her browser to disallow cookies In such a case some features of the website may not work as intended In addition third party social networking services and advertisements are displayed on OpenSecrets org which may use cookies as well</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b7911845f56b49e0aa6a6e1:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#6468f1c9b46c4efeb5d8b98:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b7911845f56b49e0aa6a6e1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6468f1c9b46c4efeb5d8b98</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">are deleted when the browser window is closed.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fe25081e2c4a4d3993f7468:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#ad8187779fee46f289e3c09:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fe25081e2c4a4d3993f7468</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ad8187779fee46f289e3c09</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">advertisements</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#00c45df1fd2d416ea7d4067:TrackingData">
+<owl:NamedIndividual rdf:about="#9088c0cd708144e2b810a88:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">00c45df1fd2d416ea7d4067</uuid>
+  <provided_by rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9088c0cd708144e2b810a88</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">These cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a6054d7157974c4380c2669:DataRetention">
+<owl:NamedIndividual rdf:about="#1aa1891a5efc461e823975c:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <lasts_for rdf:resource="#b7911845f56b49e0aa6a6e1:DataRetentionTime"/>
-  <has_purpose rdf:resource="#fe25081e2c4a4d3993f7468:MarketingPurpose"/>
-  <applies_to rdf:resource="#00c45df1fd2d416ea7d4067:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a6054d7157974c4380c2669</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <lasts_for rdf:resource="#6468f1c9b46c4efeb5d8b98:DataRetentionTime"/>
+  <has_purpose rdf:resource="#ad8187779fee46f289e3c09:MarketingPurpose"/>
+  <applies_to rdf:resource="#9088c0cd708144e2b810a88:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1aa1891a5efc461e823975c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OpenSecrets org uses temporary session cookies data that is generated on our web server and stored on your computer for authentication and other purposes These cookies contain no personally identifiable information and are deleted when the browser window is closed A user may set his or her browser to disallow cookies In such a case some features of the website may not work as intended In addition third party social networking services and advertisements are displayed on OpenSecrets org which may use cookies as well</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#644f61b1fd504b65956cf2a:TrackingData">
+<owl:NamedIndividual rdf:about="#f2ba011da1534848a4294d6:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">644f61b1fd504b65956cf2a</uuid>
+  <provided_by rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f2ba011da1534848a4294d6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">temporary session "cookies"</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#96a158bc96a34149afcd6eb:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#889ba85428e344f68383466:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">96a158bc96a34149afcd6eb</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">889ba85428e344f68383466</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">advertisements</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cc9ba97cbdd74d0bb23d2ba:ViaWebsite">
+<owl:NamedIndividual rdf:about="#b7152c971e7146f9909c1c0:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cc9ba97cbdd74d0bb23d2ba</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b7152c971e7146f9909c1c0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OpenSecrets.org</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#70bcbfa70ff24ee0a4c07a6:PermanentTransmission">
+<owl:NamedIndividual rdf:about="#7526aa60251a4125bf90fac:PermanentTransmission">
   <rdf:type rdf:resource="#PermanentTransmission"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">70bcbfa70ff24ee0a4c07a6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7526aa60251a4125bf90fac</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">(data that is generated on our web server and stored on your computer)</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cff4c94d98714cb0aed7cb6:PseudoAnonymization">
+<owl:NamedIndividual rdf:about="#bd7b34b22344436996db84d:PseudoAnonymization">
   <rdf:type rdf:resource="#PseudoAnonymization"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cff4c94d98714cb0aed7cb6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bd7b34b22344436996db84d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">These cookies contain no personally identifiable information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ecc35c5babfe4029a79c3b9:DataProtection">
+<owl:NamedIndividual rdf:about="#81bd8100177a4d439efc550:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <has_mechanism rdf:resource="#cff4c94d98714cb0aed7cb6:PseudoAnonymization"/>
-  <applies_to rdf:resource="#644f61b1fd504b65956cf2a:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ecc35c5babfe4029a79c3b9</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <has_mechanism rdf:resource="#bd7b34b22344436996db84d:PseudoAnonymization"/>
+  <applies_to rdf:resource="#f2ba011da1534848a4294d6:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">81bd8100177a4d439efc550</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OpenSecrets org uses temporary session cookies data that is generated on our web server and stored on your computer for authentication and other purposes These cookies contain no personally identifiable information and are deleted when the browser window is closed A user may set his or her browser to disallow cookies In such a case some features of the website may not work as intended In addition third party social networking services and advertisements are displayed on OpenSecrets org which may use cookies as well</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e1a28292e0a14f2288d6332:FPCollection">
+<owl:NamedIndividual rdf:about="#d998e400ff14413eb2c5ec1:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <collects_from rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <has_purpose rdf:resource="#96a158bc96a34149afcd6eb:MarketingPurpose"/>
-  <has_mode rdf:resource="#70bcbfa70ff24ee0a4c07a6:PermanentTransmission"/>
-  <has_mechanism rdf:resource="#cc9ba97cbdd74d0bb23d2ba:ViaWebsite"/>
-  <applies_to rdf:resource="#644f61b1fd504b65956cf2a:TrackingData"/>
-  <binded_to rdf:resource="#ecc35c5babfe4029a79c3b9:DataProtection"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e1a28292e0a14f2288d6332</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <collects_from rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <has_purpose rdf:resource="#889ba85428e344f68383466:MarketingPurpose"/>
+  <has_mode rdf:resource="#7526aa60251a4125bf90fac:PermanentTransmission"/>
+  <has_mechanism rdf:resource="#b7152c971e7146f9909c1c0:ViaWebsite"/>
+  <applies_to rdf:resource="#f2ba011da1534848a4294d6:TrackingData"/>
+  <binded_to rdf:resource="#81bd8100177a4d439efc550:DataProtection"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d998e400ff14413eb2c5ec1</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OpenSecrets org uses temporary session cookies data that is generated on our web server and stored on your computer for authentication and other purposes These cookies contain no personally identifiable information and are deleted when the browser window is closed A user may set his or her browser to disallow cookies In such a case some features of the website may not work as intended In addition third party social networking services and advertisements are displayed on OpenSecrets org which may use cookies as well</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b3827dc52fe24853bbbc3f6:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#c1118911daa249c8bff6b9d:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b3827dc52fe24853bbbc3f6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c1118911daa249c8bff6b9d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">after 90 days</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1c8deda5b169404c8863d86:Data">
+<owl:NamedIndividual rdf:about="#bc79651eea22434fbf3470c:Data">
   <rdf:type rdf:resource="#Data"/>
-  <provided_by rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1c8deda5b169404c8863d86</uuid>
+  <provided_by rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bc79651eea22434fbf3470c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Log files</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f9d5049850b84db9b364dde:DataRetention">
+<owl:NamedIndividual rdf:about="#60daa784e0c8449e91eea52:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <lasts_for rdf:resource="#b3827dc52fe24853bbbc3f6:DataRetentionTime"/>
-  <applies_to rdf:resource="#1c8deda5b169404c8863d86:Data"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f9d5049850b84db9b364dde</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <lasts_for rdf:resource="#c1118911daa249c8bff6b9d:DataRetentionTime"/>
+  <applies_to rdf:resource="#bc79651eea22434fbf3470c:Data"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">60daa784e0c8449e91eea52</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OpenSecrets org uses Google Analytics to learn how people use the site and to improve our services We also collect standard log files from our systems to ensure the integrity of our services and for troubleshooting purposes Included in these log files are the date the IP address and the URL of the request Log files are typically deleted from our servers after 90 days Aggregate information that does not personally identify you may be shared with funders or potential future advertisers</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c5a58b84e13745d2b29bd93:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#263b1c4c7e9e469aaae6ab3:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c5a58b84e13745d2b29bd93</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">263b1c4c7e9e469aaae6ab3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Log files are typically deleted from our servers after 90 days.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ec40ac5638384dd9aefc2b5:SecurityPurpose">
+<owl:NamedIndividual rdf:about="#7f000628668341d592e8ab2:SecurityPurpose">
   <rdf:type rdf:resource="#SecurityPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ec40ac5638384dd9aefc2b5</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7f000628668341d592e8ab2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We also collect standard log files from our systems to ensure the integrity of our services and for troubleshooting purposes. Included in these log files are the date, the IP address and the URL of the request.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b3e7fc49624d43ad95416dc:DeviceData">
+<owl:NamedIndividual rdf:about="#b13a2a66e67a4cf08e57347:DeviceData">
   <rdf:type rdf:resource="#DeviceData"/>
-  <provided_by rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b3e7fc49624d43ad95416dc</uuid>
+  <provided_by rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b13a2a66e67a4cf08e57347</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">are the date, the IP address and the URL of the request.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5df46c1b0e7843fbbde2c53:DataRetention">
+<owl:NamedIndividual rdf:about="#bc40f8a179d4421eb633cd8:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <lasts_for rdf:resource="#c5a58b84e13745d2b29bd93:DataRetentionTime"/>
-  <has_purpose rdf:resource="#ec40ac5638384dd9aefc2b5:SecurityPurpose"/>
-  <applies_to rdf:resource="#b3e7fc49624d43ad95416dc:DeviceData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5df46c1b0e7843fbbde2c53</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <lasts_for rdf:resource="#263b1c4c7e9e469aaae6ab3:DataRetentionTime"/>
+  <has_purpose rdf:resource="#7f000628668341d592e8ab2:SecurityPurpose"/>
+  <applies_to rdf:resource="#b13a2a66e67a4cf08e57347:DeviceData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bc40f8a179d4421eb633cd8</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OpenSecrets org uses Google Analytics to learn how people use the site and to improve our services We also collect standard log files from our systems to ensure the integrity of our services and for troubleshooting purposes Included in these log files are the date the IP address and the URL of the request Log files are typically deleted from our servers after 90 days Aggregate information that does not personally identify you may be shared with funders or potential future advertisers</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#09e553d5adef46358bc17f6:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#09d378eb68e445469030bbc:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">09e553d5adef46358bc17f6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">09d378eb68e445469030bbc</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">are typically deleted from our servers after 90 days.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#448f22cbc5a04115910a1fd:SecurityPurpose">
+<owl:NamedIndividual rdf:about="#230d90e2e39a4921a62a033:SecurityPurpose">
   <rdf:type rdf:resource="#SecurityPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">448f22cbc5a04115910a1fd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">230d90e2e39a4921a62a033</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to ensure the integrity of our services and for troubleshooting purposes.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5d942c1a85844aca8f007b3:DeviceData">
+<owl:NamedIndividual rdf:about="#5d61ea36652743c2bec2ab8:DeviceData">
   <rdf:type rdf:resource="#DeviceData"/>
-  <provided_by rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5d942c1a85844aca8f007b3</uuid>
+  <provided_by rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5d61ea36652743c2bec2ab8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Log files</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a699e00706d3444db8fc3de:DataRetention">
+<owl:NamedIndividual rdf:about="#af06a93da9734e7aab92df7:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <lasts_for rdf:resource="#09e553d5adef46358bc17f6:DataRetentionTime"/>
-  <has_purpose rdf:resource="#448f22cbc5a04115910a1fd:SecurityPurpose"/>
-  <applies_to rdf:resource="#5d942c1a85844aca8f007b3:DeviceData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a699e00706d3444db8fc3de</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <lasts_for rdf:resource="#09d378eb68e445469030bbc:DataRetentionTime"/>
+  <has_purpose rdf:resource="#230d90e2e39a4921a62a033:SecurityPurpose"/>
+  <applies_to rdf:resource="#5d61ea36652743c2bec2ab8:DeviceData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">af06a93da9734e7aab92df7</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OpenSecrets org uses Google Analytics to learn how people use the site and to improve our services We also collect standard log files from our systems to ensure the integrity of our services and for troubleshooting purposes Included in these log files are the date the IP address and the URL of the request Log files are typically deleted from our servers after 90 days Aggregate information that does not personally identify you may be shared with funders or potential future advertisers</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bc82f185e666433188b029a:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#e19875aa85c940b8b9ffaf3:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bc82f185e666433188b029a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e19875aa85c940b8b9ffaf3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CRP will post the updated version, including the effective date of the revision or update, on OpenSecrets.org.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c7e5b558fdad4415805bc67:PolicyChangeCause">
+<owl:NamedIndividual rdf:about="#2113f7b6303342eba470eb4:PolicyChangeCause">
   <rdf:type rdf:resource="#PolicyChangeCause"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c7e5b558fdad4415805bc67</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2113f7b6303342eba470eb4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">It shall be construed that you accept and agree with the revised or updated privacy policy when you access and use the website for the first time after the publication of such changes.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d53a7a4a127f422d8c9480a:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#d68c4f9ff84c4461ab8e0d4:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d53a7a4a127f422d8c9480a</uuid>
+  <initiated_by rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d68c4f9ff84c4461ab8e0d4</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">When this privacy policy is revised or updated CRP will post the updated version including the effective date of the revision or update on OpenSecrets org It shall be construed that you accept and agree with the revised or updated privacy policy when you access and use the website for the first time after the publication of such changes If you have questions about this policy please email us at feedback crp org</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#489ef56be59748cd9ff1611:PolicyChange">
+<owl:NamedIndividual rdf:about="#e7b400457b5242d3872bfba:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <caused_by rdf:resource="#c7e5b558fdad4415805bc67:PolicyChangeCause"/>
-  <binded_to rdf:resource="#d53a7a4a127f422d8c9480a:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">489ef56be59748cd9ff1611</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <caused_by rdf:resource="#2113f7b6303342eba470eb4:PolicyChangeCause"/>
+  <binded_to rdf:resource="#d68c4f9ff84c4461ab8e0d4:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e7b400457b5242d3872bfba</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">When this privacy policy is revised or updated CRP will post the updated version including the effective date of the revision or update on OpenSecrets org It shall be construed that you accept and agree with the revised or updated privacy policy when you access and use the website for the first time after the publication of such changes If you have questions about this policy please email us at feedback crp org</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8b76735a8c5540b6bcefea0:FPNotification">
+<owl:NamedIndividual rdf:about="#bd0742084fe44366879b2d3:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#403213b09a59480daca3ad7:FirstParty"/>
-  <notifies rdf:resource="#d86704d74fc94656a994ad8:User"/>
-  <has_mechanism rdf:resource="#bc82f185e666433188b029a:OnWebsitePage"/>
-  <binded_to rdf:resource="#489ef56be59748cd9ff1611:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8b76735a8c5540b6bcefea0</uuid>
+  <initiated_by rdf:resource="#e21e839a8de246fb9ce29ef:FirstParty"/>
+  <notifies rdf:resource="#dbe3358e66d0404ba2de651:User"/>
+  <has_mechanism rdf:resource="#e19875aa85c940b8b9ffaf3:OnWebsitePage"/>
+  <binded_to rdf:resource="#e7b400457b5242d3872bfba:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bd0742084fe44366879b2d3</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">When this privacy policy is revised or updated CRP will post the updated version including the effective date of the revision or update on OpenSecrets org It shall be construed that you accept and agree with the revised or updated privacy policy when you access and use the website for the first time after the publication of such changes If you have questions about this policy please email us at feedback crp org</evidence>
 </owl:NamedIndividual>

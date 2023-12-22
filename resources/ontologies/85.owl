@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -959,18 +960,18 @@
 <owl:Class rdf:about="#FPSpecificCommunicationMechanism">
   <rdfs:subClassOf rdf:resource="#CommunicationMechanism"/>
   <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#mechanism_of"/>
-      <owl:allValuesFrom rdf:resource="#FPNotification"/>
-    </owl:Restriction>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
     <owl:Class>
       <owl:unionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#FPSpecificCommunicationMechanism"/>
         <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
       </owl:unionOf>
     </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#mechanism_of"/>
+      <owl:allValuesFrom rdf:resource="#FPNotification"/>
+    </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,265 +1305,263 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#faa580d3202044ac826ecf1:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#11af499baaa54e36ab15540:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">faa580d3202044ac826ecf1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11af499baaa54e36ab15540</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#40227c4aca0f4297b84e8c5:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#f53c630237484bcb9827a87:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#21d463212cbf49e9a935f6e:User"/>
-  <considers rdf:resource="#0dc79388988a452bac9a949:FirstParty"/>
-  <considers rdf:resource="#cd271efe9d8f48eca7ca20b:ThirdParty"/>
-  <considers rdf:resource="#87f08e9afef0447cb2dc6c5:OptInOptOutControl"/>
-  <considers rdf:resource="#962a12a3a764489a91ffd26:PolicyChange"/>
-  <considers rdf:resource="#083a22993c544b8fa03778d:FPNotification"/>
-  <considers rdf:resource="#248b76f1df6046a3bfccdd9:AccountData"/>
-  <considers rdf:resource="#d9030bfc389e4503bb7074e:OptInOptOutControl"/>
-  <considers rdf:resource="#f489c79f1d2c4ca09f436fc:OptInOptOutControl"/>
-  <considers rdf:resource="#c4f8236b967f4f6b9c613fc:OptInOptOutControl"/>
-  <considers rdf:resource="#4dae6ed5f6464669b9d383f:OptInOptOutControl"/>
-  <considers rdf:resource="#184c5c11caf6491c99d607a:OptInOptOutControl"/>
-  <considers rdf:resource="#50f245c27e8d4b0f830128d:OptInOptOutControl"/>
-  <considers rdf:resource="#7284186abd7a44deb9be122:OptInOptOutControl"/>
-  <considers rdf:resource="#6932273f238d472f87e431b:PersonalData"/>
-  <considers rdf:resource="#e640d52f5bff4e49b48ee97:OptInOptOutControl"/>
-  <considers rdf:resource="#67921e472501445da1961b3:OptInOptOutControl"/>
-  <considers rdf:resource="#17365118cc8c485c9c41aab:DataProtection"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">40227c4aca0f4297b84e8c5</uuid>
+  <considers rdf:resource="#b7e54f1059ef44c880cd9c6:User"/>
+  <considers rdf:resource="#4d8e662caf4947daa403ab5:FirstParty"/>
+  <considers rdf:resource="#03be0825f9ad412ab9c6131:ThirdParty"/>
+  <considers rdf:resource="#fbbd446f30064307b6e2f6a:OptInOptOutControl"/>
+  <considers rdf:resource="#87ad18d1a2d445b8848f5eb:PolicyChange"/>
+  <considers rdf:resource="#f7a47e946d6645acbb1bea2:FPNotification"/>
+  <considers rdf:resource="#7ddcc1c5359e47428e57a49:AccountData"/>
+  <considers rdf:resource="#87f142f4f0be4dc8ad7f8b0:OptInOptOutControl"/>
+  <considers rdf:resource="#78195d391a46431c9771954:OptInOptOutControl"/>
+  <considers rdf:resource="#1f369eb61faa49fb8d7771d:OptInOptOutControl"/>
+  <considers rdf:resource="#9f6544f3204d4a70a211c9f:OptInOptOutControl"/>
+  <considers rdf:resource="#b311830413c64189b70691e:OptInOptOutControl"/>
+  <considers rdf:resource="#f3207e2cedc8446a82885ae:OptInOptOutControl"/>
+  <considers rdf:resource="#9cb6cbe172ad4201a82c51c:OptInOptOutControl"/>
+  <considers rdf:resource="#c3667dd5f0484e46a1c184b:PersonalData"/>
+  <considers rdf:resource="#891e4126bdcb402b9d6171f:OptInOptOutControl"/>
+  <considers rdf:resource="#208473185dac4bcab96627c:OptInOptOutControl"/>
+  <considers rdf:resource="#29d5f84c6713453988780aa:DataProtection"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f53c630237484bcb9827a87</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cbsinteractive.com</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#21d463212cbf49e9a935f6e:User">
+<owl:NamedIndividual rdf:about="#b7e54f1059ef44c880cd9c6:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">21d463212cbf49e9a935f6e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b7e54f1059ef44c880cd9c6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0dc79388988a452bac9a949:FirstParty">
+<owl:NamedIndividual rdf:about="#4d8e662caf4947daa403ab5:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0dc79388988a452bac9a949</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4d8e662caf4947daa403ab5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cd271efe9d8f48eca7ca20b:ThirdParty">
+<owl:NamedIndividual rdf:about="#03be0825f9ad412ab9c6131:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cd271efe9d8f48eca7ca20b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">03be0825f9ad412ab9c6131</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9752616a60cc4e60a5a1b32:InPrivacyPolicy">
+<owl:NamedIndividual rdf:about="#945370af219342c48e50d2c:InPrivacyPolicy">
   <rdf:type rdf:resource="#InPrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9752616a60cc4e60a5a1b32</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">945370af219342c48e50d2c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The CBS Interactive Privacy Policy has been updated.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#87f08e9afef0447cb2dc6c5:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#fbbd446f30064307b6e2f6a:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#21d463212cbf49e9a935f6e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">87f08e9afef0447cb2dc6c5</uuid>
+  <initiated_by rdf:resource="#b7e54f1059ef44c880cd9c6:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fbbd446f30064307b6e2f6a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Note The CBS Interactive Privacy Policy has been updated Please review the updated privacy policy carefully before using the CBS Interactive Services By using any of the CBS Interactive Services you consent to the terms of the updated privacy policy Click here for more information about the updates</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#962a12a3a764489a91ffd26:PolicyChange">
+<owl:NamedIndividual rdf:about="#87ad18d1a2d445b8848f5eb:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#0dc79388988a452bac9a949:FirstParty"/>
-  <binded_to rdf:resource="#87f08e9afef0447cb2dc6c5:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">962a12a3a764489a91ffd26</uuid>
+  <initiated_by rdf:resource="#4d8e662caf4947daa403ab5:FirstParty"/>
+  <binded_to rdf:resource="#fbbd446f30064307b6e2f6a:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">87ad18d1a2d445b8848f5eb</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Note The CBS Interactive Privacy Policy has been updated Please review the updated privacy policy carefully before using the CBS Interactive Services By using any of the CBS Interactive Services you consent to the terms of the updated privacy policy Click here for more information about the updates</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#083a22993c544b8fa03778d:FPNotification">
+<owl:NamedIndividual rdf:about="#f7a47e946d6645acbb1bea2:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#0dc79388988a452bac9a949:FirstParty"/>
-  <notifies rdf:resource="#21d463212cbf49e9a935f6e:User"/>
-  <has_mechanism rdf:resource="#9752616a60cc4e60a5a1b32:InPrivacyPolicy"/>
-  <binded_to rdf:resource="#962a12a3a764489a91ffd26:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">083a22993c544b8fa03778d</uuid>
+  <initiated_by rdf:resource="#4d8e662caf4947daa403ab5:FirstParty"/>
+  <notifies rdf:resource="#b7e54f1059ef44c880cd9c6:User"/>
+  <has_mechanism rdf:resource="#945370af219342c48e50d2c:InPrivacyPolicy"/>
+  <binded_to rdf:resource="#87ad18d1a2d445b8848f5eb:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f7a47e946d6645acbb1bea2</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Note The CBS Interactive Privacy Policy has been updated Please review the updated privacy policy carefully before using the CBS Interactive Services By using any of the CBS Interactive Services you consent to the terms of the updated privacy policy Click here for more information about the updates</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#09797859d914420c93fbcf2:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#78acb3badc6f4191bd40d7d:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">09797859d914420c93fbcf2</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">78acb3badc6f4191bd40d7d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Choices If you choose to share contact information with us you will have the opportunity to update that information You can stop the delivery of commercial email messages from a CBS Interactive Services or service by following the instructions in any such email you receive You have choices about the collection and use of your information by third parties to display relevant advertisements as described in our overview of Third Party Online Advertising You also may choose to opt out of our use of data that we collect about your visits to our business partners sites to customize advertising that we serve To opt out visit the CBS Interactive Business Partner Advertising Opt-Out page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#248b76f1df6046a3bfccdd9:AccountData">
+<owl:NamedIndividual rdf:about="#7ddcc1c5359e47428e57a49:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#21d463212cbf49e9a935f6e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">248b76f1df6046a3bfccdd9</uuid>
+  <provided_by rdf:resource="#b7e54f1059ef44c880cd9c6:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7ddcc1c5359e47428e57a49</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d9030bfc389e4503bb7074e:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#87f142f4f0be4dc8ad7f8b0:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#21d463212cbf49e9a935f6e:User"/>
-  <has_mechanism rdf:resource="#09797859d914420c93fbcf2:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#248b76f1df6046a3bfccdd9:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d9030bfc389e4503bb7074e</uuid>
+  <initiated_by rdf:resource="#b7e54f1059ef44c880cd9c6:User"/>
+  <has_mechanism rdf:resource="#78acb3badc6f4191bd40d7d:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#7ddcc1c5359e47428e57a49:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">87f142f4f0be4dc8ad7f8b0</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Choices If you choose to share contact information with us you will have the opportunity to update that information You can stop the delivery of commercial email messages from a CBS Interactive Services or service by following the instructions in any such email you receive You have choices about the collection and use of your information by third parties to display relevant advertisements as described in our overview of Third Party Online Advertising You also may choose to opt out of our use of data that we collect about your visits to our business partners sites to customize advertising that we serve To opt out visit the CBS Interactive Business Partner Advertising Opt-Out page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#100e61c36ead4fef91c2c1d:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#0c8e523c6a424644abcfc8e:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">100e61c36ead4fef91c2c1d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0c8e523c6a424644abcfc8e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Choices If you choose to share contact information with us you will have the opportunity to update that information You can stop the delivery of commercial email messages from a CBS Interactive Services or service by following the instructions in any such email you receive You have choices about the collection and use of your information by third parties to display relevant advertisements as described in our overview of Third Party Online Advertising You also may choose to opt out of our use of data that we collect about your visits to our business partners sites to customize advertising that we serve To opt out visit the CBS Interactive Business Partner Advertising Opt-Out page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f489c79f1d2c4ca09f436fc:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#78195d391a46431c9771954:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#21d463212cbf49e9a935f6e:User"/>
-  <has_mechanism rdf:resource="#100e61c36ead4fef91c2c1d:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f489c79f1d2c4ca09f436fc</uuid>
+  <initiated_by rdf:resource="#b7e54f1059ef44c880cd9c6:User"/>
+  <has_mechanism rdf:resource="#0c8e523c6a424644abcfc8e:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">78195d391a46431c9771954</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Choices If you choose to share contact information with us you will have the opportunity to update that information You can stop the delivery of commercial email messages from a CBS Interactive Services or service by following the instructions in any such email you receive You have choices about the collection and use of your information by third parties to display relevant advertisements as described in our overview of Third Party Online Advertising You also may choose to opt out of our use of data that we collect about your visits to our business partners sites to customize advertising that we serve To opt out visit the CBS Interactive Business Partner Advertising Opt-Out page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d2e4e6c909ba4c4b98f42ae:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#05236d08cb874ae580a0d69:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d2e4e6c909ba4c4b98f42ae</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">05236d08cb874ae580a0d69</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">stop</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c4f8236b967f4f6b9c613fc:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#1f369eb61faa49fb8d7771d:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#21d463212cbf49e9a935f6e:User"/>
-  <has_mechanism rdf:resource="#d2e4e6c909ba4c4b98f42ae:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c4f8236b967f4f6b9c613fc</uuid>
+  <initiated_by rdf:resource="#b7e54f1059ef44c880cd9c6:User"/>
+  <has_mechanism rdf:resource="#05236d08cb874ae580a0d69:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1f369eb61faa49fb8d7771d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Choices If you choose to share contact information with us you will have the opportunity to update that information You can stop the delivery of commercial email messages from a CBS Interactive Services or service by following the instructions in any such email you receive You have choices about the collection and use of your information by third parties to display relevant advertisements as described in our overview of Third Party Online Advertising You also may choose to opt out of our use of data that we collect about your visits to our business partners sites to customize advertising that we serve To opt out visit the CBS Interactive Business Partner Advertising Opt-Out page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#657586d5585d4910b41ddc3:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#4cacb89f58a544049c5377c:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">657586d5585d4910b41ddc3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4cacb89f58a544049c5377c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">stop</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4dae6ed5f6464669b9d383f:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#9f6544f3204d4a70a211c9f:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#21d463212cbf49e9a935f6e:User"/>
-  <has_mechanism rdf:resource="#657586d5585d4910b41ddc3:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4dae6ed5f6464669b9d383f</uuid>
+  <initiated_by rdf:resource="#b7e54f1059ef44c880cd9c6:User"/>
+  <has_mechanism rdf:resource="#4cacb89f58a544049c5377c:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9f6544f3204d4a70a211c9f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Choices If you choose to share contact information with us you will have the opportunity to update that information You can stop the delivery of commercial email messages from a CBS Interactive Services or service by following the instructions in any such email you receive You have choices about the collection and use of your information by third parties to display relevant advertisements as described in our overview of Third Party Online Advertising You also may choose to opt out of our use of data that we collect about your visits to our business partners sites to customize advertising that we serve To opt out visit the CBS Interactive Business Partner Advertising Opt-Out page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e72f2df6472846f494d647a:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#806d9da1cdad42a8968cb03:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e72f2df6472846f494d647a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">806d9da1cdad42a8968cb03</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">choices</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#184c5c11caf6491c99d607a:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#b311830413c64189b70691e:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#21d463212cbf49e9a935f6e:User"/>
-  <has_mechanism rdf:resource="#e72f2df6472846f494d647a:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">184c5c11caf6491c99d607a</uuid>
+  <initiated_by rdf:resource="#b7e54f1059ef44c880cd9c6:User"/>
+  <has_mechanism rdf:resource="#806d9da1cdad42a8968cb03:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b311830413c64189b70691e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Choices If you choose to share contact information with us you will have the opportunity to update that information You can stop the delivery of commercial email messages from a CBS Interactive Services or service by following the instructions in any such email you receive You have choices about the collection and use of your information by third parties to display relevant advertisements as described in our overview of Third Party Online Advertising You also may choose to opt out of our use of data that we collect about your visits to our business partners sites to customize advertising that we serve To opt out visit the CBS Interactive Business Partner Advertising Opt-Out page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7256c175f3e04fcd9634b3e:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#fc2df867ba1c462f83a191b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7256c175f3e04fcd9634b3e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fc2df867ba1c462f83a191b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To opt out, visit the CBS Interactive Business Partner Advertising Opt-Out page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#50f245c27e8d4b0f830128d:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#f3207e2cedc8446a82885ae:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#21d463212cbf49e9a935f6e:User"/>
-  <has_mechanism rdf:resource="#7256c175f3e04fcd9634b3e:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">50f245c27e8d4b0f830128d</uuid>
+  <initiated_by rdf:resource="#b7e54f1059ef44c880cd9c6:User"/>
+  <has_mechanism rdf:resource="#fc2df867ba1c462f83a191b:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f3207e2cedc8446a82885ae</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Choices If you choose to share contact information with us you will have the opportunity to update that information You can stop the delivery of commercial email messages from a CBS Interactive Services or service by following the instructions in any such email you receive You have choices about the collection and use of your information by third parties to display relevant advertisements as described in our overview of Third Party Online Advertising You also may choose to opt out of our use of data that we collect about your visits to our business partners sites to customize advertising that we serve To opt out visit the CBS Interactive Business Partner Advertising Opt-Out page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7a5ad678d1284ff59a3acc1:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#cc7acca81488495fa2c76a1:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7a5ad678d1284ff59a3acc1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cc7acca81488495fa2c76a1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You have choices about the collection and use of your information by third parties to display relevant advertisements, as described in our overview of Third Party Online Advertising</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7284186abd7a44deb9be122:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#9cb6cbe172ad4201a82c51c:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#21d463212cbf49e9a935f6e:User"/>
-  <has_mechanism rdf:resource="#7a5ad678d1284ff59a3acc1:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7284186abd7a44deb9be122</uuid>
+  <initiated_by rdf:resource="#b7e54f1059ef44c880cd9c6:User"/>
+  <has_mechanism rdf:resource="#cc7acca81488495fa2c76a1:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9cb6cbe172ad4201a82c51c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Choices If you choose to share contact information with us you will have the opportunity to update that information You can stop the delivery of commercial email messages from a CBS Interactive Services or service by following the instructions in any such email you receive You have choices about the collection and use of your information by third parties to display relevant advertisements as described in our overview of Third Party Online Advertising You also may choose to opt out of our use of data that we collect about your visits to our business partners sites to customize advertising that we serve To opt out visit the CBS Interactive Business Partner Advertising Opt-Out page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e795d8d192b440829336c9f:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#11b17cb12abb43ecbadb75d:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e795d8d192b440829336c9f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11b17cb12abb43ecbadb75d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can stop the delivery of commercial email messages from a CBS Interactive Services or service by following the instructions in any such email you receive.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6932273f238d472f87e431b:PersonalData">
+<owl:NamedIndividual rdf:about="#c3667dd5f0484e46a1c184b:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#21d463212cbf49e9a935f6e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6932273f238d472f87e431b</uuid>
+  <provided_by rdf:resource="#b7e54f1059ef44c880cd9c6:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c3667dd5f0484e46a1c184b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can stop the delivery of commercial email messages from a CBS Interactive Services or service by following the instructions in any such email you receive.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e640d52f5bff4e49b48ee97:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#891e4126bdcb402b9d6171f:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#21d463212cbf49e9a935f6e:User"/>
-  <has_mechanism rdf:resource="#e795d8d192b440829336c9f:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#6932273f238d472f87e431b:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e640d52f5bff4e49b48ee97</uuid>
+  <initiated_by rdf:resource="#b7e54f1059ef44c880cd9c6:User"/>
+  <has_mechanism rdf:resource="#11b17cb12abb43ecbadb75d:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#c3667dd5f0484e46a1c184b:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">891e4126bdcb402b9d6171f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Choices If you choose to share contact information with us you will have the opportunity to update that information You can stop the delivery of commercial email messages from a CBS Interactive Services or service by following the instructions in any such email you receive You have choices about the collection and use of your information by third parties to display relevant advertisements as described in our overview of Third Party Online Advertising You also may choose to opt out of our use of data that we collect about your visits to our business partners sites to customize advertising that we serve To opt out visit the CBS Interactive Business Partner Advertising Opt-Out page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d6c29fdffa6a44179d91e95:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#44fd23bfd45b48c293cf992:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d6c29fdffa6a44179d91e95</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">44fd23bfd45b48c293cf992</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ou can stop the delivery of commercial email messages from a CBS Interactive Services or service by following the instructions in any such email you receiv</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#67921e472501445da1961b3:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#208473185dac4bcab96627c:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#21d463212cbf49e9a935f6e:User"/>
-  <has_mechanism rdf:resource="#d6c29fdffa6a44179d91e95:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">67921e472501445da1961b3</uuid>
+  <initiated_by rdf:resource="#b7e54f1059ef44c880cd9c6:User"/>
+  <has_mechanism rdf:resource="#44fd23bfd45b48c293cf992:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">208473185dac4bcab96627c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Choices If you choose to share contact information with us you will have the opportunity to update that information You can stop the delivery of commercial email messages from a CBS Interactive Services or service by following the instructions in any such email you receive You have choices about the collection and use of your information by third parties to display relevant advertisements as described in our overview of Third Party Online Advertising You also may choose to opt out of our use of data that we collect about your visits to our business partners sites to customize advertising that we serve To opt out visit the CBS Interactive Business Partner Advertising Opt-Out page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f06de8f9599d4b6e97ef5a9:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#2a1de9e3b41f4d94aab425f:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f06de8f9599d4b6e97ef5a9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2a1de9e3b41f4d94aab425f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We have adopted commercially reasonable procedures to help protect your information, but please note that no data transmission or storage can be guaranteed to be 100 secure.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#17365118cc8c485c9c41aab:DataProtection">
+<owl:NamedIndividual rdf:about="#29d5f84c6713453988780aa:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#0dc79388988a452bac9a949:FirstParty"/>
-  <has_mechanism rdf:resource="#f06de8f9599d4b6e97ef5a9:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">17365118cc8c485c9c41aab</uuid>
+  <initiated_by rdf:resource="#4d8e662caf4947daa403ab5:FirstParty"/>
+  <has_mechanism rdf:resource="#2a1de9e3b41f4d94aab425f:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">29d5f84c6713453988780aa</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Other Information CBS Interactive is committed to working with you to obtain a fair resolution of any privacy concern We have adopted commercially reasonable procedures to help protect your information but please note that no data transmission or storage can be guaranteed to be 100 secure For more information about our privacy practices please review the full CBS Interactive Privacy Policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c5ec4bfa624a4e3995799d0:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#abcfc22bacc743ffafe9f2e:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#21d463212cbf49e9a935f6e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c5ec4bfa624a4e3995799d0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">abcfc22bacc743ffafe9f2e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">For international users please select this link to find the address of your closest CBS Interactive office We are committed to working with you to obtain a fair resolution of any privacy concern</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8cf759ab8f944b0898f08e8:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#b7a1c7bfce0247f5afb6dc5:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#21d463212cbf49e9a935f6e:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8cf759ab8f944b0898f08e8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b7a1c7bfce0247f5afb6dc5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Residents of the State of California may request a list of all third parties to which a CBS Interactive Services has disclosed certain information during the preceding year for the third parties direct marketing purposes If you are a California resident and want such a list please contact us For all requests you must put the statement Your California Privacy Rights in the subject field of your request and include the name of the CBS Interactive Services with respect to which you are requesting the information as well as your name street address city state and zip code Please note that we will not accept these requests via the telephone mail or by facsimile and we are not responsible for notices that are not labeled or sent properly or that do not have complete information</evidence>
 </owl:NamedIndividual>
 

@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -901,6 +902,14 @@
   <rdfs:subClassOf rdf:resource="#UserSpecificCommunicationMechanism"/>
   <owl:disjointWith rdf:resource="#AutomaticCommunicationMechanism"/>
   <rdfs:subClassOf>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
+        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
+      </owl:unionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
       <owl:allValuesFrom>
@@ -909,14 +918,6 @@
         </owl:Class>
       </owl:allValuesFrom>
     </owl:Restriction>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
-        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
-      </owl:unionOf>
-    </owl:Class>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,682 +1305,680 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#7db1875f35504d629cdc93f:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#66d93a2d739b4696ad2987c:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7db1875f35504d629cdc93f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">66d93a2d739b4696ad2987c</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#82c29d1ba97f47ea97ed2a3:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#3790c53a8b0e4b4486cdb6d:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <considers rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <considers rdf:resource="#5056b7f81c8541eba3cbff2:ThirdParty"/>
-  <considers rdf:resource="#58a719ba92cf4fc2bd917f9:OptInOptOutControl"/>
-  <considers rdf:resource="#810c79bcf0b4428d9e01205:PolicyChange"/>
-  <considers rdf:resource="#b35e8907261a41159d4d7a0:FPNotification"/>
-  <considers rdf:resource="#55fdddf80f8f4cba9c18f0c:OptInOptOutControl"/>
-  <considers rdf:resource="#f0b075b7e39c48998dd2aba:PolicyChange"/>
-  <considers rdf:resource="#731216a716fa452d80ea82e:FPNotification"/>
-  <considers rdf:resource="#4099236c790f440ea264cb3:OptInOptOutControl"/>
-  <considers rdf:resource="#593e0494b5364be9b270031:PolicyChange"/>
-  <considers rdf:resource="#582f1dc5c58748cf87cd1c5:FPNotification"/>
-  <considers rdf:resource="#79b0a03937d340b794a9018:OptInOptOutControl"/>
-  <considers rdf:resource="#589e08e343be4a5eb713822:PolicyChange"/>
-  <considers rdf:resource="#02b7bc62701f402f93ab3b4:FPNotification"/>
-  <considers rdf:resource="#8b09b934af3c44a392bd790:OptInOptOutControl"/>
-  <considers rdf:resource="#26c5d4e0c16743d79d345ee:PolicyChange"/>
-  <considers rdf:resource="#bb89f4dd33654655853db43:FPNotification"/>
-  <considers rdf:resource="#d11210dd72144ce9b001864:OptInOptOutControl"/>
-  <considers rdf:resource="#b212ff79520943dc93a7f63:PolicyChange"/>
-  <considers rdf:resource="#11c5049935444baf956a842:FPNotification"/>
-  <considers rdf:resource="#f3114173844f42298c91bbd:OptInOptOutControl"/>
-  <considers rdf:resource="#06ce9c2ed79c4387b87cd63:PolicyChange"/>
-  <considers rdf:resource="#63199d56783845dab5759f1:FPNotification"/>
-  <considers rdf:resource="#f461905fbbc543a4b4e5945:OptInOptOutControl"/>
-  <considers rdf:resource="#a2ddcaeb130d448ba3c6ace:PolicyChange"/>
-  <considers rdf:resource="#e0aec18af7c944578d5fced:FPNotification"/>
-  <considers rdf:resource="#38587bdcfab1407888a91c3:OptInOptOutControl"/>
-  <considers rdf:resource="#9bd9be9ec63a4a57be0d37d:PolicyChange"/>
-  <considers rdf:resource="#c4903d78bf6642a797012b5:FPNotification"/>
-  <considers rdf:resource="#6769b119eb524e1e9a12b47:OptInOptOutControl"/>
-  <considers rdf:resource="#65d4bbb91789452cb3224ff:PolicyChange"/>
-  <considers rdf:resource="#dbea2b19bcfa425e9f4c087:FPNotification"/>
-  <considers rdf:resource="#db8df64d2a55423d970d0ef:OptInOptOutControl"/>
-  <considers rdf:resource="#048ecd374c344832bf26ffe:PolicyChange"/>
-  <considers rdf:resource="#81eaed2bc876401a8270cb7:FPNotification"/>
-  <considers rdf:resource="#77a57ac1e2624fcba2d7b54:OptInOptOutControl"/>
-  <considers rdf:resource="#22fa6913d2344f5da15d95a:PolicyChange"/>
-  <considers rdf:resource="#80a25b8761454acc92a5fae:FPNotification"/>
-  <considers rdf:resource="#32ba1bbb7c7d45cd92c0c75:DataProtection"/>
-  <considers rdf:resource="#5cd70aad7e854b10b2ab79c:DataProtection"/>
-  <considers rdf:resource="#db41446707e641439faf9eb:DataProtection"/>
-  <considers rdf:resource="#41db0dc948a643578f66b8e:DataProtection"/>
-  <considers rdf:resource="#04ac20e07b6142d890cfa1f:GenericData"/>
-  <considers rdf:resource="#ca45e59672ff4134ae5b818:OptInOptOutControl"/>
-  <considers rdf:resource="#060c5fa4b949459f97f872f:GenericData"/>
-  <considers rdf:resource="#23807f881da24c9194c7efd:OptInOptOutControl"/>
-  <considers rdf:resource="#410c789c18074be19bb3f26:GenericData"/>
-  <considers rdf:resource="#8eccd1889ff344ff83b4eaa:OptInOptOutControl"/>
-  <considers rdf:resource="#232771c969694c6d9798a41:GenericData"/>
-  <considers rdf:resource="#7c0483430b594ae988912f5:OptInOptOutControl"/>
-  <considers rdf:resource="#f6208ea9bcf84ac096f8a74:OptInOptOutControl"/>
-  <considers rdf:resource="#93dfd7db66e343c28c8aec0:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">82c29d1ba97f47ea97ed2a3</uuid>
+  <considers rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <considers rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <considers rdf:resource="#ea855131b4df4bc98ed29d8:ThirdParty"/>
+  <considers rdf:resource="#41a1e75b68e145c5ae48be5:OptInOptOutControl"/>
+  <considers rdf:resource="#2f7a14ed51fb4deca639b95:PolicyChange"/>
+  <considers rdf:resource="#6a1298e634794ee6939dd62:FPNotification"/>
+  <considers rdf:resource="#4a5a6cf12b7245afa2f2d0a:OptInOptOutControl"/>
+  <considers rdf:resource="#89407dcf01a84ea1b9ba8e6:PolicyChange"/>
+  <considers rdf:resource="#fbf43fe64634494982489c8:FPNotification"/>
+  <considers rdf:resource="#dc5429aabdb44805a1b049c:OptInOptOutControl"/>
+  <considers rdf:resource="#9b480add321e4ab9ac6ed5c:PolicyChange"/>
+  <considers rdf:resource="#b8d0f98c85e34980bfe2c9c:FPNotification"/>
+  <considers rdf:resource="#d51849a2102a4b3d9f7f6a4:OptInOptOutControl"/>
+  <considers rdf:resource="#1377d47e637349b08dfb70a:PolicyChange"/>
+  <considers rdf:resource="#4fbdd6cc7de44bf389f8801:FPNotification"/>
+  <considers rdf:resource="#38200d1e48a84d53aeab1c8:OptInOptOutControl"/>
+  <considers rdf:resource="#46204615c39f4cd89f0e908:PolicyChange"/>
+  <considers rdf:resource="#1d21007aa0f14772820f4cd:FPNotification"/>
+  <considers rdf:resource="#71a18d6d44b644489d822c0:OptInOptOutControl"/>
+  <considers rdf:resource="#7242a495ca7246108cbe561:PolicyChange"/>
+  <considers rdf:resource="#4629cb3f345c42dca8a63b0:FPNotification"/>
+  <considers rdf:resource="#7d1e372f090046609fe98a2:OptInOptOutControl"/>
+  <considers rdf:resource="#bf7fc95677834d799a40b94:PolicyChange"/>
+  <considers rdf:resource="#dda8814bf1c34bd3ade3812:FPNotification"/>
+  <considers rdf:resource="#1e4f1b1e37d941158ee3591:OptInOptOutControl"/>
+  <considers rdf:resource="#e862a8fb9fb74fce9d94d67:PolicyChange"/>
+  <considers rdf:resource="#6c162f7d6b8345609cbe4cb:FPNotification"/>
+  <considers rdf:resource="#8fb0983b6bf746a2b6d705d:OptInOptOutControl"/>
+  <considers rdf:resource="#dce46ef4d604476c8062dde:PolicyChange"/>
+  <considers rdf:resource="#decbd3160dfd4b878402217:FPNotification"/>
+  <considers rdf:resource="#85726442fdf645c7b83822e:OptInOptOutControl"/>
+  <considers rdf:resource="#da9dfbc35a9f4327ac0ae56:PolicyChange"/>
+  <considers rdf:resource="#1ae40ca949e44765a96a3f1:FPNotification"/>
+  <considers rdf:resource="#dd9a6674c7f64813a231b28:OptInOptOutControl"/>
+  <considers rdf:resource="#a15d3e99b415406b8a3e1f9:PolicyChange"/>
+  <considers rdf:resource="#dc6512c0f7024b448177110:FPNotification"/>
+  <considers rdf:resource="#4995468bd30b46a9a6abeb8:OptInOptOutControl"/>
+  <considers rdf:resource="#0a218181ed9c4c0c91e840a:PolicyChange"/>
+  <considers rdf:resource="#6f72cebab2d34a17a278926:FPNotification"/>
+  <considers rdf:resource="#ecc4b414f9094660b76cb16:DataProtection"/>
+  <considers rdf:resource="#222708eb28f24edf85113bc:DataProtection"/>
+  <considers rdf:resource="#28ebb072135f48ed90a675e:DataProtection"/>
+  <considers rdf:resource="#6859225d5ddb4a0bb17fbf4:DataProtection"/>
+  <considers rdf:resource="#3488da0c1c004913ae93510:GenericData"/>
+  <considers rdf:resource="#be1b6e3577b54970bc5e088:OptInOptOutControl"/>
+  <considers rdf:resource="#5f02703d37e74d7888300fe:GenericData"/>
+  <considers rdf:resource="#d39139d9ce8c442b83cf12d:OptInOptOutControl"/>
+  <considers rdf:resource="#40d85033237d4393a726e9a:GenericData"/>
+  <considers rdf:resource="#5c03730a8cfe4ea2b156372:OptInOptOutControl"/>
+  <considers rdf:resource="#9d0ee00bedfc40238cbb523:GenericData"/>
+  <considers rdf:resource="#fdb6e2501eac4d69b4ba8fb:OptInOptOutControl"/>
+  <considers rdf:resource="#d147320f04ff40a4a3360dc:OptInOptOutControl"/>
+  <considers rdf:resource="#84e5d7c3b06c4c70aed9f57:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3790c53a8b0e4b4486cdb6d</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">disinfo.com</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ca4267f97a6c4aad93c6c9c:User">
+<owl:NamedIndividual rdf:about="#5b27e24047f84847bb04cc3:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ca4267f97a6c4aad93c6c9c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5b27e24047f84847bb04cc3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#373c7995ce474c1199c8bed:FirstParty">
+<owl:NamedIndividual rdf:about="#7f4924f6b9eb48529dd183f:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">373c7995ce474c1199c8bed</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7f4924f6b9eb48529dd183f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5056b7f81c8541eba3cbff2:ThirdParty">
+<owl:NamedIndividual rdf:about="#ea855131b4df4bc98ed29d8:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5056b7f81c8541eba3cbff2</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ea855131b4df4bc98ed29d8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#21a27345bae4466eae6fc19:FPSpecificCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#12a16e323250498592e0395:FPSpecificCommunicationMechanism">
   <rdf:type rdf:resource="#FPSpecificCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">21a27345bae4466eae6fc19</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">12a16e323250498592e0395</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#58a719ba92cf4fc2bd917f9:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#41a1e75b68e145c5ae48be5:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">58a719ba92cf4fc2bd917f9</uuid>
+  <initiated_by rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">41a1e75b68e145c5ae48be5</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#810c79bcf0b4428d9e01205:PolicyChange">
+<owl:NamedIndividual rdf:about="#2f7a14ed51fb4deca639b95:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <binded_to rdf:resource="#58a719ba92cf4fc2bd917f9:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">810c79bcf0b4428d9e01205</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <binded_to rdf:resource="#41a1e75b68e145c5ae48be5:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2f7a14ed51fb4deca639b95</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b35e8907261a41159d4d7a0:FPNotification">
+<owl:NamedIndividual rdf:about="#6a1298e634794ee6939dd62:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <notifies rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <has_mechanism rdf:resource="#21a27345bae4466eae6fc19:FPSpecificCommunicationMechanism"/>
-  <binded_to rdf:resource="#810c79bcf0b4428d9e01205:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b35e8907261a41159d4d7a0</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <notifies rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <has_mechanism rdf:resource="#12a16e323250498592e0395:FPSpecificCommunicationMechanism"/>
+  <binded_to rdf:resource="#2f7a14ed51fb4deca639b95:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6a1298e634794ee6939dd62</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#099c4af9254d41e6b9a1b9f:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#6a075fff92b946aca9e9e07:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">099c4af9254d41e6b9a1b9f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6a075fff92b946aca9e9e07</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">by means of a notice on our home page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#55fdddf80f8f4cba9c18f0c:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#4a5a6cf12b7245afa2f2d0a:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">55fdddf80f8f4cba9c18f0c</uuid>
+  <initiated_by rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4a5a6cf12b7245afa2f2d0a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f0b075b7e39c48998dd2aba:PolicyChange">
+<owl:NamedIndividual rdf:about="#89407dcf01a84ea1b9ba8e6:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <binded_to rdf:resource="#55fdddf80f8f4cba9c18f0c:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f0b075b7e39c48998dd2aba</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <binded_to rdf:resource="#4a5a6cf12b7245afa2f2d0a:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">89407dcf01a84ea1b9ba8e6</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#731216a716fa452d80ea82e:FPNotification">
+<owl:NamedIndividual rdf:about="#fbf43fe64634494982489c8:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <notifies rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <has_mechanism rdf:resource="#099c4af9254d41e6b9a1b9f:OnWebsitePage"/>
-  <binded_to rdf:resource="#f0b075b7e39c48998dd2aba:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">731216a716fa452d80ea82e</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <notifies rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <has_mechanism rdf:resource="#6a075fff92b946aca9e9e07:OnWebsitePage"/>
+  <binded_to rdf:resource="#89407dcf01a84ea1b9ba8e6:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fbf43fe64634494982489c8</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#18cac27f131f4e4a99c4472:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#25359274109a40da924bcf2:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">18cac27f131f4e4a99c4472</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">25359274109a40da924bcf2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">home page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4099236c790f440ea264cb3:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#dc5429aabdb44805a1b049c:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4099236c790f440ea264cb3</uuid>
+  <initiated_by rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dc5429aabdb44805a1b049c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#593e0494b5364be9b270031:PolicyChange">
+<owl:NamedIndividual rdf:about="#9b480add321e4ab9ac6ed5c:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <binded_to rdf:resource="#4099236c790f440ea264cb3:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">593e0494b5364be9b270031</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <binded_to rdf:resource="#dc5429aabdb44805a1b049c:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9b480add321e4ab9ac6ed5c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#582f1dc5c58748cf87cd1c5:FPNotification">
+<owl:NamedIndividual rdf:about="#b8d0f98c85e34980bfe2c9c:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <notifies rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <has_mechanism rdf:resource="#18cac27f131f4e4a99c4472:OnWebsitePage"/>
-  <binded_to rdf:resource="#593e0494b5364be9b270031:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">582f1dc5c58748cf87cd1c5</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <notifies rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <has_mechanism rdf:resource="#25359274109a40da924bcf2:OnWebsitePage"/>
+  <binded_to rdf:resource="#9b480add321e4ab9ac6ed5c:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b8d0f98c85e34980bfe2c9c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#79b0a03937d340b794a9018:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#d51849a2102a4b3d9f7f6a4:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">79b0a03937d340b794a9018</uuid>
+  <initiated_by rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d51849a2102a4b3d9f7f6a4</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#589e08e343be4a5eb713822:PolicyChange">
+<owl:NamedIndividual rdf:about="#1377d47e637349b08dfb70a:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <binded_to rdf:resource="#79b0a03937d340b794a9018:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">589e08e343be4a5eb713822</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <binded_to rdf:resource="#d51849a2102a4b3d9f7f6a4:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1377d47e637349b08dfb70a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#02b7bc62701f402f93ab3b4:FPNotification">
+<owl:NamedIndividual rdf:about="#4fbdd6cc7de44bf389f8801:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <notifies rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <binded_to rdf:resource="#589e08e343be4a5eb713822:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">02b7bc62701f402f93ab3b4</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <notifies rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <binded_to rdf:resource="#1377d47e637349b08dfb70a:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4fbdd6cc7de44bf389f8801</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6fe591ccb5684505865af0b:InPrivacyPolicy">
+<owl:NamedIndividual rdf:about="#284e016bc713498186d9796:InPrivacyPolicy">
   <rdf:type rdf:resource="#InPrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6fe591ccb5684505865af0b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">284e016bc713498186d9796</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">we will notify you here</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8b09b934af3c44a392bd790:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#38200d1e48a84d53aeab1c8:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8b09b934af3c44a392bd790</uuid>
+  <initiated_by rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">38200d1e48a84d53aeab1c8</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#26c5d4e0c16743d79d345ee:PolicyChange">
+<owl:NamedIndividual rdf:about="#46204615c39f4cd89f0e908:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <binded_to rdf:resource="#8b09b934af3c44a392bd790:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">26c5d4e0c16743d79d345ee</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <binded_to rdf:resource="#38200d1e48a84d53aeab1c8:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">46204615c39f4cd89f0e908</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bb89f4dd33654655853db43:FPNotification">
+<owl:NamedIndividual rdf:about="#1d21007aa0f14772820f4cd:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <notifies rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <has_mechanism rdf:resource="#6fe591ccb5684505865af0b:InPrivacyPolicy"/>
-  <binded_to rdf:resource="#26c5d4e0c16743d79d345ee:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bb89f4dd33654655853db43</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <notifies rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <has_mechanism rdf:resource="#284e016bc713498186d9796:InPrivacyPolicy"/>
+  <binded_to rdf:resource="#46204615c39f4cd89f0e908:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1d21007aa0f14772820f4cd</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#352f9ad54d564ba6a6b6dc6:FPSpecificCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#b3acf03e81e542ccb29a819:FPSpecificCommunicationMechanism">
   <rdf:type rdf:resource="#FPSpecificCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">352f9ad54d564ba6a6b6dc6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b3acf03e81e542ccb29a819</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">by email,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d11210dd72144ce9b001864:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#71a18d6d44b644489d822c0:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d11210dd72144ce9b001864</uuid>
+  <initiated_by rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">71a18d6d44b644489d822c0</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b212ff79520943dc93a7f63:PolicyChange">
+<owl:NamedIndividual rdf:about="#7242a495ca7246108cbe561:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <binded_to rdf:resource="#d11210dd72144ce9b001864:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b212ff79520943dc93a7f63</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <binded_to rdf:resource="#71a18d6d44b644489d822c0:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7242a495ca7246108cbe561</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#11c5049935444baf956a842:FPNotification">
+<owl:NamedIndividual rdf:about="#4629cb3f345c42dca8a63b0:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <notifies rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <has_mechanism rdf:resource="#352f9ad54d564ba6a6b6dc6:FPSpecificCommunicationMechanism"/>
-  <binded_to rdf:resource="#b212ff79520943dc93a7f63:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11c5049935444baf956a842</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <notifies rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <has_mechanism rdf:resource="#b3acf03e81e542ccb29a819:FPSpecificCommunicationMechanism"/>
+  <binded_to rdf:resource="#7242a495ca7246108cbe561:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4629cb3f345c42dca8a63b0</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#00d3ae1ba4f640088dd0a75:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#5f6d363ea1154a0bade072f:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">00d3ae1ba4f640088dd0a75</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5f6d363ea1154a0bade072f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">by means of a notice on our home page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f3114173844f42298c91bbd:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#7d1e372f090046609fe98a2:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f3114173844f42298c91bbd</uuid>
+  <initiated_by rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7d1e372f090046609fe98a2</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#06ce9c2ed79c4387b87cd63:PolicyChange">
+<owl:NamedIndividual rdf:about="#bf7fc95677834d799a40b94:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <binded_to rdf:resource="#f3114173844f42298c91bbd:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">06ce9c2ed79c4387b87cd63</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <binded_to rdf:resource="#7d1e372f090046609fe98a2:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bf7fc95677834d799a40b94</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#63199d56783845dab5759f1:FPNotification">
+<owl:NamedIndividual rdf:about="#dda8814bf1c34bd3ade3812:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <notifies rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <has_mechanism rdf:resource="#00d3ae1ba4f640088dd0a75:OnWebsitePage"/>
-  <binded_to rdf:resource="#06ce9c2ed79c4387b87cd63:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">63199d56783845dab5759f1</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <notifies rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <has_mechanism rdf:resource="#5f6d363ea1154a0bade072f:OnWebsitePage"/>
+  <binded_to rdf:resource="#bf7fc95677834d799a40b94:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dda8814bf1c34bd3ade3812</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#757256c821604e9bb4239f8:InPrivacyPolicy">
+<owl:NamedIndividual rdf:about="#339936c442f949338ae2a6d:InPrivacyPolicy">
   <rdf:type rdf:resource="#InPrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">757256c821604e9bb4239f8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">339936c442f949338ae2a6d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">we will post those changes to this privacy statement</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f461905fbbc543a4b4e5945:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#1e4f1b1e37d941158ee3591:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f461905fbbc543a4b4e5945</uuid>
+  <initiated_by rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1e4f1b1e37d941158ee3591</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a2ddcaeb130d448ba3c6ace:PolicyChange">
+<owl:NamedIndividual rdf:about="#e862a8fb9fb74fce9d94d67:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <binded_to rdf:resource="#f461905fbbc543a4b4e5945:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a2ddcaeb130d448ba3c6ace</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <binded_to rdf:resource="#1e4f1b1e37d941158ee3591:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e862a8fb9fb74fce9d94d67</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e0aec18af7c944578d5fced:FPNotification">
+<owl:NamedIndividual rdf:about="#6c162f7d6b8345609cbe4cb:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <notifies rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <has_mechanism rdf:resource="#757256c821604e9bb4239f8:InPrivacyPolicy"/>
-  <binded_to rdf:resource="#a2ddcaeb130d448ba3c6ace:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e0aec18af7c944578d5fced</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <notifies rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <has_mechanism rdf:resource="#339936c442f949338ae2a6d:InPrivacyPolicy"/>
+  <binded_to rdf:resource="#e862a8fb9fb74fce9d94d67:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6c162f7d6b8345609cbe4cb</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5362c1c9467b44a18cf3cf8:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#760f93863d07436aa2e6e11:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5362c1c9467b44a18cf3cf8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">760f93863d07436aa2e6e11</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the home page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#38587bdcfab1407888a91c3:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#8fb0983b6bf746a2b6d705d:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">38587bdcfab1407888a91c3</uuid>
+  <initiated_by rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8fb0983b6bf746a2b6d705d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9bd9be9ec63a4a57be0d37d:PolicyChange">
+<owl:NamedIndividual rdf:about="#dce46ef4d604476c8062dde:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <binded_to rdf:resource="#38587bdcfab1407888a91c3:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9bd9be9ec63a4a57be0d37d</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <binded_to rdf:resource="#8fb0983b6bf746a2b6d705d:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dce46ef4d604476c8062dde</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c4903d78bf6642a797012b5:FPNotification">
+<owl:NamedIndividual rdf:about="#decbd3160dfd4b878402217:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <notifies rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <has_mechanism rdf:resource="#5362c1c9467b44a18cf3cf8:OnWebsitePage"/>
-  <binded_to rdf:resource="#9bd9be9ec63a4a57be0d37d:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c4903d78bf6642a797012b5</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <notifies rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <has_mechanism rdf:resource="#760f93863d07436aa2e6e11:OnWebsitePage"/>
+  <binded_to rdf:resource="#dce46ef4d604476c8062dde:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">decbd3160dfd4b878402217</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8ed86648fa6a4ce1be1f352:InPrivacyPolicy">
+<owl:NamedIndividual rdf:about="#779051b4f95e463da181c34:InPrivacyPolicy">
   <rdf:type rdf:resource="#InPrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8ed86648fa6a4ce1be1f352</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">779051b4f95e463da181c34</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">we will notify you here</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6769b119eb524e1e9a12b47:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#85726442fdf645c7b83822e:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6769b119eb524e1e9a12b47</uuid>
+  <initiated_by rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">85726442fdf645c7b83822e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#65d4bbb91789452cb3224ff:PolicyChange">
+<owl:NamedIndividual rdf:about="#da9dfbc35a9f4327ac0ae56:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <binded_to rdf:resource="#6769b119eb524e1e9a12b47:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">65d4bbb91789452cb3224ff</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <binded_to rdf:resource="#85726442fdf645c7b83822e:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">da9dfbc35a9f4327ac0ae56</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dbea2b19bcfa425e9f4c087:FPNotification">
+<owl:NamedIndividual rdf:about="#1ae40ca949e44765a96a3f1:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <notifies rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <has_mechanism rdf:resource="#8ed86648fa6a4ce1be1f352:InPrivacyPolicy"/>
-  <binded_to rdf:resource="#65d4bbb91789452cb3224ff:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dbea2b19bcfa425e9f4c087</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <notifies rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <has_mechanism rdf:resource="#779051b4f95e463da181c34:InPrivacyPolicy"/>
+  <binded_to rdf:resource="#da9dfbc35a9f4327ac0ae56:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1ae40ca949e44765a96a3f1</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7c8019b37a6e4059ab0c796:FPSpecificCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#e11563c7cc9644f89f99546:FPSpecificCommunicationMechanism">
   <rdf:type rdf:resource="#FPSpecificCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7c8019b37a6e4059ab0c796</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e11563c7cc9644f89f99546</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">by email,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#db8df64d2a55423d970d0ef:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#dd9a6674c7f64813a231b28:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">db8df64d2a55423d970d0ef</uuid>
+  <initiated_by rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dd9a6674c7f64813a231b28</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#048ecd374c344832bf26ffe:PolicyChange">
+<owl:NamedIndividual rdf:about="#a15d3e99b415406b8a3e1f9:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <binded_to rdf:resource="#db8df64d2a55423d970d0ef:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">048ecd374c344832bf26ffe</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <binded_to rdf:resource="#dd9a6674c7f64813a231b28:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a15d3e99b415406b8a3e1f9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#81eaed2bc876401a8270cb7:FPNotification">
+<owl:NamedIndividual rdf:about="#dc6512c0f7024b448177110:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <notifies rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <has_mechanism rdf:resource="#7c8019b37a6e4059ab0c796:FPSpecificCommunicationMechanism"/>
-  <binded_to rdf:resource="#048ecd374c344832bf26ffe:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">81eaed2bc876401a8270cb7</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <notifies rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <has_mechanism rdf:resource="#e11563c7cc9644f89f99546:FPSpecificCommunicationMechanism"/>
+  <binded_to rdf:resource="#a15d3e99b415406b8a3e1f9:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dc6512c0f7024b448177110</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ebae878139a0496ca0f5480:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#117455684bf6403ca0bfc1b:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ebae878139a0496ca0f5480</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">117455684bf6403ca0bfc1b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">or by means of a notice on our home page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#77a57ac1e2624fcba2d7b54:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#4995468bd30b46a9a6abeb8:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">77a57ac1e2624fcba2d7b54</uuid>
+  <initiated_by rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4995468bd30b46a9a6abeb8</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#22fa6913d2344f5da15d95a:PolicyChange">
+<owl:NamedIndividual rdf:about="#0a218181ed9c4c0c91e840a:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <binded_to rdf:resource="#77a57ac1e2624fcba2d7b54:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">22fa6913d2344f5da15d95a</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <binded_to rdf:resource="#4995468bd30b46a9a6abeb8:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0a218181ed9c4c0c91e840a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#80a25b8761454acc92a5fae:FPNotification">
+<owl:NamedIndividual rdf:about="#6f72cebab2d34a17a278926:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <notifies rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <has_mechanism rdf:resource="#ebae878139a0496ca0f5480:OnWebsitePage"/>
-  <binded_to rdf:resource="#22fa6913d2344f5da15d95a:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">80a25b8761454acc92a5fae</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <notifies rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <has_mechanism rdf:resource="#117455684bf6403ca0bfc1b:OnWebsitePage"/>
+  <binded_to rdf:resource="#0a218181ed9c4c0c91e840a:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6f72cebab2d34a17a278926</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Ever Make Changes to its Privacy Policy? If we decide to change our Privacy Policy we will post those changes to this privacy statement the home page and other places we deem appropriate so that you are aware of what information we collect how we use it and under what circumstances if any we disclose it We reserve the right to modify this privacy statement at any time so please review it frequently If we make material changes to this policy we will notify you here by email or by means of a notice on our home page If you receive notification of a change in our Privacy Policy you must review the new Privacy Policy carefully to make sure you understand our practices and procedures You may not be able to receive notices from us if your cookies are not set to accept and/or are disabled</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3fba13a66561401e8e015f1:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#649faa8ab2e44404ad4fbfd:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3fba13a66561401e8e015f1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">649faa8ab2e44404ad4fbfd</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Whenever we obtain your Personal Information, we use commercially reasonable efforts to protect it from unauthorized access or disclosure. However, we are not insurers of the security of your Personal Information. Accordingly, we assume no liability for any disclosure of data due to errors in transmission, unauthorized third party access or other acts of third parties, or acts or omissions beyond our reasonable control.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#32ba1bbb7c7d45cd92c0c75:DataProtection">
+<owl:NamedIndividual rdf:about="#ecc4b414f9094660b76cb16:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <has_mechanism rdf:resource="#3fba13a66561401e8e015f1:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">32ba1bbb7c7d45cd92c0c75</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <has_mechanism rdf:resource="#649faa8ab2e44404ad4fbfd:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ecc4b414f9094660b76cb16</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Does Disinformation Protect My Personal Information? Personal Information Whenever we obtain your Personal Information we use commercially reasonable efforts to protect it from unauthorized access or disclosure However we are not insurers of the security of your Personal Information Accordingly we assume no liability for any disclosure of data due to errors in transmission unauthorized third party access or other acts of third parties or acts or omissions beyond our reasonable control</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c1effd1dc0574715ad98a2b:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#ed45a4c7662a4f09931abdd:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c1effd1dc0574715ad98a2b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ed45a4c7662a4f09931abdd</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">However, we cannot guarantee compliance with this policy and no method of transmission over the Internet, or method of electronic storage, is 100% secure. Therefore, while we strive to use commercially acceptable means to protect your Personal Information, we cannot guarantee its absolute security.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5cd70aad7e854b10b2ab79c:DataProtection">
+<owl:NamedIndividual rdf:about="#222708eb28f24edf85113bc:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <has_mechanism rdf:resource="#c1effd1dc0574715ad98a2b:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5cd70aad7e854b10b2ab79c</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <has_mechanism rdf:resource="#ed45a4c7662a4f09931abdd:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">222708eb28f24edf85113bc</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Security The security of your Personal Information is important to us Our policy is to require our third party service providers such as the online store and personals providers to encrypt sensitive information such as a credit card numbers using secure socket layer technology SSL However we cannot guarantee compliance with this policy and no method of transmission over the Internet or method of electronic storage is 100% secure Therefore while we strive to use commercially acceptable means to protect your Personal Information we cannot guarantee its absolute security</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#89e4835a9f09465f8ab5e51:SecuredCommunication">
+<owl:NamedIndividual rdf:about="#4e8b5c5447d24fd29952b55:SecuredCommunication">
   <rdf:type rdf:resource="#SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">89e4835a9f09465f8ab5e51</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4e8b5c5447d24fd29952b55</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Our policy is to require our third party service providers, such as the online store and personals providers, to encrypt sensitive information such as a credit card numbers using secure socket layer technology (SSL</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#db41446707e641439faf9eb:DataProtection">
+<owl:NamedIndividual rdf:about="#28ebb072135f48ed90a675e:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <has_mechanism rdf:resource="#89e4835a9f09465f8ab5e51:SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">db41446707e641439faf9eb</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <has_mechanism rdf:resource="#4e8b5c5447d24fd29952b55:SecuredCommunication"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">28ebb072135f48ed90a675e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Security The security of your Personal Information is important to us Our policy is to require our third party service providers such as the online store and personals providers to encrypt sensitive information such as a credit card numbers using secure socket layer technology SSL However we cannot guarantee compliance with this policy and no method of transmission over the Internet or method of electronic storage is 100% secure Therefore while we strive to use commercially acceptable means to protect your Personal Information we cannot guarantee its absolute security</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8e2069fc8f874cff95e4084:SecuredCommunication">
+<owl:NamedIndividual rdf:about="#aca17632e39a417ab0617cb:SecuredCommunication">
   <rdf:type rdf:resource="#SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8e2069fc8f874cff95e4084</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aca17632e39a417ab0617cb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to encrypt sensitive information such as a credit card numbers using secure socket layer technology (SSL).</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#41db0dc948a643578f66b8e:DataProtection">
+<owl:NamedIndividual rdf:about="#6859225d5ddb4a0bb17fbf4:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#373c7995ce474c1199c8bed:FirstParty"/>
-  <has_mechanism rdf:resource="#8e2069fc8f874cff95e4084:SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">41db0dc948a643578f66b8e</uuid>
+  <initiated_by rdf:resource="#7f4924f6b9eb48529dd183f:FirstParty"/>
+  <has_mechanism rdf:resource="#aca17632e39a417ab0617cb:SecuredCommunication"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6859225d5ddb4a0bb17fbf4</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Security The security of your Personal Information is important to us Our policy is to require our third party service providers such as the online store and personals providers to encrypt sensitive information such as a credit card numbers using secure socket layer technology SSL However we cannot guarantee compliance with this policy and no method of transmission over the Internet or method of electronic storage is 100% secure Therefore while we strive to use commercially acceptable means to protect your Personal Information we cannot guarantee its absolute security</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e5ba24a9e83f42718df9cd9:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#ffd1207e00224c6d8c74307:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e5ba24a9e83f42718df9cd9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ffd1207e00224c6d8c74307</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What About Childrens Privacy? Under Thirteen The Disinformation Services are intended for users ages 13 and older only Accordingly we will not knowingly collect or use any Personal Information from children that we know to be under the age of 13 In addition we will delete any information in our database that we know originates from a child under the age of 13</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8176d20f57a143d2861d826:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#378469bd448c4ee8b17752f:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8176d20f57a143d2861d826</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">378469bd448c4ee8b17752f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Thirteen to Seventeen Prospective users between the ages of 13 and 17 can only use the Disinformation Services under their parents or legal guardians supervision If you are between the ages of 13 and 17 you your parent or your legal guardian may request that we deactivate any of your Personal Information in our database and/or opt-out from receiving communications from us If you wish to do so please contact us using our Contact Form</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#16752a669dc448bfb33f19e:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#2d777b35a91a4c168b6c085:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">16752a669dc448bfb33f19e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2d777b35a91a4c168b6c085</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">egal guardian may request that we deactivate any of your Personal Information in our database and/or opt-out from receiving communications from us.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#04ac20e07b6142d890cfa1f:GenericData">
+<owl:NamedIndividual rdf:about="#3488da0c1c004913ae93510:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">04ac20e07b6142d890cfa1f</uuid>
+  <provided_by rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3488da0c1c004913ae93510</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personal Information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ca45e59672ff4134ae5b818:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#be1b6e3577b54970bc5e088:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <has_mechanism rdf:resource="#16752a669dc448bfb33f19e:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#04ac20e07b6142d890cfa1f:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ca45e59672ff4134ae5b818</uuid>
+  <initiated_by rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <has_mechanism rdf:resource="#2d777b35a91a4c168b6c085:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#3488da0c1c004913ae93510:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">be1b6e3577b54970bc5e088</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Thirteen to Seventeen Prospective users between the ages of 13 and 17 can only use the Disinformation Services under their parents or legal guardians supervision If you are between the ages of 13 and 17 you your parent or your legal guardian may request that we deactivate any of your Personal Information in our database and/or opt-out from receiving communications from us If you wish to do so please contact us using our Contact Form</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4e3caef0f2cc43f998a43f3:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#f3872b175a2646d69e33195:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4e3caef0f2cc43f998a43f3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f3872b175a2646d69e33195</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">o opt-out o</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#060c5fa4b949459f97f872f:GenericData">
+<owl:NamedIndividual rdf:about="#5f02703d37e74d7888300fe:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">060c5fa4b949459f97f872f</uuid>
+  <provided_by rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5f02703d37e74d7888300fe</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personal Information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#23807f881da24c9194c7efd:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#d39139d9ce8c442b83cf12d:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <has_mechanism rdf:resource="#4e3caef0f2cc43f998a43f3:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#060c5fa4b949459f97f872f:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">23807f881da24c9194c7efd</uuid>
+  <initiated_by rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <has_mechanism rdf:resource="#f3872b175a2646d69e33195:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#5f02703d37e74d7888300fe:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d39139d9ce8c442b83cf12d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Can I Opt-Out From Receiving Communications From Disinformation? We provide you the opportunity to opt-out of having your Personal Information used for certain purposes For example you can unsubscribe from any email newsletter list at any time by clicking on a link provided in all email newsletters sent to you If you purchase a product in our store but do not wish to receive any additional marketing material you can indicate your preference on our store partners order form</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9072cacec7f94c5d9a738e8:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#81f9e55c247a497f8e18d1b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9072cacec7f94c5d9a738e8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">81f9e55c247a497f8e18d1b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">do not wish to receive any additional marketing material, you can indicate your preference on our store partners order form.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#410c789c18074be19bb3f26:GenericData">
+<owl:NamedIndividual rdf:about="#40d85033237d4393a726e9a:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">410c789c18074be19bb3f26</uuid>
+  <provided_by rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">40d85033237d4393a726e9a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personal Information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8eccd1889ff344ff83b4eaa:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#5c03730a8cfe4ea2b156372:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <has_mechanism rdf:resource="#9072cacec7f94c5d9a738e8:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#410c789c18074be19bb3f26:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8eccd1889ff344ff83b4eaa</uuid>
+  <initiated_by rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <has_mechanism rdf:resource="#81f9e55c247a497f8e18d1b:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#40d85033237d4393a726e9a:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5c03730a8cfe4ea2b156372</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Can I Opt-Out From Receiving Communications From Disinformation? We provide you the opportunity to opt-out of having your Personal Information used for certain purposes For example you can unsubscribe from any email newsletter list at any time by clicking on a link provided in all email newsletters sent to you If you purchase a product in our store but do not wish to receive any additional marketing material you can indicate your preference on our store partners order form</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6717a2bf21c449aea597de4:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#363f271e566d49bdbdd7995:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6717a2bf21c449aea597de4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">363f271e566d49bdbdd7995</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">clicking on a link</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#232771c969694c6d9798a41:GenericData">
+<owl:NamedIndividual rdf:about="#9d0ee00bedfc40238cbb523:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">232771c969694c6d9798a41</uuid>
+  <provided_by rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9d0ee00bedfc40238cbb523</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Personal Information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7c0483430b594ae988912f5:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#fdb6e2501eac4d69b4ba8fb:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <has_mechanism rdf:resource="#6717a2bf21c449aea597de4:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#232771c969694c6d9798a41:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7c0483430b594ae988912f5</uuid>
+  <initiated_by rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <has_mechanism rdf:resource="#363f271e566d49bdbdd7995:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#9d0ee00bedfc40238cbb523:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fdb6e2501eac4d69b4ba8fb</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Can I Opt-Out From Receiving Communications From Disinformation? We provide you the opportunity to opt-out of having your Personal Information used for certain purposes For example you can unsubscribe from any email newsletter list at any time by clicking on a link provided in all email newsletters sent to you If you purchase a product in our store but do not wish to receive any additional marketing material you can indicate your preference on our store partners order form</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bd44845e2e714e36b02bb87:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#d2c486a17b3349af9dc323e:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bd44845e2e714e36b02bb87</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d2c486a17b3349af9dc323e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">For example, you can unsubscribe from any email newsletter list at any time by clicking on a link provided in all email newsletters sent to you.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f6208ea9bcf84ac096f8a74:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#d147320f04ff40a4a3360dc:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <has_mechanism rdf:resource="#bd44845e2e714e36b02bb87:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f6208ea9bcf84ac096f8a74</uuid>
+  <initiated_by rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <has_mechanism rdf:resource="#d2c486a17b3349af9dc323e:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d147320f04ff40a4a3360dc</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Can I Opt-Out From Receiving Communications From Disinformation? We provide you the opportunity to opt-out of having your Personal Information used for certain purposes For example you can unsubscribe from any email newsletter list at any time by clicking on a link provided in all email newsletters sent to you If you purchase a product in our store but do not wish to receive any additional marketing material you can indicate your preference on our store partners order form</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a796c906c4b140b5be3ee11:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#c9731c844e88499fbb400e4:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a796c906c4b140b5be3ee11</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c9731c844e88499fbb400e4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you purchase a product in our store but do not wish to receive any additional marketing material, you can indicate your preference on our store partners order form.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#93dfd7db66e343c28c8aec0:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#84e5d7c3b06c4c70aed9f57:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#ca4267f97a6c4aad93c6c9c:User"/>
-  <has_mechanism rdf:resource="#a796c906c4b140b5be3ee11:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">93dfd7db66e343c28c8aec0</uuid>
+  <initiated_by rdf:resource="#5b27e24047f84847bb04cc3:User"/>
+  <has_mechanism rdf:resource="#c9731c844e88499fbb400e4:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">84e5d7c3b06c4c70aed9f57</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Can I Opt-Out From Receiving Communications From Disinformation? We provide you the opportunity to opt-out of having your Personal Information used for certain purposes For example you can unsubscribe from any email newsletter list at any time by clicking on a link provided in all email newsletters sent to you If you purchase a product in our store but do not wish to receive any additional marketing material you can indicate your preference on our store partners order form</evidence>
 </owl:NamedIndividual>

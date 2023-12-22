@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -901,14 +902,6 @@
   <rdfs:subClassOf rdf:resource="#UserSpecificCommunicationMechanism"/>
   <owl:disjointWith rdf:resource="#AutomaticCommunicationMechanism"/>
   <rdfs:subClassOf>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
-        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
       <owl:allValuesFrom>
@@ -917,6 +910,14 @@
         </owl:Class>
       </owl:allValuesFrom>
     </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
+        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
+      </owl:unionOf>
+    </owl:Class>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -959,18 +960,18 @@
 <owl:Class rdf:about="#FPSpecificCommunicationMechanism">
   <rdfs:subClassOf rdf:resource="#CommunicationMechanism"/>
   <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#mechanism_of"/>
+      <owl:allValuesFrom rdf:resource="#FPNotification"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
     <owl:Class>
       <owl:unionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#FPSpecificCommunicationMechanism"/>
         <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
       </owl:unionOf>
     </owl:Class>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#mechanism_of"/>
-      <owl:allValuesFrom rdf:resource="#FPNotification"/>
-    </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,211 +1305,211 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#2fe11447648a4a54990ba01:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#5245d3897505459d8feaded:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2fe11447648a4a54990ba01</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5245d3897505459d8feaded</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1ad9d41ece0e43a99d20489:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#ae1b2734cdbb435d80c9c9f:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#f2efe2011e744e62b720f54:User"/>
-  <considers rdf:resource="#496d77deefdc49caad6b58e:FirstParty"/>
-  <considers rdf:resource="#7ca437a9db6147ef9623b3a:ThirdParty"/>
-  <considers rdf:resource="#d4a7d1d125464a5ab96bd1d:TrackingData"/>
-  <considers rdf:resource="#6acfdb1aa9c34517b5f8937:DataRetention"/>
-  <considers rdf:resource="#3f98dff728c5464481a91ab:GenericData"/>
-  <considers rdf:resource="#d4f23e95477e44cc8e6c91e:DataUse"/>
-  <considers rdf:resource="#95540d8dec2f4335b8a07ec:GenericData"/>
-  <considers rdf:resource="#fe955dc14a2c47d5985907e:DataUse"/>
-  <considers rdf:resource="#72e01ac3e82848a78c8a74e:GenericData"/>
-  <considers rdf:resource="#794c5fe8166748ee8df0fc6:DataUse"/>
-  <considers rdf:resource="#5b13e150f72845749c9b92b:DataRetention"/>
-  <considers rdf:resource="#97fba7d0c9fa4e1e9521afa:DataRetention"/>
-  <considers rdf:resource="#a4c0018436f54e35bea3617:DataRetention"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1ad9d41ece0e43a99d20489</uuid>
+  <considers rdf:resource="#8512e640802b4a5da72a7cc:User"/>
+  <considers rdf:resource="#77234d644bb7431eb05b564:FirstParty"/>
+  <considers rdf:resource="#1a80201ed2e545f7a75ff74:ThirdParty"/>
+  <considers rdf:resource="#3bd50bfb136143ab9e2140c:TrackingData"/>
+  <considers rdf:resource="#2a6dc293bbf6430ea9f9057:DataRetention"/>
+  <considers rdf:resource="#4464050048944d59a02bd8a:GenericData"/>
+  <considers rdf:resource="#470d83203f1b422ebe9f08a:DataUse"/>
+  <considers rdf:resource="#21a8f2e324db46faa6fb6ce:GenericData"/>
+  <considers rdf:resource="#d41a09e875c8484f9faba9a:DataUse"/>
+  <considers rdf:resource="#def74a6258a54b44891a412:GenericData"/>
+  <considers rdf:resource="#a295fa37042e403081f4844:DataUse"/>
+  <considers rdf:resource="#c8649d2913e94be4bf35c71:DataRetention"/>
+  <considers rdf:resource="#77623eda50d14acd8a3ccd2:DataRetention"/>
+  <considers rdf:resource="#17f243c233194b129c7897a:DataRetention"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ae1b2734cdbb435d80c9c9f</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">uh.edu</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f2efe2011e744e62b720f54:User">
+<owl:NamedIndividual rdf:about="#8512e640802b4a5da72a7cc:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f2efe2011e744e62b720f54</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8512e640802b4a5da72a7cc</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#496d77deefdc49caad6b58e:FirstParty">
+<owl:NamedIndividual rdf:about="#77234d644bb7431eb05b564:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">496d77deefdc49caad6b58e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">77234d644bb7431eb05b564</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7ca437a9db6147ef9623b3a:ThirdParty">
+<owl:NamedIndividual rdf:about="#1a80201ed2e545f7a75ff74:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7ca437a9db6147ef9623b3a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1a80201ed2e545f7a75ff74</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#80a14e8f0d234e408ad8e76:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#88712a70ebbf4bac97f7e0a:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">80a14e8f0d234e408ad8e76</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">88712a70ebbf4bac97f7e0a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Typically, we do not use cookies to collect information on the UH Central Web server (www.uh.edu). However, the following applications do use cookies to store user login information which is intended to make the application more user-friendly: IT Forum WebCT</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7351f9f118034b178ce212d:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#c424c206bf994407b6d4543:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7351f9f118034b178ce212d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c424c206bf994407b6d4543</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">do use cookies to store user login information which is intended to make the application more user-friendly:</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d4a7d1d125464a5ab96bd1d:TrackingData">
+<owl:NamedIndividual rdf:about="#3bd50bfb136143ab9e2140c:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#f2efe2011e744e62b720f54:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d4a7d1d125464a5ab96bd1d</uuid>
+  <provided_by rdf:resource="#8512e640802b4a5da72a7cc:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3bd50bfb136143ab9e2140c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">use cookies to store user login information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6acfdb1aa9c34517b5f8937:DataRetention">
+<owl:NamedIndividual rdf:about="#2a6dc293bbf6430ea9f9057:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#496d77deefdc49caad6b58e:FirstParty"/>
-  <lasts_for rdf:resource="#80a14e8f0d234e408ad8e76:DataRetentionTime"/>
-  <has_purpose rdf:resource="#7351f9f118034b178ce212d:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#d4a7d1d125464a5ab96bd1d:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6acfdb1aa9c34517b5f8937</uuid>
+  <initiated_by rdf:resource="#77234d644bb7431eb05b564:FirstParty"/>
+  <lasts_for rdf:resource="#88712a70ebbf4bac97f7e0a:DataRetentionTime"/>
+  <has_purpose rdf:resource="#c424c206bf994407b6d4543:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#3bd50bfb136143ab9e2140c:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2a6dc293bbf6430ea9f9057</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Typically we do not use cookies to collect information on the UH Central Web server www uh edu However the following applications do use cookies to store user login information which is intended to make the application more user-friendly IT Forum WebCT</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3f98dff728c5464481a91ab:GenericData">
+<owl:NamedIndividual rdf:about="#4464050048944d59a02bd8a:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#f2efe2011e744e62b720f54:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3f98dff728c5464481a91ab</uuid>
+  <provided_by rdf:resource="#8512e640802b4a5da72a7cc:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4464050048944d59a02bd8a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally identifying information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2a589cd81d0843de9452afe:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#a3b777b5405e415ebca52ff:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2a589cd81d0843de9452afe</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a3b777b5405e415ebca52ff</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">respond to your request</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d4f23e95477e44cc8e6c91e:DataUse">
+<owl:NamedIndividual rdf:about="#470d83203f1b422ebe9f08a:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#496d77deefdc49caad6b58e:FirstParty"/>
-  <has_purpose rdf:resource="#2a589cd81d0843de9452afe:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#3f98dff728c5464481a91ab:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d4f23e95477e44cc8e6c91e</uuid>
+  <initiated_by rdf:resource="#77234d644bb7431eb05b564:FirstParty"/>
+  <has_purpose rdf:resource="#a3b777b5405e415ebca52ff:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#4464050048944d59a02bd8a:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">470d83203f1b422ebe9f08a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you send us an electronic mail message with a question or comment that contains personally identifying information or fill out a form that sends us this information we will only use the personally-identifiable information to respond to your request and analyze trends We may redirect your message to another government agency or person who is in a better position to answer your question</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#95540d8dec2f4335b8a07ec:GenericData">
+<owl:NamedIndividual rdf:about="#21a8f2e324db46faa6fb6ce:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#f2efe2011e744e62b720f54:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">95540d8dec2f4335b8a07ec</uuid>
+  <provided_by rdf:resource="#8512e640802b4a5da72a7cc:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">21a8f2e324db46faa6fb6ce</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally identifying information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e6477e2eb5ee44eb9148408:AnalyticsPurpose">
+<owl:NamedIndividual rdf:about="#7314eb1f327a4e24ab8ccde:AnalyticsPurpose">
   <rdf:type rdf:resource="#AnalyticsPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e6477e2eb5ee44eb9148408</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7314eb1f327a4e24ab8ccde</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">analyze trends</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fe955dc14a2c47d5985907e:DataUse">
+<owl:NamedIndividual rdf:about="#d41a09e875c8484f9faba9a:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#496d77deefdc49caad6b58e:FirstParty"/>
-  <has_purpose rdf:resource="#e6477e2eb5ee44eb9148408:AnalyticsPurpose"/>
-  <applies_to rdf:resource="#95540d8dec2f4335b8a07ec:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fe955dc14a2c47d5985907e</uuid>
+  <initiated_by rdf:resource="#77234d644bb7431eb05b564:FirstParty"/>
+  <has_purpose rdf:resource="#7314eb1f327a4e24ab8ccde:AnalyticsPurpose"/>
+  <applies_to rdf:resource="#21a8f2e324db46faa6fb6ce:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d41a09e875c8484f9faba9a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you send us an electronic mail message with a question or comment that contains personally identifying information or fill out a form that sends us this information we will only use the personally-identifiable information to respond to your request and analyze trends We may redirect your message to another government agency or person who is in a better position to answer your question</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#72e01ac3e82848a78c8a74e:GenericData">
+<owl:NamedIndividual rdf:about="#def74a6258a54b44891a412:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#f2efe2011e744e62b720f54:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">72e01ac3e82848a78c8a74e</uuid>
+  <provided_by rdf:resource="#8512e640802b4a5da72a7cc:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">def74a6258a54b44891a412</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally identifying information,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#25b043e6eab9426a95eb288:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#e791554b7d5747d78648cab:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">25b043e6eab9426a95eb288</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e791554b7d5747d78648cab</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">we will only use the personally-identifiable information to respond to your request</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#794c5fe8166748ee8df0fc6:DataUse">
+<owl:NamedIndividual rdf:about="#a295fa37042e403081f4844:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#496d77deefdc49caad6b58e:FirstParty"/>
-  <has_purpose rdf:resource="#25b043e6eab9426a95eb288:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#72e01ac3e82848a78c8a74e:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">794c5fe8166748ee8df0fc6</uuid>
+  <initiated_by rdf:resource="#77234d644bb7431eb05b564:FirstParty"/>
+  <has_purpose rdf:resource="#e791554b7d5747d78648cab:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#def74a6258a54b44891a412:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a295fa37042e403081f4844</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you send us an electronic mail message with a question or comment that contains personally identifying information or fill out a form that sends us this information we will only use the personally-identifiable information to respond to your request and analyze trends We may redirect your message to another government agency or person who is in a better position to answer your question</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#646b8d61b89d417095deace:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#567eef5007c444f9b2ce267:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">646b8d61b89d417095deace</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">567eef5007c444f9b2ce267</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">For site management functions, information is collected for analysis and statistical purposes. This information is not reported or used in any manner that would reveal personally identifiable information, and will not be released to any outside parties unless legally required to do so in connection with law enforcement investigations or other legal proceedings.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#18ca133a312448318ebef88:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#7bf0e8859c6643d184911e5:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">18ca133a312448318ebef88</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7bf0e8859c6643d184911e5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">For site management functions</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5b13e150f72845749c9b92b:DataRetention">
+<owl:NamedIndividual rdf:about="#c8649d2913e94be4bf35c71:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#496d77deefdc49caad6b58e:FirstParty"/>
-  <lasts_for rdf:resource="#646b8d61b89d417095deace:DataRetentionTime"/>
-  <has_purpose rdf:resource="#18ca133a312448318ebef88:ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5b13e150f72845749c9b92b</uuid>
+  <initiated_by rdf:resource="#77234d644bb7431eb05b564:FirstParty"/>
+  <lasts_for rdf:resource="#567eef5007c444f9b2ce267:DataRetentionTime"/>
+  <has_purpose rdf:resource="#7bf0e8859c6643d184911e5:ServiceProvisionPurpose"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c8649d2913e94be4bf35c71</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">For site management functions information is collected for analysis and statistical purposes This information is not reported or used in any manner that would reveal personally identifiable information and will not be released to any outside parties unless legally required to do so in connection with law enforcement investigations or other legal proceedings</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#63bf45f5022f49ae919da0f:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#e21dd0a0141f4d4faac17d7:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">63bf45f5022f49ae919da0f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e21dd0a0141f4d4faac17d7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">information is collected</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b7a2dca4c0b0412097a1e93:AnalyticsPurpose">
+<owl:NamedIndividual rdf:about="#bb18269198934e18aef93a0:AnalyticsPurpose">
   <rdf:type rdf:resource="#AnalyticsPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b7a2dca4c0b0412097a1e93</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bb18269198934e18aef93a0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">analysis and statistical purposes.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#97fba7d0c9fa4e1e9521afa:DataRetention">
+<owl:NamedIndividual rdf:about="#77623eda50d14acd8a3ccd2:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#496d77deefdc49caad6b58e:FirstParty"/>
-  <lasts_for rdf:resource="#63bf45f5022f49ae919da0f:DataRetentionTime"/>
-  <has_purpose rdf:resource="#b7a2dca4c0b0412097a1e93:AnalyticsPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">97fba7d0c9fa4e1e9521afa</uuid>
+  <initiated_by rdf:resource="#77234d644bb7431eb05b564:FirstParty"/>
+  <lasts_for rdf:resource="#e21dd0a0141f4d4faac17d7:DataRetentionTime"/>
+  <has_purpose rdf:resource="#bb18269198934e18aef93a0:AnalyticsPurpose"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">77623eda50d14acd8a3ccd2</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">For site management functions information is collected for analysis and statistical purposes This information is not reported or used in any manner that would reveal personally identifiable information and will not be released to any outside parties unless legally required to do so in connection with law enforcement investigations or other legal proceedings</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b3a117477fa2468fb198698:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#0970c397e88d41e28fee34e:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b3a117477fa2468fb198698</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0970c397e88d41e28fee34e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">information is collected</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6fc2e824426248869dc00fd:LegalCompliancePurpose">
+<owl:NamedIndividual rdf:about="#0461736947504c0ab9786b5:LegalCompliancePurpose">
   <rdf:type rdf:resource="#LegalCompliancePurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6fc2e824426248869dc00fd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0461736947504c0ab9786b5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unless legally required to do so in connection with law enforcement investigations or other legal proceedings</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a4c0018436f54e35bea3617:DataRetention">
+<owl:NamedIndividual rdf:about="#17f243c233194b129c7897a:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#496d77deefdc49caad6b58e:FirstParty"/>
-  <lasts_for rdf:resource="#b3a117477fa2468fb198698:DataRetentionTime"/>
-  <has_purpose rdf:resource="#6fc2e824426248869dc00fd:LegalCompliancePurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a4c0018436f54e35bea3617</uuid>
+  <initiated_by rdf:resource="#77234d644bb7431eb05b564:FirstParty"/>
+  <lasts_for rdf:resource="#0970c397e88d41e28fee34e:DataRetentionTime"/>
+  <has_purpose rdf:resource="#0461736947504c0ab9786b5:LegalCompliancePurpose"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">17f243c233194b129c7897a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">For site management functions information is collected for analysis and statistical purposes This information is not reported or used in any manner that would reveal personally identifiable information and will not be released to any outside parties unless legally required to do so in connection with law enforcement investigations or other legal proceedings</evidence>
 </owl:NamedIndividual>

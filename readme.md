@@ -8,14 +8,16 @@ The work which is supposed to be done is defined in main.py with explicit mentio
 The ontology has several versions:
 1. Raw version without interface to interact (without class restrictions and with messy object properties),
 1. Same version with interface,
-1. New version of ontology (ontology2) which has class restrictions, less amount and more meaningful object properties.
+1. New version of ontology (ontology2) which has class restrictions, less amount of object properties and more meaningful ones.
 
-- The `experiments` folder contains manually created ontologies,
 - The `ontology` folder contains ontology scheme and interface,
 - The `ontology2` folder contains ontology2 scheme and interface,
-- The `queries` folder contains queries definitioins,
-- The `resources` folder contains query results, datasets, generated ontologies and documentation for the ontology.
-
+- The `experiments` folder in `ontology` and `ontology2` contains manually created ontologies,
+- The `queries` folder in `ontology` and `ontology2` contains queries definitioins,
+- The `resources` folder contains query results, datasets, generated ontologies.
+- The `annotations_builder` folder contains algorithms for ontology creation with provided annotations,
+- The `classifier_builder` folder contains algorithms for automatic ontology creation,
+- The `docs` folder contains documentation for the ontology
 
 TODO
 ----
@@ -46,8 +48,17 @@ TODO
     - [x] Restructuring CareSense (Has nothing about health, maybe that is delegated to HIPAA)
     - [x] Restructuring Zepp
     - [x] Restructuring Renpho
-- [ ] Testing
-- [ ] Descriptive logic explanation
+- [x] Testing
+- [x] Descriptive logic explanation
+- [x] Annotate 8 policies
+- [ ] Annotate rest of policies ~50-100
+- [x] Deploy annotations to ontology
+- [ ] Train embeddings
+    - [ ] ...
+- [ ] Make classifier`s structure
+    - [ ] ...
+- [ ] Train classifier
+    - [ ] ...
 
 
 Health care applications

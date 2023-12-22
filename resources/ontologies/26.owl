@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -901,6 +902,14 @@
   <rdfs:subClassOf rdf:resource="#UserSpecificCommunicationMechanism"/>
   <owl:disjointWith rdf:resource="#AutomaticCommunicationMechanism"/>
   <rdfs:subClassOf>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
+        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
+      </owl:unionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
       <owl:allValuesFrom>
@@ -909,14 +918,6 @@
         </owl:Class>
       </owl:allValuesFrom>
     </owl:Restriction>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
-        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
-      </owl:unionOf>
-    </owl:Class>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -959,18 +960,18 @@
 <owl:Class rdf:about="#FPSpecificCommunicationMechanism">
   <rdfs:subClassOf rdf:resource="#CommunicationMechanism"/>
   <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#mechanism_of"/>
-      <owl:allValuesFrom rdf:resource="#FPNotification"/>
-    </owl:Restriction>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
     <owl:Class>
       <owl:unionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#FPSpecificCommunicationMechanism"/>
         <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
       </owl:unionOf>
     </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#mechanism_of"/>
+      <owl:allValuesFrom rdf:resource="#FPNotification"/>
+    </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,1239 +1305,1238 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#f914bc3b6f32421ea8978ad:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#d5b72ddfed8643929983f8e:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f914bc3b6f32421ea8978ad</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d5b72ddfed8643929983f8e</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1170d5b5458142c8b57a1a4:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#6cdd700f3e2d4fed99cb40d:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <considers rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <considers rdf:resource="#b0a643a1c55843e0b5f6b2e:ThirdParty"/>
-  <considers rdf:resource="#066d6d27bb4845ea8d808e7:OptInOptOutControl"/>
-  <considers rdf:resource="#006e2d0ea8f24c52b5e3267:OptInOptOutControl"/>
-  <considers rdf:resource="#eb4da2abb2bf4a1e9e4ca16:PolicyChange"/>
-  <considers rdf:resource="#205cd4847bd349c4949948f:FPNotification"/>
-  <considers rdf:resource="#d7e6fc07684c4dc0acecc93:OptInOptOutControl"/>
-  <considers rdf:resource="#88adbdd5a6fb4cad8659803:OptInOptOutControl"/>
-  <considers rdf:resource="#449144d390ea4bc9b98b480:PolicyChange"/>
-  <considers rdf:resource="#cc1ab26958d3487eafa9df2:FPNotification"/>
-  <considers rdf:resource="#a75a0f78ba2947de9ff9674:OptInOptOutControl"/>
-  <considers rdf:resource="#88128111b13a48b481cf0d0:PolicyChange"/>
-  <considers rdf:resource="#fa27add7f3814119b609cf3:FPNotification"/>
-  <considers rdf:resource="#c7402570348240498206cc7:GenericData"/>
-  <considers rdf:resource="#59690dd0851340cd871c98e:FPCollection"/>
-  <considers rdf:resource="#a3565425f02c4d5f816aeb8:GenericData"/>
-  <considers rdf:resource="#0cf16ea0f5084256bd795d8:FPCollection"/>
-  <considers rdf:resource="#12de09c4ed334e57be182db:GenericData"/>
-  <considers rdf:resource="#3963991c249a45aa832a52f:FPCollection"/>
-  <considers rdf:resource="#d781be4b45ce484e90ffbd6:GenericData"/>
-  <considers rdf:resource="#490962af8f754217ba69347:FPCollection"/>
-  <considers rdf:resource="#06cf93fb9c1f4e4e9767940:GenericData"/>
-  <considers rdf:resource="#9f57806b6ea74cdb864ec12:FPCollection"/>
-  <considers rdf:resource="#e32b69d8f8af4259a0e4a1f:OptInOptOutControl"/>
-  <considers rdf:resource="#2adcea6c35564d3a945ac0d:OptInOptOutControl"/>
-  <considers rdf:resource="#469041eac2de483fa75bc4b:OptInOptOutControl"/>
-  <considers rdf:resource="#9ea69f69a27c4305bb7e74c:OptInOptOutControl"/>
-  <considers rdf:resource="#3fbb7c2f4c5343d6b670a5d:Data"/>
-  <considers rdf:resource="#c8bb0ac81c1046709bdd8e1:DataRetention"/>
-  <considers rdf:resource="#6ead3db583104dd8a77347d:AccountData"/>
-  <considers rdf:resource="#03f88de266b6425a99961ae:DataProtection"/>
-  <considers rdf:resource="#6443650a9cee436ca67779a:DataUse"/>
-  <considers rdf:resource="#d7ec104311254bdf853c875:TrackingData"/>
-  <considers rdf:resource="#291463325aca46cba86ee11:DataProtection"/>
-  <considers rdf:resource="#7761afd449d34f37b91534a:FPCollection"/>
-  <considers rdf:resource="#d80e6f5836e54a708b8bddc:TrackingData"/>
-  <considers rdf:resource="#814ef7b8ed774eedb73f565:FPCollection"/>
-  <considers rdf:resource="#b3c245b4402b4c21856627c:TrackingData"/>
-  <considers rdf:resource="#6e59505e0c704159834ec94:FPCollection"/>
-  <considers rdf:resource="#3fa6382e64dd4e22b1d2570:OptInOptOutControl"/>
-  <considers rdf:resource="#98555936ef3a4e759aa0f7d:AccountData"/>
-  <considers rdf:resource="#05ac736b8c0d4e08b54f4a3:OptInOptOutControl"/>
-  <considers rdf:resource="#c74e481498884844bae38d7:AccountData"/>
-  <considers rdf:resource="#e1c9e12c74a04c8ea9631d7:OptInOptOutControl"/>
-  <considers rdf:resource="#f0e8b5a0db674bfab7bb688:GenericData"/>
-  <considers rdf:resource="#3293177d3faa444b80769c1:DataUse"/>
-  <considers rdf:resource="#0d14ae341cab47348d3245b:GenericData"/>
-  <considers rdf:resource="#a7641cb8b476488ea56bf3d:DataUse"/>
-  <considers rdf:resource="#21e5b8ce334d450ebb52056:PersonalData"/>
-  <considers rdf:resource="#f0b6acd23f82414bbe12679:DataUse"/>
-  <considers rdf:resource="#9201aac36092458cbfb3edb:PersonalData"/>
-  <considers rdf:resource="#56efe0eade2d43fab09d32e:FPCollection"/>
-  <considers rdf:resource="#7db0b27567144874a6ed7b7:GenericData"/>
-  <considers rdf:resource="#99ca5f78de4541cb941202a:FPCollection"/>
-  <considers rdf:resource="#1544c4179dc94a22bd0afe9:PersonalData"/>
-  <considers rdf:resource="#aff4150c62d64fb7bd6eda2:FPCollection"/>
-  <considers rdf:resource="#b35b66384536444788b5c22:SensitiveData"/>
-  <considers rdf:resource="#bbb35906ccc4467f965b5fa:OptInOptOutControl"/>
-  <considers rdf:resource="#67ee9fcb440b4a9c9fbc22b:PersonalData"/>
-  <considers rdf:resource="#f41ae34412754ab786cf129:OptInOptOutControl"/>
-  <considers rdf:resource="#411adc9367cb41c7a1d72e8:GenericData"/>
-  <considers rdf:resource="#73b651b662d54e1eb5b3c9c:TPCollection"/>
-  <considers rdf:resource="#b5713777dcd348a49386fa0:GenericData"/>
-  <considers rdf:resource="#0842f6b3118d40539d208c4:OptInOptOutControl"/>
-  <considers rdf:resource="#134ec0746947439b97caa7f:GenericData"/>
-  <considers rdf:resource="#beb4aee1437f4c3dbabe4c6:OptInOptOutControl"/>
-  <considers rdf:resource="#6d80ce6832914e28be80b88:OptInOptOutControl"/>
-  <considers rdf:resource="#6dba32a13f1a4a4c8171554:OptInOptOutControl"/>
-  <considers rdf:resource="#9e1a81c188384d988cb17c0:PersonalData"/>
-  <considers rdf:resource="#597039cc903e466cafb43c1:OptInOptOutControl"/>
-  <considers rdf:resource="#b5263be93d1646b5923bfcb:PersonalData"/>
-  <considers rdf:resource="#3ae7e7e10ec548e1ae7ef8a:OptInOptOutControl"/>
-  <considers rdf:resource="#39e11aa724a54f5f8a4d92b:PersonalData"/>
-  <considers rdf:resource="#9c8d632990964647917e412:OptInOptOutControl"/>
-  <considers rdf:resource="#413ec6d5e33f44f381e5b92:PersonalData"/>
-  <considers rdf:resource="#a4ba80067e374c4398c30d3:OptInOptOutControl"/>
-  <considers rdf:resource="#0f7df1a2284e4ae9ac1e798:DataProtection"/>
-  <considers rdf:resource="#a2bfefd6027d4a07ab7e58e:DataProtection"/>
-  <considers rdf:resource="#3951c69e489746c9bbc1c4e:AccountData"/>
-  <considers rdf:resource="#bde16c3609014e9ea8c4e84:OptInOptOutControl"/>
-  <considers rdf:resource="#59837e79e1ec4ef8add1593:AccountData"/>
-  <considers rdf:resource="#8d2ee6adb39f46f1ae2230c:OptInOptOutControl"/>
-  <considers rdf:resource="#5c2fbe5b83f04c9399b5054:OptInOptOutControl"/>
-  <considers rdf:resource="#87888d9d2aec438183d672c:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1170d5b5458142c8b57a1a4</uuid>
+  <considers rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <considers rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <considers rdf:resource="#b52e07bb7ab34affacdf094:ThirdParty"/>
+  <considers rdf:resource="#91ab44c18f5e49b3a19a76f:OptInOptOutControl"/>
+  <considers rdf:resource="#8e2d8eb661774ca68fae9cb:OptInOptOutControl"/>
+  <considers rdf:resource="#14ef845adc61408181eab83:PolicyChange"/>
+  <considers rdf:resource="#299b9f0c27834bf5b4acd3d:FPNotification"/>
+  <considers rdf:resource="#09a427e2bcaf46f3b99c39d:OptInOptOutControl"/>
+  <considers rdf:resource="#fcf5f161e25b4d3781b1eb6:OptInOptOutControl"/>
+  <considers rdf:resource="#a60b25f71c7c4b078f3cced:PolicyChange"/>
+  <considers rdf:resource="#44c9054aa6c049ee9aca601:FPNotification"/>
+  <considers rdf:resource="#e17050b3bac64f6babab9b2:OptInOptOutControl"/>
+  <considers rdf:resource="#16605c40aeb64f0cb409540:PolicyChange"/>
+  <considers rdf:resource="#821eaa8c5d564ce99a637d6:FPNotification"/>
+  <considers rdf:resource="#11d73ca012be4590bf8d1f8:GenericData"/>
+  <considers rdf:resource="#0a21b1328beb496b87f0060:FPCollection"/>
+  <considers rdf:resource="#96da102a48204fe7b3b3a9f:GenericData"/>
+  <considers rdf:resource="#d22a34bbde824414bfcaa71:FPCollection"/>
+  <considers rdf:resource="#3fef6dfe747a445780d30e5:GenericData"/>
+  <considers rdf:resource="#27178bd84e164602a83f6ca:FPCollection"/>
+  <considers rdf:resource="#6d41e3d3cf1c4b2489295f9:GenericData"/>
+  <considers rdf:resource="#24cd3b39f2a64a69b80313c:FPCollection"/>
+  <considers rdf:resource="#63afdd5a2ced47c6a3b0207:GenericData"/>
+  <considers rdf:resource="#cc1c44dd33b24ccf959ec70:FPCollection"/>
+  <considers rdf:resource="#32232f7d28cf4c5e8a09cf8:OptInOptOutControl"/>
+  <considers rdf:resource="#022cc9293ee847c7b699981:OptInOptOutControl"/>
+  <considers rdf:resource="#f8050e3bf5184a1a98c45fc:OptInOptOutControl"/>
+  <considers rdf:resource="#c70e63e82de54e2fa0901fb:OptInOptOutControl"/>
+  <considers rdf:resource="#8c7a4b37c6c04f5ba3c75d0:Data"/>
+  <considers rdf:resource="#4b1a4d813d384bb3a3a2d4a:DataRetention"/>
+  <considers rdf:resource="#7f973e6c15ec4b3088ac2ac:AccountData"/>
+  <considers rdf:resource="#7c466ef181a340658d9d5b7:DataProtection"/>
+  <considers rdf:resource="#71fe99ecf3064b5287fcc0a:DataUse"/>
+  <considers rdf:resource="#eefe6943b5fa4089bd84247:TrackingData"/>
+  <considers rdf:resource="#894cb8243b604a178c34604:DataProtection"/>
+  <considers rdf:resource="#09f62fd9165a4a668c610f9:FPCollection"/>
+  <considers rdf:resource="#e7fc4871bfb64cc987b414d:TrackingData"/>
+  <considers rdf:resource="#a2733e9a584645238d215aa:FPCollection"/>
+  <considers rdf:resource="#4a71c7f028aa449c91ee1a2:TrackingData"/>
+  <considers rdf:resource="#d5dcd7c07b8042d2a2e68d9:FPCollection"/>
+  <considers rdf:resource="#f8972824f7b64e7099bc8bb:OptInOptOutControl"/>
+  <considers rdf:resource="#3f9246b502fe4ca7b995530:AccountData"/>
+  <considers rdf:resource="#2424553049ce487ea5081e1:OptInOptOutControl"/>
+  <considers rdf:resource="#f31bff65566147e5a3fe2d0:AccountData"/>
+  <considers rdf:resource="#ffbfe5e934fb45449936606:OptInOptOutControl"/>
+  <considers rdf:resource="#fdd16aa424a54ca48a29efd:GenericData"/>
+  <considers rdf:resource="#b8ee59762e284f4bb76f21d:DataUse"/>
+  <considers rdf:resource="#1d2c46e7f8a84131b1e6dd2:GenericData"/>
+  <considers rdf:resource="#a303ae08b27142ac8e45fc1:DataUse"/>
+  <considers rdf:resource="#04a51a2866984fdc931b691:PersonalData"/>
+  <considers rdf:resource="#be9519029dd74938a83f726:DataUse"/>
+  <considers rdf:resource="#9535834e1614475c8c4bd8a:PersonalData"/>
+  <considers rdf:resource="#a106aaca31084053b4551b8:FPCollection"/>
+  <considers rdf:resource="#fe58f4c3a9184a32992fcce:GenericData"/>
+  <considers rdf:resource="#0c6e45484e264aa3851c3ef:FPCollection"/>
+  <considers rdf:resource="#9d122d9c6a9044d8b9823d5:PersonalData"/>
+  <considers rdf:resource="#2c99aba0103c411b9001b0a:FPCollection"/>
+  <considers rdf:resource="#d7a15cd9618f43618f3c38b:SensitiveData"/>
+  <considers rdf:resource="#707c50591c2f408091e9cfb:OptInOptOutControl"/>
+  <considers rdf:resource="#4f289cc075104a36984bfef:PersonalData"/>
+  <considers rdf:resource="#604c7a4098fd4e01bfce973:OptInOptOutControl"/>
+  <considers rdf:resource="#e4b4967d22cb4c7d9757243:GenericData"/>
+  <considers rdf:resource="#b14f2a14cafa44a7acce744:TPCollection"/>
+  <considers rdf:resource="#07dd32ce9d884056a834b72:GenericData"/>
+  <considers rdf:resource="#3e50484a52cc411e9a1c24f:OptInOptOutControl"/>
+  <considers rdf:resource="#69d32a44ddef4e89ae5a494:GenericData"/>
+  <considers rdf:resource="#e98d43694ce14f96835767f:OptInOptOutControl"/>
+  <considers rdf:resource="#053b8b6572c344afa02d965:OptInOptOutControl"/>
+  <considers rdf:resource="#1d9ceab34e87438d9f5b6d4:OptInOptOutControl"/>
+  <considers rdf:resource="#ac0c811532924c2888b03d6:PersonalData"/>
+  <considers rdf:resource="#99597bd664884ac5bd5783e:OptInOptOutControl"/>
+  <considers rdf:resource="#b4ca119e8ca843e4a00ed90:PersonalData"/>
+  <considers rdf:resource="#41cadde1cd3f4315a6bf2ee:OptInOptOutControl"/>
+  <considers rdf:resource="#81eac94b3dc9463aaf43071:PersonalData"/>
+  <considers rdf:resource="#3da4d9fc9b114da298ece33:OptInOptOutControl"/>
+  <considers rdf:resource="#1af788baedb94697a685714:PersonalData"/>
+  <considers rdf:resource="#54b4337e40ff409fb9029da:OptInOptOutControl"/>
+  <considers rdf:resource="#81d0f66505574189a56b35a:DataProtection"/>
+  <considers rdf:resource="#807ad3ca7b1d4ffca4e5b72:DataProtection"/>
+  <considers rdf:resource="#8bb46dd5f566484aba4b939:AccountData"/>
+  <considers rdf:resource="#1bdd7fd45319477f87bfaa2:OptInOptOutControl"/>
+  <considers rdf:resource="#453b412d227149739152a0e:AccountData"/>
+  <considers rdf:resource="#cce132deb4df4fa2866e6e8:OptInOptOutControl"/>
+  <considers rdf:resource="#ffb1ccaa6a234761b8215b7:OptInOptOutControl"/>
+  <considers rdf:resource="#8bf35abdf490497e859d3b5:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6cdd700f3e2d4fed99cb40d</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">miaminewtimes.com</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e88f7211809242ab8f16406:User">
+<owl:NamedIndividual rdf:about="#938f75a9a1bc4b4b9a52d08:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e88f7211809242ab8f16406</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">938f75a9a1bc4b4b9a52d08</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4d25be67f1b144ceb2a190f:FirstParty">
+<owl:NamedIndividual rdf:about="#486ca27b7f2c411ebcd6986:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4d25be67f1b144ceb2a190f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">486ca27b7f2c411ebcd6986</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b0a643a1c55843e0b5f6b2e:ThirdParty">
+<owl:NamedIndividual rdf:about="#b52e07bb7ab34affacdf094:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b0a643a1c55843e0b5f6b2e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b52e07bb7ab34affacdf094</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fd826c8941d84c89b796e9b:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#4af876323cd94127985c0d3:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fd826c8941d84c89b796e9b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4af876323cd94127985c0d3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">By using our Site, and/or providing information to us, you consent to the collection, maintenance and use of this information by us.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#066d6d27bb4845ea8d808e7:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#91ab44c18f5e49b3a19a76f:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#fd826c8941d84c89b796e9b:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">066d6d27bb4845ea8d808e7</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#4af876323cd94127985c0d3:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">91ab44c18f5e49b3a19a76f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This Privacy Policy describes the practices that Miami New Times LLC Miami New Times follows with respect to the collection maintenance and use of information submitted on miaminewtimes com the Site This Privacy Policy applies only to information we collect from this Site and does not apply to any other website or business activity of Miami New Times By using our Site and/or providing information to us you consent to the collection maintenance and use of this information by us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#995bd6ea43d0462c9bae551:FPSpecificCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#c2a5389250d54d0c8a50536:FPSpecificCommunicationMechanism">
   <rdf:type rdf:resource="#FPSpecificCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">995bd6ea43d0462c9bae551</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c2a5389250d54d0c8a50536</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We will give you notice of the revised Privacy Policy by posting the revised policy on the Site and by revising the "effective date" set forth above.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#006e2d0ea8f24c52b5e3267:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#8e2d8eb661774ca68fae9cb:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">006e2d0ea8f24c52b5e3267</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8e2d8eb661774ca68fae9cb</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not agree to the terms of this Privacy Policy please do not use the Site and exit immediately We reserve the right to modify or amend the terms of this Privacy Policy from time to time Your continued use of the Site following the posting of changes to these terms means that you accept those changes We will give you notice of the revised Privacy Policy by posting the revised policy on the Site and by revising the effective date set forth above</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#eb4da2abb2bf4a1e9e4ca16:PolicyChange">
+<owl:NamedIndividual rdf:about="#14ef845adc61408181eab83:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <binded_to rdf:resource="#006e2d0ea8f24c52b5e3267:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eb4da2abb2bf4a1e9e4ca16</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <binded_to rdf:resource="#8e2d8eb661774ca68fae9cb:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">14ef845adc61408181eab83</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not agree to the terms of this Privacy Policy please do not use the Site and exit immediately We reserve the right to modify or amend the terms of this Privacy Policy from time to time Your continued use of the Site following the posting of changes to these terms means that you accept those changes We will give you notice of the revised Privacy Policy by posting the revised policy on the Site and by revising the effective date set forth above</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#205cd4847bd349c4949948f:FPNotification">
+<owl:NamedIndividual rdf:about="#299b9f0c27834bf5b4acd3d:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <notifies rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#995bd6ea43d0462c9bae551:FPSpecificCommunicationMechanism"/>
-  <binded_to rdf:resource="#eb4da2abb2bf4a1e9e4ca16:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">205cd4847bd349c4949948f</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <notifies rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#c2a5389250d54d0c8a50536:FPSpecificCommunicationMechanism"/>
+  <binded_to rdf:resource="#14ef845adc61408181eab83:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">299b9f0c27834bf5b4acd3d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not agree to the terms of this Privacy Policy please do not use the Site and exit immediately We reserve the right to modify or amend the terms of this Privacy Policy from time to time Your continued use of the Site following the posting of changes to these terms means that you accept those changes We will give you notice of the revised Privacy Policy by posting the revised policy on the Site and by revising the effective date set forth above</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b05a0cf9c90a4eb49cac1f1:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#76fc5a6da88a456eb3dc8a0:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b05a0cf9c90a4eb49cac1f1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">76fc5a6da88a456eb3dc8a0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not agree to the terms of this Privacy Policy, please do not use the Site and exit immediately.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d7e6fc07684c4dc0acecc93:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#09a427e2bcaf46f3b99c39d:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#b05a0cf9c90a4eb49cac1f1:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d7e6fc07684c4dc0acecc93</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#76fc5a6da88a456eb3dc8a0:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">09a427e2bcaf46f3b99c39d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not agree to the terms of this Privacy Policy please do not use the Site and exit immediately We reserve the right to modify or amend the terms of this Privacy Policy from time to time Your continued use of the Site following the posting of changes to these terms means that you accept those changes We will give you notice of the revised Privacy Policy by posting the revised policy on the Site and by revising the effective date set forth above</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dbb3c08c5a2a4e609d19aa6:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#d2895c68c9d84bf29178105:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dbb3c08c5a2a4e609d19aa6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d2895c68c9d84bf29178105</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We will give you notice of the revised Privacy Policy by posting the revised policy on the Site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#88adbdd5a6fb4cad8659803:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#fcf5f161e25b4d3781b1eb6:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">88adbdd5a6fb4cad8659803</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fcf5f161e25b4d3781b1eb6</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not agree to the terms of this Privacy Policy please do not use the Site and exit immediately We reserve the right to modify or amend the terms of this Privacy Policy from time to time Your continued use of the Site following the posting of changes to these terms means that you accept those changes We will give you notice of the revised Privacy Policy by posting the revised policy on the Site and by revising the effective date set forth above</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#449144d390ea4bc9b98b480:PolicyChange">
+<owl:NamedIndividual rdf:about="#a60b25f71c7c4b078f3cced:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <binded_to rdf:resource="#88adbdd5a6fb4cad8659803:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">449144d390ea4bc9b98b480</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <binded_to rdf:resource="#fcf5f161e25b4d3781b1eb6:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a60b25f71c7c4b078f3cced</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not agree to the terms of this Privacy Policy please do not use the Site and exit immediately We reserve the right to modify or amend the terms of this Privacy Policy from time to time Your continued use of the Site following the posting of changes to these terms means that you accept those changes We will give you notice of the revised Privacy Policy by posting the revised policy on the Site and by revising the effective date set forth above</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cc1ab26958d3487eafa9df2:FPNotification">
+<owl:NamedIndividual rdf:about="#44c9054aa6c049ee9aca601:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <notifies rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#dbb3c08c5a2a4e609d19aa6:OnWebsitePage"/>
-  <binded_to rdf:resource="#449144d390ea4bc9b98b480:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cc1ab26958d3487eafa9df2</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <notifies rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#d2895c68c9d84bf29178105:OnWebsitePage"/>
+  <binded_to rdf:resource="#a60b25f71c7c4b078f3cced:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">44c9054aa6c049ee9aca601</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not agree to the terms of this Privacy Policy please do not use the Site and exit immediately We reserve the right to modify or amend the terms of this Privacy Policy from time to time Your continued use of the Site following the posting of changes to these terms means that you accept those changes We will give you notice of the revised Privacy Policy by posting the revised policy on the Site and by revising the effective date set forth above</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cdbfd1f279cf4cb590151c2:InPrivacyPolicy">
+<owl:NamedIndividual rdf:about="#66ad955d2d8040ab995663e:InPrivacyPolicy">
   <rdf:type rdf:resource="#InPrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cdbfd1f279cf4cb590151c2</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">66ad955d2d8040ab995663e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">by revising the "effective date" set forth above.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a75a0f78ba2947de9ff9674:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#e17050b3bac64f6babab9b2:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a75a0f78ba2947de9ff9674</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e17050b3bac64f6babab9b2</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not agree to the terms of this Privacy Policy please do not use the Site and exit immediately We reserve the right to modify or amend the terms of this Privacy Policy from time to time Your continued use of the Site following the posting of changes to these terms means that you accept those changes We will give you notice of the revised Privacy Policy by posting the revised policy on the Site and by revising the effective date set forth above</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#88128111b13a48b481cf0d0:PolicyChange">
+<owl:NamedIndividual rdf:about="#16605c40aeb64f0cb409540:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <binded_to rdf:resource="#a75a0f78ba2947de9ff9674:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">88128111b13a48b481cf0d0</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <binded_to rdf:resource="#e17050b3bac64f6babab9b2:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">16605c40aeb64f0cb409540</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not agree to the terms of this Privacy Policy please do not use the Site and exit immediately We reserve the right to modify or amend the terms of this Privacy Policy from time to time Your continued use of the Site following the posting of changes to these terms means that you accept those changes We will give you notice of the revised Privacy Policy by posting the revised policy on the Site and by revising the effective date set forth above</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fa27add7f3814119b609cf3:FPNotification">
+<owl:NamedIndividual rdf:about="#821eaa8c5d564ce99a637d6:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <notifies rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#cdbfd1f279cf4cb590151c2:InPrivacyPolicy"/>
-  <binded_to rdf:resource="#88128111b13a48b481cf0d0:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fa27add7f3814119b609cf3</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <notifies rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#66ad955d2d8040ab995663e:InPrivacyPolicy"/>
+  <binded_to rdf:resource="#16605c40aeb64f0cb409540:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">821eaa8c5d564ce99a637d6</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not agree to the terms of this Privacy Policy please do not use the Site and exit immediately We reserve the right to modify or amend the terms of this Privacy Policy from time to time Your continued use of the Site following the posting of changes to these terms means that you accept those changes We will give you notice of the revised Privacy Policy by posting the revised policy on the Site and by revising the effective date set forth above</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c7402570348240498206cc7:GenericData">
+<owl:NamedIndividual rdf:about="#11d73ca012be4590bf8d1f8:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c7402570348240498206cc7</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11d73ca012be4590bf8d1f8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally identifiable information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#764b281d1d424e5ba277743:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#d0a89adb17c6456e9f36016:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">764b281d1d424e5ba277743</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d0a89adb17c6456e9f36016</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">register for or participate in contests, sweepstakes, promotions, polls, surveys, newsletters and text messages (including contests, sweepstakes, promotions, polls, surveys, newsletters and text messages of certain third parties).</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d1d0b521c8784044ba6834d:ViaWebsite">
+<owl:NamedIndividual rdf:about="#22f6e8aa18d6471baa7081d:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d1d0b521c8784044ba6834d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">22f6e8aa18d6471baa7081d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">For example, we may collect and maintain personally identifiable information about you when you register for or participate in contests, sweepstakes, promotions, polls, surveys, newsletters and text messages (including contests, sweepstakes, promotions, polls, surveys, newsletters and text messages of certain third parties).</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2e5b2dd0477748ed92fd258:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#60ca997dc5f741c5bb5cc11:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2e5b2dd0477748ed92fd258</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">60ca997dc5f741c5bb5cc11</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">when you provide it to us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#59690dd0851340cd871c98e:FPCollection">
+<owl:NamedIndividual rdf:about="#0a21b1328beb496b87f0060:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <collects_from rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_purpose rdf:resource="#764b281d1d424e5ba277743:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#2e5b2dd0477748ed92fd258:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#d1d0b521c8784044ba6834d:ViaWebsite"/>
-  <applies_to rdf:resource="#c7402570348240498206cc7:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">59690dd0851340cd871c98e</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <collects_from rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_purpose rdf:resource="#d0a89adb17c6456e9f36016:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#60ca997dc5f741c5bb5cc11:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#22f6e8aa18d6471baa7081d:ViaWebsite"/>
+  <applies_to rdf:resource="#11d73ca012be4590bf8d1f8:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0a21b1328beb496b87f0060</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Miami New Times collects and maintains personally identifiable information about you only when you provide it to us For example we may collect and maintain personally identifiable information about you when you register for or participate in contests sweepstakes promotions polls surveys newsletters and text messages including contests sweepstakes promotions polls surveys newsletters and text messages of certain third parties We may also collect and maintain personally identifiable information when you post an ad submit comments to the Site or letters to the editor submit events for inclusion on our Site purchase event tickets from us or otherwise provide it to us when you contact us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a3565425f02c4d5f816aeb8:GenericData">
+<owl:NamedIndividual rdf:about="#96da102a48204fe7b3b3a9f:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a3565425f02c4d5f816aeb8</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">96da102a48204fe7b3b3a9f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally identifiable information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#719016c98d6d4fb98c5c77d:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#266f787f8dc444968e0169f:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">719016c98d6d4fb98c5c77d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">266f787f8dc444968e0169f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">purchase event tickets from us, or otherwise provide it to us when you contact us.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#32c021e1bbfe407cbc29ca8:ViaWebsite">
+<owl:NamedIndividual rdf:about="#8ae6b230c28a463f97582e2:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">32c021e1bbfe407cbc29ca8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8ae6b230c28a463f97582e2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">when you post an ad, submit comments to the Site or letters to the editor, submit events for inclusion on our Site,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f4e56908ef324c84a0e556b:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#14477a801a504152afb038f:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f4e56908ef324c84a0e556b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">14477a801a504152afb038f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">when you provide it to us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0cf16ea0f5084256bd795d8:FPCollection">
+<owl:NamedIndividual rdf:about="#d22a34bbde824414bfcaa71:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <collects_from rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_purpose rdf:resource="#719016c98d6d4fb98c5c77d:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#f4e56908ef324c84a0e556b:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#32c021e1bbfe407cbc29ca8:ViaWebsite"/>
-  <applies_to rdf:resource="#a3565425f02c4d5f816aeb8:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0cf16ea0f5084256bd795d8</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <collects_from rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_purpose rdf:resource="#266f787f8dc444968e0169f:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#14477a801a504152afb038f:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#8ae6b230c28a463f97582e2:ViaWebsite"/>
+  <applies_to rdf:resource="#96da102a48204fe7b3b3a9f:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d22a34bbde824414bfcaa71</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Miami New Times collects and maintains personally identifiable information about you only when you provide it to us For example we may collect and maintain personally identifiable information about you when you register for or participate in contests sweepstakes promotions polls surveys newsletters and text messages including contests sweepstakes promotions polls surveys newsletters and text messages of certain third parties We may also collect and maintain personally identifiable information when you post an ad submit comments to the Site or letters to the editor submit events for inclusion on our Site purchase event tickets from us or otherwise provide it to us when you contact us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#12de09c4ed334e57be182db:GenericData">
+<owl:NamedIndividual rdf:about="#3fef6dfe747a445780d30e5:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">12de09c4ed334e57be182db</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3fef6dfe747a445780d30e5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally identifiable information about you</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#eaeba490e54344919f18397:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#a0b980cb4f00491eb7a39ff:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eaeba490e54344919f18397</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a0b980cb4f00491eb7a39ff</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">only when you provide it to us.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3963991c249a45aa832a52f:FPCollection">
+<owl:NamedIndividual rdf:about="#27178bd84e164602a83f6ca:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <collects_from rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mode rdf:resource="#eaeba490e54344919f18397:TransmissionByRequest"/>
-  <applies_to rdf:resource="#12de09c4ed334e57be182db:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3963991c249a45aa832a52f</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <collects_from rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mode rdf:resource="#a0b980cb4f00491eb7a39ff:TransmissionByRequest"/>
+  <applies_to rdf:resource="#3fef6dfe747a445780d30e5:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">27178bd84e164602a83f6ca</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Miami New Times collects and maintains personally identifiable information about you only when you provide it to us For example we may collect and maintain personally identifiable information about you when you register for or participate in contests sweepstakes promotions polls surveys newsletters and text messages including contests sweepstakes promotions polls surveys newsletters and text messages of certain third parties We may also collect and maintain personally identifiable information when you post an ad submit comments to the Site or letters to the editor submit events for inclusion on our Site purchase event tickets from us or otherwise provide it to us when you contact us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d781be4b45ce484e90ffbd6:GenericData">
+<owl:NamedIndividual rdf:about="#6d41e3d3cf1c4b2489295f9:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d781be4b45ce484e90ffbd6</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6d41e3d3cf1c4b2489295f9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally identifiable information about you</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#380b81396d1f4c4795cd3d1:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#b4f7ba1614ed44dca7119f0:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">380b81396d1f4c4795cd3d1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b4f7ba1614ed44dca7119f0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">For example, we may collect and maintain personally identifiable information about you when you register for or participate in contests, sweepstakes, promotions, polls, surveys, newsletters and text messages (including contests, sweepstakes, promotions, polls, surveys, newsletters and text messages of certain third parties). We may also collect and maintain personally identifiable information when you post an ad, submit comments to the Site or letters to the editor, submit events for inclusion on our Site,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4ad4ec5034eb49ccb1733a1:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#8ae7e1c886144ccb814a83c:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4ad4ec5034eb49ccb1733a1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8ae7e1c886144ccb814a83c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">only when you provide it to us.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#490962af8f754217ba69347:FPCollection">
+<owl:NamedIndividual rdf:about="#24cd3b39f2a64a69b80313c:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <collects_from rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_purpose rdf:resource="#380b81396d1f4c4795cd3d1:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#4ad4ec5034eb49ccb1733a1:TransmissionByRequest"/>
-  <applies_to rdf:resource="#d781be4b45ce484e90ffbd6:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">490962af8f754217ba69347</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <collects_from rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_purpose rdf:resource="#b4f7ba1614ed44dca7119f0:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#8ae7e1c886144ccb814a83c:TransmissionByRequest"/>
+  <applies_to rdf:resource="#6d41e3d3cf1c4b2489295f9:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">24cd3b39f2a64a69b80313c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Miami New Times collects and maintains personally identifiable information about you only when you provide it to us For example we may collect and maintain personally identifiable information about you when you register for or participate in contests sweepstakes promotions polls surveys newsletters and text messages including contests sweepstakes promotions polls surveys newsletters and text messages of certain third parties We may also collect and maintain personally identifiable information when you post an ad submit comments to the Site or letters to the editor submit events for inclusion on our Site purchase event tickets from us or otherwise provide it to us when you contact us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#06cf93fb9c1f4e4e9767940:GenericData">
+<owl:NamedIndividual rdf:about="#63afdd5a2ced47c6a3b0207:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">06cf93fb9c1f4e4e9767940</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">63afdd5a2ced47c6a3b0207</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally identifiable information about you</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5f60f5085a6b4174bbaa969:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#21493ce2d8774365bfa8b9a:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5f60f5085a6b4174bbaa969</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">21493ce2d8774365bfa8b9a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">purchase event tickets from us, or otherwise provide it to us when you contact us.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bc0a1b2cca0c4d08ac8b471:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#87b893751fbf4690a1ebd7d:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bc0a1b2cca0c4d08ac8b471</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">87b893751fbf4690a1ebd7d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">only when you provide it to us.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9f57806b6ea74cdb864ec12:FPCollection">
+<owl:NamedIndividual rdf:about="#cc1c44dd33b24ccf959ec70:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <collects_from rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_purpose rdf:resource="#5f60f5085a6b4174bbaa969:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#bc0a1b2cca0c4d08ac8b471:TransmissionByRequest"/>
-  <applies_to rdf:resource="#06cf93fb9c1f4e4e9767940:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9f57806b6ea74cdb864ec12</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <collects_from rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_purpose rdf:resource="#21493ce2d8774365bfa8b9a:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#87b893751fbf4690a1ebd7d:TransmissionByRequest"/>
+  <applies_to rdf:resource="#63afdd5a2ced47c6a3b0207:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cc1c44dd33b24ccf959ec70</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Miami New Times collects and maintains personally identifiable information about you only when you provide it to us For example we may collect and maintain personally identifiable information about you when you register for or participate in contests sweepstakes promotions polls surveys newsletters and text messages including contests sweepstakes promotions polls surveys newsletters and text messages of certain third parties We may also collect and maintain personally identifiable information when you post an ad submit comments to the Site or letters to the editor submit events for inclusion on our Site purchase event tickets from us or otherwise provide it to us when you contact us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3888f776f2f44f3ab5a3cc1:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#89717bd04d2f4c9b8bfc322:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3888f776f2f44f3ab5a3cc1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">89717bd04d2f4c9b8bfc322</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not provide information to us, you may be unable to use certain features of the Site.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e32b69d8f8af4259a0e4a1f:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#32232f7d28cf4c5e8a09cf8:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#3888f776f2f44f3ab5a3cc1:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e32b69d8f8af4259a0e4a1f</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#89717bd04d2f4c9b8bfc322:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">32232f7d28cf4c5e8a09cf8</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not provide information to us you may be unable to use certain features of the Site For example you cannot post comments in connection with certain articles or register for the Site contests surveys or newsletters unless you provide certain information Also you will not be able to submit events for inclusion on our Site or purchase event tickets if you do not provide certain information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#95cbf62020fc420cb5cabd6:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#3801eed708864f36803e21b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">95cbf62020fc420cb5cabd6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3801eed708864f36803e21b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not provide</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2adcea6c35564d3a945ac0d:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#022cc9293ee847c7b699981:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#95cbf62020fc420cb5cabd6:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2adcea6c35564d3a945ac0d</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#3801eed708864f36803e21b:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">022cc9293ee847c7b699981</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not provide information to us you may be unable to use certain features of the Site For example you cannot post comments in connection with certain articles or register for the Site contests surveys or newsletters unless you provide certain information Also you will not be able to submit events for inclusion on our Site or purchase event tickets if you do not provide certain information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6f76712377964404acd9ddd:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#8d479e44c1f3468ca6ff6ca:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6f76712377964404acd9ddd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8d479e44c1f3468ca6ff6ca</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not provide</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#469041eac2de483fa75bc4b:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#f8050e3bf5184a1a98c45fc:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#6f76712377964404acd9ddd:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">469041eac2de483fa75bc4b</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#8d479e44c1f3468ca6ff6ca:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f8050e3bf5184a1a98c45fc</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not provide information to us you may be unable to use certain features of the Site For example you cannot post comments in connection with certain articles or register for the Site contests surveys or newsletters unless you provide certain information Also you will not be able to submit events for inclusion on our Site or purchase event tickets if you do not provide certain information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#93722623cac14db78b490a1:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#2f450f043ea443158586325:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">93722623cac14db78b490a1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2f450f043ea443158586325</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not provide</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9ea69f69a27c4305bb7e74c:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#c70e63e82de54e2fa0901fb:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#93722623cac14db78b490a1:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9ea69f69a27c4305bb7e74c</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#2f450f043ea443158586325:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c70e63e82de54e2fa0901fb</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not provide information to us you may be unable to use certain features of the Site For example you cannot post comments in connection with certain articles or register for the Site contests surveys or newsletters unless you provide certain information Also you will not be able to submit events for inclusion on our Site or purchase event tickets if you do not provide certain information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3fbb7c2f4c5343d6b670a5d:Data">
+<owl:NamedIndividual rdf:about="#8c7a4b37c6c04f5ba3c75d0:Data">
   <rdf:type rdf:resource="#Data"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3fbb7c2f4c5343d6b670a5d</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8c7a4b37c6c04f5ba3c75d0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We maintain automatic information in aggregated form, not associated with your IP address or personally identifiable information.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c8bb0ac81c1046709bdd8e1:DataRetention">
+<owl:NamedIndividual rdf:about="#4b1a4d813d384bb3a3a2d4a:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <applies_to rdf:resource="#3fbb7c2f4c5343d6b670a5d:Data"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c8bb0ac81c1046709bdd8e1</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <applies_to rdf:resource="#8c7a4b37c6c04f5ba3c75d0:Data"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4b1a4d813d384bb3a3a2d4a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Aggregated data We maintain automatic information in aggregated form not associated with your IP address or personally identifiable information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6ead3db583104dd8a77347d:AccountData">
+<owl:NamedIndividual rdf:about="#7f973e6c15ec4b3088ac2ac:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6ead3db583104dd8a77347d</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7f973e6c15ec4b3088ac2ac</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">site usage</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#848f17f810db48f48f80215:PseudoAnonymization">
+<owl:NamedIndividual rdf:about="#90a65f3ab57b4e25aae5115:PseudoAnonymization">
   <rdf:type rdf:resource="#PseudoAnonymization"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">848f17f810db48f48f80215</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">90a65f3ab57b4e25aae5115</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aggregation</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#03f88de266b6425a99961ae:DataProtection">
+<owl:NamedIndividual rdf:about="#7c466ef181a340658d9d5b7:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <has_mechanism rdf:resource="#848f17f810db48f48f80215:PseudoAnonymization"/>
-  <applies_to rdf:resource="#6ead3db583104dd8a77347d:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">03f88de266b6425a99961ae</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <has_mechanism rdf:resource="#90a65f3ab57b4e25aae5115:PseudoAnonymization"/>
+  <applies_to rdf:resource="#7f973e6c15ec4b3088ac2ac:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7c466ef181a340658d9d5b7</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cookies This Site uses cookies Cookies are small text files that allow websites to store and retrieve information about you from your computer system Miami New Times does serve cookies to track individual site usage for later aggregation and for other purposes explained in this policy You are always free to decline our cookies if your browser permits but you may not be able to take full advantage of our Site s features if you do</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6443650a9cee436ca67779a:DataUse">
+<owl:NamedIndividual rdf:about="#71fe99ecf3064b5287fcc0a:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <applies_to rdf:resource="#6ead3db583104dd8a77347d:AccountData"/>
-  <binded_to rdf:resource="#03f88de266b6425a99961ae:DataProtection"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6443650a9cee436ca67779a</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <applies_to rdf:resource="#7f973e6c15ec4b3088ac2ac:AccountData"/>
+  <binded_to rdf:resource="#7c466ef181a340658d9d5b7:DataProtection"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">71fe99ecf3064b5287fcc0a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cookies This Site uses cookies Cookies are small text files that allow websites to store and retrieve information about you from your computer system Miami New Times does serve cookies to track individual site usage for later aggregation and for other purposes explained in this policy You are always free to decline our cookies if your browser permits but you may not be able to take full advantage of our Site s features if you do</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d7ec104311254bdf853c875:TrackingData">
+<owl:NamedIndividual rdf:about="#eefe6943b5fa4089bd84247:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d7ec104311254bdf853c875</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eefe6943b5fa4089bd84247</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">"cookies."</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4a995abb4ec14d38924fdbd:AnalyticsPurpose">
+<owl:NamedIndividual rdf:about="#298696bd99024d4aa4610c4:AnalyticsPurpose">
   <rdf:type rdf:resource="#AnalyticsPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4a995abb4ec14d38924fdbd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">298696bd99024d4aa4610c4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Miami New Times does serve cookies to track individual site usage</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d8176e91866842e99f35137:ViaWebsite">
+<owl:NamedIndividual rdf:about="#8d7a2e2f241c409da1fcb80:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d8176e91866842e99f35137</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8d7a2e2f241c409da1fcb80</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This Site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#100faabaaa684010bcec6be:PermanentTransmission">
+<owl:NamedIndividual rdf:about="#9ef95e627e9b4cafb9edfca:PermanentTransmission">
   <rdf:type rdf:resource="#PermanentTransmission"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">100faabaaa684010bcec6be</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9ef95e627e9b4cafb9edfca</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">"Cookies" are small text files that allow websites to store and retrieve information about you from your computer system.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5c6d0fb4f9f34f13bcf041a:PseudoAnonymization">
+<owl:NamedIndividual rdf:about="#db1916d9616d467389a77f6:PseudoAnonymization">
   <rdf:type rdf:resource="#PseudoAnonymization"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5c6d0fb4f9f34f13bcf041a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">db1916d9616d467389a77f6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">for later aggregation</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#291463325aca46cba86ee11:DataProtection">
+<owl:NamedIndividual rdf:about="#894cb8243b604a178c34604:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <has_mechanism rdf:resource="#5c6d0fb4f9f34f13bcf041a:PseudoAnonymization"/>
-  <applies_to rdf:resource="#d7ec104311254bdf853c875:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">291463325aca46cba86ee11</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <has_mechanism rdf:resource="#db1916d9616d467389a77f6:PseudoAnonymization"/>
+  <applies_to rdf:resource="#eefe6943b5fa4089bd84247:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">894cb8243b604a178c34604</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cookies This Site uses cookies Cookies are small text files that allow websites to store and retrieve information about you from your computer system Miami New Times does serve cookies to track individual site usage for later aggregation and for other purposes explained in this policy You are always free to decline our cookies if your browser permits but you may not be able to take full advantage of our Site s features if you do</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7761afd449d34f37b91534a:FPCollection">
+<owl:NamedIndividual rdf:about="#09f62fd9165a4a668c610f9:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <collects_from rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_purpose rdf:resource="#4a995abb4ec14d38924fdbd:AnalyticsPurpose"/>
-  <has_mode rdf:resource="#100faabaaa684010bcec6be:PermanentTransmission"/>
-  <has_mechanism rdf:resource="#d8176e91866842e99f35137:ViaWebsite"/>
-  <applies_to rdf:resource="#d7ec104311254bdf853c875:TrackingData"/>
-  <binded_to rdf:resource="#291463325aca46cba86ee11:DataProtection"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7761afd449d34f37b91534a</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <collects_from rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_purpose rdf:resource="#298696bd99024d4aa4610c4:AnalyticsPurpose"/>
+  <has_mode rdf:resource="#9ef95e627e9b4cafb9edfca:PermanentTransmission"/>
+  <has_mechanism rdf:resource="#8d7a2e2f241c409da1fcb80:ViaWebsite"/>
+  <applies_to rdf:resource="#eefe6943b5fa4089bd84247:TrackingData"/>
+  <binded_to rdf:resource="#894cb8243b604a178c34604:DataProtection"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">09f62fd9165a4a668c610f9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cookies This Site uses cookies Cookies are small text files that allow websites to store and retrieve information about you from your computer system Miami New Times does serve cookies to track individual site usage for later aggregation and for other purposes explained in this policy You are always free to decline our cookies if your browser permits but you may not be able to take full advantage of our Site s features if you do</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d80e6f5836e54a708b8bddc:TrackingData">
+<owl:NamedIndividual rdf:about="#e7fc4871bfb64cc987b414d:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d80e6f5836e54a708b8bddc</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e7fc4871bfb64cc987b414d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">"cookies."</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#949baaa62cc04470a6a4504:ViaWebsite">
+<owl:NamedIndividual rdf:about="#b00ed89311a8445f800c02a:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">949baaa62cc04470a6a4504</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b00ed89311a8445f800c02a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This Site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#97e5e6947e2343c4b753e65:PermanentTransmission">
+<owl:NamedIndividual rdf:about="#21186ccfb419478d98d6e3b:PermanentTransmission">
   <rdf:type rdf:resource="#PermanentTransmission"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">97e5e6947e2343c4b753e65</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">21186ccfb419478d98d6e3b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">"Cookies" are small text files that allow websites to store and retrieve information about you from your computer system.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#814ef7b8ed774eedb73f565:FPCollection">
+<owl:NamedIndividual rdf:about="#a2733e9a584645238d215aa:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <collects_from rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mode rdf:resource="#97e5e6947e2343c4b753e65:PermanentTransmission"/>
-  <has_mechanism rdf:resource="#949baaa62cc04470a6a4504:ViaWebsite"/>
-  <applies_to rdf:resource="#d80e6f5836e54a708b8bddc:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">814ef7b8ed774eedb73f565</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <collects_from rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mode rdf:resource="#21186ccfb419478d98d6e3b:PermanentTransmission"/>
+  <has_mechanism rdf:resource="#b00ed89311a8445f800c02a:ViaWebsite"/>
+  <applies_to rdf:resource="#e7fc4871bfb64cc987b414d:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a2733e9a584645238d215aa</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cookies This Site uses cookies Cookies are small text files that allow websites to store and retrieve information about you from your computer system Miami New Times does serve cookies to track individual site usage for later aggregation and for other purposes explained in this policy You are always free to decline our cookies if your browser permits but you may not be able to take full advantage of our Site s features if you do</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b3c245b4402b4c21856627c:TrackingData">
+<owl:NamedIndividual rdf:about="#4a71c7f028aa449c91ee1a2:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b3c245b4402b4c21856627c</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4a71c7f028aa449c91ee1a2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">"cookies."</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b0e9bacd0b754ee0967ecc2:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#5b4536ba78e94c3bab48390:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b0e9bacd0b754ee0967ecc2</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5b4536ba78e94c3bab48390</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">but you may not be able to take full advantage of our Site's features if you do.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6673e8da5e354c1c98912eb:ViaWebsite">
+<owl:NamedIndividual rdf:about="#01ce252175b3499fa99f0c5:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6673e8da5e354c1c98912eb</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">01ce252175b3499fa99f0c5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This Site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a5ada2e472314a8dbe91417:PermanentTransmission">
+<owl:NamedIndividual rdf:about="#e1e728b33dfa4df5b248db1:PermanentTransmission">
   <rdf:type rdf:resource="#PermanentTransmission"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a5ada2e472314a8dbe91417</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e1e728b33dfa4df5b248db1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">"Cookies" are small text files that allow websites to store and retrieve information about you from your computer system.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6e59505e0c704159834ec94:FPCollection">
+<owl:NamedIndividual rdf:about="#d5dcd7c07b8042d2a2e68d9:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <collects_from rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_purpose rdf:resource="#b0e9bacd0b754ee0967ecc2:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#a5ada2e472314a8dbe91417:PermanentTransmission"/>
-  <has_mechanism rdf:resource="#6673e8da5e354c1c98912eb:ViaWebsite"/>
-  <applies_to rdf:resource="#b3c245b4402b4c21856627c:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6e59505e0c704159834ec94</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <collects_from rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_purpose rdf:resource="#5b4536ba78e94c3bab48390:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#e1e728b33dfa4df5b248db1:PermanentTransmission"/>
+  <has_mechanism rdf:resource="#01ce252175b3499fa99f0c5:ViaWebsite"/>
+  <applies_to rdf:resource="#4a71c7f028aa449c91ee1a2:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d5dcd7c07b8042d2a2e68d9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cookies This Site uses cookies Cookies are small text files that allow websites to store and retrieve information about you from your computer system Miami New Times does serve cookies to track individual site usage for later aggregation and for other purposes explained in this policy You are always free to decline our cookies if your browser permits but you may not be able to take full advantage of our Site s features if you do</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0e6791a5b0bc4bfe85a6816:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#2381f986dbcc4924ae857ae:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0e6791a5b0bc4bfe85a6816</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2381f986dbcc4924ae857ae</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To register your preferences or choices, or to opt out of behavioral advertising offered by participants in these programs, visit http://www.networkadvertising.org or http://www.aboutads.info.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3fa6382e64dd4e22b1d2570:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#f8972824f7b64e7099bc8bb:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#0e6791a5b0bc4bfe85a6816:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3fa6382e64dd4e22b1d2570</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#2381f986dbcc4924ae857ae:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f8972824f7b64e7099bc8bb</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Advertising networks that are members of Network Advertising Initiative or that participate in the Digital Advertising Alliance have subscribed to certain principles relating to collection and use of information and may permit users to direct whether or how information about their viewing activities are used for advertising purposes To register your preferences or choices or to opt out of behavioral advertising offered by participants in these programs visit http //www networkadvertising org or http //www aboutads info</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#677e99a94d0643cc9aa9da0:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#d48f1f67e5a2444ca6e7cc7:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">677e99a94d0643cc9aa9da0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d48f1f67e5a2444ca6e7cc7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">visit http://www.networkadvertising.org or http://www.aboutads.info.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#98555936ef3a4e759aa0f7d:AccountData">
+<owl:NamedIndividual rdf:about="#3f9246b502fe4ca7b995530:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">98555936ef3a4e759aa0f7d</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3f9246b502fe4ca7b995530</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">information about their viewing activities</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#05ac736b8c0d4e08b54f4a3:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#2424553049ce487ea5081e1:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#677e99a94d0643cc9aa9da0:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#98555936ef3a4e759aa0f7d:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">05ac736b8c0d4e08b54f4a3</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#d48f1f67e5a2444ca6e7cc7:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#3f9246b502fe4ca7b995530:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2424553049ce487ea5081e1</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Advertising networks that are members of Network Advertising Initiative or that participate in the Digital Advertising Alliance have subscribed to certain principles relating to collection and use of information and may permit users to direct whether or how information about their viewing activities are used for advertising purposes To register your preferences or choices or to opt out of behavioral advertising offered by participants in these programs visit http //www networkadvertising org or http //www aboutads info</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#857d415e9bb64e4f8970e78:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#cd0ad47293504223aa5f3ce:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">857d415e9bb64e4f8970e78</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cd0ad47293504223aa5f3ce</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">visit http://www.networkadvertising.org or http://www.aboutads.info.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c74e481498884844bae38d7:AccountData">
+<owl:NamedIndividual rdf:about="#f31bff65566147e5a3fe2d0:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c74e481498884844bae38d7</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f31bff65566147e5a3fe2d0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">information about their viewing activities</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e1c9e12c74a04c8ea9631d7:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#ffbfe5e934fb45449936606:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#857d415e9bb64e4f8970e78:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#c74e481498884844bae38d7:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e1c9e12c74a04c8ea9631d7</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#cd0ad47293504223aa5f3ce:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#f31bff65566147e5a3fe2d0:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ffbfe5e934fb45449936606</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Advertising networks that are members of Network Advertising Initiative or that participate in the Digital Advertising Alliance have subscribed to certain principles relating to collection and use of information and may permit users to direct whether or how information about their viewing activities are used for advertising purposes To register your preferences or choices or to opt out of behavioral advertising offered by participants in these programs visit http //www networkadvertising org or http //www aboutads info</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f0e8b5a0db674bfab7bb688:GenericData">
+<owl:NamedIndividual rdf:about="#fdd16aa424a54ca48a29efd:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f0e8b5a0db674bfab7bb688</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fdd16aa424a54ca48a29efd</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally identifiable information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#53ffe713140d47f19a7cc59:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#80e49a3f030e428da9acf91:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">53ffe713140d47f19a7cc59</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">80e49a3f030e428da9acf91</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to send newsletters and text messages that you have opted to receive</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3293177d3faa444b80769c1:DataUse">
+<owl:NamedIndividual rdf:about="#b8ee59762e284f4bb76f21d:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <has_purpose rdf:resource="#53ffe713140d47f19a7cc59:MarketingPurpose"/>
-  <applies_to rdf:resource="#f0e8b5a0db674bfab7bb688:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3293177d3faa444b80769c1</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <has_purpose rdf:resource="#80e49a3f030e428da9acf91:MarketingPurpose"/>
+  <applies_to rdf:resource="#fdd16aa424a54ca48a29efd:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b8ee59762e284f4bb76f21d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Use and Disclosure of Information We maintain and use personally identifiable information for the purpose or purposes for which it is provided and for purposes specified in this Privacy Policy For example we may maintain and use personally identifiable information to send newsletters and text messages that you have opted to receive to establish your online account and recognize you when you return to the Site to contact you regarding contests promotions polls and surveys to complete the sale of event tickets to provide customer support or to otherwise communicate with you regarding our Site an ad you posted an event you submitted to the Site or your comments or letters to the editor</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0d14ae341cab47348d3245b:GenericData">
+<owl:NamedIndividual rdf:about="#1d2c46e7f8a84131b1e6dd2:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0d14ae341cab47348d3245b</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1d2c46e7f8a84131b1e6dd2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally identifiable information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#52e8337eb2014afcb5a27cc:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#cb35150f67cc4e2a9bad84e:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">52e8337eb2014afcb5a27cc</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cb35150f67cc4e2a9bad84e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to send newsletters and text messages that you have opted to receive;</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a7641cb8b476488ea56bf3d:DataUse">
+<owl:NamedIndividual rdf:about="#a303ae08b27142ac8e45fc1:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <has_purpose rdf:resource="#52e8337eb2014afcb5a27cc:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#0d14ae341cab47348d3245b:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a7641cb8b476488ea56bf3d</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <has_purpose rdf:resource="#cb35150f67cc4e2a9bad84e:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#1d2c46e7f8a84131b1e6dd2:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a303ae08b27142ac8e45fc1</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Use and Disclosure of Information We maintain and use personally identifiable information for the purpose or purposes for which it is provided and for purposes specified in this Privacy Policy For example we may maintain and use personally identifiable information to send newsletters and text messages that you have opted to receive to establish your online account and recognize you when you return to the Site to contact you regarding contests promotions polls and surveys to complete the sale of event tickets to provide customer support or to otherwise communicate with you regarding our Site an ad you posted an event you submitted to the Site or your comments or letters to the editor</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#21e5b8ce334d450ebb52056:PersonalData">
+<owl:NamedIndividual rdf:about="#04a51a2866984fdc931b691:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">21e5b8ce334d450ebb52056</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">04a51a2866984fdc931b691</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">newsletters and text messages</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fa1f36c316fb4579a048e1a:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#9ffabe2089134263af59ef7:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fa1f36c316fb4579a048e1a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9ffabe2089134263af59ef7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to send newsletters and text messages that you have opted to receive;</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f0b6acd23f82414bbe12679:DataUse">
+<owl:NamedIndividual rdf:about="#be9519029dd74938a83f726:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <has_purpose rdf:resource="#fa1f36c316fb4579a048e1a:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#21e5b8ce334d450ebb52056:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f0b6acd23f82414bbe12679</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <has_purpose rdf:resource="#9ffabe2089134263af59ef7:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#04a51a2866984fdc931b691:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">be9519029dd74938a83f726</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Use and Disclosure of Information We maintain and use personally identifiable information for the purpose or purposes for which it is provided and for purposes specified in this Privacy Policy For example we may maintain and use personally identifiable information to send newsletters and text messages that you have opted to receive to establish your online account and recognize you when you return to the Site to contact you regarding contests promotions polls and surveys to complete the sale of event tickets to provide customer support or to otherwise communicate with you regarding our Site an ad you posted an event you submitted to the Site or your comments or letters to the editor</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9201aac36092458cbfb3edb:PersonalData">
+<owl:NamedIndividual rdf:about="#9535834e1614475c8c4bd8a:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9201aac36092458cbfb3edb</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9535834e1614475c8c4bd8a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eal name, daytime telephone number and/or e-mail address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#759e64a1bc2241c4bd90fa0:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#63b9ebf8457a408685ff0cb:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">759e64a1bc2241c4bd90fa0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">63b9ebf8457a408685ff0cb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">attribute your comments, letters to the editor and/or other submissions to the Site to you</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#449e20ca9a844a3a90a6339:ViaWebsite">
+<owl:NamedIndividual rdf:about="#1848d469c9d54be190e7748:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">449e20ca9a844a3a90a6339</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1848d469c9d54be190e7748</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">attribute your comments, letters to the editor and/or other submissions to the Site to you.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7fdddcf8092c4bd892a9f65:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#007b1f2d91064526b2506f8:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7fdddcf8092c4bd892a9f65</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">007b1f2d91064526b2506f8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you supply</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#56efe0eade2d43fab09d32e:FPCollection">
+<owl:NamedIndividual rdf:about="#a106aaca31084053b4551b8:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <collects_from rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_purpose rdf:resource="#759e64a1bc2241c4bd90fa0:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#7fdddcf8092c4bd892a9f65:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#449e20ca9a844a3a90a6339:ViaWebsite"/>
-  <applies_to rdf:resource="#9201aac36092458cbfb3edb:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">56efe0eade2d43fab09d32e</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <collects_from rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_purpose rdf:resource="#63b9ebf8457a408685ff0cb:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#007b1f2d91064526b2506f8:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#1848d469c9d54be190e7748:ViaWebsite"/>
+  <applies_to rdf:resource="#9535834e1614475c8c4bd8a:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a106aaca31084053b4551b8</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may also maintain and use your personally identifiable information to attribute your comments letters to the editor and/or other submissions to the Site to you As has traditionally been the case with our print editions we may require that you supply certain information to us such as your real name daytime telephone number and/or e-mail address in connection with comments and other submissions to the Site That is because we may need to contact you and because your identity may be important to understand your point of view If you send us comments or other submissions we reserve the right to publish them in print or display them on this Site in full or in edited form We normally honor requests to withhold your name and address when provided in connection with comments and other submissions both in print and on-line but we reserve the right to use discuss and report facts that we consider newsworthy relating to submissions even if it might reveal or tend to reveal the poster s identity</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7db0b27567144874a6ed7b7:GenericData">
+<owl:NamedIndividual rdf:about="#fe58f4c3a9184a32992fcce:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7db0b27567144874a6ed7b7</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fe58f4c3a9184a32992fcce</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally identifiable information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#02b06b79afba493fa11a1c8:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#df688fbac36d4ab692b8d00:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">02b06b79afba493fa11a1c8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">df688fbac36d4ab692b8d00</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to attribute your comments, letters to the editor and/or other submissions to the Site to you.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#877c774544e24c36a975527:ViaWebsite">
+<owl:NamedIndividual rdf:about="#196ad0b1789143fbaf31efe:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">877c774544e24c36a975527</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">196ad0b1789143fbaf31efe</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to the Site.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0ad3c0bd578d4b76b9f40c7:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#327765447f03450dba2df4a:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0ad3c0bd578d4b76b9f40c7</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">327765447f03450dba2df4a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">As has traditionally been the case with our print editions, we may require that you supply</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#99ca5f78de4541cb941202a:FPCollection">
+<owl:NamedIndividual rdf:about="#0c6e45484e264aa3851c3ef:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <collects_from rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_purpose rdf:resource="#02b06b79afba493fa11a1c8:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#0ad3c0bd578d4b76b9f40c7:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#877c774544e24c36a975527:ViaWebsite"/>
-  <applies_to rdf:resource="#7db0b27567144874a6ed7b7:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">99ca5f78de4541cb941202a</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <collects_from rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_purpose rdf:resource="#df688fbac36d4ab692b8d00:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#327765447f03450dba2df4a:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#196ad0b1789143fbaf31efe:ViaWebsite"/>
+  <applies_to rdf:resource="#fe58f4c3a9184a32992fcce:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0c6e45484e264aa3851c3ef</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may also maintain and use your personally identifiable information to attribute your comments letters to the editor and/or other submissions to the Site to you As has traditionally been the case with our print editions we may require that you supply certain information to us such as your real name daytime telephone number and/or e-mail address in connection with comments and other submissions to the Site That is because we may need to contact you and because your identity may be important to understand your point of view If you send us comments or other submissions we reserve the right to publish them in print or display them on this Site in full or in edited form We normally honor requests to withhold your name and address when provided in connection with comments and other submissions both in print and on-line but we reserve the right to use discuss and report facts that we consider newsworthy relating to submissions even if it might reveal or tend to reveal the poster s identity</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1544c4179dc94a22bd0afe9:PersonalData">
+<owl:NamedIndividual rdf:about="#9d122d9c6a9044d8b9823d5:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1544c4179dc94a22bd0afe9</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9d122d9c6a9044d8b9823d5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">(such as your real name, daytime telephone number and/or e-mail address)</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fb2961c72ad74536923bdc0:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#5547f6600c12419a9b87f28:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fb2961c72ad74536923bdc0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5547f6600c12419a9b87f28</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to attribute your comments, letters to the editor and/or other submissions to the Site to you.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7636620b9cf9473db0762d7:ViaWebsite">
+<owl:NamedIndividual rdf:about="#2f1b20d387af45af8cf3c97:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7636620b9cf9473db0762d7</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2f1b20d387af45af8cf3c97</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to the Site.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#74e8428f57624d1284f46c4:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#3576111ea1b048ad8e3fa54:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">74e8428f57624d1284f46c4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3576111ea1b048ad8e3fa54</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">As has traditionally been the case with our print editions, we may require that you supply</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#aff4150c62d64fb7bd6eda2:FPCollection">
+<owl:NamedIndividual rdf:about="#2c99aba0103c411b9001b0a:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <collects_from rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_purpose rdf:resource="#fb2961c72ad74536923bdc0:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#74e8428f57624d1284f46c4:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#7636620b9cf9473db0762d7:ViaWebsite"/>
-  <applies_to rdf:resource="#1544c4179dc94a22bd0afe9:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aff4150c62d64fb7bd6eda2</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <collects_from rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_purpose rdf:resource="#5547f6600c12419a9b87f28:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#3576111ea1b048ad8e3fa54:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#2f1b20d387af45af8cf3c97:ViaWebsite"/>
+  <applies_to rdf:resource="#9d122d9c6a9044d8b9823d5:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2c99aba0103c411b9001b0a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may also maintain and use your personally identifiable information to attribute your comments letters to the editor and/or other submissions to the Site to you As has traditionally been the case with our print editions we may require that you supply certain information to us such as your real name daytime telephone number and/or e-mail address in connection with comments and other submissions to the Site That is because we may need to contact you and because your identity may be important to understand your point of view If you send us comments or other submissions we reserve the right to publish them in print or display them on this Site in full or in edited form We normally honor requests to withhold your name and address when provided in connection with comments and other submissions both in print and on-line but we reserve the right to use discuss and report facts that we consider newsworthy relating to submissions even if it might reveal or tend to reveal the poster s identity</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f57739ae8e284649a0191b9:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#198b1a79f87d41a8bc97e74:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f57739ae8e284649a0191b9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">198b1a79f87d41a8bc97e74</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you send us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b35b66384536444788b5c22:SensitiveData">
+<owl:NamedIndividual rdf:about="#d7a15cd9618f43618f3c38b:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b35b66384536444788b5c22</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d7a15cd9618f43618f3c38b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">comments or other submissions,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bbb35906ccc4467f965b5fa:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#707c50591c2f408091e9cfb:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#f57739ae8e284649a0191b9:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#b35b66384536444788b5c22:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bbb35906ccc4467f965b5fa</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#198b1a79f87d41a8bc97e74:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#d7a15cd9618f43618f3c38b:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">707c50591c2f408091e9cfb</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may also maintain and use your personally identifiable information to attribute your comments letters to the editor and/or other submissions to the Site to you As has traditionally been the case with our print editions we may require that you supply certain information to us such as your real name daytime telephone number and/or e-mail address in connection with comments and other submissions to the Site That is because we may need to contact you and because your identity may be important to understand your point of view If you send us comments or other submissions we reserve the right to publish them in print or display them on this Site in full or in edited form We normally honor requests to withhold your name and address when provided in connection with comments and other submissions both in print and on-line but we reserve the right to use discuss and report facts that we consider newsworthy relating to submissions even if it might reveal or tend to reveal the poster s identity</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6ba7f313cd624379a2f9e76:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#0a311b0ddbee49c7b6e246a:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6ba7f313cd624379a2f9e76</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0a311b0ddbee49c7b6e246a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We normally honor requests to</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#67ee9fcb440b4a9c9fbc22b:PersonalData">
+<owl:NamedIndividual rdf:about="#4f289cc075104a36984bfef:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">67ee9fcb440b4a9c9fbc22b</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4f289cc075104a36984bfef</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">name and address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f41ae34412754ab786cf129:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#604c7a4098fd4e01bfce973:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#6ba7f313cd624379a2f9e76:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#67ee9fcb440b4a9c9fbc22b:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f41ae34412754ab786cf129</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#0a311b0ddbee49c7b6e246a:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#4f289cc075104a36984bfef:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">604c7a4098fd4e01bfce973</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may also maintain and use your personally identifiable information to attribute your comments letters to the editor and/or other submissions to the Site to you As has traditionally been the case with our print editions we may require that you supply certain information to us such as your real name daytime telephone number and/or e-mail address in connection with comments and other submissions to the Site That is because we may need to contact you and because your identity may be important to understand your point of view If you send us comments or other submissions we reserve the right to publish them in print or display them on this Site in full or in edited form We normally honor requests to withhold your name and address when provided in connection with comments and other submissions both in print and on-line but we reserve the right to use discuss and report facts that we consider newsworthy relating to submissions even if it might reveal or tend to reveal the poster s identity</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#411adc9367cb41c7a1d72e8:GenericData">
+<owl:NamedIndividual rdf:about="#e4b4967d22cb4c7d9757243:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">411adc9367cb41c7a1d72e8</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e4b4967d22cb4c7d9757243</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally identifiable information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e8379a779d0842568fcbd2e:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#0df0cdfdae2d4d60b0ddf5f:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e8379a779d0842568fcbd2e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0df0cdfdae2d4d60b0ddf5f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">third-party contest, promotion, poll, survey or newsletter,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#73b651b662d54e1eb5b3c9c:TPCollection">
+<owl:NamedIndividual rdf:about="#b14f2a14cafa44a7acce744:TPCollection">
   <rdf:type rdf:resource="#TPCollection"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <collects_from rdf:resource="#b0a643a1c55843e0b5f6b2e:ThirdParty"/>
-  <has_purpose rdf:resource="#e8379a779d0842568fcbd2e:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#411adc9367cb41c7a1d72e8:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">73b651b662d54e1eb5b3c9c</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <collects_from rdf:resource="#b52e07bb7ab34affacdf094:ThirdParty"/>
+  <has_purpose rdf:resource="#0df0cdfdae2d4d60b0ddf5f:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#e4b4967d22cb4c7d9757243:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b14f2a14cafa44a7acce744</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you chose to provide your personally identifiable information for the purposes of a third-party contest promotion poll survey or newsletter your personally identifiable information will be given to Miami New Times and to the third-party advertiser/sponsor involved with the relevant contest promotion poll survey or newsletter and/or its agents and affiliates For rules or requirements for contests promotions polls surveys and/or newsletters please see the applicable page on our Site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b4c1f164fd3b4222b0716f1:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#2b262f4fb1834f9f84c41e6:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b4c1f164fd3b4222b0716f1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2b262f4fb1834f9f84c41e6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you chose to provide</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b5713777dcd348a49386fa0:GenericData">
+<owl:NamedIndividual rdf:about="#07dd32ce9d884056a834b72:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b5713777dcd348a49386fa0</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">07dd32ce9d884056a834b72</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">your personally identifiable information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0842f6b3118d40539d208c4:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#3e50484a52cc411e9a1c24f:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#b4c1f164fd3b4222b0716f1:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#b5713777dcd348a49386fa0:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0842f6b3118d40539d208c4</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#2b262f4fb1834f9f84c41e6:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#07dd32ce9d884056a834b72:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3e50484a52cc411e9a1c24f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you chose to provide your personally identifiable information for the purposes of a third-party contest promotion poll survey or newsletter your personally identifiable information will be given to Miami New Times and to the third-party advertiser/sponsor involved with the relevant contest promotion poll survey or newsletter and/or its agents and affiliates For rules or requirements for contests promotions polls surveys and/or newsletters please see the applicable page on our Site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#58c209d33b6d4ff4826e56c:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#4ea6eb055acc4e3691306ee:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">58c209d33b6d4ff4826e56c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4ea6eb055acc4e3691306ee</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you chose to provide</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#134ec0746947439b97caa7f:GenericData">
+<owl:NamedIndividual rdf:about="#69d32a44ddef4e89ae5a494:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">134ec0746947439b97caa7f</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">69d32a44ddef4e89ae5a494</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">your personally identifiable information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#beb4aee1437f4c3dbabe4c6:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#e98d43694ce14f96835767f:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#58c209d33b6d4ff4826e56c:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#134ec0746947439b97caa7f:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">beb4aee1437f4c3dbabe4c6</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#4ea6eb055acc4e3691306ee:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#69d32a44ddef4e89ae5a494:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e98d43694ce14f96835767f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you chose to provide your personally identifiable information for the purposes of a third-party contest promotion poll survey or newsletter your personally identifiable information will be given to Miami New Times and to the third-party advertiser/sponsor involved with the relevant contest promotion poll survey or newsletter and/or its agents and affiliates For rules or requirements for contests promotions polls surveys and/or newsletters please see the applicable page on our Site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1793f2e676b94e48bc1f421:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#d36b90419b684896879bf00:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1793f2e676b94e48bc1f421</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d36b90419b684896879bf00</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may terminate any ongoing communications you receive from Miami New Times via e-mail (such as newsletters, subscriptions, contest results, survey inquiries, etc.) by (1) clicking the "unsubscribe" link that is available within the communication received,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6d80ce6832914e28be80b88:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#053b8b6572c344afa02d965:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#1793f2e676b94e48bc1f421:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6d80ce6832914e28be80b88</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#d36b90419b684896879bf00:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">053b8b6572c344afa02d965</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Opt-Out You may terminate any ongoing communications you receive from Miami New Times via e-mail such as newsletters subscriptions contest results survey inquiries etc by 1 clicking the unsubscribe link that is available within the communication received or 2 through your online profile</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c0e52cb364a74b0f8ca0da4:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#6a28497edce844b3a27ea32:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c0e52cb364a74b0f8ca0da4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6a28497edce844b3a27ea32</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">through your online profile</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6dba32a13f1a4a4c8171554:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#1d9ceab34e87438d9f5b6d4:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#c0e52cb364a74b0f8ca0da4:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6dba32a13f1a4a4c8171554</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#6a28497edce844b3a27ea32:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1d9ceab34e87438d9f5b6d4</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Opt-Out You may terminate any ongoing communications you receive from Miami New Times via e-mail such as newsletters subscriptions contest results survey inquiries etc by 1 clicking the unsubscribe link that is available within the communication received or 2 through your online profile</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f7baabd325c643218fb2712:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#548980577eb841a195555c4:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f7baabd325c643218fb2712</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">548980577eb841a195555c4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1) clicking the "unsubscribe" link that is available within the communication received,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9e1a81c188384d988cb17c0:PersonalData">
+<owl:NamedIndividual rdf:about="#ac0c811532924c2888b03d6:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9e1a81c188384d988cb17c0</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ac0c811532924c2888b03d6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e-mail (such as newsletters, subscriptions, contest results, survey inquiries, etc.)</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#597039cc903e466cafb43c1:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#99597bd664884ac5bd5783e:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#f7baabd325c643218fb2712:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#9e1a81c188384d988cb17c0:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">597039cc903e466cafb43c1</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#548980577eb841a195555c4:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#ac0c811532924c2888b03d6:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">99597bd664884ac5bd5783e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Opt-Out You may terminate any ongoing communications you receive from Miami New Times via e-mail such as newsletters subscriptions contest results survey inquiries etc by 1 clicking the unsubscribe link that is available within the communication received or 2 through your online profile</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#acff654405bc43779f97bf4:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#d5ab0a7e91aa44c6b6d42c8:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">acff654405bc43779f97bf4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d5ab0a7e91aa44c6b6d42c8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">(2) through your online profile</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b5263be93d1646b5923bfcb:PersonalData">
+<owl:NamedIndividual rdf:about="#b4ca119e8ca843e4a00ed90:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b5263be93d1646b5923bfcb</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b4ca119e8ca843e4a00ed90</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e-mail (such as newsletters, subscriptions, contest results, survey inquiries, etc.)</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3ae7e7e10ec548e1ae7ef8a:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#41cadde1cd3f4315a6bf2ee:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#acff654405bc43779f97bf4:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#b5263be93d1646b5923bfcb:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3ae7e7e10ec548e1ae7ef8a</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#d5ab0a7e91aa44c6b6d42c8:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#b4ca119e8ca843e4a00ed90:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">41cadde1cd3f4315a6bf2ee</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Opt-Out You may terminate any ongoing communications you receive from Miami New Times via e-mail such as newsletters subscriptions contest results survey inquiries etc by 1 clicking the unsubscribe link that is available within the communication received or 2 through your online profile</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e2e29a0cb182467a96c0475:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#882e9e4a70d249f6991f281:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e2e29a0cb182467a96c0475</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">882e9e4a70d249f6991f281</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">by (1) clicking the "unsubscribe" link that is available within the communication received,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#39e11aa724a54f5f8a4d92b:PersonalData">
+<owl:NamedIndividual rdf:about="#81eac94b3dc9463aaf43071:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">39e11aa724a54f5f8a4d92b</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">81eac94b3dc9463aaf43071</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">communications</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9c8d632990964647917e412:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#3da4d9fc9b114da298ece33:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#e2e29a0cb182467a96c0475:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#39e11aa724a54f5f8a4d92b:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9c8d632990964647917e412</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#882e9e4a70d249f6991f281:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#81eac94b3dc9463aaf43071:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3da4d9fc9b114da298ece33</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Opt-Out You may terminate any ongoing communications you receive from Miami New Times via e-mail such as newsletters subscriptions contest results survey inquiries etc by 1 clicking the unsubscribe link that is available within the communication received or 2 through your online profile</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1ca0e4f3e287458284d70cb:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#51cad39c5a5b4f05b9b1664:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1ca0e4f3e287458284d70cb</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">51cad39c5a5b4f05b9b1664</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">(2) through your online profile.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#413ec6d5e33f44f381e5b92:PersonalData">
+<owl:NamedIndividual rdf:about="#1af788baedb94697a685714:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">413ec6d5e33f44f381e5b92</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1af788baedb94697a685714</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">communications</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a4ba80067e374c4398c30d3:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#54b4337e40ff409fb9029da:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#1ca0e4f3e287458284d70cb:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#413ec6d5e33f44f381e5b92:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a4ba80067e374c4398c30d3</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#51cad39c5a5b4f05b9b1664:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#1af788baedb94697a685714:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">54b4337e40ff409fb9029da</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Opt-Out You may terminate any ongoing communications you receive from Miami New Times via e-mail such as newsletters subscriptions contest results survey inquiries etc by 1 clicking the unsubscribe link that is available within the communication received or 2 through your online profile</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2636c1571c504254b21b3ef:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#aba35234aa6842e68347644:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2636c1571c504254b21b3ef</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aba35234aa6842e68347644</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Children Some of the material on this Site is for mature audiences and parents and guardians should take responsibility for monitoring their children s use of the Site Children under the age of 13 should not use this Site We do not intentionally collect personally identifiable information from users of the Site who are under the age of thirteen</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#55a67e4fbf544a8c9253822:SecurityMechanism">
+<owl:NamedIndividual rdf:about="#58027dfb1b1a4a5f8a1d721:SecurityMechanism">
   <rdf:type rdf:resource="#SecurityMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">55a67e4fbf544a8c9253822</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">58027dfb1b1a4a5f8a1d721</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Links to Other Sites This Site provides links to websites maintained by other organizations. Miami New Times provides these links as a convenience to users, but it does not operate, control or endorse such sites. Miami New Times also disclaims any responsibility for the information on those sites and any products or services offered on such sites. Please review the privacy policies of these sites. Miami New Times is not responsible for any actions or policies of such third parties, and does not make any warranties or representations that any linked sites (or even this Site) will function without error or interruption, that defects will be corrected, or that the sites and their servers are free of viruses and other problems that can harm your computer. Miami New Times disclaims any responsibility for transactions conducted on those sites and cannot vouch for the security of the information submitted in those transactions.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0f7df1a2284e4ae9ac1e798:DataProtection">
+<owl:NamedIndividual rdf:about="#81d0f66505574189a56b35a:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <has_mechanism rdf:resource="#55a67e4fbf544a8c9253822:SecurityMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0f7df1a2284e4ae9ac1e798</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <has_mechanism rdf:resource="#58027dfb1b1a4a5f8a1d721:SecurityMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">81d0f66505574189a56b35a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Links to Other Sites This Site provides links to websites maintained by other organizations Miami New Times provides these links as a convenience to users but it does not operate control or endorse such sites Miami New Times also disclaims any responsibility for the information on those sites and any products or services offered on such sites Please review the privacy policies of these sites Miami New Times is not responsible for any actions or policies of such third parties and does not make any warranties or representations that any linked sites or even this Site will function without error or interruption that defects will be corrected or that the sites and their servers are free of viruses and other problems that can harm your computer Miami New Times disclaims any responsibility for transactions conducted on those sites and cannot vouch for the security of the information submitted in those transactions</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0d769fab38c549129df7be3:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#cd7e1faad7e548909ef62f8:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0d769fab38c549129df7be3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cd7e1faad7e548909ef62f8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We use reasonable efforts to protect your personally identifiable information from unauthorized use or disclosure. Unfortunately, information transmitted on the Internet and/or stored on systems attached to the Internet are not 100% secure. Updates and Changes to Your Information.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a2bfefd6027d4a07ab7e58e:DataProtection">
+<owl:NamedIndividual rdf:about="#807ad3ca7b1d4ffca4e5b72:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#4d25be67f1b144ceb2a190f:FirstParty"/>
-  <has_mechanism rdf:resource="#0d769fab38c549129df7be3:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a2bfefd6027d4a07ab7e58e</uuid>
+  <initiated_by rdf:resource="#486ca27b7f2c411ebcd6986:FirstParty"/>
+  <has_mechanism rdf:resource="#cd7e1faad7e548909ef62f8:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">807ad3ca7b1d4ffca4e5b72</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">E-Commerce and Our Secure Server We use reasonable efforts to protect your personally identifiable information from unauthorized use or disclosure Unfortunately information transmitted on the Internet and/or stored on systems attached to the Internet are not 100% secure Updates and Changes to Your Information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c53fff64ba024328a470664:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#f2d74836661e432ca5402ea:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c53fff64ba024328a470664</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f2d74836661e432ca5402ea</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If your personally identifiable information changes you may correct and/or update it by sending us an email You may also view correct and/or update your personally identifiable information by accessing your profile on the Site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3951c69e489746c9bbc1c4e:AccountData">
+<owl:NamedIndividual rdf:about="#8bb46dd5f566484aba4b939:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3951c69e489746c9bbc1c4e</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8bb46dd5f566484aba4b939</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bde16c3609014e9ea8c4e84:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#1bdd7fd45319477f87bfaa2:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#c53fff64ba024328a470664:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#3951c69e489746c9bbc1c4e:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bde16c3609014e9ea8c4e84</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#f2d74836661e432ca5402ea:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#8bb46dd5f566484aba4b939:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1bdd7fd45319477f87bfaa2</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If your personally identifiable information changes you may correct and/or update it by sending us an email You may also view correct and/or update your personally identifiable information by accessing your profile on the Site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e1a1d80e7c184a878b0d74f:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#9c82be67e1cd44f693a43b4:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e1a1d80e7c184a878b0d74f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9c82be67e1cd44f693a43b4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If your personally identifiable information changes you may correct and/or update it by sending us an email You may also view correct and/or update your personally identifiable information by accessing your profile on the Site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#59837e79e1ec4ef8add1593:AccountData">
+<owl:NamedIndividual rdf:about="#453b412d227149739152a0e:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">59837e79e1ec4ef8add1593</uuid>
+  <provided_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">453b412d227149739152a0e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8d2ee6adb39f46f1ae2230c:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#cce132deb4df4fa2866e6e8:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#e1a1d80e7c184a878b0d74f:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#59837e79e1ec4ef8add1593:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8d2ee6adb39f46f1ae2230c</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#9c82be67e1cd44f693a43b4:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#453b412d227149739152a0e:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cce132deb4df4fa2866e6e8</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If your personally identifiable information changes you may correct and/or update it by sending us an email You may also view correct and/or update your personally identifiable information by accessing your profile on the Site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c643bab1af25480d91295c9:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#0757d0cc1c064bb68483fea:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c643bab1af25480d91295c9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0757d0cc1c064bb68483fea</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If your personally identifiable information changes you may correct and/or update it by sending us an email You may also view correct and/or update your personally identifiable information by accessing your profile on the Site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5c2fbe5b83f04c9399b5054:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#ffb1ccaa6a234761b8215b7:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#c643bab1af25480d91295c9:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5c2fbe5b83f04c9399b5054</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#0757d0cc1c064bb68483fea:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ffb1ccaa6a234761b8215b7</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If your personally identifiable information changes you may correct and/or update it by sending us an email You may also view correct and/or update your personally identifiable information by accessing your profile on the Site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#618ddc33beb84b629c36381:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#457093a30bcd4f368e1c315:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">618ddc33beb84b629c36381</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">457093a30bcd4f368e1c315</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If your personally identifiable information changes you may correct and/or update it by sending us an email You may also view correct and/or update your personally identifiable information by accessing your profile on the Site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#87888d9d2aec438183d672c:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#8bf35abdf490497e859d3b5:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e88f7211809242ab8f16406:User"/>
-  <has_mechanism rdf:resource="#618ddc33beb84b629c36381:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">87888d9d2aec438183d672c</uuid>
+  <initiated_by rdf:resource="#938f75a9a1bc4b4b9a52d08:User"/>
+  <has_mechanism rdf:resource="#457093a30bcd4f368e1c315:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8bf35abdf490497e859d3b5</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If your personally identifiable information changes you may correct and/or update it by sending us an email You may also view correct and/or update your personally identifiable information by accessing your profile on the Site</evidence>
 </owl:NamedIndividual>

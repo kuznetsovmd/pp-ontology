@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -901,6 +902,14 @@
   <rdfs:subClassOf rdf:resource="#UserSpecificCommunicationMechanism"/>
   <owl:disjointWith rdf:resource="#AutomaticCommunicationMechanism"/>
   <rdfs:subClassOf>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
+        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
+      </owl:unionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
       <owl:allValuesFrom>
@@ -909,14 +918,6 @@
         </owl:Class>
       </owl:allValuesFrom>
     </owl:Restriction>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
-        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
-      </owl:unionOf>
-    </owl:Class>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -959,18 +960,18 @@
 <owl:Class rdf:about="#FPSpecificCommunicationMechanism">
   <rdfs:subClassOf rdf:resource="#CommunicationMechanism"/>
   <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#mechanism_of"/>
-      <owl:allValuesFrom rdf:resource="#FPNotification"/>
-    </owl:Restriction>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
     <owl:Class>
       <owl:unionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#FPSpecificCommunicationMechanism"/>
         <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
       </owl:unionOf>
     </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#mechanism_of"/>
+      <owl:allValuesFrom rdf:resource="#FPNotification"/>
+    </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,158 +1305,158 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#7c738aeedf92473886ea64b:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#97505c1166be488481a63b0:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7c738aeedf92473886ea64b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">97505c1166be488481a63b0</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9df4efa890dc45238f5f3e1:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#629a29208a2544d18bfa7c5:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#e23dd4a7c06f4330993c51a:User"/>
-  <considers rdf:resource="#009223f441d045cd8819dc5:FirstParty"/>
-  <considers rdf:resource="#bcda9fd2e3314305996331d:ThirdParty"/>
-  <considers rdf:resource="#44edb6f4a77b4c549c44e22:DataProtection"/>
-  <considers rdf:resource="#5fe97db3066143a8afe1d46:PersonalData"/>
-  <considers rdf:resource="#c2c280a4108e415f9ec6901:OptInOptOutControl"/>
-  <considers rdf:resource="#d39b527e3e51486fae2c593:OptInOptOutControl"/>
-  <considers rdf:resource="#f34520cedbc84bd780261e5:PersonalData"/>
-  <considers rdf:resource="#a58f913ed3104c42a6f7e0f:OptInOptOutControl"/>
-  <considers rdf:resource="#c5463be312f64f49969e02f:OptInOptOutControl"/>
-  <considers rdf:resource="#1718c956c06e487f99f4d81:PersonalData"/>
-  <considers rdf:resource="#c5fe6af577f64f51985dfa1:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9df4efa890dc45238f5f3e1</uuid>
+  <considers rdf:resource="#b4d3f77971ee45f2b950cb3:User"/>
+  <considers rdf:resource="#d24998ee3e384ba6856074c:FirstParty"/>
+  <considers rdf:resource="#bf290c8678a0400da46a7df:ThirdParty"/>
+  <considers rdf:resource="#d3a3a365a3a64bf9b0dcf32:DataProtection"/>
+  <considers rdf:resource="#ba3e21e270b9482d8815f16:PersonalData"/>
+  <considers rdf:resource="#45e735c95a6e4f0daf0743d:OptInOptOutControl"/>
+  <considers rdf:resource="#274fcada8af84a82ab2fd20:OptInOptOutControl"/>
+  <considers rdf:resource="#368a430afe564976b575033:PersonalData"/>
+  <considers rdf:resource="#82570d53f9314877a7efc08:OptInOptOutControl"/>
+  <considers rdf:resource="#8dd3ca19618441a1ba4ad10:OptInOptOutControl"/>
+  <considers rdf:resource="#f7a10e25b53342f8afecce6:PersonalData"/>
+  <considers rdf:resource="#04a50a22d3c84cf4ae1cbe3:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">629a29208a2544d18bfa7c5</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">tangeroutlet.com</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e23dd4a7c06f4330993c51a:User">
+<owl:NamedIndividual rdf:about="#b4d3f77971ee45f2b950cb3:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e23dd4a7c06f4330993c51a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b4d3f77971ee45f2b950cb3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#009223f441d045cd8819dc5:FirstParty">
+<owl:NamedIndividual rdf:about="#d24998ee3e384ba6856074c:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">009223f441d045cd8819dc5</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d24998ee3e384ba6856074c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bcda9fd2e3314305996331d:ThirdParty">
+<owl:NamedIndividual rdf:about="#bf290c8678a0400da46a7df:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bcda9fd2e3314305996331d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bf290c8678a0400da46a7df</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b8506c06b29343e1935c9f5:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#257757d68f534665bbfd2b3:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b8506c06b29343e1935c9f5</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">257757d68f534665bbfd2b3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">TangerOutlets is committed to keeping your personal information confidential. Any and all personal identifiable information collected from our customers is used by Tanger Outlets only, and is not sold, shared or distributed to any third party.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#44edb6f4a77b4c549c44e22:DataProtection">
+<owl:NamedIndividual rdf:about="#d3a3a365a3a64bf9b0dcf32:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#009223f441d045cd8819dc5:FirstParty"/>
-  <has_mechanism rdf:resource="#b8506c06b29343e1935c9f5:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">44edb6f4a77b4c549c44e22</uuid>
+  <initiated_by rdf:resource="#d24998ee3e384ba6856074c:FirstParty"/>
+  <has_mechanism rdf:resource="#257757d68f534665bbfd2b3:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d3a3a365a3a64bf9b0dcf32</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">TangerOutlets is committed to keeping your personal information confidential Any and all personal identifiable information collected from our customers is used by Tanger Outlets only and is not sold shared or distributed to any third party</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9b5b2ffe3fea48248226f4d:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#b48a8367dec54999951b8f0:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9b5b2ffe3fea48248226f4d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b48a8367dec54999951b8f0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If at any time you want your email information removed from our database, simply utilize the unsubscribe link provided in your email.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5fe97db3066143a8afe1d46:PersonalData">
+<owl:NamedIndividual rdf:about="#ba3e21e270b9482d8815f16:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e23dd4a7c06f4330993c51a:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5fe97db3066143a8afe1d46</uuid>
+  <provided_by rdf:resource="#b4d3f77971ee45f2b950cb3:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ba3e21e270b9482d8815f16</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">your email information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c2c280a4108e415f9ec6901:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#45e735c95a6e4f0daf0743d:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e23dd4a7c06f4330993c51a:User"/>
-  <has_mechanism rdf:resource="#9b5b2ffe3fea48248226f4d:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#5fe97db3066143a8afe1d46:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c2c280a4108e415f9ec6901</uuid>
+  <initiated_by rdf:resource="#b4d3f77971ee45f2b950cb3:User"/>
+  <has_mechanism rdf:resource="#b48a8367dec54999951b8f0:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#ba3e21e270b9482d8815f16:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">45e735c95a6e4f0daf0743d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If at any time you want your email information removed from our database simply utilize the unsubscribe link provided in your email Any other data updates or removal requests can be sent to TangerOutlets Attn Marketing Department PO Box 10889 Greensboro NC 27408</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bf05a8f13d0c4ba3ba3a405:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#70adbbd3a7a6458db38b335:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bf05a8f13d0c4ba3ba3a405</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">70adbbd3a7a6458db38b335</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Any other data updates or removal requests can be sent to TangerOutlets, Attn: Marketing Department, PO Box 10889, Greensboro, NC 27408.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d39b527e3e51486fae2c593:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#274fcada8af84a82ab2fd20:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e23dd4a7c06f4330993c51a:User"/>
-  <has_mechanism rdf:resource="#bf05a8f13d0c4ba3ba3a405:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d39b527e3e51486fae2c593</uuid>
+  <initiated_by rdf:resource="#b4d3f77971ee45f2b950cb3:User"/>
+  <has_mechanism rdf:resource="#70adbbd3a7a6458db38b335:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">274fcada8af84a82ab2fd20</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If at any time you want your email information removed from our database simply utilize the unsubscribe link provided in your email Any other data updates or removal requests can be sent to TangerOutlets Attn Marketing Department PO Box 10889 Greensboro NC 27408</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#23272da331694e65a59df33:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#41a53c1b050f4bfaa14df9e:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">23272da331694e65a59df33</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">41a53c1b050f4bfaa14df9e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unsubscribe link</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f34520cedbc84bd780261e5:PersonalData">
+<owl:NamedIndividual rdf:about="#368a430afe564976b575033:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e23dd4a7c06f4330993c51a:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f34520cedbc84bd780261e5</uuid>
+  <provided_by rdf:resource="#b4d3f77971ee45f2b950cb3:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">368a430afe564976b575033</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a58f913ed3104c42a6f7e0f:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#82570d53f9314877a7efc08:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e23dd4a7c06f4330993c51a:User"/>
-  <has_mechanism rdf:resource="#23272da331694e65a59df33:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#f34520cedbc84bd780261e5:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a58f913ed3104c42a6f7e0f</uuid>
+  <initiated_by rdf:resource="#b4d3f77971ee45f2b950cb3:User"/>
+  <has_mechanism rdf:resource="#41a53c1b050f4bfaa14df9e:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#368a430afe564976b575033:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">82570d53f9314877a7efc08</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If at any time you want your email information removed from our database simply utilize the unsubscribe link provided in your email Any other data updates or removal requests can be sent to TangerOutlets Attn Marketing Department PO Box 10889 Greensboro NC 27408</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7caacadce07746a483e3685:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#378accb22baf4b55b55c08a:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7caacadce07746a483e3685</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">378accb22baf4b55b55c08a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sent to TangerOutlets, Attn: Marketing Department, PO Box 10889, Greensboro, NC 27408.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c5463be312f64f49969e02f:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#8dd3ca19618441a1ba4ad10:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e23dd4a7c06f4330993c51a:User"/>
-  <has_mechanism rdf:resource="#7caacadce07746a483e3685:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c5463be312f64f49969e02f</uuid>
+  <initiated_by rdf:resource="#b4d3f77971ee45f2b950cb3:User"/>
+  <has_mechanism rdf:resource="#378accb22baf4b55b55c08a:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8dd3ca19618441a1ba4ad10</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If at any time you want your email information removed from our database simply utilize the unsubscribe link provided in your email Any other data updates or removal requests can be sent to TangerOutlets Attn Marketing Department PO Box 10889 Greensboro NC 27408</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9cd0f6af8a9843fa897ea92:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#b5851367cb5d46beb8c94da:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9cd0f6af8a9843fa897ea92</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b5851367cb5d46beb8c94da</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">simply utilize the unsubscribe link provided in your email.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1718c956c06e487f99f4d81:PersonalData">
+<owl:NamedIndividual rdf:about="#f7a10e25b53342f8afecce6:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e23dd4a7c06f4330993c51a:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1718c956c06e487f99f4d81</uuid>
+  <provided_by rdf:resource="#b4d3f77971ee45f2b950cb3:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f7a10e25b53342f8afecce6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c5fe6af577f64f51985dfa1:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#04a50a22d3c84cf4ae1cbe3:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e23dd4a7c06f4330993c51a:User"/>
-  <has_mechanism rdf:resource="#9cd0f6af8a9843fa897ea92:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#1718c956c06e487f99f4d81:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c5fe6af577f64f51985dfa1</uuid>
+  <initiated_by rdf:resource="#b4d3f77971ee45f2b950cb3:User"/>
+  <has_mechanism rdf:resource="#b5851367cb5d46beb8c94da:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#f7a10e25b53342f8afecce6:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">04a50a22d3c84cf4ae1cbe3</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If at any time you want your email information removed from our database simply utilize the unsubscribe link provided in your email Any other data updates or removal requests can be sent to TangerOutlets Attn Marketing Department PO Box 10889 Greensboro NC 27408</evidence>
 </owl:NamedIndividual>

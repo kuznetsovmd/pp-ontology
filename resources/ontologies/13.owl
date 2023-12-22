@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -901,6 +902,14 @@
   <rdfs:subClassOf rdf:resource="#UserSpecificCommunicationMechanism"/>
   <owl:disjointWith rdf:resource="#AutomaticCommunicationMechanism"/>
   <rdfs:subClassOf>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
+        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
+      </owl:unionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
       <owl:allValuesFrom>
@@ -909,14 +918,6 @@
         </owl:Class>
       </owl:allValuesFrom>
     </owl:Restriction>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
-        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
-      </owl:unionOf>
-    </owl:Class>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,1107 +1305,1107 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#96c7f730d7fb4f0ea62f312:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#66fc3e0bcdc64b919f1c87e:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">96c7f730d7fb4f0ea62f312</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">66fc3e0bcdc64b919f1c87e</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ee7f1002a515428bb4aa13a:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#a0a48592ec6447d7a547c6f:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <considers rdf:resource="#2a85d1bedff84b758b39368:FirstParty"/>
-  <considers rdf:resource="#db246cc4e1404116aaae249:ThirdParty"/>
-  <considers rdf:resource="#1751c787ff51411494a0fb4:DataProtection"/>
-  <considers rdf:resource="#276dc98696364e2bb474dfb:DataProtection"/>
-  <considers rdf:resource="#730dd4de0d2946e693b1bb2:DataRetention"/>
-  <considers rdf:resource="#6140ca03c690439caf9f630:DataProtection"/>
-  <considers rdf:resource="#52e6855f41cc457db407962:PersonalData"/>
-  <considers rdf:resource="#abaf294589674739a77de4d:OptInOptOutControl"/>
-  <considers rdf:resource="#dabda00bdf37443887e7efc:SensitiveData"/>
-  <considers rdf:resource="#205905b4d0b34624bdfeeca:OptInOptOutControl"/>
-  <considers rdf:resource="#3756cdb235b4451283a4dd9:PersonalData"/>
-  <considers rdf:resource="#0aa58b34837442e69a0f04c:DataUse"/>
-  <considers rdf:resource="#6a27c405905740d2b23bb32:SensitiveData"/>
-  <considers rdf:resource="#650f157015904243a18d00a:DataUse"/>
-  <considers rdf:resource="#628fc1dd20b14d9bb6587d7:AccountData"/>
-  <considers rdf:resource="#dfde48e541374e60897ad0a:DataUse"/>
-  <considers rdf:resource="#d3df301ce2b54293a735adf:AccountData"/>
-  <considers rdf:resource="#82519b955b134bf3bf31667:OptInOptOutControl"/>
-  <considers rdf:resource="#7d0ec8febb2541268a976d5:Data"/>
-  <considers rdf:resource="#b517a6d7e07c49b3be242c0:OptInOptOutControl"/>
-  <considers rdf:resource="#74ac15fe468f410f8231f9d:Data"/>
-  <considers rdf:resource="#9b5829cd60ce4c539010874:OptInOptOutControl"/>
-  <considers rdf:resource="#bfde786bd21149dbadf6c8b:OptInOptOutControl"/>
-  <considers rdf:resource="#6ac12844bb6c4ccc9187b20:PersonalData"/>
-  <considers rdf:resource="#7dcf356b4d7044109d79e8d:OptInOptOutControl"/>
-  <considers rdf:resource="#e883f4dd529940b184a4730:SensitiveData"/>
-  <considers rdf:resource="#2cc74ea1d259471f885c02b:OptInOptOutControl"/>
-  <considers rdf:resource="#89b352f5a046458c851d80a:AccountData"/>
-  <considers rdf:resource="#308239975e4b45b7a137f17:OptInOptOutControl"/>
-  <considers rdf:resource="#afee1695da5b4df8ae68759:Data"/>
-  <considers rdf:resource="#f537a39a1ae043708c218eb:DataUse"/>
-  <considers rdf:resource="#8250d5f19e804325bf28eb4:PersonalData"/>
-  <considers rdf:resource="#aef0b444f53d4d03a340c5b:OptInOptOutControl"/>
-  <considers rdf:resource="#e745bfea4259455cbff0bd1:SensitiveData"/>
-  <considers rdf:resource="#df91270b64c84e76b5b4933:OptInOptOutControl"/>
-  <considers rdf:resource="#f9255658273d4d93a018b21:AccountData"/>
-  <considers rdf:resource="#2fac2c7ee0c54e929cf5fdb:OptInOptOutControl"/>
-  <considers rdf:resource="#daaf2ab2cc544f3da66ffd3:PersonalData"/>
-  <considers rdf:resource="#6d90681b562c47b5a680384:OptInOptOutControl"/>
-  <considers rdf:resource="#f4359a61958646c9bd75467:SensitiveData"/>
-  <considers rdf:resource="#a1187678abc94216a6bbd7e:OptInOptOutControl"/>
-  <considers rdf:resource="#3e5cab342f914a74ab237f9:AccountData"/>
-  <considers rdf:resource="#491070338b2649d698da69d:OptInOptOutControl"/>
-  <considers rdf:resource="#57c34b8966354a248825075:OptInOptOutControl"/>
-  <considers rdf:resource="#84275303f3854f2f911f474:Data"/>
-  <considers rdf:resource="#1b2eb709851c4a81bc6d601:OptInOptOutControl"/>
-  <considers rdf:resource="#cfb04f571cb54093a26d727:OptInOptOutControl"/>
-  <considers rdf:resource="#6b0e5dbf70c44303af9b403:OptInOptOutControl"/>
-  <considers rdf:resource="#6c81c488194745449997f22:AccountData"/>
-  <considers rdf:resource="#665caf0cc4604ad2848e72e:OptInOptOutControl"/>
-  <considers rdf:resource="#17532fabd3ad48f4acbc53f:FinancialData"/>
-  <considers rdf:resource="#94249bc8ea3a48df8ebbfef:OptInOptOutControl"/>
-  <considers rdf:resource="#6b5866c087bf4853a0b988d:SensitiveData"/>
-  <considers rdf:resource="#432b4dae153f4a9f8921ff3:OptInOptOutControl"/>
-  <considers rdf:resource="#22d4e0d974cc4cd2b8f0981:PersonalData"/>
-  <considers rdf:resource="#1deb2febe4d648d2ac2ac7e:OptInOptOutControl"/>
-  <considers rdf:resource="#ba5eb70aa06542c983e8195:AccountData"/>
-  <considers rdf:resource="#3080c090260e47c0a73a816:OptInOptOutControl"/>
-  <considers rdf:resource="#9c465e5ca31344889933b76:DataProtection"/>
-  <considers rdf:resource="#0af05c5054e342c6947e3fe:AccountData"/>
-  <considers rdf:resource="#87a06d6cc63a4e419bc9c2d:OptInOptOutControl"/>
-  <considers rdf:resource="#280cdc01cf98456999dc143:SensitiveData"/>
-  <considers rdf:resource="#d8283be2f04d4afdac79cfe:OptInOptOutControl"/>
-  <considers rdf:resource="#a8611b2536b84f718c80f0e:AccountData"/>
-  <considers rdf:resource="#b426b9cba66346f1bec9f7d:OptInOptOutControl"/>
-  <considers rdf:resource="#5d1a78910b814fbba2a0497:AccountData"/>
-  <considers rdf:resource="#5b4043d1fb85496c919d7a2:OptInOptOutControl"/>
-  <considers rdf:resource="#7a2ef0e9ec3f4ba4aa950f4:SensitiveData"/>
-  <considers rdf:resource="#895df2a678354723a5964a6:OptInOptOutControl"/>
-  <considers rdf:resource="#4ee905bd265e489cb2dbe02:AccountData"/>
-  <considers rdf:resource="#68f1c10b9e24456e9c80be4:OptInOptOutControl"/>
-  <considers rdf:resource="#19f48a4333944dc9beff712:AccountData"/>
-  <considers rdf:resource="#64cd457ee7b849be9d7fbdb:OptInOptOutControl"/>
-  <considers rdf:resource="#cce1db4ded354de19d354a3:AccountData"/>
-  <considers rdf:resource="#8c634ed7fa4a4dda92e22bd:OptInOptOutControl"/>
-  <considers rdf:resource="#146603c2d9a643a9b21a4f8:PersonalData"/>
-  <considers rdf:resource="#58fb64222a784112911424f:OptInOptOutControl"/>
-  <considers rdf:resource="#96a81d0baa8e439281769ca:DataProtection"/>
-  <considers rdf:resource="#5ce5ddc6bbf84423aad65ab:DataProtection"/>
-  <considers rdf:resource="#dcb17b4d2b9141e0bb0c095:DataProtection"/>
-  <considers rdf:resource="#d7837101fd0d438f850e47d:DataProtection"/>
-  <considers rdf:resource="#8255855bda964dc2b94024e:DataProtection"/>
-  <considers rdf:resource="#aa73f78dcfe14a2e8335441:DataProtection"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ee7f1002a515428bb4aa13a</uuid>
+  <considers rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <considers rdf:resource="#e24603e0c517441da21faaa:FirstParty"/>
+  <considers rdf:resource="#54f415473c5743b8bf83b4c:ThirdParty"/>
+  <considers rdf:resource="#322ce19f5e99458b9f68846:DataProtection"/>
+  <considers rdf:resource="#20a37429312b486199637be:DataProtection"/>
+  <considers rdf:resource="#be7f18bb2aad40b992e8a00:DataRetention"/>
+  <considers rdf:resource="#c583a0a4763f42cb8c2c2e8:DataProtection"/>
+  <considers rdf:resource="#a0da184ddddc4a5e92a1303:PersonalData"/>
+  <considers rdf:resource="#ef6ace01bb234bae8ffb05e:OptInOptOutControl"/>
+  <considers rdf:resource="#b9dff4af378b45ea9ccf32d:SensitiveData"/>
+  <considers rdf:resource="#eb3d4d2d9f98421aa80b883:OptInOptOutControl"/>
+  <considers rdf:resource="#a32edc6e30264282a1f0650:PersonalData"/>
+  <considers rdf:resource="#ef01eaec223b4f3f817cd75:DataUse"/>
+  <considers rdf:resource="#d77416ae530f4f068ecfaa8:SensitiveData"/>
+  <considers rdf:resource="#db73243362844d21b74b3c3:DataUse"/>
+  <considers rdf:resource="#314f6fb86d564b4a88bb328:AccountData"/>
+  <considers rdf:resource="#6c36930fac0f46c6bec7a11:DataUse"/>
+  <considers rdf:resource="#47e33fb4cc0b466e8ca5c1a:AccountData"/>
+  <considers rdf:resource="#f31ae57bc471429991c29e0:OptInOptOutControl"/>
+  <considers rdf:resource="#67182a1c28f648498fe306a:Data"/>
+  <considers rdf:resource="#6a4284d3853947e293eb502:OptInOptOutControl"/>
+  <considers rdf:resource="#da505865816048d0a230ce7:Data"/>
+  <considers rdf:resource="#637537ffc7ed42109df8017:OptInOptOutControl"/>
+  <considers rdf:resource="#4e1aee3daef744d2b1aba0c:OptInOptOutControl"/>
+  <considers rdf:resource="#4e9fb1cd804b4a3a91a2921:PersonalData"/>
+  <considers rdf:resource="#a45d788460c84816b2f161d:OptInOptOutControl"/>
+  <considers rdf:resource="#a4558a5479f1491dac5db34:SensitiveData"/>
+  <considers rdf:resource="#a2501dad32cb4be5b5969a0:OptInOptOutControl"/>
+  <considers rdf:resource="#77fbeb5abfd24873bc0d8ac:AccountData"/>
+  <considers rdf:resource="#62653b166c834800bc9a8ea:OptInOptOutControl"/>
+  <considers rdf:resource="#bde856bfb30146e4a15202a:Data"/>
+  <considers rdf:resource="#77a46e317ffd4cc5bb1a172:DataUse"/>
+  <considers rdf:resource="#0a88f47773a645fcbf5fb5f:PersonalData"/>
+  <considers rdf:resource="#c7e4ba26042748669c95fb9:OptInOptOutControl"/>
+  <considers rdf:resource="#dc98337279ed4be18148303:SensitiveData"/>
+  <considers rdf:resource="#376d675c09574005abec890:OptInOptOutControl"/>
+  <considers rdf:resource="#53138489db8b4451a70065f:AccountData"/>
+  <considers rdf:resource="#85e9a52c6ac546058a5c60f:OptInOptOutControl"/>
+  <considers rdf:resource="#7007880e25b9468eaa79edf:PersonalData"/>
+  <considers rdf:resource="#6b98bdc14a054c298b756bc:OptInOptOutControl"/>
+  <considers rdf:resource="#c867cba21f804affb98c681:SensitiveData"/>
+  <considers rdf:resource="#3ca82719b59642759f1c5d4:OptInOptOutControl"/>
+  <considers rdf:resource="#ae2bef08db9c4883992ed51:AccountData"/>
+  <considers rdf:resource="#a92e4c52e73e45a483f0ff0:OptInOptOutControl"/>
+  <considers rdf:resource="#ad8bdb834408425192ce3cb:OptInOptOutControl"/>
+  <considers rdf:resource="#0b15f041c8cd4ddd9ca76fe:Data"/>
+  <considers rdf:resource="#a90bae3991094d979ebe62f:OptInOptOutControl"/>
+  <considers rdf:resource="#a19df49cfe0e41d084e801d:OptInOptOutControl"/>
+  <considers rdf:resource="#26e522c97b8d4d8eb9e36b4:OptInOptOutControl"/>
+  <considers rdf:resource="#b50ee54ccf3b41439398877:AccountData"/>
+  <considers rdf:resource="#f461d2cbde774195bc73e54:OptInOptOutControl"/>
+  <considers rdf:resource="#19ad6e8ff6e346a7881c05e:FinancialData"/>
+  <considers rdf:resource="#7cd2f6f2dedf4ebbb274c3a:OptInOptOutControl"/>
+  <considers rdf:resource="#7b7ef2dac1a841748437257:SensitiveData"/>
+  <considers rdf:resource="#9d9e552d17b143bead78656:OptInOptOutControl"/>
+  <considers rdf:resource="#d891b9cdc6964be5be6b683:PersonalData"/>
+  <considers rdf:resource="#4dd051e2da914035a437fe8:OptInOptOutControl"/>
+  <considers rdf:resource="#bbe869bec8084590af3b6cd:AccountData"/>
+  <considers rdf:resource="#6a7b3f2ad46a4cd8b2ba79e:OptInOptOutControl"/>
+  <considers rdf:resource="#ace99001add04c0fae7c4f7:DataProtection"/>
+  <considers rdf:resource="#f6dc0e3e3449410781e9811:AccountData"/>
+  <considers rdf:resource="#76932f32cbdf487b85d4148:OptInOptOutControl"/>
+  <considers rdf:resource="#45938c2078ff4e9c891981d:SensitiveData"/>
+  <considers rdf:resource="#b1f0ba06450e45cfb64ff56:OptInOptOutControl"/>
+  <considers rdf:resource="#a9ad2f2d525947f99065560:AccountData"/>
+  <considers rdf:resource="#01f37945e58a4a3fad27656:OptInOptOutControl"/>
+  <considers rdf:resource="#102ea6c46c2441ad86fbddb:AccountData"/>
+  <considers rdf:resource="#e4a532ab2c7a4d51bcb6c6d:OptInOptOutControl"/>
+  <considers rdf:resource="#9126c59532274cba9966f67:SensitiveData"/>
+  <considers rdf:resource="#e317d0a2880645a0a4cf2c7:OptInOptOutControl"/>
+  <considers rdf:resource="#149e02d2d5fa465bab0c071:AccountData"/>
+  <considers rdf:resource="#1bf4f011a3344fc2ba00869:OptInOptOutControl"/>
+  <considers rdf:resource="#80c5e16210204648b1f42f5:AccountData"/>
+  <considers rdf:resource="#ee3da0517c7444af9f2f99f:OptInOptOutControl"/>
+  <considers rdf:resource="#a6859f48e41c4806bd6a03b:AccountData"/>
+  <considers rdf:resource="#474290e4cd344f04bdec153:OptInOptOutControl"/>
+  <considers rdf:resource="#afb0c129cb5441fc89d9708:PersonalData"/>
+  <considers rdf:resource="#18dfba600877475fb703ff7:OptInOptOutControl"/>
+  <considers rdf:resource="#3f19f14dbcb347579a37125:DataProtection"/>
+  <considers rdf:resource="#9d8284aa6dce4f9897e895a:DataProtection"/>
+  <considers rdf:resource="#9f9866bc459a4e2eaa5b076:DataProtection"/>
+  <considers rdf:resource="#34d06deab4b1413588e5711:DataProtection"/>
+  <considers rdf:resource="#4635ba4ce1f948ccad29f44:DataProtection"/>
+  <considers rdf:resource="#63857c2caebc48c9924f3e7:DataProtection"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a0a48592ec6447d7a547c6f</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dcccd.edu</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6e742211903745d0a21a95d:User">
+<owl:NamedIndividual rdf:about="#900e0454aff84ea7a32cc31:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6e742211903745d0a21a95d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">900e0454aff84ea7a32cc31</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2a85d1bedff84b758b39368:FirstParty">
+<owl:NamedIndividual rdf:about="#e24603e0c517441da21faaa:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2a85d1bedff84b758b39368</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e24603e0c517441da21faaa</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#db246cc4e1404116aaae249:ThirdParty">
+<owl:NamedIndividual rdf:about="#54f415473c5743b8bf83b4c:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">db246cc4e1404116aaae249</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">54f415473c5743b8bf83b4c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d23e57ff3a824dee96a5130:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#69e79bf108084b99884397b:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d23e57ff3a824dee96a5130</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">69e79bf108084b99884397b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Protect your privacy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1751c787ff51411494a0fb4:DataProtection">
+<owl:NamedIndividual rdf:about="#322ce19f5e99458b9f68846:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#2a85d1bedff84b758b39368:FirstParty"/>
-  <has_mechanism rdf:resource="#d23e57ff3a824dee96a5130:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1751c787ff51411494a0fb4</uuid>
+  <initiated_by rdf:resource="#e24603e0c517441da21faaa:FirstParty"/>
+  <has_mechanism rdf:resource="#69e79bf108084b99884397b:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">322ce19f5e99458b9f68846</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Privacy and Security Commitment Our Promise to You Dallas County Community College District s DCCCD Privacy Commitment is based on two principles We promise to Comply with all the applicable local state and federal laws and regulations and Protect your privacy while still offering relevant personalized service</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fb9830e1a7c644e491b80a9:OrganizationalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#e11bf33d09c04088911f9f2:OrganizationalSecurityMeasure">
   <rdf:type rdf:resource="#OrganizationalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fb9830e1a7c644e491b80a9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e11bf33d09c04088911f9f2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DCCCD is a public higher education institution and therefore bound by the Texas Public Information Act and the Family Education Rights and Privacy Act (FERPA). Continue reading for more detailed information about DCCCD's Privacy and Security Commitment.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#276dc98696364e2bb474dfb:DataProtection">
+<owl:NamedIndividual rdf:about="#20a37429312b486199637be:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#2a85d1bedff84b758b39368:FirstParty"/>
-  <has_mechanism rdf:resource="#fb9830e1a7c644e491b80a9:OrganizationalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">276dc98696364e2bb474dfb</uuid>
+  <initiated_by rdf:resource="#e24603e0c517441da21faaa:FirstParty"/>
+  <has_mechanism rdf:resource="#e11bf33d09c04088911f9f2:OrganizationalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">20a37429312b486199637be</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DCCCD is a public higher education institution and therefore bound by the Texas Public Information Act and the Family Education Rights and Privacy Act FERPA Continue reading for more detailed information about DCCCD s Privacy and Security Commitment</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#225f2c6707df4decb1887c6:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#8f69fcc464974fd0930ac18:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">225f2c6707df4decb1887c6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8f69fcc464974fd0930ac18</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Most information kept by a public body is public under the Act.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9f22dc9cf0a84c88b04cdd5:LegalCompliancePurpose">
+<owl:NamedIndividual rdf:about="#776530d6ba944f6b96948a2:LegalCompliancePurpose">
   <rdf:type rdf:resource="#LegalCompliancePurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9f22dc9cf0a84c88b04cdd5</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">776530d6ba944f6b96948a2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The Texas Public Information Act requires disclosure of information by a public body -- unless the law specifically protects the information. Most information kept by a public body is public under the Act. The State Attorney General enforces this Act.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#730dd4de0d2946e693b1bb2:DataRetention">
+<owl:NamedIndividual rdf:about="#be7f18bb2aad40b992e8a00:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#2a85d1bedff84b758b39368:FirstParty"/>
-  <lasts_for rdf:resource="#225f2c6707df4decb1887c6:DataRetentionTime"/>
-  <has_purpose rdf:resource="#9f22dc9cf0a84c88b04cdd5:LegalCompliancePurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">730dd4de0d2946e693b1bb2</uuid>
+  <initiated_by rdf:resource="#e24603e0c517441da21faaa:FirstParty"/>
+  <lasts_for rdf:resource="#8f69fcc464974fd0930ac18:DataRetentionTime"/>
+  <has_purpose rdf:resource="#776530d6ba944f6b96948a2:LegalCompliancePurpose"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">be7f18bb2aad40b992e8a00</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Texas Public Information Act The Texas Public Information Act requires disclosure of information by a public body -- unless the law specifically protects the information Most information kept by a public body is public under the Act The State Attorney General enforces this Act</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4dc799e8b5b143b8afe7eda:SecurityMechanism">
+<owl:NamedIndividual rdf:about="#e965e2f74464452497d4cd5:SecurityMechanism">
   <rdf:type rdf:resource="#SecurityMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4dc799e8b5b143b8afe7eda</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e965e2f74464452497d4cd5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Family Education Rights and Privacy Act of 1974 (FERPA) FERPA protects educational records of a student from public disclosure without written permission of the student. Although many exceptions to the Act exist, the exceptions are very limited. The Department of Education enforces this Act.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6140ca03c690439caf9f630:DataProtection">
+<owl:NamedIndividual rdf:about="#c583a0a4763f42cb8c2c2e8:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#2a85d1bedff84b758b39368:FirstParty"/>
-  <has_mechanism rdf:resource="#4dc799e8b5b143b8afe7eda:SecurityMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6140ca03c690439caf9f630</uuid>
+  <initiated_by rdf:resource="#e24603e0c517441da21faaa:FirstParty"/>
+  <has_mechanism rdf:resource="#e965e2f74464452497d4cd5:SecurityMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c583a0a4763f42cb8c2c2e8</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Family Education Rights and Privacy Act of 1974 FERPA FERPA protects educational records of a student from public disclosure without written permission of the student Although many exceptions to the Act exist the exceptions are very limited The Department of Education enforces this Act</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3ba8c65e8bb348ce9d56ac3:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#3afc6c774ef542a9825ca26:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3ba8c65e8bb348ce9d56ac3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3afc6c774ef542a9825ca26</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Unless you request that your information be withheld</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#52e6855f41cc457db407962:PersonalData">
+<owl:NamedIndividual rdf:about="#a0da184ddddc4a5e92a1303:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">52e6855f41cc457db407962</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a0da184ddddc4a5e92a1303</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">name; &lt;/li&gt; &lt;/ul&gt; &lt;ul&gt; &lt;li&gt; home address; &lt;/li&gt; &lt;/ul&gt; &lt;ul&gt; &lt;li&gt; home telephone number; &lt;/li&gt; &lt;/ul&gt; &lt;ul&gt; &lt;li&gt; email addresses;</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#abaf294589674739a77de4d:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#ef6ace01bb234bae8ffb05e:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#3ba8c65e8bb348ce9d56ac3:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#52e6855f41cc457db407962:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">abaf294589674739a77de4d</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#3afc6c774ef542a9825ca26:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#a0da184ddddc4a5e92a1303:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ef6ace01bb234bae8ffb05e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Directory Information Unless you request that your information be withheld to comply with FERPA DCCCD may release information classified as directory information to the general public without the written consent of the student Directory information includes name home address home telephone number email addresses field of study photograph dates of attendance enrollment status i e full-time part-time undergraduate graduate degrees certificates and other honors and awards received the type of award received i e academic technical tech-prep or continuing education participation in officially recognized activities weight and height of members of athletic teams student classification name of the most recent previous institution attended</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6ed49fa9b2ef45018ee42db:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#930ffa2c55eb4fec9deceb2:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6ed49fa9b2ef45018ee42db</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">930ffa2c55eb4fec9deceb2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Unless you request that your information be withheld</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dabda00bdf37443887e7efc:SensitiveData">
+<owl:NamedIndividual rdf:about="#b9dff4af378b45ea9ccf32d:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dabda00bdf37443887e7efc</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b9dff4af378b45ea9ccf32d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dates of attendance; enrollment status, i.e., full-time, part-time, undergraduate, graduate; degrees, certificates and other honors and awards received; the type of award received, i.e., academic, technical, tech-prep, or continuing education; participation in officially recognized activities; weight and height of members of athletic teams; student classification; name of the most recent previous institution attended</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#205905b4d0b34624bdfeeca:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#eb3d4d2d9f98421aa80b883:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#6ed49fa9b2ef45018ee42db:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#dabda00bdf37443887e7efc:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">205905b4d0b34624bdfeeca</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#930ffa2c55eb4fec9deceb2:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#b9dff4af378b45ea9ccf32d:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eb3d4d2d9f98421aa80b883</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Directory Information Unless you request that your information be withheld to comply with FERPA DCCCD may release information classified as directory information to the general public without the written consent of the student Directory information includes name home address home telephone number email addresses field of study photograph dates of attendance enrollment status i e full-time part-time undergraduate graduate degrees certificates and other honors and awards received the type of award received i e academic technical tech-prep or continuing education participation in officially recognized activities weight and height of members of athletic teams student classification name of the most recent previous institution attended</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3756cdb235b4451283a4dd9:PersonalData">
+<owl:NamedIndividual rdf:about="#a32edc6e30264282a1f0650:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3756cdb235b4451283a4dd9</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a32edc6e30264282a1f0650</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">name; home address; home telephone number; email addresses;</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9056ec0f4d2a4a819117fe2:LegalCompliancePurpose">
+<owl:NamedIndividual rdf:about="#c26ed66840824aa6adf79b1:LegalCompliancePurpose">
   <rdf:type rdf:resource="#LegalCompliancePurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9056ec0f4d2a4a819117fe2</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c26ed66840824aa6adf79b1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to comply with FERPA</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0aa58b34837442e69a0f04c:DataUse">
+<owl:NamedIndividual rdf:about="#ef01eaec223b4f3f817cd75:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#2a85d1bedff84b758b39368:FirstParty"/>
-  <has_purpose rdf:resource="#9056ec0f4d2a4a819117fe2:LegalCompliancePurpose"/>
-  <applies_to rdf:resource="#3756cdb235b4451283a4dd9:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0aa58b34837442e69a0f04c</uuid>
+  <initiated_by rdf:resource="#e24603e0c517441da21faaa:FirstParty"/>
+  <has_purpose rdf:resource="#c26ed66840824aa6adf79b1:LegalCompliancePurpose"/>
+  <applies_to rdf:resource="#a32edc6e30264282a1f0650:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ef01eaec223b4f3f817cd75</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Directory Information Unless you request that your information be withheld to comply with FERPA DCCCD may release information classified as directory information to the general public without the written consent of the student Directory information includes name home address home telephone number email addresses field of study photograph dates of attendance enrollment status i e full-time part-time undergraduate graduate degrees certificates and other honors and awards received the type of award received i e academic technical tech-prep or continuing education participation in officially recognized activities weight and height of members of athletic teams student classification name of the most recent previous institution attended</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6a27c405905740d2b23bb32:SensitiveData">
+<owl:NamedIndividual rdf:about="#d77416ae530f4f068ecfaa8:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6a27c405905740d2b23bb32</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d77416ae530f4f068ecfaa8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">field of study</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#05444f8c73094fb1b344960:LegalCompliancePurpose">
+<owl:NamedIndividual rdf:about="#a3f1aab4d99c40b09a57094:LegalCompliancePurpose">
   <rdf:type rdf:resource="#LegalCompliancePurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">05444f8c73094fb1b344960</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a3f1aab4d99c40b09a57094</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to comply with FERPA</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#650f157015904243a18d00a:DataUse">
+<owl:NamedIndividual rdf:about="#db73243362844d21b74b3c3:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#2a85d1bedff84b758b39368:FirstParty"/>
-  <has_purpose rdf:resource="#05444f8c73094fb1b344960:LegalCompliancePurpose"/>
-  <applies_to rdf:resource="#6a27c405905740d2b23bb32:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">650f157015904243a18d00a</uuid>
+  <initiated_by rdf:resource="#e24603e0c517441da21faaa:FirstParty"/>
+  <has_purpose rdf:resource="#a3f1aab4d99c40b09a57094:LegalCompliancePurpose"/>
+  <applies_to rdf:resource="#d77416ae530f4f068ecfaa8:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">db73243362844d21b74b3c3</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Directory Information Unless you request that your information be withheld to comply with FERPA DCCCD may release information classified as directory information to the general public without the written consent of the student Directory information includes name home address home telephone number email addresses field of study photograph dates of attendance enrollment status i e full-time part-time undergraduate graduate degrees certificates and other honors and awards received the type of award received i e academic technical tech-prep or continuing education participation in officially recognized activities weight and height of members of athletic teams student classification name of the most recent previous institution attended</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#628fc1dd20b14d9bb6587d7:AccountData">
+<owl:NamedIndividual rdf:about="#314f6fb86d564b4a88bb328:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">628fc1dd20b14d9bb6587d7</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">314f6fb86d564b4a88bb328</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">photograph;</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9ac102bb211e4682a735c48:LegalCompliancePurpose">
+<owl:NamedIndividual rdf:about="#f841b94a2a444895a9d17e6:LegalCompliancePurpose">
   <rdf:type rdf:resource="#LegalCompliancePurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9ac102bb211e4682a735c48</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f841b94a2a444895a9d17e6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to comply with FERPA</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dfde48e541374e60897ad0a:DataUse">
+<owl:NamedIndividual rdf:about="#6c36930fac0f46c6bec7a11:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#2a85d1bedff84b758b39368:FirstParty"/>
-  <has_purpose rdf:resource="#9ac102bb211e4682a735c48:LegalCompliancePurpose"/>
-  <applies_to rdf:resource="#628fc1dd20b14d9bb6587d7:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dfde48e541374e60897ad0a</uuid>
+  <initiated_by rdf:resource="#e24603e0c517441da21faaa:FirstParty"/>
+  <has_purpose rdf:resource="#f841b94a2a444895a9d17e6:LegalCompliancePurpose"/>
+  <applies_to rdf:resource="#314f6fb86d564b4a88bb328:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6c36930fac0f46c6bec7a11</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Directory Information Unless you request that your information be withheld to comply with FERPA DCCCD may release information classified as directory information to the general public without the written consent of the student Directory information includes name home address home telephone number email addresses field of study photograph dates of attendance enrollment status i e full-time part-time undergraduate graduate degrees certificates and other honors and awards received the type of award received i e academic technical tech-prep or continuing education participation in officially recognized activities weight and height of members of athletic teams student classification name of the most recent previous institution attended</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#421e8c66d6924f54aba07f3:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#3e4c826a11154747ba86d61:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">421e8c66d6924f54aba07f3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3e4c826a11154747ba86d61</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Unless you request that your information be withheld</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d3df301ce2b54293a735adf:AccountData">
+<owl:NamedIndividual rdf:about="#47e33fb4cc0b466e8ca5c1a:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d3df301ce2b54293a735adf</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">47e33fb4cc0b466e8ca5c1a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">photograph</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#82519b955b134bf3bf31667:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#f31ae57bc471429991c29e0:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#421e8c66d6924f54aba07f3:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#d3df301ce2b54293a735adf:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">82519b955b134bf3bf31667</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#3e4c826a11154747ba86d61:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#47e33fb4cc0b466e8ca5c1a:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f31ae57bc471429991c29e0</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Directory Information Unless you request that your information be withheld to comply with FERPA DCCCD may release information classified as directory information to the general public without the written consent of the student Directory information includes name home address home telephone number email addresses field of study photograph dates of attendance enrollment status i e full-time part-time undergraduate graduate degrees certificates and other honors and awards received the type of award received i e academic technical tech-prep or continuing education participation in officially recognized activities weight and height of members of athletic teams student classification name of the most recent previous institution attended</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c6a9e125e1294a2d8343279:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#2d85039f986b47128023e56:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c6a9e125e1294a2d8343279</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2d85039f986b47128023e56</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To request withholding of this information, a student shall give written notice (in person, by mail or fax) to the Registrar's Office during the first 12 class days of a Fall or Spring semester or the first four class days of a Summer session.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7d0ec8febb2541268a976d5:Data">
+<owl:NamedIndividual rdf:about="#67182a1c28f648498fe306a:Data">
   <rdf:type rdf:resource="#Data"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7d0ec8febb2541268a976d5</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">67182a1c28f648498fe306a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">directory information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b517a6d7e07c49b3be242c0:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#6a4284d3853947e293eb502:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#c6a9e125e1294a2d8343279:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#7d0ec8febb2541268a976d5:Data"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b517a6d7e07c49b3be242c0</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#2d85039f986b47128023e56:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#67182a1c28f648498fe306a:Data"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6a4284d3853947e293eb502</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to request that your directory information be withheld A student may request that the institution withhold from the public all or any part of the student s directory information To request withholding of this information a student shall give written notice in person by mail or fax to the Registrar s Office during the first 12 class days of a Fall or Spring semester or the first four class days of a Summer session If they are unable to provide written notice within these time frames credit students may protect their directory information at any time during the academic year through eConnect s My Privacy feature If a request to withhold information is not made the institution shall release all directory information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0fc8bfcc73f34cd58170389:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#c8c2e490c982426b8162d46:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0fc8bfcc73f34cd58170389</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c8c2e490c982426b8162d46</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If they are unable to provide written notice within these time frames, credit students may protect their directory information at any time during the academic year through eConnect's 'My Privacy' feature.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#74ac15fe468f410f8231f9d:Data">
+<owl:NamedIndividual rdf:about="#da505865816048d0a230ce7:Data">
   <rdf:type rdf:resource="#Data"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">74ac15fe468f410f8231f9d</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">da505865816048d0a230ce7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">directory information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9b5829cd60ce4c539010874:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#637537ffc7ed42109df8017:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#0fc8bfcc73f34cd58170389:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#74ac15fe468f410f8231f9d:Data"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9b5829cd60ce4c539010874</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#c8c2e490c982426b8162d46:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#da505865816048d0a230ce7:Data"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">637537ffc7ed42109df8017</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to request that your directory information be withheld A student may request that the institution withhold from the public all or any part of the student s directory information To request withholding of this information a student shall give written notice in person by mail or fax to the Registrar s Office during the first 12 class days of a Fall or Spring semester or the first four class days of a Summer session If they are unable to provide written notice within these time frames credit students may protect their directory information at any time during the academic year through eConnect s My Privacy feature If a request to withhold information is not made the institution shall release all directory information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4e121bb9c3154584addbc24:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#980998b469764acb9944664:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4e121bb9c3154584addbc24</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">980998b469764acb9944664</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A student may request that the institution withhold from the public all or any part of the student's directory information. To request withholding of this information, a student shall give written notice (in person, by mail or fax) to the Registrar's Office during the first 12 class days of a Fall or Spring semester or the first four class days of a Summer session. If they are unable to provide written notice within these time frames, credit students may protect their directory information at any time during the academic year through eConnect's 'My Privacy' feature.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bfde786bd21149dbadf6c8b:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#4e1aee3daef744d2b1aba0c:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#4e121bb9c3154584addbc24:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bfde786bd21149dbadf6c8b</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#980998b469764acb9944664:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4e1aee3daef744d2b1aba0c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to request that your directory information be withheld A student may request that the institution withhold from the public all or any part of the student s directory information To request withholding of this information a student shall give written notice in person by mail or fax to the Registrar s Office during the first 12 class days of a Fall or Spring semester or the first four class days of a Summer session If they are unable to provide written notice within these time frames credit students may protect their directory information at any time during the academic year through eConnect s My Privacy feature If a request to withhold information is not made the institution shall release all directory information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#01ae41e43cbb46bc81ae2e4:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#b71521c125e74ea6a7378d5:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">01ae41e43cbb46bc81ae2e4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b71521c125e74ea6a7378d5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To request withholding of this information, a student shall give written notice (in person, by mail or fax) to the Registrar's Office during the first 12 class days of a Fall or Spring semester or the first four class days of a Summer session.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6ac12844bb6c4ccc9187b20:PersonalData">
+<owl:NamedIndividual rdf:about="#4e9fb1cd804b4a3a91a2921:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6ac12844bb6c4ccc9187b20</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4e9fb1cd804b4a3a91a2921</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">directory information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7dcf356b4d7044109d79e8d:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#a45d788460c84816b2f161d:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#01ae41e43cbb46bc81ae2e4:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#6ac12844bb6c4ccc9187b20:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7dcf356b4d7044109d79e8d</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#b71521c125e74ea6a7378d5:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#4e9fb1cd804b4a3a91a2921:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a45d788460c84816b2f161d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to request that your directory information be withheld A student may request that the institution withhold from the public all or any part of the student s directory information To request withholding of this information a student shall give written notice in person by mail or fax to the Registrar s Office during the first 12 class days of a Fall or Spring semester or the first four class days of a Summer session If they are unable to provide written notice within these time frames credit students may protect their directory information at any time during the academic year through eConnect s My Privacy feature If a request to withhold information is not made the institution shall release all directory information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#82a41dd9f3c84ef59a42dec:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#7891b37e0e984ab39681e5e:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">82a41dd9f3c84ef59a42dec</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7891b37e0e984ab39681e5e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To request withholding of this information, a student shall give written notice (in person, by mail or fax) to the Registrar's Office during the first 12 class days of a Fall or Spring semester or the first four class days of a Summer session.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e883f4dd529940b184a4730:SensitiveData">
+<owl:NamedIndividual rdf:about="#a4558a5479f1491dac5db34:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e883f4dd529940b184a4730</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a4558a5479f1491dac5db34</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">directory information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2cc74ea1d259471f885c02b:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#a2501dad32cb4be5b5969a0:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#82a41dd9f3c84ef59a42dec:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#e883f4dd529940b184a4730:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2cc74ea1d259471f885c02b</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#7891b37e0e984ab39681e5e:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#a4558a5479f1491dac5db34:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a2501dad32cb4be5b5969a0</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to request that your directory information be withheld A student may request that the institution withhold from the public all or any part of the student s directory information To request withholding of this information a student shall give written notice in person by mail or fax to the Registrar s Office during the first 12 class days of a Fall or Spring semester or the first four class days of a Summer session If they are unable to provide written notice within these time frames credit students may protect their directory information at any time during the academic year through eConnect s My Privacy feature If a request to withhold information is not made the institution shall release all directory information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9e452053bcd24dfc96a3602:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#cdba5339e1d94031bd36eea:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9e452053bcd24dfc96a3602</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cdba5339e1d94031bd36eea</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">To request withholding of this information, a student shall give written notice (in person, by mail or fax) to the Registrar's Office during the first 12 class days of a Fall or Spring semester or the first four class days of a Summer session.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#89b352f5a046458c851d80a:AccountData">
+<owl:NamedIndividual rdf:about="#77fbeb5abfd24873bc0d8ac:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">89b352f5a046458c851d80a</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">77fbeb5abfd24873bc0d8ac</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">directory information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#308239975e4b45b7a137f17:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#62653b166c834800bc9a8ea:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#9e452053bcd24dfc96a3602:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#89b352f5a046458c851d80a:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">308239975e4b45b7a137f17</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#cdba5339e1d94031bd36eea:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#77fbeb5abfd24873bc0d8ac:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">62653b166c834800bc9a8ea</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to request that your directory information be withheld A student may request that the institution withhold from the public all or any part of the student s directory information To request withholding of this information a student shall give written notice in person by mail or fax to the Registrar s Office during the first 12 class days of a Fall or Spring semester or the first four class days of a Summer session If they are unable to provide written notice within these time frames credit students may protect their directory information at any time during the academic year through eConnect s My Privacy feature If a request to withhold information is not made the institution shall release all directory information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#afee1695da5b4df8ae68759:Data">
+<owl:NamedIndividual rdf:about="#bde856bfb30146e4a15202a:Data">
   <rdf:type rdf:resource="#Data"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">afee1695da5b4df8ae68759</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bde856bfb30146e4a15202a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Transcripts or academic records</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cdecd5c60956482b8032f09:LegalCompliancePurpose">
+<owl:NamedIndividual rdf:about="#c729f7113ba84a16ad0f3b8:LegalCompliancePurpose">
   <rdf:type rdf:resource="#LegalCompliancePurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cdecd5c60956482b8032f09</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c729f7113ba84a16ad0f3b8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">except as allowed by law.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f537a39a1ae043708c218eb:DataUse">
+<owl:NamedIndividual rdf:about="#77a46e317ffd4cc5bb1a172:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#2a85d1bedff84b758b39368:FirstParty"/>
-  <has_purpose rdf:resource="#cdecd5c60956482b8032f09:LegalCompliancePurpose"/>
-  <applies_to rdf:resource="#afee1695da5b4df8ae68759:Data"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f537a39a1ae043708c218eb</uuid>
+  <initiated_by rdf:resource="#e24603e0c517441da21faaa:FirstParty"/>
+  <has_purpose rdf:resource="#c729f7113ba84a16ad0f3b8:LegalCompliancePurpose"/>
+  <applies_to rdf:resource="#bde856bfb30146e4a15202a:Data"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">77a46e317ffd4cc5bb1a172</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Directory information is released only upon written request unless permitted by law Telephone requests are not acceptable Transcripts or academic records are not released without a student s written consent except as allowed by law</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bd5a28e5a7c4482795d4be1:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#3baeeb61021d4e07998bbe6:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bd5a28e5a7c4482795d4be1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3baeeb61021d4e07998bbe6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">only upon written request</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8250d5f19e804325bf28eb4:PersonalData">
+<owl:NamedIndividual rdf:about="#0a88f47773a645fcbf5fb5f:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8250d5f19e804325bf28eb4</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0a88f47773a645fcbf5fb5f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Directory information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#aef0b444f53d4d03a340c5b:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#c7e4ba26042748669c95fb9:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#bd5a28e5a7c4482795d4be1:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#8250d5f19e804325bf28eb4:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aef0b444f53d4d03a340c5b</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#3baeeb61021d4e07998bbe6:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#0a88f47773a645fcbf5fb5f:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c7e4ba26042748669c95fb9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Directory information is released only upon written request unless permitted by law Telephone requests are not acceptable Transcripts or academic records are not released without a student s written consent except as allowed by law</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0dcfc274d8b7434783b4611:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#9496e47473494e93a9789e8:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0dcfc274d8b7434783b4611</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9496e47473494e93a9789e8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">only upon written request</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e745bfea4259455cbff0bd1:SensitiveData">
+<owl:NamedIndividual rdf:about="#dc98337279ed4be18148303:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e745bfea4259455cbff0bd1</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dc98337279ed4be18148303</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Directory information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#df91270b64c84e76b5b4933:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#376d675c09574005abec890:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#0dcfc274d8b7434783b4611:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#e745bfea4259455cbff0bd1:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">df91270b64c84e76b5b4933</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#9496e47473494e93a9789e8:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#dc98337279ed4be18148303:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">376d675c09574005abec890</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Directory information is released only upon written request unless permitted by law Telephone requests are not acceptable Transcripts or academic records are not released without a student s written consent except as allowed by law</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0fbb0467c6ff45b48dff3a0:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#e8ed4cbaa1524086826fb66:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0fbb0467c6ff45b48dff3a0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e8ed4cbaa1524086826fb66</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">only upon written request</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f9255658273d4d93a018b21:AccountData">
+<owl:NamedIndividual rdf:about="#53138489db8b4451a70065f:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f9255658273d4d93a018b21</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">53138489db8b4451a70065f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Directory information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2fac2c7ee0c54e929cf5fdb:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#85e9a52c6ac546058a5c60f:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#0fbb0467c6ff45b48dff3a0:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#f9255658273d4d93a018b21:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2fac2c7ee0c54e929cf5fdb</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#e8ed4cbaa1524086826fb66:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#53138489db8b4451a70065f:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">85e9a52c6ac546058a5c60f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Directory information is released only upon written request unless permitted by law Telephone requests are not acceptable Transcripts or academic records are not released without a student s written consent except as allowed by law</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#19a18a75142f4f5cb50eb2d:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#be2d6e45660f4f4db16c9d4:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">19a18a75142f4f5cb50eb2d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">be2d6e45660f4f4db16c9d4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unless</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#daaf2ab2cc544f3da66ffd3:PersonalData">
+<owl:NamedIndividual rdf:about="#7007880e25b9468eaa79edf:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">daaf2ab2cc544f3da66ffd3</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7007880e25b9468eaa79edf</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Directory information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6d90681b562c47b5a680384:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#6b98bdc14a054c298b756bc:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#19a18a75142f4f5cb50eb2d:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#daaf2ab2cc544f3da66ffd3:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6d90681b562c47b5a680384</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#be2d6e45660f4f4db16c9d4:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#7007880e25b9468eaa79edf:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6b98bdc14a054c298b756bc</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Directory information is released only upon written request unless permitted by law Telephone requests are not acceptable Transcripts or academic records are not released without a student s written consent except as allowed by law</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5e596fd3c0ec4934b58f843:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#9ea5e9263e734418b2a5793:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5e596fd3c0ec4934b58f843</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9ea5e9263e734418b2a5793</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unless</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f4359a61958646c9bd75467:SensitiveData">
+<owl:NamedIndividual rdf:about="#c867cba21f804affb98c681:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f4359a61958646c9bd75467</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c867cba21f804affb98c681</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Directory information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a1187678abc94216a6bbd7e:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#3ca82719b59642759f1c5d4:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#5e596fd3c0ec4934b58f843:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#f4359a61958646c9bd75467:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a1187678abc94216a6bbd7e</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#9ea5e9263e734418b2a5793:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#c867cba21f804affb98c681:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3ca82719b59642759f1c5d4</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Directory information is released only upon written request unless permitted by law Telephone requests are not acceptable Transcripts or academic records are not released without a student s written consent except as allowed by law</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5695d13b9509455e9f8150e:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#15317edd0a8744e3a678ab8:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5695d13b9509455e9f8150e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">15317edd0a8744e3a678ab8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unless</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3e5cab342f914a74ab237f9:AccountData">
+<owl:NamedIndividual rdf:about="#ae2bef08db9c4883992ed51:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3e5cab342f914a74ab237f9</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ae2bef08db9c4883992ed51</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Directory information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#491070338b2649d698da69d:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#a92e4c52e73e45a483f0ff0:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#5695d13b9509455e9f8150e:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#3e5cab342f914a74ab237f9:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">491070338b2649d698da69d</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#15317edd0a8744e3a678ab8:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#ae2bef08db9c4883992ed51:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a92e4c52e73e45a483f0ff0</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Directory information is released only upon written request unless permitted by law Telephone requests are not acceptable Transcripts or academic records are not released without a student s written consent except as allowed by law</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c335df42b1c5436ba208d69:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#c13652049e2441a8b4f038d:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c335df42b1c5436ba208d69</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c13652049e2441a8b4f038d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">opt-out of the tracking at https://tools.google.com/dlpage/gaoptout.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#57c34b8966354a248825075:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#ad8bdb834408425192ce3cb:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#c335df42b1c5436ba208d69:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">57c34b8966354a248825075</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#c13652049e2441a8b4f038d:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ad8bdb834408425192ce3cb</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can review the information Google has about you in Google s Ads Settings and opt-out of the tracking at https //tools google com/dlpage/gaoptout Cookies and how they are used</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#66a25f2fb3724fdcbf911be:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#297ef4adc891480eb9ca3ba:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">66a25f2fb3724fdcbf911be</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">297ef4adc891480eb9ca3ba</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can review the information Google has about you in Google's Ads Settings and opt-out of the tracking at https://tools.google.com/dlpage/gaoptout.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#84275303f3854f2f911f474:Data">
+<owl:NamedIndividual rdf:about="#0b15f041c8cd4ddd9ca76fe:Data">
   <rdf:type rdf:resource="#Data"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">84275303f3854f2f911f474</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0b15f041c8cd4ddd9ca76fe</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1b2eb709851c4a81bc6d601:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#a90bae3991094d979ebe62f:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#66a25f2fb3724fdcbf911be:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#84275303f3854f2f911f474:Data"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1b2eb709851c4a81bc6d601</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#297ef4adc891480eb9ca3ba:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#0b15f041c8cd4ddd9ca76fe:Data"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a90bae3991094d979ebe62f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can review the information Google has about you in Google s Ads Settings and opt-out of the tracking at https //tools google com/dlpage/gaoptout Cookies and how they are used</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1800523f0e65448a815d444:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#98173ddf68bc4882b1de093:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1800523f0e65448a815d444</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">98173ddf68bc4882b1de093</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can review the information Google has about you in Google s Ads Settings and opt-out of the tracking at https //tools google com/dlpage/gaoptout Cookies and how they are used</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cfb04f571cb54093a26d727:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#a19df49cfe0e41d084e801d:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#1800523f0e65448a815d444:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cfb04f571cb54093a26d727</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#98173ddf68bc4882b1de093:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a19df49cfe0e41d084e801d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can review the information Google has about you in Google s Ads Settings and opt-out of the tracking at https //tools google com/dlpage/gaoptout Cookies and how they are used</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e7d328294b0047148222f9a:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#53ed9df74f7744a08fed675:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e7d328294b0047148222f9a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">53ed9df74f7744a08fed675</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">opt-out of the tracking at https://tools.google.com/dlpage/gaoptout.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6b0e5dbf70c44303af9b403:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#26e522c97b8d4d8eb9e36b4:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#e7d328294b0047148222f9a:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6b0e5dbf70c44303af9b403</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#53ed9df74f7744a08fed675:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">26e522c97b8d4d8eb9e36b4</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can review the information Google has about you in Google s Ads Settings and opt-out of the tracking at https //tools google com/dlpage/gaoptout Cookies and how they are used</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3b26e1e9b0264680a06ded1:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#6f0b2124229349e5851a96c:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3b26e1e9b0264680a06ded1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6f0b2124229349e5851a96c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to view your information Currently enrolled or recently enrolled credit students who are registered at one of DCCCD s nine locations can obtain access to their personal information through eConnect a secure web interface that requires you to enter your student identification number and a password The following information is available to registered students Class schedule information Email address Financial Aid information Grades Payment information Student ID number Student Information Profile Registration summary/fee receipts that contain Address Class schedule information Student ID number</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6c81c488194745449997f22:AccountData">
+<owl:NamedIndividual rdf:about="#b50ee54ccf3b41439398877:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6c81c488194745449997f22</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b50ee54ccf3b41439398877</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#665caf0cc4604ad2848e72e:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#f461d2cbde774195bc73e54:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#3b26e1e9b0264680a06ded1:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#6c81c488194745449997f22:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">665caf0cc4604ad2848e72e</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#6f0b2124229349e5851a96c:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#b50ee54ccf3b41439398877:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f461d2cbde774195bc73e54</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to view your information Currently enrolled or recently enrolled credit students who are registered at one of DCCCD s nine locations can obtain access to their personal information through eConnect a secure web interface that requires you to enter your student identification number and a password The following information is available to registered students Class schedule information Email address Financial Aid information Grades Payment information Student ID number Student Information Profile Registration summary/fee receipts that contain Address Class schedule information Student ID number</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1c077eb8764e4a389c6f348:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#38568e68184c43999adadfe:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1c077eb8764e4a389c6f348</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">38568e68184c43999adadfe</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to view your information Currently enrolled or recently enrolled credit students who are registered at one of DCCCD s nine locations can obtain access to their personal information through eConnect a secure web interface that requires you to enter your student identification number and a password The following information is available to registered students Class schedule information Email address Financial Aid information Grades Payment information Student ID number Student Information Profile Registration summary/fee receipts that contain Address Class schedule information Student ID number</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#17532fabd3ad48f4acbc53f:FinancialData">
+<owl:NamedIndividual rdf:about="#19ad6e8ff6e346a7881c05e:FinancialData">
   <rdf:type rdf:resource="#FinancialData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">17532fabd3ad48f4acbc53f</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">19ad6e8ff6e346a7881c05e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Transactional data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#94249bc8ea3a48df8ebbfef:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#7cd2f6f2dedf4ebbb274c3a:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#1c077eb8764e4a389c6f348:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#17532fabd3ad48f4acbc53f:FinancialData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">94249bc8ea3a48df8ebbfef</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#38568e68184c43999adadfe:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#19ad6e8ff6e346a7881c05e:FinancialData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7cd2f6f2dedf4ebbb274c3a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to view your information Currently enrolled or recently enrolled credit students who are registered at one of DCCCD s nine locations can obtain access to their personal information through eConnect a secure web interface that requires you to enter your student identification number and a password The following information is available to registered students Class schedule information Email address Financial Aid information Grades Payment information Student ID number Student Information Profile Registration summary/fee receipts that contain Address Class schedule information Student ID number</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2c1d22ce1ec849f6bedd992:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#79142953ec424e24a3c1e05:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2c1d22ce1ec849f6bedd992</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">79142953ec424e24a3c1e05</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to view your information Currently enrolled or recently enrolled credit students who are registered at one of DCCCD s nine locations can obtain access to their personal information through eConnect a secure web interface that requires you to enter your student identification number and a password The following information is available to registered students Class schedule information Email address Financial Aid information Grades Payment information Student ID number Student Information Profile Registration summary/fee receipts that contain Address Class schedule information Student ID number</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6b5866c087bf4853a0b988d:SensitiveData">
+<owl:NamedIndividual rdf:about="#7b7ef2dac1a841748437257:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6b5866c087bf4853a0b988d</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7b7ef2dac1a841748437257</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Profile data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#432b4dae153f4a9f8921ff3:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#9d9e552d17b143bead78656:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#2c1d22ce1ec849f6bedd992:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#6b5866c087bf4853a0b988d:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">432b4dae153f4a9f8921ff3</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#79142953ec424e24a3c1e05:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#7b7ef2dac1a841748437257:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9d9e552d17b143bead78656</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to view your information Currently enrolled or recently enrolled credit students who are registered at one of DCCCD s nine locations can obtain access to their personal information through eConnect a secure web interface that requires you to enter your student identification number and a password The following information is available to registered students Class schedule information Email address Financial Aid information Grades Payment information Student ID number Student Information Profile Registration summary/fee receipts that contain Address Class schedule information Student ID number</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a624f77082034303bfe216c:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#846add175b9d43f7a9e7580:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a624f77082034303bfe216c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">846add175b9d43f7a9e7580</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to view your information Currently enrolled or recently enrolled credit students who are registered at one of DCCCD s nine locations can obtain access to their personal information through eConnect a secure web interface that requires you to enter your student identification number and a password The following information is available to registered students Class schedule information Email address Financial Aid information Grades Payment information Student ID number Student Information Profile Registration summary/fee receipts that contain Address Class schedule information Student ID number</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#22d4e0d974cc4cd2b8f0981:PersonalData">
+<owl:NamedIndividual rdf:about="#d891b9cdc6964be5be6b683:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">22d4e0d974cc4cd2b8f0981</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d891b9cdc6964be5be6b683</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Other data about user</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1deb2febe4d648d2ac2ac7e:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#4dd051e2da914035a437fe8:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#a624f77082034303bfe216c:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#22d4e0d974cc4cd2b8f0981:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1deb2febe4d648d2ac2ac7e</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#846add175b9d43f7a9e7580:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#d891b9cdc6964be5be6b683:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4dd051e2da914035a437fe8</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to view your information Currently enrolled or recently enrolled credit students who are registered at one of DCCCD s nine locations can obtain access to their personal information through eConnect a secure web interface that requires you to enter your student identification number and a password The following information is available to registered students Class schedule information Email address Financial Aid information Grades Payment information Student ID number Student Information Profile Registration summary/fee receipts that contain Address Class schedule information Student ID number</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3cbbd3aa69444ce18a3b8ba:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#feac9eec22e744f682765da:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3cbbd3aa69444ce18a3b8ba</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">feac9eec22e744f682765da</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to view your information Currently enrolled or recently enrolled credit students who are registered at one of DCCCD s nine locations can obtain access to their personal information through eConnect a secure web interface that requires you to enter your student identification number and a password The following information is available to registered students Class schedule information Email address Financial Aid information Grades Payment information Student ID number Student Information Profile Registration summary/fee receipts that contain Address Class schedule information Student ID number</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ba5eb70aa06542c983e8195:AccountData">
+<owl:NamedIndividual rdf:about="#bbe869bec8084590af3b6cd:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ba5eb70aa06542c983e8195</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bbe869bec8084590af3b6cd</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3080c090260e47c0a73a816:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#6a7b3f2ad46a4cd8b2ba79e:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#3cbbd3aa69444ce18a3b8ba:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#ba5eb70aa06542c983e8195:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3080c090260e47c0a73a816</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#feac9eec22e744f682765da:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#bbe869bec8084590af3b6cd:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6a7b3f2ad46a4cd8b2ba79e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to view your information Currently enrolled or recently enrolled credit students who are registered at one of DCCCD s nine locations can obtain access to their personal information through eConnect a secure web interface that requires you to enter your student identification number and a password The following information is available to registered students Class schedule information Email address Financial Aid information Grades Payment information Student ID number Student Information Profile Registration summary/fee receipts that contain Address Class schedule information Student ID number</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dc3f91dd4a3c480c81e53b0:AccessControls">
+<owl:NamedIndividual rdf:about="#aff4e4e6dbcf4a3e8fc9fc0:AccessControls">
   <rdf:type rdf:resource="#AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dc3f91dd4a3c480c81e53b0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aff4e4e6dbcf4a3e8fc9fc0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a secure web interface that requires you to enter your student identification number and a passwor</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9c465e5ca31344889933b76:DataProtection">
+<owl:NamedIndividual rdf:about="#ace99001add04c0fae7c4f7:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#2a85d1bedff84b758b39368:FirstParty"/>
-  <has_mechanism rdf:resource="#dc3f91dd4a3c480c81e53b0:AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9c465e5ca31344889933b76</uuid>
+  <initiated_by rdf:resource="#e24603e0c517441da21faaa:FirstParty"/>
+  <has_mechanism rdf:resource="#aff4e4e6dbcf4a3e8fc9fc0:AccessControls"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ace99001add04c0fae7c4f7</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to view your information Currently enrolled or recently enrolled credit students who are registered at one of DCCCD s nine locations can obtain access to their personal information through eConnect a secure web interface that requires you to enter your student identification number and a password The following information is available to registered students Class schedule information Email address Financial Aid information Grades Payment information Student ID number Student Information Profile Registration summary/fee receipts that contain Address Class schedule information Student ID number</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b94c66d067574c7a91b5270:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#c2456c03cd3b4f5799b4608:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b94c66d067574c7a91b5270</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c2456c03cd3b4f5799b4608</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to view your information Currently enrolled or recently enrolled credit students who are registered at one of DCCCD s nine locations can obtain access to their personal information through eConnect a secure web interface that requires you to enter your student identification number and a password The following information is available to registered students Class schedule information Email address Financial Aid information Grades Payment information Student ID number Student Information Profile Registration summary/fee receipts that contain Address Class schedule information Student ID number</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0af05c5054e342c6947e3fe:AccountData">
+<owl:NamedIndividual rdf:about="#f6dc0e3e3449410781e9811:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0af05c5054e342c6947e3fe</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f6dc0e3e3449410781e9811</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#87a06d6cc63a4e419bc9c2d:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#76932f32cbdf487b85d4148:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#b94c66d067574c7a91b5270:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#0af05c5054e342c6947e3fe:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">87a06d6cc63a4e419bc9c2d</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#c2456c03cd3b4f5799b4608:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#f6dc0e3e3449410781e9811:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">76932f32cbdf487b85d4148</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to view your information Currently enrolled or recently enrolled credit students who are registered at one of DCCCD s nine locations can obtain access to their personal information through eConnect a secure web interface that requires you to enter your student identification number and a password The following information is available to registered students Class schedule information Email address Financial Aid information Grades Payment information Student ID number Student Information Profile Registration summary/fee receipts that contain Address Class schedule information Student ID number</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b16f092fd5e9478397ddc6d:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#04c0160ab03d475f881810b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b16f092fd5e9478397ddc6d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">04c0160ab03d475f881810b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to update/correct your student record Currently enrolled or recently enrolled students credit students can correct their Student Information Profile and email address online through eConnect</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#280cdc01cf98456999dc143:SensitiveData">
+<owl:NamedIndividual rdf:about="#45938c2078ff4e9c891981d:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">280cdc01cf98456999dc143</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">45938c2078ff4e9c891981d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Profile data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d8283be2f04d4afdac79cfe:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#b1f0ba06450e45cfb64ff56:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#b16f092fd5e9478397ddc6d:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#280cdc01cf98456999dc143:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d8283be2f04d4afdac79cfe</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#04c0160ab03d475f881810b:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#45938c2078ff4e9c891981d:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b1f0ba06450e45cfb64ff56</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to update/correct your student record Currently enrolled or recently enrolled students credit students can correct their Student Information Profile and email address online through eConnect</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1c692088006b46f0a1f26fb:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#9b963d793b7f430fa5b69b8:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1c692088006b46f0a1f26fb</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9b963d793b7f430fa5b69b8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to update/correct your student record Currently enrolled or recently enrolled students credit students can correct their Student Information Profile and email address online through eConnect</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a8611b2536b84f718c80f0e:AccountData">
+<owl:NamedIndividual rdf:about="#a9ad2f2d525947f99065560:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a8611b2536b84f718c80f0e</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a9ad2f2d525947f99065560</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b426b9cba66346f1bec9f7d:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#01f37945e58a4a3fad27656:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#1c692088006b46f0a1f26fb:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#a8611b2536b84f718c80f0e:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b426b9cba66346f1bec9f7d</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#9b963d793b7f430fa5b69b8:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#a9ad2f2d525947f99065560:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">01f37945e58a4a3fad27656</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to update/correct your student record Currently enrolled or recently enrolled students credit students can correct their Student Information Profile and email address online through eConnect</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3979dcb1c8ef43a3ba7da43:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#33d3edbfdf5b463eaae7411:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3979dcb1c8ef43a3ba7da43</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">33d3edbfdf5b463eaae7411</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to update/correct your student record Currently enrolled or recently enrolled students credit students can correct their Student Information Profile and email address online through eConnect</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5d1a78910b814fbba2a0497:AccountData">
+<owl:NamedIndividual rdf:about="#102ea6c46c2441ad86fbddb:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5d1a78910b814fbba2a0497</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">102ea6c46c2441ad86fbddb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5b4043d1fb85496c919d7a2:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#e4a532ab2c7a4d51bcb6c6d:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#3979dcb1c8ef43a3ba7da43:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#5d1a78910b814fbba2a0497:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5b4043d1fb85496c919d7a2</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#33d3edbfdf5b463eaae7411:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#102ea6c46c2441ad86fbddb:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e4a532ab2c7a4d51bcb6c6d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to update/correct your student record Currently enrolled or recently enrolled students credit students can correct their Student Information Profile and email address online through eConnect</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#068428c05bc74acea6bddd1:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#07c68753f51f4974b8af9dc:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">068428c05bc74acea6bddd1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">07c68753f51f4974b8af9dc</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to update/correct your student record Currently enrolled or recently enrolled students credit students can correct their Student Information Profile and email address online through eConnect</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7a2ef0e9ec3f4ba4aa950f4:SensitiveData">
+<owl:NamedIndividual rdf:about="#9126c59532274cba9966f67:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7a2ef0e9ec3f4ba4aa950f4</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9126c59532274cba9966f67</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Profile data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#895df2a678354723a5964a6:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#e317d0a2880645a0a4cf2c7:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#068428c05bc74acea6bddd1:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#7a2ef0e9ec3f4ba4aa950f4:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">895df2a678354723a5964a6</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#07c68753f51f4974b8af9dc:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#9126c59532274cba9966f67:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e317d0a2880645a0a4cf2c7</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to update/correct your student record Currently enrolled or recently enrolled students credit students can correct their Student Information Profile and email address online through eConnect</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b3083144112d4953b7d8eb9:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#b336b2c27a714a11af6a767:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b3083144112d4953b7d8eb9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b336b2c27a714a11af6a767</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to update/correct your student record Currently enrolled or recently enrolled students credit students can correct their Student Information Profile and email address online through eConnect</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4ee905bd265e489cb2dbe02:AccountData">
+<owl:NamedIndividual rdf:about="#149e02d2d5fa465bab0c071:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4ee905bd265e489cb2dbe02</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">149e02d2d5fa465bab0c071</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#68f1c10b9e24456e9c80be4:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#1bf4f011a3344fc2ba00869:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#b3083144112d4953b7d8eb9:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#4ee905bd265e489cb2dbe02:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">68f1c10b9e24456e9c80be4</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#b336b2c27a714a11af6a767:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#149e02d2d5fa465bab0c071:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1bf4f011a3344fc2ba00869</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How to update/correct your student record Currently enrolled or recently enrolled students credit students can correct their Student Information Profile and email address online through eConnect</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7986c4524bc6417795e4566:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#c9c1e84b0032448ab0977f4:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7986c4524bc6417795e4566</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c9c1e84b0032448ab0977f4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If any of the remaining personal information in your student record contains an error please visit the Registrar s Office and request that the error be corrected Make sure you take a photo identification card with you Dallas TeleCollege students should visit the Dallas TeleCollege Registrar s Contact Us website</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#19f48a4333944dc9beff712:AccountData">
+<owl:NamedIndividual rdf:about="#80c5e16210204648b1f42f5:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">19f48a4333944dc9beff712</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">80c5e16210204648b1f42f5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#64cd457ee7b849be9d7fbdb:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#ee3da0517c7444af9f2f99f:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#7986c4524bc6417795e4566:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#19f48a4333944dc9beff712:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">64cd457ee7b849be9d7fbdb</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#c9c1e84b0032448ab0977f4:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#80c5e16210204648b1f42f5:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ee3da0517c7444af9f2f99f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If any of the remaining personal information in your student record contains an error please visit the Registrar s Office and request that the error be corrected Make sure you take a photo identification card with you Dallas TeleCollege students should visit the Dallas TeleCollege Registrar s Contact Us website</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0be889bc77884f8e954462a:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#abda93ec7d38453695298cf:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0be889bc77884f8e954462a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">abda93ec7d38453695298cf</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If any of the remaining personal information in your student record contains an error please visit the Registrar s Office and request that the error be corrected Make sure you take a photo identification card with you Dallas TeleCollege students should visit the Dallas TeleCollege Registrar s Contact Us website</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cce1db4ded354de19d354a3:AccountData">
+<owl:NamedIndividual rdf:about="#a6859f48e41c4806bd6a03b:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cce1db4ded354de19d354a3</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a6859f48e41c4806bd6a03b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8c634ed7fa4a4dda92e22bd:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#474290e4cd344f04bdec153:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#0be889bc77884f8e954462a:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#cce1db4ded354de19d354a3:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8c634ed7fa4a4dda92e22bd</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#abda93ec7d38453695298cf:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#a6859f48e41c4806bd6a03b:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">474290e4cd344f04bdec153</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If any of the remaining personal information in your student record contains an error please visit the Registrar s Office and request that the error be corrected Make sure you take a photo identification card with you Dallas TeleCollege students should visit the Dallas TeleCollege Registrar s Contact Us website</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5eb66b4c69094da38d81953:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#74eb55d537a4402ca3385f6:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5eb66b4c69094da38d81953</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">74eb55d537a4402ca3385f6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If any of the remaining personal information in your student record contains an error please visit the Registrar s Office and request that the error be corrected Make sure you take a photo identification card with you Dallas TeleCollege students should visit the Dallas TeleCollege Registrar s Contact Us website</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#146603c2d9a643a9b21a4f8:PersonalData">
+<owl:NamedIndividual rdf:about="#afb0c129cb5441fc89d9708:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">146603c2d9a643a9b21a4f8</uuid>
+  <provided_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">afb0c129cb5441fc89d9708</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Other data about user</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#58fb64222a784112911424f:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#18dfba600877475fb703ff7:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#6e742211903745d0a21a95d:User"/>
-  <has_mechanism rdf:resource="#5eb66b4c69094da38d81953:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#146603c2d9a643a9b21a4f8:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">58fb64222a784112911424f</uuid>
+  <initiated_by rdf:resource="#900e0454aff84ea7a32cc31:User"/>
+  <has_mechanism rdf:resource="#74eb55d537a4402ca3385f6:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#afb0c129cb5441fc89d9708:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">18dfba600877475fb703ff7</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If any of the remaining personal information in your student record contains an error please visit the Registrar s Office and request that the error be corrected Make sure you take a photo identification card with you Dallas TeleCollege students should visit the Dallas TeleCollege Registrar s Contact Us website</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2741b9e3e7e74ad389aa1ed:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#947566c7b9834e3ca691af2:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2741b9e3e7e74ad389aa1ed</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">947566c7b9834e3ca691af2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DCCCD has carefully implemented the information technology industry's best practices in security measures to ensure that: 1) the information you entrust to us is not intercepted or abused; and 2) to protect against the loss, misuse and alteration of the information under our control.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#96a81d0baa8e439281769ca:DataProtection">
+<owl:NamedIndividual rdf:about="#3f19f14dbcb347579a37125:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#2a85d1bedff84b758b39368:FirstParty"/>
-  <has_mechanism rdf:resource="#2741b9e3e7e74ad389aa1ed:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">96a81d0baa8e439281769ca</uuid>
+  <initiated_by rdf:resource="#e24603e0c517441da21faaa:FirstParty"/>
+  <has_mechanism rdf:resource="#947566c7b9834e3ca691af2:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3f19f14dbcb347579a37125</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Security DCCCD has carefully implemented the information technology industry s best practices in security measures to ensure that 1 the information you entrust to us is not intercepted or abused and 2 to protect against the loss misuse and alteration of the information under our control</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ec7c16d822e3449585465c3:SecuredCommunication">
+<owl:NamedIndividual rdf:about="#8e37cfece7184041b072bc9:SecuredCommunication">
   <rdf:type rdf:resource="#SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ec7c16d822e3449585465c3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8e37cfece7184041b072bc9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the information you entrust to us is not intercepted or abused</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5ce5ddc6bbf84423aad65ab:DataProtection">
+<owl:NamedIndividual rdf:about="#9d8284aa6dce4f9897e895a:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#2a85d1bedff84b758b39368:FirstParty"/>
-  <has_mechanism rdf:resource="#ec7c16d822e3449585465c3:SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5ce5ddc6bbf84423aad65ab</uuid>
+  <initiated_by rdf:resource="#e24603e0c517441da21faaa:FirstParty"/>
+  <has_mechanism rdf:resource="#8e37cfece7184041b072bc9:SecuredCommunication"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9d8284aa6dce4f9897e895a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Security DCCCD has carefully implemented the information technology industry s best practices in security measures to ensure that 1 the information you entrust to us is not intercepted or abused and 2 to protect against the loss misuse and alteration of the information under our control</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e28558680b7a4d5bafa9521:SecureStorage">
+<owl:NamedIndividual rdf:about="#2c8d0bd642ad46e0be74f86:SecureStorage">
   <rdf:type rdf:resource="#SecureStorage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e28558680b7a4d5bafa9521</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2c8d0bd642ad46e0be74f86</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to protect against the loss, misuse and alteration of the information under our control.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dcb17b4d2b9141e0bb0c095:DataProtection">
+<owl:NamedIndividual rdf:about="#9f9866bc459a4e2eaa5b076:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#2a85d1bedff84b758b39368:FirstParty"/>
-  <has_mechanism rdf:resource="#e28558680b7a4d5bafa9521:SecureStorage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dcb17b4d2b9141e0bb0c095</uuid>
+  <initiated_by rdf:resource="#e24603e0c517441da21faaa:FirstParty"/>
+  <has_mechanism rdf:resource="#2c8d0bd642ad46e0be74f86:SecureStorage"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9f9866bc459a4e2eaa5b076</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Security DCCCD has carefully implemented the information technology industry s best practices in security measures to ensure that 1 the information you entrust to us is not intercepted or abused and 2 to protect against the loss misuse and alteration of the information under our control</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b3b64309f2f540f9a7c1e74:SecuredCommunication">
+<owl:NamedIndividual rdf:about="#efb666e27b1c4a6d8ce25d5:SecuredCommunication">
   <rdf:type rdf:resource="#SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b3b64309f2f540f9a7c1e74</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">efb666e27b1c4a6d8ce25d5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Secure Socket Layers (SSL)</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d7837101fd0d438f850e47d:DataProtection">
+<owl:NamedIndividual rdf:about="#34d06deab4b1413588e5711:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#2a85d1bedff84b758b39368:FirstParty"/>
-  <has_mechanism rdf:resource="#b3b64309f2f540f9a7c1e74:SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d7837101fd0d438f850e47d</uuid>
+  <initiated_by rdf:resource="#e24603e0c517441da21faaa:FirstParty"/>
+  <has_mechanism rdf:resource="#efb666e27b1c4a6d8ce25d5:SecuredCommunication"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">34d06deab4b1413588e5711</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Industry standard technologies like Secure Socket Layers SSL are used to protect your credit card information email address social security number and other information so it cannot be read as it travels on the Internet Verisign the leading provider of digital trust services provides secure payment processing for your online transactions with DCCCD s eConnect For Verisign s security information please visit their website at http //www verisign com/truste</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#546d0f53be9e42699500130:SecuredCommunication">
+<owl:NamedIndividual rdf:about="#3690fec886904f56a0ac9e7:SecuredCommunication">
   <rdf:type rdf:resource="#SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">546d0f53be9e42699500130</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3690fec886904f56a0ac9e7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Industry standard technologies like Secure Socket Layers (SSL) are used to protect your credit card information, email address, social security number and other information so it cannot be read as it travels on the Internet. Verisign, the leading provider of digital trust services, provides secure payment processing for your online transactions with DCCCD's eConnect. For Verisign's security information please visit their website at http://www.verisign.com/truste.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8255855bda964dc2b94024e:DataProtection">
+<owl:NamedIndividual rdf:about="#4635ba4ce1f948ccad29f44:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#2a85d1bedff84b758b39368:FirstParty"/>
-  <has_mechanism rdf:resource="#546d0f53be9e42699500130:SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8255855bda964dc2b94024e</uuid>
+  <initiated_by rdf:resource="#e24603e0c517441da21faaa:FirstParty"/>
+  <has_mechanism rdf:resource="#3690fec886904f56a0ac9e7:SecuredCommunication"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4635ba4ce1f948ccad29f44</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Industry standard technologies like Secure Socket Layers SSL are used to protect your credit card information email address social security number and other information so it cannot be read as it travels on the Internet Verisign the leading provider of digital trust services provides secure payment processing for your online transactions with DCCCD s eConnect For Verisign s security information please visit their website at http //www verisign com/truste</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f41fc93407b149d2a9ab6a7:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#4414925f9ccd45eeac54b24:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f41fc93407b149d2a9ab6a7</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4414925f9ccd45eeac54b24</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Verisign, the leading provider of digital trust services, provides secure payment processing for your online transactions with DCCCD's eConnect.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#aa73f78dcfe14a2e8335441:DataProtection">
+<owl:NamedIndividual rdf:about="#63857c2caebc48c9924f3e7:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#2a85d1bedff84b758b39368:FirstParty"/>
-  <has_mechanism rdf:resource="#f41fc93407b149d2a9ab6a7:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aa73f78dcfe14a2e8335441</uuid>
+  <initiated_by rdf:resource="#e24603e0c517441da21faaa:FirstParty"/>
+  <has_mechanism rdf:resource="#4414925f9ccd45eeac54b24:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">63857c2caebc48c9924f3e7</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Industry standard technologies like Secure Socket Layers SSL are used to protect your credit card information email address social security number and other information so it cannot be read as it travels on the Internet Verisign the leading provider of digital trust services provides secure payment processing for your online transactions with DCCCD s eConnect For Verisign s security information please visit their website at http //www verisign com/truste</evidence>
 </owl:NamedIndividual>

@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -901,14 +902,6 @@
   <rdfs:subClassOf rdf:resource="#UserSpecificCommunicationMechanism"/>
   <owl:disjointWith rdf:resource="#AutomaticCommunicationMechanism"/>
   <rdfs:subClassOf>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
-        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
       <owl:allValuesFrom>
@@ -917,6 +910,14 @@
         </owl:Class>
       </owl:allValuesFrom>
     </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
+        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
+      </owl:unionOf>
+    </owl:Class>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,827 +1305,827 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#4fc1ba06e3484aef959db28:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#799ecc77f2ce45c68227fa7:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4fc1ba06e3484aef959db28</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">799ecc77f2ce45c68227fa7</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1e6cf1438ca748e48964e1f:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#f31df4b9d3304b13871b7a7:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <considers rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <considers rdf:resource="#b95d3d89e62d4559ab2875a:ThirdParty"/>
-  <considers rdf:resource="#19bdf5e31fe1463f969ab38:PersonalData"/>
-  <considers rdf:resource="#f4ecdf638ccb4ab6b16b2d8:DataProtection"/>
-  <considers rdf:resource="#eaf81cadf9634285ae25ed6:DataUse"/>
-  <considers rdf:resource="#66525dc3b14d41ef8535bd1:SensitiveData"/>
-  <considers rdf:resource="#6d2ecae7bf1a4e67a15c3e1:DataProtection"/>
-  <considers rdf:resource="#f009ecd509b7449ab8dfffe:DataUse"/>
-  <considers rdf:resource="#78f5404c0c90423893dd67e:GenericData"/>
-  <considers rdf:resource="#10b5186ad3d24784bfb1e92:FPCollection"/>
-  <considers rdf:resource="#ce995cc7d0ed4e99a7e59a3:AccountData"/>
-  <considers rdf:resource="#522b92e6924a4c6cb4ccd8d:FPCollection"/>
-  <considers rdf:resource="#f304a3b2b8e4498fb640a25:AdvertisingDataControl"/>
-  <considers rdf:resource="#929367a193e645eb89134cc:DataProtection"/>
-  <considers rdf:resource="#355660769a274735b86a8ac:TrackingData"/>
-  <considers rdf:resource="#cf1c4b97ded04b2c9a63fed:OptInOptOutControl"/>
-  <considers rdf:resource="#a1aa0dbbe8a64b0eba39de1:TrackingData"/>
-  <considers rdf:resource="#f0be616f4246419c99a8c8f:OptInOptOutControl"/>
-  <considers rdf:resource="#63751a5e908f43b8bb1705f:TrackingData"/>
-  <considers rdf:resource="#097cf074aeb84ac9a2d52f1:OptInOptOutControl"/>
-  <considers rdf:resource="#431ea04aec9e4f5eb899490:TrackingData"/>
-  <considers rdf:resource="#49b9eed77b1d4da38043c72:OptInOptOutControl"/>
-  <considers rdf:resource="#c90dfc7b417244b88e88593:TrackingData"/>
-  <considers rdf:resource="#dc065c28ae51439c99c1954:OptInOptOutControl"/>
-  <considers rdf:resource="#fe8a126c691a43b6bea9a31:TrackingData"/>
-  <considers rdf:resource="#b6d26b07bbe24531ad877c3:OptInOptOutControl"/>
-  <considers rdf:resource="#eb49ca2943ae4414b78cbf8:TrackingData"/>
-  <considers rdf:resource="#9e3267acd14445cf879242f:OptInOptOutControl"/>
-  <considers rdf:resource="#a68c988cfb5943d88b466dd:TrackingData"/>
-  <considers rdf:resource="#61bef8ff569f4537ab4886f:OptInOptOutControl"/>
-  <considers rdf:resource="#a98637718f9a497381f48e0:TrackingData"/>
-  <considers rdf:resource="#00cb334ab27b4889b2ac1dc:OptInOptOutControl"/>
-  <considers rdf:resource="#e2ce1e7cd9794d7eb3f51a3:TrackingData"/>
-  <considers rdf:resource="#18c5cae6c6304b2c8c5073e:OptInOptOutControl"/>
-  <considers rdf:resource="#659d6d2c47484c949b50c89:DataProtection"/>
-  <considers rdf:resource="#c6b572912e3d42e3b079bd2:DataProtection"/>
-  <considers rdf:resource="#77e1f72042a545cf846c945:GenericData"/>
-  <considers rdf:resource="#4ce226138f664399889a343:DataRetention"/>
-  <considers rdf:resource="#84219bc4d14444c58ce446a:GenericData"/>
-  <considers rdf:resource="#16ed779cf1f94a7aa21a1a0:DataRetention"/>
-  <considers rdf:resource="#9949af4c398b4653a5cb627:DataProtection"/>
-  <considers rdf:resource="#b2fc260ef8474647b3cab88:DataProtection"/>
-  <considers rdf:resource="#2b162cb99ee24a43a299820:DataProtection"/>
-  <considers rdf:resource="#5ed8faf125a448b9b4e110d:Data"/>
-  <considers rdf:resource="#1b4e75ab511f4f83b4ea555:DataRetention"/>
-  <considers rdf:resource="#8b68e0469ff649f58a3d552:Data"/>
-  <considers rdf:resource="#ae7fb1f91679470880b08ed:DataRetention"/>
-  <considers rdf:resource="#c0521d72bbdd415bb9fa974:DataProtection"/>
-  <considers rdf:resource="#2b161fdbace547b5bd80e86:OptInOptOutControl"/>
-  <considers rdf:resource="#d15793f97a5844abaf265aa:PolicyChange"/>
-  <considers rdf:resource="#fc53d284ba4c4131833ae20:FPNotification"/>
-  <considers rdf:resource="#432789bfa7724b95ba89c0f:OptInOptOutControl"/>
-  <considers rdf:resource="#8479d407b70f49c79426ba9:PolicyChange"/>
-  <considers rdf:resource="#678ad4d6cd3047aeabfd58f:FPNotification"/>
-  <considers rdf:resource="#46061851c6fd4de580822e3:OptInOptOutControl"/>
-  <considers rdf:resource="#45e2f29f99fc41d283854bc:PolicyChange"/>
-  <considers rdf:resource="#8979a263ca474db18642742:FPNotification"/>
-  <considers rdf:resource="#2a04408fca8a4e2ab1efb5f:OptInOptOutControl"/>
-  <considers rdf:resource="#506534c72250401bb2c1042:PolicyChange"/>
-  <considers rdf:resource="#3ed98f9b1ff84825ac87efc:FPNotification"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1e6cf1438ca748e48964e1f</uuid>
+  <considers rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <considers rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <considers rdf:resource="#794f33773141442b8642cce:ThirdParty"/>
+  <considers rdf:resource="#cd11c44323204adcaf96da1:PersonalData"/>
+  <considers rdf:resource="#46855bc1e9864ba98783cd4:DataProtection"/>
+  <considers rdf:resource="#36f9a4bd31eb49bcbec6903:DataUse"/>
+  <considers rdf:resource="#f3dee517701d462781b0c5b:SensitiveData"/>
+  <considers rdf:resource="#8332a9bb124e49edaa525b1:DataProtection"/>
+  <considers rdf:resource="#57464e662eb1432dbb8e6b1:DataUse"/>
+  <considers rdf:resource="#c079038b17b841a898dc4aa:GenericData"/>
+  <considers rdf:resource="#6c29b9b435584b40a0eb049:FPCollection"/>
+  <considers rdf:resource="#feb7c928a5384ab98f07df8:AccountData"/>
+  <considers rdf:resource="#a67036aa895d4f5398c050d:FPCollection"/>
+  <considers rdf:resource="#1f34a2f850c34c38a8d8231:AdvertisingDataControl"/>
+  <considers rdf:resource="#f1d05b2069e44513bc57aac:DataProtection"/>
+  <considers rdf:resource="#3721396fbfe34e77b573961:TrackingData"/>
+  <considers rdf:resource="#825571f5525f4c2cb4a5dd8:OptInOptOutControl"/>
+  <considers rdf:resource="#608753668bbf4eb99dd7ee9:TrackingData"/>
+  <considers rdf:resource="#8ee249fea11b4a379831249:OptInOptOutControl"/>
+  <considers rdf:resource="#3f32873790a14cf892d846d:TrackingData"/>
+  <considers rdf:resource="#18b938ccd63442b8a0ed926:OptInOptOutControl"/>
+  <considers rdf:resource="#5f86b8daaf12458aad94460:TrackingData"/>
+  <considers rdf:resource="#26e6e15fa3bc4d92a0bbed2:OptInOptOutControl"/>
+  <considers rdf:resource="#13efafb963e34c4da3f7734:TrackingData"/>
+  <considers rdf:resource="#b0223182a44c4ea4bf17097:OptInOptOutControl"/>
+  <considers rdf:resource="#9868b3ab40a14a6a9967d1d:TrackingData"/>
+  <considers rdf:resource="#b243bf9d06c5483489d0a42:OptInOptOutControl"/>
+  <considers rdf:resource="#76548b57bcc6470d9c8eeb8:TrackingData"/>
+  <considers rdf:resource="#36caeee03f274a2183c6057:OptInOptOutControl"/>
+  <considers rdf:resource="#e88abc3c73ec4b209f4bccf:TrackingData"/>
+  <considers rdf:resource="#294c949de0594b62b412f1d:OptInOptOutControl"/>
+  <considers rdf:resource="#39eadd63106644cbbe0704d:TrackingData"/>
+  <considers rdf:resource="#dcaf2d90150d4d7cb3ea30c:OptInOptOutControl"/>
+  <considers rdf:resource="#75ad619725c54c41a58b3c9:TrackingData"/>
+  <considers rdf:resource="#8a6547860ab14ffabb5524d:OptInOptOutControl"/>
+  <considers rdf:resource="#aeef9b3814f6497d92977e0:DataProtection"/>
+  <considers rdf:resource="#c0a53270b9234db49b5aebe:DataProtection"/>
+  <considers rdf:resource="#2a03dbcef1bf41228aed41e:GenericData"/>
+  <considers rdf:resource="#54a0c41073be4b53926a524:DataRetention"/>
+  <considers rdf:resource="#db97b692eec243889abb1b9:GenericData"/>
+  <considers rdf:resource="#b45ad5c8f3a745dd832e69b:DataRetention"/>
+  <considers rdf:resource="#1937729621254547bb9e641:DataProtection"/>
+  <considers rdf:resource="#d5d0758347fc4531a5cb440:DataProtection"/>
+  <considers rdf:resource="#72ccc1da173c4e14b139df2:DataProtection"/>
+  <considers rdf:resource="#25debe22546645c499586da:Data"/>
+  <considers rdf:resource="#3b1da8fdb2fd4a7cba7840c:DataRetention"/>
+  <considers rdf:resource="#6663b0ed93bd4e858d95204:Data"/>
+  <considers rdf:resource="#555e2a68dc714830a1223bf:DataRetention"/>
+  <considers rdf:resource="#d6d6835352364472a1d39e0:DataProtection"/>
+  <considers rdf:resource="#b42781e752fc40c79252964:OptInOptOutControl"/>
+  <considers rdf:resource="#568d7cbdc67b4e0582a51b5:PolicyChange"/>
+  <considers rdf:resource="#3096e4fb6b9b44368bc6a2f:FPNotification"/>
+  <considers rdf:resource="#2ccffc501fdc4ecabb36589:OptInOptOutControl"/>
+  <considers rdf:resource="#73061ae8cbe04e67bb7de91:PolicyChange"/>
+  <considers rdf:resource="#b02361a7470147eba39b324:FPNotification"/>
+  <considers rdf:resource="#39fa0c993a594950bb1b688:OptInOptOutControl"/>
+  <considers rdf:resource="#a074270fbb8441f3ab3efaa:PolicyChange"/>
+  <considers rdf:resource="#eb5bc933c7ea47979a8df02:FPNotification"/>
+  <considers rdf:resource="#e72ec08499ab4f11b7e22c9:OptInOptOutControl"/>
+  <considers rdf:resource="#823e6d802fbb4a01985835e:PolicyChange"/>
+  <considers rdf:resource="#02fc0601abb44436aba99f2:FPNotification"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f31df4b9d3304b13871b7a7</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gawker.com</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e2d00287a8c348359552c11:User">
+<owl:NamedIndividual rdf:about="#8c75436bf4b64add8d60447:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e2d00287a8c348359552c11</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8c75436bf4b64add8d60447</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ec0dcef917224253b85d193:FirstParty">
+<owl:NamedIndividual rdf:about="#1e3aefee04ac44f7b9a146d:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ec0dcef917224253b85d193</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1e3aefee04ac44f7b9a146d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b95d3d89e62d4559ab2875a:ThirdParty">
+<owl:NamedIndividual rdf:about="#794f33773141442b8642cce:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b95d3d89e62d4559ab2875a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">794f33773141442b8642cce</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#19bdf5e31fe1463f969ab38:PersonalData">
+<owl:NamedIndividual rdf:about="#cd11c44323204adcaf96da1:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">19bdf5e31fe1463f969ab38</uuid>
+  <provided_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cd11c44323204adcaf96da1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#73430967739645c085b58c9:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#d41a7cb6689446209941a8a:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">73430967739645c085b58c9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d41a7cb6689446209941a8a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">n order to assess general user interest in various internal and third party products and services.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b67e5c4366b14186a2cf532:PseudoAnonymization">
+<owl:NamedIndividual rdf:about="#f9d854c2c85b4c69b6dfd6d:PseudoAnonymization">
   <rdf:type rdf:resource="#PseudoAnonymization"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b67e5c4366b14186a2cf532</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f9d854c2c85b4c69b6dfd6d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This information may be used in aggregate form</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f4ecdf638ccb4ab6b16b2d8:DataProtection">
+<owl:NamedIndividual rdf:about="#46855bc1e9864ba98783cd4:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <has_mechanism rdf:resource="#b67e5c4366b14186a2cf532:PseudoAnonymization"/>
-  <applies_to rdf:resource="#19bdf5e31fe1463f969ab38:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f4ecdf638ccb4ab6b16b2d8</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <has_mechanism rdf:resource="#f9d854c2c85b4c69b6dfd6d:PseudoAnonymization"/>
+  <applies_to rdf:resource="#cd11c44323204adcaf96da1:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">46855bc1e9864ba98783cd4</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mailing Lists Service Emails Kinja may launch a mailing list in order to provide subscribers with relevant information breaking news or weekly or daily round-ups for example In order to sign up to receive regular emails from a site s mailing list users must submit information including a valid email address and demographic information such as location and interests This information may be used in aggregate form in order to assess general user interest in various internal and third party products and services Your personal and contact information will not be passed to any other organization Users who choose to sign up for a mailing list may receive regular emails from the site Kinja may from time to time track user email usage in a continued effort to improve our services Most of the time these communications will consist of content from the site in question but we may occasionally send out an email from a third party sponsor Since editorial independence is critical to us you can be sure that we will always mark sponsored content as such including in emails If you do not wish to receive emails from third party advertisers please do not sign up for the mailing list</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#eaf81cadf9634285ae25ed6:DataUse">
+<owl:NamedIndividual rdf:about="#36f9a4bd31eb49bcbec6903:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <has_purpose rdf:resource="#73430967739645c085b58c9:MarketingPurpose"/>
-  <applies_to rdf:resource="#19bdf5e31fe1463f969ab38:PersonalData"/>
-  <binded_to rdf:resource="#f4ecdf638ccb4ab6b16b2d8:DataProtection"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eaf81cadf9634285ae25ed6</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <has_purpose rdf:resource="#d41a7cb6689446209941a8a:MarketingPurpose"/>
+  <applies_to rdf:resource="#cd11c44323204adcaf96da1:PersonalData"/>
+  <binded_to rdf:resource="#46855bc1e9864ba98783cd4:DataProtection"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">36f9a4bd31eb49bcbec6903</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mailing Lists Service Emails Kinja may launch a mailing list in order to provide subscribers with relevant information breaking news or weekly or daily round-ups for example In order to sign up to receive regular emails from a site s mailing list users must submit information including a valid email address and demographic information such as location and interests This information may be used in aggregate form in order to assess general user interest in various internal and third party products and services Your personal and contact information will not be passed to any other organization Users who choose to sign up for a mailing list may receive regular emails from the site Kinja may from time to time track user email usage in a continued effort to improve our services Most of the time these communications will consist of content from the site in question but we may occasionally send out an email from a third party sponsor Since editorial independence is critical to us you can be sure that we will always mark sponsored content as such including in emails If you do not wish to receive emails from third party advertisers please do not sign up for the mailing list</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#66525dc3b14d41ef8535bd1:SensitiveData">
+<owl:NamedIndividual rdf:about="#f3dee517701d462781b0c5b:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">66525dc3b14d41ef8535bd1</uuid>
+  <provided_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f3dee517701d462781b0c5b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">demographic information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#891816a80a8940e8a8061fd:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#f04ac23cc022442e89e497f:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">891816a80a8940e8a8061fd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f04ac23cc022442e89e497f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">n order to assess general user interest in various internal and third party products and services.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#840cf7c6083d432fbf7efa5:PseudoAnonymization">
+<owl:NamedIndividual rdf:about="#e835b56094a14747974d634:PseudoAnonymization">
   <rdf:type rdf:resource="#PseudoAnonymization"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">840cf7c6083d432fbf7efa5</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e835b56094a14747974d634</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This information may be used in aggregate form</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6d2ecae7bf1a4e67a15c3e1:DataProtection">
+<owl:NamedIndividual rdf:about="#8332a9bb124e49edaa525b1:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <has_mechanism rdf:resource="#840cf7c6083d432fbf7efa5:PseudoAnonymization"/>
-  <applies_to rdf:resource="#66525dc3b14d41ef8535bd1:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6d2ecae7bf1a4e67a15c3e1</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <has_mechanism rdf:resource="#e835b56094a14747974d634:PseudoAnonymization"/>
+  <applies_to rdf:resource="#f3dee517701d462781b0c5b:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8332a9bb124e49edaa525b1</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mailing Lists Service Emails Kinja may launch a mailing list in order to provide subscribers with relevant information breaking news or weekly or daily round-ups for example In order to sign up to receive regular emails from a site s mailing list users must submit information including a valid email address and demographic information such as location and interests This information may be used in aggregate form in order to assess general user interest in various internal and third party products and services Your personal and contact information will not be passed to any other organization Users who choose to sign up for a mailing list may receive regular emails from the site Kinja may from time to time track user email usage in a continued effort to improve our services Most of the time these communications will consist of content from the site in question but we may occasionally send out an email from a third party sponsor Since editorial independence is critical to us you can be sure that we will always mark sponsored content as such including in emails If you do not wish to receive emails from third party advertisers please do not sign up for the mailing list</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f009ecd509b7449ab8dfffe:DataUse">
+<owl:NamedIndividual rdf:about="#57464e662eb1432dbb8e6b1:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <has_purpose rdf:resource="#891816a80a8940e8a8061fd:MarketingPurpose"/>
-  <applies_to rdf:resource="#66525dc3b14d41ef8535bd1:SensitiveData"/>
-  <binded_to rdf:resource="#6d2ecae7bf1a4e67a15c3e1:DataProtection"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f009ecd509b7449ab8dfffe</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <has_purpose rdf:resource="#f04ac23cc022442e89e497f:MarketingPurpose"/>
+  <applies_to rdf:resource="#f3dee517701d462781b0c5b:SensitiveData"/>
+  <binded_to rdf:resource="#8332a9bb124e49edaa525b1:DataProtection"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">57464e662eb1432dbb8e6b1</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mailing Lists Service Emails Kinja may launch a mailing list in order to provide subscribers with relevant information breaking news or weekly or daily round-ups for example In order to sign up to receive regular emails from a site s mailing list users must submit information including a valid email address and demographic information such as location and interests This information may be used in aggregate form in order to assess general user interest in various internal and third party products and services Your personal and contact information will not be passed to any other organization Users who choose to sign up for a mailing list may receive regular emails from the site Kinja may from time to time track user email usage in a continued effort to improve our services Most of the time these communications will consist of content from the site in question but we may occasionally send out an email from a third party sponsor Since editorial independence is critical to us you can be sure that we will always mark sponsored content as such including in emails If you do not wish to receive emails from third party advertisers please do not sign up for the mailing list</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#78f5404c0c90423893dd67e:GenericData">
+<owl:NamedIndividual rdf:about="#c079038b17b841a898dc4aa:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">78f5404c0c90423893dd67e</uuid>
+  <provided_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c079038b17b841a898dc4aa</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">valid information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#577c6ec7510b4743bff00d0:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#eac610cd4fe345e79b0a2b6:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">577c6ec7510b4743bff00d0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eac610cd4fe345e79b0a2b6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Users have the option of signing up for this service,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d0379e37893540abad5b943:ViaWebsite">
+<owl:NamedIndividual rdf:about="#87ebe9da68844bdcaa6e8c1:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d0379e37893540abad5b943</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">87ebe9da68844bdcaa6e8c1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kinja uses this information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cfaaac791fbc4048a79deca:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#d8bf8eae35ac470aa73cd42:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cfaaac791fbc4048a79deca</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d8bf8eae35ac470aa73cd42</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sers have the option of signing up for this service, and to do so must either submit some valid information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#10b5186ad3d24784bfb1e92:FPCollection">
+<owl:NamedIndividual rdf:about="#6c29b9b435584b40a0eb049:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <collects_from rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <has_purpose rdf:resource="#577c6ec7510b4743bff00d0:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#cfaaac791fbc4048a79deca:TransmissionByRequest"/>
-  <has_mechanism rdf:resource="#d0379e37893540abad5b943:ViaWebsite"/>
-  <applies_to rdf:resource="#78f5404c0c90423893dd67e:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">10b5186ad3d24784bfb1e92</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <collects_from rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <has_purpose rdf:resource="#eac610cd4fe345e79b0a2b6:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#d8bf8eae35ac470aa73cd42:TransmissionByRequest"/>
+  <has_mechanism rdf:resource="#87ebe9da68844bdcaa6e8c1:ViaWebsite"/>
+  <applies_to rdf:resource="#c079038b17b841a898dc4aa:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6c29b9b435584b40a0eb049</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Comment Service and Account Information In order to further enhance the user experience Kinja allows users to comment on some or all of Kinja sites enabling users to discuss and contribute to topics posted to those sites Users have the option of signing up for this service and to do so must either submit some valid information or set up an anonymous account Kinja uses this information to screen out users who leave comments prohibited by our Terms of Use to make notifications to users when necessary to pick out topics of interest to commenters and in certain circumstances to create a Kinja page for each such user where such user s contributions are collected You may link your account to certain Third Party Services and to do so may be required to provide your login information for those services If you login via a Third Party Service we will receive an identifying token from that service which will allow us to access some information from your account on that service so that we can for example send you a message through that service Kinja does not receive or store passwords from your Third Party Service and will not pass information provided when you register via a Third Party Service to any other organization except in aggregate form</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ce995cc7d0ed4e99a7e59a3:AccountData">
+<owl:NamedIndividual rdf:about="#feb7c928a5384ab98f07df8:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ce995cc7d0ed4e99a7e59a3</uuid>
+  <provided_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">feb7c928a5384ab98f07df8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">such as social security number, telephone number, street address, drivers license number, etc</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#522b92e6924a4c6cb4ccd8d:FPCollection">
+<owl:NamedIndividual rdf:about="#a67036aa895d4f5398c050d:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <collects_from rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <applies_to rdf:resource="#ce995cc7d0ed4e99a7e59a3:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">522b92e6924a4c6cb4ccd8d</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <collects_from rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <applies_to rdf:resource="#feb7c928a5384ab98f07df8:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a67036aa895d4f5398c050d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">In each case we will collect and record the information you have provided Other than names and email addresses provided at your discretion we don t generally collect any Personally Identifying Information about our users such as social security number telephone number street address drivers license number etc However we may offer you the opportunity to submit other information about yourself such as gender age occupation hobbies interests zip code etc which would then also be covered by this Privacy Policy</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f304a3b2b8e4498fb640a25:AdvertisingDataControl">
+<owl:NamedIndividual rdf:about="#1f34a2f850c34c38a8d8231:AdvertisingDataControl">
   <rdf:type rdf:resource="#AdvertisingDataControl"/>
-  <initiated_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f304a3b2b8e4498fb640a25</uuid>
+  <initiated_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1f34a2f850c34c38a8d8231</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We do not respond to web browser do not track or other related mechanisms at this time</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e2d19fbd60ae45ed8dd01a6:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#3e91867442d8460d92d0dec:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e2d19fbd60ae45ed8dd01a6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3e91867442d8460d92d0dec</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">usually bound by confidentiality requirements</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#929367a193e645eb89134cc:DataProtection">
+<owl:NamedIndividual rdf:about="#f1d05b2069e44513bc57aac:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <has_mechanism rdf:resource="#e2d19fbd60ae45ed8dd01a6:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">929367a193e645eb89134cc</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <has_mechanism rdf:resource="#3e91867442d8460d92d0dec:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f1d05b2069e44513bc57aac</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2 Advertising Ad Serving The ads appearing on this website are delivered to you by our web advertising vendor Google s DoubleClick and/or by Kinja s own proprietary advertising delivery software In order to serve ads to you we may use information collected during your current search or visit to our websites and information that we specifically acquire from third parties Data that we collect may be shared with some other third parties and is only used for proprietary ad delivery ad reporting and contextual advertising These third parties do not have the right to use the information beyond the scope necessary to support our advertising and are usually bound by confidentiality requirements unless we disclose to you otherwise</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#914ca9e7964f49139a0274c:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#4b2f3c889a044e91b9abbcc:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">914ca9e7964f49139a0274c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4b2f3c889a044e91b9abbcc</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">inks to opt-out</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#355660769a274735b86a8ac:TrackingData">
+<owl:NamedIndividual rdf:about="#3721396fbfe34e77b573961:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">355660769a274735b86a8ac</uuid>
+  <provided_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3721396fbfe34e77b573961</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cf1c4b97ded04b2c9a63fed:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#825571f5525f4c2cb4a5dd8:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <has_mechanism rdf:resource="#914ca9e7964f49139a0274c:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#355660769a274735b86a8ac:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cf1c4b97ded04b2c9a63fed</uuid>
+  <initiated_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <has_mechanism rdf:resource="#4b2f3c889a044e91b9abbcc:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#3721396fbfe34e77b573961:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">825571f5525f4c2cb4a5dd8</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Opt-out As part of our commitment to transparency and your privacy we provide the following links to opt-out of cookies provided by both our first party ad server and many third party advertising partners who may be engaging in online behavioral advertising</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#69d9569427d64dffa092881:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#b7b00e10629a444d9c5c652:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">69d9569427d64dffa092881</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b7b00e10629a444d9c5c652</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">inks to opt-out</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a1aa0dbbe8a64b0eba39de1:TrackingData">
+<owl:NamedIndividual rdf:about="#608753668bbf4eb99dd7ee9:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a1aa0dbbe8a64b0eba39de1</uuid>
+  <provided_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">608753668bbf4eb99dd7ee9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f0be616f4246419c99a8c8f:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#8ee249fea11b4a379831249:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <has_mechanism rdf:resource="#69d9569427d64dffa092881:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#a1aa0dbbe8a64b0eba39de1:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f0be616f4246419c99a8c8f</uuid>
+  <initiated_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <has_mechanism rdf:resource="#b7b00e10629a444d9c5c652:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#608753668bbf4eb99dd7ee9:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8ee249fea11b4a379831249</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Opt-out As part of our commitment to transparency and your privacy we provide the following links to opt-out of cookies provided by both our first party ad server and many third party advertising partners who may be engaging in online behavioral advertising</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c0fb0a1663054a0eadf9fd5:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#4b4c020f232548c398a5330:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c0fb0a1663054a0eadf9fd5</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4b4c020f232548c398a5330</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">we provide the following links to opt-out of cookies provided by both our first party ad server</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#63751a5e908f43b8bb1705f:TrackingData">
+<owl:NamedIndividual rdf:about="#3f32873790a14cf892d846d:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">63751a5e908f43b8bb1705f</uuid>
+  <provided_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3f32873790a14cf892d846d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#097cf074aeb84ac9a2d52f1:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#18b938ccd63442b8a0ed926:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <has_mechanism rdf:resource="#c0fb0a1663054a0eadf9fd5:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#63751a5e908f43b8bb1705f:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">097cf074aeb84ac9a2d52f1</uuid>
+  <initiated_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <has_mechanism rdf:resource="#4b4c020f232548c398a5330:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#3f32873790a14cf892d846d:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">18b938ccd63442b8a0ed926</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Opt-out As part of our commitment to transparency and your privacy we provide the following links to opt-out of cookies provided by both our first party ad server and many third party advertising partners who may be engaging in online behavioral advertising</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5774c3e3b21047ddba8392c:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#9c4c766da15b43bb9a9f95f:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5774c3e3b21047ddba8392c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9c4c766da15b43bb9a9f95f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">and many third party advertising partners who may be engaging in online behavioral advertising:</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#431ea04aec9e4f5eb899490:TrackingData">
+<owl:NamedIndividual rdf:about="#5f86b8daaf12458aad94460:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">431ea04aec9e4f5eb899490</uuid>
+  <provided_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5f86b8daaf12458aad94460</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#49b9eed77b1d4da38043c72:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#26e6e15fa3bc4d92a0bbed2:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <has_mechanism rdf:resource="#5774c3e3b21047ddba8392c:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#431ea04aec9e4f5eb899490:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">49b9eed77b1d4da38043c72</uuid>
+  <initiated_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <has_mechanism rdf:resource="#9c4c766da15b43bb9a9f95f:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#5f86b8daaf12458aad94460:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">26e6e15fa3bc4d92a0bbed2</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Opt-out As part of our commitment to transparency and your privacy we provide the following links to opt-out of cookies provided by both our first party ad server and many third party advertising partners who may be engaging in online behavioral advertising</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6c675617271748efb03fa7f:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#b09f3c61ec944122a5d01dd:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6c675617271748efb03fa7f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b09f3c61ec944122a5d01dd</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">is link to opt-out</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c90dfc7b417244b88e88593:TrackingData">
+<owl:NamedIndividual rdf:about="#13efafb963e34c4da3f7734:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c90dfc7b417244b88e88593</uuid>
+  <provided_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">13efafb963e34c4da3f7734</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dc065c28ae51439c99c1954:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#b0223182a44c4ea4bf17097:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <has_mechanism rdf:resource="#6c675617271748efb03fa7f:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#c90dfc7b417244b88e88593:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dc065c28ae51439c99c1954</uuid>
+  <initiated_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <has_mechanism rdf:resource="#b09f3c61ec944122a5d01dd:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#13efafb963e34c4da3f7734:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b0223182a44c4ea4bf17097</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">First Party Opt-out Please visit this link to opt-out of cookies from our first party ad serving vendor Google http //www google com/privacy/ads/</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0d619a564abd4c17a0151a0:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#adca2806b25c4449a1fa652:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0d619a564abd4c17a0151a0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">adca2806b25c4449a1fa652</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">link to opt-out</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fe8a126c691a43b6bea9a31:TrackingData">
+<owl:NamedIndividual rdf:about="#9868b3ab40a14a6a9967d1d:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fe8a126c691a43b6bea9a31</uuid>
+  <provided_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9868b3ab40a14a6a9967d1d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b6d26b07bbe24531ad877c3:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#b243bf9d06c5483489d0a42:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <has_mechanism rdf:resource="#0d619a564abd4c17a0151a0:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#fe8a126c691a43b6bea9a31:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b6d26b07bbe24531ad877c3</uuid>
+  <initiated_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <has_mechanism rdf:resource="#adca2806b25c4449a1fa652:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#9868b3ab40a14a6a9967d1d:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b243bf9d06c5483489d0a42</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">First Party Opt-out Please visit this link to opt-out of cookies from our first party ad serving vendor Google http //www google com/privacy/ads/</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#77cf18fcfae14206a3827c3:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#6482967e32aa48eaab05a8a:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">77cf18fcfae14206a3827c3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6482967e32aa48eaab05a8a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">First Party Opt-out Please visit this link to opt-out of cookies from our first party ad serving vendor, Google: http://www.google.com/privacy/ads/</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#eb49ca2943ae4414b78cbf8:TrackingData">
+<owl:NamedIndividual rdf:about="#76548b57bcc6470d9c8eeb8:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eb49ca2943ae4414b78cbf8</uuid>
+  <provided_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">76548b57bcc6470d9c8eeb8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9e3267acd14445cf879242f:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#36caeee03f274a2183c6057:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <has_mechanism rdf:resource="#77cf18fcfae14206a3827c3:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#eb49ca2943ae4414b78cbf8:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9e3267acd14445cf879242f</uuid>
+  <initiated_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <has_mechanism rdf:resource="#6482967e32aa48eaab05a8a:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#76548b57bcc6470d9c8eeb8:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">36caeee03f274a2183c6057</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">First Party Opt-out Please visit this link to opt-out of cookies from our first party ad serving vendor Google http //www google com/privacy/ads/</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#eb24e1bd4ecf4467ab39989:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#00e973cc434d46109c2cc83:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eb24e1bd4ecf4467ab39989</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">00e973cc434d46109c2cc83</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://www.aboutads.info/choices/</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a68c988cfb5943d88b466dd:TrackingData">
+<owl:NamedIndividual rdf:about="#e88abc3c73ec4b209f4bccf:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a68c988cfb5943d88b466dd</uuid>
+  <provided_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e88abc3c73ec4b209f4bccf</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#61bef8ff569f4537ab4886f:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#294c949de0594b62b412f1d:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <has_mechanism rdf:resource="#eb24e1bd4ecf4467ab39989:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#a68c988cfb5943d88b466dd:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">61bef8ff569f4537ab4886f</uuid>
+  <initiated_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <has_mechanism rdf:resource="#00e973cc434d46109c2cc83:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#e88abc3c73ec4b209f4bccf:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">294c949de0594b62b412f1d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Third Party and Online Behavioral Advertising Opt-out Please visit this link to opt-out of cookies from over 50+ major third party behavioral advertising providers http //www aboutads info/choices/</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6b98b2391d7b4df9bd2f10e:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#c8c279cfb43a4eb19b22590:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6b98b2391d7b4df9bd2f10e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c8c279cfb43a4eb19b22590</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please visit this link to opt-out of cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a98637718f9a497381f48e0:TrackingData">
+<owl:NamedIndividual rdf:about="#39eadd63106644cbbe0704d:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a98637718f9a497381f48e0</uuid>
+  <provided_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">39eadd63106644cbbe0704d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#00cb334ab27b4889b2ac1dc:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#dcaf2d90150d4d7cb3ea30c:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <has_mechanism rdf:resource="#6b98b2391d7b4df9bd2f10e:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#a98637718f9a497381f48e0:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">00cb334ab27b4889b2ac1dc</uuid>
+  <initiated_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <has_mechanism rdf:resource="#c8c279cfb43a4eb19b22590:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#39eadd63106644cbbe0704d:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dcaf2d90150d4d7cb3ea30c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Third Party and Online Behavioral Advertising Opt-out Please visit this link to opt-out of cookies from over 50+ major third party behavioral advertising providers http //www aboutads info/choices/</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#12f5b0590e254bea99a740c:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#bc37e8587f744138a417b46:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">12f5b0590e254bea99a740c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bc37e8587f744138a417b46</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Third Party and Online Behavioral Advertising Opt-out Please visit this link to opt-out of cookies from over 50+ major third party behavioral advertising providers: http://www.aboutads.info/choices/</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e2ce1e7cd9794d7eb3f51a3:TrackingData">
+<owl:NamedIndividual rdf:about="#75ad619725c54c41a58b3c9:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e2ce1e7cd9794d7eb3f51a3</uuid>
+  <provided_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">75ad619725c54c41a58b3c9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#18c5cae6c6304b2c8c5073e:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#8a6547860ab14ffabb5524d:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <has_mechanism rdf:resource="#12f5b0590e254bea99a740c:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#e2ce1e7cd9794d7eb3f51a3:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">18c5cae6c6304b2c8c5073e</uuid>
+  <initiated_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <has_mechanism rdf:resource="#bc37e8587f744138a417b46:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#75ad619725c54c41a58b3c9:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8a6547860ab14ffabb5524d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Third Party and Online Behavioral Advertising Opt-out Please visit this link to opt-out of cookies from over 50+ major third party behavioral advertising providers http //www aboutads info/choices/</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b2e3c9d8499d49a6ba79e9e:AccessControls">
+<owl:NamedIndividual rdf:about="#11d4f317f4124733a705576:AccessControls">
   <rdf:type rdf:resource="#AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b2e3c9d8499d49a6ba79e9e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11d4f317f4124733a705576</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">access to personally identifiable information is authorized only for those who have a business need for such access,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#659d6d2c47484c949b50c89:DataProtection">
+<owl:NamedIndividual rdf:about="#aeef9b3814f6497d92977e0:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <has_mechanism rdf:resource="#b2e3c9d8499d49a6ba79e9e:AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">659d6d2c47484c949b50c89</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <has_mechanism rdf:resource="#11d4f317f4124733a705576:AccessControls"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aeef9b3814f6497d92977e0</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6 Information Security Kinja has technical administrative and physical safeguards in place to help protect against unauthorized access to use or disclosure of user information we maintain Under our security practices and policies access to personally identifiable information is authorized only for those who have a business need for such access and sensitive records are to be retained only as long as necessary for business or legal needs and destroyed before disposal Although we work hard to protect personal information that we collect and store no program is one hundred percent secure and we cannot guarantee that our safeguards will prevent every unauthorized attempt to access use or disclose personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#029d07163d4a4265b484c03:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#1671602e253c4f609d75ec3:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">029d07163d4a4265b484c03</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1671602e253c4f609d75ec3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Although we work hard to protect personal information that we collect and store, no program is one hundred percent secure and we cannot guarantee that our safeguards will prevent every unauthorized attempt to access, use or disclose personal information.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c6b572912e3d42e3b079bd2:DataProtection">
+<owl:NamedIndividual rdf:about="#c0a53270b9234db49b5aebe:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <has_mechanism rdf:resource="#029d07163d4a4265b484c03:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c6b572912e3d42e3b079bd2</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <has_mechanism rdf:resource="#1671602e253c4f609d75ec3:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c0a53270b9234db49b5aebe</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6 Information Security Kinja has technical administrative and physical safeguards in place to help protect against unauthorized access to use or disclosure of user information we maintain Under our security practices and policies access to personally identifiable information is authorized only for those who have a business need for such access and sensitive records are to be retained only as long as necessary for business or legal needs and destroyed before disposal Although we work hard to protect personal information that we collect and store no program is one hundred percent secure and we cannot guarantee that our safeguards will prevent every unauthorized attempt to access use or disclose personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3d92cf072ae54c779c59e70:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#d4bfd0ff014f40e6a290472:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3d92cf072ae54c779c59e70</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d4bfd0ff014f40e6a290472</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">retained only as long as necessary for business or legal needs and destroyed before disposal.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e5b077e2f8654d48a51e9ca:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#0f141d3cdad14864b6c5dca:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e5b077e2f8654d48a51e9ca</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0f141d3cdad14864b6c5dca</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">necessary for business</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#77e1f72042a545cf846c945:GenericData">
+<owl:NamedIndividual rdf:about="#2a03dbcef1bf41228aed41e:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">77e1f72042a545cf846c945</uuid>
+  <provided_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2a03dbcef1bf41228aed41e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally identifiable information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4ce226138f664399889a343:DataRetention">
+<owl:NamedIndividual rdf:about="#54a0c41073be4b53926a524:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <lasts_for rdf:resource="#3d92cf072ae54c779c59e70:DataRetentionTime"/>
-  <has_purpose rdf:resource="#e5b077e2f8654d48a51e9ca:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#77e1f72042a545cf846c945:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4ce226138f664399889a343</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <lasts_for rdf:resource="#d4bfd0ff014f40e6a290472:DataRetentionTime"/>
+  <has_purpose rdf:resource="#0f141d3cdad14864b6c5dca:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#2a03dbcef1bf41228aed41e:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">54a0c41073be4b53926a524</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6 Information Security Kinja has technical administrative and physical safeguards in place to help protect against unauthorized access to use or disclosure of user information we maintain Under our security practices and policies access to personally identifiable information is authorized only for those who have a business need for such access and sensitive records are to be retained only as long as necessary for business or legal needs and destroyed before disposal Although we work hard to protect personal information that we collect and store no program is one hundred percent secure and we cannot guarantee that our safeguards will prevent every unauthorized attempt to access use or disclose personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#217bc36845fb424eb41de5b:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#2c9680a6daa2443caf742e3:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">217bc36845fb424eb41de5b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2c9680a6daa2443caf742e3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">retained only as long as necessary for business or legal needs and destroyed before disposal.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#85d760aa6c7f4310b70f1b2:LegalCompliancePurpose">
+<owl:NamedIndividual rdf:about="#95fac3fba2f54b45b711d00:LegalCompliancePurpose">
   <rdf:type rdf:resource="#LegalCompliancePurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">85d760aa6c7f4310b70f1b2</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">95fac3fba2f54b45b711d00</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">r legal needs</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#84219bc4d14444c58ce446a:GenericData">
+<owl:NamedIndividual rdf:about="#db97b692eec243889abb1b9:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">84219bc4d14444c58ce446a</uuid>
+  <provided_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">db97b692eec243889abb1b9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally identifiable information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#16ed779cf1f94a7aa21a1a0:DataRetention">
+<owl:NamedIndividual rdf:about="#b45ad5c8f3a745dd832e69b:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <lasts_for rdf:resource="#217bc36845fb424eb41de5b:DataRetentionTime"/>
-  <has_purpose rdf:resource="#85d760aa6c7f4310b70f1b2:LegalCompliancePurpose"/>
-  <applies_to rdf:resource="#84219bc4d14444c58ce446a:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">16ed779cf1f94a7aa21a1a0</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <lasts_for rdf:resource="#2c9680a6daa2443caf742e3:DataRetentionTime"/>
+  <has_purpose rdf:resource="#95fac3fba2f54b45b711d00:LegalCompliancePurpose"/>
+  <applies_to rdf:resource="#db97b692eec243889abb1b9:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b45ad5c8f3a745dd832e69b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6 Information Security Kinja has technical administrative and physical safeguards in place to help protect against unauthorized access to use or disclosure of user information we maintain Under our security practices and policies access to personally identifiable information is authorized only for those who have a business need for such access and sensitive records are to be retained only as long as necessary for business or legal needs and destroyed before disposal Although we work hard to protect personal information that we collect and store no program is one hundred percent secure and we cannot guarantee that our safeguards will prevent every unauthorized attempt to access use or disclose personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#151eac6f444d4caa97509c0:AccessControls">
+<owl:NamedIndividual rdf:about="#e7716e4c57004fef9d568aa:AccessControls">
   <rdf:type rdf:resource="#AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">151eac6f444d4caa97509c0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e7716e4c57004fef9d568aa</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Under our security practices and policies, access to personally identifiable information is authorized only for those who have a business need for such access, and sensitive records are to be retained only as long as necessary for business or legal needs and destroyed before disposal.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9949af4c398b4653a5cb627:DataProtection">
+<owl:NamedIndividual rdf:about="#1937729621254547bb9e641:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <has_mechanism rdf:resource="#151eac6f444d4caa97509c0:AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9949af4c398b4653a5cb627</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <has_mechanism rdf:resource="#e7716e4c57004fef9d568aa:AccessControls"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1937729621254547bb9e641</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6 Information Security Kinja has technical administrative and physical safeguards in place to help protect against unauthorized access to use or disclosure of user information we maintain Under our security practices and policies access to personally identifiable information is authorized only for those who have a business need for such access and sensitive records are to be retained only as long as necessary for business or legal needs and destroyed before disposal Although we work hard to protect personal information that we collect and store no program is one hundred percent secure and we cannot guarantee that our safeguards will prevent every unauthorized attempt to access use or disclose personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6d1cf977f2b6464fa970f14:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#1d970880af1c42968f57e37:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6d1cf977f2b6464fa970f14</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1d970880af1c42968f57e37</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kinja has technical, administrative and physical safeguards in place to help protect against unauthorized access to, use or disclosure of user information we maintain.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b2fc260ef8474647b3cab88:DataProtection">
+<owl:NamedIndividual rdf:about="#d5d0758347fc4531a5cb440:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <has_mechanism rdf:resource="#6d1cf977f2b6464fa970f14:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b2fc260ef8474647b3cab88</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <has_mechanism rdf:resource="#1d970880af1c42968f57e37:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d5d0758347fc4531a5cb440</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6 Information Security Kinja has technical administrative and physical safeguards in place to help protect against unauthorized access to use or disclosure of user information we maintain Under our security practices and policies access to personally identifiable information is authorized only for those who have a business need for such access and sensitive records are to be retained only as long as necessary for business or legal needs and destroyed before disposal Although we work hard to protect personal information that we collect and store no program is one hundred percent secure and we cannot guarantee that our safeguards will prevent every unauthorized attempt to access use or disclose personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8300367bd407479799964b8:AccessControls">
+<owl:NamedIndividual rdf:about="#1a72d509bcb04285a7902f5:AccessControls">
   <rdf:type rdf:resource="#AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8300367bd407479799964b8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1a72d509bcb04285a7902f5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Under our security practices and policies, access to personally identifiable information is authorized only for those who have a business need for such access,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2b162cb99ee24a43a299820:DataProtection">
+<owl:NamedIndividual rdf:about="#72ccc1da173c4e14b139df2:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <has_mechanism rdf:resource="#8300367bd407479799964b8:AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2b162cb99ee24a43a299820</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <has_mechanism rdf:resource="#1a72d509bcb04285a7902f5:AccessControls"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">72ccc1da173c4e14b139df2</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6 Information Security Kinja has technical administrative and physical safeguards in place to help protect against unauthorized access to use or disclosure of user information we maintain Under our security practices and policies access to personally identifiable information is authorized only for those who have a business need for such access and sensitive records are to be retained only as long as necessary for business or legal needs and destroyed before disposal Although we work hard to protect personal information that we collect and store no program is one hundred percent secure and we cannot guarantee that our safeguards will prevent every unauthorized attempt to access use or disclose personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d9a0eb2241a146caa1605b1:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#a289ae6909974d7a99c07a8:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d9a0eb2241a146caa1605b1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a289ae6909974d7a99c07a8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sensitive records are to be retained only as long as necessary for business or legal needs and destroyed before disposal.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e974a2bc7ff748138125cc3:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#1f4474e6ca154f5d882025d:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e974a2bc7ff748138125cc3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1f4474e6ca154f5d882025d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">necessary for business</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5ed8faf125a448b9b4e110d:Data">
+<owl:NamedIndividual rdf:about="#25debe22546645c499586da:Data">
   <rdf:type rdf:resource="#Data"/>
-  <provided_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5ed8faf125a448b9b4e110d</uuid>
+  <provided_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">25debe22546645c499586da</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sensitive records</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1b4e75ab511f4f83b4ea555:DataRetention">
+<owl:NamedIndividual rdf:about="#3b1da8fdb2fd4a7cba7840c:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <lasts_for rdf:resource="#d9a0eb2241a146caa1605b1:DataRetentionTime"/>
-  <has_purpose rdf:resource="#e974a2bc7ff748138125cc3:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#5ed8faf125a448b9b4e110d:Data"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1b4e75ab511f4f83b4ea555</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <lasts_for rdf:resource="#a289ae6909974d7a99c07a8:DataRetentionTime"/>
+  <has_purpose rdf:resource="#1f4474e6ca154f5d882025d:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#25debe22546645c499586da:Data"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3b1da8fdb2fd4a7cba7840c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6 Information Security Kinja has technical administrative and physical safeguards in place to help protect against unauthorized access to use or disclosure of user information we maintain Under our security practices and policies access to personally identifiable information is authorized only for those who have a business need for such access and sensitive records are to be retained only as long as necessary for business or legal needs and destroyed before disposal Although we work hard to protect personal information that we collect and store no program is one hundred percent secure and we cannot guarantee that our safeguards will prevent every unauthorized attempt to access use or disclose personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e542b167c171450c84ee533:DataRetentionTime">
+<owl:NamedIndividual rdf:about="#e943f5d5bfa647f2a60d6e7:DataRetentionTime">
   <rdf:type rdf:resource="#DataRetentionTime"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e542b167c171450c84ee533</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e943f5d5bfa647f2a60d6e7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sensitive records are to be retained only as long as necessary for business or legal needs and destroyed before disposal.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9e052c3b7389400b94742a7:LegalCompliancePurpose">
+<owl:NamedIndividual rdf:about="#abf8ba27885b47b09f1aa29:LegalCompliancePurpose">
   <rdf:type rdf:resource="#LegalCompliancePurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9e052c3b7389400b94742a7</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">abf8ba27885b47b09f1aa29</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">legal needs</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8b68e0469ff649f58a3d552:Data">
+<owl:NamedIndividual rdf:about="#6663b0ed93bd4e858d95204:Data">
   <rdf:type rdf:resource="#Data"/>
-  <provided_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8b68e0469ff649f58a3d552</uuid>
+  <provided_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6663b0ed93bd4e858d95204</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sensitive records</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ae7fb1f91679470880b08ed:DataRetention">
+<owl:NamedIndividual rdf:about="#555e2a68dc714830a1223bf:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <lasts_for rdf:resource="#e542b167c171450c84ee533:DataRetentionTime"/>
-  <has_purpose rdf:resource="#9e052c3b7389400b94742a7:LegalCompliancePurpose"/>
-  <applies_to rdf:resource="#8b68e0469ff649f58a3d552:Data"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ae7fb1f91679470880b08ed</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <lasts_for rdf:resource="#e943f5d5bfa647f2a60d6e7:DataRetentionTime"/>
+  <has_purpose rdf:resource="#abf8ba27885b47b09f1aa29:LegalCompliancePurpose"/>
+  <applies_to rdf:resource="#6663b0ed93bd4e858d95204:Data"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">555e2a68dc714830a1223bf</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6 Information Security Kinja has technical administrative and physical safeguards in place to help protect against unauthorized access to use or disclosure of user information we maintain Under our security practices and policies access to personally identifiable information is authorized only for those who have a business need for such access and sensitive records are to be retained only as long as necessary for business or legal needs and destroyed before disposal Although we work hard to protect personal information that we collect and store no program is one hundred percent secure and we cannot guarantee that our safeguards will prevent every unauthorized attempt to access use or disclose personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9525d2821d884c7b9d4f8bd:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#ad9a9ca097f342449e27760:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9525d2821d884c7b9d4f8bd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ad9a9ca097f342449e27760</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you become aware of a security issue, please email us at legal [at] gawker [dot] com. We will work with you to address any problems.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c0521d72bbdd415bb9fa974:DataProtection">
+<owl:NamedIndividual rdf:about="#d6d6835352364472a1d39e0:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <has_mechanism rdf:resource="#9525d2821d884c7b9d4f8bd:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c0521d72bbdd415bb9fa974</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <has_mechanism rdf:resource="#ad9a9ca097f342449e27760:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d6d6835352364472a1d39e0</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you become aware of a security issue please email us at legal [at] gawker [dot] com We will work with you to address any problems</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ac761fa6e3344f84879911a:InPrivacyPolicy">
+<owl:NamedIndividual rdf:about="#a1c47dffe0d04c31820191d:InPrivacyPolicy">
   <rdf:type rdf:resource="#InPrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ac761fa6e3344f84879911a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a1c47dffe0d04c31820191d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">we will post those changes to this Privacy Policy page,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2b161fdbace547b5bd80e86:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#b42781e752fc40c79252964:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2b161fdbace547b5bd80e86</uuid>
+  <initiated_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b42781e752fc40c79252964</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7 Notification of Changes Whenever Kinja changes its privacy policy we will post those changes to this Privacy Policy page and other places we deem appropriate so our users are always aware of what information we collect how we use it and under what circumstances if any we disclose it The prior version of our Privacy Policy is found here the version before that is found here and more on why we ve made the most recent changes here You are responsible for reviewing and becoming familiar with any changes to this agreement</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d15793f97a5844abaf265aa:PolicyChange">
+<owl:NamedIndividual rdf:about="#568d7cbdc67b4e0582a51b5:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <binded_to rdf:resource="#2b161fdbace547b5bd80e86:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d15793f97a5844abaf265aa</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <binded_to rdf:resource="#b42781e752fc40c79252964:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">568d7cbdc67b4e0582a51b5</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7 Notification of Changes Whenever Kinja changes its privacy policy we will post those changes to this Privacy Policy page and other places we deem appropriate so our users are always aware of what information we collect how we use it and under what circumstances if any we disclose it The prior version of our Privacy Policy is found here the version before that is found here and more on why we ve made the most recent changes here You are responsible for reviewing and becoming familiar with any changes to this agreement</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fc53d284ba4c4131833ae20:FPNotification">
+<owl:NamedIndividual rdf:about="#3096e4fb6b9b44368bc6a2f:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <notifies rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <has_mechanism rdf:resource="#ac761fa6e3344f84879911a:InPrivacyPolicy"/>
-  <binded_to rdf:resource="#d15793f97a5844abaf265aa:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fc53d284ba4c4131833ae20</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <notifies rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <has_mechanism rdf:resource="#a1c47dffe0d04c31820191d:InPrivacyPolicy"/>
+  <binded_to rdf:resource="#568d7cbdc67b4e0582a51b5:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3096e4fb6b9b44368bc6a2f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7 Notification of Changes Whenever Kinja changes its privacy policy we will post those changes to this Privacy Policy page and other places we deem appropriate so our users are always aware of what information we collect how we use it and under what circumstances if any we disclose it The prior version of our Privacy Policy is found here the version before that is found here and more on why we ve made the most recent changes here You are responsible for reviewing and becoming familiar with any changes to this agreement</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bd1f84a51cab4dc891206d0:InPrivacyPolicy">
+<owl:NamedIndividual rdf:about="#8f83eb9cfd9b43e8b2adc20:InPrivacyPolicy">
   <rdf:type rdf:resource="#InPrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bd1f84a51cab4dc891206d0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8f83eb9cfd9b43e8b2adc20</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">those changes to this Privacy Policy page,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#432789bfa7724b95ba89c0f:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#2ccffc501fdc4ecabb36589:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">432789bfa7724b95ba89c0f</uuid>
+  <initiated_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2ccffc501fdc4ecabb36589</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7 Notification of Changes Whenever Kinja changes its privacy policy we will post those changes to this Privacy Policy page and other places we deem appropriate so our users are always aware of what information we collect how we use it and under what circumstances if any we disclose it The prior version of our Privacy Policy is found here the version before that is found here and more on why we ve made the most recent changes here You are responsible for reviewing and becoming familiar with any changes to this agreement</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8479d407b70f49c79426ba9:PolicyChange">
+<owl:NamedIndividual rdf:about="#73061ae8cbe04e67bb7de91:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <binded_to rdf:resource="#432789bfa7724b95ba89c0f:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8479d407b70f49c79426ba9</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <binded_to rdf:resource="#2ccffc501fdc4ecabb36589:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">73061ae8cbe04e67bb7de91</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7 Notification of Changes Whenever Kinja changes its privacy policy we will post those changes to this Privacy Policy page and other places we deem appropriate so our users are always aware of what information we collect how we use it and under what circumstances if any we disclose it The prior version of our Privacy Policy is found here the version before that is found here and more on why we ve made the most recent changes here You are responsible for reviewing and becoming familiar with any changes to this agreement</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#678ad4d6cd3047aeabfd58f:FPNotification">
+<owl:NamedIndividual rdf:about="#b02361a7470147eba39b324:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <notifies rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <has_mechanism rdf:resource="#bd1f84a51cab4dc891206d0:InPrivacyPolicy"/>
-  <binded_to rdf:resource="#8479d407b70f49c79426ba9:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">678ad4d6cd3047aeabfd58f</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <notifies rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <has_mechanism rdf:resource="#8f83eb9cfd9b43e8b2adc20:InPrivacyPolicy"/>
+  <binded_to rdf:resource="#73061ae8cbe04e67bb7de91:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b02361a7470147eba39b324</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7 Notification of Changes Whenever Kinja changes its privacy policy we will post those changes to this Privacy Policy page and other places we deem appropriate so our users are always aware of what information we collect how we use it and under what circumstances if any we disclose it The prior version of our Privacy Policy is found here the version before that is found here and more on why we ve made the most recent changes here You are responsible for reviewing and becoming familiar with any changes to this agreement</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#769698cc855243ae9488e44:FPSpecificCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#ee2d8ecb8a864724ae68979:FPSpecificCommunicationMechanism">
   <rdf:type rdf:resource="#FPSpecificCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">769698cc855243ae9488e44</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ee2d8ecb8a864724ae68979</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ther places we deem appropriate so our users are always aware of what information we collect, how we use it, and under what circumstances, if any, we disclose it.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#46061851c6fd4de580822e3:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#39fa0c993a594950bb1b688:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">46061851c6fd4de580822e3</uuid>
+  <initiated_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">39fa0c993a594950bb1b688</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7 Notification of Changes Whenever Kinja changes its privacy policy we will post those changes to this Privacy Policy page and other places we deem appropriate so our users are always aware of what information we collect how we use it and under what circumstances if any we disclose it The prior version of our Privacy Policy is found here the version before that is found here and more on why we ve made the most recent changes here You are responsible for reviewing and becoming familiar with any changes to this agreement</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#45e2f29f99fc41d283854bc:PolicyChange">
+<owl:NamedIndividual rdf:about="#a074270fbb8441f3ab3efaa:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <binded_to rdf:resource="#46061851c6fd4de580822e3:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">45e2f29f99fc41d283854bc</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <binded_to rdf:resource="#39fa0c993a594950bb1b688:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a074270fbb8441f3ab3efaa</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7 Notification of Changes Whenever Kinja changes its privacy policy we will post those changes to this Privacy Policy page and other places we deem appropriate so our users are always aware of what information we collect how we use it and under what circumstances if any we disclose it The prior version of our Privacy Policy is found here the version before that is found here and more on why we ve made the most recent changes here You are responsible for reviewing and becoming familiar with any changes to this agreement</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8979a263ca474db18642742:FPNotification">
+<owl:NamedIndividual rdf:about="#eb5bc933c7ea47979a8df02:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <notifies rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <has_mechanism rdf:resource="#769698cc855243ae9488e44:FPSpecificCommunicationMechanism"/>
-  <binded_to rdf:resource="#45e2f29f99fc41d283854bc:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8979a263ca474db18642742</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <notifies rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <has_mechanism rdf:resource="#ee2d8ecb8a864724ae68979:FPSpecificCommunicationMechanism"/>
+  <binded_to rdf:resource="#a074270fbb8441f3ab3efaa:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eb5bc933c7ea47979a8df02</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7 Notification of Changes Whenever Kinja changes its privacy policy we will post those changes to this Privacy Policy page and other places we deem appropriate so our users are always aware of what information we collect how we use it and under what circumstances if any we disclose it The prior version of our Privacy Policy is found here the version before that is found here and more on why we ve made the most recent changes here You are responsible for reviewing and becoming familiar with any changes to this agreement</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#52b5bde23c83456291ac997:InPrivacyPolicy">
+<owl:NamedIndividual rdf:about="#152a4ad671e34c03a449e4c:InPrivacyPolicy">
   <rdf:type rdf:resource="#InPrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">52b5bde23c83456291ac997</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">152a4ad671e34c03a449e4c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This Privacy Policy was most recently updated February 11, 2015.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2a04408fca8a4e2ab1efb5f:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#e72ec08499ab4f11b7e22c9:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2a04408fca8a4e2ab1efb5f</uuid>
+  <initiated_by rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e72ec08499ab4f11b7e22c9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9 Last Update This Privacy Policy was most recently updated February 11 2015</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#506534c72250401bb2c1042:PolicyChange">
+<owl:NamedIndividual rdf:about="#823e6d802fbb4a01985835e:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <binded_to rdf:resource="#2a04408fca8a4e2ab1efb5f:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">506534c72250401bb2c1042</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <binded_to rdf:resource="#e72ec08499ab4f11b7e22c9:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">823e6d802fbb4a01985835e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9 Last Update This Privacy Policy was most recently updated February 11 2015</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3ed98f9b1ff84825ac87efc:FPNotification">
+<owl:NamedIndividual rdf:about="#02fc0601abb44436aba99f2:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#ec0dcef917224253b85d193:FirstParty"/>
-  <notifies rdf:resource="#e2d00287a8c348359552c11:User"/>
-  <has_mechanism rdf:resource="#52b5bde23c83456291ac997:InPrivacyPolicy"/>
-  <binded_to rdf:resource="#506534c72250401bb2c1042:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3ed98f9b1ff84825ac87efc</uuid>
+  <initiated_by rdf:resource="#1e3aefee04ac44f7b9a146d:FirstParty"/>
+  <notifies rdf:resource="#8c75436bf4b64add8d60447:User"/>
+  <has_mechanism rdf:resource="#152a4ad671e34c03a449e4c:InPrivacyPolicy"/>
+  <binded_to rdf:resource="#823e6d802fbb4a01985835e:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">02fc0601abb44436aba99f2</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9 Last Update This Privacy Policy was most recently updated February 11 2015</evidence>
 </owl:NamedIndividual>

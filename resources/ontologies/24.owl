@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -901,6 +902,14 @@
   <rdfs:subClassOf rdf:resource="#UserSpecificCommunicationMechanism"/>
   <owl:disjointWith rdf:resource="#AutomaticCommunicationMechanism"/>
   <rdfs:subClassOf>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
+        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
+      </owl:unionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
       <owl:allValuesFrom>
@@ -909,14 +918,6 @@
         </owl:Class>
       </owl:allValuesFrom>
     </owl:Restriction>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
-        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
-      </owl:unionOf>
-    </owl:Class>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -959,18 +960,18 @@
 <owl:Class rdf:about="#FPSpecificCommunicationMechanism">
   <rdfs:subClassOf rdf:resource="#CommunicationMechanism"/>
   <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#mechanism_of"/>
-      <owl:allValuesFrom rdf:resource="#FPNotification"/>
-    </owl:Restriction>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
     <owl:Class>
       <owl:unionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#FPSpecificCommunicationMechanism"/>
         <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
       </owl:unionOf>
     </owl:Class>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#mechanism_of"/>
+      <owl:allValuesFrom rdf:resource="#FPNotification"/>
+    </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,715 +1305,715 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#d5b4ed1303dc45adbe0cde8:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#7e3cf9a5554d4017a5e805b:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d5b4ed1303dc45adbe0cde8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7e3cf9a5554d4017a5e805b</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b25670b020324ddc8b1f2a7:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#5984a171cb724f4199cbc2a:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <considers rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <considers rdf:resource="#19f5ef6302f942c2bae341b:ThirdParty"/>
-  <considers rdf:resource="#8a8f581194e2427c810d760:GenericData"/>
-  <considers rdf:resource="#194dc62f375443acbe44a7e:DataUse"/>
-  <considers rdf:resource="#9722583a8f344ee08e2cb68:DataProtection"/>
-  <considers rdf:resource="#4457e945a07a4ce6b073686:DataProtection"/>
-  <considers rdf:resource="#629c457655c249d898d56c9:DataProtection"/>
-  <considers rdf:resource="#cf1315853caf4140a2373b8:DataProtection"/>
-  <considers rdf:resource="#18c96f5e7301499fa1b70df:OptInOptOutControl"/>
-  <considers rdf:resource="#1864371d2c044742b12c4f2:OptInOptOutControl"/>
-  <considers rdf:resource="#c5bb6192ebf34d28b938d1e:OptInOptOutControl"/>
-  <considers rdf:resource="#b2267e9c4ca74e70a6edb09:OptInOptOutControl"/>
-  <considers rdf:resource="#6e9603196fc9493fa8800d6:OptInOptOutControl"/>
-  <considers rdf:resource="#3dc712086c254503b6913bc:OptInOptOutControl"/>
-  <considers rdf:resource="#58cf9a177d2642ebbf3c56c:PolicyChange"/>
-  <considers rdf:resource="#f2655ba2a9354bb591242af:FPNotification"/>
-  <considers rdf:resource="#b427001497144769a590f8e:OptInOptOutControl"/>
-  <considers rdf:resource="#4b128432d93340528dbf48e:PolicyChange"/>
-  <considers rdf:resource="#e3ade3e25a094d5f96bc8bc:FPNotification"/>
-  <considers rdf:resource="#7068a288f7a9464d8a33536:OptInOptOutControl"/>
-  <considers rdf:resource="#dac57b8df47b41a0bab10c0:PolicyChange"/>
-  <considers rdf:resource="#5542efa96f1e4f188e1581a:FPNotification"/>
-  <considers rdf:resource="#1b779ddc745445388b18d16:DataRetention"/>
-  <considers rdf:resource="#9309b83012f143a3a945c92:PersonalData"/>
-  <considers rdf:resource="#effb700513a0462ebe485f1:DataRetention"/>
-  <considers rdf:resource="#a9a5bca66d5f4c83accfb5a:AccountData"/>
-  <considers rdf:resource="#1d051f89ab8d47809a2f259:OptInOptOutControl"/>
-  <considers rdf:resource="#dc9a876287c34cffaac370d:AccountData"/>
-  <considers rdf:resource="#6ffeabb1226b481c9996b81:OptInOptOutControl"/>
-  <considers rdf:resource="#d345a1530b634af190df303:PersonalData"/>
-  <considers rdf:resource="#75512f77b751484398031ca:OptInOptOutControl"/>
-  <considers rdf:resource="#abba7dc726b2496ba2eb3dc:OptInOptOutControl"/>
-  <considers rdf:resource="#b16a3c2962944cb786b96e2:PolicyChange"/>
-  <considers rdf:resource="#75e366dbf5b4416dad3cbde:FPNotification"/>
-  <considers rdf:resource="#706bcc2b45d840a7933e85b:OptInOptOutControl"/>
-  <considers rdf:resource="#21f6336719a749b7a1b829e:PolicyChange"/>
-  <considers rdf:resource="#acf69ad18fef4261a39828b:FPNotification"/>
-  <considers rdf:resource="#8b112d508082442a948b5b0:OptInOptOutControl"/>
-  <considers rdf:resource="#699d7eb98aa342f19b1be04:PolicyChange"/>
-  <considers rdf:resource="#44803f3b9f7d40dbb263eb1:FPNotification"/>
-  <considers rdf:resource="#d85d5cecb4414307a60be55:OptInOptOutControl"/>
-  <considers rdf:resource="#7219b00e49a548d78fca914:PolicyChange"/>
-  <considers rdf:resource="#64c72b0b439a4d30b17bc7e:FPNotification"/>
-  <considers rdf:resource="#f91bc122777047158da5c22:OptInOptOutControl"/>
-  <considers rdf:resource="#bfedcbc27c7c4877a4044df:PolicyChange"/>
-  <considers rdf:resource="#62d0ed1ca5c3448fb63a0b3:FPNotification"/>
-  <considers rdf:resource="#d9ecf63e3eac41ac8b31c81:OptInOptOutControl"/>
-  <considers rdf:resource="#bf17d4f71b05417ea011570:PolicyChange"/>
-  <considers rdf:resource="#6bbb5aed7f854477ae6d0bc:FPNotification"/>
-  <considers rdf:resource="#39eb22003eaa47a9b723a54:OptInOptOutControl"/>
-  <considers rdf:resource="#5a6e8b97d4ab4b93aabd0f3:PolicyChange"/>
-  <considers rdf:resource="#1e3776e132694a4983282a7:FPNotification"/>
-  <considers rdf:resource="#9c23bd859f4b4936b39ff7c:OptInOptOutControl"/>
-  <considers rdf:resource="#d16d22ca0bac4c3db8f8552:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b25670b020324ddc8b1f2a7</uuid>
+  <considers rdf:resource="#f7297847b6df479681c3131:User"/>
+  <considers rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <considers rdf:resource="#f2af8e25db88434c9ab8c27:ThirdParty"/>
+  <considers rdf:resource="#81161bbaca0b419798e1a40:GenericData"/>
+  <considers rdf:resource="#942b356cf2db4cba897b80e:DataUse"/>
+  <considers rdf:resource="#4e17ae81a9e04216bfb743f:DataProtection"/>
+  <considers rdf:resource="#206df0c022cf4ab284b94fe:DataProtection"/>
+  <considers rdf:resource="#03b063cae7b74e5e9dc03da:DataProtection"/>
+  <considers rdf:resource="#46ea25c4bb0d4739ac67369:DataProtection"/>
+  <considers rdf:resource="#ac821c8b3fc3452e858f9e8:OptInOptOutControl"/>
+  <considers rdf:resource="#cb815fd512cf480190a4f67:OptInOptOutControl"/>
+  <considers rdf:resource="#f3ff29caebda44f7bc12bef:OptInOptOutControl"/>
+  <considers rdf:resource="#8b038f1b4d5e49ec87622ab:OptInOptOutControl"/>
+  <considers rdf:resource="#3b72040277d24c8d81b5114:OptInOptOutControl"/>
+  <considers rdf:resource="#8ab9f6d121d84a399101f46:OptInOptOutControl"/>
+  <considers rdf:resource="#a22e1157b32248dcb9411ca:PolicyChange"/>
+  <considers rdf:resource="#7afcf002362b4c729e81f24:FPNotification"/>
+  <considers rdf:resource="#04a1d5e5b1474762a045f3d:OptInOptOutControl"/>
+  <considers rdf:resource="#e22195ef5869480087cb1fa:PolicyChange"/>
+  <considers rdf:resource="#a5a5fd147e764b3890d24bf:FPNotification"/>
+  <considers rdf:resource="#aadc241b777749a88acce11:OptInOptOutControl"/>
+  <considers rdf:resource="#f8015d450d2e4419a7bfa49:PolicyChange"/>
+  <considers rdf:resource="#9127c45963b84acb8d2abe3:FPNotification"/>
+  <considers rdf:resource="#83a491bf1965416fa797168:DataRetention"/>
+  <considers rdf:resource="#f8b381244e6449a28043587:PersonalData"/>
+  <considers rdf:resource="#71eedcf6012340a29bdb3dc:DataRetention"/>
+  <considers rdf:resource="#2736a5c18071424bb348b94:AccountData"/>
+  <considers rdf:resource="#310c8120ce44416383fb67b:OptInOptOutControl"/>
+  <considers rdf:resource="#e93ae145867b4929ad027b2:AccountData"/>
+  <considers rdf:resource="#98da2e64aa524acda30e3d9:OptInOptOutControl"/>
+  <considers rdf:resource="#3c7f1cbac0cc43e6ae4ba07:PersonalData"/>
+  <considers rdf:resource="#f0a4b32d8e2245cf90d78e0:OptInOptOutControl"/>
+  <considers rdf:resource="#8d1930d740f04359bfb0f93:OptInOptOutControl"/>
+  <considers rdf:resource="#c11af4f8b05841999c58fbf:PolicyChange"/>
+  <considers rdf:resource="#d8ba049f0bd342cf98075c2:FPNotification"/>
+  <considers rdf:resource="#2939dd2628ae44ebb10c511:OptInOptOutControl"/>
+  <considers rdf:resource="#ef3fbf745abc4ba5b332c62:PolicyChange"/>
+  <considers rdf:resource="#08fa825c5cd749dea8108c4:FPNotification"/>
+  <considers rdf:resource="#098bf6609c824f2cb80d052:OptInOptOutControl"/>
+  <considers rdf:resource="#bf9ce8d19f9f48dba6da34e:PolicyChange"/>
+  <considers rdf:resource="#d8cf66c81d63412d90c135c:FPNotification"/>
+  <considers rdf:resource="#d968efb31e8c45b9bcaddb4:OptInOptOutControl"/>
+  <considers rdf:resource="#53dd9ce4cd564994aa568e1:PolicyChange"/>
+  <considers rdf:resource="#3e06720cacc047b29bf4851:FPNotification"/>
+  <considers rdf:resource="#e8b5174432d245f2b2a3788:OptInOptOutControl"/>
+  <considers rdf:resource="#20128344825f48c6966a365:PolicyChange"/>
+  <considers rdf:resource="#82f97b7ad6d143b5b12c9b9:FPNotification"/>
+  <considers rdf:resource="#17f277163f1f437c9cb430a:OptInOptOutControl"/>
+  <considers rdf:resource="#ae518e0178ef4e1f8273ec9:PolicyChange"/>
+  <considers rdf:resource="#dbd866cd967e4c20a34762f:FPNotification"/>
+  <considers rdf:resource="#3b04cd0198b0479c995f77c:OptInOptOutControl"/>
+  <considers rdf:resource="#c97baa523d1a48af883811a:PolicyChange"/>
+  <considers rdf:resource="#408cef5587a34fbbb82a256:FPNotification"/>
+  <considers rdf:resource="#43d70a1dde034b74bf08afe:OptInOptOutControl"/>
+  <considers rdf:resource="#8f4fc41f326641b78635f67:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5984a171cb724f4199cbc2a</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">thehill.com</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0f1821cf96fa474ab44c6eb:User">
+<owl:NamedIndividual rdf:about="#f7297847b6df479681c3131:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0f1821cf96fa474ab44c6eb</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f7297847b6df479681c3131</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#55ded50717d349ed904af6e:FirstParty">
+<owl:NamedIndividual rdf:about="#772d55a3af1a4723981ac82:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">55ded50717d349ed904af6e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">772d55a3af1a4723981ac82</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#19f5ef6302f942c2bae341b:ThirdParty">
+<owl:NamedIndividual rdf:about="#f2af8e25db88434c9ab8c27:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">19f5ef6302f942c2bae341b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f2af8e25db88434c9ab8c27</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8a8f581194e2427c810d760:GenericData">
+<owl:NamedIndividual rdf:about="#81161bbaca0b419798e1a40:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8a8f581194e2427c810d760</uuid>
+  <provided_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">81161bbaca0b419798e1a40</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personally identifiable informatio</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#159c230bbcbd4c8e80360dd:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#241863dee8d14338b22e815:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">159c230bbcbd4c8e80360dd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">241863dee8d14338b22e815</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">special offers and products and services f</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#194dc62f375443acbe44a7e:DataUse">
+<owl:NamedIndividual rdf:about="#942b356cf2db4cba897b80e:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <has_purpose rdf:resource="#159c230bbcbd4c8e80360dd:MarketingPurpose"/>
-  <applies_to rdf:resource="#8a8f581194e2427c810d760:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">194dc62f375443acbe44a7e</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <has_purpose rdf:resource="#241863dee8d14338b22e815:MarketingPurpose"/>
+  <applies_to rdf:resource="#81161bbaca0b419798e1a40:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">942b356cf2db4cba897b80e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may from time to time use your personally identifiable information to notify you of special offers and products and services from The Hill and/or from third parties that we think may be of interest to you It is possible that we may rent sell or otherwise transfer to third parties personally identifiable information about you This might include third parties such as service providers that analyze data process transactions advertisers sponsors or other third parties that participate in or administer our promotions sweepstakes surveys or provide marketing or promotional assistance or similar such services At any time you can contact The Hill to request that we not share your personally identifiable information with third parties as set forth in greater detail below</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0997f369ac1d4d1bb9988fc:AccessControls">
+<owl:NamedIndividual rdf:about="#223d9231670f4dd1bf14b24:AccessControls">
   <rdf:type rdf:resource="#AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0997f369ac1d4d1bb9988fc</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">223d9231670f4dd1bf14b24</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Access to your personally identifiable information by these contractors is limited to the information reasonably necessary in order for these Outside Contractors to perform their limited function for us.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9722583a8f344ee08e2cb68:DataProtection">
+<owl:NamedIndividual rdf:about="#4e17ae81a9e04216bfb743f:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <has_mechanism rdf:resource="#0997f369ac1d4d1bb9988fc:AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9722583a8f344ee08e2cb68</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <has_mechanism rdf:resource="#223d9231670f4dd1bf14b24:AccessControls"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4e17ae81a9e04216bfb743f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may employ independent contractors vendors and suppliers collectively Outside Contractors to provide specific services and products related to The Hill and the Site such as providing credit card processing and fraud screening order fulfillment and shipment mailing of The Hill publications and other materials hosting and maintaining the Site and developing applications for the Site These Outside Contractors may sometimes have limited access to information collected from you including your personally identifiable information in the course of providing products or services to us Access to your personally identifiable information by these contractors is limited to the information reasonably necessary in order for these Outside Contractors to perform their limited function for us We also require that these contractors i protect the privacy of your personally identifiable information consistent with this Privacy Policy and ii not use or disclose your personally identifiable information for any purpose other than providing us with products or services for which we contracted</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0e8d278b42fb485ca076cc4:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#853228f0233242a2af5b9c0:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0e8d278b42fb485ca076cc4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">853228f0233242a2af5b9c0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We also require that these contractors (i) protect the privacy of your personally identifiable information consistent with this Privacy Policy, and (ii) not use or disclose your personally identifiable information for any purpose other than providing us with products or services for which we contracted</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4457e945a07a4ce6b073686:DataProtection">
+<owl:NamedIndividual rdf:about="#206df0c022cf4ab284b94fe:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <has_mechanism rdf:resource="#0e8d278b42fb485ca076cc4:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4457e945a07a4ce6b073686</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <has_mechanism rdf:resource="#853228f0233242a2af5b9c0:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">206df0c022cf4ab284b94fe</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may employ independent contractors vendors and suppliers collectively Outside Contractors to provide specific services and products related to The Hill and the Site such as providing credit card processing and fraud screening order fulfillment and shipment mailing of The Hill publications and other materials hosting and maintaining the Site and developing applications for the Site These Outside Contractors may sometimes have limited access to information collected from you including your personally identifiable information in the course of providing products or services to us Access to your personally identifiable information by these contractors is limited to the information reasonably necessary in order for these Outside Contractors to perform their limited function for us We also require that these contractors i protect the privacy of your personally identifiable information consistent with this Privacy Policy and ii not use or disclose your personally identifiable information for any purpose other than providing us with products or services for which we contracted</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bb00be45538a45b189b0e1d:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#09b6f97180a3428b8bda05f:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bb00be45538a45b189b0e1d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">09b6f97180a3428b8bda05f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The Hill takes every effort to protect against unauthorized access to your personal information, and has put in place commercially reasonable physical, electronic, and managerial procedures to safeguard and secure the information we collect on the Site.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#629c457655c249d898d56c9:DataProtection">
+<owl:NamedIndividual rdf:about="#03b063cae7b74e5e9dc03da:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <has_mechanism rdf:resource="#bb00be45538a45b189b0e1d:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">629c457655c249d898d56c9</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <has_mechanism rdf:resource="#09b6f97180a3428b8bda05f:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">03b063cae7b74e5e9dc03da</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Our Commitment to Data Security The Hill takes every effort to protect against unauthorized access to your personal information and has put in place commercially reasonable physical electronic and managerial procedures to safeguard and secure the information we collect on the Site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#091926ca28be49ce82fe2d0:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#5555baced528466887ee5d8:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">091926ca28be49ce82fe2d0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5555baced528466887ee5d8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Notwithstanding the above commitment to protect your information from loss, misuse or alteration by third parties, you should be aware that there is always some risk involved in transmitting information over the Internet. Additionally, there also is some risk our security systems could be circumvented or breached. As a result, while we strive to protect your information, we cannot ensure or warrant the security and privacy of any information you transmit to us, and you do so at your own risk.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cf1315853caf4140a2373b8:DataProtection">
+<owl:NamedIndividual rdf:about="#46ea25c4bb0d4739ac67369:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <has_mechanism rdf:resource="#091926ca28be49ce82fe2d0:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cf1315853caf4140a2373b8</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <has_mechanism rdf:resource="#5555baced528466887ee5d8:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">46ea25c4bb0d4739ac67369</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Notwithstanding the above commitment to protect your information from loss misuse or alteration by third parties you should be aware that there is always some risk involved in transmitting information over the Internet Additionally there also is some risk our security systems could be circumvented or breached As a result while we strive to protect your information we cannot ensure or warrant the security and privacy of any information you transmit to us and you do so at your own risk</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f73a94804c0446dba67b3d1:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#270f3bc9ff824000b9dee29:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f73a94804c0446dba67b3d1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">270f3bc9ff824000b9dee29</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">opt-out</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#18c96f5e7301499fa1b70df:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#ac821c8b3fc3452e858f9e8:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <has_mechanism rdf:resource="#f73a94804c0446dba67b3d1:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">18c96f5e7301499fa1b70df</uuid>
+  <initiated_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <has_mechanism rdf:resource="#270f3bc9ff824000b9dee29:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ac821c8b3fc3452e858f9e8</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Opt-out You may at any time opt-out of receiving promotional communications from The Hill or third parties at any time by contacting our Information Privacy Manager at the address below Please note that if you decide to opt-out of receiving promotional information or other communications after you have previously opted-in your change in preference will only affect future contacts if the information already has been provided to third parties they may continue to use it</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b74320b6600d48ea89e5d08:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#16af5679b62c46e083a1edd:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b74320b6600d48ea89e5d08</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">16af5679b62c46e083a1edd</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">opt-out</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1864371d2c044742b12c4f2:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#cb815fd512cf480190a4f67:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <has_mechanism rdf:resource="#b74320b6600d48ea89e5d08:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1864371d2c044742b12c4f2</uuid>
+  <initiated_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <has_mechanism rdf:resource="#16af5679b62c46e083a1edd:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cb815fd512cf480190a4f67</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Opt-out You may at any time opt-out of receiving promotional communications from The Hill or third parties at any time by contacting our Information Privacy Manager at the address below Please note that if you decide to opt-out of receiving promotional information or other communications after you have previously opted-in your change in preference will only affect future contacts if the information already has been provided to third parties they may continue to use it</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#17c396555a62457895d25fe:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#63b18d15409a4d0786f5429:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">17c396555a62457895d25fe</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">63b18d15409a4d0786f5429</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">opt-out of receiving promotional communications from The Hill or third parties at any time by contacting our Information Privacy Manager at the address below.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c5bb6192ebf34d28b938d1e:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#f3ff29caebda44f7bc12bef:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <has_mechanism rdf:resource="#17c396555a62457895d25fe:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c5bb6192ebf34d28b938d1e</uuid>
+  <initiated_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <has_mechanism rdf:resource="#63b18d15409a4d0786f5429:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f3ff29caebda44f7bc12bef</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Opt-out You may at any time opt-out of receiving promotional communications from The Hill or third parties at any time by contacting our Information Privacy Manager at the address below Please note that if you decide to opt-out of receiving promotional information or other communications after you have previously opted-in your change in preference will only affect future contacts if the information already has been provided to third parties they may continue to use it</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#43985115a8da43f1926a1bf:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#a357b3f2186048f3aa16003:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">43985115a8da43f1926a1bf</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a357b3f2186048f3aa16003</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may at any time opt-out of receiving promotional communications from The Hill or third parties at any time by contacting our Information Privacy Manager at the address below.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b2267e9c4ca74e70a6edb09:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#8b038f1b4d5e49ec87622ab:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <has_mechanism rdf:resource="#43985115a8da43f1926a1bf:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b2267e9c4ca74e70a6edb09</uuid>
+  <initiated_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <has_mechanism rdf:resource="#a357b3f2186048f3aa16003:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8b038f1b4d5e49ec87622ab</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Opt-out You may at any time opt-out of receiving promotional communications from The Hill or third parties at any time by contacting our Information Privacy Manager at the address below Please note that if you decide to opt-out of receiving promotional information or other communications after you have previously opted-in your change in preference will only affect future contacts if the information already has been provided to third parties they may continue to use it</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#201bdc6105ec4598a6abd1c:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#b39d7dfc66084d0ba8ff035:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">201bdc6105ec4598a6abd1c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b39d7dfc66084d0ba8ff035</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may at any time opt-out of receiving promotional communications from The Hill or third parties at any time by contacting our Information Privacy Manager at the address below.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6e9603196fc9493fa8800d6:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#3b72040277d24c8d81b5114:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <has_mechanism rdf:resource="#201bdc6105ec4598a6abd1c:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6e9603196fc9493fa8800d6</uuid>
+  <initiated_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <has_mechanism rdf:resource="#b39d7dfc66084d0ba8ff035:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3b72040277d24c8d81b5114</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Opt-out You may at any time opt-out of receiving promotional communications from The Hill or third parties at any time by contacting our Information Privacy Manager at the address below Please note that if you decide to opt-out of receiving promotional information or other communications after you have previously opted-in your change in preference will only affect future contacts if the information already has been provided to third parties they may continue to use it</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d3d7116460684a8ba01b18f:FPSpecificCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#6884fe97fbeb409ea8537c3:FPSpecificCommunicationMechanism">
   <rdf:type rdf:resource="#FPSpecificCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d3d7116460684a8ba01b18f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6884fe97fbeb409ea8537c3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">contact you as necessary</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3dc712086c254503b6913bc:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#8ab9f6d121d84a399101f46:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3dc712086c254503b6913bc</uuid>
+  <initiated_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8ab9f6d121d84a399101f46</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Even if you do not opt-in to receive promotional information or you have opted-in and then later choose to opt-out we reserve the right to contact you as necessary in our sole discretion regarding The Hill any request you have made for services or products from The Hill changes to this Privacy Policy and any other matters that may be relevant to the information we collect</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#58cf9a177d2642ebbf3c56c:PolicyChange">
+<owl:NamedIndividual rdf:about="#a22e1157b32248dcb9411ca:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <binded_to rdf:resource="#3dc712086c254503b6913bc:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">58cf9a177d2642ebbf3c56c</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <binded_to rdf:resource="#8ab9f6d121d84a399101f46:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a22e1157b32248dcb9411ca</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Even if you do not opt-in to receive promotional information or you have opted-in and then later choose to opt-out we reserve the right to contact you as necessary in our sole discretion regarding The Hill any request you have made for services or products from The Hill changes to this Privacy Policy and any other matters that may be relevant to the information we collect</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f2655ba2a9354bb591242af:FPNotification">
+<owl:NamedIndividual rdf:about="#7afcf002362b4c729e81f24:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <notifies rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <has_mechanism rdf:resource="#d3d7116460684a8ba01b18f:FPSpecificCommunicationMechanism"/>
-  <binded_to rdf:resource="#58cf9a177d2642ebbf3c56c:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f2655ba2a9354bb591242af</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <notifies rdf:resource="#f7297847b6df479681c3131:User"/>
+  <has_mechanism rdf:resource="#6884fe97fbeb409ea8537c3:FPSpecificCommunicationMechanism"/>
+  <binded_to rdf:resource="#a22e1157b32248dcb9411ca:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7afcf002362b4c729e81f24</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Even if you do not opt-in to receive promotional information or you have opted-in and then later choose to opt-out we reserve the right to contact you as necessary in our sole discretion regarding The Hill any request you have made for services or products from The Hill changes to this Privacy Policy and any other matters that may be relevant to the information we collect</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b427001497144769a590f8e:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#04a1d5e5b1474762a045f3d:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b427001497144769a590f8e</uuid>
+  <initiated_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">04a1d5e5b1474762a045f3d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Even if you do not opt-in to receive promotional information or you have opted-in and then later choose to opt-out we reserve the right to contact you as necessary in our sole discretion regarding The Hill any request you have made for services or products from The Hill changes to this Privacy Policy and any other matters that may be relevant to the information we collect</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4b128432d93340528dbf48e:PolicyChange">
+<owl:NamedIndividual rdf:about="#e22195ef5869480087cb1fa:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <binded_to rdf:resource="#b427001497144769a590f8e:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4b128432d93340528dbf48e</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <binded_to rdf:resource="#04a1d5e5b1474762a045f3d:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e22195ef5869480087cb1fa</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Even if you do not opt-in to receive promotional information or you have opted-in and then later choose to opt-out we reserve the right to contact you as necessary in our sole discretion regarding The Hill any request you have made for services or products from The Hill changes to this Privacy Policy and any other matters that may be relevant to the information we collect</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e3ade3e25a094d5f96bc8bc:FPNotification">
+<owl:NamedIndividual rdf:about="#a5a5fd147e764b3890d24bf:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <notifies rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <binded_to rdf:resource="#4b128432d93340528dbf48e:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e3ade3e25a094d5f96bc8bc</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <notifies rdf:resource="#f7297847b6df479681c3131:User"/>
+  <binded_to rdf:resource="#e22195ef5869480087cb1fa:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a5a5fd147e764b3890d24bf</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Even if you do not opt-in to receive promotional information or you have opted-in and then later choose to opt-out we reserve the right to contact you as necessary in our sole discretion regarding The Hill any request you have made for services or products from The Hill changes to this Privacy Policy and any other matters that may be relevant to the information we collect</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#73ebcc8ef850463dae1b9be:FPSpecificCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#36aa17455bb6438592eb4b5:FPSpecificCommunicationMechanism">
   <rdf:type rdf:resource="#FPSpecificCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">73ebcc8ef850463dae1b9be</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">36aa17455bb6438592eb4b5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">we reserve the right to contact you as necessary</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7068a288f7a9464d8a33536:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#aadc241b777749a88acce11:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7068a288f7a9464d8a33536</uuid>
+  <initiated_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aadc241b777749a88acce11</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Even if you do not opt-in to receive promotional information or you have opted-in and then later choose to opt-out we reserve the right to contact you as necessary in our sole discretion regarding The Hill any request you have made for services or products from The Hill changes to this Privacy Policy and any other matters that may be relevant to the information we collect</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dac57b8df47b41a0bab10c0:PolicyChange">
+<owl:NamedIndividual rdf:about="#f8015d450d2e4419a7bfa49:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <binded_to rdf:resource="#7068a288f7a9464d8a33536:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dac57b8df47b41a0bab10c0</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <binded_to rdf:resource="#aadc241b777749a88acce11:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f8015d450d2e4419a7bfa49</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Even if you do not opt-in to receive promotional information or you have opted-in and then later choose to opt-out we reserve the right to contact you as necessary in our sole discretion regarding The Hill any request you have made for services or products from The Hill changes to this Privacy Policy and any other matters that may be relevant to the information we collect</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5542efa96f1e4f188e1581a:FPNotification">
+<owl:NamedIndividual rdf:about="#9127c45963b84acb8d2abe3:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <notifies rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <has_mechanism rdf:resource="#73ebcc8ef850463dae1b9be:FPSpecificCommunicationMechanism"/>
-  <binded_to rdf:resource="#dac57b8df47b41a0bab10c0:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5542efa96f1e4f188e1581a</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <notifies rdf:resource="#f7297847b6df479681c3131:User"/>
+  <has_mechanism rdf:resource="#36aa17455bb6438592eb4b5:FPSpecificCommunicationMechanism"/>
+  <binded_to rdf:resource="#f8015d450d2e4419a7bfa49:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9127c45963b84acb8d2abe3</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Even if you do not opt-in to receive promotional information or you have opted-in and then later choose to opt-out we reserve the right to contact you as necessary in our sole discretion regarding The Hill any request you have made for services or products from The Hill changes to this Privacy Policy and any other matters that may be relevant to the information we collect</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1f212f1066854096bdc5680:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#e49b925612044b41aa52bcb:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1f212f1066854096bdc5680</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e49b925612044b41aa52bcb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Even if you do not opt-in to receive promotional information or you have opted-in and then later choose to opt-out, we reserve the right to contact you as necessary in our sole discretion regarding The Hill, any request you have made for services or products from The Hill, changes to this Privacy Policy and any other matters that may be relevant to the information we collect.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1b779ddc745445388b18d16:DataRetention">
+<owl:NamedIndividual rdf:about="#83a491bf1965416fa797168:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <has_purpose rdf:resource="#1f212f1066854096bdc5680:ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1b779ddc745445388b18d16</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <has_purpose rdf:resource="#e49b925612044b41aa52bcb:ServiceProvisionPurpose"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">83a491bf1965416fa797168</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Even if you do not opt-in to receive promotional information or you have opted-in and then later choose to opt-out we reserve the right to contact you as necessary in our sole discretion regarding The Hill any request you have made for services or products from The Hill changes to this Privacy Policy and any other matters that may be relevant to the information we collect</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#19477ba39f1247a092a93b0:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#f31089739b654b65a643ce1:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">19477ba39f1247a092a93b0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f31089739b654b65a643ce1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Even if you do not opt-in to receive promotional information or you have opted-in and then later choose to opt-out, we reserve the right to contact you as necessary in our sole discretion regarding The Hill, any request you have made for services or products from The Hill, changes to this Privacy Policy and any other matters that may be relevant to the information we collect.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9309b83012f143a3a945c92:PersonalData">
+<owl:NamedIndividual rdf:about="#f8b381244e6449a28043587:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9309b83012f143a3a945c92</uuid>
+  <provided_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f8b381244e6449a28043587</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">contact</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#effb700513a0462ebe485f1:DataRetention">
+<owl:NamedIndividual rdf:about="#71eedcf6012340a29bdb3dc:DataRetention">
   <rdf:type rdf:resource="#DataRetention"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <has_purpose rdf:resource="#19477ba39f1247a092a93b0:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#9309b83012f143a3a945c92:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">effb700513a0462ebe485f1</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <has_purpose rdf:resource="#f31089739b654b65a643ce1:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#f8b381244e6449a28043587:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">71eedcf6012340a29bdb3dc</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Even if you do not opt-in to receive promotional information or you have opted-in and then later choose to opt-out we reserve the right to contact you as necessary in our sole discretion regarding The Hill any request you have made for services or products from The Hill changes to this Privacy Policy and any other matters that may be relevant to the information we collect</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6cf18847a33f481c94b7150:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#5ea35713cdff4fd7b7ce0f9:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6cf18847a33f481c94b7150</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5ea35713cdff4fd7b7ce0f9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Correcting Information You are responsible for providing accurate information when making purchases registering with any portions of the Site that require registration or performing other functions that might require you to submit personally identifiable information to the Site If you wish to correct any personally identifiable information you have provided to us in this manner you may do so by contacting our Information Privacy Manager at the address below</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a9a5bca66d5f4c83accfb5a:AccountData">
+<owl:NamedIndividual rdf:about="#2736a5c18071424bb348b94:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a9a5bca66d5f4c83accfb5a</uuid>
+  <provided_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2736a5c18071424bb348b94</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1d051f89ab8d47809a2f259:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#310c8120ce44416383fb67b:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <has_mechanism rdf:resource="#6cf18847a33f481c94b7150:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#a9a5bca66d5f4c83accfb5a:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1d051f89ab8d47809a2f259</uuid>
+  <initiated_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <has_mechanism rdf:resource="#5ea35713cdff4fd7b7ce0f9:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#2736a5c18071424bb348b94:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">310c8120ce44416383fb67b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Correcting Information You are responsible for providing accurate information when making purchases registering with any portions of the Site that require registration or performing other functions that might require you to submit personally identifiable information to the Site If you wish to correct any personally identifiable information you have provided to us in this manner you may do so by contacting our Information Privacy Manager at the address below</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8ef6089076614af381f00af:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#4055e4e8e6c2418a84f5e6f:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8ef6089076614af381f00af</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4055e4e8e6c2418a84f5e6f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Correcting Information You are responsible for providing accurate information when making purchases registering with any portions of the Site that require registration or performing other functions that might require you to submit personally identifiable information to the Site If you wish to correct any personally identifiable information you have provided to us in this manner you may do so by contacting our Information Privacy Manager at the address below</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dc9a876287c34cffaac370d:AccountData">
+<owl:NamedIndividual rdf:about="#e93ae145867b4929ad027b2:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dc9a876287c34cffaac370d</uuid>
+  <provided_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e93ae145867b4929ad027b2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6ffeabb1226b481c9996b81:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#98da2e64aa524acda30e3d9:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <has_mechanism rdf:resource="#8ef6089076614af381f00af:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#dc9a876287c34cffaac370d:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6ffeabb1226b481c9996b81</uuid>
+  <initiated_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <has_mechanism rdf:resource="#4055e4e8e6c2418a84f5e6f:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#e93ae145867b4929ad027b2:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">98da2e64aa524acda30e3d9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Correcting Information You are responsible for providing accurate information when making purchases registering with any portions of the Site that require registration or performing other functions that might require you to submit personally identifiable information to the Site If you wish to correct any personally identifiable information you have provided to us in this manner you may do so by contacting our Information Privacy Manager at the address below</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e7c255e139c94ba4a0fe91d:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#9c6c2337bf574ac5925bbb3:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e7c255e139c94ba4a0fe91d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9c6c2337bf574ac5925bbb3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Correcting Information You are responsible for providing accurate information when making purchases registering with any portions of the Site that require registration or performing other functions that might require you to submit personally identifiable information to the Site If you wish to correct any personally identifiable information you have provided to us in this manner you may do so by contacting our Information Privacy Manager at the address below</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d345a1530b634af190df303:PersonalData">
+<owl:NamedIndividual rdf:about="#3c7f1cbac0cc43e6ae4ba07:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d345a1530b634af190df303</uuid>
+  <provided_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3c7f1cbac0cc43e6ae4ba07</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Other data about user</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#75512f77b751484398031ca:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#f0a4b32d8e2245cf90d78e0:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <has_mechanism rdf:resource="#e7c255e139c94ba4a0fe91d:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#d345a1530b634af190df303:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">75512f77b751484398031ca</uuid>
+  <initiated_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <has_mechanism rdf:resource="#9c6c2337bf574ac5925bbb3:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#3c7f1cbac0cc43e6ae4ba07:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f0a4b32d8e2245cf90d78e0</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Correcting Information You are responsible for providing accurate information when making purchases registering with any portions of the Site that require registration or performing other functions that might require you to submit personally identifiable information to the Site If you wish to correct any personally identifiable information you have provided to us in this manner you may do so by contacting our Information Privacy Manager at the address below</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1884cee8b0184b1bba05bc8:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#58fcd54b522c45a284e86b3:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1884cee8b0184b1bba05bc8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">58fcd54b522c45a284e86b3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">notice on the Site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#abba7dc726b2496ba2eb3dc:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#8d1930d740f04359bfb0f93:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">abba7dc726b2496ba2eb3dc</uuid>
+  <initiated_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8d1930d740f04359bfb0f93</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes To The Privacy Policy This Privacy Policy is effective as of February 26th 2014 We reserve the right to change this Privacy Policy at any time by notifying users We may notify you by posting a notice on the Site or by contacting you through electronic mail or other means Your continued use of the Site following the posting of changes to this Privacy Policy means you accept those changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b16a3c2962944cb786b96e2:PolicyChange">
+<owl:NamedIndividual rdf:about="#c11af4f8b05841999c58fbf:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <binded_to rdf:resource="#abba7dc726b2496ba2eb3dc:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b16a3c2962944cb786b96e2</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <binded_to rdf:resource="#8d1930d740f04359bfb0f93:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c11af4f8b05841999c58fbf</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes To The Privacy Policy This Privacy Policy is effective as of February 26th 2014 We reserve the right to change this Privacy Policy at any time by notifying users We may notify you by posting a notice on the Site or by contacting you through electronic mail or other means Your continued use of the Site following the posting of changes to this Privacy Policy means you accept those changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#75e366dbf5b4416dad3cbde:FPNotification">
+<owl:NamedIndividual rdf:about="#d8ba049f0bd342cf98075c2:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <notifies rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <has_mechanism rdf:resource="#1884cee8b0184b1bba05bc8:OnWebsitePage"/>
-  <binded_to rdf:resource="#b16a3c2962944cb786b96e2:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">75e366dbf5b4416dad3cbde</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <notifies rdf:resource="#f7297847b6df479681c3131:User"/>
+  <has_mechanism rdf:resource="#58fcd54b522c45a284e86b3:OnWebsitePage"/>
+  <binded_to rdf:resource="#c11af4f8b05841999c58fbf:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d8ba049f0bd342cf98075c2</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes To The Privacy Policy This Privacy Policy is effective as of February 26th 2014 We reserve the right to change this Privacy Policy at any time by notifying users We may notify you by posting a notice on the Site or by contacting you through electronic mail or other means Your continued use of the Site following the posting of changes to this Privacy Policy means you accept those changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a74f35e8a77841078d0d99b:FPSpecificCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#73ccea0234384ae3bf5b3c1:FPSpecificCommunicationMechanism">
   <rdf:type rdf:resource="#FPSpecificCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a74f35e8a77841078d0d99b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">73ccea0234384ae3bf5b3c1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">contacting you through electronic mail or other means.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#706bcc2b45d840a7933e85b:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#2939dd2628ae44ebb10c511:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">706bcc2b45d840a7933e85b</uuid>
+  <initiated_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2939dd2628ae44ebb10c511</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes To The Privacy Policy This Privacy Policy is effective as of February 26th 2014 We reserve the right to change this Privacy Policy at any time by notifying users We may notify you by posting a notice on the Site or by contacting you through electronic mail or other means Your continued use of the Site following the posting of changes to this Privacy Policy means you accept those changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#21f6336719a749b7a1b829e:PolicyChange">
+<owl:NamedIndividual rdf:about="#ef3fbf745abc4ba5b332c62:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <binded_to rdf:resource="#706bcc2b45d840a7933e85b:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">21f6336719a749b7a1b829e</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <binded_to rdf:resource="#2939dd2628ae44ebb10c511:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ef3fbf745abc4ba5b332c62</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes To The Privacy Policy This Privacy Policy is effective as of February 26th 2014 We reserve the right to change this Privacy Policy at any time by notifying users We may notify you by posting a notice on the Site or by contacting you through electronic mail or other means Your continued use of the Site following the posting of changes to this Privacy Policy means you accept those changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#acf69ad18fef4261a39828b:FPNotification">
+<owl:NamedIndividual rdf:about="#08fa825c5cd749dea8108c4:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <notifies rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <has_mechanism rdf:resource="#a74f35e8a77841078d0d99b:FPSpecificCommunicationMechanism"/>
-  <binded_to rdf:resource="#21f6336719a749b7a1b829e:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">acf69ad18fef4261a39828b</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <notifies rdf:resource="#f7297847b6df479681c3131:User"/>
+  <has_mechanism rdf:resource="#73ccea0234384ae3bf5b3c1:FPSpecificCommunicationMechanism"/>
+  <binded_to rdf:resource="#ef3fbf745abc4ba5b332c62:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">08fa825c5cd749dea8108c4</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes To The Privacy Policy This Privacy Policy is effective as of February 26th 2014 We reserve the right to change this Privacy Policy at any time by notifying users We may notify you by posting a notice on the Site or by contacting you through electronic mail or other means Your continued use of the Site following the posting of changes to this Privacy Policy means you accept those changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ed5c1a0213664617b1fa24a:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#ed02182ce69b4616b3f52c3:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ed5c1a0213664617b1fa24a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ed02182ce69b4616b3f52c3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">posting a notice on the Site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8b112d508082442a948b5b0:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#098bf6609c824f2cb80d052:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8b112d508082442a948b5b0</uuid>
+  <initiated_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">098bf6609c824f2cb80d052</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes To The Privacy Policy This Privacy Policy is effective as of February 26th 2014 We reserve the right to change this Privacy Policy at any time by notifying users We may notify you by posting a notice on the Site or by contacting you through electronic mail or other means Your continued use of the Site following the posting of changes to this Privacy Policy means you accept those changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#699d7eb98aa342f19b1be04:PolicyChange">
+<owl:NamedIndividual rdf:about="#bf9ce8d19f9f48dba6da34e:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <binded_to rdf:resource="#8b112d508082442a948b5b0:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">699d7eb98aa342f19b1be04</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <binded_to rdf:resource="#098bf6609c824f2cb80d052:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bf9ce8d19f9f48dba6da34e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes To The Privacy Policy This Privacy Policy is effective as of February 26th 2014 We reserve the right to change this Privacy Policy at any time by notifying users We may notify you by posting a notice on the Site or by contacting you through electronic mail or other means Your continued use of the Site following the posting of changes to this Privacy Policy means you accept those changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#44803f3b9f7d40dbb263eb1:FPNotification">
+<owl:NamedIndividual rdf:about="#d8cf66c81d63412d90c135c:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <notifies rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <has_mechanism rdf:resource="#ed5c1a0213664617b1fa24a:OnWebsitePage"/>
-  <binded_to rdf:resource="#699d7eb98aa342f19b1be04:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">44803f3b9f7d40dbb263eb1</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <notifies rdf:resource="#f7297847b6df479681c3131:User"/>
+  <has_mechanism rdf:resource="#ed02182ce69b4616b3f52c3:OnWebsitePage"/>
+  <binded_to rdf:resource="#bf9ce8d19f9f48dba6da34e:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d8cf66c81d63412d90c135c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes To The Privacy Policy This Privacy Policy is effective as of February 26th 2014 We reserve the right to change this Privacy Policy at any time by notifying users We may notify you by posting a notice on the Site or by contacting you through electronic mail or other means Your continued use of the Site following the posting of changes to this Privacy Policy means you accept those changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#106e12d5632942e9a41f6b1:FPSpecificCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#e4db6d0aab844290b69264d:FPSpecificCommunicationMechanism">
   <rdf:type rdf:resource="#FPSpecificCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">106e12d5632942e9a41f6b1</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e4db6d0aab844290b69264d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">by contacting you through electronic mail</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d85d5cecb4414307a60be55:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#d968efb31e8c45b9bcaddb4:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d85d5cecb4414307a60be55</uuid>
+  <initiated_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d968efb31e8c45b9bcaddb4</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes To The Privacy Policy This Privacy Policy is effective as of February 26th 2014 We reserve the right to change this Privacy Policy at any time by notifying users We may notify you by posting a notice on the Site or by contacting you through electronic mail or other means Your continued use of the Site following the posting of changes to this Privacy Policy means you accept those changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7219b00e49a548d78fca914:PolicyChange">
+<owl:NamedIndividual rdf:about="#53dd9ce4cd564994aa568e1:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <binded_to rdf:resource="#d85d5cecb4414307a60be55:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7219b00e49a548d78fca914</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <binded_to rdf:resource="#d968efb31e8c45b9bcaddb4:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">53dd9ce4cd564994aa568e1</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes To The Privacy Policy This Privacy Policy is effective as of February 26th 2014 We reserve the right to change this Privacy Policy at any time by notifying users We may notify you by posting a notice on the Site or by contacting you through electronic mail or other means Your continued use of the Site following the posting of changes to this Privacy Policy means you accept those changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#64c72b0b439a4d30b17bc7e:FPNotification">
+<owl:NamedIndividual rdf:about="#3e06720cacc047b29bf4851:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <notifies rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <has_mechanism rdf:resource="#106e12d5632942e9a41f6b1:FPSpecificCommunicationMechanism"/>
-  <binded_to rdf:resource="#7219b00e49a548d78fca914:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">64c72b0b439a4d30b17bc7e</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <notifies rdf:resource="#f7297847b6df479681c3131:User"/>
+  <has_mechanism rdf:resource="#e4db6d0aab844290b69264d:FPSpecificCommunicationMechanism"/>
+  <binded_to rdf:resource="#53dd9ce4cd564994aa568e1:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3e06720cacc047b29bf4851</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes To The Privacy Policy This Privacy Policy is effective as of February 26th 2014 We reserve the right to change this Privacy Policy at any time by notifying users We may notify you by posting a notice on the Site or by contacting you through electronic mail or other means Your continued use of the Site following the posting of changes to this Privacy Policy means you accept those changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#348b00ab3bc54be2b64dcb0:FPSpecificCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#2b780f4ab2834dce81fc781:FPSpecificCommunicationMechanism">
   <rdf:type rdf:resource="#FPSpecificCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">348b00ab3bc54be2b64dcb0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2b780f4ab2834dce81fc781</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">other means</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f91bc122777047158da5c22:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#e8b5174432d245f2b2a3788:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f91bc122777047158da5c22</uuid>
+  <initiated_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e8b5174432d245f2b2a3788</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes To The Privacy Policy This Privacy Policy is effective as of February 26th 2014 We reserve the right to change this Privacy Policy at any time by notifying users We may notify you by posting a notice on the Site or by contacting you through electronic mail or other means Your continued use of the Site following the posting of changes to this Privacy Policy means you accept those changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bfedcbc27c7c4877a4044df:PolicyChange">
+<owl:NamedIndividual rdf:about="#20128344825f48c6966a365:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <binded_to rdf:resource="#f91bc122777047158da5c22:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bfedcbc27c7c4877a4044df</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <binded_to rdf:resource="#e8b5174432d245f2b2a3788:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">20128344825f48c6966a365</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes To The Privacy Policy This Privacy Policy is effective as of February 26th 2014 We reserve the right to change this Privacy Policy at any time by notifying users We may notify you by posting a notice on the Site or by contacting you through electronic mail or other means Your continued use of the Site following the posting of changes to this Privacy Policy means you accept those changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#62d0ed1ca5c3448fb63a0b3:FPNotification">
+<owl:NamedIndividual rdf:about="#82f97b7ad6d143b5b12c9b9:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <notifies rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <has_mechanism rdf:resource="#348b00ab3bc54be2b64dcb0:FPSpecificCommunicationMechanism"/>
-  <binded_to rdf:resource="#bfedcbc27c7c4877a4044df:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">62d0ed1ca5c3448fb63a0b3</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <notifies rdf:resource="#f7297847b6df479681c3131:User"/>
+  <has_mechanism rdf:resource="#2b780f4ab2834dce81fc781:FPSpecificCommunicationMechanism"/>
+  <binded_to rdf:resource="#20128344825f48c6966a365:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">82f97b7ad6d143b5b12c9b9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes To The Privacy Policy This Privacy Policy is effective as of February 26th 2014 We reserve the right to change this Privacy Policy at any time by notifying users We may notify you by posting a notice on the Site or by contacting you through electronic mail or other means Your continued use of the Site following the posting of changes to this Privacy Policy means you accept those changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3f2c9032cea44935ac8bdb0:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#5f31978070a8464d89b6190:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3f2c9032cea44935ac8bdb0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5f31978070a8464d89b6190</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may notify you by posting a notice on the Site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d9ecf63e3eac41ac8b31c81:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#17f277163f1f437c9cb430a:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d9ecf63e3eac41ac8b31c81</uuid>
+  <initiated_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">17f277163f1f437c9cb430a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes To The Privacy Policy This Privacy Policy is effective as of February 26th 2014 We reserve the right to change this Privacy Policy at any time by notifying users We may notify you by posting a notice on the Site or by contacting you through electronic mail or other means Your continued use of the Site following the posting of changes to this Privacy Policy means you accept those changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bf17d4f71b05417ea011570:PolicyChange">
+<owl:NamedIndividual rdf:about="#ae518e0178ef4e1f8273ec9:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <binded_to rdf:resource="#d9ecf63e3eac41ac8b31c81:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bf17d4f71b05417ea011570</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <binded_to rdf:resource="#17f277163f1f437c9cb430a:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ae518e0178ef4e1f8273ec9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes To The Privacy Policy This Privacy Policy is effective as of February 26th 2014 We reserve the right to change this Privacy Policy at any time by notifying users We may notify you by posting a notice on the Site or by contacting you through electronic mail or other means Your continued use of the Site following the posting of changes to this Privacy Policy means you accept those changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6bbb5aed7f854477ae6d0bc:FPNotification">
+<owl:NamedIndividual rdf:about="#dbd866cd967e4c20a34762f:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <notifies rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <has_mechanism rdf:resource="#3f2c9032cea44935ac8bdb0:OnWebsitePage"/>
-  <binded_to rdf:resource="#bf17d4f71b05417ea011570:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6bbb5aed7f854477ae6d0bc</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <notifies rdf:resource="#f7297847b6df479681c3131:User"/>
+  <has_mechanism rdf:resource="#5f31978070a8464d89b6190:OnWebsitePage"/>
+  <binded_to rdf:resource="#ae518e0178ef4e1f8273ec9:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dbd866cd967e4c20a34762f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes To The Privacy Policy This Privacy Policy is effective as of February 26th 2014 We reserve the right to change this Privacy Policy at any time by notifying users We may notify you by posting a notice on the Site or by contacting you through electronic mail or other means Your continued use of the Site following the posting of changes to this Privacy Policy means you accept those changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fbf5c1408eb24ef08df7dfd:FPSpecificCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#668583319c364fae90be23e:FPSpecificCommunicationMechanism">
   <rdf:type rdf:resource="#FPSpecificCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fbf5c1408eb24ef08df7dfd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">668583319c364fae90be23e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">by contacting you through electronic mail or other means</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#39eb22003eaa47a9b723a54:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#3b04cd0198b0479c995f77c:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">39eb22003eaa47a9b723a54</uuid>
+  <initiated_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3b04cd0198b0479c995f77c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes To The Privacy Policy This Privacy Policy is effective as of February 26th 2014 We reserve the right to change this Privacy Policy at any time by notifying users We may notify you by posting a notice on the Site or by contacting you through electronic mail or other means Your continued use of the Site following the posting of changes to this Privacy Policy means you accept those changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5a6e8b97d4ab4b93aabd0f3:PolicyChange">
+<owl:NamedIndividual rdf:about="#c97baa523d1a48af883811a:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <binded_to rdf:resource="#39eb22003eaa47a9b723a54:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5a6e8b97d4ab4b93aabd0f3</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <binded_to rdf:resource="#3b04cd0198b0479c995f77c:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c97baa523d1a48af883811a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes To The Privacy Policy This Privacy Policy is effective as of February 26th 2014 We reserve the right to change this Privacy Policy at any time by notifying users We may notify you by posting a notice on the Site or by contacting you through electronic mail or other means Your continued use of the Site following the posting of changes to this Privacy Policy means you accept those changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1e3776e132694a4983282a7:FPNotification">
+<owl:NamedIndividual rdf:about="#408cef5587a34fbbb82a256:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#55ded50717d349ed904af6e:FirstParty"/>
-  <notifies rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <has_mechanism rdf:resource="#fbf5c1408eb24ef08df7dfd:FPSpecificCommunicationMechanism"/>
-  <binded_to rdf:resource="#5a6e8b97d4ab4b93aabd0f3:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1e3776e132694a4983282a7</uuid>
+  <initiated_by rdf:resource="#772d55a3af1a4723981ac82:FirstParty"/>
+  <notifies rdf:resource="#f7297847b6df479681c3131:User"/>
+  <has_mechanism rdf:resource="#668583319c364fae90be23e:FPSpecificCommunicationMechanism"/>
+  <binded_to rdf:resource="#c97baa523d1a48af883811a:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">408cef5587a34fbbb82a256</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Changes To The Privacy Policy This Privacy Policy is effective as of February 26th 2014 We reserve the right to change this Privacy Policy at any time by notifying users We may notify you by posting a notice on the Site or by contacting you through electronic mail or other means Your continued use of the Site following the posting of changes to this Privacy Policy means you accept those changes</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#db97e2f813cb42a292ce15d:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#4c55da139ded4014b4e8383:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">db97e2f813cb42a292ce15d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4c55da139ded4014b4e8383</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">please do not make any use of the Site.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9c23bd859f4b4936b39ff7c:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#43d70a1dde034b74bf08afe:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <has_mechanism rdf:resource="#db97e2f813cb42a292ce15d:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9c23bd859f4b4936b39ff7c</uuid>
+  <initiated_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <has_mechanism rdf:resource="#4c55da139ded4014b4e8383:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">43d70a1dde034b74bf08afe</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What If You Do Not Agree To The Terms Of This Privacy Policy? As a subscriber to the Site or otherwise by using the Site you signify that you agree to this Privacy Policy If you do not agree to this Privacy Policy please do not make any use of the Site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#512bdc4863ca4cf4b5d0ba9:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#e7f182757fb649a891cd803:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">512bdc4863ca4cf4b5d0ba9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e7f182757fb649a891cd803</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you do not agree to this Privacy Policy, please do not make any use of the Site.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d16d22ca0bac4c3db8f8552:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#8f4fc41f326641b78635f67:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#0f1821cf96fa474ab44c6eb:User"/>
-  <has_mechanism rdf:resource="#512bdc4863ca4cf4b5d0ba9:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d16d22ca0bac4c3db8f8552</uuid>
+  <initiated_by rdf:resource="#f7297847b6df479681c3131:User"/>
+  <has_mechanism rdf:resource="#e7f182757fb649a891cd803:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8f4fc41f326641b78635f67</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">What If You Do Not Agree To The Terms Of This Privacy Policy? As a subscriber to the Site or otherwise by using the Site you signify that you agree to this Privacy Policy If you do not agree to this Privacy Policy please do not make any use of the Site</evidence>
 </owl:NamedIndividual>

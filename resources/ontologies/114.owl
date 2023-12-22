@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -901,14 +902,6 @@
   <rdfs:subClassOf rdf:resource="#UserSpecificCommunicationMechanism"/>
   <owl:disjointWith rdf:resource="#AutomaticCommunicationMechanism"/>
   <rdfs:subClassOf>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
-        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
       <owl:allValuesFrom>
@@ -917,6 +910,14 @@
         </owl:Class>
       </owl:allValuesFrom>
     </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
+        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
+      </owl:unionOf>
+    </owl:Class>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -959,18 +960,18 @@
 <owl:Class rdf:about="#FPSpecificCommunicationMechanism">
   <rdfs:subClassOf rdf:resource="#CommunicationMechanism"/>
   <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#mechanism_of"/>
+      <owl:allValuesFrom rdf:resource="#FPNotification"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
     <owl:Class>
       <owl:unionOf rdf:parseType="Collection">
         <rdf:Description rdf:about="#FPSpecificCommunicationMechanism"/>
         <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
       </owl:unionOf>
     </owl:Class>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#mechanism_of"/>
-      <owl:allValuesFrom rdf:resource="#FPNotification"/>
-    </owl:Restriction>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,1231 +1305,1216 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#102c9b44947944619369e20:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#89e6f4f09cfd4ce7b98a5fa:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">102c9b44947944619369e20</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">89e6f4f09cfd4ce7b98a5fa</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#17b3be54b0f74ab6aa53974:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#37848d2c47034cf3bf14f11:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#88067f64817d468dabeee43:User"/>
-  <considers rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <considers rdf:resource="#a2d66a09f8374a9bb51a3df:ThirdParty"/>
-  <considers rdf:resource="#ac046bce37fa4f32bfc4377:OptInOptOutControl"/>
-  <considers rdf:resource="#21dce41a69d346379d74be8:PolicyChange"/>
-  <considers rdf:resource="#9e10693e88b84d8e872fc96:FPNotification"/>
-  <considers rdf:resource="#e68727afd57f4774b637405:OptInOptOutControl"/>
-  <considers rdf:resource="#1043c28b07644f5889bf426:OptInOptOutControl"/>
-  <considers rdf:resource="#3616570517b643149efe86e:OptInOptOutControl"/>
-  <considers rdf:resource="#8a6cc9fc7ffc4615b8b6c6c:OptInOptOutControl"/>
-  <considers rdf:resource="#2a003a049d4e4f529e8212d:PolicyChange"/>
-  <considers rdf:resource="#fc23c7ae83a14c77bcbbced:FPNotification"/>
-  <considers rdf:resource="#d55c3f5f92d647c7817e71c:OptInOptOutControl"/>
-  <considers rdf:resource="#20355a04f305461797772fd:PolicyChange"/>
-  <considers rdf:resource="#a85a4a1873704d52b172d60:FPNotification"/>
-  <considers rdf:resource="#43f5c7d8b7414fe1b96472f:OptInOptOutControl"/>
-  <considers rdf:resource="#56736fb713fb422fbe9b663:PolicyChange"/>
-  <considers rdf:resource="#c6e6f988c5f5478abf22bc1:FPNotification"/>
-  <considers rdf:resource="#7a3b4bf1215b49e1ac9b1b8:DataProtection"/>
-  <considers rdf:resource="#ea6712d063f24918873a51c:DataProtection"/>
-  <considers rdf:resource="#d9b0a3f0cc9c46fb9be8c48:OptInOptOutControl"/>
-  <considers rdf:resource="#3f6bf09b51684c549b4ddc5:OptInOptOutControl"/>
-  <considers rdf:resource="#9a578c9946704bda8145ae7:OptInOptOutControl"/>
-  <considers rdf:resource="#612c677fd74e4ff087cad31:PersonalData"/>
-  <considers rdf:resource="#5dfb40f837c44be082a4068:FPCollection"/>
-  <considers rdf:resource="#a1a53598f713462889992c2:DataUse"/>
-  <considers rdf:resource="#4d28c244c5dc476e885bc20:DeviceData"/>
-  <considers rdf:resource="#eb74fc3ff87f4ca2931a8b8:FPCollection"/>
-  <considers rdf:resource="#1aaf0b9641644b6dafea736:GenericData"/>
-  <considers rdf:resource="#519b7578a6994515abe9eca:FPCollection"/>
-  <considers rdf:resource="#0aad40b76c5e475aa3d988e:DataUse"/>
-  <considers rdf:resource="#7c2187a27cdc48adb8325de:PersonalData"/>
-  <considers rdf:resource="#2a17ba98727b406f9cb9a06:FPCollection"/>
-  <considers rdf:resource="#9d563dafd390471fb10a967:DataUse"/>
-  <considers rdf:resource="#6a4ded7d9218409680c061b:DeviceData"/>
-  <considers rdf:resource="#725e885d7cf0415a9b1cbec:FPCollection"/>
-  <considers rdf:resource="#301ffcf674e94f90ba12945:TrackingData"/>
-  <considers rdf:resource="#1bdeb3f16549409db01224d:FPCollection"/>
-  <considers rdf:resource="#ff5618af50b34289918027e:GenericData"/>
-  <considers rdf:resource="#65ce57df51974d55a79d2bb:FPCollection"/>
-  <considers rdf:resource="#84e41651d1174da1a747d54:DataUse"/>
-  <considers rdf:resource="#39c4e0308baf40fc97ed310:TrackingData"/>
-  <considers rdf:resource="#5e49e58b56694aec8f4f523:OptInOptOutControl"/>
-  <considers rdf:resource="#e2499c80c0c54afb8781b6b:DeviceData"/>
-  <considers rdf:resource="#27c9a0458f2e4bf3b45e945:FPCollection"/>
-  <considers rdf:resource="#28e35e9d69354f43a908315:OptInOptOutControl"/>
-  <considers rdf:resource="#5a02d05b0ca245d196d3965:PolicyChange"/>
-  <considers rdf:resource="#2d06c785c49a4f668beb48f:FPNotification"/>
-  <considers rdf:resource="#a27971760b0343f4a6e3c4d:PersonalData"/>
-  <considers rdf:resource="#8cb84c7405c74f28a0edccc:DataUse"/>
-  <considers rdf:resource="#2654d5e287834d21b7d7699:PersonalData"/>
-  <considers rdf:resource="#d1ca1b35fa0f456aae969cb:DataUse"/>
-  <considers rdf:resource="#cb0b365c8e764f91bb682c3:PersonalData"/>
-  <considers rdf:resource="#d0dafe8d43d54ba8850f59c:OptInOptOutControl"/>
-  <considers rdf:resource="#8a637fc935df47549e8f50d:PersonalData"/>
-  <considers rdf:resource="#783755402d0e4677ac962a8:OptInOptOutControl"/>
-  <considers rdf:resource="#4f9df6a724df4b1ebd39b70:PersonalData"/>
-  <considers rdf:resource="#75142d71691d45e29644039:OptInOptOutControl"/>
-  <considers rdf:resource="#d92c0e7f34d84b6fb68090f:PersonalData"/>
-  <considers rdf:resource="#76073f0f149a46a4ae81573:OptInOptOutControl"/>
-  <considers rdf:resource="#541a044ad1e44c10996565c:PersonalData"/>
-  <considers rdf:resource="#547875cc8cd24423a1055e8:OptInOptOutControl"/>
-  <considers rdf:resource="#c4c126c533874cb986529f4:OptInOptOutControl"/>
-  <considers rdf:resource="#e01164c8973a4db5b6bae33:OptInOptOutControl"/>
-  <considers rdf:resource="#3d02141a76b9494eaf3e79f:SensitiveData"/>
-  <considers rdf:resource="#0657f93de3bd48c4bbd0dc3:OptInOptOutControl"/>
-  <considers rdf:resource="#6232f3cfda6e4c49bf23ff3:DataProtection"/>
-  <considers rdf:resource="#5da1f75bffb54ce6b88f78e:DataProtection"/>
-  <considers rdf:resource="#165b0a14360e495c893e630:DataProtection"/>
-  <considers rdf:resource="#a501fe7cd19d4808a64219e:DataProtection"/>
-  <considers rdf:resource="#5664933c0a9f4b1a97f1b50:OptInOptOutControl"/>
-  <considers rdf:resource="#5b8ecbb636ef40dba7a55e9:TrackingData"/>
-  <considers rdf:resource="#3d62b6c31d184a0293cbcd6:OptInOptOutControl"/>
-  <considers rdf:resource="#0d5e196e4028469cbe5af9b:OptInOptOutControl"/>
-  <considers rdf:resource="#33c66f1947f244f4b610cd0:SensitiveData"/>
-  <considers rdf:resource="#61f00745ed21421ea568a09:OptInOptOutControl"/>
-  <considers rdf:resource="#6115241d8b984db0a0d25fa:OptInOptOutControl"/>
-  <considers rdf:resource="#af1b727ca035429c91187d3:SensitiveData"/>
-  <considers rdf:resource="#be13c4ba1bbe40f89661b5e:OptInOptOutControl"/>
-  <considers rdf:resource="#283700eac3e14e16b3e3543:AccountData"/>
-  <considers rdf:resource="#2b7bc07fc9d2402bad38d50:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">17b3be54b0f74ab6aa53974</uuid>
+  <considers rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <considers rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <considers rdf:resource="#488990c86d554bd08fe68ba:ThirdParty"/>
+  <considers rdf:resource="#d88e3c195a2f4cc7b4b96af:OptInOptOutControl"/>
+  <considers rdf:resource="#90538228bb114e0fb714b0c:PolicyChange"/>
+  <considers rdf:resource="#77af2c25fb8d4d8ab18be89:FPNotification"/>
+  <considers rdf:resource="#62b4428368c742b18e60fcc:OptInOptOutControl"/>
+  <considers rdf:resource="#193e052c709f480f8661d46:OptInOptOutControl"/>
+  <considers rdf:resource="#4e76cbe3b70f41adae9592f:OptInOptOutControl"/>
+  <considers rdf:resource="#33b17540ef6748f09db5010:OptInOptOutControl"/>
+  <considers rdf:resource="#07906ec920bd42eab9aa3af:PolicyChange"/>
+  <considers rdf:resource="#6b4ecc9810544de4ae1758b:FPNotification"/>
+  <considers rdf:resource="#988ddf0df12141048f5a0ab:OptInOptOutControl"/>
+  <considers rdf:resource="#5141864c65434f3e97619ac:PolicyChange"/>
+  <considers rdf:resource="#647e2d84bc5b43ac825d5e7:FPNotification"/>
+  <considers rdf:resource="#8e97bb4b5ef346d38f81b23:OptInOptOutControl"/>
+  <considers rdf:resource="#fb39af3d8fda475ca7b0bb9:PolicyChange"/>
+  <considers rdf:resource="#ed62a8345f1b4dfe8b41e9a:FPNotification"/>
+  <considers rdf:resource="#5535796f9ac74092b9f2fa5:DataProtection"/>
+  <considers rdf:resource="#4ca7e2479c3e421bb03a4d6:DataProtection"/>
+  <considers rdf:resource="#a2053324afee4ccf91980da:OptInOptOutControl"/>
+  <considers rdf:resource="#219b3df932474d54861e9ee:OptInOptOutControl"/>
+  <considers rdf:resource="#a53e5a25188c45df8296411:OptInOptOutControl"/>
+  <considers rdf:resource="#65ce590ed7204c0e99a745d:PersonalData"/>
+  <considers rdf:resource="#3b04d9e298084fae85c03a7:FPCollection"/>
+  <considers rdf:resource="#d25e36041afd46e09fa4192:DataUse"/>
+  <considers rdf:resource="#f8256e0c2a5a401288d9c0c:DeviceData"/>
+  <considers rdf:resource="#e1a0c7edef0e4cc986ce10f:FPCollection"/>
+  <considers rdf:resource="#9a725262f758470db5db6d1:GenericData"/>
+  <considers rdf:resource="#1b97da414bda48028ef643f:FPCollection"/>
+  <considers rdf:resource="#a971c89d373f473a88163d9:DataUse"/>
+  <considers rdf:resource="#19fbb87af931469aa419383:PersonalData"/>
+  <considers rdf:resource="#11a9c0b748e04caebbd3a0f:FPCollection"/>
+  <considers rdf:resource="#113b1740a24940f8a626898:DataUse"/>
+  <considers rdf:resource="#01fd8eced8b94c78afc747a:DeviceData"/>
+  <considers rdf:resource="#1963b187f2284c68a67a336:FPCollection"/>
+  <considers rdf:resource="#88f9290a83e94adfb37a0a0:TrackingData"/>
+  <considers rdf:resource="#c1dd3b4ac3214599b8feff6:FPCollection"/>
+  <considers rdf:resource="#3e640b1e9be04614a3eda40:GenericData"/>
+  <considers rdf:resource="#88f7138df9784f488fead6d:FPCollection"/>
+  <considers rdf:resource="#9b3db341a05940718fb905e:DataUse"/>
+  <considers rdf:resource="#8092d0dd98ba462a9083740:TrackingData"/>
+  <considers rdf:resource="#3e921a570d0942fda86f09b:OptInOptOutControl"/>
+  <considers rdf:resource="#42c00671b6164104b522975:DeviceData"/>
+  <considers rdf:resource="#3918c64cb41543b9a683474:FPCollection"/>
+  <considers rdf:resource="#f8f6b59798774888ab6764d:OptInOptOutControl"/>
+  <considers rdf:resource="#1e74ff0ce5504cb7a588e2b:PolicyChange"/>
+  <considers rdf:resource="#5b404f322d2b46168996921:FPNotification"/>
+  <considers rdf:resource="#6c84f2a34a1044899c7cc9a:PersonalData"/>
+  <considers rdf:resource="#46bb7c8590234834b1501c6:DataUse"/>
+  <considers rdf:resource="#a369b5c0cc0c487893ba9d7:PersonalData"/>
+  <considers rdf:resource="#e6eacc8d16ed40fa82253ce:DataUse"/>
+  <considers rdf:resource="#b1a8d6c07dfa49f99fd0817:PersonalData"/>
+  <considers rdf:resource="#12d168295e97412c837c702:OptInOptOutControl"/>
+  <considers rdf:resource="#454d47d19a6045fbb59cf44:PersonalData"/>
+  <considers rdf:resource="#a7777ed6165a4c1f904380f:OptInOptOutControl"/>
+  <considers rdf:resource="#76b06ef63d3d4eea978531a:PersonalData"/>
+  <considers rdf:resource="#72e2dbd124654b90a2b6b19:OptInOptOutControl"/>
+  <considers rdf:resource="#1d0871120d1c49448875283:PersonalData"/>
+  <considers rdf:resource="#f88ef8c55df84d6d9e5a20e:OptInOptOutControl"/>
+  <considers rdf:resource="#fa1aec79c92941f29776a16:PersonalData"/>
+  <considers rdf:resource="#49462619a5514a8fa71ef2c:OptInOptOutControl"/>
+  <considers rdf:resource="#a905438963044ed1a612c95:OptInOptOutControl"/>
+  <considers rdf:resource="#7ceef47756964da0886f7e8:OptInOptOutControl"/>
+  <considers rdf:resource="#f854569a0ed943ecb9d90ed:SensitiveData"/>
+  <considers rdf:resource="#4d7da3d3fd5649cca985f46:OptInOptOutControl"/>
+  <considers rdf:resource="#8ff0074e66b746e19f66f28:DataProtection"/>
+  <considers rdf:resource="#2241b7c30ae740aea0edddc:DataProtection"/>
+  <considers rdf:resource="#bf139debea07404bb509b1f:DataProtection"/>
+  <considers rdf:resource="#f339941c9a344e5e8ff6bba:DataProtection"/>
+  <considers rdf:resource="#9605c536ce954d81b428ada:OptInOptOutControl"/>
+  <considers rdf:resource="#e2004cf485864b57b2dfdc8:TrackingData"/>
+  <considers rdf:resource="#2dae9162574848abade35f6:OptInOptOutControl"/>
+  <considers rdf:resource="#7ab327a0294b455fae9ad09:OptInOptOutControl"/>
+  <considers rdf:resource="#99555471b34d4b34a1e2434:SensitiveData"/>
+  <considers rdf:resource="#4f8e1a0cb3244879a6ae5dd:OptInOptOutControl"/>
+  <considers rdf:resource="#f8000754ced24e788500488:OptInOptOutControl"/>
+  <considers rdf:resource="#30be84db8d764faa989b0fb:SensitiveData"/>
+  <considers rdf:resource="#8b0c9fc0402344e5b260db9:OptInOptOutControl"/>
+  <considers rdf:resource="#b2cc26feef7d4fdb83b21f2:AccountData"/>
+  <considers rdf:resource="#1facdf97397d4457b456f2f:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">37848d2c47034cf3bf14f11</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">neworleansonline.com</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#88067f64817d468dabeee43:User">
+<owl:NamedIndividual rdf:about="#4bafcf40b9e54fd2ba489f4:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">88067f64817d468dabeee43</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4bafcf40b9e54fd2ba489f4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7d4f9e7c27ce49bda6cd7fd:FirstParty">
+<owl:NamedIndividual rdf:about="#cda8af697bc04e639db92ef:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7d4f9e7c27ce49bda6cd7fd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cda8af697bc04e639db92ef</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a2d66a09f8374a9bb51a3df:ThirdParty">
+<owl:NamedIndividual rdf:about="#488990c86d554bd08fe68ba:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a2d66a09f8374a9bb51a3df</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">488990c86d554bd08fe68ba</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e1eda93712574e61bec5f81:InPrivacyPolicy">
+<owl:NamedIndividual rdf:about="#aeeace20cbcb46a99a49e39:InPrivacyPolicy">
   <rdf:type rdf:resource="#InPrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e1eda93712574e61bec5f81</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aeeace20cbcb46a99a49e39</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Last Updated on May 22, 2015</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ac046bce37fa4f32bfc4377:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#d88e3c195a2f4cc7b4b96af:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ac046bce37fa4f32bfc4377</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d88e3c195a2f4cc7b4b96af</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Last Updated on May 22 2015</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#21dce41a69d346379d74be8:PolicyChange">
+<owl:NamedIndividual rdf:about="#90538228bb114e0fb714b0c:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <binded_to rdf:resource="#ac046bce37fa4f32bfc4377:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">21dce41a69d346379d74be8</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <binded_to rdf:resource="#d88e3c195a2f4cc7b4b96af:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">90538228bb114e0fb714b0c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Last Updated on May 22 2015</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9e10693e88b84d8e872fc96:FPNotification">
+<owl:NamedIndividual rdf:about="#77af2c25fb8d4d8ab18be89:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <notifies rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#e1eda93712574e61bec5f81:InPrivacyPolicy"/>
-  <binded_to rdf:resource="#21dce41a69d346379d74be8:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9e10693e88b84d8e872fc96</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <notifies rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#aeeace20cbcb46a99a49e39:InPrivacyPolicy"/>
+  <binded_to rdf:resource="#90538228bb114e0fb714b0c:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">77af2c25fb8d4d8ab18be89</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Last Updated on May 22 2015</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0e95f67000244811948030b:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#216129448c3849729bee293:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0e95f67000244811948030b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">216129448c3849729bee293</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you disagree with any part of this Privacy Policy, please do not use any of our Online Services.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e68727afd57f4774b637405:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#62b4428368c742b18e60fcc:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#0e95f67000244811948030b:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e68727afd57f4774b637405</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#216129448c3849729bee293:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">62b4428368c742b18e60fcc</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">New Orleans Tourism Marketing Corporation NOTMC or We has created this privacy policy Privacy Policy to explain our personal information collection practices and your options regarding such data The Privacy Policy applies to your access and use of the NOTMC Websites as defined in our Terms of Use mobile applications and other online programs Online Services By using or downloading any of our Online Services you are agreeing that you have read and agree to be bound by this Privacy Policy If you disagree with any part of this Privacy Policy please do not use any of our Online Services</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#584d08049c9a4025ad94eee:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#c3b6b5e27756477d9c93035:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">584d08049c9a4025ad94eee</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c3b6b5e27756477d9c93035</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">By using or downloading any of our Online Services, you are agreeing that you have read and agree to be bound by this Privacy Policy. If you disagree with any part of this Privacy Policy, please do not use any of our Online Services.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1043c28b07644f5889bf426:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#193e052c709f480f8661d46:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#584d08049c9a4025ad94eee:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1043c28b07644f5889bf426</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#c3b6b5e27756477d9c93035:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">193e052c709f480f8661d46</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">New Orleans Tourism Marketing Corporation NOTMC or We has created this privacy policy Privacy Policy to explain our personal information collection practices and your options regarding such data The Privacy Policy applies to your access and use of the NOTMC Websites as defined in our Terms of Use mobile applications and other online programs Online Services By using or downloading any of our Online Services you are agreeing that you have read and agree to be bound by this Privacy Policy If you disagree with any part of this Privacy Policy please do not use any of our Online Services</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#57b36bdc76ad49a480c5b23:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#569d6b10aa6c4e3c901a35b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">57b36bdc76ad49a480c5b23</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">569d6b10aa6c4e3c901a35b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">do not use any of our Online Services.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3616570517b643149efe86e:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#4e76cbe3b70f41adae9592f:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#57b36bdc76ad49a480c5b23:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3616570517b643149efe86e</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#569d6b10aa6c4e3c901a35b:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4e76cbe3b70f41adae9592f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">New Orleans Tourism Marketing Corporation NOTMC or We has created this privacy policy Privacy Policy to explain our personal information collection practices and your options regarding such data The Privacy Policy applies to your access and use of the NOTMC Websites as defined in our Terms of Use mobile applications and other online programs Online Services By using or downloading any of our Online Services you are agreeing that you have read and agree to be bound by this Privacy Policy If you disagree with any part of this Privacy Policy please do not use any of our Online Services</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#56863b0d8f3d4eb19720a02:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#3f547d17d6354b289b22580:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">56863b0d8f3d4eb19720a02</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3f547d17d6354b289b22580</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NOTMC controls and operates its business and Online Services from within the United States of America Our online privacy practices are governed by the laws of the United States and the State of Louisiana which may differ from privacy laws in your state or home country By submitting your personal information to us through the use of our Online Services you consent to the transfer of your personal information to any country and its use and disclosure in accordance with this Privacy Policy and applicable U S federal and state laws</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#41d54f6eb3834c5db68813e:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#f0405cb3daa344ae8782632:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">41d54f6eb3834c5db68813e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f0405cb3daa344ae8782632</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NOTMC controls and operates its business and Online Services from within the United States of America Our online privacy practices are governed by the laws of the United States and the State of Louisiana which may differ from privacy laws in your state or home country By submitting your personal information to us through the use of our Online Services you consent to the transfer of your personal information to any country and its use and disclosure in accordance with this Privacy Policy and applicable U S federal and state laws</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8a6cc9fc7ffc4615b8b6c6c:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#33b17540ef6748f09db5010:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8a6cc9fc7ffc4615b8b6c6c</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">33b17540ef6748f09db5010</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may change our Privacy Policy so please check this page from time to time as your continued use of the Online Services after we publish our changes indicates your acceptance of any changed terms You can tell when the Privacy Policy was last updated by reviewing the Last Updated date at the top of the page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2a003a049d4e4f529e8212d:PolicyChange">
+<owl:NamedIndividual rdf:about="#07906ec920bd42eab9aa3af:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <binded_to rdf:resource="#8a6cc9fc7ffc4615b8b6c6c:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2a003a049d4e4f529e8212d</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <binded_to rdf:resource="#33b17540ef6748f09db5010:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">07906ec920bd42eab9aa3af</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may change our Privacy Policy so please check this page from time to time as your continued use of the Online Services after we publish our changes indicates your acceptance of any changed terms You can tell when the Privacy Policy was last updated by reviewing the Last Updated date at the top of the page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fc23c7ae83a14c77bcbbced:FPNotification">
+<owl:NamedIndividual rdf:about="#6b4ecc9810544de4ae1758b:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <notifies rdf:resource="#88067f64817d468dabeee43:User"/>
-  <binded_to rdf:resource="#2a003a049d4e4f529e8212d:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fc23c7ae83a14c77bcbbced</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <notifies rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <binded_to rdf:resource="#07906ec920bd42eab9aa3af:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6b4ecc9810544de4ae1758b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may change our Privacy Policy so please check this page from time to time as your continued use of the Online Services after we publish our changes indicates your acceptance of any changed terms You can tell when the Privacy Policy was last updated by reviewing the Last Updated date at the top of the page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#295745cad06e45fab24d32b:InPrivacyPolicy">
+<owl:NamedIndividual rdf:about="#69eabb6b5db54efc8c74691:InPrivacyPolicy">
   <rdf:type rdf:resource="#InPrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">295745cad06e45fab24d32b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">69eabb6b5db54efc8c74691</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">o please check this page from time to time,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d55c3f5f92d647c7817e71c:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#988ddf0df12141048f5a0ab:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d55c3f5f92d647c7817e71c</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">988ddf0df12141048f5a0ab</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may change our Privacy Policy so please check this page from time to time as your continued use of the Online Services after we publish our changes indicates your acceptance of any changed terms You can tell when the Privacy Policy was last updated by reviewing the Last Updated date at the top of the page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#20355a04f305461797772fd:PolicyChange">
+<owl:NamedIndividual rdf:about="#5141864c65434f3e97619ac:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <binded_to rdf:resource="#d55c3f5f92d647c7817e71c:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">20355a04f305461797772fd</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <binded_to rdf:resource="#988ddf0df12141048f5a0ab:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5141864c65434f3e97619ac</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may change our Privacy Policy so please check this page from time to time as your continued use of the Online Services after we publish our changes indicates your acceptance of any changed terms You can tell when the Privacy Policy was last updated by reviewing the Last Updated date at the top of the page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a85a4a1873704d52b172d60:FPNotification">
+<owl:NamedIndividual rdf:about="#647e2d84bc5b43ac825d5e7:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <notifies rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#295745cad06e45fab24d32b:InPrivacyPolicy"/>
-  <binded_to rdf:resource="#20355a04f305461797772fd:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a85a4a1873704d52b172d60</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <notifies rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#69eabb6b5db54efc8c74691:InPrivacyPolicy"/>
+  <binded_to rdf:resource="#5141864c65434f3e97619ac:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">647e2d84bc5b43ac825d5e7</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may change our Privacy Policy so please check this page from time to time as your continued use of the Online Services after we publish our changes indicates your acceptance of any changed terms You can tell when the Privacy Policy was last updated by reviewing the Last Updated date at the top of the page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dfe358ef533d4fdcbc016a2:OnWebsitePage">
+<owl:NamedIndividual rdf:about="#42f179961ac045648da5d9c:OnWebsitePage">
   <rdf:type rdf:resource="#OnWebsitePage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dfe358ef533d4fdcbc016a2</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">42f179961ac045648da5d9c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can tell when the Privacy Policy was last updated by reviewing the "Last Updated" date at the top of the page.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#43f5c7d8b7414fe1b96472f:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#8e97bb4b5ef346d38f81b23:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">43f5c7d8b7414fe1b96472f</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8e97bb4b5ef346d38f81b23</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may change our Privacy Policy so please check this page from time to time as your continued use of the Online Services after we publish our changes indicates your acceptance of any changed terms You can tell when the Privacy Policy was last updated by reviewing the Last Updated date at the top of the page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#56736fb713fb422fbe9b663:PolicyChange">
+<owl:NamedIndividual rdf:about="#fb39af3d8fda475ca7b0bb9:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <binded_to rdf:resource="#43f5c7d8b7414fe1b96472f:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">56736fb713fb422fbe9b663</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <binded_to rdf:resource="#8e97bb4b5ef346d38f81b23:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fb39af3d8fda475ca7b0bb9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may change our Privacy Policy so please check this page from time to time as your continued use of the Online Services after we publish our changes indicates your acceptance of any changed terms You can tell when the Privacy Policy was last updated by reviewing the Last Updated date at the top of the page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c6e6f988c5f5478abf22bc1:FPNotification">
+<owl:NamedIndividual rdf:about="#ed62a8345f1b4dfe8b41e9a:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <notifies rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#dfe358ef533d4fdcbc016a2:OnWebsitePage"/>
-  <binded_to rdf:resource="#56736fb713fb422fbe9b663:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c6e6f988c5f5478abf22bc1</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <notifies rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#42f179961ac045648da5d9c:OnWebsitePage"/>
+  <binded_to rdf:resource="#fb39af3d8fda475ca7b0bb9:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ed62a8345f1b4dfe8b41e9a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may change our Privacy Policy so please check this page from time to time as your continued use of the Online Services after we publish our changes indicates your acceptance of any changed terms You can tell when the Privacy Policy was last updated by reviewing the Last Updated date at the top of the page</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3c2d9d1d737844298f1d38f:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#7f20067901014e1daf4ee70:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3c2d9d1d737844298f1d38f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7f20067901014e1daf4ee70</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can jump to specific areas of our Privacy Policy by clicking on the links below or you can read on for the full Privacy Policy Information We Collect How We Use Personal Information We Collect How We May Disclose Personal Information We Collect How We May Use or Disclose Other Information We Collect Your Options How We Protect Your Personal Information Cookies Social Networking and Third Party Sites California Users Privacy Rights Children s Online Privacy International Contact Us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c050888291d0424881a4e46:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#29a74861be1a4b1ab731263:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c050888291d0424881a4e46</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">29a74861be1a4b1ab731263</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can jump to specific areas of our Privacy Policy by clicking on the links below or you can read on for the full Privacy Policy Information We Collect How We Use Personal Information We Collect How We May Disclose Personal Information We Collect How We May Use or Disclose Other Information We Collect Your Options How We Protect Your Personal Information Cookies Social Networking and Third Party Sites California Users Privacy Rights Children s Online Privacy International Contact Us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f3d1eff0ec244670ba0d7c4:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#c1a5106649d74bcdbb3c3a9:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f3d1eff0ec244670ba0d7c4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c1a5106649d74bcdbb3c3a9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can jump to specific areas of our Privacy Policy by clicking on the links below or you can read on for the full Privacy Policy Information We Collect How We Use Personal Information We Collect How We May Disclose Personal Information We Collect How We May Use or Disclose Other Information We Collect Your Options How We Protect Your Personal Information Cookies Social Networking and Third Party Sites California Users Privacy Rights Children s Online Privacy International Contact Us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7a3b4bf1215b49e1ac9b1b8:DataProtection">
+<owl:NamedIndividual rdf:about="#5535796f9ac74092b9f2fa5:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7a3b4bf1215b49e1ac9b1b8</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5535796f9ac74092b9f2fa5</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can jump to specific areas of our Privacy Policy by clicking on the links below or you can read on for the full Privacy Policy Information We Collect How We Use Personal Information We Collect How We May Disclose Personal Information We Collect How We May Use or Disclose Other Information We Collect Your Options How We Protect Your Personal Information Cookies Social Networking and Third Party Sites California Users Privacy Rights Children s Online Privacy International Contact Us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ea6712d063f24918873a51c:DataProtection">
+<owl:NamedIndividual rdf:about="#4ca7e2479c3e421bb03a4d6:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ea6712d063f24918873a51c</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4ca7e2479c3e421bb03a4d6</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can jump to specific areas of our Privacy Policy by clicking on the links below or you can read on for the full Privacy Policy Information We Collect How We Use Personal Information We Collect How We May Disclose Personal Information We Collect How We May Use or Disclose Other Information We Collect Your Options How We Protect Your Personal Information Cookies Social Networking and Third Party Sites California Users Privacy Rights Children s Online Privacy International Contact Us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#001722b7adeb4317b28ab65:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#04adebd8764b487098c5262:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">001722b7adeb4317b28ab65</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">04adebd8764b487098c5262</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can jump to specific areas of our Privacy Policy by clicking on the links below or you can read on for the full Privacy Policy Information We Collect How We Use Personal Information We Collect How We May Disclose Personal Information We Collect How We May Use or Disclose Other Information We Collect Your Options How We Protect Your Personal Information Cookies Social Networking and Third Party Sites California Users Privacy Rights Children s Online Privacy International Contact Us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#336469e1349b478d9e89843:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#73e49ad79de64f5a8d2ac1e:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">336469e1349b478d9e89843</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">73e49ad79de64f5a8d2ac1e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can jump to specific areas of our Privacy Policy by clicking on the links below or you can read on for the full Privacy Policy Information We Collect How We Use Personal Information We Collect How We May Disclose Personal Information We Collect How We May Use or Disclose Other Information We Collect Your Options How We Protect Your Personal Information Cookies Social Networking and Third Party Sites California Users Privacy Rights Children s Online Privacy International Contact Us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#524c7292b3f042c5985f5f2:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#8f3085d3b76744bd98203e1:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">524c7292b3f042c5985f5f2</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8f3085d3b76744bd98203e1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can jump to specific areas of our Privacy Policy by clicking on the links below or you can read on for the full Privacy Policy Information We Collect How We Use Personal Information We Collect How We May Disclose Personal Information We Collect How We May Use or Disclose Other Information We Collect Your Options How We Protect Your Personal Information Cookies Social Networking and Third Party Sites California Users Privacy Rights Children s Online Privacy International Contact Us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f1432282a33e4567a5f5677:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#baee86f8637e4300b39349d:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f1432282a33e4567a5f5677</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">baee86f8637e4300b39349d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Options</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d9b0a3f0cc9c46fb9be8c48:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#a2053324afee4ccf91980da:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#f1432282a33e4567a5f5677:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d9b0a3f0cc9c46fb9be8c48</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#baee86f8637e4300b39349d:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a2053324afee4ccf91980da</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can jump to specific areas of our Privacy Policy by clicking on the links below or you can read on for the full Privacy Policy Information We Collect How We Use Personal Information We Collect How We May Disclose Personal Information We Collect How We May Use or Disclose Other Information We Collect Your Options How We Protect Your Personal Information Cookies Social Networking and Third Party Sites California Users Privacy Rights Children s Online Privacy International Contact Us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f6ec2b8224434bc385b04c6:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#d3a799ed47994fc99750b6c:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f6ec2b8224434bc385b04c6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d3a799ed47994fc99750b6c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can jump to specific areas of our Privacy Policy by clicking on the links below or you can read on for the full Privacy Policy Information We Collect How We Use Personal Information We Collect How We May Disclose Personal Information We Collect How We May Use or Disclose Other Information We Collect Your Options How We Protect Your Personal Information Cookies Social Networking and Third Party Sites California Users Privacy Rights Children s Online Privacy International Contact Us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3f6bf09b51684c549b4ddc5:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#219b3df932474d54861e9ee:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#f6ec2b8224434bc385b04c6:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3f6bf09b51684c549b4ddc5</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#d3a799ed47994fc99750b6c:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">219b3df932474d54861e9ee</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can jump to specific areas of our Privacy Policy by clicking on the links below or you can read on for the full Privacy Policy Information We Collect How We Use Personal Information We Collect How We May Disclose Personal Information We Collect How We May Use or Disclose Other Information We Collect Your Options How We Protect Your Personal Information Cookies Social Networking and Third Party Sites California Users Privacy Rights Children s Online Privacy International Contact Us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c26bbd626870401c8ee13cd:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#9b4ab4e892d64440aafb40a:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c26bbd626870401c8ee13cd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9b4ab4e892d64440aafb40a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can jump to specific areas of our Privacy Policy by clicking on the links below or you can read on for the full Privacy Policy Information We Collect How We Use Personal Information We Collect How We May Disclose Personal Information We Collect How We May Use or Disclose Other Information We Collect Your Options How We Protect Your Personal Information Cookies Social Networking and Third Party Sites California Users Privacy Rights Children s Online Privacy International Contact Us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9a578c9946704bda8145ae7:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#a53e5a25188c45df8296411:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#c26bbd626870401c8ee13cd:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9a578c9946704bda8145ae7</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#9b4ab4e892d64440aafb40a:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a53e5a25188c45df8296411</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can jump to specific areas of our Privacy Policy by clicking on the links below or you can read on for the full Privacy Policy Information We Collect How We Use Personal Information We Collect How We May Disclose Personal Information We Collect How We May Use or Disclose Other Information We Collect Your Options How We Protect Your Personal Information Cookies Social Networking and Third Party Sites California Users Privacy Rights Children s Online Privacy International Contact Us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#612c677fd74e4ff087cad31:PersonalData">
+<owl:NamedIndividual rdf:about="#65ce590ed7204c0e99a745d:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">612c677fd74e4ff087cad31</uuid>
+  <provided_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">65ce590ed7204c0e99a745d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">name, mailing address, telephone number, e-mail address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ee03e55ce6cf4c93bf61d9f:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#0f4ec4247a0f445e82fb51a:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ee03e55ce6cf4c93bf61d9f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0f4ec4247a0f445e82fb51a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">(for account administration</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#800899bd35db4f4ea2d9005:ViaWebsite">
+<owl:NamedIndividual rdf:about="#2a7208503efb4d46a205abf:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">800899bd35db4f4ea2d9005</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2a7208503efb4d46a205abf</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Whether you access our Online Services from your computer</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ca1198322cc7475ea2d213e:DataTransmissionMode">
+<owl:NamedIndividual rdf:about="#f4c4a9568e3b4303971d60b:DataTransmissionMode">
   <rdf:type rdf:resource="#DataTransmissionMode"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ca1198322cc7475ea2d213e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f4c4a9568e3b4303971d60b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NOTMC and its agents may collect some information that identifies you or relates to you as an individual</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5dfb40f837c44be082a4068:FPCollection">
+<owl:NamedIndividual rdf:about="#3b04d9e298084fae85c03a7:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <collects_from rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_purpose rdf:resource="#ee03e55ce6cf4c93bf61d9f:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#ca1198322cc7475ea2d213e:DataTransmissionMode"/>
-  <has_mechanism rdf:resource="#800899bd35db4f4ea2d9005:ViaWebsite"/>
-  <applies_to rdf:resource="#612c677fd74e4ff087cad31:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5dfb40f837c44be082a4068</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <collects_from rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_purpose rdf:resource="#0f4ec4247a0f445e82fb51a:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#f4c4a9568e3b4303971d60b:DataTransmissionMode"/>
+  <has_mechanism rdf:resource="#2a7208503efb4d46a205abf:ViaWebsite"/>
+  <applies_to rdf:resource="#65ce590ed7204c0e99a745d:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3b04d9e298084fae85c03a7</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information We Collect Whether you access our Online Services from your computer smart phone tablet or other mobile device NOTMC and its agents may collect some information that identifies you or relates to you as an individual Personal Information such as your name mailing address telephone number e-mail address user name and password for account administration device ID including IP address geolocation if using a mobile application and you consent to providing it and additional personal information necessary for the administration of certain promotional events</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a1a53598f713462889992c2:DataUse">
+<owl:NamedIndividual rdf:about="#d25e36041afd46e09fa4192:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <has_purpose rdf:resource="#ee03e55ce6cf4c93bf61d9f:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#612c677fd74e4ff087cad31:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a1a53598f713462889992c2</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <has_purpose rdf:resource="#0f4ec4247a0f445e82fb51a:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#65ce590ed7204c0e99a745d:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d25e36041afd46e09fa4192</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information We Collect Whether you access our Online Services from your computer smart phone tablet or other mobile device NOTMC and its agents may collect some information that identifies you or relates to you as an individual Personal Information such as your name mailing address telephone number e-mail address user name and password for account administration device ID including IP address geolocation if using a mobile application and you consent to providing it and additional personal information necessary for the administration of certain promotional events</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4d28c244c5dc476e885bc20:DeviceData">
+<owl:NamedIndividual rdf:about="#f8256e0c2a5a401288d9c0c:DeviceData">
   <rdf:type rdf:resource="#DeviceData"/>
-  <provided_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4d28c244c5dc476e885bc20</uuid>
+  <provided_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f8256e0c2a5a401288d9c0c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">device ID, including IP address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c208a95f627a42589f1caa2:ViaWebsite">
+<owl:NamedIndividual rdf:about="#790c6cc6f1784a988ac3a5d:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c208a95f627a42589f1caa2</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">790c6cc6f1784a988ac3a5d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Whether you access our Online Services from your computer</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8e2dbf12fecd4da8b3322bf:DataTransmissionMode">
+<owl:NamedIndividual rdf:about="#38eb3d0717e6403f86b6afa:DataTransmissionMode">
   <rdf:type rdf:resource="#DataTransmissionMode"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8e2dbf12fecd4da8b3322bf</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">38eb3d0717e6403f86b6afa</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NOTMC and its agents may collect some information that identifies you or relates to you as an individual</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#eb74fc3ff87f4ca2931a8b8:FPCollection">
+<owl:NamedIndividual rdf:about="#e1a0c7edef0e4cc986ce10f:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <collects_from rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mode rdf:resource="#8e2dbf12fecd4da8b3322bf:DataTransmissionMode"/>
-  <has_mechanism rdf:resource="#c208a95f627a42589f1caa2:ViaWebsite"/>
-  <applies_to rdf:resource="#4d28c244c5dc476e885bc20:DeviceData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eb74fc3ff87f4ca2931a8b8</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <collects_from rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mode rdf:resource="#38eb3d0717e6403f86b6afa:DataTransmissionMode"/>
+  <has_mechanism rdf:resource="#790c6cc6f1784a988ac3a5d:ViaWebsite"/>
+  <applies_to rdf:resource="#f8256e0c2a5a401288d9c0c:DeviceData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e1a0c7edef0e4cc986ce10f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information We Collect Whether you access our Online Services from your computer smart phone tablet or other mobile device NOTMC and its agents may collect some information that identifies you or relates to you as an individual Personal Information such as your name mailing address telephone number e-mail address user name and password for account administration device ID including IP address geolocation if using a mobile application and you consent to providing it and additional personal information necessary for the administration of certain promotional events</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1aaf0b9641644b6dafea736:GenericData">
+<owl:NamedIndividual rdf:about="#9a725262f758470db5db6d1:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1aaf0b9641644b6dafea736</uuid>
+  <provided_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9a725262f758470db5db6d1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">additional personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#135bf2e6a92b49f49ba7ca0:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#3067bec02e97407bb2c6ad3:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">135bf2e6a92b49f49ba7ca0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3067bec02e97407bb2c6ad3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">administration of certain promotional events.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fb6b565928e44aa28fe5d8e:ViaWebsite">
+<owl:NamedIndividual rdf:about="#7148aa7837424689ac5c618:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fb6b565928e44aa28fe5d8e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7148aa7837424689ac5c618</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Whether you access our Online Services from your computer</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#eaf6a624b57849a6b534671:DataTransmissionMode">
+<owl:NamedIndividual rdf:about="#b08d1283cde94e6faba1cf2:DataTransmissionMode">
   <rdf:type rdf:resource="#DataTransmissionMode"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eaf6a624b57849a6b534671</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b08d1283cde94e6faba1cf2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NOTMC and its agents may collect some information that identifies you or relates to you as an individual</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#519b7578a6994515abe9eca:FPCollection">
+<owl:NamedIndividual rdf:about="#1b97da414bda48028ef643f:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <collects_from rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_purpose rdf:resource="#135bf2e6a92b49f49ba7ca0:MarketingPurpose"/>
-  <has_mode rdf:resource="#eaf6a624b57849a6b534671:DataTransmissionMode"/>
-  <has_mechanism rdf:resource="#fb6b565928e44aa28fe5d8e:ViaWebsite"/>
-  <applies_to rdf:resource="#1aaf0b9641644b6dafea736:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">519b7578a6994515abe9eca</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <collects_from rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_purpose rdf:resource="#3067bec02e97407bb2c6ad3:MarketingPurpose"/>
+  <has_mode rdf:resource="#b08d1283cde94e6faba1cf2:DataTransmissionMode"/>
+  <has_mechanism rdf:resource="#7148aa7837424689ac5c618:ViaWebsite"/>
+  <applies_to rdf:resource="#9a725262f758470db5db6d1:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1b97da414bda48028ef643f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information We Collect Whether you access our Online Services from your computer smart phone tablet or other mobile device NOTMC and its agents may collect some information that identifies you or relates to you as an individual Personal Information such as your name mailing address telephone number e-mail address user name and password for account administration device ID including IP address geolocation if using a mobile application and you consent to providing it and additional personal information necessary for the administration of certain promotional events</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0aad40b76c5e475aa3d988e:DataUse">
+<owl:NamedIndividual rdf:about="#a971c89d373f473a88163d9:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <has_purpose rdf:resource="#135bf2e6a92b49f49ba7ca0:MarketingPurpose"/>
-  <applies_to rdf:resource="#1aaf0b9641644b6dafea736:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0aad40b76c5e475aa3d988e</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <has_purpose rdf:resource="#3067bec02e97407bb2c6ad3:MarketingPurpose"/>
+  <applies_to rdf:resource="#9a725262f758470db5db6d1:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a971c89d373f473a88163d9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information We Collect Whether you access our Online Services from your computer smart phone tablet or other mobile device NOTMC and its agents may collect some information that identifies you or relates to you as an individual Personal Information such as your name mailing address telephone number e-mail address user name and password for account administration device ID including IP address geolocation if using a mobile application and you consent to providing it and additional personal information necessary for the administration of certain promotional events</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7c2187a27cdc48adb8325de:PersonalData">
+<owl:NamedIndividual rdf:about="#19fbb87af931469aa419383:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7c2187a27cdc48adb8325de</uuid>
+  <provided_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">19fbb87af931469aa419383</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">name, mailing address, telephone number, e-mail address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#703d7ad0975e4ec59d80046:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#4fc6d9c16f20412b8899dd7:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">703d7ad0975e4ec59d80046</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4fc6d9c16f20412b8899dd7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">(for account administration</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#eb72e1fbe5d546f38577df6:ViaServiceApp">
+<owl:NamedIndividual rdf:about="#0c8d68b91fec4c98bc8ad54:ViaServiceApp">
   <rdf:type rdf:resource="#ViaServiceApp"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eb72e1fbe5d546f38577df6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0c8d68b91fec4c98bc8ad54</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">smart phone, tablet or other mobile device, NOTMC and its agents may collect some information that identifies you or relates to you as an individual ("Personal Information"), such as your name, mailing address, telephone number, e-mail address, user name and password (for account administration), device ID, including IP address, geolocation (if using a mobile application and you consent to providing it)</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#734d105090fd465fa0dc0fd:DataTransmissionMode">
+<owl:NamedIndividual rdf:about="#5762c0aa14ea4077843ed63:DataTransmissionMode">
   <rdf:type rdf:resource="#DataTransmissionMode"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">734d105090fd465fa0dc0fd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5762c0aa14ea4077843ed63</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NOTMC and its agents may collect some information that identifies you or relates to you as an individual</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2a17ba98727b406f9cb9a06:FPCollection">
+<owl:NamedIndividual rdf:about="#11a9c0b748e04caebbd3a0f:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <collects_from rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_purpose rdf:resource="#703d7ad0975e4ec59d80046:ServiceProvisionPurpose"/>
-  <has_mode rdf:resource="#734d105090fd465fa0dc0fd:DataTransmissionMode"/>
-  <has_mechanism rdf:resource="#eb72e1fbe5d546f38577df6:ViaServiceApp"/>
-  <applies_to rdf:resource="#7c2187a27cdc48adb8325de:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2a17ba98727b406f9cb9a06</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <collects_from rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_purpose rdf:resource="#4fc6d9c16f20412b8899dd7:ServiceProvisionPurpose"/>
+  <has_mode rdf:resource="#5762c0aa14ea4077843ed63:DataTransmissionMode"/>
+  <has_mechanism rdf:resource="#0c8d68b91fec4c98bc8ad54:ViaServiceApp"/>
+  <applies_to rdf:resource="#19fbb87af931469aa419383:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11a9c0b748e04caebbd3a0f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information We Collect Whether you access our Online Services from your computer smart phone tablet or other mobile device NOTMC and its agents may collect some information that identifies you or relates to you as an individual Personal Information such as your name mailing address telephone number e-mail address user name and password for account administration device ID including IP address geolocation if using a mobile application and you consent to providing it and additional personal information necessary for the administration of certain promotional events</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9d563dafd390471fb10a967:DataUse">
+<owl:NamedIndividual rdf:about="#113b1740a24940f8a626898:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <has_purpose rdf:resource="#703d7ad0975e4ec59d80046:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#7c2187a27cdc48adb8325de:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9d563dafd390471fb10a967</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <has_purpose rdf:resource="#4fc6d9c16f20412b8899dd7:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#19fbb87af931469aa419383:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">113b1740a24940f8a626898</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information We Collect Whether you access our Online Services from your computer smart phone tablet or other mobile device NOTMC and its agents may collect some information that identifies you or relates to you as an individual Personal Information such as your name mailing address telephone number e-mail address user name and password for account administration device ID including IP address geolocation if using a mobile application and you consent to providing it and additional personal information necessary for the administration of certain promotional events</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6a4ded7d9218409680c061b:DeviceData">
+<owl:NamedIndividual rdf:about="#01fd8eced8b94c78afc747a:DeviceData">
   <rdf:type rdf:resource="#DeviceData"/>
-  <provided_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6a4ded7d9218409680c061b</uuid>
+  <provided_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">01fd8eced8b94c78afc747a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">device ID, including IP address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4138d467c0da446aa112fd3:ViaServiceApp">
+<owl:NamedIndividual rdf:about="#24f89bd9a19942089cc4417:ViaServiceApp">
   <rdf:type rdf:resource="#ViaServiceApp"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4138d467c0da446aa112fd3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">24f89bd9a19942089cc4417</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">smart phone, tablet or other mobile device, NOTMC and its agents may collect some information that identifies you or relates to you as an individual ("Personal Information"), such as your name, mailing address, telephone number, e-mail address, user name and password (for account administration), device ID, including IP address, geolocation (if using a mobile application and you consent to providing it),</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4c602ce484a44a2da486524:DataTransmissionMode">
+<owl:NamedIndividual rdf:about="#55059194f8fa4c33a386984:DataTransmissionMode">
   <rdf:type rdf:resource="#DataTransmissionMode"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4c602ce484a44a2da486524</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">55059194f8fa4c33a386984</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NOTMC and its agents may collect some information that identifies you or relates to you as an individual</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#725e885d7cf0415a9b1cbec:FPCollection">
+<owl:NamedIndividual rdf:about="#1963b187f2284c68a67a336:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <collects_from rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mode rdf:resource="#4c602ce484a44a2da486524:DataTransmissionMode"/>
-  <has_mechanism rdf:resource="#4138d467c0da446aa112fd3:ViaServiceApp"/>
-  <applies_to rdf:resource="#6a4ded7d9218409680c061b:DeviceData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">725e885d7cf0415a9b1cbec</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <collects_from rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mode rdf:resource="#55059194f8fa4c33a386984:DataTransmissionMode"/>
+  <has_mechanism rdf:resource="#24f89bd9a19942089cc4417:ViaServiceApp"/>
+  <applies_to rdf:resource="#01fd8eced8b94c78afc747a:DeviceData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1963b187f2284c68a67a336</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information We Collect Whether you access our Online Services from your computer smart phone tablet or other mobile device NOTMC and its agents may collect some information that identifies you or relates to you as an individual Personal Information such as your name mailing address telephone number e-mail address user name and password for account administration device ID including IP address geolocation if using a mobile application and you consent to providing it and additional personal information necessary for the administration of certain promotional events</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#301ffcf674e94f90ba12945:TrackingData">
+<owl:NamedIndividual rdf:about="#88f9290a83e94adfb37a0a0:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">301ffcf674e94f90ba12945</uuid>
+  <provided_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">88f9290a83e94adfb37a0a0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">geolocation (if using a mobile application and you consent to providing it)</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3f9aecf76be74680a8c46c8:ViaServiceApp">
+<owl:NamedIndividual rdf:about="#32332875e02a4d339877d34:ViaServiceApp">
   <rdf:type rdf:resource="#ViaServiceApp"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3f9aecf76be74680a8c46c8</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">32332875e02a4d339877d34</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">smart phone, tablet or other mobile device, NOTMC and its agents may collect some information that identifies you or relates to you as an individual ("Personal Information"), such as your name, mailing address, telephone number, e-mail address, user name and password (for account administration), device ID, including IP address, geolocation (if using a mobile application and you consent to providing it),</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#53bcb95e65a545f79005dc2:DataTransmissionMode">
+<owl:NamedIndividual rdf:about="#1a980a82717348c199fd53d:DataTransmissionMode">
   <rdf:type rdf:resource="#DataTransmissionMode"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">53bcb95e65a545f79005dc2</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1a980a82717348c199fd53d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NOTMC and its agents may collect some information that identifies you or relates to you as an individual</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1bdeb3f16549409db01224d:FPCollection">
+<owl:NamedIndividual rdf:about="#c1dd3b4ac3214599b8feff6:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <collects_from rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mode rdf:resource="#53bcb95e65a545f79005dc2:DataTransmissionMode"/>
-  <has_mechanism rdf:resource="#3f9aecf76be74680a8c46c8:ViaServiceApp"/>
-  <applies_to rdf:resource="#301ffcf674e94f90ba12945:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1bdeb3f16549409db01224d</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <collects_from rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mode rdf:resource="#1a980a82717348c199fd53d:DataTransmissionMode"/>
+  <has_mechanism rdf:resource="#32332875e02a4d339877d34:ViaServiceApp"/>
+  <applies_to rdf:resource="#88f9290a83e94adfb37a0a0:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c1dd3b4ac3214599b8feff6</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information We Collect Whether you access our Online Services from your computer smart phone tablet or other mobile device NOTMC and its agents may collect some information that identifies you or relates to you as an individual Personal Information such as your name mailing address telephone number e-mail address user name and password for account administration device ID including IP address geolocation if using a mobile application and you consent to providing it and additional personal information necessary for the administration of certain promotional events</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ff5618af50b34289918027e:GenericData">
+<owl:NamedIndividual rdf:about="#3e640b1e9be04614a3eda40:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ff5618af50b34289918027e</uuid>
+  <provided_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3e640b1e9be04614a3eda40</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">additional personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0894901e7ac949c29fa829b:MarketingPurpose">
+<owl:NamedIndividual rdf:about="#e7421aa9300845f291af5d6:MarketingPurpose">
   <rdf:type rdf:resource="#MarketingPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0894901e7ac949c29fa829b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e7421aa9300845f291af5d6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">administration of certain promotional events.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3787b894c86347daac97e1f:ViaServiceApp">
+<owl:NamedIndividual rdf:about="#240fda30d3964b63b8219f1:ViaServiceApp">
   <rdf:type rdf:resource="#ViaServiceApp"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3787b894c86347daac97e1f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">240fda30d3964b63b8219f1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">smart phone, tablet or other mobile device, NOTMC and its agents may collect some information that identifies you or relates to you as an individual ("Personal Information"), such as your name, mailing address, telephone number, e-mail address, user name and password (for account administration), device ID, including IP address, geolocation (if using a mobile application and you consent to providing it), and additional personal information necessary for the administration of certain promotional events.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d80b60e0eb9a474caa8dbfd:DataTransmissionMode">
+<owl:NamedIndividual rdf:about="#f2da8af305754d13b39fb79:DataTransmissionMode">
   <rdf:type rdf:resource="#DataTransmissionMode"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d80b60e0eb9a474caa8dbfd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f2da8af305754d13b39fb79</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NOTMC and its agents may collect some information that identifies you or relates to you as an individual</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#65ce57df51974d55a79d2bb:FPCollection">
+<owl:NamedIndividual rdf:about="#88f7138df9784f488fead6d:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <collects_from rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_purpose rdf:resource="#0894901e7ac949c29fa829b:MarketingPurpose"/>
-  <has_mode rdf:resource="#d80b60e0eb9a474caa8dbfd:DataTransmissionMode"/>
-  <has_mechanism rdf:resource="#3787b894c86347daac97e1f:ViaServiceApp"/>
-  <applies_to rdf:resource="#ff5618af50b34289918027e:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">65ce57df51974d55a79d2bb</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <collects_from rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_purpose rdf:resource="#e7421aa9300845f291af5d6:MarketingPurpose"/>
+  <has_mode rdf:resource="#f2da8af305754d13b39fb79:DataTransmissionMode"/>
+  <has_mechanism rdf:resource="#240fda30d3964b63b8219f1:ViaServiceApp"/>
+  <applies_to rdf:resource="#3e640b1e9be04614a3eda40:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">88f7138df9784f488fead6d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information We Collect Whether you access our Online Services from your computer smart phone tablet or other mobile device NOTMC and its agents may collect some information that identifies you or relates to you as an individual Personal Information such as your name mailing address telephone number e-mail address user name and password for account administration device ID including IP address geolocation if using a mobile application and you consent to providing it and additional personal information necessary for the administration of certain promotional events</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#84e41651d1174da1a747d54:DataUse">
+<owl:NamedIndividual rdf:about="#9b3db341a05940718fb905e:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <has_purpose rdf:resource="#0894901e7ac949c29fa829b:MarketingPurpose"/>
-  <applies_to rdf:resource="#ff5618af50b34289918027e:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">84e41651d1174da1a747d54</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <has_purpose rdf:resource="#e7421aa9300845f291af5d6:MarketingPurpose"/>
+  <applies_to rdf:resource="#3e640b1e9be04614a3eda40:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9b3db341a05940718fb905e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information We Collect Whether you access our Online Services from your computer smart phone tablet or other mobile device NOTMC and its agents may collect some information that identifies you or relates to you as an individual Personal Information such as your name mailing address telephone number e-mail address user name and password for account administration device ID including IP address geolocation if using a mobile application and you consent to providing it and additional personal information necessary for the administration of certain promotional events</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1bd7f65fba8b40288d4ccb3:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#8f676cc2320b489ead3c75a:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1bd7f65fba8b40288d4ccb3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8f676cc2320b489ead3c75a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you consent to providing it</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#39c4e0308baf40fc97ed310:TrackingData">
+<owl:NamedIndividual rdf:about="#8092d0dd98ba462a9083740:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">39c4e0308baf40fc97ed310</uuid>
+  <provided_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8092d0dd98ba462a9083740</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">geolocation</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5e49e58b56694aec8f4f523:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#3e921a570d0942fda86f09b:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#1bd7f65fba8b40288d4ccb3:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#39c4e0308baf40fc97ed310:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5e49e58b56694aec8f4f523</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#8f676cc2320b489ead3c75a:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#8092d0dd98ba462a9083740:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3e921a570d0942fda86f09b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Information We Collect Whether you access our Online Services from your computer smart phone tablet or other mobile device NOTMC and its agents may collect some information that identifies you or relates to you as an individual Personal Information such as your name mailing address telephone number e-mail address user name and password for account administration device ID including IP address geolocation if using a mobile application and you consent to providing it and additional personal information necessary for the administration of certain promotional events</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e2499c80c0c54afb8781b6b:DeviceData">
+<owl:NamedIndividual rdf:about="#42c00671b6164104b522975:DeviceData">
   <rdf:type rdf:resource="#DeviceData"/>
-  <provided_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e2499c80c0c54afb8781b6b</uuid>
+  <provided_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">42c00671b6164104b522975</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">IP address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2d6886d5f2134fcc96d4f64:PermanentTransmission">
+<owl:NamedIndividual rdf:about="#029a96071f7449439d0bcf9:PermanentTransmission">
   <rdf:type rdf:resource="#PermanentTransmission"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2d6886d5f2134fcc96d4f64</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">029a96071f7449439d0bcf9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">our servers automatically log the IP address of the particular user</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#27c9a0458f2e4bf3b45e945:FPCollection">
+<owl:NamedIndividual rdf:about="#3918c64cb41543b9a683474:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <collects_from rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mode rdf:resource="#2d6886d5f2134fcc96d4f64:PermanentTransmission"/>
-  <applies_to rdf:resource="#e2499c80c0c54afb8781b6b:DeviceData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">27c9a0458f2e4bf3b45e945</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <collects_from rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mode rdf:resource="#029a96071f7449439d0bcf9:PermanentTransmission"/>
+  <applies_to rdf:resource="#42c00671b6164104b522975:DeviceData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3918c64cb41543b9a683474</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">In addition we may collect other types of data Other Information that do not reveal your identity or that do not relate directly to you or any other individual such as Web browser and device information including operating system demographic information and other information provided by you that we may combine with other users of our Online Services or use on its own mobile application usage data aggregated information such as click stream information such as entry and exit points for our Online Services including referring URLs or domains certain Online Services traffic statistics page views and impressions and information collected through cookies pixel tags and other technologies described in more detail later in this Privacy Policy In addition when users request pages on our Online Services our servers automatically log the IP address of the particular user The IP address is a unique number assigned to your computer in order to identify it whenever you are surfing the web</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1537a12142324cb1befc635:FPSpecificCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#84eca69d48d841809f18c2a:FPSpecificCommunicationMechanism">
   <rdf:type rdf:resource="#FPSpecificCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1537a12142324cb1befc635</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">84eca69d48d841809f18c2a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">communicate with you by mail, telephone, facsimile, e-mail, mobile alerts and SMS text messaging</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#28e35e9d69354f43a908315:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#f8f6b59798774888ab6764d:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">28e35e9d69354f43a908315</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f8f6b59798774888ab6764d</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">communicate with you by mail telephone facsimile e-mail mobile alerts and SMS text messaging about NOTMC or our affiliates including communications about your itineraries or purchases your services accounts sweepstakes or contests you enter your requests for information or other items and to update you about changes to our Online Services</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5a02d05b0ca245d196d3965:PolicyChange">
+<owl:NamedIndividual rdf:about="#1e74ff0ce5504cb7a588e2b:PolicyChange">
   <rdf:type rdf:resource="#PolicyChange"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <binded_to rdf:resource="#28e35e9d69354f43a908315:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5a02d05b0ca245d196d3965</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <binded_to rdf:resource="#f8f6b59798774888ab6764d:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1e74ff0ce5504cb7a588e2b</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">communicate with you by mail telephone facsimile e-mail mobile alerts and SMS text messaging about NOTMC or our affiliates including communications about your itineraries or purchases your services accounts sweepstakes or contests you enter your requests for information or other items and to update you about changes to our Online Services</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2d06c785c49a4f668beb48f:FPNotification">
+<owl:NamedIndividual rdf:about="#5b404f322d2b46168996921:FPNotification">
   <rdf:type rdf:resource="#FPNotification"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <notifies rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#1537a12142324cb1befc635:FPSpecificCommunicationMechanism"/>
-  <binded_to rdf:resource="#5a02d05b0ca245d196d3965:PolicyChange"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2d06c785c49a4f668beb48f</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <notifies rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#84eca69d48d841809f18c2a:FPSpecificCommunicationMechanism"/>
+  <binded_to rdf:resource="#1e74ff0ce5504cb7a588e2b:PolicyChange"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5b404f322d2b46168996921</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">communicate with you by mail telephone facsimile e-mail mobile alerts and SMS text messaging about NOTMC or our affiliates including communications about your itineraries or purchases your services accounts sweepstakes or contests you enter your requests for information or other items and to update you about changes to our Online Services</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a27971760b0343f4a6e3c4d:PersonalData">
+<owl:NamedIndividual rdf:about="#6c84f2a34a1044899c7cc9a:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a27971760b0343f4a6e3c4d</uuid>
+  <provided_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6c84f2a34a1044899c7cc9a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email and mobile communications</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7758a016d6394b999f790ee:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#7950e9c50d1b43b0b0b0bf9:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7758a016d6394b999f790ee</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7950e9c50d1b43b0b0b0bf9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">notices to facilitate a recent transaction you have conducted or messages with information about your existing account</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8cb84c7405c74f28a0edccc:DataUse">
+<owl:NamedIndividual rdf:about="#46bb7c8590234834b1501c6:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <has_purpose rdf:resource="#7758a016d6394b999f790ee:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#a27971760b0343f4a6e3c4d:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8cb84c7405c74f28a0edccc</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <has_purpose rdf:resource="#7950e9c50d1b43b0b0b0bf9:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#6c84f2a34a1044899c7cc9a:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">46bb7c8590234834b1501c6</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NOTMC may send you transactional or relationship communications using various electronic communication including email and mobile communications Transactional or relationship communications may include for example notices to facilitate a recent transaction you have conducted or messages with information about your existing account If at any time you decide you would rather not receive these types of communications from NOTMC you can opt out by following the opt-out or unsubscribe or STOP instructions in the relevant communication or update the contact preferences for your NOTMC account</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2654d5e287834d21b7d7699:PersonalData">
+<owl:NamedIndividual rdf:about="#a369b5c0cc0c487893ba9d7:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2654d5e287834d21b7d7699</uuid>
+  <provided_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a369b5c0cc0c487893ba9d7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email and mobile communications</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#72d6af1894eb4e39b12e407:ServiceProvisionPurpose">
+<owl:NamedIndividual rdf:about="#07680f7e334a47eda25b876:ServiceProvisionPurpose">
   <rdf:type rdf:resource="#ServiceProvisionPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">72d6af1894eb4e39b12e407</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">07680f7e334a47eda25b876</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">notices to facilitate a recent transaction you have conducted or messages with information about your existing account</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d1ca1b35fa0f456aae969cb:DataUse">
+<owl:NamedIndividual rdf:about="#e6eacc8d16ed40fa82253ce:DataUse">
   <rdf:type rdf:resource="#DataUse"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <has_purpose rdf:resource="#72d6af1894eb4e39b12e407:ServiceProvisionPurpose"/>
-  <applies_to rdf:resource="#2654d5e287834d21b7d7699:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d1ca1b35fa0f456aae969cb</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <has_purpose rdf:resource="#07680f7e334a47eda25b876:ServiceProvisionPurpose"/>
+  <applies_to rdf:resource="#a369b5c0cc0c487893ba9d7:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e6eacc8d16ed40fa82253ce</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NOTMC may send you transactional or relationship communications using various electronic communication including email and mobile communications Transactional or relationship communications may include for example notices to facilitate a recent transaction you have conducted or messages with information about your existing account If at any time you decide you would rather not receive these types of communications from NOTMC you can opt out by following the opt-out or unsubscribe or STOP instructions in the relevant communication or update the contact preferences for your NOTMC account</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c37bc30edf4249559bd1806:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#e9853ae1a21548c185ebbab:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c37bc30edf4249559bd1806</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e9853ae1a21548c185ebbab</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If, at any time, you decide you would rather not receive these types of communications from NOTMC, you can opt</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cb0b365c8e764f91bb682c3:PersonalData">
+<owl:NamedIndividual rdf:about="#b1a8d6c07dfa49f99fd0817:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cb0b365c8e764f91bb682c3</uuid>
+  <provided_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b1a8d6c07dfa49f99fd0817</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">"transactional or relationship" communications using various electronic communication, including email and mobile communications.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d0dafe8d43d54ba8850f59c:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#12d168295e97412c837c702:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#c37bc30edf4249559bd1806:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#cb0b365c8e764f91bb682c3:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d0dafe8d43d54ba8850f59c</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#e9853ae1a21548c185ebbab:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#b1a8d6c07dfa49f99fd0817:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">12d168295e97412c837c702</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NOTMC may send you transactional or relationship communications using various electronic communication including email and mobile communications Transactional or relationship communications may include for example notices to facilitate a recent transaction you have conducted or messages with information about your existing account If at any time you decide you would rather not receive these types of communications from NOTMC you can opt out by following the opt-out or unsubscribe or STOP instructions in the relevant communication or update the contact preferences for your NOTMC account</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#18fb02a247d34951996b826:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#1f0067cb5eeb4577a8caa42:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">18fb02a247d34951996b826</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1f0067cb5eeb4577a8caa42</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">the "opt-out" or "unsubscribe" or "STOP" instructions in the relevant communication</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8a637fc935df47549e8f50d:PersonalData">
+<owl:NamedIndividual rdf:about="#454d47d19a6045fbb59cf44:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8a637fc935df47549e8f50d</uuid>
+  <provided_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">454d47d19a6045fbb59cf44</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email and mobile communications</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#783755402d0e4677ac962a8:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#a7777ed6165a4c1f904380f:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#18fb02a247d34951996b826:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#8a637fc935df47549e8f50d:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">783755402d0e4677ac962a8</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#1f0067cb5eeb4577a8caa42:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#454d47d19a6045fbb59cf44:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a7777ed6165a4c1f904380f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NOTMC may send you transactional or relationship communications using various electronic communication including email and mobile communications Transactional or relationship communications may include for example notices to facilitate a recent transaction you have conducted or messages with information about your existing account If at any time you decide you would rather not receive these types of communications from NOTMC you can opt out by following the opt-out or unsubscribe or STOP instructions in the relevant communication or update the contact preferences for your NOTMC account</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#67b044e6782c4b2eaff3056:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#910ea7200f2a4a71b68ca0f:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">67b044e6782c4b2eaff3056</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">910ea7200f2a4a71b68ca0f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">update the contact preferences for your NOTMC account.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4f9df6a724df4b1ebd39b70:PersonalData">
+<owl:NamedIndividual rdf:about="#76b06ef63d3d4eea978531a:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4f9df6a724df4b1ebd39b70</uuid>
+  <provided_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">76b06ef63d3d4eea978531a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email and mobile communications</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#75142d71691d45e29644039:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#72e2dbd124654b90a2b6b19:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#67b044e6782c4b2eaff3056:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#4f9df6a724df4b1ebd39b70:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">75142d71691d45e29644039</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#910ea7200f2a4a71b68ca0f:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#76b06ef63d3d4eea978531a:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">72e2dbd124654b90a2b6b19</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NOTMC may send you transactional or relationship communications using various electronic communication including email and mobile communications Transactional or relationship communications may include for example notices to facilitate a recent transaction you have conducted or messages with information about your existing account If at any time you decide you would rather not receive these types of communications from NOTMC you can opt out by following the opt-out or unsubscribe or STOP instructions in the relevant communication or update the contact preferences for your NOTMC account</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b798a4c226d540c2aca2aa5:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#4df9055a5e5e4ad3aa21e53:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b798a4c226d540c2aca2aa5</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4df9055a5e5e4ad3aa21e53</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You must opt in (i.e., expressly consent)</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d92c0e7f34d84b6fb68090f:PersonalData">
+<owl:NamedIndividual rdf:about="#1d0871120d1c49448875283:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d92c0e7f34d84b6fb68090f</uuid>
+  <provided_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1d0871120d1c49448875283</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">text messages</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#76073f0f149a46a4ae81573:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#f88ef8c55df84d6d9e5a20e:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#b798a4c226d540c2aca2aa5:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#d92c0e7f34d84b6fb68090f:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">76073f0f149a46a4ae81573</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#4df9055a5e5e4ad3aa21e53:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#1d0871120d1c49448875283:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f88ef8c55df84d6d9e5a20e</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please note You must opt in i e expressly consent to receive text messages SMS from NOTMC Any such opt-in will be subject to this Privacy Policy and NOTMC will only send you SMS text messages if you opt in to receive them from us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d921597be1074e76b1c1c8f:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#135b0ae4c87345b1aa22169:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d921597be1074e76b1c1c8f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">135b0ae4c87345b1aa22169</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You must opt in (i.e., expressly consent)</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#541a044ad1e44c10996565c:PersonalData">
+<owl:NamedIndividual rdf:about="#fa1aec79c92941f29776a16:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">541a044ad1e44c10996565c</uuid>
+  <provided_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fa1aec79c92941f29776a16</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SMS text messages</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#547875cc8cd24423a1055e8:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#49462619a5514a8fa71ef2c:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#d921597be1074e76b1c1c8f:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#541a044ad1e44c10996565c:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">547875cc8cd24423a1055e8</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#135b0ae4c87345b1aa22169:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#fa1aec79c92941f29776a16:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">49462619a5514a8fa71ef2c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please note You must opt in i e expressly consent to receive text messages SMS from NOTMC Any such opt-in will be subject to this Privacy Policy and NOTMC will only send you SMS text messages if you opt in to receive them from us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d425edbe66734da2a186882:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#9017cf89bba445568ef8ac1:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d425edbe66734da2a186882</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9017cf89bba445568ef8ac1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Options To manage and correct any factual inaccuracies in the information we have on file about you please follow the directions in the e-mail or other relevant electronic communication you receive from us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#c4c126c533874cb986529f4:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#a905438963044ed1a612c95:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#d425edbe66734da2a186882:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c4c126c533874cb986529f4</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#9017cf89bba445568ef8ac1:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a905438963044ed1a612c95</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Options To manage and correct any factual inaccuracies in the information we have on file about you please follow the directions in the e-mail or other relevant electronic communication you receive from us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b474eb46f4b2496a960ef6d:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#93eefb01edac430ab4b2775:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b474eb46f4b2496a960ef6d</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">93eefb01edac430ab4b2775</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">please follow the directions in the e-mail or other relevant electronic communication you receive from us.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e01164c8973a4db5b6bae33:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#7ceef47756964da0886f7e8:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#b474eb46f4b2496a960ef6d:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e01164c8973a4db5b6bae33</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#93eefb01edac430ab4b2775:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7ceef47756964da0886f7e8</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Options To manage and correct any factual inaccuracies in the information we have on file about you please follow the directions in the e-mail or other relevant electronic communication you receive from us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#73f59e10133a4c82bb2c6d7:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#eb555ab0622343f1806b5db:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">73f59e10133a4c82bb2c6d7</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eb555ab0622343f1806b5db</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Options To manage and correct any factual inaccuracies in the information we have on file about you please follow the directions in the e-mail or other relevant electronic communication you receive from us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3d02141a76b9494eaf3e79f:SensitiveData">
+<owl:NamedIndividual rdf:about="#f854569a0ed943ecb9d90ed:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3d02141a76b9494eaf3e79f</uuid>
+  <provided_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f854569a0ed943ecb9d90ed</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Profile data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0657f93de3bd48c4bbd0dc3:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#4d7da3d3fd5649cca985f46:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#73f59e10133a4c82bb2c6d7:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#3d02141a76b9494eaf3e79f:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0657f93de3bd48c4bbd0dc3</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#eb555ab0622343f1806b5db:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#f854569a0ed943ecb9d90ed:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4d7da3d3fd5649cca985f46</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Options To manage and correct any factual inaccuracies in the information we have on file about you please follow the directions in the e-mail or other relevant electronic communication you receive from us</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d66a9727ce044785b20fe8f:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#00c8d395b2be4024accc07b:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d66a9727ce044785b20fe8f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">00c8d395b2be4024accc07b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">reasonable safeguards designed to prevent loss, misuse and unauthorized access, disclosure or modification of Personal Information provided or collected through our Online Services.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6232f3cfda6e4c49bf23ff3:DataProtection">
+<owl:NamedIndividual rdf:about="#8ff0074e66b746e19f66f28:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <has_mechanism rdf:resource="#d66a9727ce044785b20fe8f:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6232f3cfda6e4c49bf23ff3</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <has_mechanism rdf:resource="#00c8d395b2be4024accc07b:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8ff0074e66b746e19f66f28</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How We Protect Your Personal Information NOTMC has implemented reasonable safeguards designed to prevent loss misuse and unauthorized access disclosure or modification of Personal Information provided or collected through our Online Services</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b7188c881fc649ea8f34013:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#5e18675460894a31865cea4:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b7188c881fc649ea8f34013</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5e18675460894a31865cea4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">reasonable safeguards</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5da1f75bffb54ce6b88f78e:DataProtection">
+<owl:NamedIndividual rdf:about="#2241b7c30ae740aea0edddc:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <has_mechanism rdf:resource="#b7188c881fc649ea8f34013:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5da1f75bffb54ce6b88f78e</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <has_mechanism rdf:resource="#5e18675460894a31865cea4:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2241b7c30ae740aea0edddc</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">How We Protect Your Personal Information NOTMC has implemented reasonable safeguards designed to prevent loss misuse and unauthorized access disclosure or modification of Personal Information provided or collected through our Online Services</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#079fb06fc61c401cbe2a59c:SecurityMechanism">
+<owl:NamedIndividual rdf:about="#0e5acbf0989a4a5faaa313f:SecurityMechanism">
   <rdf:type rdf:resource="#SecurityMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">079fb06fc61c401cbe2a59c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0e5acbf0989a4a5faaa313f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">you should always take appropriate security measures to protect your Personal Information, including ensuring that you have up-to-date antivirus software.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#165b0a14360e495c893e630:DataProtection">
+<owl:NamedIndividual rdf:about="#bf139debea07404bb509b1f:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <has_mechanism rdf:resource="#079fb06fc61c401cbe2a59c:SecurityMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">165b0a14360e495c893e630</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <has_mechanism rdf:resource="#0e5acbf0989a4a5faaa313f:SecurityMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bf139debea07404bb509b1f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Unfortunately no system or online transmission of data can be guaranteed to be 100% secure and you should always take appropriate security measures to protect your Personal Information including ensuring that you have up-to-date antivirus software If you believe that your NOTMC account or any information you provided to us is no longer secure please notify us immediately using the Contact Us information provided below</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5d59348650ae49e5a44f7c2:SecurityMechanism">
+<owl:NamedIndividual rdf:about="#77c87ce118ad46fc9fa8dad:SecurityMechanism">
   <rdf:type rdf:resource="#SecurityMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5d59348650ae49e5a44f7c2</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">77c87ce118ad46fc9fa8dad</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Unfortunately, no system or online transmission of data can be guaranteed to be 100% secure and you should always take appropriate security measures to protect your Personal Information, including ensuring that you have up-to-date antivirus software. If you believe that your NOTMC account or any information you provided to us is no longer secure, please notify us immediately using the Contact Us information provided below.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a501fe7cd19d4808a64219e:DataProtection">
+<owl:NamedIndividual rdf:about="#f339941c9a344e5e8ff6bba:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#7d4f9e7c27ce49bda6cd7fd:FirstParty"/>
-  <has_mechanism rdf:resource="#5d59348650ae49e5a44f7c2:SecurityMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a501fe7cd19d4808a64219e</uuid>
+  <initiated_by rdf:resource="#cda8af697bc04e639db92ef:FirstParty"/>
+  <has_mechanism rdf:resource="#77c87ce118ad46fc9fa8dad:SecurityMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f339941c9a344e5e8ff6bba</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Unfortunately no system or online transmission of data can be guaranteed to be 100% secure and you should always take appropriate security measures to protect your Personal Information including ensuring that you have up-to-date antivirus software If you believe that your NOTMC account or any information you provided to us is no longer secure please notify us immediately using the Contact Us information provided below</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a790245269a44600af76724:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#6a0a21d3a7dd4e1cad956c0:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a790245269a44600af76724</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6a0a21d3a7dd4e1cad956c0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Please consult your particular Web browser's settings</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5664933c0a9f4b1a97f1b50:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#9605c536ce954d81b428ada:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#a790245269a44600af76724:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5664933c0a9f4b1a97f1b50</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#6a0a21d3a7dd4e1cad956c0:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9605c536ce954d81b428ada</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Options for Cookies Web browsers allow some control of most Cookies Please consult your particular Web browser s settings You can learn more about Cookies see what Cookies have been set on your computing device and learn how to manage and delete them at allaboutcookies org</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e82312377df2449280720bc:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#2f052c88a9934b71b2e6e0c:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e82312377df2449280720bc</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2f052c88a9934b71b2e6e0c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Options for Cookies Web browsers allow some control of most Cookies. Please consult your particular Web browser's settings. You can learn more about Cookies, see what Cookies have been set on your computing device and learn how to manage and delete them at allaboutcookies.org.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5b8ecbb636ef40dba7a55e9:TrackingData">
+<owl:NamedIndividual rdf:about="#e2004cf485864b57b2dfdc8:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5b8ecbb636ef40dba7a55e9</uuid>
+  <provided_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e2004cf485864b57b2dfdc8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Options for Cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3d62b6c31d184a0293cbcd6:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#2dae9162574848abade35f6:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#e82312377df2449280720bc:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#5b8ecbb636ef40dba7a55e9:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3d62b6c31d184a0293cbcd6</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#2f052c88a9934b71b2e6e0c:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#e2004cf485864b57b2dfdc8:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2dae9162574848abade35f6</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your Options for Cookies Web browsers allow some control of most Cookies Please consult your particular Web browser s settings You can learn more about Cookies see what Cookies have been set on your computing device and learn how to manage and delete them at allaboutcookies org</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b7cac0b65454401f9041639:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#5f0d1642a9cb4f38ae236fd:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b7cac0b65454401f9041639</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5f0d1642a9cb4f38ae236fd</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your California Privacy Rights If you live in California and have an established business relationship with us you can request a list of the personal information we have shared with third parties for their marketing purposes We will also give you a list of the third parties that have received your information You can make a request one time each year To exercise your rights you can contact us by email at online notmc com or as set forth in the Contact Us section below Please be sure to mention when you contact us that you are making a California Shine the Light inquiry We will respond within 30 days</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2645d2b42c6b4bc4a2b959b:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#38c95c6157024bd1a8e9406:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2645d2b42c6b4bc4a2b959b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">38c95c6157024bd1a8e9406</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your California Privacy Rights If you live in California and have an established business relationship with us you can request a list of the personal information we have shared with third parties for their marketing purposes We will also give you a list of the third parties that have received your information You can make a request one time each year To exercise your rights you can contact us by email at online notmc com or as set forth in the Contact Us section below Please be sure to mention when you contact us that you are making a California Shine the Light inquiry We will respond within 30 days</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1c83baa127ef4b7192aebdb:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#986818a2c25a4c88897c8c9:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1c83baa127ef4b7192aebdb</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">986818a2c25a4c88897c8c9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your California Privacy Rights If you live in California and have an established business relationship with us you can request a list of the personal information we have shared with third parties for their marketing purposes We will also give you a list of the third parties that have received your information You can make a request one time each year To exercise your rights you can contact us by email at online notmc com or as set forth in the Contact Us section below Please be sure to mention when you contact us that you are making a California Shine the Light inquiry We will respond within 30 days</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0d5e196e4028469cbe5af9b:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#7ab327a0294b455fae9ad09:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#1c83baa127ef4b7192aebdb:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0d5e196e4028469cbe5af9b</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#986818a2c25a4c88897c8c9:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7ab327a0294b455fae9ad09</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your California Privacy Rights If you live in California and have an established business relationship with us you can request a list of the personal information we have shared with third parties for their marketing purposes We will also give you a list of the third parties that have received your information You can make a request one time each year To exercise your rights you can contact us by email at online notmc com or as set forth in the Contact Us section below Please be sure to mention when you contact us that you are making a California Shine the Light inquiry We will respond within 30 days</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f73dfa4965ea440380dee3f:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#da8ad639e0af4ed8912480d:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f73dfa4965ea440380dee3f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">da8ad639e0af4ed8912480d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your California Privacy Rights If you live in California and have an established business relationship with us you can request a list of the personal information we have shared with third parties for their marketing purposes We will also give you a list of the third parties that have received your information You can make a request one time each year To exercise your rights you can contact us by email at online notmc com or as set forth in the Contact Us section below Please be sure to mention when you contact us that you are making a California Shine the Light inquiry We will respond within 30 days</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8867e8f849b04c8b88b7f7f:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#fedae9c2e1f44f1f8a40f72:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8867e8f849b04c8b88b7f7f</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fedae9c2e1f44f1f8a40f72</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your California Privacy Rights If you live in California and have an established business relationship with us you can request a list of the personal information we have shared with third parties for their marketing purposes We will also give you a list of the third parties that have received your information You can make a request one time each year To exercise your rights you can contact us by email at online notmc com or as set forth in the Contact Us section below Please be sure to mention when you contact us that you are making a California Shine the Light inquiry We will respond within 30 days</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#33c66f1947f244f4b610cd0:SensitiveData">
+<owl:NamedIndividual rdf:about="#99555471b34d4b34a1e2434:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">33c66f1947f244f4b610cd0</uuid>
+  <provided_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">99555471b34d4b34a1e2434</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Profile data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#61f00745ed21421ea568a09:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#4f8e1a0cb3244879a6ae5dd:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#8867e8f849b04c8b88b7f7f:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#33c66f1947f244f4b610cd0:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">61f00745ed21421ea568a09</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#fedae9c2e1f44f1f8a40f72:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#99555471b34d4b34a1e2434:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4f8e1a0cb3244879a6ae5dd</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your California Privacy Rights If you live in California and have an established business relationship with us you can request a list of the personal information we have shared with third parties for their marketing purposes We will also give you a list of the third parties that have received your information You can make a request one time each year To exercise your rights you can contact us by email at online notmc com or as set forth in the Contact Us section below Please be sure to mention when you contact us that you are making a California Shine the Light inquiry We will respond within 30 days</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#386d9ed758f344be8b7d2f7:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#f2a6aa0c57034fdc96031fd:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">386d9ed758f344be8b7d2f7</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f2a6aa0c57034fdc96031fd</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your California Privacy Rights If you live in California and have an established business relationship with us you can request a list of the personal information we have shared with third parties for their marketing purposes We will also give you a list of the third parties that have received your information You can make a request one time each year To exercise your rights you can contact us by email at online notmc com or as set forth in the Contact Us section below Please be sure to mention when you contact us that you are making a California Shine the Light inquiry We will respond within 30 days</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6115241d8b984db0a0d25fa:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#f8000754ced24e788500488:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#386d9ed758f344be8b7d2f7:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6115241d8b984db0a0d25fa</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#f2a6aa0c57034fdc96031fd:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f8000754ced24e788500488</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Your California Privacy Rights If you live in California and have an established business relationship with us you can request a list of the personal information we have shared with third parties for their marketing purposes We will also give you a list of the third parties that have received your information You can make a request one time each year To exercise your rights you can contact us by email at online notmc com or as set forth in the Contact Us section below Please be sure to mention when you contact us that you are making a California Shine the Light inquiry We will respond within 30 days</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e1cb17c4505145efb3c5117:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#f2462cc8b5374de39dcb5ab:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e1cb17c4505145efb3c5117</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f2462cc8b5374de39dcb5ab</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Children s Online Privacy NOTMC does not target children and does not knowingly collect any personally identifiable information from children under the age of thirteen 13 When a user discloses personal information on our Online Services the user is representing to us that he or she is at least thirteen 13 years of age</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f3d5d34dd08c4dd7a2a87d0:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#d58bae671c9b4653a790d76:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f3d5d34dd08c4dd7a2a87d0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d58bae671c9b4653a790d76</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you are the parent or guardian of a child under the age of thirteen 13 who you believe has provided NOTMC with personally identifiable information through our Online Services please e-mail us at online notmc com so that we can delete the child s information from our records</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ba44f1b6a845480caf54446:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#8459e8e024e140bc9e910c2:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ba44f1b6a845480caf54446</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8459e8e024e140bc9e910c2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you are the parent or guardian of a child under the age of thirteen 13 who you believe has provided NOTMC with personally identifiable information through our Online Services please e-mail us at online notmc com so that we can delete the child s information from our records</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#af1b727ca035429c91187d3:SensitiveData">
+<owl:NamedIndividual rdf:about="#30be84db8d764faa989b0fb:SensitiveData">
   <rdf:type rdf:resource="#SensitiveData"/>
-  <provided_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">af1b727ca035429c91187d3</uuid>
+  <provided_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">30be84db8d764faa989b0fb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Profile data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#be13c4ba1bbe40f89661b5e:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#8b0c9fc0402344e5b260db9:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#ba44f1b6a845480caf54446:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#af1b727ca035429c91187d3:SensitiveData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">be13c4ba1bbe40f89661b5e</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#8459e8e024e140bc9e910c2:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#30be84db8d764faa989b0fb:SensitiveData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8b0c9fc0402344e5b260db9</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you are the parent or guardian of a child under the age of thirteen 13 who you believe has provided NOTMC with personally identifiable information through our Online Services please e-mail us at online notmc com so that we can delete the child s information from our records</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#390c8320f78b4a7cba8c8da:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#5f999e2c243944059eb6c86:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">390c8320f78b4a7cba8c8da</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5f999e2c243944059eb6c86</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you are the parent or guardian of a child under the age of thirteen 13 who you believe has provided NOTMC with personally identifiable information through our Online Services please e-mail us at online notmc com so that we can delete the child s information from our records</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fb60fd817b484f51bdd32ca:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#2fdfcbd3d9554c598e530ab:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fb60fd817b484f51bdd32ca</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2fdfcbd3d9554c598e530ab</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you are the parent or guardian of a child under the age of thirteen 13 who you believe has provided NOTMC with personally identifiable information through our Online Services please e-mail us at online notmc com so that we can delete the child s information from our records</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#283700eac3e14e16b3e3543:AccountData">
+<owl:NamedIndividual rdf:about="#b2cc26feef7d4fdb83b21f2:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">283700eac3e14e16b3e3543</uuid>
+  <provided_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b2cc26feef7d4fdb83b21f2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2b7bc07fc9d2402bad38d50:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#1facdf97397d4457b456f2f:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#88067f64817d468dabeee43:User"/>
-  <has_mechanism rdf:resource="#fb60fd817b484f51bdd32ca:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#283700eac3e14e16b3e3543:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2b7bc07fc9d2402bad38d50</uuid>
+  <initiated_by rdf:resource="#4bafcf40b9e54fd2ba489f4:User"/>
+  <has_mechanism rdf:resource="#2fdfcbd3d9554c598e530ab:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#b2cc26feef7d4fdb83b21f2:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1facdf97397d4457b456f2f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you are the parent or guardian of a child under the age of thirteen 13 who you believe has provided NOTMC with personally identifiable information through our Online Services please e-mail us at online notmc com so that we can delete the child s information from our records</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8b514e13e5d0434f8c68a57:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#826158aa4759402ab4e83d6:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#88067f64817d468dabeee43:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8b514e13e5d0434f8c68a57</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">826158aa4759402ab4e83d6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">International This English-language Privacy Policy is NOTMC s official statement of our privacy practices In case of any inconsistency between this English-language Privacy Policy and its translation into any other language this English-language document will take precedence over such translation</evidence>
 </owl:NamedIndividual>
 

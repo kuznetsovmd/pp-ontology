@@ -48,20 +48,20 @@
   <owl:inverseOf rdf:resource="#mechanism_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_mode_for">
+<owl:ObjectProperty rdf:about="#mode_for">
   <owl:inverseOf rdf:resource="#has_mode"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_mode">
-  <owl:inverseOf rdf:resource="#is_mode_for"/>
+  <owl:inverseOf rdf:resource="#mode_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_period_of">
+<owl:ObjectProperty rdf:about="#period_of">
   <owl:inverseOf rdf:resource="#lasts_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#lasts_for">
-  <owl:inverseOf rdf:resource="#is_period_of"/>
+  <owl:inverseOf rdf:resource="#period_of"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#causes">
@@ -72,59 +72,59 @@
   <owl:inverseOf rdf:resource="#causes"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_consequence_of">
+<owl:ObjectProperty rdf:about="#consequence_of">
   <owl:inverseOf rdf:resource="#has_consequence"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_consequence">
-  <owl:inverseOf rdf:resource="#is_consequence_of"/>
+  <owl:inverseOf rdf:resource="#consequence_of"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_purpose_for">
+<owl:ObjectProperty rdf:about="#purpose_for">
   <owl:inverseOf rdf:resource="#has_purpose"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_purpose">
-  <owl:inverseOf rdf:resource="#is_purpose_for"/>
+  <owl:inverseOf rdf:resource="#purpose_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_basis_for">
+<owl:ObjectProperty rdf:about="#basis_for">
   <owl:inverseOf rdf:resource="#has_basis"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_basis">
-  <owl:inverseOf rdf:resource="#is_basis_for"/>
+  <owl:inverseOf rdf:resource="#basis_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_scope_for">
+<owl:ObjectProperty rdf:about="#scope_for">
   <owl:inverseOf rdf:resource="#has_scope"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_scope">
-  <owl:inverseOf rdf:resource="#is_scope_for"/>
+  <owl:inverseOf rdf:resource="#scope_for"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_special_category_for">
+<owl:ObjectProperty rdf:about="#special_category_for">
   <owl:inverseOf rdf:resource="#has_special_category"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#has_special_category">
-  <owl:inverseOf rdf:resource="#is_special_category_for"/>
+  <owl:inverseOf rdf:resource="#special_category_for"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#collects_from">
-  <owl:inverseOf rdf:resource="#is_collected_by"/>
+  <owl:inverseOf rdf:resource="#collected_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_collected_by">
+<owl:ObjectProperty rdf:about="#collected_by">
   <owl:inverseOf rdf:resource="#collects_from"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:about="#shares_with">
-  <owl:inverseOf rdf:resource="#is_shared_by"/>
+  <owl:inverseOf rdf:resource="#shared_by"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#is_shared_by">
+<owl:ObjectProperty rdf:about="#shared_by">
   <owl:inverseOf rdf:resource="#shares_with"/>
 </owl:ObjectProperty>
 
@@ -614,7 +614,7 @@
           <owl:allValuesFrom rdf:resource="#UserSpecialCategory"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#FPCollection"/>
         </owl:Restriction>
         <owl:Restriction>
@@ -638,6 +638,7 @@
               <owl:unionOf rdf:parseType="Collection">
                 <rdf:Description rdf:about="#DataActivity"/>
                 <rdf:Description rdf:about="#FPNotification"/>
+                <rdf:Description rdf:about="#DataBreachProcessing"/>
               </owl:unionOf>
             </owl:Class>
           </owl:allValuesFrom>
@@ -657,11 +658,11 @@
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_shared_by"/>
+          <owl:onProperty rdf:resource="#shared_by"/>
           <owl:allValuesFrom rdf:resource="#TPSharing"/>
         </owl:Restriction>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="#is_collected_by"/>
+          <owl:onProperty rdf:resource="#collected_by"/>
           <owl:allValuesFrom rdf:resource="#TPCollection"/>
         </owl:Restriction>
       </owl:intersectionOf>
@@ -679,13 +680,13 @@
   </rdfs:subClassOf>
 </owl:Class>
 
+<owl:Class rdf:about="#NonPersonalData">
+  <rdfs:subClassOf rdf:resource="#Data"/>
+</owl:Class>
+
 <owl:Class rdf:about="#PersonalData">
   <rdfs:subClassOf rdf:resource="#Data"/>
   <owl:disjointWith rdf:resource="#NonPersonalData"/>
-</owl:Class>
-
-<owl:Class rdf:about="#NonPersonalData">
-  <rdfs:subClassOf rdf:resource="#Data"/>
 </owl:Class>
 
 <owl:Class rdf:about="#ServiceData">
@@ -901,14 +902,6 @@
   <rdfs:subClassOf rdf:resource="#UserSpecificCommunicationMechanism"/>
   <owl:disjointWith rdf:resource="#AutomaticCommunicationMechanism"/>
   <rdfs:subClassOf>
-    <owl:Class>
-      <owl:unionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
-        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
-      </owl:unionOf>
-    </owl:Class>
-  </rdfs:subClassOf>
-  <rdfs:subClassOf>
     <owl:Restriction>
       <owl:onProperty rdf:resource="#mechanism_of"/>
       <owl:allValuesFrom>
@@ -917,6 +910,14 @@
         </owl:Class>
       </owl:allValuesFrom>
     </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#UserSpecificCommunicationMechanism"/>
+        <rdf:Description rdf:about="#GeneralCommunicationMechanism"/>
+      </owl:unionOf>
+    </owl:Class>
   </rdfs:subClassOf>
 </owl:Class>
 
@@ -990,7 +991,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1000,7 +1001,7 @@
   <rdfs:subClassOf rdf:resource="#Mode"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_mode_for"/>
+      <owl:onProperty rdf:resource="#mode_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1082,7 +1083,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1092,7 +1093,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1111,7 +1112,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1121,7 +1122,7 @@
   <rdfs:subClassOf rdf:resource="#Consequence"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_consequence_of"/>
+      <owl:onProperty rdf:resource="#consequence_of"/>
       <owl:allValuesFrom rdf:resource="#DataControl"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1143,7 +1144,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1153,7 +1154,7 @@
   <rdfs:subClassOf rdf:resource="#Purpose"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_purpose_for"/>
+      <owl:onProperty rdf:resource="#purpose_for"/>
       <owl:allValuesFrom rdf:resource="#DataActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1195,7 +1196,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1205,7 +1206,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataRetention"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1215,7 +1216,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#NotificationActivity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1225,7 +1226,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#DataBreachProcessing"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1235,7 +1236,7 @@
   <rdfs:subClassOf rdf:resource="#TimePeriod"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_period_of"/>
+      <owl:onProperty rdf:resource="#period_of"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1245,7 +1246,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom rdf:resource="#Activity"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1255,7 +1256,7 @@
   <rdfs:subClassOf rdf:resource="#Basis"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_basis_for"/>
+      <owl:onProperty rdf:resource="#basis_for"/>
       <owl:allValuesFrom>
         <owl:Class>
           <owl:unionOf rdf:parseType="Collection">
@@ -1272,7 +1273,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_scope_for"/>
+      <owl:onProperty rdf:resource="#scope_for"/>
       <owl:allValuesFrom rdf:resource="#PolicyChange"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1282,7 +1283,7 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   <rdfs:subClassOf>
     <owl:Restriction>
-      <owl:onProperty rdf:resource="#is_special_category_for"/>
+      <owl:onProperty rdf:resource="#special_category_for"/>
       <owl:allValuesFrom rdf:resource="#User"/>
     </owl:Restriction>
   </rdfs:subClassOf>
@@ -1304,709 +1305,707 @@
   <rdfs:subClassOf rdf:resource="#UserSpecialCategory"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#f1b63878e8a74572806ccd6:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#509dd5b7e67f4736a5feb2b:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f1b63878e8a74572806ccd6</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">509dd5b7e67f4736a5feb2b</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f0fcb4520c4e498aaf70311:PrivacyPolicy">
+<owl:NamedIndividual rdf:about="#b6f80f25b3c24d5e9fa0551:PrivacyPolicy">
   <rdf:type rdf:resource="#PrivacyPolicy"/>
-  <considers rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <considers rdf:resource="#8782f661756a45adb1fb05e:FirstParty"/>
-  <considers rdf:resource="#8be05d71e3df428c92384b0:ThirdParty"/>
-  <considers rdf:resource="#5d7f854ca1774df5bf79ae4:OptInOptOutControl"/>
-  <considers rdf:resource="#365e6114fd26444c9ab25bb:DataProtection"/>
-  <considers rdf:resource="#f8408e8261114f39894ba2c:OptInOptOutControl"/>
-  <considers rdf:resource="#32f08883528040a0a6a0e46:OptInOptOutControl"/>
-  <considers rdf:resource="#3e0f1a8ed4e9443e9ca3d3d:GenericData"/>
-  <considers rdf:resource="#171f26a106d946c7a858855:FPCollection"/>
-  <considers rdf:resource="#6d88df4119d4406b92844ed:PersonalData"/>
-  <considers rdf:resource="#81b9d7911be54cff81f0f13:FPCollection"/>
-  <considers rdf:resource="#717b45ceb64f42d19264904:Data"/>
-  <considers rdf:resource="#6464e9135c8e4a7c8d9f825:FPCollection"/>
-  <considers rdf:resource="#eafb23b939444292a5967b2:FinancialData"/>
-  <considers rdf:resource="#6dcf8a1f264d4ee08d2d1ee:FPCollection"/>
-  <considers rdf:resource="#d72a6ce682c34f1099a52c1:GenericData"/>
-  <considers rdf:resource="#e05aa9a59ac6460d88c2d2b:OptInOptOutControl"/>
-  <considers rdf:resource="#202fd4bd578a4134869587e:OptInOptOutControl"/>
-  <considers rdf:resource="#372e9b840d374d73a77cf77:OptInOptOutControl"/>
-  <considers rdf:resource="#f828ba9803f2494a89ab86a:AccountData"/>
-  <considers rdf:resource="#b153cfa280a34b35a742cee:OptInOptOutControl"/>
-  <considers rdf:resource="#ba3f6febe2a14ba9a0f8322:OptInOptOutControl"/>
-  <considers rdf:resource="#6c48e883d55547418fb4902:DataProtection"/>
-  <considers rdf:resource="#3df43239796a46c69045313:DataProtection"/>
-  <considers rdf:resource="#403468d8e97646eda69ca84:DataProtection"/>
-  <considers rdf:resource="#26a55c0c32014f49b2fcdf9:DataProtection"/>
-  <considers rdf:resource="#fac354e9b73f4dbf91a0634:DataProtection"/>
-  <considers rdf:resource="#92613681a71a40ab82ecf55:DataProtection"/>
-  <considers rdf:resource="#8f09a6614a2b47318c34418:TrackingData"/>
-  <considers rdf:resource="#bb5e062f33d04de597efac1:FPCollection"/>
-  <considers rdf:resource="#3854ed273b2c4c2a90bd974:TrackingData"/>
-  <considers rdf:resource="#cbc47c67245148ecafe9da7:FPCollection"/>
-  <considers rdf:resource="#9e6b7bd66a5746ec99bd9b9:TrackingData"/>
-  <considers rdf:resource="#65ed87fc1f104c27b1724a9:OptInOptOutControl"/>
-  <considers rdf:resource="#78a60bf19d9c43578646aa8:TrackingData"/>
-  <considers rdf:resource="#f28156627d08482db8dbe5a:OptInOptOutControl"/>
-  <considers rdf:resource="#3b72890e154b4b6381a31e5:TrackingData"/>
-  <considers rdf:resource="#ca36167fe18144fba7e2eb3:FPCollection"/>
-  <considers rdf:resource="#8673ad4de4e44c079c9d86c:TrackingData"/>
-  <considers rdf:resource="#80b2737512b3440e88fd4b8:FPCollection"/>
-  <considers rdf:resource="#eab8ab5c8df843f0b586bf7:PersonalData"/>
-  <considers rdf:resource="#fd0a4f4021bd4a2ab29cfa9:OptInOptOutControl"/>
-  <considers rdf:resource="#dc53b076436544909f61011:PersonalData"/>
-  <considers rdf:resource="#3e196fe17cf54e9fa36f9b2:OptInOptOutControl"/>
-  <considers rdf:resource="#607a4614cef746ceb62421c:PersonalData"/>
-  <considers rdf:resource="#e67dbd4c18b14a679d309c9:OptInOptOutControl"/>
-  <considers rdf:resource="#41253117c8b441788d2a4bd:PersonalData"/>
-  <considers rdf:resource="#8269069a0461403ca2799a3:OptInOptOutControl"/>
-  <considers rdf:resource="#41e88fb98bc04c098d16fb5:OptInOptOutControl"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f0fcb4520c4e498aaf70311</uuid>
+  <considers rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <considers rdf:resource="#130e0d2994c549c4b1cfa20:FirstParty"/>
+  <considers rdf:resource="#94ad3ed4fbbe450cb62e08e:ThirdParty"/>
+  <considers rdf:resource="#3173ead16d6849dc8f924d4:OptInOptOutControl"/>
+  <considers rdf:resource="#bc83e3eeafa244dbbe0bab2:DataProtection"/>
+  <considers rdf:resource="#bab8de2c65b64bdb93fd225:OptInOptOutControl"/>
+  <considers rdf:resource="#79b6105269c440388477bd6:OptInOptOutControl"/>
+  <considers rdf:resource="#04b5bf4a1b8e4aa7887c374:GenericData"/>
+  <considers rdf:resource="#329909276a9b47c7bfc66c8:FPCollection"/>
+  <considers rdf:resource="#83003c12e80144e3b2ad6ec:PersonalData"/>
+  <considers rdf:resource="#3d24aa098eaf446da604033:FPCollection"/>
+  <considers rdf:resource="#b136bdbab6b848aa8b5c43c:Data"/>
+  <considers rdf:resource="#65dc0bae180a4e4eabd9b27:FPCollection"/>
+  <considers rdf:resource="#9853b4dd86a546b782b5db3:FinancialData"/>
+  <considers rdf:resource="#707ca11ebe154675a6d3b70:FPCollection"/>
+  <considers rdf:resource="#5ded5cf20c234edea2367b4:GenericData"/>
+  <considers rdf:resource="#669365845d3e44b583cc2d2:OptInOptOutControl"/>
+  <considers rdf:resource="#1679444b5e594f7aaf3599f:OptInOptOutControl"/>
+  <considers rdf:resource="#ba039a4213ab45cd908a626:OptInOptOutControl"/>
+  <considers rdf:resource="#5a72a2d9fed143daa5ec120:AccountData"/>
+  <considers rdf:resource="#65ad1b6e0c724fe89c4dc22:OptInOptOutControl"/>
+  <considers rdf:resource="#a03dfb827a9a47a9a814013:OptInOptOutControl"/>
+  <considers rdf:resource="#3eeabcfc280b48f1b696745:DataProtection"/>
+  <considers rdf:resource="#7ca26a799ca9448ebbe7b3f:DataProtection"/>
+  <considers rdf:resource="#02f4a24bcd5b47149ab0ef5:DataProtection"/>
+  <considers rdf:resource="#8e7cc5a23dd54a51920637c:DataProtection"/>
+  <considers rdf:resource="#7aa40f4c063d40b1a875304:DataProtection"/>
+  <considers rdf:resource="#41be0c8df578485488496cf:DataProtection"/>
+  <considers rdf:resource="#0b718bfd35144ea0aca4016:TrackingData"/>
+  <considers rdf:resource="#e9f2b9031aec44bab141857:FPCollection"/>
+  <considers rdf:resource="#e3d3ffb6cab84ff5a1d1d69:TrackingData"/>
+  <considers rdf:resource="#efc2f6b7af224d5e9518547:FPCollection"/>
+  <considers rdf:resource="#7025687ff8ff4bfcb30afcb:TrackingData"/>
+  <considers rdf:resource="#0ec3e8f62a5a4557be259ee:OptInOptOutControl"/>
+  <considers rdf:resource="#f24d5085dd6543b1ba7f603:TrackingData"/>
+  <considers rdf:resource="#30e9d35b34114884969e4cf:OptInOptOutControl"/>
+  <considers rdf:resource="#c7ba399f4884474bbcc90d9:TrackingData"/>
+  <considers rdf:resource="#5e607fab8642417f961f28a:FPCollection"/>
+  <considers rdf:resource="#0b4579e923414876a4b345b:TrackingData"/>
+  <considers rdf:resource="#ae7ffe1336ac40509505773:FPCollection"/>
+  <considers rdf:resource="#bd9b628b34c9456e9e2736a:PersonalData"/>
+  <considers rdf:resource="#a600cc0b0f4f43d9b8709ea:OptInOptOutControl"/>
+  <considers rdf:resource="#fb272c0ec55b498dbc10697:PersonalData"/>
+  <considers rdf:resource="#66d0da9560364b0f834acc6:OptInOptOutControl"/>
+  <considers rdf:resource="#17d3123db73242dfbbdeeec:PersonalData"/>
+  <considers rdf:resource="#52a6292167de4e6fbf2fb58:OptInOptOutControl"/>
+  <considers rdf:resource="#dc2dc2d58e8540fa894266a:PersonalData"/>
+  <considers rdf:resource="#2009ba52e288406ab30edf4:OptInOptOutControl"/>
+  <considers rdf:resource="#154baa93bec14b88846721f:OptInOptOutControl"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b6f80f25b3c24d5e9fa0551</uuid>
   <policyWebsite rdf:datatype="http://www.w3.org/2001/XMLSchema#string">abita.com</policyWebsite>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#aabc8c0a15ce44eb8710270:User">
+<owl:NamedIndividual rdf:about="#47eb7fa1031041e9bf36c7f:User">
   <rdf:type rdf:resource="#User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aabc8c0a15ce44eb8710270</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">47eb7fa1031041e9bf36c7f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8782f661756a45adb1fb05e:FirstParty">
+<owl:NamedIndividual rdf:about="#130e0d2994c549c4b1cfa20:FirstParty">
   <rdf:type rdf:resource="#FirstParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8782f661756a45adb1fb05e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">130e0d2994c549c4b1cfa20</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8be05d71e3df428c92384b0:ThirdParty">
+<owl:NamedIndividual rdf:about="#94ad3ed4fbbe450cb62e08e:ThirdParty">
   <rdf:type rdf:resource="#ThirdParty"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8be05d71e3df428c92384b0</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">94ad3ed4fbbe450cb62e08e</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Not defined</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#935f86a99f4c46a29fc5466:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#b6f2aedc7db74786969dd16:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">935f86a99f4c46a29fc5466</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b6f2aedc7db74786969dd16</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">By accessing this website, you are consenting to the information collection and use practices described in this privacy statement.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#5d7f854ca1774df5bf79ae4:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#3173ead16d6849dc8f924d4:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <has_mechanism rdf:resource="#935f86a99f4c46a29fc5466:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5d7f854ca1774df5bf79ae4</uuid>
+  <initiated_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <has_mechanism rdf:resource="#b6f2aedc7db74786969dd16:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3173ead16d6849dc8f924d4</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Abita is committed to protecting your privacy By accessing this website you are consenting to the information collection and use practices described in this privacy statement</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cb15b5748d2c4af78144ab4:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#9ad15dbf3e60444aa01b0b9:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cb15b5748d2c4af78144ab4</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9ad15dbf3e60444aa01b0b9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Abita is committed to protecting your privacy.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#365e6114fd26444c9ab25bb:DataProtection">
+<owl:NamedIndividual rdf:about="#bc83e3eeafa244dbbe0bab2:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#8782f661756a45adb1fb05e:FirstParty"/>
-  <has_mechanism rdf:resource="#cb15b5748d2c4af78144ab4:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">365e6114fd26444c9ab25bb</uuid>
+  <initiated_by rdf:resource="#130e0d2994c549c4b1cfa20:FirstParty"/>
+  <has_mechanism rdf:resource="#9ad15dbf3e60444aa01b0b9:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bc83e3eeafa244dbbe0bab2</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Abita is committed to protecting your privacy By accessing this website you are consenting to the information collection and use practices described in this privacy statement</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#900825170f7a44209838c6c:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#4a993834932d4b6281523aa:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">900825170f7a44209838c6c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4a993834932d4b6281523aa</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">By accessing this website, you are consenting to the information collection and use practices described in this privacy statement.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f8408e8261114f39894ba2c:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#bab8de2c65b64bdb93fd225:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <has_mechanism rdf:resource="#900825170f7a44209838c6c:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f8408e8261114f39894ba2c</uuid>
+  <initiated_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <has_mechanism rdf:resource="#4a993834932d4b6281523aa:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bab8de2c65b64bdb93fd225</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Abita is committed to protecting your privacy By accessing this website you are consenting to the information collection and use practices described in this privacy statement</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#34358d9fd25e482b88da15a:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#d09ad0745cf743699ec3278:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">34358d9fd25e482b88da15a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d09ad0745cf743699ec3278</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">By accessing this website, you are consenting to the information collection and use practices described in this privacy statement.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#32f08883528040a0a6a0e46:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#79b6105269c440388477bd6:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <has_mechanism rdf:resource="#34358d9fd25e482b88da15a:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">32f08883528040a0a6a0e46</uuid>
+  <initiated_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <has_mechanism rdf:resource="#d09ad0745cf743699ec3278:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">79b6105269c440388477bd6</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Abita is committed to protecting your privacy By accessing this website you are consenting to the information collection and use practices described in this privacy statement</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3e0f1a8ed4e9443e9ca3d3d:GenericData">
+<owl:NamedIndividual rdf:about="#04b5bf4a1b8e4aa7887c374:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3e0f1a8ed4e9443e9ca3d3d</uuid>
+  <provided_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">04b5bf4a1b8e4aa7887c374</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a6e0af19d919490f9ed8afb:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#2a495d5291f6404ab8f476c:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a6e0af19d919490f9ed8afb</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2a495d5291f6404ab8f476c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We will ask you</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#171f26a106d946c7a858855:FPCollection">
+<owl:NamedIndividual rdf:about="#329909276a9b47c7bfc66c8:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#8782f661756a45adb1fb05e:FirstParty"/>
-  <collects_from rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <has_mode rdf:resource="#a6e0af19d919490f9ed8afb:TransmissionByRequest"/>
-  <applies_to rdf:resource="#3e0f1a8ed4e9443e9ca3d3d:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">171f26a106d946c7a858855</uuid>
+  <initiated_by rdf:resource="#130e0d2994c549c4b1cfa20:FirstParty"/>
+  <collects_from rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <has_mode rdf:resource="#2a495d5291f6404ab8f476c:TransmissionByRequest"/>
+  <applies_to rdf:resource="#04b5bf4a1b8e4aa7887c374:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">329909276a9b47c7bfc66c8</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Collection of your Personal Information We will ask you when we need information that personally identifies you personal information or allows us to contact you to provide a service or carry out a transaction that you have requested such as receiving information about Abita products and services entering a contest ordering e-mail newsletters joining a limited-access premium site or service or when purchasing downloading and/or registering Abita products The personal information we collect may include your name title company or organization name work e-mail work phone work or home address information about your job function information about your company information about circumstances related to your purchase and payment information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6d88df4119d4406b92844ed:PersonalData">
+<owl:NamedIndividual rdf:about="#83003c12e80144e3b2ad6ec:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6d88df4119d4406b92844ed</uuid>
+  <provided_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">83003c12e80144e3b2ad6ec</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">work e-mail, work phone, work or home address,</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#89f8034649564cf1bd550d5:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#ae1e49fb794f4fae9d87b24:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">89f8034649564cf1bd550d5</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ae1e49fb794f4fae9d87b24</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We will ask you</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#81b9d7911be54cff81f0f13:FPCollection">
+<owl:NamedIndividual rdf:about="#3d24aa098eaf446da604033:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#8782f661756a45adb1fb05e:FirstParty"/>
-  <collects_from rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <has_mode rdf:resource="#89f8034649564cf1bd550d5:TransmissionByRequest"/>
-  <applies_to rdf:resource="#6d88df4119d4406b92844ed:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">81b9d7911be54cff81f0f13</uuid>
+  <initiated_by rdf:resource="#130e0d2994c549c4b1cfa20:FirstParty"/>
+  <collects_from rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <has_mode rdf:resource="#ae1e49fb794f4fae9d87b24:TransmissionByRequest"/>
+  <applies_to rdf:resource="#83003c12e80144e3b2ad6ec:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3d24aa098eaf446da604033</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Collection of your Personal Information We will ask you when we need information that personally identifies you personal information or allows us to contact you to provide a service or carry out a transaction that you have requested such as receiving information about Abita products and services entering a contest ordering e-mail newsletters joining a limited-access premium site or service or when purchasing downloading and/or registering Abita products The personal information we collect may include your name title company or organization name work e-mail work phone work or home address information about your job function information about your company information about circumstances related to your purchase and payment information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#717b45ceb64f42d19264904:Data">
+<owl:NamedIndividual rdf:about="#b136bdbab6b848aa8b5c43c:Data">
   <rdf:type rdf:resource="#Data"/>
-  <provided_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">717b45ceb64f42d19264904</uuid>
+  <provided_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b136bdbab6b848aa8b5c43c</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">information about circumstances related to your purchase</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a7b28674f29a433094b4031:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#e4d93b16d2524d20852138a:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a7b28674f29a433094b4031</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e4d93b16d2524d20852138a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We will ask you</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6464e9135c8e4a7c8d9f825:FPCollection">
+<owl:NamedIndividual rdf:about="#65dc0bae180a4e4eabd9b27:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#8782f661756a45adb1fb05e:FirstParty"/>
-  <collects_from rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <has_mode rdf:resource="#a7b28674f29a433094b4031:TransmissionByRequest"/>
-  <applies_to rdf:resource="#717b45ceb64f42d19264904:Data"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6464e9135c8e4a7c8d9f825</uuid>
+  <initiated_by rdf:resource="#130e0d2994c549c4b1cfa20:FirstParty"/>
+  <collects_from rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <has_mode rdf:resource="#e4d93b16d2524d20852138a:TransmissionByRequest"/>
+  <applies_to rdf:resource="#b136bdbab6b848aa8b5c43c:Data"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">65dc0bae180a4e4eabd9b27</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Collection of your Personal Information We will ask you when we need information that personally identifies you personal information or allows us to contact you to provide a service or carry out a transaction that you have requested such as receiving information about Abita products and services entering a contest ordering e-mail newsletters joining a limited-access premium site or service or when purchasing downloading and/or registering Abita products The personal information we collect may include your name title company or organization name work e-mail work phone work or home address information about your job function information about your company information about circumstances related to your purchase and payment information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#eafb23b939444292a5967b2:FinancialData">
+<owl:NamedIndividual rdf:about="#9853b4dd86a546b782b5db3:FinancialData">
   <rdf:type rdf:resource="#FinancialData"/>
-  <provided_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eafb23b939444292a5967b2</uuid>
+  <provided_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9853b4dd86a546b782b5db3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">payment information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#197377546f534bb9b33c14e:TransmissionByRequest">
+<owl:NamedIndividual rdf:about="#df8e600ce2204a81a28bac0:TransmissionByRequest">
   <rdf:type rdf:resource="#TransmissionByRequest"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">197377546f534bb9b33c14e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">df8e600ce2204a81a28bac0</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We will ask you</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6dcf8a1f264d4ee08d2d1ee:FPCollection">
+<owl:NamedIndividual rdf:about="#707ca11ebe154675a6d3b70:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#8782f661756a45adb1fb05e:FirstParty"/>
-  <collects_from rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <has_mode rdf:resource="#197377546f534bb9b33c14e:TransmissionByRequest"/>
-  <applies_to rdf:resource="#eafb23b939444292a5967b2:FinancialData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6dcf8a1f264d4ee08d2d1ee</uuid>
+  <initiated_by rdf:resource="#130e0d2994c549c4b1cfa20:FirstParty"/>
+  <collects_from rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <has_mode rdf:resource="#df8e600ce2204a81a28bac0:TransmissionByRequest"/>
+  <applies_to rdf:resource="#9853b4dd86a546b782b5db3:FinancialData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">707ca11ebe154675a6d3b70</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Collection of your Personal Information We will ask you when we need information that personally identifies you personal information or allows us to contact you to provide a service or carry out a transaction that you have requested such as receiving information about Abita products and services entering a contest ordering e-mail newsletters joining a limited-access premium site or service or when purchasing downloading and/or registering Abita products The personal information we collect may include your name title company or organization name work e-mail work phone work or home address information about your job function information about your company information about circumstances related to your purchase and payment information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ab1cdfb5c70c40898bea7a3:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#312a117d096849999d30ec6:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ab1cdfb5c70c40898bea7a3</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">312a117d096849999d30ec6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">without your permission.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d72a6ce682c34f1099a52c1:GenericData">
+<owl:NamedIndividual rdf:about="#5ded5cf20c234edea2367b4:GenericData">
   <rdf:type rdf:resource="#GenericData"/>
-  <provided_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d72a6ce682c34f1099a52c1</uuid>
+  <provided_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5ded5cf20c234edea2367b4</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e05aa9a59ac6460d88c2d2b:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#669365845d3e44b583cc2d2:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <has_mechanism rdf:resource="#ab1cdfb5c70c40898bea7a3:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#d72a6ce682c34f1099a52c1:GenericData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e05aa9a59ac6460d88c2d2b</uuid>
+  <initiated_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <has_mechanism rdf:resource="#312a117d096849999d30ec6:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#5ded5cf20c234edea2367b4:GenericData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">669365845d3e44b583cc2d2</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Control of your Personal Information Except as otherwise described in this statement personal information you provide on the site will not be shared outside of Abita and its controlled subsidiaries and affiliates without your permission</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4788bea0e5f4454798d1345:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#f846f127549e41fca49fb2f:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4788bea0e5f4454798d1345</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f846f127549e41fca49fb2f</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Some services offered on ABITA COM may collect information that is not accessible to the customer via our website In such cases you can access your personal information by contacting ABITA COM as described at the bottom of this statement or through alternative means of access described by the service</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#202fd4bd578a4134869587e:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#1679444b5e594f7aaf3599f:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <has_mechanism rdf:resource="#4788bea0e5f4454798d1345:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">202fd4bd578a4134869587e</uuid>
+  <initiated_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <has_mechanism rdf:resource="#f846f127549e41fca49fb2f:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1679444b5e594f7aaf3599f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Some services offered on ABITA COM may collect information that is not accessible to the customer via our website In such cases you can access your personal information by contacting ABITA COM as described at the bottom of this statement or through alternative means of access described by the service</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#541ed129a78c4a0b8fd13e7:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#1bd75bdd574d414dacdad17:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">541ed129a78c4a0b8fd13e7</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1bd75bdd574d414dacdad17</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Some services offered on ABITA COM may collect information that is not accessible to the customer via our website In such cases you can access your personal information by contacting ABITA COM as described at the bottom of this statement or through alternative means of access described by the service</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#372e9b840d374d73a77cf77:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#ba039a4213ab45cd908a626:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <has_mechanism rdf:resource="#541ed129a78c4a0b8fd13e7:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">372e9b840d374d73a77cf77</uuid>
+  <initiated_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <has_mechanism rdf:resource="#1bd75bdd574d414dacdad17:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ba039a4213ab45cd908a626</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Some services offered on ABITA COM may collect information that is not accessible to the customer via our website In such cases you can access your personal information by contacting ABITA COM as described at the bottom of this statement or through alternative means of access described by the service</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#572bf9bbfab44d568c59850:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#bb471c2de58644cc93a93f5:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">572bf9bbfab44d568c59850</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bb471c2de58644cc93a93f5</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Some services offered on ABITA COM may collect information that is not accessible to the customer via our website In such cases you can access your personal information by contacting ABITA COM as described at the bottom of this statement or through alternative means of access described by the service</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f828ba9803f2494a89ab86a:AccountData">
+<owl:NamedIndividual rdf:about="#5a72a2d9fed143daa5ec120:AccountData">
   <rdf:type rdf:resource="#AccountData"/>
-  <provided_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f828ba9803f2494a89ab86a</uuid>
+  <provided_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5a72a2d9fed143daa5ec120</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User account data</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b153cfa280a34b35a742cee:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#65ad1b6e0c724fe89c4dc22:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <has_mechanism rdf:resource="#572bf9bbfab44d568c59850:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#f828ba9803f2494a89ab86a:AccountData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b153cfa280a34b35a742cee</uuid>
+  <initiated_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <has_mechanism rdf:resource="#bb471c2de58644cc93a93f5:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#5a72a2d9fed143daa5ec120:AccountData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">65ad1b6e0c724fe89c4dc22</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Some services offered on ABITA COM may collect information that is not accessible to the customer via our website In such cases you can access your personal information by contacting ABITA COM as described at the bottom of this statement or through alternative means of access described by the service</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#aa59eda4d95b4c98bdba93c:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#49bcabc46ae34491bb3f6fd:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">aa59eda4d95b4c98bdba93c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">49bcabc46ae34491bb3f6fd</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Some services offered on ABITA COM may collect information that is not accessible to the customer via our website In such cases you can access your personal information by contacting ABITA COM as described at the bottom of this statement or through alternative means of access described by the service</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ba3f6febe2a14ba9a0f8322:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#a03dfb827a9a47a9a814013:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <has_mechanism rdf:resource="#aa59eda4d95b4c98bdba93c:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ba3f6febe2a14ba9a0f8322</uuid>
+  <initiated_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <has_mechanism rdf:resource="#49bcabc46ae34491bb3f6fd:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a03dfb827a9a47a9a814013</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Some services offered on ABITA COM may collect information that is not accessible to the customer via our website In such cases you can access your personal information by contacting ABITA COM as described at the bottom of this statement or through alternative means of access described by the service</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b453dc5232ca4576ac66a05:SecuredCommunication">
+<owl:NamedIndividual rdf:about="#fb47212c9b6c40a4b506d26:SecuredCommunication">
   <rdf:type rdf:resource="#SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b453dc5232ca4576ac66a05</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fb47212c9b6c40a4b506d26</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Additionally, when we transmit sensitive personal information (such as a credit card number) over the Internet, we protect it through the use of encryption, such as the Secure Socket Layer (SSL) protocol.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#6c48e883d55547418fb4902:DataProtection">
+<owl:NamedIndividual rdf:about="#3eeabcfc280b48f1b696745:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#8782f661756a45adb1fb05e:FirstParty"/>
-  <has_mechanism rdf:resource="#b453dc5232ca4576ac66a05:SecuredCommunication"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6c48e883d55547418fb4902</uuid>
+  <initiated_by rdf:resource="#130e0d2994c549c4b1cfa20:FirstParty"/>
+  <has_mechanism rdf:resource="#fb47212c9b6c40a4b506d26:SecuredCommunication"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3eeabcfc280b48f1b696745</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Security of your Personal Information Abita is committed to protecting the security of your personal information We use a variety of security technologies and procedures to help protect your personal information from unauthorized access use or disclosure For example we store the personal information you provide on computer servers with limited access that are located in controlled facilities Additionally when we transmit sensitive personal information such as a credit card number over the Internet we protect it through the use of encryption such as the Secure Socket Layer SSL protocol</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#672c907568d943799a4c268:TechnicalSecurityMeasure">
+<owl:NamedIndividual rdf:about="#dcf13a2151204c4f8df7729:TechnicalSecurityMeasure">
   <rdf:type rdf:resource="#TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">672c907568d943799a4c268</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dcf13a2151204c4f8df7729</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Abita is committed to protecting the security of your personal information. We use a variety of security technologies and procedures to help protect your personal information from unauthorized access, use, or disclosure</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3df43239796a46c69045313:DataProtection">
+<owl:NamedIndividual rdf:about="#7ca26a799ca9448ebbe7b3f:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#8782f661756a45adb1fb05e:FirstParty"/>
-  <has_mechanism rdf:resource="#672c907568d943799a4c268:TechnicalSecurityMeasure"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3df43239796a46c69045313</uuid>
+  <initiated_by rdf:resource="#130e0d2994c549c4b1cfa20:FirstParty"/>
+  <has_mechanism rdf:resource="#dcf13a2151204c4f8df7729:TechnicalSecurityMeasure"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7ca26a799ca9448ebbe7b3f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Security of your Personal Information Abita is committed to protecting the security of your personal information We use a variety of security technologies and procedures to help protect your personal information from unauthorized access use or disclosure For example we store the personal information you provide on computer servers with limited access that are located in controlled facilities Additionally when we transmit sensitive personal information such as a credit card number over the Internet we protect it through the use of encryption such as the Secure Socket Layer SSL protocol</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7c8a8f6ea35442198667c9c:AccessControls">
+<owl:NamedIndividual rdf:about="#afcf684c8edc40f6ac700f2:AccessControls">
   <rdf:type rdf:resource="#AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7c8a8f6ea35442198667c9c</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">afcf684c8edc40f6ac700f2</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">on computer servers with limited access</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#403468d8e97646eda69ca84:DataProtection">
+<owl:NamedIndividual rdf:about="#02f4a24bcd5b47149ab0ef5:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#8782f661756a45adb1fb05e:FirstParty"/>
-  <has_mechanism rdf:resource="#7c8a8f6ea35442198667c9c:AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">403468d8e97646eda69ca84</uuid>
+  <initiated_by rdf:resource="#130e0d2994c549c4b1cfa20:FirstParty"/>
+  <has_mechanism rdf:resource="#afcf684c8edc40f6ac700f2:AccessControls"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">02f4a24bcd5b47149ab0ef5</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Security of your Personal Information Abita is committed to protecting the security of your personal information We use a variety of security technologies and procedures to help protect your personal information from unauthorized access use or disclosure For example we store the personal information you provide on computer servers with limited access that are located in controlled facilities Additionally when we transmit sensitive personal information such as a credit card number over the Internet we protect it through the use of encryption such as the Secure Socket Layer SSL protocol</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#7a3be8e5524d49349131dec:SecureStorage">
+<owl:NamedIndividual rdf:about="#4483c4e303434cad81bca69:SecureStorage">
   <rdf:type rdf:resource="#SecureStorage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7a3be8e5524d49349131dec</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4483c4e303434cad81bca69</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">located in controlled facilities</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#26a55c0c32014f49b2fcdf9:DataProtection">
+<owl:NamedIndividual rdf:about="#8e7cc5a23dd54a51920637c:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#8782f661756a45adb1fb05e:FirstParty"/>
-  <has_mechanism rdf:resource="#7a3be8e5524d49349131dec:SecureStorage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">26a55c0c32014f49b2fcdf9</uuid>
+  <initiated_by rdf:resource="#130e0d2994c549c4b1cfa20:FirstParty"/>
+  <has_mechanism rdf:resource="#4483c4e303434cad81bca69:SecureStorage"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8e7cc5a23dd54a51920637c</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Security of your Personal Information Abita is committed to protecting the security of your personal information We use a variety of security technologies and procedures to help protect your personal information from unauthorized access use or disclosure For example we store the personal information you provide on computer servers with limited access that are located in controlled facilities Additionally when we transmit sensitive personal information such as a credit card number over the Internet we protect it through the use of encryption such as the Secure Socket Layer SSL protocol</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#4a3bf92d0e1b45b48695841:SecureStorage">
+<owl:NamedIndividual rdf:about="#115b3202bc9e4596ab1b64a:SecureStorage">
   <rdf:type rdf:resource="#SecureStorage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4a3bf92d0e1b45b48695841</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">115b3202bc9e4596ab1b64a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">For example, we store the personal information you provide on computer servers with limited access that are located in controlled facilities.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fac354e9b73f4dbf91a0634:DataProtection">
+<owl:NamedIndividual rdf:about="#7aa40f4c063d40b1a875304:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#8782f661756a45adb1fb05e:FirstParty"/>
-  <has_mechanism rdf:resource="#4a3bf92d0e1b45b48695841:SecureStorage"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fac354e9b73f4dbf91a0634</uuid>
+  <initiated_by rdf:resource="#130e0d2994c549c4b1cfa20:FirstParty"/>
+  <has_mechanism rdf:resource="#115b3202bc9e4596ab1b64a:SecureStorage"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7aa40f4c063d40b1a875304</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Security of your Personal Information Abita is committed to protecting the security of your personal information We use a variety of security technologies and procedures to help protect your personal information from unauthorized access use or disclosure For example we store the personal information you provide on computer servers with limited access that are located in controlled facilities Additionally when we transmit sensitive personal information such as a credit card number over the Internet we protect it through the use of encryption such as the Secure Socket Layer SSL protocol</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2ffa11d18036442583683ac:AccessControls">
+<owl:NamedIndividual rdf:about="#b5ea973e974d4dc1a9caf81:AccessControls">
   <rdf:type rdf:resource="#AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2ffa11d18036442583683ac</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b5ea973e974d4dc1a9caf81</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">limited access</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#92613681a71a40ab82ecf55:DataProtection">
+<owl:NamedIndividual rdf:about="#41be0c8df578485488496cf:DataProtection">
   <rdf:type rdf:resource="#DataProtection"/>
-  <initiated_by rdf:resource="#8782f661756a45adb1fb05e:FirstParty"/>
-  <has_mechanism rdf:resource="#2ffa11d18036442583683ac:AccessControls"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">92613681a71a40ab82ecf55</uuid>
+  <initiated_by rdf:resource="#130e0d2994c549c4b1cfa20:FirstParty"/>
+  <has_mechanism rdf:resource="#b5ea973e974d4dc1a9caf81:AccessControls"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">41be0c8df578485488496cf</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Security of your Personal Information Abita is committed to protecting the security of your personal information We use a variety of security technologies and procedures to help protect your personal information from unauthorized access use or disclosure For example we store the personal information you provide on computer servers with limited access that are located in controlled facilities Additionally when we transmit sensitive personal information such as a credit card number over the Internet we protect it through the use of encryption such as the Secure Socket Layer SSL protocol</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#25df94d7385141c4b7dbe7b:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#7beae3d400024f6aa8aa769:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">25df94d7385141c4b7dbe7b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7beae3d400024f6aa8aa769</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Protection of Children s Personal Information ABITA COM does not knowingly collect any personal information from children It is against our Terms of Use for anyone under 21 to submit data to our site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b07fad5d32434bca8416e61:UserSpecialCategory">
+<owl:NamedIndividual rdf:about="#f9a3db856f95428cb690fbb:UserSpecialCategory">
   <rdf:type rdf:resource="#UserSpecialCategory"/>
-  <is_special_category_for rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b07fad5d32434bca8416e61</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f9a3db856f95428cb690fbb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Protection of Children s Personal Information ABITA COM does not knowingly collect any personal information from children It is against our Terms of Use for anyone under 21 to submit data to our site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8f09a6614a2b47318c34418:TrackingData">
+<owl:NamedIndividual rdf:about="#0b718bfd35144ea0aca4016:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8f09a6614a2b47318c34418</uuid>
+  <provided_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0b718bfd35144ea0aca4016</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may use cookies and/or web beacons on this website</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#0557dff8964e475da6897a9:ViaWebsite">
+<owl:NamedIndividual rdf:about="#9520bf235b714905b0ead89:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0557dff8964e475da6897a9</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9520bf235b714905b0ead89</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may use cookies and/or web beacons on this website</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bb5e062f33d04de597efac1:FPCollection">
+<owl:NamedIndividual rdf:about="#e9f2b9031aec44bab141857:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#8782f661756a45adb1fb05e:FirstParty"/>
-  <collects_from rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <has_mechanism rdf:resource="#0557dff8964e475da6897a9:ViaWebsite"/>
-  <applies_to rdf:resource="#8f09a6614a2b47318c34418:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bb5e062f33d04de597efac1</uuid>
+  <initiated_by rdf:resource="#130e0d2994c549c4b1cfa20:FirstParty"/>
+  <collects_from rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <has_mechanism rdf:resource="#9520bf235b714905b0ead89:ViaWebsite"/>
+  <applies_to rdf:resource="#0b718bfd35144ea0aca4016:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e9f2b9031aec44bab141857</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Use of Cookies We may use cookies and/or web beacons on this website to ensure the integrity of the registration process and to personalize the site Cookies and Web Beacons cannot be used to run programs or deliver viruses to your computer You can usually modify your browser setting to decline cookies if you prefer If you choose to decline cookies you may not be able to fully experience the interactive features of this or other Web sites you visit ABITA COM prohibits Web Beacons from being used to collect or access your personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3854ed273b2c4c2a90bd974:TrackingData">
+<owl:NamedIndividual rdf:about="#e3d3ffb6cab84ff5a1d1d69:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3854ed273b2c4c2a90bd974</uuid>
+  <provided_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e3d3ffb6cab84ff5a1d1d69</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may use cookies and/or web beacons on this website</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#a7f83eea15ab4cc68d06dbe:ServiceEnhancementPurpose">
+<owl:NamedIndividual rdf:about="#95979dc98e46440b954ad31:ServiceEnhancementPurpose">
   <rdf:type rdf:resource="#ServiceEnhancementPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a7f83eea15ab4cc68d06dbe</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">95979dc98e46440b954ad31</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">and to personalize the site</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bc5a7f6f201f4c238c3bebc:ViaWebsite">
+<owl:NamedIndividual rdf:about="#ef0b30e016d3465599bc5a6:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bc5a7f6f201f4c238c3bebc</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ef0b30e016d3465599bc5a6</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">We may use cookies and/or web beacons on this website</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cbc47c67245148ecafe9da7:FPCollection">
+<owl:NamedIndividual rdf:about="#efc2f6b7af224d5e9518547:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#8782f661756a45adb1fb05e:FirstParty"/>
-  <collects_from rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <has_purpose rdf:resource="#a7f83eea15ab4cc68d06dbe:ServiceEnhancementPurpose"/>
-  <has_mechanism rdf:resource="#bc5a7f6f201f4c238c3bebc:ViaWebsite"/>
-  <applies_to rdf:resource="#3854ed273b2c4c2a90bd974:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cbc47c67245148ecafe9da7</uuid>
+  <initiated_by rdf:resource="#130e0d2994c549c4b1cfa20:FirstParty"/>
+  <collects_from rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <has_purpose rdf:resource="#95979dc98e46440b954ad31:ServiceEnhancementPurpose"/>
+  <has_mechanism rdf:resource="#ef0b30e016d3465599bc5a6:ViaWebsite"/>
+  <applies_to rdf:resource="#e3d3ffb6cab84ff5a1d1d69:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">efc2f6b7af224d5e9518547</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Use of Cookies We may use cookies and/or web beacons on this website to ensure the integrity of the registration process and to personalize the site Cookies and Web Beacons cannot be used to run programs or deliver viruses to your computer You can usually modify your browser setting to decline cookies if you prefer If you choose to decline cookies you may not be able to fully experience the interactive features of this or other Web sites you visit ABITA COM prohibits Web Beacons from being used to collect or access your personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#29e5b0e67a37492e96c4775:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#49587374390e402a8766bb1:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">29e5b0e67a37492e96c4775</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">49587374390e402a8766bb1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You can usually modify your browser setting to decline cookies if you prefer.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#9e6b7bd66a5746ec99bd9b9:TrackingData">
+<owl:NamedIndividual rdf:about="#7025687ff8ff4bfcb30afcb:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9e6b7bd66a5746ec99bd9b9</uuid>
+  <provided_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7025687ff8ff4bfcb30afcb</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#65ed87fc1f104c27b1724a9:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#0ec3e8f62a5a4557be259ee:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <has_mechanism rdf:resource="#29e5b0e67a37492e96c4775:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#9e6b7bd66a5746ec99bd9b9:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">65ed87fc1f104c27b1724a9</uuid>
+  <initiated_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <has_mechanism rdf:resource="#49587374390e402a8766bb1:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#7025687ff8ff4bfcb30afcb:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0ec3e8f62a5a4557be259ee</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Use of Cookies We may use cookies and/or web beacons on this website to ensure the integrity of the registration process and to personalize the site Cookies and Web Beacons cannot be used to run programs or deliver viruses to your computer You can usually modify your browser setting to decline cookies if you prefer If you choose to decline cookies you may not be able to fully experience the interactive features of this or other Web sites you visit ABITA COM prohibits Web Beacons from being used to collect or access your personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#b400dd5e770c412083a1843:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#0d3cba15f0a74634ba508c8:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b400dd5e770c412083a1843</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0d3cba15f0a74634ba508c8</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">If you choose to decline cookies, you may not be able to fully experience the interactive features of this or other Web sites you visit.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#78a60bf19d9c43578646aa8:TrackingData">
+<owl:NamedIndividual rdf:about="#f24d5085dd6543b1ba7f603:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">78a60bf19d9c43578646aa8</uuid>
+  <provided_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f24d5085dd6543b1ba7f603</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">decline cookies</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f28156627d08482db8dbe5a:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#30e9d35b34114884969e4cf:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <has_mechanism rdf:resource="#b400dd5e770c412083a1843:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#78a60bf19d9c43578646aa8:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f28156627d08482db8dbe5a</uuid>
+  <initiated_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <has_mechanism rdf:resource="#0d3cba15f0a74634ba508c8:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#f24d5085dd6543b1ba7f603:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">30e9d35b34114884969e4cf</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Use of Cookies We may use cookies and/or web beacons on this website to ensure the integrity of the registration process and to personalize the site Cookies and Web Beacons cannot be used to run programs or deliver viruses to your computer You can usually modify your browser setting to decline cookies if you prefer If you choose to decline cookies you may not be able to fully experience the interactive features of this or other Web sites you visit ABITA COM prohibits Web Beacons from being used to collect or access your personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3b72890e154b4b6381a31e5:TrackingData">
+<owl:NamedIndividual rdf:about="#c7ba399f4884474bbcc90d9:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3b72890e154b4b6381a31e5</uuid>
+  <provided_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c7ba399f4884474bbcc90d9</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies and/or web beacons</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#d20d660a1d934589b5bde07:ViaWebsite">
+<owl:NamedIndividual rdf:about="#cba8c60e7a0e4c63b618102:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">d20d660a1d934589b5bde07</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cba8c60e7a0e4c63b618102</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">on this website</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#bf0c62b21a1643d0b809d1e:PermanentTransmission">
+<owl:NamedIndividual rdf:about="#e084c8f3ac8f425dabd5ca7:PermanentTransmission">
   <rdf:type rdf:resource="#PermanentTransmission"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bf0c62b21a1643d0b809d1e</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e084c8f3ac8f425dabd5ca7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">use cookies and/or web beacons</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#ca36167fe18144fba7e2eb3:FPCollection">
+<owl:NamedIndividual rdf:about="#5e607fab8642417f961f28a:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#8782f661756a45adb1fb05e:FirstParty"/>
-  <collects_from rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <has_mode rdf:resource="#bf0c62b21a1643d0b809d1e:PermanentTransmission"/>
-  <has_mechanism rdf:resource="#d20d660a1d934589b5bde07:ViaWebsite"/>
-  <applies_to rdf:resource="#3b72890e154b4b6381a31e5:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ca36167fe18144fba7e2eb3</uuid>
+  <initiated_by rdf:resource="#130e0d2994c549c4b1cfa20:FirstParty"/>
+  <collects_from rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <has_mode rdf:resource="#e084c8f3ac8f425dabd5ca7:PermanentTransmission"/>
+  <has_mechanism rdf:resource="#cba8c60e7a0e4c63b618102:ViaWebsite"/>
+  <applies_to rdf:resource="#c7ba399f4884474bbcc90d9:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5e607fab8642417f961f28a</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Use of Cookies We may use cookies and/or web beacons on this website to ensure the integrity of the registration process and to personalize the site Cookies and Web Beacons cannot be used to run programs or deliver viruses to your computer You can usually modify your browser setting to decline cookies if you prefer If you choose to decline cookies you may not be able to fully experience the interactive features of this or other Web sites you visit ABITA COM prohibits Web Beacons from being used to collect or access your personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8673ad4de4e44c079c9d86c:TrackingData">
+<owl:NamedIndividual rdf:about="#0b4579e923414876a4b345b:TrackingData">
   <rdf:type rdf:resource="#TrackingData"/>
-  <provided_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8673ad4de4e44c079c9d86c</uuid>
+  <provided_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0b4579e923414876a4b345b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cookies and/or web beacons</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#73026b0cf5ae41b6b591e3b:ServiceEnhancementPurpose">
+<owl:NamedIndividual rdf:about="#937910af5af448dc86438f3:ServiceEnhancementPurpose">
   <rdf:type rdf:resource="#ServiceEnhancementPurpose"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">73026b0cf5ae41b6b591e3b</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">937910af5af448dc86438f3</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to personalize the site.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#53c7c5fc79ad481db8559e2:ViaWebsite">
+<owl:NamedIndividual rdf:about="#2d620cec8d004fbd920f821:ViaWebsite">
   <rdf:type rdf:resource="#ViaWebsite"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">53c7c5fc79ad481db8559e2</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2d620cec8d004fbd920f821</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">on this website</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#2cc5cc97106c4c85a490d04:PermanentTransmission">
+<owl:NamedIndividual rdf:about="#59f889a9178e4c6cb017717:PermanentTransmission">
   <rdf:type rdf:resource="#PermanentTransmission"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2cc5cc97106c4c85a490d04</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">59f889a9178e4c6cb017717</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">use cookies and/or web beacons</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#80b2737512b3440e88fd4b8:FPCollection">
+<owl:NamedIndividual rdf:about="#ae7ffe1336ac40509505773:FPCollection">
   <rdf:type rdf:resource="#FPCollection"/>
-  <initiated_by rdf:resource="#8782f661756a45adb1fb05e:FirstParty"/>
-  <collects_from rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <has_purpose rdf:resource="#73026b0cf5ae41b6b591e3b:ServiceEnhancementPurpose"/>
-  <has_mode rdf:resource="#2cc5cc97106c4c85a490d04:PermanentTransmission"/>
-  <has_mechanism rdf:resource="#53c7c5fc79ad481db8559e2:ViaWebsite"/>
-  <applies_to rdf:resource="#8673ad4de4e44c079c9d86c:TrackingData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">80b2737512b3440e88fd4b8</uuid>
+  <initiated_by rdf:resource="#130e0d2994c549c4b1cfa20:FirstParty"/>
+  <collects_from rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <has_purpose rdf:resource="#937910af5af448dc86438f3:ServiceEnhancementPurpose"/>
+  <has_mode rdf:resource="#59f889a9178e4c6cb017717:PermanentTransmission"/>
+  <has_mechanism rdf:resource="#2d620cec8d004fbd920f821:ViaWebsite"/>
+  <applies_to rdf:resource="#0b4579e923414876a4b345b:TrackingData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ae7ffe1336ac40509505773</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Use of Cookies We may use cookies and/or web beacons on this website to ensure the integrity of the registration process and to personalize the site Cookies and Web Beacons cannot be used to run programs or deliver viruses to your computer You can usually modify your browser setting to decline cookies if you prefer If you choose to decline cookies you may not be able to fully experience the interactive features of this or other Web sites you visit ABITA COM prohibits Web Beacons from being used to collect or access your personal information</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#affe7ca2cac34f95ad0515a:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#b3498ec4cb8f4b6887c493d:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">affe7ca2cac34f95ad0515a</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b3498ec4cb8f4b6887c493d</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Instructions to remove an email address are located on the bottom of every promotional email. Alternatively, unsubscribe requests may be handled using our online unsubscription form.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#eab8ab5c8df843f0b586bf7:PersonalData">
+<owl:NamedIndividual rdf:about="#bd9b628b34c9456e9e2736a:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eab8ab5c8df843f0b586bf7</uuid>
+  <provided_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bd9b628b34c9456e9e2736a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#fd0a4f4021bd4a2ab29cfa9:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#a600cc0b0f4f43d9b8709ea:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <has_mechanism rdf:resource="#affe7ca2cac34f95ad0515a:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#eab8ab5c8df843f0b586bf7:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fd0a4f4021bd4a2ab29cfa9</uuid>
+  <initiated_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <has_mechanism rdf:resource="#b3498ec4cb8f4b6887c493d:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#bd9b628b34c9456e9e2736a:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">a600cc0b0f4f43d9b8709ea</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Unsubscribe Information Instructions to remove an email address are located on the bottom of every promotional email Alternatively unsubscribe requests may be handled using our online unsubscription form</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8859dd92c4e5456f93a14cc:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#8dd1ea3e1aed4c32afc06c7:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8859dd92c4e5456f93a14cc</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8dd1ea3e1aed4c32afc06c7</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Instructions to remove an email address are located on the bottom of every promotional email. Alternatively, unsubscribe requests may be handled using our online unsubscription form.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#dc53b076436544909f61011:PersonalData">
+<owl:NamedIndividual rdf:about="#fb272c0ec55b498dbc10697:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dc53b076436544909f61011</uuid>
+  <provided_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fb272c0ec55b498dbc10697</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">an email address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#3e196fe17cf54e9fa36f9b2:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#66d0da9560364b0f834acc6:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <has_mechanism rdf:resource="#8859dd92c4e5456f93a14cc:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#dc53b076436544909f61011:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3e196fe17cf54e9fa36f9b2</uuid>
+  <initiated_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <has_mechanism rdf:resource="#8dd1ea3e1aed4c32afc06c7:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#fb272c0ec55b498dbc10697:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">66d0da9560364b0f834acc6</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Unsubscribe Information Instructions to remove an email address are located on the bottom of every promotional email Alternatively unsubscribe requests may be handled using our online unsubscription form</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#f055e3f25a6044118740cee:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#3cd8738f002d43c9bb27df1:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">f055e3f25a6044118740cee</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3cd8738f002d43c9bb27df1</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Instructions to remove an email address are located on the bottom of every promotional email.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#607a4614cef746ceb62421c:PersonalData">
+<owl:NamedIndividual rdf:about="#17d3123db73242dfbbdeeec:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">607a4614cef746ceb62421c</uuid>
+  <provided_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">17d3123db73242dfbbdeeec</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#e67dbd4c18b14a679d309c9:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#52a6292167de4e6fbf2fb58:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <has_mechanism rdf:resource="#f055e3f25a6044118740cee:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#607a4614cef746ceb62421c:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">e67dbd4c18b14a679d309c9</uuid>
+  <initiated_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <has_mechanism rdf:resource="#3cd8738f002d43c9bb27df1:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#17d3123db73242dfbbdeeec:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">52a6292167de4e6fbf2fb58</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Unsubscribe Information Instructions to remove an email address are located on the bottom of every promotional email Alternatively unsubscribe requests may be handled using our online unsubscription form</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#1d7b046e50bd4af2b9b63bd:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#b6470c1dfc814152b6a1e8b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1d7b046e50bd4af2b9b63bd</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">b6470c1dfc814152b6a1e8b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">our online unsubscription form.</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#41253117c8b441788d2a4bd:PersonalData">
+<owl:NamedIndividual rdf:about="#dc2dc2d58e8540fa894266a:PersonalData">
   <rdf:type rdf:resource="#PersonalData"/>
-  <provided_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">41253117c8b441788d2a4bd</uuid>
+  <provided_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dc2dc2d58e8540fa894266a</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">email address</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8269069a0461403ca2799a3:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#2009ba52e288406ab30edf4:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <has_mechanism rdf:resource="#1d7b046e50bd4af2b9b63bd:ManualCommunicationMechanism"/>
-  <applies_to rdf:resource="#41253117c8b441788d2a4bd:PersonalData"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8269069a0461403ca2799a3</uuid>
+  <initiated_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <has_mechanism rdf:resource="#b6470c1dfc814152b6a1e8b:ManualCommunicationMechanism"/>
+  <applies_to rdf:resource="#dc2dc2d58e8540fa894266a:PersonalData"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2009ba52e288406ab30edf4</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Unsubscribe Information Instructions to remove an email address are located on the bottom of every promotional email Alternatively unsubscribe requests may be handled using our online unsubscription form</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#8c5379fcdf10422a8d73abf:ManualCommunicationMechanism">
+<owl:NamedIndividual rdf:about="#76eefd0ab41e443b941ca6b:ManualCommunicationMechanism">
   <rdf:type rdf:resource="#ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">8c5379fcdf10422a8d73abf</uuid>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">76eefd0ab41e443b941ca6b</uuid>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may also send an e-mail or letter to the above e-mail or street address requesting access to or correction of your personally identifiable information For verification purposes please include your first name last name e-mail address and the password you use for said ABITA COM service</evidence>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#41e88fb98bc04c098d16fb5:OptInOptOutControl">
+<owl:NamedIndividual rdf:about="#154baa93bec14b88846721f:OptInOptOutControl">
   <rdf:type rdf:resource="#OptInOptOutControl"/>
-  <initiated_by rdf:resource="#aabc8c0a15ce44eb8710270:User"/>
-  <has_mechanism rdf:resource="#8c5379fcdf10422a8d73abf:ManualCommunicationMechanism"/>
-  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">41e88fb98bc04c098d16fb5</uuid>
+  <initiated_by rdf:resource="#47eb7fa1031041e9bf36c7f:User"/>
+  <has_mechanism rdf:resource="#76eefd0ab41e443b941ca6b:ManualCommunicationMechanism"/>
+  <uuid rdf:datatype="http://www.w3.org/2001/XMLSchema#string">154baa93bec14b88846721f</uuid>
   <does rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</does>
   <evidence rdf:datatype="http://www.w3.org/2001/XMLSchema#string">You may also send an e-mail or letter to the above e-mail or street address requesting access to or correction of your personally identifiable information For verification purposes please include your first name last name e-mail address and the password you use for said ABITA COM service</evidence>
 </owl:NamedIndividual>
