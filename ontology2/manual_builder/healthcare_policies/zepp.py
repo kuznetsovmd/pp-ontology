@@ -5215,7 +5215,7 @@ def process_zepp():
 
     #########################################################################
     #                                                                       #
-    # DataRetention POLICY                                                      #
+    # RETENTION POLICY                                                      #
     #                                                                       #
     #########################################################################
 
@@ -5223,7 +5223,7 @@ def process_zepp():
 
 
     #########################################################################
-    # We retain personal information we receive as described in this Privacy Policy for as long as you use our products, services and websites or as necessary to fulfill the purpose(s) for which it was collected, provide our services, resolve disputes, establish legal defenses, conduct audits, pursue legitimate business purposes, enforce our agreements, and comply with applicable laws. We shall cease to retain personal information, or remove the means by which the personal information can be associated with particular individuals, as soon as it is reasonable to assume that the purpose for which that personal information was collected is no longer being served by DataRetention of the personal information.
+    # We retain personal information we receive as described in this Privacy Policy for as long as you use our products, services and websites or as necessary to fulfill the purpose(s) for which it was collected, provide our services, resolve disputes, establish legal defenses, conduct audits, pursue legitimate business purposes, enforce our agreements, and comply with applicable laws. We shall cease to retain personal information, or remove the means by which the personal information can be associated with particular individuals, as soon as it is reasonable to assume that the purpose for which that personal information was collected is no longer being served by retention of the personal information.
 
     user = o.individual('User')
     first_party = o.individual('FirstParty')
@@ -5232,7 +5232,7 @@ def process_zepp():
 
         'DataRetention',
 
-        'We retain personal information we receive as described in this Privacy Policy for as long as you use our products, services and websites or as necessary to fulfill the purpose(s) for which it was collected, provide our services, resolve disputes, establish legal defenses, conduct audits, pursue legitimate business purposes, enforce our agreements, and comply with applicable laws. We shall cease to retain personal information, or remove the means by which the personal information can be associated with particular individuals, as soon as it is reasonable to assume that the purpose for which that personal information was collected is no longer being served by DataRetention of the personal information.',
+        'We retain personal information we receive as described in this Privacy Policy for as long as you use our products, services and websites or as necessary to fulfill the purpose(s) for which it was collected, provide our services, resolve disputes, establish legal defenses, conduct audits, pursue legitimate business purposes, enforce our agreements, and comply with applicable laws. We shall cease to retain personal information, or remove the means by which the personal information can be associated with particular individuals, as soon as it is reasonable to assume that the purpose for which that personal information was collected is no longer being served by retention of the personal information.',
 
         [
             o.property('initiated_by', first_party),
@@ -5296,11 +5296,11 @@ def process_zepp():
             
             o.property('binded_to', o.individual(
                 'DataProtection',
-                'We shall cease to retain personal information, or remove the means by which the personal information can be associated with particular individuals, as soon as it is reasonable to assume that the purpose for which that personal information was collected is no longer being served by DataRetention of the personal information.',
+                'We shall cease to retain personal information, or remove the means by which the personal information can be associated with particular individuals, as soon as it is reasonable to assume that the purpose for which that personal information was collected is no longer being served by retention of the personal information.',
                 [
                     o.property('has_mechanism', o.individual(
                         'SecurityMechanism',
-                        'We shall cease to retain personal information, or remove the means by which the personal information can be associated with particular individuals, as soon as it is reasonable to assume that the purpose for which that personal information was collected is no longer being served by DataRetention of the personal information.')),
+                        'We shall cease to retain personal information, or remove the means by which the personal information can be associated with particular individuals, as soon as it is reasonable to assume that the purpose for which that personal information was collected is no longer being served by retention of the personal information.')),
                 ])),
             
             o.property('previous_is', a),
@@ -6211,7 +6211,7 @@ def process_zepp():
 
 
     #########################################################################
-    # Personal information, which has fulfilled the purpose for which it was collected or used, and has reached the period of time during which personal information was to be possessed, will be destroyed in an irreversible way. After the expiration of the applicable period, information under the obligation of DataRetention by applicable laws will be promptly destroyed in an irreversible way. Personal information stored in electronic files will be deleted safely in an irreversible way by using technical methods, and printed information will be destroyed by shredding or incinerating such information. Furthermore, in compliance with applicable laws, measures will be taken to destroy or separate the personal information of the users who have not used our services for a period of one year.
+    # Personal information, which has fulfilled the purpose for which it was collected or used, and has reached the period of time during which personal information was to be possessed, will be destroyed in an irreversible way. After the expiration of the applicable period, information under the obligation of retention by applicable laws will be promptly destroyed in an irreversible way. Personal information stored in electronic files will be deleted safely in an irreversible way by using technical methods, and printed information will be destroyed by shredding or incinerating such information. Furthermore, in compliance with applicable laws, measures will be taken to destroy or separate the personal information of the users who have not used our services for a period of one year.
 
     user = o.individual('User')
     first_party = o.individual('FirstParty')
@@ -6220,7 +6220,7 @@ def process_zepp():
 
         'DataRetention',
 
-        'Personal information, which has fulfilled the purpose for which it was collected or used, and has reached the period of time during which personal information was to be possessed, will be destroyed in an irreversible way. After the expiration of the applicable period, information under the obligation of DataRetention by applicable laws will be promptly destroyed in an irreversible way. Personal information stored in electronic files will be deleted safely in an irreversible way by using technical methods, and printed information will be destroyed by shredding or incinerating such information. Furthermore, in compliance with applicable laws, measures will be taken to destroy or separate the personal information of the users who have not used our services for a period of one year.',
+        'Personal information, which has fulfilled the purpose for which it was collected or used, and has reached the period of time during which personal information was to be possessed, will be destroyed in an irreversible way. After the expiration of the applicable period, information under the obligation of retention by applicable laws will be promptly destroyed in an irreversible way. Personal information stored in electronic files will be deleted safely in an irreversible way by using technical methods, and printed information will be destroyed by shredding or incinerating such information. Furthermore, in compliance with applicable laws, measures will be taken to destroy or separate the personal information of the users who have not used our services for a period of one year.',
 
         [
             o.property('initiated_by', first_party),

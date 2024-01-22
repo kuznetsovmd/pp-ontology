@@ -1,5 +1,3 @@
-
-
 def parse_identifiability(o, r, fp, data):
     properties = []
 

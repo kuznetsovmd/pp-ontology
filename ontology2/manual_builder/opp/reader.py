@@ -1,11 +1,10 @@
 import csv
 import json
-import os
 import re
 
 from config import DATASETS
-from tools.fsys import files
-from tools.text import remove_strong, remove_br, remove_li, remove_ul, \
+from utils.fsys import files
+from utils.text import remove_strong, remove_br, remove_li, remove_ul, \
     remove_spec_chars, remove_spaces, remove_newlines
 
 
@@ -55,13 +54,12 @@ def construct_data(sanitized, annotated):
     }
 
 
-def read_opp():
-    sanitized = files(os.path.join(DATASETS, "OPP-115/sanitized_policies"), r"(\d+)_.*")
-    annotations = files(os.path.join(DATASETS, "OPP-115/consolidation/threshold-0.75-overlap-similarity"), r"(\d+)_.*")
+def read():
+    sanitized = files(f"{DATASETS}/OPP-115/sanitized_policies", r"(\d+)_.*")
+    annotations = files(f"{DATASETS}/OPP-115/consolidation/threshold-0.75-overlap-similarity", r"(\d+)_.*")
 
     sanitized.sort()
     annotations.sort()
 
     couples = list(zip(sanitized, annotations))
-
     return [construct_data(*c) for c in couples]

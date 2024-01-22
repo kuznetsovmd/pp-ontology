@@ -1,23 +1,24 @@
 Notes
 -----
 
-To run the application it is necessary to copy example.config.py and rename it to config.py.
+To run the application it is necessary to copy `example.config.py` and rename it to `config.py`.
 
-The work which is supposed to be done is defined in main.py with explicit mention of generator functions.
+The work which is supposed to be done is defined in `main.py` with explicit mention of generator functions.
 
 The ontology has several versions:
 1. Raw version without interface to interact (without class restrictions and with messy object properties),
 1. Same version with interface,
-1. New version of ontology (ontology2) which has class restrictions, less amount of object properties and more meaningful ones.
+1. New version of ontology (`ontology2`) which has class restrictions, less amount of object properties and more meaningful ones.
 
 - The `ontology` folder contains ontology scheme and interface,
 - The `ontology2` folder contains ontology2 scheme and interface,
-- The `experiments` folder in `ontology` and `ontology2` contains manually created ontologies,
-- The `queries` folder in `ontology` and `ontology2` contains queries definitioins,
+- The `queries` folder in `ontology` and `ontology2` contains queries` definitioins,
 - The `resources` folder contains query results, datasets, generated ontologies.
 - The `annotations_builder` folder contains algorithms for ontology creation with provided annotations,
 - The `classifier_builder` folder contains algorithms for automatic ontology creation,
+- The `manual_builder` folder in `ontology` and `ontology2` contains manually created ontologies,
 - The `docs` folder contains documentation for the ontology
+
 
 TODO
 ----
@@ -61,9 +62,39 @@ TODO
     - [ ] ...
 
 
+Classifier strategy
+-------------------
+
+1. натренировать эмбеддинги
+1. в сети свертки + полносвязная часть
+1. кодируем текст эмбеддингами
+1. внутри сети идут свертки потом классификатор
+1. окно едет по тексту и замеряет уверенность
+1. где много уверенности берем, где мало не берем
+
+вопросы:
+
+нужна ли вообще лстмка
+    можно попробовать поискать инфу
+
+обнуление весов в какой момент
+    скорее всего, когда пошла неуверенность (придется тюнить)
+
+как разбивать текст
+    наверное не разбивать
+
+размеченный текст привести к формату для тренировки, как вообще тренировать
+потому что 1 какого-то сэмпла нет, это будет комбинация и она будет учить эти
+комбинации, а не то, что по сути должна
+    если не лстмка, то в принципе несложно
+    если лстмка нужно понять, что она вообще должна запоминать
+
+как трекать координаты если текст очищенный (добавление поля "координата слова" 
+    из неочищенного текста, потом возврат уверенности + координата)
+
+
 Health care applications
 ------------------------
-
 
 Device|Application|Policy link|Device link
 ------|-----------|-----------|-----------

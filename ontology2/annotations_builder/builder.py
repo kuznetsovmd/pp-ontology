@@ -1,8 +1,10 @@
 import json
 
-from ontology2.ontology.interface import Ontology as Ontology2
+from tqdm import tqdm
+from config import ANNOTATIONS_FILE, ANNOTATIONS_ONTO
 
-from annotations_builder.annotation_structures import SCHEME, RESTRICTIONS
+from ontology2.ontology.interface import Ontology as Ontology2
+from ontology2.annotations_builder.annotation_structures import SCHEME, RESTRICTIONS
 
 
 class Builder:
@@ -106,17 +108,16 @@ class Builder:
         self.objs[self.id] = self.onto.individual(self.selection_class, self.selection_content, properties)
 
 
-# DO NOT FORGET ABOUT CLASSIFIER OUTPUT
-def read(file, out='test'):
-    with open(file, 'r', encoding='utf-8') as f:
+def build_annotated():
+    with open(ANNOTATIONS_FILE, 'r', encoding='utf-8') as f:
         records = json.load(f)
         for r in records:
             Builder(r)
 
-    onto = Ontology2(out, create_root_policy=False)
+    onto = Ontology2(ANNOTATIONS_ONTO, create_root_policy=False)
     Builder.set_ontology(onto)
 
-    for a in Builder.get_activities():
+    for a in tqdm(Builder.get_activities(), desc='Activities', ncols=80, ascii=True):
         
         if a.hash != Builder.last_hash:
             Builder.last_id = 0
@@ -129,7 +130,3 @@ def read(file, out='test'):
             binded_activity.upload('binded_to', a.id)
 
     onto.save()
-
-
-if __name__ == '__main__':
-    read('resources/70e376c538cfcbdbf9b66708a25e6f31.json')

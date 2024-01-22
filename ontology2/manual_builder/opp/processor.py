@@ -1,4 +1,4 @@
-from ontology2.experiments.opp2.parsing import *
+from ontology2.manual_builder.opp.parsing import *
 
 
 _ID = -1
@@ -263,7 +263,7 @@ def construct_policy_change(o, r, u, fp):
     )
 
 
-def process_opp(o, policy):
+def process(o, policy):
     """
     mappings = {
         "First Party Collection/Use": "DataCollectionActivity",

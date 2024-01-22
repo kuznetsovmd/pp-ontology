@@ -19,7 +19,7 @@ class Ontology:
     def __init__(self, name='default', website='Not defined', ontology=None, create_root_policy=True):
         self.name = name
 
-        onto_path.append(f"{os.path.abspath(ONTOLOGIES)}")
+        onto_path.append(ONTOLOGIES)
 
         if ontology:
             self.raw_onto = ontology

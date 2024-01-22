@@ -1,7 +1,7 @@
 from ontology2.ontology.interface import Ontology
 
 
-def process_onto_test():
+def process_onto_examples():
 
     o = Ontology('test', 'some url')
 

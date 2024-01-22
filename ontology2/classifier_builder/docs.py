@@ -4,7 +4,7 @@ from io import open
 
 from torch.utils.data.dataset import Dataset
 
-from fetch_device import *
+from ontology2.classifier_builder.fetch_device import *
 
 
 digits = ''.join([chr(ord('0') + i) for i in range(10)])
