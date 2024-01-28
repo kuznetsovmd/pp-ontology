@@ -59,6 +59,7 @@ def unlabeled_train():
                               d_ff, max_seq_length, dropout, temperature, device=DEVICE)
 
     src_data = batcher[vocab[tokens]]
+    tgt_data = src_data
 
     # print(f'{texts[0]=}')
     # print(f'{t[texts[0]]=}')
