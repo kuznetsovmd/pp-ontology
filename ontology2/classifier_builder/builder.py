@@ -1,131 +1,119 @@
-import time
-import math
-
 import torch
 import torch.nn as nn
-
-from functools import wraps
-from torch.utils.data.dataloader import DataLoader
+import torch.optim as optim
 from tqdm import tqdm
 
 from config import *
 
-from ontology2.classifier_builder.models import *
+from ontology2.classifier_builder.transformer import Transformer
 from ontology2.classifier_builder.docs import *
 from ontology2.classifier_builder.fetch_device import *
-from ontology2.classifier_builder.docs import ParagraphsDataset, doc_to_tensor, find_files, predicted_to_label, read_lines
+from ontology2.classifier_builder.data_pipeline import Batcher, Tokenizer, Vocabulary, VocabularyData, initial_target
 
 
-def timeit(func):
-    @wraps(func)
-    def timeit_wrapper(*args, **kwargs):
-        start_time = time.perf_counter()
-        result = func(*args, **kwargs)
-        end_time = time.perf_counter()
-        total_time = end_time - start_time
-        print(f'Function {func.__name__} Took {total_time:.4f} seconds')
-        return result
-    return timeit_wrapper
+def print_info():
+    print(f'Torch version: {torch.__version__}')
+    try:
+        print(f'Using: {torch.cuda.get_device_name(DEVICE)}')
+    except ValueError:
+        print(f'Using: CPU')
 
 
-def time_since(since):
-    now = time.time()
-    s = now - since
-    m = math.floor(s / 60)
-    s -= m * 60
-    return '%dm %ds' % (m, s)
+def unlabeled_train():
+    """
+    Have the following issues:
+    1. Two or more word occurances cuts text between them
+    2. Use gready search, make beam or other sampling
+    3. Check if masking properly
+    4. Temperature
+    """
+
+    torch.set_printoptions(threshold=10_000)
+
+    d_model = 1024                 # Embedding size
+    num_heads = 32                 # Threads
+    num_layers = 6                 # Layers
+    d_ff = 2048                    # FC
+    max_seq_length = 168           # --
+    dropout = .1                   # --
+    batch_size = 32
+    temperature = .5
+
+    vd = VocabularyData(spec_tokens=['[PAD]', '[CLS]', '[SEP]', '[SOT]', '[EOT]'])
+    vocab = Vocabulary(vd)
+    tokenizer = Tokenizer('[SOT]', '[EOT]')
+
+    with open(f'{RESOURCES}/example_texts.txt', 'r') as f:
+        texts = f.read().split('\n\n')
+
+    tokens = [w for tx in texts[:1] for w in tokenizer[tx]]
+    # tokens = t[texts[0]]
+    # print(f'{tokens=}')
+    vocab.new_ws(tokens)
+    # print(f'{v.size=}')
+
+    batcher = Batcher(max_seq_length, vocab.w2i('[PAD]'), vocab.w2i('[CLS]'), vocab.w2i('[SEP]'), train=True, batch_size=batch_size)
+    # print(f'{b[tokens]=}')
+
+    transformer = Transformer(vocab.size, vocab.size, d_model, num_heads, num_layers, 
+                              d_ff, max_seq_length, dropout, temperature, device=DEVICE)
+
+    src_data = batcher[vocab[tokens]]
+
+    # print(f'{texts[0]=}')
+    # print(f'{t[texts[0]]=}')
+    # print(f'{b[t[texts[0]]]=}')
+    # print(f'{src_data=}')
+
+    criterion = nn.CrossEntropyLoss(weight=torch.tensor([
+        *[0.0 for _ in range(4)],
+        *[1.0 for _ in range(4, vocab.size)]
+    ], device=DEVICE))
+
+    optimizer = optim.Adam(transformer.parameters(), lr=0.0001, eps=1e-9)
+    transformer.train()
+
+    try:
+        for epoch in range(1000):
+            for s, tokenizer in tqdm(zip(src_data, tgt_data), ncols=80, ascii=True):
+                optimizer.zero_grad()
+                s_gpu = torch.tensor(s, device=DEVICE)
+                t_gpu = torch.tensor(tokenizer, device=DEVICE)
+                output = transformer(s_gpu, t_gpu[:, :-1])
+                loss = criterion(output.contiguous().view(-1, vocab.size), t_gpu[:, 1:].contiguous().view(-1))
+                loss.backward()
+                optimizer.step()
+            print(f"Epoch: {epoch+1}, Loss: {loss.item()}")
+    except KeyboardInterrupt:
+        pass
+
+    transformer.eval()
+
+    tokenizer = Tokenizer('[SOT]', '[EOT]', train=False)
+    batcher = Batcher(max_seq_length, vocab.w2i('[PAD]'), vocab.w2i('[CLS]'), vocab.w2i('[SEP]'), train=False)
+
+    source = torch.tensor(batcher[vocab[tokenizer[texts[0]]]], device=DEVICE)
+    # print(f'{source=}')
+
+    target = torch.tensor(initial_target(max_seq_length, vocab.w2i('[PAD]'), vocab.w2i('[SOT]')), device=DEVICE)
+    # print(f'{target=}')
+
+    sentence = []
+    with torch.no_grad():
+        for _ in range(600):
+            predicted_vec = transformer(source, target).contiguous().view(-1, vocab.size)[-1]
+            predicted_word = torch.argmax(predicted_vec).unsqueeze(0).unsqueeze(1)
+            sentence.append(predicted_word.item())
+            if sentence[-1] == vocab.w2i('[EOT]'):
+                break
+            target = torch.cat((target[:, 1:], predicted_word), 1)    
+
+    print(' '.join(vocab.decode(sentence)))
 
 
-def train():
-    texts = [read_lines(f) for f in sorted(find_files(f'{RESOURCES}/sanitization_docs/*.txt'))]
-    labels_ = [read_lines(f) for f in sorted(find_files(f'{RESOURCES}/sanitization_labels/*.txt'))]
-
-    train_length = int(len(texts) * 0.95)
-
-    train_data = ParagraphsDataset(labels_[:train_length], texts[:train_length])
-    validation_data = ParagraphsDataset(labels_[train_length:], texts[train_length:])
-
-    # BUSINESS
-    train_loader = DataLoader(train_data, shuffle=False, batch_size=1)
-    validation_loader = DataLoader(validation_data, shuffle=False, batch_size=1)
-
-    parameters = {
-        'module': RNN_2xR1,
-        'module_parameters': {
-            'input_size': n_letters,
-            'hidden_size': 512,
-            'output_size': n_labels,
-            'dropout': .1,
-            'device': DEVICE,
-        },
-        'optimizer': torch.optim.Adam,
-        'optimizer_parameters': {
-            'lr':  1e-7,
-            'eps': 1e-10,
-        },
-        'criterion': nn.CrossEntropyLoss,
-        'criterion_parameters': {},
-        'pretrained': False,
-        'path': f'{RESOURCES}/models/rnn11_sanitization',
-    }
-
-    rnn = build_model(**parameters)
-
-    n_epochs = 1000
-    current_epoch = 0
-
-    start = time.time()
-
-    for epoch in range(current_epoch, n_epochs):
-
-        # TRAINING
-        for it, (label_tensor, sample_tensor) in tqdm(enumerate(train_loader, 1), desc="T", ascii=True, total=len(train_data)):
-            rnn.train(label_tensor[0], sample_tensor[0])
-
-        # VALIDATION
-        for it, (label_tensor, sample_tensor) in tqdm(enumerate(validation_loader, 1), desc="V", ascii=True, total=len(validation_data)):
-            rnn.test(label_tensor[0], sample_tensor[0])
-
-        rnn.epoch()
-        save_model(rnn, f'{epoch}')
-
-        print(f'R: epoch={epoch} [{epoch * 100 // n_epochs}%] time=[{time_since(start)}] '
-              f'T loss={rnn.train_losses[-1]:.3f} V loss={rnn.validation_losses[-1]:.3f}, '
-              f'T accuracy={rnn.train_accuracies[-1]:.3f} V accuracy={rnn.validation_accuracies[-1]:.3f}\n')
+def labeled_train():
+    print('Labeled train is not implemented!')
 
 
 def eval():
-    all_docs = [(os.path.basename(f), read_lines(f)) for f in find_files(f'{RESOURCES}/formatted_policies/*.txt')]
-
-    parameters = {
-        'module': RNN_2xR1,
-        'module_parameters': {
-            'input_size': n_letters,
-            'hidden_size': 512,
-            'output_size': n_labels,
-            'dropout': .1,
-            'device': DEVICE,
-        },
-        'optimizer': torch.optim.Adam,
-        'optimizer_parameters': {
-            'lr':  1e-7,
-            'eps': 1e-10,
-        },
-        'criterion': nn.CrossEntropyLoss,
-        'criterion_parameters': {},
-        'pretrained': True,
-        'path': f'{RESOURCES}/models/rnn11_sanitization_70',
-    }
-
-    rnn = build_model(**parameters)
-
-    with torch.no_grad():
-        
-        for it, (save, sample) in tqdm(enumerate(all_docs, 1), ascii=True, total=len(all_docs)):
-            output = rnn.predict(doc_to_tensor(sample))
-            predicted_label = list(zip([predicted_to_label(o) for o in output], sample.split('\n\n\n')))
-
-            with open(f'{RESOURCES}/sanitized_policies/{save}', 'w') as f:
-                for i, (l, s) in enumerate(predicted_label):
-                    if l == 'Yes':
-                        f.write(f'\n\n\n{s}')
+    print('Eval is not implemented!')

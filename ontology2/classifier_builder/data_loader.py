@@ -1,8 +1,6 @@
 from pprint import pprint
 
-from owlready2 import *
-
-from ontology2.queries.query1 import run
+from ontology2.queries.statistics import run
 
 
 def load():

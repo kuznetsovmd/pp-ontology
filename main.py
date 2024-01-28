@@ -5,10 +5,9 @@ import sys
 from tqdm import tqdm
 
 from utils.fsys import save_query
-from ontology2.classifier_builder.models import NAN
 from ontology2.queries.statistics import run as run1
 
-from ontology2.classifier_builder.builder import train, eval
+from ontology2.classifier_builder.builder import print_info, unlabeled_train, eval
 from ontology2.annotations_builder.builder import build_annotated
 from ontology2.manual_builder.cloud_computing_policies.amazon_web_services import process_aws
 from ontology2.manual_builder.cloud_computing_policies.google_cloud import process_google_cloud
@@ -23,11 +22,10 @@ from ontology2.manual_builder.onto2_blank import process_onto_blank
 from ontology2.manual_builder.opp.builder import process_opp
 
 
-def build_classified(train, eval):
-    if train:
-        print(train)
-    if eval:
-        print(eval)
+def build_classified(t, e):
+    print_info()
+    if t: unlabeled_train()
+    if e: eval()
 
 
 def build_manual():
@@ -72,7 +70,7 @@ if __name__ == '__main__':
         description='Command line tool to control ontology framework'
     )
 
-    parser.add_argument('cmd')
+    parser.add_argument('cmd', help='One of: manual, annotations, classifier, queries')
     parser.add_argument('-e', '--eval', default=False, action='store_true')
     parser.add_argument('-t', '--train', default=False, action='store_true')
     args = parser.parse_args()
@@ -80,9 +78,6 @@ if __name__ == '__main__':
     try:
         main(args)
         sys.exit(0)
-    except NAN as e:
-        print(e)
-        sys.exit(1)
     except KeyboardInterrupt:
-        print('Interrupted by user')
+        print('Interrupted')
         sys.exit(130)
