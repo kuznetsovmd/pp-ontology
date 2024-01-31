@@ -7,7 +7,7 @@ from tqdm import tqdm
 from utils.fsys import save_query
 from ontology2.queries.statistics import run as run1
 
-from ontology2.classifier_builder.builder import print_info, unlabeled_train, eval
+from ontology2.classifier_builder.builder import print_info, unlabeled_train, labeled_train, eval
 from ontology2.annotations_builder.builder import build_annotated
 from ontology2.manual_builder.cloud_computing_policies.amazon_web_services import process_aws
 from ontology2.manual_builder.cloud_computing_policies.google_cloud import process_google_cloud
@@ -22,9 +22,10 @@ from ontology2.manual_builder.onto2_blank import process_onto_blank
 from ontology2.manual_builder.opp.builder import process_opp
 
 
-def build_classified(t, e):
+def build_classified(t, l, e):
     print_info()
     if t: unlabeled_train()
+    if l: labeled_train()
     if e: eval()
 
 
@@ -59,7 +60,7 @@ def main(args):
     if args.cmd == 'annotations':
         build_annotated()
     if args.cmd == 'classifier':
-        build_classified(args.train, args.eval)
+        build_classified(args.train, args.ltrain, args.eval)
     if args.cmd == 'queries':
         run_quries()
 
@@ -72,6 +73,7 @@ if __name__ == '__main__':
 
     parser.add_argument('cmd', help='One of: manual, annotations, classifier, queries')
     parser.add_argument('-e', '--eval', default=False, action='store_true')
+    parser.add_argument('-l', '--ltrain', default=False, action='store_true')
     parser.add_argument('-t', '--train', default=False, action='store_true')
     args = parser.parse_args()
 

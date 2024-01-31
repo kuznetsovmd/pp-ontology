@@ -125,7 +125,7 @@ class Transformer(nn.Module):
 
         self.temperature = temperature
         self.device = device
-        self.to(self.device)
+        self.to(device)
 
     def generate_mask(self, src, tgt):
         src_mask = (src != 0).unsqueeze(1).unsqueeze(2)
@@ -152,4 +152,9 @@ class Transformer(nn.Module):
 
         output = self.fc(dec_output)
         return output / self.temperature
+    
+    def init_weights(self):
+        for name, param in self.named_parameters():
+            if 'weight' in name and param.data.dim() == 2:
+                nn.init.kaiming_uniform_(param)
     

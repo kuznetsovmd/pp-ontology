@@ -1,14 +1,15 @@
+import math
+import sys
+import time
 import torch
 import torch.nn as nn
-import torch.optim as optim
-from tqdm import tqdm
 
 from config import *
+from ontology2.classifier_builder.model import build_model, save_model
 
 from ontology2.classifier_builder.transformer import Transformer
-from ontology2.classifier_builder.docs import *
 from ontology2.classifier_builder.fetch_device import *
-from ontology2.classifier_builder.data_pipeline import Batcher, Tokenizer, Vocabulary, VocabularyData, initial_target
+from ontology2.classifier_builder.text import Batcher, Tokenizer, Vocabulary, VocabularyData
 
 
 def print_info():
@@ -19,102 +20,141 @@ def print_info():
         print(f'Using: CPU')
 
 
+def time_since(since):
+    now = time.time()
+    s = now - since
+    m = math.floor(s / 60)
+    s -= m * 60
+    return '%dm %ds' % (m, s)
+
+
+def build_params(vocab, pretrained=True):
+    return {
+        'module': Transformer,
+        'module_parameters': {
+            'src_vocab_size': vocab.size, 
+            'tgt_vocab_size': vocab.size, 
+            'max_seq_length': MAX_SEQ_LEN, 
+            'temperature': .5,
+            'd_model': 512, 
+            'num_heads': 8, 
+            'num_layers': 6, 
+            'dropout': .1, 
+            'd_ff': 1024, 
+            'device': DEVICE,
+        },
+        'optimizer': torch.optim.Adam,
+        'optimizer_parameters': {
+            'lr':  1e-5,
+            'eps': 1e-9,
+            'betas': (0.9, 0.98),
+        },
+        'criterion': nn.CrossEntropyLoss,
+        'criterion_parameters': {
+            'weight': torch.tensor([
+                *[0.0 for _ in range(vocab.n_spec_tokens)],
+                *[1.0 for _ in range(vocab.n_spec_tokens, vocab.size)]
+            ], device=DEVICE)
+        },
+        'batcher': Batcher(
+            MAX_SEQ_LEN, 
+            BATCH_LEN,
+            vocab.w2i('[pad]'), 
+            vocab.w2i('[cls]'), 
+            vocab.w2i('[sep]'), 
+            vocab.w2i('[sot]')),
+        'pretrained': pretrained,
+        'path': f'{RESOURCES}/models/transformer',
+    }
+
+
 def unlabeled_train():
-    """
-    Have the following issues:
-    1. Two or more word occurances cuts text between them
-    2. Use gready search, make beam or other sampling
-    3. Check if masking properly
-    4. Temperature
-    """
 
-    torch.set_printoptions(threshold=10_000)
+    vocab_data = VocabularyData(['[pad]', '[cls]', '[sep]', '[sot]'], ['[eot]', '[start]', '[end]'])
+    vocab = Vocabulary(vocab_data)
+    tokenizer = Tokenizer('[sot]', '[eot]')
 
-    d_model = 1024                 # Embedding size
-    num_heads = 32                 # Threads
-    num_layers = 6                 # Layers
-    d_ff = 2048                    # FC
-    max_seq_length = 168           # --
-    dropout = .1                   # --
-    batch_size = 32
-    temperature = .5
-
-    vd = VocabularyData(spec_tokens=['[PAD]', '[CLS]', '[SEP]', '[SOT]', '[EOT]'])
-    vocab = Vocabulary(vd)
-    tokenizer = Tokenizer('[SOT]', '[EOT]')
-
-    with open(f'{RESOURCES}/example_texts.txt', 'r') as f:
+    with open(f'{RESOURCES}/example_texts_unlabeled.txt', 'r') as f:
         texts = f.read().split('\n\n')
 
-    tokens = [w for tx in texts[:1] for w in tokenizer[tx]]
-    # tokens = t[texts[0]]
-    # print(f'{tokens=}')
-    vocab.new_ws(tokens)
-    # print(f'{v.size=}')
+    vocab.new_ws(tokenizer.tokenize(texts[2]))
 
-    batcher = Batcher(max_seq_length, vocab.w2i('[PAD]'), vocab.w2i('[CLS]'), vocab.w2i('[SEP]'), train=True, batch_size=batch_size)
-    # print(f'{b[tokens]=}')
+    transformer = build_model(**build_params(vocab, pretrained=False))
 
-    transformer = Transformer(vocab.size, vocab.size, d_model, num_heads, num_layers, 
-                              d_ff, max_seq_length, dropout, temperature, device=DEVICE)
-
-    src_data = batcher[vocab[tokens]]
-    tgt_data = src_data
-
-    # print(f'{texts[0]=}')
-    # print(f'{t[texts[0]]=}')
-    # print(f'{b[t[texts[0]]]=}')
-    # print(f'{src_data=}')
-
-    criterion = nn.CrossEntropyLoss(weight=torch.tensor([
-        *[0.0 for _ in range(4)],
-        *[1.0 for _ in range(4, vocab.size)]
-    ], device=DEVICE))
-
-    optimizer = optim.Adam(transformer.parameters(), lr=0.0001, eps=1e-9)
-    transformer.train()
-
+    n_epochs = 100
+    start = time.time()
     try:
-        for epoch in range(1000):
-            for s, tokenizer in tqdm(zip(src_data, tgt_data), ncols=80, ascii=True):
-                optimizer.zero_grad()
-                s_gpu = torch.tensor(s, device=DEVICE)
-                t_gpu = torch.tensor(tokenizer, device=DEVICE)
-                output = transformer(s_gpu, t_gpu[:, :-1])
-                loss = criterion(output.contiguous().view(-1, vocab.size), t_gpu[:, 1:].contiguous().view(-1))
-                loss.backward()
-                optimizer.step()
-            print(f"Epoch: {epoch+1}, Loss: {loss.item()}")
+        for epoch in range(n_epochs):
+            transformer.module.train()
+            transformer.train(vocab.encode(tokenizer.tokenize(texts[2])), 
+                              vocab.encode(tokenizer.tokenize(texts[2])))
+
+            transformer.module.eval()
+            transformer.test(vocab.encode(tokenizer.tokenize(texts[2])), 
+                             vocab.encode(tokenizer.tokenize(texts[2])))
+            transformer.epoch()
+            save_model(transformer)
+
+            print(f'R: epoch={epoch} [{epoch * 100 // n_epochs}%] time=[{time_since(start)}] '
+                  f'T loss={transformer.train_losses[-1]:.3f} V loss={transformer.validation_losses[-1]:.3f}, '
+                  f'T accuracy={transformer.train_accuracies[-1]:.3f} V accuracy={transformer.validation_accuracies[-1]:.3f}\n')
     except KeyboardInterrupt:
         pass
 
-    transformer.eval()
-
-    tokenizer = Tokenizer('[SOT]', '[EOT]', train=False)
-    batcher = Batcher(max_seq_length, vocab.w2i('[PAD]'), vocab.w2i('[CLS]'), vocab.w2i('[SEP]'), train=False)
-
-    source = torch.tensor(batcher[vocab[tokenizer[texts[0]]]], device=DEVICE)
-    # print(f'{source=}')
-
-    target = torch.tensor(initial_target(max_seq_length, vocab.w2i('[PAD]'), vocab.w2i('[SOT]')), device=DEVICE)
-    # print(f'{target=}')
-
-    sentence = []
-    with torch.no_grad():
-        for _ in range(600):
-            predicted_vec = transformer(source, target).contiguous().view(-1, vocab.size)[-1]
-            predicted_word = torch.argmax(predicted_vec).unsqueeze(0).unsqueeze(1)
-            sentence.append(predicted_word.item())
-            if sentence[-1] == vocab.w2i('[EOT]'):
-                break
-            target = torch.cat((target[:, 1:], predicted_word), 1)    
-
-    print(' '.join(vocab.decode(sentence)))
-
 
 def labeled_train():
-    print('Labeled train is not implemented!')
+
+    vocab_data = VocabularyData(['[pad]'], ['[cls]', '[sep]', '[sot]', '[eot]', '[start]', '[end]'])
+    vocab = Vocabulary(vocab_data)
+    tokenizer = Tokenizer('[sot]', '[eot]')
+
+    with open(f'{RESOURCES}/example_texts_unlabeled.txt', 'r') as f:
+        texts = f.read().split('\n\n')
+
+    with open(f'{RESOURCES}/example_texts_labeled.txt', 'r') as f:
+        texts_labeled = f.read().split('\n\n')
+
+    vocab.new_ws(tokenizer.tokenize(texts[2]))
+    vocab.new_ws(tokenizer.tokenize(texts_labeled[2]))
+
+    transformer = build_model(**build_params(vocab, pretrained=False))
+
+    n_epochs = 100
+    start = time.time()
+    try:
+        for epoch in range(n_epochs):
+            transformer.module.train()
+            transformer.train(vocab.encode(tokenizer.tokenize(texts[2])), 
+                              vocab.encode(tokenizer.tokenize(texts_labeled[2])))
+
+            transformer.module.eval()
+            transformer.test(vocab.encode(tokenizer.tokenize(texts[2])), 
+                             vocab.encode(tokenizer.tokenize(texts_labeled[2])))
+            transformer.epoch()
+            save_model(transformer)
+
+            print(f'R: epoch={epoch} [{epoch * 100 // n_epochs}%] time=[{time_since(start)}] '
+                  f'T loss={transformer.train_losses[-1]:.3f} V loss={transformer.validation_losses[-1]:.3f}, '
+                  f'T accuracy={transformer.train_accuracies[-1]:.3f} V accuracy={transformer.validation_accuracies[-1]:.3f}\n')
+    except KeyboardInterrupt:
+        pass
 
 
 def eval():
-    print('Eval is not implemented!')
+    vocab_data = VocabularyData(['[pad]', '[cls]', '[sep]', '[sot]'], ['[eot]', '[start]', '[end]'])
+    vocab = Vocabulary(vocab_data)
+    tokenizer = Tokenizer('[sot]', '[eot]', train=False)
+
+    with open(f'{RESOURCES}/example_texts_unlabeled.txt', 'r') as f:
+        texts = f.read().split('\n\n')
+
+    with open(f'{RESOURCES}/example_texts_labeled.txt', 'r') as f:
+        texts_labeled = f.read().split('\n\n')
+
+    vocab.new_ws(tokenizer.tokenize(texts_labeled[2]))
+
+    transformer = build_model(**build_params(vocab))
+
+    transformer.module.eval()
+    sentence = transformer.predict(vocab.encode(tokenizer.tokenize(texts[2])), vocab.w2i('[eot]'))
+    print(' '.join(vocab.decode(sentence)))
