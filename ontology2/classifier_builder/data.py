@@ -1,33 +1,34 @@
 import numpy as np
 
 
-class VocabularyData:
+class Vocabulary:
     def __init__(self, spec_tokens=(), initial_tokens=()):
         self.spec_tokens = spec_tokens
         self.initial_tokens = initial_tokens
         self.index2word = {i: t for i, t in enumerate((*spec_tokens, *initial_tokens))}
         self.word2index = {t: i for i, t in enumerate((*spec_tokens, *initial_tokens))}
 
-
-class Vocabulary:
-    def __init__(self, vocabulary_data):
-        self.vocabulary_data = vocabulary_data
-
     def new_w(self, word):
-        if word not in self.vocabulary_data.word2index:
+        if word not in self.word2index:
             current_size = self.size
-            self.vocabulary_data.word2index[word] = current_size
-            self.vocabulary_data.index2word[current_size] = word
+            self.word2index[word] = current_size
+            self.index2word[current_size] = word
             
     def new_ws(self, words):
         for w in words:
             self.new_w(w)
 
     def i2w(self, index):
-        return self.vocabulary_data.index2word[index]
+        try:
+            return self.index2word[index]
+        except KeyError:
+            return '[unk]'
 
     def w2i(self, word):
-        return self.vocabulary_data.word2index[word]
+        try:
+            return self.word2index[word]
+        except KeyError:
+            return self.w2i('[unk]')
 
     def encode(self, words):
         return np.array([self.w2i(w) for w in words])
@@ -37,26 +38,36 @@ class Vocabulary:
     
     @property
     def size(self):
-        return len(self.vocabulary_data.word2index)
+        return len(self.word2index)
     
     @property
     def n_spec_tokens(self):
-        return len(self.vocabulary_data.spec_tokens)
+        return len(self.spec_tokens)
     
     @property
     def n_initial_tokens(self):
-        return len(self.vocabulary_data.initial_tokens)
+        return len(self.initial_tokens)
 
     
 class Tokenizer:
-    def __init__(self, sot, eot, train=True):
+    def __init__(self, sot, eot, cls, sep, pad, sequence_len, train=True):
+        self.sequence_len = sequence_len - 2
         self.train = train
         self.sot = sot
         self.eot = eot
+        self.cls = cls
+        self.sep = sep
+        self.pad = pad
 
-    def tokenize(self, key):
-        return [self.sot, *key.lower().split(' '), self.eot] if self.train else key.lower().split(' ')
-
+    def tokenize(self, tokens):
+        tokens = tokens.lower().split(' ')
+        if not self.train:
+            return tokens
+        tokens = [self.sot, *tokens, self.eot]
+        tokens = [tokens[i:i + self.sequence_len] for i in range(0, len(tokens), self.sequence_len)]
+        chunked = [[self.cls, *t, self.sep] for t in tokens[:-1]]
+        chunked.append([self.cls, *tokens[-1]])
+        return [chunk for t in chunked for chunk in t]
     
 class Batcher:
     def __init__(self, sequence_len, batch_size, pad, cls, sep, sot, dtype=int, device='cpu'):
@@ -69,42 +80,50 @@ class Batcher:
         self.sep = sep
         self.cls = cls
 
-    def pack(self, tokenized1, tokenized2=None):
-        if tokenized2 is not None:
-            return self.split(*self.align(self.pack_train(tokenized1), self.pack_train(tokenized2)))
-        else:
-            return self.pack_eval(tokenized1), self.empty_target()
+    def unlabeled(self, encoded):
+        s = np.vstack(tuple(self.for_train(e) for e in encoded))
+        s = self.split(s)
+        return s
+
+    def labeled(self, encoded1, encoded2):
+        s = np.vstack(tuple(self.for_train(e) for e in encoded1))
+        t = np.vstack(tuple(self.for_train(e) for e in encoded2))
+        s, t = self.align(s, t)
+        return self.split(s), self.split(t)
+
+    def eval(self, encoded):
+        return self.for_eval(encoded), self.empty_target()
 
     def empty_target(self):
-        start = np.full((self.sequence_len - 1,), self.pad, dtype=self.dtype)
-        end = np.full((1,), self.sot, dtype=self.dtype)
-        return np.append(start, end).reshape(-1, self.sequence_len)
+        target = np.full((self.sequence_len - 2,), self.pad, dtype=self.dtype)
+        target = np.hstack((target, [self.cls, self.sot]))
+        return target.reshape(-1, self.sequence_len)
 
-    def pack_eval(self, tokenized):
+    def for_eval(self, tokenized):
+        data = np.array(tokenized, dtype=self.dtype)
+        
+        sequence_len = self.sequence_len
+        n_extra_pads = sequence_len - len(data) % sequence_len
+        data = np.append(data, np.full((n_extra_pads,), self.pad))
+        batches = data.reshape(-1, sequence_len)
+        
+        return batches
+
+    def for_train(self, tokenized):
         data = np.array(tokenized, dtype=self.dtype)
 
         sequence_len = self.sequence_len
-        n_extra_pads = self.sequence_len - len(data) % self.sequence_len
-        data = np.append(np.full((n_extra_pads,), self.pad), data)
-        return data.reshape(-1, sequence_len)
-
-    def pack_train(self, tokenized):
-        data = np.array(tokenized, dtype=self.dtype)
-
-        sequence_len = self.sequence_len - 2
         batches = np.ndarray((0, sequence_len), dtype=self.dtype)
-        window = np.full((sequence_len,), self.pad),
+        window = np.full((sequence_len - 2,), self.pad)
+        window = np.append(window, data[:2])
         data = np.append(data, np.full((sequence_len - 1,), self.pad))
         
-        for token in data:
+        for token in data[2:]:
             window = np.delete(window, 0)
             window = np.append(window, token)
             batches = np.vstack((batches, window.copy()))
-
-        n_batches = len(batches)
-        left = np.reshape([self.cls for _ in range(n_batches)], (-1, 1))
-        right = np.reshape([*[self.sep for _ in range(n_batches - 1)], self.pad], (-1, 1))
-        return np.concatenate((left, batches, right), axis=1)
+            
+        return batches
 
     def align(self, s, t):
         diff = len(s) - len(t)
@@ -128,7 +147,6 @@ class Batcher:
             t = np.vstack((t, filler, last))
         return s, t
     
-    def split(self, s, t):
-        s_splits = np.split(s, np.arange(self.batch_size, len(s), self.batch_size))
-        t_splits = np.split(t, np.arange(self.batch_size, len(t), self.batch_size))
-        return s_splits, t_splits
+    def split(self, batch):
+        return np.split(batch, np.arange(self.batch_size, len(batch), self.batch_size))
+

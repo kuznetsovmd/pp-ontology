@@ -7,7 +7,7 @@ from tqdm import tqdm
 from utils.fsys import save_query
 from ontology2.queries.statistics import run as run1
 
-from ontology2.classifier_builder.builder import print_info, unlabeled_train, labeled_train, eval
+from ontology2.classifier_builder.builder import build_classified
 from ontology2.annotations_builder.builder import build_annotated
 from ontology2.manual_builder.cloud_computing_policies.amazon_web_services import process_aws
 from ontology2.manual_builder.cloud_computing_policies.google_cloud import process_google_cloud
@@ -20,13 +20,6 @@ from ontology2.manual_builder.healthcare_policies.zepp import process_zepp
 from ontology2.manual_builder.onto2_examples import process_onto_examples
 from ontology2.manual_builder.onto2_blank import process_onto_blank
 from ontology2.manual_builder.opp.builder import process_opp
-
-
-def build_classified(t, l, e):
-    print_info()
-    if t: unlabeled_train()
-    if l: labeled_train()
-    if e: eval()
 
 
 def build_manual():

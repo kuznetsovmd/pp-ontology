@@ -1,4 +1,7 @@
+import itertools
+import sys
 import shutil
+import contextlib
 import os
 import numpy as np
 import torch
@@ -6,9 +9,38 @@ from tqdm import tqdm
 
 
 class BaseModel:
-    def train(self, source, target):
-        predictions = np.ndarray((0, 2))
-        for s, t in tqdm(list(zip(source, target)), ncols=80, ascii=True):
+    def __init__(self, *args, **kwargs) -> None:
+        self.module = kwargs['module'](**kwargs['module_parameters'])
+        self.optimizer = kwargs['optimizer'](self.module.parameters(), **kwargs['optimizer_parameters'])
+        self.criterion = kwargs['criterion'](**kwargs['criterion_parameters'])
+        self.eot = kwargs['criterion'](**kwargs['criterion_parameters'])
+    
+    def train_unsupervised(self, source):
+        loss_sum = 0
+        outputs = []
+
+        for s in tqdm(source, ncols=80, ascii=True):
+            self.optimizer.zero_grad()
+
+            s_gpu = torch.tensor(s, device=self.module.device)
+            output = self.module(s_gpu, s_gpu[:, :-1])
+
+            predicted = output.contiguous().view(-1, self.module.decoder_embedding.num_embeddings)
+            expected = s_gpu[:, 1:].contiguous().view(-1)
+            loss = self.criterion(predicted, expected)
+            loss.backward()
+            self.optimizer.step()
+
+            loss_sum += loss
+            outputs.append(output.detach().cpu())
+        return outputs, loss_sum / len(source)
+    
+    def train_supervised(self, source, target):
+        loss_sum = 0
+        outputs = []
+
+        data = list(zip(source, target)) 
+        for s, t in tqdm(data, ncols=80, ascii=True):
             self.optimizer.zero_grad()
 
             s_gpu = torch.tensor(s, device=self.module.device)
@@ -20,16 +52,18 @@ class BaseModel:
             loss = self.criterion(predicted, expected)
             loss.backward()
             self.optimizer.step()
-            
-            val_1 = torch.argmax(output[:, -2], 1).cpu().reshape(-1, 1)
-            val_2 = t[:, -2].reshape(-1, 1)
-            predictions = np.vstack((predictions, np.hstack((val_1, val_2))))
-        return predictions, loss
 
+            loss_sum += loss
+            outputs.append(output.detach().cpu())
+        return outputs, loss_sum / len(data)
+    
     def test(self, source, target):
-        predictions = np.ndarray((0, 2))
+        loss_sum = 0
+        outputs = []
+
+        data = list(zip(source, target)) 
         with torch.no_grad():
-            for s, t in tqdm(list(zip(source, target)), ncols=80, ascii=True):
+            for s, t in tqdm(data, ncols=80, ascii=True):
                 s_gpu = torch.tensor(s, device=self.module.device)
                 t_gpu = torch.tensor(t, device=self.module.device)
                 output = self.module(s_gpu, t_gpu[:, :-1])
@@ -38,121 +72,112 @@ class BaseModel:
                 expected = t_gpu[:, 1:].contiguous().view(-1)
                 loss = self.criterion(predicted, expected)
                 
-                val_1 = torch.argmax(output[:, -2], 1).cpu().reshape(-1, 1)
-                val_2 = t[:, -2].reshape(-1, 1)
-                predictions = np.vstack((predictions, np.hstack((val_1, val_2))))
-        return predictions, loss
+                loss_sum += loss
+                outputs.append(output.detach().cpu())
+        return outputs, loss_sum / len(data)
 
-    def predict(self, source, target, eot):
+    def predict(self, source, target, cls, sep, eot):
         sentence = np.empty((0,))
+        s_gpu = torch.tensor(source, device=self.module.device)
         t_gpu = torch.tensor(target, device=self.module.device)
+        
+        i = 0 
         with torch.no_grad():
-            for _ in range(200):
-                s_gpu = torch.tensor(source, device=self.module.device)
-                output = self.module(s_gpu, t_gpu)
+            for _ in range(300):
+            # for _ in itertools.count():
+                output = self.module(s_gpu[i, :].reshape(1, -1), t_gpu)
                 predicted = output.contiguous().view(-1, self.module.decoder_embedding.num_embeddings)[-1]
-                predicted_word = torch.argmax(predicted).unsqueeze(0).unsqueeze(1)
-
-                sentence = np.append(sentence, predicted_word.item())
-                if sentence[-1] == eot:
+                predicted_tensor = torch.argmax(predicted).unsqueeze(0).unsqueeze(1)
+                
+                token = predicted_tensor.item()
+                if token == sep and i < s_gpu.shape[0] - 1:
+                    i += 1 
+                    t_gpu = torch.cat((t_gpu[:, 1:], torch.tensor(cls, device=self.module.device).reshape(1, 1)), 1)
+                if token == eot:
                     break
-                t_gpu = torch.cat((t_gpu[:, 1:], predicted_word), 1)
+                if token != sep:
+                    sentence = np.append(sentence, token)
+                    t_gpu = torch.cat((t_gpu[:, 1:], predicted_tensor), 1)
         return sentence
 
 
 class Model(BaseModel):
     
     @staticmethod
-    def __asses(output):
-        res = [o[0] == o[1] for o in output if o[1] != 0]
-        return sum(res) / len(res)
+    def __asses(output, target):
+        l = np.empty((0,))
+        r = np.empty((0,))
+        for o, t in zip(output, target):
+            predicted = np.array(torch.argmax(o[:, -2], 1))
+            target = t[:, -2]
+            l = np.append(l, (target > 0).sum())
+            r = np.append(r, ((predicted == target) & (target > 0)).sum())
+        return sum(r) / sum(l)
     
-    def __init__(self):
-        super().__init__()
-        self.last_epoch = 0
-        self.train_iters = 0
-        self.validation_iters = 0
-        self.train_loss = 0
-        self.validation_loss = 0
-        self.train_accuracy = []
-        self.validation_accuracy = []
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.name = kwargs['name']
+        self.version = kwargs['version']
+
         self.train_losses = []
         self.validation_losses = []
         self.train_accuracies = []
         self.validation_accuracies = []
 
-    def train(self, source, target):
-        s, t = self.batcher.pack(source, target)
-        output, loss = super().train(s, t)
-        self.train_accuracy.append(self.__asses(output))
-        self.train_loss += loss
-        self.train_iters += 1
+    def train_unsupervised(self, source):
+        output, loss = super().train_unsupervised(source)
+        self.train_accuracies.append(self.__asses(output, source))
+        self.train_losses.append(loss)
+        return output, loss
+
+    def train_supervised(self, source, target):
+        output, loss = super().train_supervised(source, target)
+        self.train_accuracies.append(self.__asses(output, target))
+        self.train_losses.append(loss)
         return output, loss
 
     def test(self, source, target):
-        s, t = self.batcher.pack(source, target)
-        output, loss = super().test(s, t)
-        self.validation_accuracy.append(self.__asses(output))
-        self.validation_loss += loss
-        self.validation_iters += 1
+        output, loss = super().test(source, target)
+        self.validation_accuracies.append(self.__asses(output, target))
+        self.validation_losses.append(loss)
         return output, loss
 
-    def predict(self, sample, eot):
-        s, t = self.batcher.pack(sample)
-        return super().predict(s, t, eot)
-        
-    def epoch(self):
-        self.train_losses.append(self.train_loss / self.train_iters)
-        self.validation_losses.append(self.validation_loss / self.validation_iters)
-        self.train_accuracies.append(sum(self.train_accuracy) / len(self.train_accuracy))
-        self.validation_accuracies.append(sum(self.validation_accuracy) / len(self.validation_accuracy))
-
-        self.train_iters = 0
-        self.validation_iters = 0
-
-        self.train_loss = 0
-        self.validation_loss = 0
-        self.train_accuracy = []
-        self.validation_accuracy = []
-
-        self.last_epoch += 1
+    def predict(self, source, target, cls, sep, eot):
+        return super().predict(source, target, cls,  sep, eot)
 
 
-def build_model(*args, **kwargs):
-    model = Model()
-    model.module = kwargs['module'](**kwargs['module_parameters'])
-    model.optimizer = kwargs['optimizer'](model.module.parameters(), **kwargs['optimizer_parameters'])
-    model.criterion = kwargs['criterion'](**kwargs['criterion_parameters'])
-    model.batcher = kwargs['batcher']
-    model.path = kwargs['path']
+def build_model(path=None, **kwargs):
 
-    if kwargs['pretrained']:
-        loaded = torch.load(f'{kwargs["path"]}.pt')
+    model = Model(**kwargs)
+
+    if path:
+        loaded = torch.load(f'{path}/{kwargs["name"]}{kwargs["version"]}.pt')
 
         if loaded:
             model.module.load_state_dict(loaded['model_state_dict'])
             model.optimizer.load_state_dict(loaded['optimizer_state_dict'])
-            model.last_epoch = loaded['last_epoch']
             model.train_losses = loaded['train_losses']
             model.validation_losses = loaded['validation_losses']
             model.train_accuracies = loaded['train_accuracies']
             model.validation_accuracies = loaded['validation_accuracies']
 
     else:
-        shutil.rmtree(os.path.dirname(model.path), ignore_errors=True)
+        with contextlib.suppress(FileNotFoundError):
+            os.remove(f'{path}/{kwargs["name"]}{kwargs["version"]}.pt')
+        # for name, param in model.module.named_parameters():
+        #     if 'weight' in name and param.data.dim() == 2:
+        #         torch.nn.init.uniform_(param)
 
     return model
 
 
-def save_model(model, version=''):
-    version = f'_{version}' if version else ''
-    os.makedirs(os.path.dirname(model.path), exist_ok=True)
+def save_model(model, path):
+    os.makedirs(path, exist_ok=True)
     torch.save({
-        'last_epoch': model.last_epoch,
         'model_state_dict': model.module.state_dict(),
         'optimizer_state_dict': model.optimizer.state_dict(),
         'train_losses': model.train_losses,
         'validation_losses': model.validation_losses,
         'train_accuracies': model.train_accuracies,
         'validation_accuracies': model.validation_accuracies,
-    }, f'{model.path}{version}.pt')
+    }, f'{path}/{model.name}{model.version}.pt')

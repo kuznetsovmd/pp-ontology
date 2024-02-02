@@ -111,7 +111,7 @@ class DecoderLayer(nn.Module):
 
 class Transformer(nn.Module):
     def __init__(self, src_vocab_size, tgt_vocab_size, d_model, num_heads, 
-                 num_layers, d_ff, max_seq_length, dropout, temperature, device='cpu'):
+                 num_layers, d_ff, max_seq_length, dropout, device='cpu'):
         super(Transformer, self).__init__()
         self.encoder_embedding = nn.Embedding(src_vocab_size, d_model)
         self.decoder_embedding = nn.Embedding(tgt_vocab_size, d_model)
@@ -123,7 +123,6 @@ class Transformer(nn.Module):
         self.fc = nn.Linear(d_model, tgt_vocab_size)
         self.dropout = nn.Dropout(dropout)
 
-        self.temperature = temperature
         self.device = device
         self.to(device)
 
@@ -151,10 +150,5 @@ class Transformer(nn.Module):
             dec_output = dec_layer(dec_output, enc_output, src_mask, tgt_mask)
 
         output = self.fc(dec_output)
-        return output / self.temperature
-    
-    def init_weights(self):
-        for name, param in self.named_parameters():
-            if 'weight' in name and param.data.dim() == 2:
-                nn.init.kaiming_uniform_(param)
+        return output
     
