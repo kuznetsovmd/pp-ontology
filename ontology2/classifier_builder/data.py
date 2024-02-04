@@ -82,8 +82,7 @@ class Batcher:
 
     def unlabeled(self, encoded):
         s = np.vstack(tuple(self.for_train(e) for e in encoded))
-        s = self.split(s)
-        return s
+        return self.split(s)
 
     def labeled(self, encoded1, encoded2):
         s = np.vstack(tuple(self.for_train(e) for e in encoded1))
@@ -92,11 +91,16 @@ class Batcher:
         return self.split(s), self.split(t)
 
     def eval(self, encoded):
-        return self.for_eval(encoded), self.empty_target()
+        source = self.for_eval(encoded)
+        return source, self.empty_target(source)
 
-    def empty_target(self):
+    def empty_target(self, source):
+        n_batches = source.shape[0]
         target = np.full((self.sequence_len - 2,), self.pad, dtype=self.dtype)
         target = np.hstack((target, [self.cls, self.sot]))
+        for _ in range(n_batches - 1):
+            target_i = np.full((self.sequence_len - 1,), self.pad, dtype=self.dtype)
+            target = np.hstack((target, target_i, [self.cls]))
         return target.reshape(-1, self.sequence_len)
 
     def for_eval(self, tokenized):
@@ -104,7 +108,7 @@ class Batcher:
         
         sequence_len = self.sequence_len
         n_extra_pads = sequence_len - len(data) % sequence_len
-        data = np.append(data, np.full((n_extra_pads,), self.pad))
+        data = np.append(np.full((n_extra_pads,), self.pad), data)
         batches = data.reshape(-1, sequence_len)
         
         return batches
@@ -114,11 +118,11 @@ class Batcher:
 
         sequence_len = self.sequence_len
         batches = np.ndarray((0, sequence_len), dtype=self.dtype)
-        window = np.full((sequence_len - 2,), self.pad)
-        window = np.append(window, data[:2])
+        window = np.full((sequence_len - 1,), self.pad)
+        window = np.append(window, data[:1])
         data = np.append(data, np.full((sequence_len - 1,), self.pad))
         
-        for token in data[2:]:
+        for token in data[1:]:
             window = np.delete(window, 0)
             window = np.append(window, token)
             batches = np.vstack((batches, window.copy()))
@@ -149,4 +153,3 @@ class Batcher:
     
     def split(self, batch):
         return np.split(batch, np.arange(self.batch_size, len(batch), self.batch_size))
-

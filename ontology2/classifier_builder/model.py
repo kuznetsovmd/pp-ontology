@@ -9,35 +9,13 @@ from tqdm import tqdm
 
 
 class BaseModel:
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self, **kwargs) -> None:
         self.module = kwargs['module'](**kwargs['module_parameters'])
         self.optimizer = kwargs['optimizer'](self.module.parameters(), **kwargs['optimizer_parameters'])
         self.criterion = kwargs['criterion'](**kwargs['criterion_parameters'])
-        self.eot = kwargs['criterion'](**kwargs['criterion_parameters'])
     
-    def train_unsupervised(self, source):
-        loss_sum = 0
-        outputs = []
-
-        for s in tqdm(source, ncols=80, ascii=True):
-            self.optimizer.zero_grad()
-
-            s_gpu = torch.tensor(s, device=self.module.device)
-            output = self.module(s_gpu, s_gpu[:, :-1])
-
-            predicted = output.contiguous().view(-1, self.module.decoder_embedding.num_embeddings)
-            expected = s_gpu[:, 1:].contiguous().view(-1)
-            loss = self.criterion(predicted, expected)
-            loss.backward()
-            self.optimizer.step()
-
-            loss_sum += loss
-            outputs.append(output.detach().cpu())
-        return outputs, loss_sum / len(source)
-    
-    def train_supervised(self, source, target):
-        loss_sum = 0
-        outputs = []
+    def train(self, source, target):
+        loss_sum, outputs = 0, []
 
         data = list(zip(source, target)) 
         for s, t in tqdm(data, ncols=80, ascii=True):
@@ -50,16 +28,16 @@ class BaseModel:
             predicted = output.contiguous().view(-1, self.module.decoder_embedding.num_embeddings)
             expected = t_gpu[:, 1:].contiguous().view(-1)
             loss = self.criterion(predicted, expected)
+            loss_sum += loss
             loss.backward()
             self.optimizer.step()
 
-            loss_sum += loss
-            outputs.append(output.detach().cpu())
+            outputs.append(output.detach().cpu().numpy())
+
         return outputs, loss_sum / len(data)
     
     def test(self, source, target):
-        loss_sum = 0
-        outputs = []
+        loss_sum, outputs = 0, []
 
         data = list(zip(source, target)) 
         with torch.no_grad():
@@ -71,67 +49,57 @@ class BaseModel:
                 predicted = output.contiguous().view(-1, self.module.decoder_embedding.num_embeddings)
                 expected = t_gpu[:, 1:].contiguous().view(-1)
                 loss = self.criterion(predicted, expected)
-                
                 loss_sum += loss
-                outputs.append(output.detach().cpu())
-        return outputs, loss_sum / len(data)
 
-    def predict(self, source, target, cls, sep, eot):
-        sentence = np.empty((0,))
+                outputs.append(output.detach().cpu().numpy())
+
+        return outputs, loss_sum / len(source)
+
+    def predict(self, source, target):
         s_gpu = torch.tensor(source, device=self.module.device)
         t_gpu = torch.tensor(target, device=self.module.device)
+        t_mask = torch.ones((target.shape[0], 1), dtype=torch.uint8, device=self.module.device)
+        sentence = np.empty((target.shape[0], 0), dtype=np.uint8)
         
-        i = 0 
         with torch.no_grad():
-            for _ in range(300):
-            # for _ in itertools.count():
-                output = self.module(s_gpu[i, :].reshape(1, -1), t_gpu)
-                predicted = output.contiguous().view(-1, self.module.decoder_embedding.num_embeddings)[-1]
-                predicted_tensor = torch.argmax(predicted).unsqueeze(0).unsqueeze(1)
+            for _ in itertools.count():
+                output = self.module(s_gpu, t_gpu)
+                predicted = torch.argmax(output[:, -1], 1).reshape(-1, 1)
+                t_mask = torch.where((predicted == self.sep) | (predicted == self.eot), 0, 1) * t_mask
+                tokens = predicted * t_mask
+                t_gpu = torch.cat((t_gpu[:, 1:], tokens), 1)
+                sentence = np.hstack((sentence, tokens.cpu()))
                 
-                token = predicted_tensor.item()
-                if token == sep and i < s_gpu.shape[0] - 1:
-                    i += 1 
-                    t_gpu = torch.cat((t_gpu[:, 1:], torch.tensor(cls, device=self.module.device).reshape(1, 1)), 1)
-                if token == eot:
+                if t_mask.sum() == 0:
                     break
-                if token != sep:
-                    sentence = np.append(sentence, token)
-                    t_gpu = torch.cat((t_gpu[:, 1:], predicted_tensor), 1)
-        return sentence
+
+        sentence = sentence.reshape(-1)
+        return sentence[sentence > 0]
 
 
 class Model(BaseModel):
     
-    @staticmethod
-    def __asses(output, target):
-        l = np.empty((0,))
-        r = np.empty((0,))
-        for o, t in zip(output, target):
-            predicted = np.array(torch.argmax(o[:, -2], 1))
-            target = t[:, -2]
-            l = np.append(l, (target > 0).sum())
-            r = np.append(r, ((predicted == target) & (target > 0)).sum())
-        return sum(r) / sum(l)
+    def __asses(self, output, target):
+        o = np.argmax(np.vstack((*output,)), -1)[:, -1]
+        t = np.vstack((*target,))[:, -1]
+        return ((o == t) & np.isin(t, self.ignore_index, invert=True)).sum() / \
+               (np.isin(t, self.ignore_index, invert=True)).sum()
     
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.sep = kwargs['sep']
+        self.eot = kwargs['eot']
         self.name = kwargs['name']
         self.version = kwargs['version']
+        self.ignore_index = kwargs['ignore_index']
 
         self.train_losses = []
         self.validation_losses = []
         self.train_accuracies = []
         self.validation_accuracies = []
 
-    def train_unsupervised(self, source):
-        output, loss = super().train_unsupervised(source)
-        self.train_accuracies.append(self.__asses(output, source))
-        self.train_losses.append(loss)
-        return output, loss
-
-    def train_supervised(self, source, target):
-        output, loss = super().train_supervised(source, target)
+    def train(self, source, target):
+        output, loss = super().train(source, target)
         self.train_accuracies.append(self.__asses(output, target))
         self.train_losses.append(loss)
         return output, loss
@@ -142,8 +110,8 @@ class Model(BaseModel):
         self.validation_losses.append(loss)
         return output, loss
 
-    def predict(self, source, target, cls, sep, eot):
-        return super().predict(source, target, cls,  sep, eot)
+    def predict(self, source, target):
+        return super().predict(source, target)
 
 
 def build_model(path=None, **kwargs):
@@ -164,10 +132,7 @@ def build_model(path=None, **kwargs):
     else:
         with contextlib.suppress(FileNotFoundError):
             os.remove(f'{path}/{kwargs["name"]}{kwargs["version"]}.pt')
-        # for name, param in model.module.named_parameters():
-        #     if 'weight' in name and param.data.dim() == 2:
-        #         torch.nn.init.uniform_(param)
-
+        
     return model
 
 

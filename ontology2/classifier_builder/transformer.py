@@ -111,7 +111,7 @@ class DecoderLayer(nn.Module):
 
 class Transformer(nn.Module):
     def __init__(self, src_vocab_size, tgt_vocab_size, d_model, num_heads, 
-                 num_layers, d_ff, max_seq_length, dropout, device='cpu'):
+                 num_layers, d_ff, max_seq_length, dropout, nopeak=True, device='cpu'):
         super(Transformer, self).__init__()
         self.encoder_embedding = nn.Embedding(src_vocab_size, d_model)
         self.decoder_embedding = nn.Embedding(tgt_vocab_size, d_model)
@@ -123,6 +123,7 @@ class Transformer(nn.Module):
         self.fc = nn.Linear(d_model, tgt_vocab_size)
         self.dropout = nn.Dropout(dropout)
 
+        self.nopeak = nopeak
         self.device = device
         self.to(device)
 
@@ -130,10 +131,11 @@ class Transformer(nn.Module):
         src_mask = (src != 0).unsqueeze(1).unsqueeze(2)
         tgt_mask = (tgt != 0).unsqueeze(1).unsqueeze(3)
 
-        seq_length = tgt.size(1)
-        nopeak_mask = (1 - torch.triu(torch.ones(1, seq_length, seq_length, device=self.device), diagonal=1)).bool()
+        if self.nopeak:
+            seq_length = tgt.size(1)
+            nopeak_mask = (1 - torch.triu(torch.ones(1, seq_length, seq_length, device=self.device), diagonal=1)).bool()
+            tgt_mask = tgt_mask & nopeak_mask
 
-        tgt_mask = tgt_mask & nopeak_mask
         return src_mask, tgt_mask
 
     def forward(self, src, tgt):
