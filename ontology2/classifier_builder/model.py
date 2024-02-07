@@ -1,11 +1,8 @@
 import itertools
-import sys
-import shutil
 import contextlib
 import os
 import numpy as np
 import torch
-from tqdm import tqdm
 
 
 class BaseModel:
@@ -15,45 +12,30 @@ class BaseModel:
         self.criterion = kwargs['criterion'](**kwargs['criterion_parameters'])
     
     def train(self, source, target):
-        loss_sum, outputs = 0, []
+        s_gpu = torch.tensor(source, device=self.module.device)
+        t_gpu = torch.tensor(target, device=self.module.device)
+        output = self.module(s_gpu, t_gpu[:, :-1])
 
-        data = list(zip(source, target)) 
-        for s, t in tqdm(data, ncols=80, ascii=True):
-            self.optimizer.zero_grad()
+        predicted = output.contiguous().view(-1, self.module.decoder_embedding.num_embeddings)
+        expected = t_gpu[:, 1:].contiguous().view(-1)
+        loss = self.criterion(predicted, expected)
+        loss.backward()
+        self.optimizer.step()
+        self.optimizer.zero_grad()
 
-            s_gpu = torch.tensor(s, device=self.module.device)
-            t_gpu = torch.tensor(t, device=self.module.device)
+        return output.detach().cpu().numpy(), loss
+    
+    def test(self, source, target):
+        with torch.no_grad():
+            s_gpu = torch.tensor(source, device=self.module.device)
+            t_gpu = torch.tensor(target, device=self.module.device)
             output = self.module(s_gpu, t_gpu[:, :-1])
 
             predicted = output.contiguous().view(-1, self.module.decoder_embedding.num_embeddings)
             expected = t_gpu[:, 1:].contiguous().view(-1)
             loss = self.criterion(predicted, expected)
-            loss_sum += loss
-            loss.backward()
-            self.optimizer.step()
 
-            outputs.append(output.detach().cpu().numpy())
-
-        return outputs, loss_sum / len(data)
-    
-    def test(self, source, target):
-        loss_sum, outputs = 0, []
-
-        data = list(zip(source, target)) 
-        with torch.no_grad():
-            for s, t in tqdm(data, ncols=80, ascii=True):
-                s_gpu = torch.tensor(s, device=self.module.device)
-                t_gpu = torch.tensor(t, device=self.module.device)
-                output = self.module(s_gpu, t_gpu[:, :-1])
-
-                predicted = output.contiguous().view(-1, self.module.decoder_embedding.num_embeddings)
-                expected = t_gpu[:, 1:].contiguous().view(-1)
-                loss = self.criterion(predicted, expected)
-                loss_sum += loss
-
-                outputs.append(output.detach().cpu().numpy())
-
-        return outputs, loss_sum / len(source)
+        return output.detach().cpu().numpy(), loss
 
     def predict(self, source, target):
         s_gpu = torch.tensor(source, device=self.module.device)
@@ -62,10 +44,12 @@ class BaseModel:
         sentence = np.empty((target.shape[0], 0), dtype=np.uint8)
         
         with torch.no_grad():
-            for _ in itertools.count():
+            # for _ in itertools.count():
+            for _ in range(200):
                 output = self.module(s_gpu, t_gpu)
                 predicted = torch.argmax(output[:, -1], 1).reshape(-1, 1)
-                t_mask = torch.where((predicted == self.sep) | (predicted == self.eot), 0, 1) * t_mask
+                t_mask = torch.where((predicted == self.sep), 0, 1) * t_mask
+
                 tokens = predicted * t_mask
                 t_gpu = torch.cat((t_gpu[:, 1:], tokens), 1)
                 sentence = np.hstack((sentence, tokens.cpu()))
@@ -88,30 +72,54 @@ class Model(BaseModel):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.sep = kwargs['sep']
-        self.eot = kwargs['eot']
         self.name = kwargs['name']
         self.version = kwargs['version']
         self.ignore_index = kwargs['ignore_index']
 
-        self.train_losses = []
-        self.validation_losses = []
-        self.train_accuracies = []
-        self.validation_accuracies = []
+        self.t_outputs = []
+        self.t_targets = []
+        self.t_losses = []
+        self.v_outputs = []
+        self.v_targets = []
+        self.v_losses = []
+
+        self.stats_mem = []
 
     def train(self, source, target):
         output, loss = super().train(source, target)
-        self.train_accuracies.append(self.__asses(output, target))
-        self.train_losses.append(loss)
+        self.t_outputs.append(output)
+        self.t_targets.append(target)
+        self.t_losses.append(loss.item())
         return output, loss
 
     def test(self, source, target):
         output, loss = super().test(source, target)
-        self.validation_accuracies.append(self.__asses(output, target))
-        self.validation_losses.append(loss)
+        self.v_outputs.append(output)
+        self.v_targets.append(target)
+        self.v_losses.append(loss.item())
         return output, loss
 
     def predict(self, source, target):
         return super().predict(source, target)
+
+    def stats(self):
+        stats = {
+            't_loss': np.average(self.t_losses) if self.t_losses else 0,
+            'v_loss':  np.average(self.v_losses) if self.v_losses else 0,
+            't_accuracy': self.__asses(self.t_outputs, self.t_targets) if self.t_outputs else 0,
+            'v_accuracy': self.__asses(self.v_outputs, self.v_targets) if self.v_outputs else 0,
+        }
+
+        self.stats_mem.append(stats)
+
+        self.t_losses = []
+        self.v_losses = []
+        self.t_outputs = []
+        self.v_outputs = []
+        self.t_targets = []
+        self.v_targets = []
+
+        return stats
 
 
 def build_model(path=None, **kwargs):
@@ -124,10 +132,7 @@ def build_model(path=None, **kwargs):
         if loaded:
             model.module.load_state_dict(loaded['model_state_dict'])
             model.optimizer.load_state_dict(loaded['optimizer_state_dict'])
-            model.train_losses = loaded['train_losses']
-            model.validation_losses = loaded['validation_losses']
-            model.train_accuracies = loaded['train_accuracies']
-            model.validation_accuracies = loaded['validation_accuracies']
+            model.stats_mem = loaded['stats_mem']
 
     else:
         with contextlib.suppress(FileNotFoundError):
@@ -141,8 +146,5 @@ def save_model(model, path):
     torch.save({
         'model_state_dict': model.module.state_dict(),
         'optimizer_state_dict': model.optimizer.state_dict(),
-        'train_losses': model.train_losses,
-        'validation_losses': model.validation_losses,
-        'train_accuracies': model.train_accuracies,
-        'validation_accuracies': model.validation_accuracies,
+        'stats_mem': model.stats_mem,
     }, f'{path}/{model.name}{model.version}.pt')
