@@ -6,14 +6,14 @@ import torch
 
 
 class BaseModel:
-    def __init__(self, **kwargs) -> None:
+    def __init__(self, **kwargs):
         self.module = kwargs['module'](**kwargs['module_parameters'])
         self.optimizer = kwargs['optimizer'](self.module.parameters(), **kwargs['optimizer_parameters'])
         self.criterion = kwargs['criterion'](**kwargs['criterion_parameters'])
     
     def train(self, source, target):
-        s_gpu = torch.tensor(source, device=self.module.device)
-        t_gpu = torch.tensor(target, device=self.module.device)
+        s_gpu = torch.tensor(source, device=self.module.device, dtype=torch.long)
+        t_gpu = torch.tensor(target, device=self.module.device, dtype=torch.long)
         output = self.module(s_gpu, t_gpu[:, :-1])
 
         predicted = output.contiguous().view(-1, self.module.decoder_embedding.num_embeddings)
@@ -27,8 +27,8 @@ class BaseModel:
     
     def test(self, source, target):
         with torch.no_grad():
-            s_gpu = torch.tensor(source, device=self.module.device)
-            t_gpu = torch.tensor(target, device=self.module.device)
+            s_gpu = torch.tensor(source, device=self.module.device, dtype=torch.long)
+            t_gpu = torch.tensor(target, device=self.module.device, dtype=torch.long)
             output = self.module(s_gpu, t_gpu[:, :-1])
 
             predicted = output.contiguous().view(-1, self.module.decoder_embedding.num_embeddings)
@@ -38,10 +38,10 @@ class BaseModel:
         return output.detach().cpu().numpy(), loss
 
     def predict(self, source, target):
-        s_gpu = torch.tensor(source, device=self.module.device)
-        t_gpu = torch.tensor(target, device=self.module.device)
-        t_mask = torch.ones((target.shape[0], 1), dtype=torch.uint8, device=self.module.device)
-        sentence = np.empty((target.shape[0], 0), dtype=np.uint8)
+        s_gpu = torch.tensor(source, device=self.module.device, dtype=torch.long)
+        t_gpu = torch.tensor(target, device=self.module.device, dtype=torch.long)
+        t_mask = torch.ones((target.shape[0], 1), device=self.module.device, dtype=torch.long)
+        sentence = np.empty((target.shape[0], 0))
         
         with torch.no_grad():
             # for _ in itertools.count():
@@ -49,13 +49,13 @@ class BaseModel:
                 output = self.module(s_gpu, t_gpu)
                 predicted = torch.argmax(output[:, -1], 1).reshape(-1, 1)
                 t_mask = torch.where((predicted == self.sep), 0, 1) * t_mask
+                
+                if t_mask.sum() == 0:
+                    break
 
                 tokens = predicted * t_mask
                 t_gpu = torch.cat((t_gpu[:, 1:], tokens), 1)
                 sentence = np.hstack((sentence, tokens.cpu()))
-                
-                if t_mask.sum() == 0:
-                    break
 
         sentence = sentence.reshape(-1)
         return sentence[sentence > 0]

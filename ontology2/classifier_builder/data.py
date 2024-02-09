@@ -2,7 +2,37 @@ import random
 import sys
 import numpy as np
 
-from config import RESOURCES
+
+def vocabulary_defaults():
+    return {
+        'sequence_len': 48,
+        'spec_tokens': ['[pad]', '[cls]'],
+        'init_tokens': ['[sep]', '[unk]', '[!a]', '[a]'],
+    }
+
+
+def tokenizer_defaults():
+    return {
+        'sequence_len': 48,
+        'train': True,
+        'cls': '[cls]',
+        'sep': '[sep]', 
+        'pad': '[pad]',
+    }
+
+
+def dataset_defaults():
+    return {
+        'sequence_len': 48,
+        'batch_len': 16,
+        'cls': '[cls]',
+        'sep': '[sep]',
+        'pad': '[pad]',
+        'source_mask': ['[!a]', '[a]'],
+        'target_mask': [],
+        'vocabulary': None,
+        'tokenizer': None,
+    }
 
 
 class Vocabulary:
@@ -55,152 +85,122 @@ class Vocabulary:
     
 class Tokenizer:
     def __init__(self, **kwargs):
-        self.sequence_len = kwargs['sequence_len']
+        self.sequence_len = kwargs['sequence_len'] - 1
         self.train = kwargs['train']
         self.pad = kwargs['pad']
         self.cls = kwargs['cls']
         self.sep = kwargs['sep']
 
-    def tokenize(self, tokens):
+    def __getitem__(self, tokens):
         tokens = tokens.lower().split(' ')
         if not self.train:
             return tokens
-        tokens = [tokens[i:i + self.sequence_len] for i in range(0, len(tokens), self.sequence_len)]
-        chunked = [[*t, self.sep] for t in tokens]
-        return [chunk for t in [[self.cls], *chunked] for chunk in t]
-
+        tokens = [self.cls, *tokens]
+        tokenized = []
+        for i, t in enumerate(tokens, start=1):
+            tokenized.append(t)
+            if i % self.sequence_len == 0:
+                tokenized.append(self.sep)
+        if tokenized[-1] != self.sep:
+            tokenized.append(self.sep)
+        return tokenized
 
 class TrainDataset:
     def __init__(self, **kwargs):
-        self.source_data_path = kwargs['source_data_path']
         self.sequence_len = kwargs['sequence_len']
         self.batch_len = kwargs['batch_len']
-        self.split_sep = kwargs['split_sep']
-        self.dtype = kwargs['dtype']
 
-        self.vocab = Vocabulary(**kwargs)
-        self.tokenizer = Tokenizer(**kwargs)
+        self.tokenizer = kwargs['tokenizer']
+        self.vocab = kwargs['vocabulary']
 
         self.pad = self.vocab.w2i(kwargs['pad'])
         self.cls = self.vocab.w2i(kwargs['cls'])
         self.sep = self.vocab.w2i(kwargs['sep'])
 
-        self.texts = []
-        self.train = []
-        self.validate = []
+        self.target_mask = self.vocab.encode(kwargs['target_mask'])
+        self.source_mask = self.vocab.encode(kwargs['source_mask'])
 
-    @staticmethod
-    def unwrap_words(texts, tokenizer):
-        return [t for text in texts for t in tokenizer.tokenize(text)]
-    
-    def shuffle(self):
-        random.shuffle(self.train)
-        random.shuffle(self.validate)
+        self.source_texts = []
+        self.target_texts = []
 
-    def load(self):
-        with open(self.source_data_path, 'r') as f:
-            self.texts = f.read().split('\n')[:10]
-        self.vocab.new_ws(self.unwrap_words(self.texts, self.tokenizer))
+    def prepare(self, source_texts, target_texts=None):
+        self.source_texts = source_texts
+        self.target_texts = target_texts if target_texts else self.source_texts
+
+        s_encoded = [self.vocab.encode(self.tokenizer[t]) for t in self.source_texts]
+        t_encoded = [self.vocab.encode(self.tokenizer[t]) for t in self.target_texts]
+
+        targets = [self.__target(e) for e in t_encoded]
+        sources = [self.__source(t, e) for t, e in zip(targets, s_encoded)]
+
+        sources = self.__mask_tokens(np.vstack(sources), self.source_mask)
+        targets = self.__mask_tokens(np.vstack(targets), self.target_mask)
+
+        sources = self.__split_batches(sources)
+        targets = self.__split_batches(targets)
+
+        self.samples = list(zip(sources, targets))
         return self
 
-    def split(self):
-        encoded = [self.vocab.encode(self.tokenizer.tokenize(t)) for t in self.texts]
-        source = [self.source(e) for e in encoded]
-        target = [self.target(e) for e in encoded]
+    def __source(self, target, encoded):
+        data = np.array(encoded, dtype=np.longlong)
 
+        n_tail = len(data) % self.sequence_len
+        if n_tail:
+            n_extra_pads = self.sequence_len - n_tail
+            data = np.append(data, np.full((n_extra_pads,), self.pad))
+        data = data.reshape(-1, self.sequence_len)
 
-        print(f'{source=}')
-        print(f'{target=}')
-        print(f'{source.shape=} {target.shape}')
+        lengths = []
+        l = 0
+        for t in target:
+            l += 1
+            if t[-1] == 2:
+                lengths.append(l)
+                l = 0
+        lengths[-1] += l
 
-        sys.exit(0)
-
-        samples_len = len(target)
-        val_cnt = int(samples_len * (1 - self.split_sep))
-        v_sources = target[val_cnt:]
-        t_sources = target[:samples_len - val_cnt]
-
-        self.train = self.split_batches(np.vstack(t_sources))
-        self.validate = self.split_batches(np.vstack(v_sources))
-        return self
-    
-    def source():
-
-        
+        batch = np.ndarray((0, self.sequence_len), dtype=np.int64)
+        for i, l in enumerate(lengths):
+            v = np.resize(np.array(data[i]), (l, self.sequence_len))
+            batch = np.vstack((batch, *v))
 
         return batch
-
-    def target(self, encoded):
-        data = np.array(encoded, dtype=self.dtype)
-        extra_pads = np.full((self.sequence_len - 2,), self.pad, dtype=self.dtype)
-        data = np.append(data, extra_pads)
-        
-        batch = np.ndarray((0, self.sequence_len), dtype=self.dtype)
+    
+    def __target(self, encoded):
+        data = np.array(encoded, dtype=np.longlong)
+        data = np.append(data, np.full((self.sequence_len - 1,), self.pad))
         window = np.full((self.sequence_len,), self.pad)
         
-        window = np.delete(window, 0)
-        window = np.append(window, data[0])
-        for token in data[1:]:
+        batch = np.ndarray((0, self.sequence_len))
+        for token in data:
             window = np.delete(window, 0)
             window = np.append(window, token)
             batch = np.vstack((batch, window.copy()))
 
-        print(f'{batch}')
+        return  batch
+    
+    def __mask_tokens(self, batch, tokens):
+        
+        for i, b in enumerate(batch):
+            pos = np.where(np.isin(b, tokens))[0]
+            for p in pos:
+                batch[i, p] = 0
+
+        # for i, b in enumerate(batch):
+        #     pos = np.where(np.isin(b, tokens))[0]
+        #     batch[i, :] = np.append(np.delete(b, pos), np.full((len(pos),), self.pad))
+
         return batch
     
-    def split_batches(self, data):
+    def __split_batches(self, data):
         return np.split(data, np.arange(self.batch_len, len(data), self.batch_len))
 
+    def __getitem__(self, i):
+        return self.samples[i]
 
-
-class LabeledDataset(TrainDataset):
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.target_data_path = kwargs['target_data_path']
-        self.target_texts = []
-
-    def load(self):
-        super().load()
-        with open(self.target_data_path, 'r') as f:
-            self.target_texts = f.read().split('\n')
-        self.vocab.new_ws(self.unwrap_words(self.target_texts, self.tokenizer))
-        return self
-
-    def split(self):
-        encoded_sources = [self.vocab.encode(self.tokenizer.tokenize(t)) for t in self.texts]
-        encoded_targets = [self.vocab.encode(self.tokenizer.tokenize(t)) for t in self.target_texts]
-
-        sources = [self.target(e, align=True) for e in encoded_sources]
-        targets = [self.target(e, align=False) for e in encoded_targets]
-
-        assert self.texts != len(self.target_texts), f'{len(self.texts)=}, {len(self.target_texts)=}'
-        sources_len = len(sources)
-
-        val_cnt = int(sources_len * (1 - self.split_sep))
-        v_sources = sources[val_cnt:]
-        t_sources = sources[:sources_len - val_cnt]
-        v_targets = targets[val_cnt:]
-        t_targets = targets[:sources_len - val_cnt]
-
-        self.train = list(zip(self.split_batches(np.vstack(t_sources)), self.split_batches(np.vstack(t_targets))))
-        self.validate = list(zip(self.split_batches(np.vstack(v_sources)), self.split_batches(np.vstack(v_targets))))
-        return self
-
-    def target(self, encoded, align=False):
-        batch = super().target(encoded)
-
-        if not align:
-            return batch
-
-        for i, b in enumerate(batch):
-            pos = np.where((b == 6) | (b == 7) | (b == 1))[0]
-            b, c = np.delete(b, pos), len(pos)
-            if c > 1:
-                replaced = np.append(np.full((c - 1,), self.pad), np.full((1,), self.cls))
-                batch[i, :] = np.append(replaced, b)
-
-        return batch
+    def __len__(self):
+        return len(self.samples)
 
 
 class PredictionDataset(TrainDataset):
@@ -208,49 +208,34 @@ class PredictionDataset(TrainDataset):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def load(self):
-        super().load()
+    def prepare(self, source_texts, target_texts=None):
+        self.source_texts = source_texts
 
-    def get(self):
-        encoded = [self.vocab.encode(self.tokenizer.tokenize(t)) for t in self.texts]
-        sources = [self.target(e) for e in encoded]
-        targets = [self.empty_target(e) for e in encoded]
-        return list(zip(sources, targets, self.texts))
-
-    def target(self, encoded):
-        data = np.array(encoded, dtype=self.dtype)
+        encoded = [self.vocab.encode(self.tokenizer[t]) for t in self.source_texts]
+        sources = [self.__source(e) for e in encoded]
+        targets = [self.__target(e) for e in encoded]
         
-        n_extra_pads = self.sequence_len - len(data) % self.sequence_len
-        data = np.append(data, np.full((n_extra_pads,), self.pad))
-        batch = data.reshape(-1, self.sequence_len)
+        self.samples = list(zip(sources, targets, self.source_texts))
+        return self
 
-        return batch
+    def __source(self, encoded):
+        data = np.array(encoded, dtype=np.longlong)
 
-    def empty_target(self, encoded):
+        n_tail = len(data) % self.sequence_len
+        if n_tail > 0:
+            n_extra_pads = self.sequence_len - n_tail
+            data = np.append(data, np.full((n_extra_pads,), self.pad))
+
+        return data.reshape(-1, self.sequence_len)
+
+    def __target(self, encoded):
         n_parts = len(encoded) // self.sequence_len
+        n_tail = len(encoded) % self.sequence_len
+        if n_tail:
+            n_parts += 1
 
-        target = np.full((self.sequence_len - 1,), self.pad, dtype=self.dtype)
-        target = np.hstack((target, [self.cls]))
+        target = np.ndarray((n_parts, self.sequence_len), dtype=np.longlong)
+        target[:1, :] = np.hstack(([self.pad] * (self.sequence_len - 1), [self.cls]))
+        target[1:, :] = np.hstack(([self.pad] * (self.sequence_len - 1), [self.sep]))
 
-        for _ in range(n_parts):
-            target_i = np.full((self.sequence_len - 1,), self.pad, dtype=self.dtype)
-            target = np.hstack((target, target_i, [self.sep]))
-
-        return target.reshape(-1, self.sequence_len)
-
-
-def get_defaults():
-    return {
-        'sequence_len': 64,
-        'batch_len': 16,
-        'dtype': np.uint8,
-        'cls': '[cls]',
-        'sep': '[sep]', 
-        'pad': '[pad]',
-        'train': True,
-        'split_sep': 1,
-        'source_data_path': f'{RESOURCES}/example_texts_unlabeled.txt',
-        'target_data_path': f'{RESOURCES}/example_texts_labeled.txt',
-        'spec_tokens': ['[pad]', '[cls]'],
-        'init_tokens': ['[sep]', '[unk]', '[!a]', '[a]']
-    }
+        return target
