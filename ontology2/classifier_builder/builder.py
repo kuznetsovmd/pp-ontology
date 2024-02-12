@@ -1,14 +1,12 @@
+import json
 import math
-import sys
 import time
 import torch
-import torch.nn as nn
 from tqdm import tqdm
 
 from config import *
-from ontology2.classifier_builder.model import build_model, save_model
+from ontology2.classifier_builder.model import build_model, model_defaults, save_model
 
-from ontology2.classifier_builder.transformer import Transformer
 from ontology2.classifier_builder.device import *
 from ontology2.classifier_builder.data import Tokenizer, Vocabulary, \
     PredictionDataset, TrainDataset, dataset_defaults, tokenizer_defaults, vocabulary_defaults
@@ -44,8 +42,6 @@ def build_classified(train, labeled, eval):
 
     print_info()
 
-    tokenizer = Tokenizer(**tokenizer_defaults())
-
     with open(f'{RESOURCES}/example_texts_unlabeled.txt', 'r') as f:
         source_texts = f.read().split('\n')
 
@@ -53,69 +49,48 @@ def build_classified(train, labeled, eval):
         target_texts = f.read().split('\n')
 
     vocab = Vocabulary(**vocabulary_defaults())
+
+    tokenizer = Tokenizer(**tokenizer_defaults())
     vocab.new_ws(unwrap_words(source_texts, tokenizer))
     vocab.new_ws(unwrap_words(target_texts, tokenizer))
+
     print(f'{vocab.size=}')
 
     ds_defaults = dataset_defaults()
     ds_defaults['vocabulary'] = vocab
     ds_defaults['tokenizer'] = tokenizer
 
-    t_ds1 = TrainDataset(**ds_defaults).prepare(source_texts[:40], source_texts[:40])
-    v_ds1 = TrainDataset(**ds_defaults).prepare(source_texts[40:], source_texts[40:])
-    t_ds2 = TrainDataset(**ds_defaults).prepare(target_texts[:15], target_texts[:15])
-    v_ds2 = TrainDataset(**ds_defaults).prepare(target_texts[15:20], target_texts[15:20])
+    t_ds1 = TrainDataset(**ds_defaults).prepare(source_texts[1:4])
+    v_ds1 = TrainDataset(**ds_defaults)
+    t_ds2 = TrainDataset(**ds_defaults).prepare(target_texts[1:4])
+    v_ds2 = TrainDataset(**ds_defaults)
+    p_ds1 = PredictionDataset(**ds_defaults).prepare(source_texts[1:4])
 
-    ds_defaults['train'] = False
-    p_ds1 = PredictionDataset(**ds_defaults).prepare(source_texts)
-
-    parameters = {
-        'module': Transformer,
-        'module_parameters': {
-            'src_vocab_size': vocab.size, 
-            'tgt_vocab_size': vocab.size, 
-            'max_seq_length': ds_defaults['sequence_len'], 
-            'd_model': 1024, 
-            'num_heads': 8, 
-            'num_layers': 6,
-            'dropout': .1, 
-            'd_ff': 2048, 
-            'nopeak': True,
-            'device': DEVICE,
-        },
-        'optimizer': torch.optim.Adam,
-        'optimizer_parameters': {
-            'lr':  1e-5,
-            'eps': 1e-9,
-            'betas': (0.9, 0.95),
-        },
-        'criterion': nn.CrossEntropyLoss,
-        'criterion_parameters': {
-            'weight': torch.tensor([
-                *[0.0 for _ in range(vocab.n_spec_tokens)],
-                *[1.0 for _ in range(vocab.size - vocab.n_spec_tokens)]
-            ], device=DEVICE)
-        },
-        'sep': vocab.w2i('[sep]'),
-        'ignore_index': tuple(range(vocab.n_spec_tokens)),
-        'name': 'transformer',
-        'version': '.1',
-    }
+    with open('train1.json', 'w') as f:
+        json.dump([[[str(si) for si in s[0].tolist()], [str(si) for si in s[1].tolist()]] for s in t_ds1.samples], f, indent=2)
+    with open('train2.json', 'w') as f:
+        json.dump([[[str(si) for si in s[0].tolist()], [str(si) for si in s[1].tolist()]] for s in t_ds2.samples], f, indent=2)
+    with open('pred1.json', 'w') as f:
+        json.dump([[[str(si) for si in s[0].tolist()], [str(si) for si in s[1].tolist()]] for s in p_ds1.samples], f, indent=2)
+    
+    m_defaults = model_defaults()
 
     if train: 
-        transformer = build_model(**parameters)
+        transformer = build_model(**m_defaults)
         transformer = train_llm(transformer, t_ds1, v_ds1, 1000)
         save_model(transformer, f'{RESOURCES}/models/transformer')
-        transformer = build_model(f'{RESOURCES}/models/transformer', **parameters)
+        transformer = build_model(f'{RESOURCES}/models/transformer', **m_defaults)
         annotate(transformer, p_ds1)
+
     elif labeled: 
-        transformer = build_model(f'{RESOURCES}/models/transformer', **parameters)
+        transformer = build_model(f'{RESOURCES}/models/transformer', **m_defaults)
         transformer = train_annotate(transformer, t_ds2, v_ds2, 1000)
         save_model(transformer, f'{RESOURCES}/models/transformer1')
-        transformer = build_model(f'{RESOURCES}/models/transformer1', **parameters)
+        transformer = build_model(f'{RESOURCES}/models/transformer1', **m_defaults)
         annotate(transformer, p_ds1)
+
     elif eval: 
-        transformer = build_model(f'{RESOURCES}/models/transformer', **parameters)
+        transformer = build_model(f'{RESOURCES}/models/transformer1', **m_defaults)
         annotate(transformer, p_ds1)
 
 
@@ -157,6 +132,7 @@ def train_annotate(transformer, t_ds, v_ds, n_epochs):
 
 def annotate(transformer, dataset):
     for (s, t, txt) in dataset:
+
         print(txt, end='\n')
 
         transformer.module.eval()

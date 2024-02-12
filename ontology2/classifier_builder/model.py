@@ -3,9 +3,49 @@ import contextlib
 import os
 import numpy as np
 import torch
+from torch import nn
+from ontology2.classifier_builder.device import DEVICE
+
+from ontology2.classifier_builder.transformer import Transformer
+
+
+def model_defaults():
+    return {
+        'module': Transformer,
+        'module_parameters': {
+            'src_vocab_size': 10000, 
+            'tgt_vocab_size': 10000, 
+            'max_seq_length': 10, 
+            'd_model': 1024, 
+            'num_heads': 8, 
+            'num_layers': 6,
+            'dropout': .05, 
+            'd_ff': 2048, 
+            'nopeak': True,
+            'device': DEVICE,
+        },
+        'optimizer': torch.optim.Adam,
+        'optimizer_parameters': {
+            'lr':  1e-5,
+            'eps': 1e-9,
+            'betas': (0.9, 0.9),
+        },
+        'criterion': nn.CrossEntropyLoss,
+        'criterion_parameters': {
+            'weight': torch.tensor([
+                *([0.0] * 2),
+                *([1.0] * 9998)
+            ], device=DEVICE)
+        },
+        'sep': 2,
+        'ignore_index': [0, 1],
+        'name': 'transformer',
+        'version': '.1',
+    }
 
 
 class BaseModel:
+    
     def __init__(self, **kwargs):
         self.module = kwargs['module'](**kwargs['module_parameters'])
         self.optimizer = kwargs['optimizer'](self.module.parameters(), **kwargs['optimizer_parameters'])
@@ -40,25 +80,30 @@ class BaseModel:
     def predict(self, source, target):
         s_gpu = torch.tensor(source, device=self.module.device, dtype=torch.long)
         t_gpu = torch.tensor(target, device=self.module.device, dtype=torch.long)
-        t_mask = torch.ones((target.shape[0], 1), device=self.module.device, dtype=torch.long)
-        sentence = np.empty((target.shape[0], 0))
+        sentence = np.empty((0,))
         
+        i = 0
         with torch.no_grad():
-            # for _ in itertools.count():
-            for _ in range(200):
-                output = self.module(s_gpu, t_gpu)
-                predicted = torch.argmax(output[:, -1], 1).reshape(-1, 1)
-                t_mask = torch.where((predicted == self.sep), 0, 1) * t_mask
-                
-                if t_mask.sum() == 0:
-                    break
+            for i in range(s_gpu.shape[0]):
+                # for _ in itertools.count():
+                for _ in range(200):
 
-                tokens = predicted * t_mask
-                t_gpu = torch.cat((t_gpu[:, 1:], tokens), 1)
-                sentence = np.hstack((sentence, tokens.cpu()))
+                    output = self.module(s_gpu[i, :].reshape(1, -1), t_gpu)
+                    predicted = torch.argmax(output[:, -1], 1).reshape(-1, 1)
 
-        sentence = sentence.reshape(-1)
-        return sentence[sentence > 0]
+                    t_gpu = torch.cat((t_gpu[:, 1:], predicted), 1)
+                    sentence = np.append(sentence, predicted.cpu())
+
+                    print(f'{s_gpu=}')
+                    print(f'{t_gpu=}')
+                    print('=' * 80)
+
+                    if predicted == 2:
+                        if i > 0:
+                            break
+                        i+=1
+
+        return sentence
 
 
 class Model(BaseModel):
