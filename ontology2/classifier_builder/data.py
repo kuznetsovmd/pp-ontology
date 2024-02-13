@@ -1,4 +1,3 @@
-import random
 import sys
 import numpy as np
 
@@ -6,8 +5,8 @@ import numpy as np
 def vocabulary_defaults():
     return {
         'sequence_len': 10,
-        'spec_tokens': ['[pad]', '[cls]'],
-        'init_tokens': ['[sep]', '[unk]', '[!a]', '[a]'],
+        'spec_tokens': ['[pad]', '[sot]', '[sep]'],
+        'init_tokens': ['[eot]', '[unk]', '[!a]', '[a]'],
     }
 
 
@@ -15,9 +14,10 @@ def tokenizer_defaults():
     return {
         'sequence_len': 10,
         'train': True,
-        'cls': '[cls]',
-        'sep': '[sep]', 
         'pad': '[pad]',
+        'sot': '[sot]',
+        'sep': '[sep]',
+        'eot': '[eot]',
     }
 
 
@@ -25,9 +25,9 @@ def dataset_defaults():
     return {
         'sequence_len': 10,
         'batch_len': 8,
-        'cls': '[cls]',
-        'sep': '[sep]',
         'pad': '[pad]',
+        'sot': '[sot]',
+        'eot': '[eot]',
         'source_mask': ['[!a]', '[a]'],
         'target_mask': [],
         'vocabulary': None,
@@ -88,22 +88,37 @@ class Tokenizer:
         self.sequence_len = kwargs['sequence_len'] - 1
         self.train = kwargs['train']
         self.pad = kwargs['pad']
-        self.cls = kwargs['cls']
+        self.sot = kwargs['sot']
         self.sep = kwargs['sep']
+        self.eot = kwargs['eot']
+        self.ignored_tokens = ['[!a]', '[a]']
+
+    def divide_chunks(self, l, n):
+        start, length = 0, 0
+        for i, t in enumerate(l, start=1):
+
+            if t not in self.ignored_tokens:
+                length += 1
+
+            if length >= n:
+                yield l[start:i]
+                length, start = 0, i
+        
+        last = l[start:]
+        if last: yield last
 
     def __getitem__(self, tokens):
         tokens = tokens.lower().split(' ')
         if not self.train:
-            return tokens
-        tokens = [self.cls, *tokens]
-        tokenized = []
-        for i, t in enumerate(tokens, start=1):
-            tokenized.append(t)
-            if i % self.sequence_len == 0:
-                tokenized.append(self.sep)
-        if tokenized[-1] != self.sep:
-            tokenized.append(self.sep)
-        return tokenized
+            return [self.sot, *tokens]
+    
+        tokens = [*tokens, self.eot]
+        tokens = list(self.divide_chunks(tokens, self.sequence_len))
+
+        tokenized = [[self.sot, *(tokens[0])], *[[self.sep, *t] for t in tokens[1:]]]
+
+        return [t for tokens in tokenized for t in tokens]
+    
 
 class TrainDataset:
     def __init__(self, **kwargs):
@@ -114,8 +129,7 @@ class TrainDataset:
         self.vocab = kwargs['vocabulary']
 
         self.pad = self.vocab.w2i(kwargs['pad'])
-        self.cls = self.vocab.w2i(kwargs['cls'])
-        self.sep = self.vocab.w2i(kwargs['sep'])
+        self.sot = self.vocab.w2i(kwargs['sot'])
 
         self.target_mask = self.vocab.encode(kwargs['target_mask'])
         self.source_mask = self.vocab.encode(kwargs['source_mask'])
@@ -129,50 +143,44 @@ class TrainDataset:
         encoded = [self.vocab.encode(self.tokenizer[t]) for t in self.texts]
 
         targets = [self.__target(e) for e in encoded]
-        sources = [self.__source(t, e) for t, e in zip(targets, encoded)]
+        sources = [self.__source(e) for e in encoded]
 
-        # sources = self.__mask_tokens(np.vstack(sources), self.source_mask)
-        # targets = self.__mask_tokens(np.vstack(targets), self.target_mask)
-
-        # sources = self.__split_batches(sources)
-        # targets = self.__split_batches(targets)
+        sources = [self.__mask_tokens(s, self.source_mask) for s in sources]
+        targets = [self.__mask_tokens(t, self.target_mask) for t in targets]
 
         self.samples = list(zip(sources, targets))
+
+        with open('preg.log', 'a') as f:
+            print(f'{self.samples=}', file=f)
+            print('='*80, file=f)
+
         return self
 
-    def __source(self, target, encoded):
-        data = np.array(encoded, dtype=np.longlong)
+    def __source(self, encoded):
+        data = np.array(encoded, dtype=np.int64)
 
+        n_full = len(data) // self.sequence_len
         n_tail = len(data) % self.sequence_len
+        lengths = [self.sequence_len] * n_full
+
         if n_tail > 0:
+            lengths.append(n_tail)
             n_extra_pads = self.sequence_len - n_tail
             data = np.append(data, np.full((n_extra_pads,), self.pad))
         data = data.reshape(-1, self.sequence_len)
 
         batch = np.ndarray((0, self.sequence_len), dtype=np.int64)
-        for i, l in enumerate(self.__blocks(target)):
+        for i, l in enumerate(lengths):
             v = np.resize(np.array(data[i]), (l, self.sequence_len))
             batch = np.vstack((batch, *v))
 
         return batch
     
-    @staticmethod
-    def __blocks(target):
-        lengths = []
-        l = 0
-        for t in target:
-            l += 1
-            if t[-1] == 2:
-                lengths.append(l)
-                l = 0
-        lengths[-1] += l
-        return lengths
-    
     def __target(self, encoded):
-        data = np.array(encoded, dtype=np.longlong)
+        data = np.array(encoded, dtype=np.int64)
         window = np.full((self.sequence_len,), self.pad)
         
-        batch = np.ndarray((0, self.sequence_len))
+        batch = np.ndarray((0, self.sequence_len), dtype=np.int64)
         for token in data:
             window = np.delete(window, 0)
             window = np.append(window, token)
@@ -223,5 +231,5 @@ class PredictionDataset(TrainDataset):
         return data.reshape(-1, self.sequence_len)
 
     def __target(self):
-        target = np.hstack(([self.pad] * (self.sequence_len - 1), [self.cls]))
+        target = np.hstack(([self.pad] * (self.sequence_len - 1), [self.sot]))
         return target.reshape(1, -1)

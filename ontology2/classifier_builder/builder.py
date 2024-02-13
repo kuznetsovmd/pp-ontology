@@ -60,11 +60,15 @@ def build_classified(train, labeled, eval):
     ds_defaults['vocabulary'] = vocab
     ds_defaults['tokenizer'] = tokenizer
 
-    t_ds1 = TrainDataset(**ds_defaults).prepare(source_texts[1:4])
+    t_ds1 = TrainDataset(**ds_defaults).prepare(source_texts[:])
     v_ds1 = TrainDataset(**ds_defaults)
-    t_ds2 = TrainDataset(**ds_defaults).prepare(target_texts[1:4])
-    v_ds2 = TrainDataset(**ds_defaults)
-    p_ds1 = PredictionDataset(**ds_defaults).prepare(source_texts[1:4])
+    t_ds2 = TrainDataset(**ds_defaults).prepare([*(target_texts[:8]), *(target_texts[12:])])
+    v_ds2 = TrainDataset(**ds_defaults).prepare(target_texts[8:12])
+
+    t_defaults = tokenizer_defaults()
+    t_defaults['train'] = True
+    ds_defaults['tokenizer'] = Tokenizer(**t_defaults)
+    p_ds1 = PredictionDataset(**ds_defaults).prepare(source_texts[:])
 
     with open('train1.json', 'w') as f:
         json.dump([[[str(si) for si in s[0].tolist()], [str(si) for si in s[1].tolist()]] for s in t_ds1.samples], f, indent=2)
