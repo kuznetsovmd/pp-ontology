@@ -70,11 +70,11 @@ def build_classified(train, labeled, eval):
     ds_defaults['tokenizer'] = Tokenizer(**t_defaults)
     p_ds1 = PredictionDataset(**ds_defaults).prepare(source_texts[:])
 
-    with open('train1.json', 'w') as f:
+    with open(f'{RESOURCES}/train1.log', 'w') as f:
         json.dump([[[str(si) for si in s[0].tolist()], [str(si) for si in s[1].tolist()]] for s in t_ds1.samples], f, indent=2)
-    with open('train2.json', 'w') as f:
+    with open(f'{RESOURCES}/train2.log', 'w') as f:
         json.dump([[[str(si) for si in s[0].tolist()], [str(si) for si in s[1].tolist()]] for s in t_ds2.samples], f, indent=2)
-    with open('pred1.json', 'w') as f:
+    with open(f'{RESOURCES}/pred1.log', 'w') as f:
         json.dump([[[str(si) for si in s[0].tolist()], [str(si) for si in s[1].tolist()]] for s in p_ds1.samples], f, indent=2)
     
     m_defaults = model_defaults()
