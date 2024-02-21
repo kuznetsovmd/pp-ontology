@@ -14,12 +14,12 @@ def model_defaults():
         'module_parameters': {
             'src_vocab_size': 10000, 
             'tgt_vocab_size': 10000, 
-            'max_seq_length': 10, 
-            'd_model': 1024, 
+            'max_seq_length': 32, 
+            'd_model': 512, 
             'num_heads': 8, 
             'num_layers': 5,
-            'dropout': .0, 
-            'd_ff': 2048, 
+            'dropout': .01, 
+            'd_ff': 1024, 
             'nopeak': False,
             'device': DEVICE,
         },
@@ -27,11 +27,11 @@ def model_defaults():
         'optimizer_parameters': {
             'lr':  1e-5,
             'eps': 1e-9,
-            'betas': (0.9, 0.98),
+            'betas': (0.9, 0.95),
         },
         'criterion': nn.CrossEntropyLoss,
         'criterion_parameters': {
-            'label_smoothing': .0,
+            'label_smoothing': .01,
             'weight': torch.tensor([
                 *([0.0] * 3),
                 *([1.0] * 9997)

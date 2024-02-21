@@ -62,7 +62,7 @@ def build_classified(train, labeled, eval):
 
     t_ds1 = TrainDataset(**ds_defaults).prepare(source_texts[:])
     v_ds1 = TrainDataset(**ds_defaults)
-    t_ds2 = TrainDataset(**ds_defaults).prepare([*(target_texts[:8]), *(target_texts[12:])])
+    t_ds2 = TrainDataset(**ds_defaults).prepare(target_texts[:8])
     v_ds2 = TrainDataset(**ds_defaults).prepare(target_texts[8:12])
 
     t_defaults = tokenizer_defaults()
@@ -103,11 +103,11 @@ def train_llm(transformer, t_ds, v_ds, n_epochs):
     try:
         for epoch in range(n_epochs):
             transformer.module.train()
-            for (s, t) in tqdm(t_ds, ncols=80):
+            for (s, t) in tqdm(t_ds.shuffle(), ncols=80):
                 transformer.train(s, t)
 
             transformer.module.eval()
-            for (s, t) in tqdm(v_ds, ncols=80):
+            for (s, t) in tqdm(v_ds.shuffle(), ncols=80):
                 transformer.test(s, t)
 
             print_stats(epoch, n_epochs, start, transformer.stats())
@@ -121,11 +121,11 @@ def train_annotate(transformer, t_ds, v_ds, n_epochs):
     try:
         for epoch in range(n_epochs):
             transformer.module.train()
-            for (s, t) in tqdm(t_ds, ncols=80):
+            for (s, t) in tqdm(t_ds.shuffle(), ncols=80):
                 transformer.train(s, t)
 
             transformer.module.eval()
-            for (s, t) in tqdm(v_ds, ncols=80):
+            for (s, t) in tqdm(v_ds.shuffle(), ncols=80):
                 transformer.test(s, t)
 
             print_stats(epoch, n_epochs, start, transformer.stats())

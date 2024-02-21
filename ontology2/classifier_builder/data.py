@@ -1,10 +1,10 @@
-import sys
+import random
 import numpy as np
 
 
 def vocabulary_defaults():
     return {
-        'sequence_len': 10,
+        'sequence_len': 32,
         'spec_tokens': ['[pad]', '[sot]', '[sep]'],
         'init_tokens': ['[eot]', '[unk]', '[!a]', '[a]'],
     }
@@ -12,7 +12,7 @@ def vocabulary_defaults():
 
 def tokenizer_defaults():
     return {
-        'sequence_len': 10,
+        'sequence_len': 32,
         'train': True,
         'pad': '[pad]',
         'sot': '[sot]',
@@ -23,7 +23,7 @@ def tokenizer_defaults():
 
 def dataset_defaults():
     return {
-        'sequence_len': 10,
+        'sequence_len': 32,
         'batch_len': 8,
         'pad': '[pad]',
         'sot': '[sot]',
@@ -136,6 +136,10 @@ class TrainDataset:
 
         self.texts = []
         self.samples = []
+    
+    def shuffle(self):
+        random.shuffle(self.samples)
+        return self
 
     def prepare(self, texts):
         self.texts = texts
