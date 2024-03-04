@@ -1,4 +1,5 @@
 import random
+import re
 import numpy as np
 
 
@@ -93,6 +94,10 @@ class Tokenizer:
         self.eot = kwargs['eot']
         self.ignored_tokens = ['[!a]', '[a]']
 
+        self.punctuation = re.compile(rf"\[!?[a-zа-я]\]|[{''.join(kwargs['punctuation'])}]")
+        self.reduce_spaces = re.compile(r'(?<!^)\s+(?!$)')
+        self.trim_spaces = re.compile(r'(^\s)|(\s$)')
+
     def divide_chunks(self, l, n):
         start, length = 0, 0
         for i, t in enumerate(l, start=1):
@@ -108,16 +113,20 @@ class Tokenizer:
         if last: yield last
 
     def __getitem__(self, tokens):
-        tokens = tokens.lower().split(' ')
-        if not self.train:
-            return [self.sot, *tokens]
+        text = self.punctuation.sub(' \g<0> ', tokens)
+        text = self.reduce_spaces.sub(' ', text)
+        text = self.trim_spaces.sub('', text)
+        text = text.lower().split(' ')
     
-        tokens = [*tokens, self.eot]
-        tokens = list(self.divide_chunks(tokens, self.sequence_len))
+        if not self.train:
+            return [self.sot, *text]
+    
+        text = [*text, self.eot]
+        text = list(self.divide_chunks(text, self.sequence_len))
 
-        tokenized = [[self.sot, *(tokens[0])], *[[self.sep, *t] for t in tokens[1:]]]
+        tokenized = [[self.sot, *(text[0])], *[[self.sep, *t] for t in text[1:]]]
 
-        return [t for tokens in tokenized for t in tokens]
+        return [t for text in tokenized for t in text]
     
 
 class TrainDataset:
