@@ -1,5 +1,7 @@
 import json
 import math
+import re
+import sys
 import time
 import torch
 from tqdm import tqdm
@@ -38,21 +40,56 @@ def unwrap_words(texts, tokenizer):
     return [t for text in texts for t in tokenizer[text]]
 
 
+def restore_annotations():
+
+    with open(f'/mnt/Source/kuznetsovmd/__datasets/012190650e118175fe2f538504434c7c.json', 'r') as f:
+        annotations = json.load(f)
+
+    with open(f'/mnt/Source/kuznetsovmd/__datasets/ru/output.json', 'r') as f:
+        policies = {a['policy_hash']: a for a in json.load(f)}
+
+    annotations = [a for a in annotations if a['selection_class'] == 'PersonalData']
+    hashes = set([a['policy_hash'] for a in annotations])
+    files = [p['output_policy'] for i, p in policies.items() if i in hashes]
+
+    texts1 = []
+    for p in files:
+        with open(f'/mnt/Source/kuznetsovmd/__datasets/ru/output_policies/{p}', 'r') as f:
+            texts1.extend(f.read().split('\n\n\n'))
+
+    texts2 = []
+    for h in hashes:
+        p = policies[h]
+
+        with open(f'/mnt/Source/kuznetsovmd/__datasets/ru/output_policies/{p["output_policy"]}', 'r') as f:
+            selection_pieces = [(a['starts_on'], a['ends_on']) for a in annotations if a['policy_hash'] == h]
+
+            text = f.read()
+            tail = 0
+            annotated_text = ''
+            for (s, e) in selection_pieces:
+                annotated_text = f'{annotated_text}{text[int(tail):int(s)]}'
+                annotated_text = f'{annotated_text}[!a]{text[int(s):int(e)]}[a]'
+                tail = int(e)
+            annotated_text = f'{annotated_text}{text[int(tail):]}'
+
+            texts2.extend(annotated_text.split('\n\n\n'))
+
+    return texts1, texts2
+
+
 def build_classified(train, labeled, eval):
 
+    texts1, texts2 = restore_annotations()
+    print(texts2)
+
     print_info()
-
-    with open(f'{RESOURCES}/example_texts_unlabeled.txt', 'r') as f:
-        source_texts = f.read().split('\n')
-
-    with open(f'{RESOURCES}/example_texts_labeled.txt', 'r') as f:
-        target_texts = f.read().split('\n')
 
     vocab = Vocabulary(**vocabulary_defaults())
 
     tokenizer = Tokenizer(**tokenizer_defaults())
-    vocab.new_ws(unwrap_words(source_texts, tokenizer))
-    vocab.new_ws(unwrap_words(target_texts, tokenizer))
+    vocab.new_ws(unwrap_words(texts1, tokenizer))
+    vocab.new_ws(unwrap_words(texts2, tokenizer))
 
     print(f'{vocab.size=}')
 
@@ -60,22 +97,15 @@ def build_classified(train, labeled, eval):
     ds_defaults['vocabulary'] = vocab
     ds_defaults['tokenizer'] = tokenizer
 
-    t_ds1 = TrainDataset(**ds_defaults).prepare(source_texts[:])
+    t_ds1 = TrainDataset(**ds_defaults).prepare(texts1)
     v_ds1 = TrainDataset(**ds_defaults)
-    t_ds2 = TrainDataset(**ds_defaults).prepare(target_texts[:8])
-    v_ds2 = TrainDataset(**ds_defaults).prepare(target_texts[8:12])
+    t_ds2 = TrainDataset(**ds_defaults).prepare(texts2[:-20])
+    v_ds2 = TrainDataset(**ds_defaults).prepare(texts2[-20:])
 
     t_defaults = tokenizer_defaults()
     t_defaults['train'] = True
     ds_defaults['tokenizer'] = Tokenizer(**t_defaults)
-    p_ds1 = PredictionDataset(**ds_defaults).prepare(source_texts[:])
-
-    with open(f'{RESOURCES}/train1.log', 'w') as f:
-        json.dump([[[str(si) for si in s[0].tolist()], [str(si) for si in s[1].tolist()]] for s in t_ds1.samples], f, indent=2)
-    with open(f'{RESOURCES}/train2.log', 'w') as f:
-        json.dump([[[str(si) for si in s[0].tolist()], [str(si) for si in s[1].tolist()]] for s in t_ds2.samples], f, indent=2)
-    with open(f'{RESOURCES}/pred1.log', 'w') as f:
-        json.dump([[[str(si) for si in s[0].tolist()], [str(si) for si in s[1].tolist()]] for s in p_ds1.samples], f, indent=2)
+    p_ds1 = PredictionDataset(**ds_defaults).prepare(texts1)
     
     m_defaults = model_defaults()
 
@@ -135,10 +165,15 @@ def train_annotate(transformer, t_ds, v_ds, n_epochs):
 
 
 def annotate(transformer, dataset):
-    for (s, t, txt) in dataset:
+    sentences = []
+    with open(f'{RESOURCES}/predictions.txt', 'w') as f:
+        for (s, t, txt) in dataset:
 
-        print(txt, end='\n')
+            print(f'ORIGINAL {"="*80}\n{txt}', end='\n', file=f)
 
-        transformer.module.eval()
-        sentence = transformer.predict(s, t)
-        print(' '.join(dataset.vocab.decode(sentence)), end='\n\n')
+            transformer.module.eval()
+            output = transformer.predict(s, t)
+            sentence = " ".join(dataset.vocab.decode(output))
+            sentences.append(sentence)
+            print(f'PREDICTED {"="*80}\n{sentence}', end='\n\n', file=f)
+            print(re.findall(r'\[!a\].*\[a\]', sentence), end='\n\n', file=f)

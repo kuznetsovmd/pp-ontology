@@ -4,7 +4,7 @@ import numpy as np
 
 def vocabulary_defaults():
     return {
-        'sequence_len': 32,
+        'sequence_len': 64,
         'spec_tokens': ['[pad]', '[sot]', '[sep]'],
         'init_tokens': ['[eot]', '[unk]', '[!a]', '[a]'],
     }
@@ -12,7 +12,7 @@ def vocabulary_defaults():
 
 def tokenizer_defaults():
     return {
-        'sequence_len': 32,
+        'sequence_len': 64,
         'train': True,
         'pad': '[pad]',
         'sot': '[sot]',
@@ -23,8 +23,8 @@ def tokenizer_defaults():
 
 def dataset_defaults():
     return {
-        'sequence_len': 32,
-        'batch_len': 8,
+        'sequence_len': 64,
+        'batch_len': 16,
         'pad': '[pad]',
         'sot': '[sot]',
         'eot': '[eot]',
@@ -152,11 +152,10 @@ class TrainDataset:
         sources = [self.__mask_tokens(s, self.source_mask) for s in sources]
         targets = [self.__mask_tokens(t, self.target_mask) for t in targets]
 
-        self.samples = list(zip(sources, targets))
+        sources = self.__split_batches(np.vstack(sources))
+        targets = self.__split_batches(np.vstack(targets))
 
-        with open('preg.log', 'a') as f:
-            print(f'{self.samples=}', file=f)
-            print('='*80, file=f)
+        self.samples = list(zip(sources, targets))
 
         return self
 

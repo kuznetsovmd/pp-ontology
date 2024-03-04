@@ -14,24 +14,24 @@ def model_defaults():
         'module_parameters': {
             'src_vocab_size': 10000, 
             'tgt_vocab_size': 10000, 
-            'max_seq_length': 32, 
-            'd_model': 512, 
-            'num_heads': 8, 
-            'num_layers': 5,
-            'dropout': .01, 
-            'd_ff': 1024, 
+            'max_seq_length': 64, 
+            'd_model': 256, 
+            'num_heads': 16, 
+            'num_layers': 3,
+            'dropout': .0, 
+            'd_ff': 256, 
             'nopeak': False,
             'device': DEVICE,
         },
         'optimizer': torch.optim.Adam,
         'optimizer_parameters': {
-            'lr':  1e-5,
+            'lr':  1e-4,
             'eps': 1e-9,
             'betas': (0.9, 0.95),
         },
         'criterion': nn.CrossEntropyLoss,
         'criterion_parameters': {
-            'label_smoothing': .01,
+            'label_smoothing': .0,
             'weight': torch.tensor([
                 *([0.0] * 3),
                 *([1.0] * 9997)
@@ -84,14 +84,11 @@ class BaseModel:
         t_gpu = torch.tensor(target, device=self.module.device, dtype=torch.long)
         sep = torch.tensor([[2]], device=self.module.device, dtype=torch.long)
         sentence = np.empty((0,))
-
-        with open('preg.log', 'a') as f:
-            print(f'{s_gpu=}', file=f)
         
         with torch.no_grad():
             for i in range(s_gpu.shape[0]):
                 
-                step = self.sequence_len - 1
+                step = torch.count_nonzero(s_gpu[i, :]) - 1
 
                 while step > 0:
                     step -= 1
@@ -110,18 +107,14 @@ class BaseModel:
 
                 t_gpu = torch.cat((t_gpu[:, 1:], sep), 1)
 
-                with open('preg.log', 'a') as f:
-                    print(f'{t_gpu=}', file=f)
-                    print('='*80, file=f)
-
         return sentence
 
 
 class Model(BaseModel):
     
     def __asses(self, output, target):
-        o = np.argmax(np.vstack((*output,)), -1)[:, -1]
-        t = np.vstack((*target,))[:, -1]
+        o = np.argmax(output, -1)[:, -1]
+        t = target[:, -1]
         return ((o == t) & np.isin(t, self.ignore_index, invert=True)).sum() / \
                (np.isin(t, self.ignore_index, invert=True)).sum()
     
@@ -132,25 +125,21 @@ class Model(BaseModel):
         self.ignore_index = kwargs['ignore_index']
 
         self.t_outputs = []
-        self.t_targets = []
         self.t_losses = []
         self.v_outputs = []
-        self.v_targets = []
         self.v_losses = []
 
         self.stats_mem = []
 
     def train(self, source, target):
         output, loss = super().train(source, target)
-        self.t_outputs.append(output)
-        self.t_targets.append(target)
+        self.t_outputs.append(self.__asses(output, target))
         self.t_losses.append(loss.item())
         return output, loss
 
     def test(self, source, target):
         output, loss = super().test(source, target)
-        self.v_outputs.append(output)
-        self.v_targets.append(target)
+        self.v_outputs.append(self.__asses(output, target))
         self.v_losses.append(loss.item())
         return output, loss
 
@@ -161,8 +150,8 @@ class Model(BaseModel):
         stats = {
             't_loss': np.average(self.t_losses) if self.t_losses else 0,
             'v_loss':  np.average(self.v_losses) if self.v_losses else 0,
-            't_accuracy': self.__asses(self.t_outputs, self.t_targets) if self.t_outputs else 0,
-            'v_accuracy': self.__asses(self.v_outputs, self.v_targets) if self.v_outputs else 0,
+            't_accuracy': np.average(self.t_outputs) if self.t_outputs else 0,
+            'v_accuracy': np.average(self.v_outputs) if self.v_outputs else 0,
         }
 
         self.stats_mem.append(stats)
