@@ -1,194 +1,73 @@
-import contextlib
-import os
-import numpy as np
 import torch
 from torch import nn
-from ontology2.classifier_builder.device import DEVICE
-
-from ontology2.classifier_builder.transformer import Transformer
+from torch.nn import functional
 
 
-def model_defaults():
-    return {
-        'module': Transformer,
-        'module_parameters': {
-            'src_vocab_size': 10000, 
-            'tgt_vocab_size': 10000, 
-            'max_seq_length': 64, 
-            'd_model': 256, 
-            'num_heads': 16, 
-            'num_layers': 3,
-            'dropout': .0, 
-            'd_ff': 256, 
-            'nopeak': False,
-            'device': DEVICE,
-        },
-        'optimizer': torch.optim.Adam,
-        'optimizer_parameters': {
-            'lr':  1e-4,
-            'eps': 1e-9,
-            'betas': (0.9, 0.95),
-        },
-        'criterion': nn.CrossEntropyLoss,
-        'criterion_parameters': {
-            'label_smoothing': .0,
-            'weight': torch.tensor([
-                *([0.0] * 3),
-                *([1.0] * 9997)
-            ], device=DEVICE)
-        },
-        'ignore_index': [0, 1, 2],
-        'ignore_predicted': [5, 6],
-        'name': 'transformer',
-        'version': '.1',
-    }
-
-
-class BaseModel:
+class LinearBERT(nn.Module):
     
-    def __init__(self, **kwargs):
-        self.module = kwargs['module'](**kwargs['module_parameters'])
-        self.optimizer = kwargs['optimizer'](self.module.parameters(), **kwargs['optimizer_parameters'])
-        self.criterion = kwargs['criterion'](**kwargs['criterion_parameters'])
-        self.sequence_len = kwargs['module_parameters']['max_seq_length']
-        self.ignore_predicted = kwargs['ignore_predicted']
-    
-    def train(self, source, target):
-        s_gpu = torch.tensor(source, device=self.module.device, dtype=torch.long)
-        t_gpu = torch.tensor(target, device=self.module.device, dtype=torch.long)
-        output = self.module(s_gpu, t_gpu[:, :-1])
+    def __init__(self, input_size=768, hidden_size=512, output_size=2, dropout=0.1, device='cpu'):
+        super(LinearBERT, self).__init__()
 
-        predicted = output.contiguous().view(-1, self.module.decoder_embedding.num_embeddings)
-        expected = t_gpu[:, 1:].contiguous().view(-1)
-        loss = self.criterion(predicted, expected)
-        loss.backward()
-        self.optimizer.step()
-        self.optimizer.zero_grad()
-
-        return output.detach().cpu().numpy(), loss
-    
-    def test(self, source, target):
-        with torch.no_grad():
-            s_gpu = torch.tensor(source, device=self.module.device, dtype=torch.long)
-            t_gpu = torch.tensor(target, device=self.module.device, dtype=torch.long)
-            output = self.module(s_gpu, t_gpu[:, :-1])
-
-            predicted = output.contiguous().view(-1, self.module.decoder_embedding.num_embeddings)
-            expected = t_gpu[:, 1:].contiguous().view(-1)
-            loss = self.criterion(predicted, expected)
-
-        return output.detach().cpu().numpy(), loss
-
-    def predict(self, source, target):
-        s_gpu = torch.tensor(source, device=self.module.device, dtype=torch.long)
-        t_gpu = torch.tensor(target, device=self.module.device, dtype=torch.long)
-        sep = torch.tensor([[2]], device=self.module.device, dtype=torch.long)
-        sentence = np.empty((0,))
+        self.dropout = nn.Dropout(dropout)
+        self.fc1 = nn.Linear(input_size, hidden_size)
+        self.fc2 = nn.Linear(hidden_size, output_size)
         
-        with torch.no_grad():
-            for i in range(s_gpu.shape[0]):
-                
-                step = torch.count_nonzero(s_gpu[i, :]) - 1
-
-                while step > 0:
-                    step -= 1
-
-                    output = self.module(s_gpu[i, :].reshape(1, -1), t_gpu)
-                    predicted = torch.argmax(output[:, -1], 1).reshape(-1, 1)
-                    t_gpu = torch.cat((t_gpu[:, 1:], predicted), 1)
-
-                    sentence = np.append(sentence, predicted.cpu())
-
-                    if predicted in self.ignore_predicted:
-                        step += 1
-
-                    if predicted == 3:
-                        break
-
-                t_gpu = torch.cat((t_gpu[:, 1:], sep), 1)
-
-        return sentence
-
-
-class Model(BaseModel):
-    
-    def __asses(self, output, target):
-        o = np.argmax(output, -1)[:, -1]
-        t = target[:, -1]
-        return ((o == t) & np.isin(t, self.ignore_index, invert=True)).sum() / \
-               (np.isin(t, self.ignore_index, invert=True)).sum()
-    
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.name = kwargs['name']
-        self.version = kwargs['version']
-        self.ignore_index = kwargs['ignore_index']
-
-        self.t_outputs = []
-        self.t_losses = []
-        self.v_outputs = []
-        self.v_losses = []
-
-        self.stats_mem = []
-
-    def train(self, source, target):
-        output, loss = super().train(source, target)
-        self.t_outputs.append(self.__asses(output, target))
-        self.t_losses.append(loss.item())
-        return output, loss
-
-    def test(self, source, target):
-        output, loss = super().test(source, target)
-        self.v_outputs.append(self.__asses(output, target))
-        self.v_losses.append(loss.item())
-        return output, loss
-
-    def predict(self, source, target):
-        return super().predict(source, target)
-
-    def stats(self):
-        stats = {
-            't_loss': np.average(self.t_losses) if self.t_losses else 0,
-            'v_loss':  np.average(self.v_losses) if self.v_losses else 0,
-            't_accuracy': np.average(self.t_outputs) if self.t_outputs else 0,
-            'v_accuracy': np.average(self.v_outputs) if self.v_outputs else 0,
-        }
-
-        self.stats_mem.append(stats)
-
-        self.t_losses = []
-        self.v_losses = []
-        self.t_outputs = []
-        self.v_outputs = []
-        self.t_targets = []
-        self.v_targets = []
-
-        return stats
-
-
-def build_model(path=None, **kwargs):
-
-    model = Model(**kwargs)
-
-    if path:
-        loaded = torch.load(f'{path}/{kwargs["name"]}{kwargs["version"]}.pt')
-
-        if loaded:
-            model.module.load_state_dict(loaded['model_state_dict'])
-            model.optimizer.load_state_dict(loaded['optimizer_state_dict'])
-            model.stats_mem = loaded['stats_mem']
-
-    else:
-        with contextlib.suppress(FileNotFoundError):
-            os.remove(f'{path}/{kwargs["name"]}{kwargs["version"]}.pt')
+        nn.init.kaiming_uniform_(self.fc1.weight)
+        nn.init.kaiming_uniform_(self.fc2.weight)
         
-    return model
+        self.to(device)
+
+    def forward(self, embedding):
+        output = functional.relu(self.fc1(embedding))
+        output = self.dropout(output)
+        return self.fc2(output)
 
 
-def save_model(model, path):
-    os.makedirs(path, exist_ok=True)
-    torch.save({
-        'model_state_dict': model.module.state_dict(),
-        'optimizer_state_dict': model.optimizer.state_dict(),
-        'stats_mem': model.stats_mem,
-    }, f'{path}/{model.name}{model.version}.pt')
+class Linear2BERT(nn.Module):
+    
+    def __init__(self, input_size=768, hidden_size=512, output_size=2, dropout=0.1, device='cpu'):
+        super(Linear2BERT, self).__init__()
+
+        self.dropout = nn.Dropout(dropout)
+        self.fc1 = nn.Linear(input_size, hidden_size)
+        self.fc2 = nn.Linear(hidden_size, hidden_size)
+        self.fc3 = nn.Linear(hidden_size, output_size)
+        
+        nn.init.kaiming_uniform_(self.fc1.weight)
+        nn.init.kaiming_uniform_(self.fc2.weight)
+        nn.init.kaiming_uniform_(self.fc3.weight)
+        
+        self.to(device)
+
+    def forward(self, embedding):
+        output = functional.gelu(self.fc1(embedding))
+        output = self.dropout(output)
+        output = functional.gelu(self.fc2(output))
+        output = self.dropout(output)
+        return self.fc3(output)
+    
+
+class RNN_BERT(nn.Module):
+    
+    def __init__(self, input_size=768, hidden_size=512, output_size=2, dropout=0.1, device='cpu'):
+        super(RNN_BERT, self).__init__()
+        self.hidden_size = hidden_size
+        self.device = device
+
+        self.dropout = nn.Dropout(dropout)
+        self.fc1 = nn.Linear(input_size + hidden_size, hidden_size)
+        self.fc2 = nn.Linear(hidden_size, output_size)
+
+        nn.init.kaiming_uniform_(self.fc1.weight)
+        nn.init.kaiming_uniform_(self.fc2.weight)
+
+        self.init_hidden()
+        self.to(device)
+
+    def forward(self, embedding):
+        self.hidden = functional.relu(self.fc1(torch.cat((embedding, self.hidden), 1)))
+        output = self.dropout(self.hidden)
+        return self.fc2(output)
+
+    def init_hidden(self):
+        self.hidden = torch.zeros(1, self.hidden_size, device=self.device)

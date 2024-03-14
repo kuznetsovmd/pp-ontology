@@ -53,7 +53,7 @@ def main(args):
     if args.cmd == 'annotations':
         build_annotated()
     if args.cmd == 'classifier':
-        build_classified(args.train, args.ltrain, args.eval)
+        build_classified(args.train, args.eval)
     if args.cmd == 'queries':
         run_quries()
 
@@ -66,7 +66,6 @@ if __name__ == '__main__':
 
     parser.add_argument('cmd', help='One of: manual, annotations, classifier, queries')
     parser.add_argument('-e', '--eval', default=False, action='store_true')
-    parser.add_argument('-l', '--ltrain', default=False, action='store_true')
     parser.add_argument('-t', '--train', default=False, action='store_true')
     args = parser.parse_args()
 
