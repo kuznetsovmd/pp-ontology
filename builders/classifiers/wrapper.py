@@ -6,7 +6,6 @@ import numpy as np
 
 
 class BaseModel:
-    
     def __init__(self, device, bert_model, module, module_parameters, 
                  optimizer, optimizer_parameters, criterion, 
                  criterion_parameters):
@@ -80,7 +79,6 @@ class BaseModel:
 
 
 class Model(BaseModel):
-    
     def __accuracy(self, output, target):
         assert len(output) == len(target), 'outputs & targets not equally on length'
         return np.average(np.array(output) == np.array(target))

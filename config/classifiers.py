@@ -1,36 +1,37 @@
 import os
 
 import torch
-from torch import device
+from torch import device as get_device
 from torch.cuda import current_device, is_available
 
 from transformers import AutoModel
 from transformers import AutoTokenizer
 
-from builders.classifiers.model import Linear3BERT
+from builders.classifiers.model import Linear2BERT, Linear3BERT, LinearBERT
 
 
-def print_info(device):
+def select_device(use_cuda):
+    d = current_device() if is_available() and use_cuda else get_device('cpu')
     print(f'Torch version: {torch.__version__}')
     try:
-        print(f'Using: {torch.cuda.get_device_name(device)}')
+        print(f'Using: {torch.cuda.get_device_name(d)}')
     except ValueError:
         print(f'Using: CPU')
+    return d
 
 
-def config(resources, annotations, russian_pp, use_cuda, tqdm_conf, **kwargs):
+def config(resources, classified, annotations, russian_pp, use_cuda, tqdm_conf, **kwargs):
 
-    dev = current_device() if is_available() and use_cuda else device('cpu')
-    print_info(dev)
+    device = select_device(use_cuda)
 
     fpcollection = f'{resources}/models/fp_collection'
     os.makedirs(fpcollection, exist_ok=True)
 
-    output_path = f'{resources}/classified'
-    os.makedirs(output_path, exist_ok=True)
-
     bert_model = AutoModel.from_pretrained('ai-forever/ruBert-large')
     bert_tokenizer = AutoTokenizer.from_pretrained('ai-forever/ruBert-large')
+    # special_tokens_dict = {'additional_special_tokens': ['\n',' ']}
+    # bert_tokenizer.add_special_tokens(special_tokens_dict)
+    # bert_model.resize_token_embeddings(len(bert_tokenizer))
 
     return [
         {
@@ -38,33 +39,33 @@ def config(resources, annotations, russian_pp, use_cuda, tqdm_conf, **kwargs):
             'annotations_path': annotations,
             'descriptor_path': f'{russian_pp}/output.json',
             'policies_path': f'{russian_pp}/output_policies',
-            'output_path': output_path,
+            'output_path': classified,
             'sequence_len': 512,
             'split': .8,
-            'n_epochs': 500,
+            'n_epochs': 200,
             'padding': 10,
-            'density': .3,
+            'density': .2,
             'bert_tokenizer': bert_tokenizer,
             'tqdm_conf': tqdm_conf,
             'model_conf': {
                 'name': 'bert-FPCollection',
-                'version': 16,
+                'version': 23,
                 'path': fpcollection,
                 'pretrained': True,
-                'device': dev,
+                'device': device,
                 'bert_model': bert_model,
-                'module': Linear3BERT,
+                'module': LinearBERT,
                 'module_parameters': {
                     'input_size': 1024,
-                    'hidden_size': 1024,
-                    'dropout': .01, 
-                    'device': dev,
+                    'hidden_size': 2048,
+                    'dropout': .05, 
+                    'device': device,
                 },
                 'optimizer': torch.optim.AdamW,
                 'optimizer_parameters': {
                     'lr':  1e-4,
                     'eps': 1e-9,
-                    'betas': (0.9, 0.98),
+                    'betas': (0.9, 0.95),
                 },
                 'criterion': torch.nn.CrossEntropyLoss,
                 'criterion_parameters': {
