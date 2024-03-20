@@ -1,7 +1,7 @@
-from ontology2.ontology.interface import Ontology
+from ontology.interface import Ontology
 
 
-def process_aws():
+def build(**kwargs):
     """
     Our business changes constantly, and our Privacy Notice may
     also change. You should check our website frequently to see
@@ -16,7 +16,7 @@ def process_aws():
     them a choice.
     """
 
-    o = Ontology('aws', 'https://aws.amazon.com')
+    o = Ontology(**kwargs, website='https://aws.amazon.com')
 
     user = o.individual('User', 'you')
     first_party = o.individual('FirstParty', 'we')

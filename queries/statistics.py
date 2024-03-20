@@ -1,19 +1,17 @@
 from owlready2 import *
 
-from config import ONTOLOGIES
 
-
-def run():
+def run(ontologies):
     """
     * How many privacy policies include information about notification mechanisms used to inform end users about policy change?
     """
-    onto_path.append(ONTOLOGIES)
-    onto = get_ontology(f"http://test.org/annotations.owl").load()
+    onto_path.extend(ontologies)
+    onto = get_ontology(f"http://privacy-ontology.org/annotations-summary.owl").load()
 
     with onto:
         res = list(default_world.sparql("""
             
-            PREFIX onto: <http://test.org/annotations.owl#>
+            PREFIX onto: <http://privacy-ontology.org/annotations-summary.owl#>
             
             SELECT ( ?c AS ?class ) ( COUNT( DISTINCT( ?i ) ) AS ?count )
             WHERE {

@@ -1,14 +1,14 @@
-from ontology2.ontology.interface import Ontology
+from ontology.interface import Ontology
 
 
-def process_hpe():
+def build(**kwargs):
     """
     If we modify this Privacy Statement, we will publish a revised 
     version with an updated revision date. The privacy link on 
     the footer of every HPE web page will then point to that new version.
     """
 
-    o = Ontology('hpe', 'https://www.hpe.com')
+    o = Ontology(**kwargs, website='https://www.hpe.com')
 
     user = o.individual('User', 'you')
     first_party = o.individual('FirstParty', 'we')

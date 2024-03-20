@@ -1,9 +1,9 @@
-from ontology2.ontology.interface import Ontology
+from ontology.interface import Ontology
 
 
-def process_zepp():
+def build(**kwargs):
 
-    o = Ontology('zepp', 'https://upload-cdn.huami.com/tposts/8191')
+    o = Ontology(**kwargs, website='https://upload-cdn.huami.com/tposts/8191')
 
     #########################################################################
     #                                                                       #

@@ -1,12 +1,12 @@
-import os
 from uuid import uuid4
 from owlready2 import *
 
-from ontology2.ontology.ontology_scheme import construct
-from config import ONTOLOGIES
+from env import env
+from ontology.ontology_scheme import construct
 
 
-JAVA_EXE = "/usr/lib/jvm/java-17-openjdk/bin/java"
+JAVA_EXE = env()['java']
+ONTO_IRI = env()['iri']
 
 
 class Property:
@@ -16,15 +16,16 @@ class Property:
 
 
 class Ontology:
-    def __init__(self, name='default', website='Not defined', ontology=None, create_root_policy=True):
+    def __init__(self, path='./', name='default', 
+                 website='Not defined', ontology=None, create_root_policy=True):
         self.name = name
 
-        onto_path.append(ONTOLOGIES)
+        onto_path.append(path)
 
         if ontology:
             self.raw_onto = ontology
         else:
-            self.raw_onto = get_ontology(f"http://privacy-ontology.com/{name}.owl")
+            self.raw_onto = get_ontology(f"http://{ONTO_IRI}/{name}.owl")
             construct(self.raw_onto)
 
         if create_root_policy:

@@ -1,14 +1,14 @@
-from ontology2.ontology.interface import Ontology
+from ontology.interface import Ontology
 
 
-def process_3plususa():
+def build(**kwargs):
     """
     In order to be in line with Fair Information Practices, 
     should a data breach occur, we will notify users via email 
     within seven (7) business days.
     """
 
-    o = Ontology('3plususa', 'https://3plususa.com')
+    o = Ontology(**kwargs, website='https://3plususa.com')
 
     user = o.individual('User', 'you')
     first_party = o.individual('FirstParty', 'we')

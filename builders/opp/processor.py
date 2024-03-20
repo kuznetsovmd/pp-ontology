@@ -1,4 +1,4 @@
-from ontology2.manual_builder.opp.parsing import *
+from .parsing import *
 
 
 _ID = -1

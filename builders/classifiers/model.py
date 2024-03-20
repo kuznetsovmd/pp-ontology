@@ -4,7 +4,6 @@ from torch.nn import functional
 
 
 class LinearBERT(nn.Module):
-    
     def __init__(self, input_size=768, hidden_size=512, output_size=2, dropout=0.1, device='cpu'):
         super(LinearBERT, self).__init__()
 
@@ -24,7 +23,6 @@ class LinearBERT(nn.Module):
 
 
 class Linear2BERT(nn.Module):
-    
     def __init__(self, input_size=768, hidden_size=512, output_size=2, dropout=0.1, device='cpu'):
         super(Linear2BERT, self).__init__()
 
@@ -48,7 +46,6 @@ class Linear2BERT(nn.Module):
 
 
 class Linear3BERT(nn.Module):
-    
     def __init__(self, input_size=768, hidden_size=512, output_size=2, dropout=0.1, device='cpu'):
         super(Linear3BERT, self).__init__()
 
@@ -76,7 +73,6 @@ class Linear3BERT(nn.Module):
     
 
 class RNN_BERT(nn.Module):
-    
     def __init__(self, input_size=768, hidden_size=512, output_size=2, dropout=0.1, device='cpu'):
         super(RNN_BERT, self).__init__()
         self.hidden_size = hidden_size

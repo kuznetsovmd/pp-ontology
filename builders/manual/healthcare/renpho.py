@@ -1,9 +1,9 @@
-from ontology2.ontology.interface import Ontology
+from ontology.interface import Ontology
 
 
-def process_renpho():
+def build(**kwargs):
 
-    o = Ontology('renpho', 'https://renpho.com/pages/renpho-privacy-policy')
+    o = Ontology(**kwargs, website='https://renpho.com/pages/renpho-privacy-policy')
 
 
 

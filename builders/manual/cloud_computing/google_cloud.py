@@ -1,9 +1,9 @@
-from ontology2.ontology.interface import Ontology
+from ontology.interface import Ontology
 
 
-def process_google_cloud():
+def build(**kwargs):
 
-    o = Ontology('google-cloud', 'https://cloud.google.com')
+    o = Ontology(**kwargs, website='https://cloud.google.com')
 
     user = o.individual('User')
     first_party = o.individual('FirstParty', 'we')

@@ -1,17 +1,22 @@
 import json
 
 from tqdm import tqdm
-from config import ANNOTATIONS_FILE, ANNOTATIONS_ONTO
 
-from ontology2.ontology.interface import Ontology as Ontology2
-from ontology2.annotations_builder.annotation_structures import SCHEME, RESTRICTIONS
+from utils.fsys import files
+from ontology.interface import Ontology
+
+from .annotation_scheme import get_manual_scheme
+from .annotation_restrictions import get_manual_restrictions
 
 
 class Builder:
+    _id = 0
     objs = {}
     selections = []
-    attributes = {e['class']: e['attributeOf'] for e in SCHEME}
-    subclasses = {e['class']: e['subclassOf'] for e in SCHEME}
+
+    restrictions = get_manual_restrictions()
+    attributes = {e['class']: e['attributeOf'] for e in get_manual_scheme()}
+    subclasses = {e['class']: e['subclassOf'] for e in get_manual_scheme()}
     last_hash = None
     last_id = 0
 
@@ -30,22 +35,39 @@ class Builder:
         return [s for s in cls.selections if s.selection_class in activities]
 
     @classmethod
-    def get_subclasses(self, parent, tree=set()):
+    def get_subclasses(cls, parent, tree=set()):
         tree.add(parent)
-        for cls, sub in self.subclasses.items():
+        for c, sub in cls.subclasses.items():
             if parent in sub:
-                self.get_subclasses(cls, tree)
-                tree.add(cls)
+                cls.get_subclasses(c, tree)
+                tree.add(c)
         return tree
 
     @classmethod
     def resolve_property(cls, a_class, p_class):
-        for k, v in RESTRICTIONS[p_class].items():
+        for k, v in cls.restrictions[p_class].items():
             if a_class in v:
                 return k
 
-    def __init__(self, selection) -> None:
-        self.id = int(selection['id'])
+    @classmethod
+    def process_annotations(cls, onto, annotations, tqdm_conf):
+        for a in annotations:
+            cls(a)
+
+        cls.set_ontology(onto)
+        for a in tqdm(cls.get_activities(), desc='Annotations', **tqdm_conf):
+            if a.hash != cls.last_hash:
+                cls.last_id = 0
+                cls.last_hash = a.hash
+                cls.onto.new_policy(cls.last_hash)
+
+            a.upload('previous_is', cls.last_id)
+            cls.last_id = a.id
+            for binded_activity in a.get_binded():
+                binded_activity.upload('binded_to', a.id)
+
+    def __init__(self, selection):
+        self.id = self._id
         self.hash = selection['policy_hash']
         self.start = int(selection['starts_on'])
         self.end = int(selection['ends_on'])
@@ -53,6 +75,8 @@ class Builder:
         self.selection_class = selection['selection_class']
         self.attribute_of = self.attributes[self.selection_class]
         self.selections.append(self)
+
+        self._id += 1
 
     def get_properties(self):
         return [s for s in self.selections \
@@ -108,25 +132,31 @@ class Builder:
         self.objs[self.id] = self.onto.individual(self.selection_class, self.selection_content, properties)
 
 
-def build_annotated():
-    with open(ANNOTATIONS_FILE, 'r', encoding='utf-8') as f:
-        records = json.load(f)
-        for r in records:
-            Builder(r)
+def build(annotations, path, name, tqdm_conf, **kwargs):
+    fs = files(annotations, '.*\.json')
+    
+    annotations_list = []
+    for file in fs:
+        with open(file, 'r') as f:
+            annotations_list.extend(json.load(f))
 
-    onto = Ontology2(ANNOTATIONS_ONTO, create_root_policy=False)
-    Builder.set_ontology(onto)
-
-    for a in tqdm(Builder.get_activities(), desc='Activities', ncols=80, ascii=True):
-        
-        if a.hash != Builder.last_hash:
-            Builder.last_id = 0
-            Builder.last_hash = a.hash
-            Builder.onto.new_policy(Builder.last_hash)
-
-        a.upload('previous_is', Builder.last_id)
-        Builder.last_id = a.id
-        for binded_activity in a.get_binded():
-            binded_activity.upload('binded_to', a.id)
-
+    onto = Ontology(path=path, name=f'{name}-summary', create_root_policy=False)
+    Builder.process_annotations(onto, annotations_list, tqdm_conf)
+    Builder.clear()
     onto.save()
+
+    hashes = sorted(set(a['policy_hash'] for a in annotations_list))
+    annotations_map = {}
+    for h in hashes:
+        annotations_map[h] = []
+        for a in annotations_list:
+            if a['policy_hash'] == h:
+                annotations_map[h].append(a)
+
+    del annotations_list
+
+    for h in hashes:
+        onto = Ontology(path=path, name=f'{name}-{h}', create_root_policy=False)
+        Builder.process_annotations(onto, annotations_map[h], tqdm_conf)
+        Builder.clear()
+        onto.save()

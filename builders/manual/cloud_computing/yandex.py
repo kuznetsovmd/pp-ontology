@@ -1,7 +1,7 @@
-from ontology2.ontology.interface import Ontology
+from ontology.interface import Ontology
 
 
-def process_yandex():
+def build(**kwargs):
     """
     This Policy may be subject to amendments. Yandex shall be entitled 
     to make such amendments at its own discretion, including, without 
@@ -16,7 +16,7 @@ def process_yandex():
     details.
     """
 
-    o = Ontology('yandex', 'https://yandex.ru')
+    o = Ontology(**kwargs, website='https://yandex.ru')
 
     user = o.individual('User', 'you')
     first_party = o.individual('FirstParty', 'Yandex')

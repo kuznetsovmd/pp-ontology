@@ -2,60 +2,39 @@
 import argparse
 import sys
 
-from tqdm import tqdm
+from env import env
+from config.manual import config as manual_conf
+from config.opp import config as opp_conf
+from config.annotations import config_annotated as annotated_conf
+from config.annotations import config_classified as classified_conf
+from config.classifiers import config as classifiers_conf
+from config.queries import config as queries_conf
 
-from utils.fsys import save_query
-from ontology2.queries.statistics import run as run1
-
-from ontology2.classifier_builder.builder import build_classified
-from ontology2.annotations_builder.builder import build_annotated
-from ontology2.manual_builder.cloud_computing_policies.amazon_web_services import process_aws
-from ontology2.manual_builder.cloud_computing_policies.google_cloud import process_google_cloud
-from ontology2.manual_builder.cloud_computing_policies.threeplususa import process_3plususa
-from ontology2.manual_builder.cloud_computing_policies.hpe import process_hpe
-from ontology2.manual_builder.cloud_computing_policies.yandex import process_yandex
-from ontology2.manual_builder.healthcare_policies.caresense import process_caresense
-from ontology2.manual_builder.healthcare_policies.renpho import process_renpho
-from ontology2.manual_builder.healthcare_policies.zepp import process_zepp
-from ontology2.manual_builder.onto2_examples import process_onto_examples
-from ontology2.manual_builder.onto2_blank import process_onto_blank
-from ontology2.manual_builder.opp.builder import process_opp
-
-
-def build_manual():
-    (p() for p in tqdm([
-        process_onto_blank,
-        process_onto_examples,
-
-        process_3plususa,
-        process_aws,
-        process_google_cloud,
-        process_hpe,
-        process_yandex,
-
-        process_caresense,
-        process_renpho,
-        process_zepp,
-
-        process_opp,
-    ], desc='Builders', ncols=80, ascii=True))
-
-
-def run_quries():
-    (save_query(*q()) for q in tqdm([
-        run1,
-    ], desc='Queries', ncols=80, ascii=True))
+from builders.manual.builder import build as build_manual
+from builders.opp.builder import build as build_opp
+from builders.annotations.builder import build as build_annotations
+from builders.classifiers.builder import train_classifier
+from builders.classifiers.builder import eval_classifier
+from queries.queries import exec as exec_queries
 
 
 def main(args):
     if args.cmd == 'manual':
-        build_manual()
+        build_manual(**manual_conf(**env()))
+    if args.cmd == 'opp':
+        build_opp(**opp_conf(**env()))
     if args.cmd == 'annotations':
-        build_annotated()
-    if args.cmd == 'classifier':
-        build_classified(args.train, args.eval)
+        build_annotations(**annotated_conf(**env()))
+    if args.cmd == 'classifiers':
+        if args.train:
+            for c in classifiers_conf(**env()):
+                train_classifier(**c)
+        if args.eval:
+            for c in classifiers_conf(**env()):
+                eval_classifier(**c)
+            build_annotations(**classified_conf(**env()))
     if args.cmd == 'queries':
-        run_quries()
+        exec_queries(**queries_conf(**env()))
 
 
 if __name__ == '__main__':
@@ -64,7 +43,7 @@ if __name__ == '__main__':
         description='Command line tool to control ontology framework'
     )
 
-    parser.add_argument('cmd', help='One of: manual, annotations, classifier, queries')
+    parser.add_argument('cmd', help='One of: manual, annotations, classifiers, queries')
     parser.add_argument('-e', '--eval', default=False, action='store_true')
     parser.add_argument('-t', '--train', default=False, action='store_true')
     args = parser.parse_args()

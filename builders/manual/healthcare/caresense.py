@@ -1,9 +1,9 @@
-from ontology2.ontology.interface import Ontology
+from ontology.interface import Ontology
 
 
-def process_caresense():
+def build(**kwargs):
 
-    o = Ontology('caresense', 'https://www.caresense.com/privacypolicy')
+    o = Ontology(**kwargs, website='https://www.caresense.com/privacypolicy')
 
     #########################################################################
     #                                                                       #

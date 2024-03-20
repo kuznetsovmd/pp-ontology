@@ -1,3 +1,45 @@
+import json
+from utils.fsys import files
+
+
+def read_data(descriptor, policies, annotations, ontology_class):
+    with open(descriptor, 'r') as f:
+        policies_map = {p['policy_hash']: p for p in json.load(f)}
+
+    fs = files(annotations, '.*\.json')
+    
+    annotations_list = []
+    for file in fs:
+        with open(file, 'r') as f:
+            annotations_list.extend(json.load(f))
+
+    annotations_list = [a for a in annotations_list if a['selection_class'] == ontology_class]
+
+    hashes = sorted(set([a['policy_hash'] for a in annotations_list]))
+    annotations_map = {}
+    for h in hashes:
+        annotations_map[h] = []
+        for a in annotations_list:
+            if a['policy_hash'] == h:
+                annotations_map[h].append(a)
+
+    texts_map = {}
+    for h in hashes:
+        with open(f'{policies}/{policies_map[h]["output_policy"]}', 'r') as f:
+            texts_map[h] = f.read().lower()
+
+    return {
+        'annotations': annotations_map, 
+        'texts': texts_map,
+    }
+
+
+def split_data(data, split):
+    train_len = int(len(data) * split)
+    return {
+        'train': data[:train_len],
+        'validation': data[train_len:],
+    }
 
 
 def split(array, n):
@@ -7,13 +49,12 @@ def split(array, n):
 
 def split_samples(samples, chunk_len):
     splitted = []
-    c = chunk_len - 2
     for s in samples:
         splits = \
-            split(s['input_ids'], c), \
-            split(s['attention_mask'], c), \
-            split(s['offset_mapping'], c), \
-            split(s['target_ids'], c)
+            split(s['input_ids'], chunk_len), \
+            split(s['attention_mask'], chunk_len), \
+            split(s['offset_mapping'], chunk_len), \
+            split(s['target_ids'], chunk_len)
         for ii, am, om, ti in zip(*splits):
             splitted.append({
                 'hash': s['hash'],
@@ -44,8 +85,7 @@ def tokenize_targets(tokenizer, tokenizer_defaults, hash, text, selections):
     return item
 
 
-def preprocess(tokenizer, texts, annotations):
-
+def preprocess(tokenizer, texts, annotations, sequence_len):
     tokenizer_defaults = {
         'add_special_tokens': False,
         'return_token_type_ids': False,
@@ -54,11 +94,11 @@ def preprocess(tokenizer, texts, annotations):
 
     samples = []
     for hash, text in texts.items():
-        selections = [a for a in annotations if a['policy_hash'] == hash]
+        selections = [a for a in annotations[hash]]
         selections = [(int(a['starts_on']), int(a['ends_on'])) for a in selections]
         samples.append(tokenize_targets(tokenizer, tokenizer_defaults, hash, text, selections))
 
-    return split_samples(samples, 512)
+    return split_samples(samples, sequence_len - 2)
 
 
 def postprocess(dataset, outputs, padding, threshold):

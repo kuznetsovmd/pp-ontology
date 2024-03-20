@@ -1,22 +1,23 @@
-from ontology2.ontology.interface import Ontology
+from tqdm import tqdm
 
-from ontology2.manual_builder.opp.reader import read
-from ontology2.manual_builder.opp.reasoner import reason
-from ontology2.manual_builder.opp.processor import process
+from ontology.interface import Ontology
+
+from .reader import read
+from .reasoner import reason
+from .processor import process
 
 
-def process_opp():
+def build(path, name, dataset, structure, tqdm_conf, **kwargs):
+    policies = read(dataset)
 
-    policies = read()
-
-    onto = Ontology("summary", create_root_policy=False)
-    for p in policies:
+    onto = Ontology(path=path, name=f'{name}-summary', create_root_policy=False)
+    for p in tqdm(policies, desc='OPP summary', **tqdm_conf):
         process(onto, p)
     onto.save()
     
-    for i, p in enumerate(policies, start=1):
-        onto = Ontology(i)
+    for i, p in enumerate(tqdm(policies, desc='OPP each', **tqdm_conf), start=1):
+        onto = Ontology(path=path, name=f'{name}-{i}')
         process(onto, p)
         onto.save()
-
-    reason(policies)
+    
+    reason(policies, structure)

@@ -1,14 +1,13 @@
-from ontology2.ontology.interface import Ontology
+from ontology.interface import Ontology
 
 
-def process_onto_examples():
+def build(**kwargs):
 
-    o = Ontology('test', 'some url')
+    o = Ontology(website='some url', **kwargs)
 
     fp = o.individual('FirstParty')
     u = o.individual('User')
     email = o.individual('OnWebsitePage')
-
 
     o.individual(
 

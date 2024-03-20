@@ -2,9 +2,9 @@ import csv
 import json
 import re
 
-from config import DATASETS
 from utils.fsys import files
-from builders.opp.text import remove_strong, remove_br, remove_li, remove_ul, \
+
+from .text import remove_strong, remove_br, remove_li, remove_ul, \
     remove_spec_chars, remove_spaces, remove_newlines
 
 
@@ -54,9 +54,9 @@ def construct_data(sanitized, annotated):
     }
 
 
-def read():
-    sanitized = files(f"{DATASETS}/OPP-115/sanitized_policies", r"(\d+)_.*")
-    annotations = files(f"{DATASETS}/OPP-115/consolidation/threshold-0.75-overlap-similarity", r"(\d+)_.*")
+def read(dataset):
+    sanitized = files(f"{dataset}/sanitized_policies", r"(\d+)_.*")
+    annotations = files(f"{dataset}/consolidation/threshold-0.75-overlap-similarity", r"(\d+)_.*")
 
     sanitized.sort()
     annotations.sort()
