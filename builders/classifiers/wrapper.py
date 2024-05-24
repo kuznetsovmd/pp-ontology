@@ -140,9 +140,10 @@ def build_model(name, version, path, pretrained, **kwargs):
     model.path = path
 
     if pretrained:
-        loaded = torch.load(f'{path}/{name}.{version}.pt')
+        loaded = torch.load(f'{path}/{name}.{version:05d}.pt')
 
         if loaded:
+            print('OK!')
             model.name = loaded['name']
             model.version = loaded['version']
             model.module.load_state_dict(loaded['model_state_dict'])
@@ -165,4 +166,4 @@ def save_model(model, path):
         'model_state_dict': model.module.state_dict(),
         'optimizer_state_dict': model.optimizer.state_dict(),
         'stats_mem': model.stats_mem,
-    }, f'{path}/{model.name}.{model.version}.pt')
+    }, f'{path}/{model.name}.{model.version:05d}.pt')

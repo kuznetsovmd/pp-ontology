@@ -67,6 +67,8 @@ def eval_classifier(ontology_class, annotations_path,
         'sequence_len': sequence_len,
     })
 
+    print(ds)
+
     print(f'Model: {model_conf["name"]}, Version: {model_conf["version"]}')
     model = build_model(**model_conf)
     outputs = postprocess(ds, [model.predict(s) for s in tqdm(ds, **tqdm_conf)], padding, density)

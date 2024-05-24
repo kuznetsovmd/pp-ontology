@@ -20,7 +20,7 @@ def select_device(use_cuda):
     return d
 
 
-def config(resources, classified, annotations, russian_pp, use_cuda, tqdm_conf, **kwargs):
+def config(resources, annotations, russian_pp, use_cuda, tqdm_conf, **kwargs):
 
     device = select_device(use_cuda)
 
@@ -37,9 +37,9 @@ def config(resources, classified, annotations, russian_pp, use_cuda, tqdm_conf, 
         {
             'ontology_class': 'FPCollection',
             'annotations_path': annotations,
-            'descriptor_path': f'{russian_pp}/output.json',
-            'policies_path': f'{russian_pp}/output_policies',
-            'output_path': classified,
+            'descriptor_path': f'{russian_pp}/json/plain.json',
+            'policies_path': f'{russian_pp}/plain_policies',
+            'output_path': f'{resources}/classified',
             'sequence_len': 512,
             'split': .8,
             'n_epochs': 200,
@@ -49,12 +49,12 @@ def config(resources, classified, annotations, russian_pp, use_cuda, tqdm_conf, 
             'tqdm_conf': tqdm_conf,
             'model_conf': {
                 'name': 'bert-FPCollection',
-                'version': 23,
+                'version': 50,
                 'path': fpcollection,
                 'pretrained': True,
                 'device': device,
                 'bert_model': bert_model,
-                'module': LinearBERT,
+                'module': Linear2BERT,
                 'module_parameters': {
                     'input_size': 1024,
                     'hidden_size': 2048,

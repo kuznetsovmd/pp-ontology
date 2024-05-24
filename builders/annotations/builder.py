@@ -112,17 +112,15 @@ class Builder:
 
         ps = self.get_properties()
         for p in ps:
-
             if p.id in self.objs:
                 continue
 
             if p.selection_class in self.get_subclasses('Data'):
-                self.objs[p.id] = self.onto.individual(
-                    p.selection_class, p.selection_content, 
-                    [self.onto.property('provided_by', self.objs[u.id]) for u in us]
-                )
-            else:
-                self.objs[p.id] = self.onto.individual(p.selection_class, p.selection_content)
+                provided = [self.onto.property('provided_by', self.objs[u.id]) for u in us]
+                self.objs[p.id] = self.onto.individual(p.selection_class, p.selection_content, provided)
+                continue
+
+            self.objs[p.id] = self.onto.individual(p.selection_class, p.selection_content)
 
         properties = [self.onto.property(relation, self.objs[idx])] if idx else []
         for p in ps:

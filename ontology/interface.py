@@ -104,3 +104,4 @@ class Ontology:
             self.bind(self.policy, binds=[Property('considers', individual)])
 
         return individual
+    

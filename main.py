@@ -3,12 +3,12 @@ import argparse
 import sys
 
 from env import env
-from config.manual import config as manual_conf
-from config.opp import config as opp_conf
-from config.annotations import config_annotated as annotated_conf
-from config.annotations import config_classified as classified_conf
-from config.classifiers import config as classifiers_conf
-from config.queries import config as queries_conf
+from builders.manual.config import config as manual_conf
+from builders.opp.config import config as opp_conf
+from builders.annotations.config import config_annotated as annotated_conf
+from builders.annotations.config import config_classified as classified_conf
+from builders.classifiers.config import config as classifiers_conf
+from queries.config import config as queries_conf
 
 from builders.manual.builder import build as build_manual
 from builders.opp.builder import build as build_opp

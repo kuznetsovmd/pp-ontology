@@ -25,7 +25,7 @@ def read_data(descriptor, policies, annotations, ontology_class):
 
     texts_map = {}
     for h in hashes:
-        with open(f'{policies}/{policies_map[h]["output_policy"]}', 'r') as f:
+        with open(f'{policies}/{policies_map[h]["plain_policy"]}', 'r') as f:
             texts_map[h] = f.read().lower()
 
     return {
