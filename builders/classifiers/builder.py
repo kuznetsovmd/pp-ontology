@@ -32,7 +32,7 @@ def train_classifier(ontology_class, annotations_path,
         'data': ds,
         'split': split,
     }).values()
-    
+
     model = build_model(**model_conf)
     start = time.time()
     try:
@@ -67,16 +67,21 @@ def eval_classifier(ontology_class, annotations_path,
         'sequence_len': sequence_len,
     })
 
-    print(ds)
-
     print(f'Model: {model_conf["name"]}, Version: {model_conf["version"]}')
     model = build_model(**model_conf)
-    outputs = postprocess(ds, [model.predict(s) for s in tqdm(ds, **tqdm_conf)], padding, density)
 
-    with open(f'{output_path}/targets{model.name}.{model.version}.txt', 'w') as f:
+    outputs = []
+    try:
+        for s in tqdm(ds, **tqdm_conf):
+            output = model.predict(s)
+            outputs.append(postprocess(s, output['predicted'], padding, density))
+    except KeyboardInterrupt:
+        pass
+
+    with open(f'{output_path}/targets.{model.name}.{model.version}.txt', 'w') as f:
         print(''.join([f'{o}' for c in ds for o in c['target_ids']]), file=f)
 
-    with open(f'{output_path}/outputs{model.name}.{model.version}.txt', 'w') as f:
+    with open(f'{output_path}/outputs.{model.name}.{model.version}.txt', 'w') as f:
         print(''.join([f'{p}' for o in outputs for p in o["predicted"]]), file=f)
         
     output = [{
@@ -87,5 +92,5 @@ def eval_classifier(ontology_class, annotations_path,
         'selection_content': ''.join([f'{d}' for d in texts_map[o['hash']][c[0]:c[1]]])
     } for o in outputs for c in o['coords']]
 
-    with open(f'{output_path}/annotations{model.name}.{model.version}.json', 'w') as f:
+    with open(f'{output_path}/annotations.{model.name}.{model.version}.json', 'w') as f:
         json.dump(output, f, indent=4, ensure_ascii=False)

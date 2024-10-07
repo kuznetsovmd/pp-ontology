@@ -3,7 +3,7 @@ Notes
 
 ROCm installation:
 ```
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/rocm5.6
+pip install --ignore-installed torch --index-url https://download.pytorch.org/whl/rocm6.1
 
 HSA_OVERRIDE_GFX_VERSION=10.3.0 python main.py classifier -t
 ```

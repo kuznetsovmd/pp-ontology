@@ -6,7 +6,7 @@ def read_data(descriptor, policies, annotations, ontology_class):
     with open(descriptor, 'r') as f:
         policies_map = {p['policy_hash']: p for p in json.load(f)}
 
-    fs = files(annotations, '.*\.json')
+    fs = files(annotations, r'.*\.json')
     
     annotations_list = []
     for file in fs:
@@ -81,7 +81,7 @@ def tokenize_targets(tokenizer, tokenizer_defaults, hash, text, selections):
         p = e
     post = len(tokenizer.encode_plus(text[p:], **tokenizer_defaults)['input_ids'])
     item['target_ids'].extend([0] * post)
-    assert len(item['input_ids']) == len(item['target_ids']), 'lengths of source and target are not equal!'
+    assert len(item['input_ids']) == len(item['target_ids']), f'lengths of source and target are not equal ({len(item['input_ids'])} != {len(item['target_ids'])})!'
     return item
 
 
@@ -102,9 +102,7 @@ def preprocess(tokenizer, texts, annotations, sequence_len):
 
 
 def postprocess(dataset, outputs, padding, threshold):
-    for i, (d, o) in enumerate(zip(dataset, outputs)):
-        dataset[i]['predicted'] = [p['predicted'] for p in o]
-        dataset[i]['predicted'], dataset[i]['coords'] = get_coords(d['predicted'], d['offset_mapping'], padding, threshold)
+    dataset['predicted'], dataset['coords'] = get_coords(outputs, dataset['offset_mapping'], padding, threshold)
     return dataset
 
 
@@ -115,10 +113,10 @@ def add_pad(array, pad_item):
 def merge(array, padding, threshold):
     merged = []
     for i, _ in enumerate(array):
-        if sum(array[i-padding:i+padding+1]) / (2 * padding + 1) > threshold:
+        if sum([*array[i-padding:i], *array[i+1:i+1+padding]]) / 2 / padding > threshold:
             merged.append(1)
             continue
-        merged.append(0)
+        merged.append(array[i])
     return merged
 
 

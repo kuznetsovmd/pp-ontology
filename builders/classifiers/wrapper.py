@@ -6,76 +6,62 @@ import numpy as np
 
 
 class BaseModel:
-    def __init__(self, device, bert_model, module, module_parameters, 
+    def __init__(self, device, module, module_parameters, 
                  optimizer, optimizer_parameters, criterion, 
                  criterion_parameters):
         self.device = device
-        self.bert = bert_model
         self.module = module(**module_parameters)
         self.optimizer = optimizer(self.module.parameters(), **optimizer_parameters)
         self.criterion = criterion(**criterion_parameters)
 
-        self.bert.to(self.device)
-    
     def train(self, input_ids, attention_mask, target_ids, **kwargs):
         input_ids, attention_mask, target_ids = \
             torch.tensor(input_ids, device=self.device).unsqueeze(0), \
             torch.tensor(attention_mask, device=self.device).unsqueeze(0), \
-            torch.tensor(target_ids, device=self.device)
+            torch.tensor(target_ids, device=self.device, dtype=torch.float)
 
-        with torch.no_grad():
-            embedding = self.bert(input_ids, attention_mask).last_hidden_state[0]
-
-        total_loss = 0
-        for i, trg in enumerate(target_ids):
-            src = embedding[i, :]
-            output = self.module(src.unsqueeze(0))
-            loss = self.criterion(output, trg.unsqueeze(0))
-            total_loss += loss
-            yield {
-                'predicted': torch.argmax(output, dim=1).item(),
-                'output': output.detach().cpu().tolist()[0], 
-                'loss': loss.item()
-            }
-        total_loss.backward()
+        output = self.module(input_ids, attention_mask)
+        loss = self.criterion(output, target_ids.unsqueeze(1))
+        loss.backward()
         self.optimizer.step()
         self.optimizer.zero_grad()
+
+        output = output.detach().cpu().tolist()
+        return {
+            'predicted': [1 if v[0] > .5 else 0 for v in output],
+            'output': [v[0] for v in output], 
+            'loss': loss.item()
+        }
         
-    
     def test(self, input_ids, attention_mask, target_ids, **kwargs):
         input_ids, attention_mask, target_ids = \
             torch.tensor(input_ids, device=self.device).unsqueeze(0), \
             torch.tensor(attention_mask, device=self.device).unsqueeze(0), \
-            torch.tensor(target_ids, device=self.device)
+            torch.tensor(target_ids, device=self.device, dtype=torch.float)
 
-        with torch.no_grad():
-            embedding = self.bert(input_ids, attention_mask).last_hidden_state[0]
+        output = self.module(input_ids, attention_mask)
+        loss = self.criterion(output, target_ids.unsqueeze(1))
+        loss.backward()
 
-            for i, trg in enumerate(target_ids):
-                src = embedding[i, :]
-                output = self.module(src.unsqueeze(0))
-                loss = self.criterion(output, trg.unsqueeze(0))
-                yield {
-                    'predicted': torch.argmax(output, dim=1).item(),
-                    'output': output.detach().cpu().tolist()[0], 
-                    'loss': loss.item()
-                }
-    
+        output = output.detach().cpu().tolist()
+        return {
+            'predicted': [1 if v[0] > .5 else 0 for v in output],
+            'output': [v[0] for v in output], 
+            'loss': loss.item()
+        }
+
     def predict(self, input_ids, attention_mask, **kwargs):
         input_ids, attention_mask = \
             torch.tensor(input_ids, device=self.device).unsqueeze(0), \
             torch.tensor(attention_mask, device=self.device).unsqueeze(0)
 
         with torch.no_grad():
-            embedding = self.bert(input_ids, attention_mask).last_hidden_state[0]
+            output = self.module(input_ids, attention_mask).detach().cpu().tolist()
 
-            for i, _ in enumerate(embedding):
-                src = embedding[i, :]
-                output = self.module(src.unsqueeze(0))
-                yield {
-                    'predicted': torch.argmax(output, dim=1).item(),
-                    'output': output.detach().cpu().tolist()[0], 
-                }
+            return {
+                'predicted': [1 if v[0] > .5 else 0 for v in output],
+                'output': [v[0] for v in output], 
+            }
 
 
 class Model(BaseModel):
@@ -103,19 +89,19 @@ class Model(BaseModel):
         self.stats_mem = []
 
     def train(self, sample):
-        output = list(super().train(**sample))
-        self.t_losses.append(np.average([o['loss'] for o in output]))
-        self.t_scores.append(self.__f1score([o['predicted'] for o in output], sample['target_ids']))
+        output = super().train(**sample)
+        self.t_losses.append(output['loss'])
+        self.t_scores.append(self.__f1score(output['predicted'], sample['target_ids']))
         return output
 
     def test(self, sample):
-        output = list(super().test(**sample))
-        self.v_losses.append(np.average([o['loss'] for o in output]))
-        self.v_scores.append(self.__f1score([o['predicted'] for o in output], sample['target_ids']))
+        output = super().train(**sample)
+        self.v_losses.append(output['loss'])
+        self.v_scores.append(self.__f1score(output['predicted'], sample['target_ids']))
         return output
 
     def predict(self, sample):
-        return list(super().predict(**sample))
+        return super().predict(**sample)
 
     def stats(self):
         stats = {
