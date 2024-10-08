@@ -3,16 +3,24 @@ import shutil
 import torch
 
 import numpy as np
+from transformers import logging, AutoModel
+
+
+logging.set_verbosity_error()
 
 
 class BaseModel:
-    def __init__(self, device, module, module_parameters, 
+    def __init__(self, bert_model, device, module, module_parameters, 
                  optimizer, optimizer_parameters, criterion, 
                  criterion_parameters):
         self.device = device
+        self.bert = AutoModel.from_pretrained(bert_model)
         self.module = module(**module_parameters)
         self.optimizer = optimizer(self.module.parameters(), **optimizer_parameters)
         self.criterion = criterion(**criterion_parameters)
+
+        self.bert.to(device)
+        self.module.to(device)
 
     def train(self, input_ids, attention_mask, target_ids, **kwargs):
         input_ids, attention_mask, target_ids = \
@@ -20,7 +28,10 @@ class BaseModel:
             torch.tensor(attention_mask, device=self.device).unsqueeze(0), \
             torch.tensor(target_ids, device=self.device, dtype=torch.float)
 
-        output = self.module(input_ids, attention_mask)
+        with torch.no_grad():
+            embedding = self.bert(input_ids, attention_mask).last_hidden_state.squeeze(0)
+
+        output = self.module(embedding)
         loss = self.criterion(output, target_ids.unsqueeze(1))
         loss.backward()
         self.optimizer.step()
@@ -39,7 +50,10 @@ class BaseModel:
             torch.tensor(attention_mask, device=self.device).unsqueeze(0), \
             torch.tensor(target_ids, device=self.device, dtype=torch.float)
 
-        output = self.module(input_ids, attention_mask)
+        with torch.no_grad():
+            embedding = self.bert(input_ids, attention_mask).last_hidden_state.squeeze(0)
+
+        output = self.module(embedding)
         loss = self.criterion(output, target_ids.unsqueeze(1))
         loss.backward()
 
@@ -56,7 +70,8 @@ class BaseModel:
             torch.tensor(attention_mask, device=self.device).unsqueeze(0)
 
         with torch.no_grad():
-            output = self.module(input_ids, attention_mask).detach().cpu().tolist()
+            embedding = self.bert(input_ids, attention_mask).last_hidden_state.squeeze(0)
+            output = self.module(embedding).detach().cpu().tolist()
 
             return {
                 'predicted': [1 if v[0] > .5 else 0 for v in output],
@@ -65,10 +80,6 @@ class BaseModel:
 
 
 class Model(BaseModel):
-    def __accuracy(self, output, target):
-        assert len(output) == len(target), 'outputs & targets not equally on length'
-        return np.average(np.array(output) == np.array(target))
-    
     def __f1score(self, output, target):
         assert len(output) == len(target), 'outputs & targets not equally on length'
         tp = np.sum((np.array(output) == 1) == (np.array(target) == 1))
@@ -129,7 +140,6 @@ def build_model(name, version, path, pretrained, **kwargs):
         loaded = torch.load(f'{path}/{name}.{version:05d}.pt')
 
         if loaded:
-            print('OK!')
             model.name = loaded['name']
             model.version = loaded['version']
             model.module.load_state_dict(loaded['model_state_dict'])

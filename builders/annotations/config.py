@@ -3,7 +3,7 @@ import os
 
 def config_annotated(resources, annotations, tqdm_conf, **kwargs):
 
-    ontologies = f'{resources}/ontologies/annotations'
+    ontologies = f'{resources}/ontologies/annotated'
     os.makedirs(ontologies, exist_ok=True)
 
     return {

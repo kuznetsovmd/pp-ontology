@@ -2,6 +2,7 @@ import json
 import time
 
 from tqdm import tqdm
+from transformers import AutoTokenizer
 
 from builders.classifiers.utils import print_stats
 
@@ -10,9 +11,9 @@ from .wrapper import build_model, save_model
 
 
 def train_classifier(ontology_class, annotations_path, 
-                  descriptor_path, policies_path, sequence_len, split, 
-                  n_epochs, bert_tokenizer, tqdm_conf, 
-                  model_conf, **kwargs):
+                     descriptor_path, policies_path, sequence_len, split, 
+                     n_epochs, bert_tokenizer, tqdm_conf, 
+                     model_conf, **kwargs):
     
     annotations_map, texts_map = read_data(**{
         'descriptor': descriptor_path,
@@ -21,8 +22,11 @@ def train_classifier(ontology_class, annotations_path,
         'ontology_class': ontology_class,
     }).values()
 
+    if not annotations_map or not texts_map:
+        return
+
     ds = preprocess(**{
-        'tokenizer': bert_tokenizer,
+        'tokenizer': AutoTokenizer.from_pretrained(bert_tokenizer),
         'texts': texts_map,
         'annotations': annotations_map,
         'sequence_len': sequence_len,
@@ -37,9 +41,9 @@ def train_classifier(ontology_class, annotations_path,
     start = time.time()
     try:
         for epoch in range(model.version, n_epochs):
-            for s in tqdm(t_ds, **tqdm_conf):
+            for s in tqdm(t_ds, desc=ontology_class, **tqdm_conf):
                 model.train(s)
-            for s in tqdm(v_ds, **tqdm_conf):
+            for s in tqdm(v_ds, desc=ontology_class, **tqdm_conf):
                 model.test(s)
             print_stats(epoch, n_epochs, start, model.stats())
             model.version = epoch
@@ -49,9 +53,9 @@ def train_classifier(ontology_class, annotations_path,
 
 
 def eval_classifier(ontology_class, annotations_path, 
-                  descriptor_path, policies_path, output_path, sequence_len, 
-                  padding, density, bert_tokenizer,  
-                  model_conf, tqdm_conf, **kwargs):
+                    descriptor_path, policies_path, output_path, sequence_len, 
+                    padding, density, bert_tokenizer,  
+                    model_conf, tqdm_conf, **kwargs):
     
     annotations_map, texts_map = read_data(**{
         'descriptor': descriptor_path,
@@ -61,7 +65,7 @@ def eval_classifier(ontology_class, annotations_path,
     }).values()
 
     ds = preprocess(**{
-        'tokenizer': bert_tokenizer,
+        'tokenizer': AutoTokenizer.from_pretrained(bert_tokenizer),
         'texts': texts_map,
         'annotations': annotations_map,
         'sequence_len': sequence_len,
@@ -72,7 +76,7 @@ def eval_classifier(ontology_class, annotations_path,
 
     outputs = []
     try:
-        for s in tqdm(ds, **tqdm_conf):
+        for s in tqdm(ds, desc=ontology_class, **tqdm_conf):
             output = model.predict(s)
             outputs.append(postprocess(s, output['predicted'], padding, density))
     except KeyboardInterrupt:

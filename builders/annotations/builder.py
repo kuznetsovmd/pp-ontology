@@ -67,7 +67,7 @@ class Builder:
                 binded_activity.upload('binded_to', a.id)
 
     def __init__(self, selection):
-        self.id = self._id
+        self.id = Builder._id
         self.hash = selection['policy_hash']
         self.start = int(selection['starts_on'])
         self.end = int(selection['ends_on'])
@@ -75,8 +75,7 @@ class Builder:
         self.selection_class = selection['selection_class']
         self.attribute_of = self.attributes[self.selection_class]
         self.selections.append(self)
-
-        self._id += 1
+        Builder._id += 1
 
     def get_properties(self):
         return [s for s in self.selections \
@@ -131,7 +130,7 @@ class Builder:
 
 
 def build(annotations, path, name, tqdm_conf, **kwargs):
-    fs = files(annotations, '.*\.json')
+    fs = files(annotations, r'.*\.json')
     
     annotations_list = []
     for file in fs:

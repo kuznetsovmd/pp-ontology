@@ -43,7 +43,7 @@ class Ontology:
 
     @staticmethod
     def gen_name(u, c):
-        return f'{u}:{c}'
+        return f'{c}.{u}'
 
     def individual(self, entity, evidence='Not defined', binds=None, properties=None):
         cls_ = getattr(self.raw_onto, entity)

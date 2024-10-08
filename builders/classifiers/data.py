@@ -81,7 +81,8 @@ def tokenize_targets(tokenizer, tokenizer_defaults, hash, text, selections):
         p = e
     post = len(tokenizer.encode_plus(text[p:], **tokenizer_defaults)['input_ids'])
     item['target_ids'].extend([0] * post)
-    assert len(item['input_ids']) == len(item['target_ids']), f'lengths of source and target are not equal ({len(item['input_ids'])} != {len(item['target_ids'])})!'
+    if len(item['input_ids']) != len(item['target_ids']):
+        raise Exception(f'lengths of source and target are not equal!')
     return item
 
 
